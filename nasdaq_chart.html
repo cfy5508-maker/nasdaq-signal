@@ -9,7 +9,7 @@
 <script>
 // =====================================================
 // nasdaq_data.js
-// 최신화: 26.06.08 (2026-06-09)
+// 최신화: 26.06.09 (2026-06-09)
 // 업데이트 방법: GitHub Actions 자동 업데이트
 // =====================================================
 
@@ -75,9 +75,9 @@ var labels_weekly=['26.05 W1','26.05 W2','26.05 W3','26.05 W4','26.05 W5'];
 
 // ── 일일 데이터 (26.06 이후, 최근 1주일) ─────────
 // GitHub Actions가 매일 자동 업데이트
-var nd_daily=[26507.48,26666.53,26789.32,26719.31,26590.06,25313.71,25709.0];
-var hy_daily=[2.72,2.72,2.71,2.75,2.74,2.76,2.76];
-var labels_daily=['26.05.29','26.06.01','26.06.02','26.06.03','26.06.04','26.06.05','26.06.08'];
+var nd_daily=[25709,25709];
+var hy_daily=[2.72,2.75];
+var labels_daily=['26.06.04','26.06.05'];
 
 // ── 52주 고저 ─────────────────────────────────────
 var W52_HIGH=27190.21;
@@ -115,32 +115,73 @@ var gap=hyLine.map(function(v,i){
   return parseFloat(((v-nasdaq[i])/nasdaq[i]*100).toFixed(1));
 });
 
+// ── RSI(14) 계산 ─────────────────────────────────
+var rsiArr=(function(){
+  var prices=nasdaq.slice(0,labels_monthly.length+labels_weekly.length);
+  var period=14,rsi=[],gains=[],losses=[];
+  for(var i=0;i<period;i++)rsi.push(null);
+  for(var i=1;i<prices.length;i++){
+    var d=prices[i]-prices[i-1];
+    gains.push(d>0?d:0);losses.push(d<0?-d:0);
+  }
+  var ag=0,al=0;
+  for(var i=0;i<period;i++){ag+=gains[i];al+=losses[i];}
+  ag/=period;al/=period;
+  for(var i=period;i<prices.length;i++){
+    var rs=al===0?100:ag/al;
+    rsi.push(100-100/(1+rs));
+    ag=(ag*(period-1)+gains[i-1])/period;
+    al=(al*(period-1)+losses[i-1])/period;
+  }
+  while(rsi.length<N)rsi.push(rsi[rsi.length-1]);
+  return rsi;
+})();
+
+// RSI 불리시 다이버전스 감지 (lookback=8개월, diff≥3)
+// 베어리시 격하 제거 → 불리시 격상만 적용
+function detectRSIDiv(idx){
+  var LK=8,THRESH=3;
+  var cur_p=nasdaq[idx],cur_r=rsiArr[idx];
+  if(cur_r===null)return 'none';
+  var start=Math.max(0,idx-LK);
+  var low_i=-1,low_p=Infinity;
+  for(var i=start;i<idx;i++){
+    if(nasdaq[i]<low_p&&rsiArr[i]!==null){low_p=nasdaq[i];low_i=i;}
+  }
+  if(low_i>=0&&cur_p<=low_p*1.05&&cur_r>rsiArr[low_i]+THRESH)return 'bullish';
+  return 'none';
+}
+
 // ── 신호 타점 계산 ────────────────────────────────
+// 우선순위: 매도>경고>관망>매수>강한매수
+// RSI 불리시 다이버전스 → 1단계 격상
 (function(){
+  var order=['sell','warn','watch','buy','sbuy'];
   var sbuy=[],buy=[],watch=[],warn=[],sell=[];
-  var ps=false,pb=false,pw=false,pn=false;
-  for(var i=0;i<N;i++){
-    var g=gap[i],h=hyOas[i];
-    var gp=i>0?gap[i-1]:g;
-    var isSell=h<3.0&&g<-20;
-    var isWarn=h<3.0&&-20<=g&&g<0;
-    var isCross=h>=3.0&&((gp<=0&&g>0)||(gp>0&&g<=0));
-    var isBuy=g>20&&h>=3.5&&h<4.5;
-    var isSbuy=g>20&&h>=4.5;
-    var sig=null;
-    if(isSell)sig='sell';
-    else if(isWarn)sig='warn';
-    else if(isCross)sig='watch';
-    else if(isBuy)sig='buy';
-    else if(isSbuy)sig='sbuy';
-    if(sig==='sell'&&!ps)sell.push(i);
-    if(sig==='warn'&&!pn)warn.push(i);
-    if(sig==='watch')watch.push(i);
-    if(sig==='buy'&&!pb)buy.push(i);
-    if(sig==='sbuy'&&!ps)sbuy.push(i);
-    ps=(sig==='sell'||sig==='sbuy');
-    pb=(sig==='buy');
-    pn=(sig==='warn');
+  var prev=null;
+  for(var i=1;i<N;i++){
+    var g=gap[i],h=hyOas[i],gp=gap[i-1];
+    var base=null;
+    if(h<3.0&&g<-20)base='sell';
+    else if(h<3.0&&-20<=g&&g<0)base='warn';
+    else if(h>=3.0&&((gp<=0&&g>0)||(gp>0&&g<=0)))base='watch';
+    else if(g>20&&h>=3.5&&h<4.5)base='buy';
+    else if(g>20&&h>=4.5)base='sbuy';
+    // 불리시 격상만 적용
+    var adj=base;
+    if(base!==null&&base!=='watch'){
+      var div=detectRSIDiv(i);
+      if(div==='bullish'){
+        var idx2=order.indexOf(base);
+        if(idx2>=0)adj=order[Math.min(idx2+1,order.length-1)];
+      }
+    }
+    if(adj==='sell'&&adj!==prev)sell.push(i);
+    if(adj==='warn'&&adj!==prev)warn.push(i);
+    if(adj==='watch')watch.push(i);
+    if(adj==='buy'&&adj!==prev)buy.push(i);
+    if(adj==='sbuy'&&adj!==prev)sbuy.push(i);
+    prev=adj;
   }
   window.SIGNALS={sbuy:sbuy,buy:buy,watch:watch,warn:warn,sell:sell};
 })();
@@ -214,11 +255,11 @@ h1{font-size:16px;font-weight:600;color:#f0f0f4;margin-bottom:2px;}
 <div class="stat-row">
   <div class="stat" style="background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.35);">
     <div class="sl" style="color:#a855f7;">★강한매수</div><div class="sv" style="color:#a855f7;" id="st0">-</div>
-    <div class="ss" style="color:#e9d5ff;">3M 67% · +13.4%<br>HY≥4.5%+이격&gt;+20%</div>
+    <div class="ss" style="color:#e9d5ff;">3M 67% · +9.5%<br>HY≥4.5%+RSI불리시격상</div>
   </div>
   <div class="stat" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.35);">
     <div class="sl" style="color:#10b981;">●매수</div><div class="sv" style="color:#10b981;" id="st1">-</div>
-    <div class="ss" style="color:#a7f3d0;">3M 86% · +10.4%<br>HY 3.5~4.5%+이격&gt;+20%</div>
+    <div class="ss" style="color:#a7f3d0;">3M 83% · +9.0%<br>HY 3.5~4.5%+RSI불리시격상</div>
   </div>
   <div class="stat" style="background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.35);">
     <div class="sl" style="color:#b45309;">■관망</div><div class="sv" style="color:#b45309;" id="st2">-</div>
