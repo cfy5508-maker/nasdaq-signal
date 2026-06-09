@@ -2,7 +2,7 @@ name: Update Nasdaq Data
 
 on:
   schedule:
-    - cron: '30 21 * * 1-5'  # 평일 UTC 21:30 = 미국 동부 오후 4:30 (장 마감 후 30분)
+    - cron: '35 21 * * 1-5'  # 평일 UTC 21:30 = 미국 동부 오후 4:30 (장 마감 후 30분)
   workflow_dispatch:
 
 jobs:
