@@ -116,7 +116,7 @@ jobs:
           # 수정된 파일 복원
           cp /tmp/nasdaq_data.js nasdaq_data.js
           cp /tmp/nasdaq_chart.html nasdaq_chart.html
-          # 커밋 & 푸시
+          # 커밋 & 강제 푸시
           git add nasdaq_data.js nasdaq_chart.html
           git diff --staged --quiet || git commit -m "Auto update: $(date +'%Y-%m-%d')"
-          git push origin HEAD:main
+          git push origin HEAD:main --force
