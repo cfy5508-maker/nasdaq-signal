@@ -86,19 +86,15 @@ jobs:
           with open('nasdaq_chart.html', 'r') as f:
               html = f.read()
           new_block = '<script>\n' + js + '\n</script>'
-          # data.js 인라인 블록 교체 (첫 번째 <script> 블록)
-          # nasdaq_data.js 주석으로 시작하는 블록 찾기
-          pattern = r'<script>\n// =+\n// nasdaq_data\.js.*?</script>'
-          result = re.sub(pattern, new_block, html, flags=re.DOTALL)
-          # 패턴 매칭 실패 시 대안: nd_monthly 배열이 있는 첫 script 블록 교체
-          if result == html:
-              print("패턴1 실패, 대안 패턴 시도...")
-              pattern2 = r'(<script>)\s*\n.*?var nd_monthly=.*?</script>'
-              result = re.sub(pattern2, new_block, html, flags=re.DOTALL, count=1)
-          if result == html:
-              print("경고: chart.html 패턴 매칭 실패 - data.js만 업데이트됨")
-          else:
+          # 인덱스 기반으로 첫 번째 script 블록 교체
+          start = html.find('<script>\n// ===')
+          end = html.find('</script>', start) + len('</script>')
+          if start >= 0 and end > start:
+              result = html[:start] + new_block + html[end:]
               print("chart.html 업데이트 완료")
+          else:
+              result = html
+              print("경고: chart.html script 블록 못찾음")
           with open('nasdaq_chart.html', 'w') as f:
               f.write(result)
           print(f"일일 데이터: {labels_daily_new}")
