@@ -81,7 +81,7 @@ jobs:
           js = re.sub(r'var labels_daily=\[.*?\];', f"var labels_daily=['{lbl_str}'];", js, flags=re.DOTALL)
           js = re.sub(r'var W52_HIGH=.*?;', f'var W52_HIGH={max(nd_daily_new + [27190.21]):.2f};', js)
 
-          with open('nasdaq_data.js', 'w') as f:
+          with open('/tmp/nasdaq_data.js', 'w') as f:
               f.write(js)
           print("nasdaq_data.js 업데이트 완료")
 
@@ -89,7 +89,6 @@ jobs:
           with open('nasdaq_chart.html', 'r') as f:
               html = f.read()
           new_block = '<script>\n' + js + '\n</script>'
-          # 인덱스 기반으로 첫 번째 script 블록 교체
           start = html.find('<script>\n// ===')
           end = html.find('</script>', start) + len('</script>')
           if start >= 0 and end > start:
@@ -98,7 +97,7 @@ jobs:
           else:
               result = html
               print("경고: chart.html script 블록 못찾음")
-          with open('nasdaq_chart.html', 'w') as f:
+          with open('/tmp/nasdaq_chart.html', 'w') as f:
               f.write(result)
           print(f"일일 데이터: {labels_daily_new}")
           PYEOF
@@ -107,16 +106,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # 변경된 파일 임시 저장
-          cp nasdaq_data.js /tmp/nasdaq_data.js
-          cp nasdaq_chart.html /tmp/nasdaq_chart.html
-          # 원격 최신 상태로 완전히 동기화
+          # 원격 최신 상태로 완전 동기화 (로컬 변경사항 없음)
           git fetch origin main
-          git checkout origin/main -- .
-          # 수정된 파일 복원
+          git reset --hard origin/main
+          # /tmp에서 수정된 파일 복사
           cp /tmp/nasdaq_data.js nasdaq_data.js
           cp /tmp/nasdaq_chart.html nasdaq_chart.html
-          # 커밋 & 강제 푸시
+          # 커밋 & 푸시
           git add nasdaq_data.js nasdaq_chart.html
           git diff --staged --quiet || git commit -m "Auto update: $(date +'%Y-%m-%d')"
-          git push origin HEAD:main --force
+          git push origin main
