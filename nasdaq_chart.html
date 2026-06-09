@@ -284,38 +284,50 @@ function calcRSI(prices, period) {
 }
 var rsiValues=calcRSI(nasdaq);
 
-// RSI 다이버전스 감지
-function detectDivergence(rsiArr, prices, lookback) {
-  lookback = lookback || 20;
+// RSI 다이버전스 감지 (3~6개월 기준)
+function detectDivergence(rsiArr, prices, labels) {
   var n = prices.length - 1;
   var cur_p = prices[n], cur_r = rsiArr[n];
-  if(cur_r === null) return {type:'없음', detail:'-'};
-  // lookback 구간에서 저점 찾기
+  if(cur_r === null) return {type:'없음', col:'#6b6b7a'};
+
+  // 현재 날짜 파싱
+  function parseLabel(l) {
+    var yy = parseInt(l.substring(0,2));
+    var mm = parseInt(l.substring(3,5));
+    return yy * 12 + mm;
+  }
+  var cur_m = parseLabel(labels[n]);
+
+  // 3~6개월 전 범위 인덱스 찾기
+  var idx_3m = n, idx_6m = n;
+  for(var i = n-1; i >= 0; i--) {
+    var m = parseLabel(labels[i]);
+    var diff = cur_m - m;
+    if(diff >= 3 && idx_3m === n) idx_3m = i;
+    if(diff >= 6 && idx_6m === n) idx_6m = i;
+    if(diff > 6) break;
+  }
+  var lookStart = idx_6m;
+
+  // 구간 내 저점/고점 찾기
   var low_i = -1, low_p = cur_p;
-  for(var i = Math.max(0, n-lookback); i < n; i++) {
-    if(prices[i] < low_p) { low_p = prices[i]; low_i = i; }
-  }
-  if(low_i < 0 || rsiArr[low_i] === null) return {type:'없음', detail:'-'};
-  var low_r = rsiArr[low_i];
-  // 불리시: 주가 신저점인데 RSI는 높음
-  if(cur_p <= low_p * 1.02 && cur_r > low_r + 3) {
-    return {type:'불리시↑', detail:'주가≈저점 RSI↑('+low_r.toFixed(1)+'→'+cur_r.toFixed(1)+')', col:'#10b981'};
-  }
-  // 고점 찾기
   var high_i = -1, high_p = cur_p;
-  for(var i = Math.max(0, n-lookback); i < n; i++) {
-    if(prices[i] > high_p) { high_p = prices[i]; high_i = i; }
+  for(var i = lookStart; i < n; i++) {
+    if(prices[i] < low_p && rsiArr[i] !== null) { low_p = prices[i]; low_i = i; }
+    if(prices[i] > high_p && rsiArr[i] !== null) { high_p = prices[i]; high_i = i; }
   }
-  if(high_i >= 0 && rsiArr[high_i] !== null) {
-    var high_r = rsiArr[high_i];
-    // 베어리시: 주가 신고점인데 RSI는 낮음
-    if(cur_p >= high_p * 0.98 && cur_r < high_r - 3) {
-      return {type:'베어리시↓', detail:'주가≈고점 RSI↓('+high_r.toFixed(1)+'→'+cur_r.toFixed(1)+')', col:'#f43f5e'};
-    }
+
+  // 불리시: 주가 저점 수준인데 RSI는 상승
+  if(low_i >= 0 && cur_p <= low_p * 1.03 && cur_r > rsiArr[low_i] + 3) {
+    return {type:'불리시↑', col:'#10b981'};
   }
-  return {type:'없음', detail:'RSI '+cur_r.toFixed(1)+' (중립)', col:'#6b6b7a'};
+  // 베어리시: 주가 고점 수준인데 RSI는 하락
+  if(high_i >= 0 && cur_p >= high_p * 0.97 && cur_r < rsiArr[high_i] - 3) {
+    return {type:'베어리시↓', col:'#f43f5e'};
+  }
+  return {type:'없음', col:'#6b6b7a'};
 }
-var divResult = detectDivergence(rsiValues, nasdaq, 20);
+var divResult = detectDivergence(rsiValues, nasdaq, labels);
 
 // ── 현재 상태 배지 ────────────────────────────────
 (function(){
@@ -359,7 +371,7 @@ var divResult = detectDivergence(rsiValues, nasdaq, 20);
   }
   rsiEl.style.background='rgba('+hexToRgb2(dc)+',0.12)';
   rsiEl.style.borderColor='rgba('+hexToRgb2(dc)+',0.45)';
-  rsiEl.innerHTML='<div class="badge-label" style="color:'+dc+'">RSI(14) 주봉</div>'
+  rsiEl.innerHTML='<div class="badge-label" style="color:'+dc+'">RSI(14) · '+labels[NOW]+'</div>'
     +'<div class="badge-value" style="color:'+dc+'">'+(rsiNow?rsiNow.toFixed(1):'-')+'</div>'
     +'<div class="badge-sub" style="color:'+dc+'">다이버전스: '+divResult.type+'</div>';
 
