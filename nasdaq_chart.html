@@ -9,8 +9,8 @@
 <script>
 // =====================================================
 // nasdaq_data.js
-// 최신화: 26.06 W2 (2026-06-09)
-// 업데이트 방법: 나스닥/HY OAS 새 값을 배열 끝에 추가
+// 최신화: 26.06.09 (2026-06-09)
+// 업데이트 방법: GitHub Actions 자동 업데이트
 // =====================================================
 
 // ── 월간 데이터 (18.01 ~ 26.04) ──────────────────
@@ -68,110 +68,91 @@ var labels_monthly=[
   '26.01','26.02','26.03','26.04'
 ];
 
-// ── 주간 데이터 (26.05 이후) ─────────────────────
-// 최신화 시 여기에 추가
-var nd_weekly=[24200,26247,26225,26343.97,26972.62,25709,25709,25709.0];
-var hy_weekly=[3.10,3.00,2.92,2.88,2.85,2.80,2.72,2.76];
-var labels_weekly=['26.05 W1','26.05 W2','26.05 W3','26.05 W4','26.05 W5','26.06 W1','26.06 W2','26.06 W3'];
+// ── 주간 데이터 (26.05) ───────────────────────────
+var nd_weekly=[24200,26247,26225,26343.97,26972.62];
+var hy_weekly=[3.10,3.00,2.92,2.88,2.85];
+var labels_weekly=['26.05 W1','26.05 W2','26.05 W3','26.05 W4','26.05 W5'];
+
+// ── 일일 데이터 (26.06 이후, 최근 1주일) ─────────
+// GitHub Actions가 매일 자동 업데이트
+var nd_daily=[25709,25709];
+var hy_daily=[2.72,2.75];
+var labels_daily=['26.06.04','26.06.05'];
 
 // ── 52주 고저 ─────────────────────────────────────
 var W52_HIGH=27190.21;
 var W52_LOW=19226.22;
 
 // ── 10년 CAGR 테이블 ──────────────────────────────
-// 나스닥 컴포짓 실제 연말 종가 기반 10년 CAGR
-// 출처: Nasdaq OMX 공식 팩트시트 (indexes.nasdaqomx.com)
-// 업데이트: 매년 1월, 전년도 연말 종가 확정 후 갱신
-// 계산식: (연말종가 / 10년전연말종가)^(1/10) - 1
-// 2018: (6,635/1,577)^0.1-1  2019: (8,973/2,269)^0.1-1
-// 2020: (12,888/2,653)^0.1-1 2021: (15,645/2,605)^0.1-1
-// 2022: (10,940/3,020)^0.1-1 2023: (14,903/4,177)^0.1-1
-// 2024: (19,762/4,736)^0.1-1 2025: (19,744/5,007)^0.1-1
-// 2026: 자동계산 (현재가/5,383)^0.1-1
-var ND_2016_END=5383; // 2016년말 나스닥 종가 (고정)
-var nd_now=nd_weekly[nd_weekly.length-1]; // 현재가 자동 참조
+var ND_2016_END=5383;
+var nd_now=nd_daily[nd_daily.length-1];
 var cagr_2026=Math.pow(nd_now/ND_2016_END,0.1)-1;
 
 var CAGR_MAP={
-  2018:0.155,  // 15.5%
-  2019:0.147,  // 14.7%
-  2020:0.171,  // 17.1%
-  2021:0.196,  // 19.6%
-  2022:0.137,  // 13.7%
-  2023:0.136,  // 13.6%
-  2024:0.154,  // 15.4%
-  2025:0.147,  // 14.7%
-  2026:parseFloat(cagr_2026.toFixed(3))  // 자동계산
+  2018:0.155,2019:0.147,2020:0.171,2021:0.196,2022:0.137,
+  2023:0.136,2024:0.154,2025:0.147,
+  2026:parseFloat(cagr_2026.toFixed(3))
 };
 
 // ── 전체 배열 합성 ────────────────────────────────
-var labels=labels_monthly.concat(labels_weekly);
-var nasdaq=nd_monthly.concat(nd_weekly);
-var hyOas=hy_monthly.concat(hy_weekly);
+var labels=labels_monthly.concat(labels_weekly).concat(labels_daily);
+var nasdaq=nd_monthly.concat(nd_weekly).concat(nd_daily);
+var hyOas=hy_monthly.concat(hy_weekly).concat(hy_daily);
 var N=labels.length;
 var NOW=N-1;
-var MONTHLY_END=labels_monthly.length-1; // 월간 마지막 인덱스
+var MONTHLY_END=labels_monthly.length-1;
+var WEEKLY_END=labels_monthly.length+labels_weekly.length-1;
 
 // ── 점선 계산 ─────────────────────────────────────
-var SCALE=nd_monthly[0]/hy_monthly[0]; // 7001/3.32
+var SCALE=nd_monthly[0]/hy_monthly[0];
 function getYear(l){return 2000+parseInt(l.substring(0,2));}
 function getMG(l){var c=CAGR_MAP[getYear(l)]||0.160;return Math.pow(1+c,1/12);}
 var hyLine=[],cum=1.0;
 for(var i=0;i<N;i++){if(i>0)cum*=getMG(labels[i]);hyLine.push(hyOas[i]*SCALE*cum);}
 
 // ── 이격도 계산 ───────────────────────────────────
-// 양수 = 점선 위 = 저평가(매수), 음수 = 점선 아래 = 고평가(매도)
 var gap=hyLine.map(function(v,i){
   return parseFloat(((v-nasdaq[i])/nasdaq[i]*100).toFixed(1));
 });
 
-// ── 신호 타점 계산 (우선순위: 매도>경고>관망>매수>강한매수) ──
+// ── 신호 타점 계산 ────────────────────────────────
 (function(){
   var sbuy=[],buy=[],watch=[],warn=[],sell=[];
   var ps=false,pb=false,pw=false,pn=false;
-
   for(var i=0;i<N;i++){
     var g=gap[i],h=hyOas[i];
     var gp=i>0?gap[i-1]:g;
-
-    // 원시 조건
-    var isSell =h<3.0&&g<-20;
-    var isWarn =h<3.0&&-20<=g&&g<0;
+    var isSell=h<3.0&&g<-20;
+    var isWarn=h<3.0&&-20<=g&&g<0;
     var isCross=h>=3.0&&((gp<=0&&g>0)||(gp>0&&g<=0));
-    var isBuy  =g>20&&h>=3.5&&h<4.5;
-    var isSbuy =g>20&&h>=4.5;
-
-    // 우선순위 적용
+    var isBuy=g>20&&h>=3.5&&h<4.5;
+    var isSbuy=g>20&&h>=4.5;
     var sig=null;
-    if(isSell)       sig='sell';
-    else if(isWarn)  sig='warn';
-    else if(isCross) sig='watch';
-    else if(isBuy)   sig='buy';
-    else if(isSbuy)  sig='sbuy';
-
-    // 연속 중복 제거 (첫 진입만)
-    if(sig==='sell' &&!ps){sell.push(i);}
-    if(sig==='warn' &&!pn){warn.push(i);}
-    if(sig==='watch')      {watch.push(i);}  // 관망은 전환 시점마다
-    if(sig==='buy'  &&!pb){buy.push(i);}
-    if(sig==='sbuy' &&!ps){sbuy.push(i);}
-
+    if(isSell)sig='sell';
+    else if(isWarn)sig='warn';
+    else if(isCross)sig='watch';
+    else if(isBuy)sig='buy';
+    else if(isSbuy)sig='sbuy';
+    if(sig==='sell'&&!ps)sell.push(i);
+    if(sig==='warn'&&!pn)warn.push(i);
+    if(sig==='watch')watch.push(i);
+    if(sig==='buy'&&!pb)buy.push(i);
+    if(sig==='sbuy'&&!ps)sbuy.push(i);
     ps=(sig==='sell'||sig==='sbuy');
     pb=(sig==='buy');
     pn=(sig==='warn');
   }
-
   window.SIGNALS={sbuy:sbuy,buy:buy,watch:watch,warn:warn,sell:sell};
 })();
 
 // ── 배경색 ───────────────────────────────────────
 var bgColors=labels.map(function(_,i){
   var g=gap[i],h=hyOas[i];
-  if(g>20&&h>=4.5) return 'rgba(168,85,247,0.14)';
-  if(g>20&&h>=3.5) return 'rgba(16,185,129,0.12)';
-  if(g>20)         return 'rgba(16,185,129,0.06)';
-  if(g>0)          return 'rgba(16,185,129,0.04)';
-  if(h<3.0&&g<-20) return 'rgba(192,38,211,0.18)';
+  if(g>20&&h>=4.5)return 'rgba(168,85,247,0.14)';
+  if(g>20&&h>=3.5)return 'rgba(16,185,129,0.12)';
+  if(g>20)return 'rgba(16,185,129,0.06)';
+  if(g>0)return 'rgba(16,185,129,0.04)';
+  if(h<3.0&&g<-20)return 'rgba(192,38,211,0.18)';
   if(h<3.0&&g>=-20)return 'rgba(244,63,94,0.10)';
   return 'rgba(251,191,36,0.05)';
 });
@@ -446,12 +427,21 @@ function initChart(){
     plugins:[
       {id:'dividers',afterDraw:function(c){
         var ctx=c.ctx,x=c.scales.x,y=c.scales.y;
+        // 주간 구분선
         var xw=x.getPixelForValue(MONTHLY_END+0.5);
         ctx.save();ctx.setLineDash([4,3]);ctx.strokeStyle='rgba(251,191,36,0.5)';ctx.lineWidth=1.5;
         ctx.beginPath();ctx.moveTo(xw,y.top);ctx.lineTo(xw,y.bottom);ctx.stroke();
         ctx.setLineDash([]);ctx.fillStyle='rgba(251,191,36,0.7)';
         ctx.font='bold 9px sans-serif';ctx.textAlign='center';
-        ctx.fillText('주간→',xw+16,y.top+10);ctx.restore();
+        ctx.fillText('주간→',xw+16,y.top+10);
+        // 일일 구분선
+        var xd=x.getPixelForValue(WEEKLY_END+0.5);
+        ctx.setLineDash([4,3]);ctx.strokeStyle='rgba(16,185,129,0.6)';ctx.lineWidth=1.5;
+        ctx.beginPath();ctx.moveTo(xd,y.top);ctx.lineTo(xd,y.bottom);ctx.stroke();
+        ctx.setLineDash([]);ctx.fillStyle='rgba(16,185,129,0.8)';
+        ctx.font='bold 9px sans-serif';ctx.textAlign='center';
+        ctx.fillText('일일→',xd+16,y.top+10);
+        ctx.restore();
       }},
       {id:'sellTri',afterDatasetsDraw:function(c){
         if(!sigState.sell||!sell_pts.length)return;
