@@ -67,6 +67,22 @@ jobs:
               hy_daily_aligned.append(last_hy)
           print(f"  최신: {hy_dates[-1]} = {hy_daily_new[-1]}%")
 
+          time.sleep(2)
+
+          # ── VIX 최신값 (FRED VIXCLS) ─────────────────
+          print("VIX 데이터 가져오는 중...")
+          url_vix = f"https://api.stlouisfed.org/fred/series/observations?series_id=VIXCLS&api_key={FRED_KEY}&limit=5&sort_order=desc&file_type=json"
+          req_vix = urllib.request.Request(url_vix, headers={'User-Agent':'Mozilla/5.0'})
+          try:
+              with urllib.request.urlopen(req_vix, timeout=15) as rv:
+                  dv = json.loads(rv.read())
+              vix_obs = [o for o in dv['observations'] if o['value'] != '.']
+              vix_now = float(vix_obs[0]['value'])
+              print(f"  VIX: {vix_now} ({vix_obs[0]['date']})")
+          except Exception as e:
+              vix_now = 20.0
+              print(f"  VIX 가져오기 실패, 기본값 사용: {e}")
+
           # ── data.js 업데이트 ──────────────────────────
           today = datetime.date.today().strftime('%Y-%m-%d')
           with open('nasdaq_data.js', 'r') as f:
@@ -80,6 +96,7 @@ jobs:
           js = re.sub(r'var hy_daily=\[.*?\];', f'var hy_daily=[{hy_str}];', js, flags=re.DOTALL)
           js = re.sub(r'var labels_daily=\[.*?\];', f"var labels_daily=['{lbl_str}'];", js, flags=re.DOTALL)
           js = re.sub(r'var W52_HIGH=.*?;', f'var W52_HIGH={max(nd_daily_new + [27190.21]):.2f};', js)
+          js = re.sub(r'var vix_recent=.*?;', f'var vix_recent={vix_now};', js)
 
           with open('/tmp/nasdaq_data.js', 'w') as f:
               f.write(js)
