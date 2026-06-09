@@ -2,8 +2,8 @@ name: Update Nasdaq Data
 
 on:
   schedule:
-    - cron: '0 0 * * 1-5'  # 평일 매일 오전 9시 (KST = UTC+9, 즉 UTC 0시)
-  workflow_dispatch:         # 수동 실행 버튼
+    - cron: '0 0 * * 1-5'  # 평일 매일 오전 9시 KST (UTC 0시)
+  workflow_dispatch:
 
 jobs:
   update:
@@ -21,83 +21,76 @@ jobs:
           FRED_KEY: ${{ secrets.FRED_KEY }}
         run: |
           python3 << 'PYEOF'
-          import urllib.request, json, re, os, datetime
+          import urllib.request, json, re, os, datetime, time
 
           AV_KEY = os.environ['AV_KEY']
           FRED_KEY = os.environ['FRED_KEY']
+          RATIO = 25709 / 716.07  # 나스닥/QQQ 환산 비율
+          DAILY_KEEP = 7           # 일일 데이터 보관 기간 (영업일 기준)
 
-          # ── 나스닥 (QQQ 종가로 대체) ──────────────────
-          print("나스닥 데이터 가져오는 중...")
-          url_nd = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=QQQ&apikey={AV_KEY}"
+          # ── 나스닥 일일 데이터 (QQQ Daily) ──────────
+          print("나스닥 일일 데이터 가져오는 중...")
+          url_nd = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=QQQ&outputsize=compact&apikey={AV_KEY}"
           req = urllib.request.Request(url_nd, headers={'User-Agent':'Mozilla/5.0'})
           with urllib.request.urlopen(req, timeout=15) as r:
               d = json.loads(r.read())
-          ts = d.get('Weekly Time Series', {})
-          dates = sorted(ts.keys(), reverse=True)
-          latest_date = dates[0]
-          latest_qqq = float(ts[latest_date]['4. close'])
-          # QQQ → 나스닥 컴포짓 환산 (비율: 나스닥/QQQ ≈ 35.9 기준)
-          # 26.06W3: 나스닥 25709, QQQ 716.07 → 비율 35.9
-          RATIO = 25709 / 716.07
-          latest_nd = round(latest_qqq * RATIO, 2)
-          print(f"  QQQ: {latest_qqq} ({latest_date}) → 나스닥: {latest_nd}")
+          ts = d.get('Time Series (Daily)', {})
+          # 최근 7 영업일
+          dates = sorted(ts.keys(), reverse=True)[:DAILY_KEEP]
+          dates = sorted(dates)  # 오름차순
+          nd_daily_new = [round(float(ts[d2]['4. close']) * RATIO, 2) for d2 in dates]
+          labels_daily_new = [d2[2:4]+'.'+d2[5:7]+'.'+d2[8:10] for d2 in dates]
+          print(f"  최신: {labels_daily_new[-1]} = {nd_daily_new[-1]}")
 
-          # ── HY OAS (FRED) ──────────────────────────────
-          print("HY OAS 데이터 가져오는 중...")
-          import time; time.sleep(2)
-          url_hy = f"https://api.stlouisfed.org/fred/series/observations?series_id=BAMLH0A0HYM2&api_key={FRED_KEY}&limit=5&sort_order=desc&file_type=json"
+          time.sleep(2)
+
+          # ── HY OAS 일일 데이터 (FRED) ────────────────
+          print("HY OAS 일일 데이터 가져오는 중...")
+          # 최근 7일 날짜 범위
+          end_date = datetime.date.today().strftime('%Y-%m-%d')
+          start_date = (datetime.date.today() - datetime.timedelta(days=14)).strftime('%Y-%m-%d')
+          url_hy = f"https://api.stlouisfed.org/fred/series/observations?series_id=BAMLH0A0HYM2&api_key={FRED_KEY}&observation_start={start_date}&observation_end={end_date}&file_type=json"
           req2 = urllib.request.Request(url_hy, headers={'User-Agent':'Mozilla/5.0'})
           with urllib.request.urlopen(req2, timeout=15) as r2:
               d2 = json.loads(r2.read())
+          # 유효한 값만 (. 제외)
           obs = [o for o in d2['observations'] if o['value'] != '.']
-          latest_hy = float(obs[0]['value'])
-          hy_date = obs[0]['date']
-          print(f"  HY OAS: {latest_hy}% ({hy_date})")
+          obs = obs[-DAILY_KEEP:]  # 최근 7개
+          hy_daily_new = [float(o['value']) for o in obs]
+          hy_dates = [o['date'] for o in obs]
 
-          # ── data.js 업데이트 ───────────────────────────
+          # HY OAS는 나스닥과 날짜 맞춤 (나스닥 날짜 기준)
+          # 날짜가 없으면 마지막 값으로 forward fill
+          hy_map = {o['date']: float(o['value']) for o in obs}
+          hy_daily_aligned = []
+          last_hy = hy_daily_new[-1] if hy_daily_new else 2.75
+          for d3 in dates:
+              if d3 in hy_map:
+                  last_hy = hy_map[d3]
+              hy_daily_aligned.append(last_hy)
+          print(f"  최신: {hy_dates[-1]} = {hy_daily_new[-1]}%")
+
+          # ── data.js 업데이트 ──────────────────────────
           today = datetime.date.today().strftime('%Y-%m-%d')
-          # 주차 계산
-          dt = datetime.datetime.strptime(latest_date, '%Y-%m-%d')
-          yy = str(dt.year)[2:]
-          mm = str(dt.month).zfill(2)
-          week_of_month = (dt.day - 1) // 7 + 1
-          new_label = f"{yy}.{mm} W{week_of_month}"
-
           with open('nasdaq_data.js', 'r') as f:
               js = f.read()
 
           # 날짜 업데이트
-          js = re.sub(r'최신화: .*?\n', f'최신화: {new_label} ({today})\n', js)
+          js = re.sub(r'최신화: .*?\n', f'최신화: {labels_daily_new[-1]} ({today})\n', js)
 
-          # 주간 배열 끝에 새 값 추가 (중복 방지)
-          # nd_weekly 마지막 값 확인
-          nd_match = re.search(r'var nd_weekly=\[(.*?)\];', js, re.DOTALL)
-          hy_match = re.search(r'var hy_weekly=\[(.*?)\];', js, re.DOTALL)
-          lbl_match = re.search(r'var labels_weekly=\[(.*?)\];', js, re.DOTALL)
+          # 일일 배열 교체
+          nd_str = ','.join(str(v) for v in nd_daily_new)
+          hy_str = ','.join(str(v) for v in hy_daily_aligned)
+          lbl_str = "','".join(labels_daily_new)
 
-          if nd_match and hy_match and lbl_match:
-              nd_vals = [v.strip() for v in nd_match.group(1).split(',') if v.strip()]
-              hy_vals = [v.strip() for v in hy_match.group(1).split(',') if v.strip()]
-              lbl_vals = [v.strip().strip("'") for v in lbl_match.group(1).split(',') if v.strip()]
+          js = re.sub(r'var nd_daily=\[.*?\];', f'var nd_daily=[{nd_str}];', js, flags=re.DOTALL)
+          js = re.sub(r'var hy_daily=\[.*?\];', f'var hy_daily=[{hy_str}];', js, flags=re.DOTALL)
+          js = re.sub(r'var labels_daily=\[.*?\];', f"var labels_daily=['{lbl_str}'];", js, flags=re.DOTALL)
 
-              # 라벨 중복 체크
-              if new_label not in lbl_vals:
-                  nd_vals.append(str(latest_nd))
-                  hy_vals.append(str(latest_hy))
-                  lbl_vals.append(new_label)
-                  print(f"  새 데이터 추가: {new_label}")
-              else:
-                  # 같은 주차면 마지막 값 업데이트
-                  nd_vals[-1] = str(latest_nd)
-                  hy_vals[-1] = str(latest_hy)
-                  print(f"  기존 데이터 업데이트: {new_label}")
-
-              js = re.sub(r'var nd_weekly=\[.*?\];',
-                  'var nd_weekly=[' + ','.join(nd_vals) + '];', js, flags=re.DOTALL)
-              js = re.sub(r'var hy_weekly=\[.*?\];',
-                  'var hy_weekly=[' + ','.join(hy_vals) + '];', js, flags=re.DOTALL)
-              js = re.sub(r'var labels_weekly=\[.*?\];',
-                  "var labels_weekly=['" + "','".join(lbl_vals) + "'];", js, flags=re.DOTALL)
+          # 52주 고저 업데이트 (나스닥 현재가 기준)
+          nd_now = nd_daily_new[-1]
+          # W52 고저는 별도 계산 생략, 현재가만 반영
+          js = re.sub(r'var W52_HIGH=.*?;', f'var W52_HIGH={max(nd_daily_new + [27190.21]):.2f};', js)
 
           with open('nasdaq_data.js', 'w') as f:
               f.write(js)
@@ -112,6 +105,7 @@ jobs:
           with open('nasdaq_chart.html', 'w') as f:
               f.write(result)
           print("nasdaq_chart.html 업데이트 완료")
+          print(f"일일 데이터: {labels_daily_new}")
           PYEOF
 
       - name: Commit and Push
