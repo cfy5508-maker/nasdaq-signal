@@ -1,0 +1,123 @@
+name: Update Nasdaq Data
+
+on:
+  schedule:
+    - cron: '0 0 * * 1-5'  # 평일 매일 오전 9시 (KST = UTC+9, 즉 UTC 0시)
+  workflow_dispatch:         # 수동 실행 버튼
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update nasdaq_data.js
+        env:
+          AV_KEY: ${{ secrets.AV_KEY }}
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+        run: |
+          python3 << 'PYEOF'
+          import urllib.request, json, re, os, datetime
+
+          AV_KEY = os.environ['AV_KEY']
+          FRED_KEY = os.environ['FRED_KEY']
+
+          # ── 나스닥 (QQQ 종가로 대체) ──────────────────
+          print("나스닥 데이터 가져오는 중...")
+          url_nd = f"https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=QQQ&apikey={AV_KEY}"
+          req = urllib.request.Request(url_nd, headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req, timeout=15) as r:
+              d = json.loads(r.read())
+          ts = d.get('Weekly Time Series', {})
+          dates = sorted(ts.keys(), reverse=True)
+          latest_date = dates[0]
+          latest_qqq = float(ts[latest_date]['4. close'])
+          # QQQ → 나스닥 컴포짓 환산 (비율: 나스닥/QQQ ≈ 35.9 기준)
+          # 26.06W3: 나스닥 25709, QQQ 716.07 → 비율 35.9
+          RATIO = 25709 / 716.07
+          latest_nd = round(latest_qqq * RATIO, 2)
+          print(f"  QQQ: {latest_qqq} ({latest_date}) → 나스닥: {latest_nd}")
+
+          # ── HY OAS (FRED) ──────────────────────────────
+          print("HY OAS 데이터 가져오는 중...")
+          import time; time.sleep(2)
+          url_hy = f"https://api.stlouisfed.org/fred/series/observations?series_id=BAMLH0A0HYM2&api_key={FRED_KEY}&limit=5&sort_order=desc&file_type=json"
+          req2 = urllib.request.Request(url_hy, headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req2, timeout=15) as r2:
+              d2 = json.loads(r2.read())
+          obs = [o for o in d2['observations'] if o['value'] != '.']
+          latest_hy = float(obs[0]['value'])
+          hy_date = obs[0]['date']
+          print(f"  HY OAS: {latest_hy}% ({hy_date})")
+
+          # ── data.js 업데이트 ───────────────────────────
+          today = datetime.date.today().strftime('%Y-%m-%d')
+          # 주차 계산
+          dt = datetime.datetime.strptime(latest_date, '%Y-%m-%d')
+          yy = str(dt.year)[2:]
+          mm = str(dt.month).zfill(2)
+          week_of_month = (dt.day - 1) // 7 + 1
+          new_label = f"{yy}.{mm} W{week_of_month}"
+
+          with open('nasdaq_data.js', 'r') as f:
+              js = f.read()
+
+          # 날짜 업데이트
+          js = re.sub(r'최신화: .*?\n', f'최신화: {new_label} ({today})\n', js)
+
+          # 주간 배열 끝에 새 값 추가 (중복 방지)
+          # nd_weekly 마지막 값 확인
+          nd_match = re.search(r'var nd_weekly=\[(.*?)\];', js, re.DOTALL)
+          hy_match = re.search(r'var hy_weekly=\[(.*?)\];', js, re.DOTALL)
+          lbl_match = re.search(r'var labels_weekly=\[(.*?)\];', js, re.DOTALL)
+
+          if nd_match and hy_match and lbl_match:
+              nd_vals = [v.strip() for v in nd_match.group(1).split(',') if v.strip()]
+              hy_vals = [v.strip() for v in hy_match.group(1).split(',') if v.strip()]
+              lbl_vals = [v.strip().strip("'") for v in lbl_match.group(1).split(',') if v.strip()]
+
+              # 라벨 중복 체크
+              if new_label not in lbl_vals:
+                  nd_vals.append(str(latest_nd))
+                  hy_vals.append(str(latest_hy))
+                  lbl_vals.append(new_label)
+                  print(f"  새 데이터 추가: {new_label}")
+              else:
+                  # 같은 주차면 마지막 값 업데이트
+                  nd_vals[-1] = str(latest_nd)
+                  hy_vals[-1] = str(latest_hy)
+                  print(f"  기존 데이터 업데이트: {new_label}")
+
+              js = re.sub(r'var nd_weekly=\[.*?\];',
+                  'var nd_weekly=[' + ','.join(nd_vals) + '];', js, flags=re.DOTALL)
+              js = re.sub(r'var hy_weekly=\[.*?\];',
+                  'var hy_weekly=[' + ','.join(hy_vals) + '];', js, flags=re.DOTALL)
+              js = re.sub(r'var labels_weekly=\[.*?\];',
+                  "var labels_weekly=['" + "','".join(lbl_vals) + "'];", js, flags=re.DOTALL)
+
+          with open('nasdaq_data.js', 'w') as f:
+              f.write(js)
+          print("nasdaq_data.js 업데이트 완료")
+
+          # ── chart.html에 data.js 인라인 삽입 ──────────
+          with open('nasdaq_chart.html', 'r') as f:
+              html = f.read()
+          new_block = '<script>\n' + js + '\n</script>'
+          pattern = r'<script>\n// =+\n// nasdaq_data\.js.*?</script>'
+          result = re.sub(pattern, new_block, html, flags=re.DOTALL)
+          with open('nasdaq_chart.html', 'w') as f:
+              f.write(result)
+          print("nasdaq_chart.html 업데이트 완료")
+          PYEOF
+
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add nasdaq_data.js nasdaq_chart.html
+          git diff --staged --quiet || git commit -m "Auto update: $(date +'%Y-%m-%d')"
+          git push
