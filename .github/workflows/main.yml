@@ -155,12 +155,11 @@ jobs:
           PYEOF
 
       # ───────────────────────── 글로벌 지수 (신규) ─────────────────────────
-      - name: Update global_index.html
+      - name: Inject global index table into chart
         if: steps.guard.outputs.run_gl == 'true'
         run: |
           python fetch_indices.py
-          cp global_index.html /tmp/global_index.html
-          echo "global_index.html 생성 완료"
+          echo "글로벌 지수 표 주입 완료"
 
       # ───────────────────────── 커밋 & 푸시 (통합) ─────────────────────────
       - name: Commit and Push
@@ -174,7 +173,6 @@ jobs:
           # /tmp에서 수정된 파일만 복사 (해당 잡이 돌았을 때만 존재)
           if [ -f /tmp/nasdaq_data.js ]; then cp /tmp/nasdaq_data.js nasdaq_data.js; fi
           if [ -f /tmp/nasdaq_chart.html ]; then cp /tmp/nasdaq_chart.html nasdaq_chart.html; fi
-          if [ -f /tmp/global_index.html ]; then cp /tmp/global_index.html global_index.html; fi
           git add -A
           git diff --staged --quiet || git commit -m "Auto update: $(date +'%Y-%m-%d')"
           git push origin main
