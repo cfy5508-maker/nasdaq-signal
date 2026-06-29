@@ -1,202 +1,180 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-글로벌 주요 지수 수익률 테이블 생성기
-- 각 지수의 -12 / -6 / -3 / -1 개월 수익률(%)을 계산해 index.html 로 렌더링
-- GitHub Actions(cron, 월 1회)에서 실행되도록 설계
-사용법:
-    python fetch_indices.py            # 실데이터(yfinance) 수집
-    python fetch_indices.py --demo     # 네트워크 없이 샘플(이미지 수치)로 미리보기
-"""
-import sys
-from datetime import datetime, timezone, timedelta
+name: Update Nasdaq Data
 
-import pandas as pd
+on:
+  schedule:
+    # 매일 21:35 UTC(=06:35 KST)에 깨운 뒤, 아래 guard에서 분기
+    #   · 나스닥: UTC 평일(월~금)만
+    #   · 글로벌지수: KST 1·15·말일만
+    - cron: '35 21 * * *'
+  workflow_dispatch:
 
-# (표시이름, yfinance 티커)  — 이미지 컬럼 순서와 동일
-INDICES = [
-    ("코스피",  "^KS11"),
-    ("닛케이",  "^N225"),
-    ("대만",    "^TWII"),
-    ("유로",    "^STOXX50E"),
-    ("CAC 40",  "^FCHI"),
-    ("태국",    "^SET.BK"),
-    ("다우",    "^DJI"),
-    ("호주",    "^AXJO"),
-    ("상하이",  "000001.SS"),
-    ("DAX",     "^GDAXI"),
-    ("인도",    "^BSESN"),
-    ("S&P",     "^GSPC"),
-    ("FTSE",    "^FTSE"),
-    ("나스닥",  "^IXIC"),
-    ("베트남",  "^VNINDEX"),   # ⚠ Yahoo 미제공 가능성 — 아래 주석 참고
-    ("멕시코",  "^MXX"),
-    ("브라질",  "^BVSP"),
-    ("항셍",    "^HSI"),
-    ("RTS",     "RTSI.ME"),    # ⚠ 제재 이후 데이터 불안정 — 아래 주석 참고
-    ("인니",    "^JKSE"),
-]
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
-PERIODS = [("-12개월", 12), ("-6개월", 6), ("-3개월", 3), ("-1개월", 1)]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
-KST = timezone(timedelta(hours=9))
+      - name: Decide what to run
+        id: guard
+        run: |
+          DOW=$(date -u +%u)                              # 1=월 … 7=일 (UTC)
+          KDAY=$(TZ=Asia/Seoul date +%-d)                 # KST 일자
+          KTOM=$(TZ=Asia/Seoul date -d "tomorrow" +%-d)   # 내일이 1일이면 오늘이 말일
+          MANUAL="${{ github.event_name == 'workflow_dispatch' }}"
 
+          RUN_ND=false
+          if [ "$DOW" -ge 1 ] && [ "$DOW" -le 5 ]; then RUN_ND=true; fi
 
-def trailing_return(close: pd.Series, months: int):
-    """N개월 전 거래일(가장 가까운 날) 대비 현재가 수익률(%)."""
-    if close is None or len(close) == 0:
-        return None
-    close = close.dropna()
-    if len(close) < 2:
-        return None
-    last_date = close.index[-1]
-    target = last_date - pd.DateOffset(months=months)
-    pos = close.index.get_indexer([target], method="nearest")[0]
-    past = float(close.iloc[pos])
-    now = float(close.iloc[-1])
-    if past == 0:
-        return None
-    return (now / past - 1.0) * 100.0
+          RUN_GL=false
+          if [ "$KDAY" = "1" ] || [ "$KDAY" = "15" ] || [ "$KTOM" = "1" ]; then RUN_GL=true; fi
 
+          if [ "$MANUAL" = "true" ]; then RUN_ND=true; RUN_GL=true; fi
 
-def fetch_real():
-    """yfinance로 각 지수의 종가 시계열을 받아 수익률 딕셔너리 반환."""
-    import yfinance as yf
-    results = {}
-    for name, ticker in INDICES:
-        try:
-            df = yf.download(ticker, period="400d", interval="1d",
-                             progress=False, auto_adjust=True)
-            if df is None or df.empty:
-                print(f"[WARN] no data: {name} ({ticker})", file=sys.stderr)
-                results[name] = {p: None for p, _ in PERIODS}
-                continue
-            close = df["Close"]
-            if isinstance(close, pd.DataFrame):   # 멀티컬럼 방어
-                close = close.iloc[:, 0]
-            results[name] = {label: trailing_return(close, m) for label, m in PERIODS}
-        except Exception as e:
-            print(f"[ERROR] {name} ({ticker}): {e}", file=sys.stderr)
-            results[name] = {p: None for p, _ in PERIODS}
-    return results
+          echo "나스닥=$RUN_ND, 글로벌=$RUN_GL (UTC dow=$DOW, KST day=$KDAY)"
+          echo "run_nd=$RUN_ND" >> "$GITHUB_OUTPUT"
+          echo "run_gl=$RUN_GL" >> "$GITHUB_OUTPUT"
 
+      - name: Setup Python (글로벌 지수용)
+        if: steps.guard.outputs.run_gl == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-def fetch_demo():
-    """네트워크 없이 미리보기용 — 업로드 이미지의 수치를 그대로 사용."""
-    raw = {
-        #            -12개월  -6개월  -3개월  -1개월
-        "코스피":  (201.6, 122.0,  57.7,  16.1),
-        "닛케이":  ( 88.4,  43.6,  35.6,  14.2),
-        "대만":    (116.6,  69.6,  42.3,  12.9),
-        "유로":    ( 20.6,   9.9,  14.7,   4.8),
-        "CAC 40":  ( 10.7,   3.4,   9.6,   3.5),
-        "태국":    ( 47.4,  24.0,   9.8,   2.3),
-        "다우":    ( 22.5,   6.9,  13.5,   2.2),
-        "호주":    (  3.7,   1.3,   4.6,   1.8),
-        "상하이":  ( 23.9,   6.3,   5.2,   1.2),
-        "DAX":     (  7.7,   3.5,  12.3,   1.0),
-        "인도":    ( -4.0,  -7.9,   4.3,   1.6),
-        "S&P":     ( 25.2,   8.6,  14.9,  -0.0),
-        "FTSE":    ( 19.0,   5.8,   5.2,  -0.3),
-        "나스닥":  ( 34.6,  11.7,  20.9,  -0.7),
-        "베트남":  ( 37.7,   6.1,  12.8,  -1.0),
-        "멕시코":  ( 19.3,   3.6,   4.7,  -1.8),
-        "브라질":  ( 24.3,   7.7,  -3.3,  -3.3),
-        "항셍":    (  1.7,  -7.3,  -5.4,  -6.6),
-        "RTS":     (-10.3,  -8.2,  -7.9, -14.8),
-        "인니":    (-11.4, -29.3, -13.9,  -0.7),
-    }
-    out = {}
-    for name, vals in raw.items():
-        out[name] = {label: vals[i] for i, (label, _) in enumerate(PERIODS)}
-    return out
+      - name: Install deps (글로벌 지수용)
+        if: steps.guard.outputs.run_gl == 'true'
+        run: pip install yfinance pandas
 
+      # ───────────────────────── 나스닥 (기존 그대로) ─────────────────────────
+      - name: Update nasdaq_data.js
+        if: steps.guard.outputs.run_nd == 'true'
+        env:
+          AV_KEY: ${{ secrets.AV_KEY }}
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+        run: |
+          python3 << 'PYEOF'
+          import urllib.request, json, re, os, datetime, time
 
-def fmt(v):
-    if v is None:
-        return "N/A", "na"
-    sign = "+" if v >= 0 else ""          # 음수는 자체 부호 사용
-    cls = "pos" if v >= 0 else "neg"
-    return f"{sign}{v:.1f}", cls
+          AV_KEY = os.environ['AV_KEY']
+          FRED_KEY = os.environ['FRED_KEY']
+          RATIO = 25709 / 716.07
+          DAILY_KEEP = 7
 
+          # ── 나스닥 일일 데이터 (QQQ Daily) ──────────
+          print("나스닥 일일 데이터 가져오는 중...")
+          url_nd = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=QQQ&outputsize=compact&apikey={AV_KEY}"
+          req = urllib.request.Request(url_nd, headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req, timeout=15) as r:
+              d = json.loads(r.read())
+          ts = d.get('Time Series (Daily)', {})
+          dates = sorted(ts.keys(), reverse=True)[:DAILY_KEEP]
+          dates = sorted(dates)
+          nd_daily_new = [round(float(ts[d2]['4. close']) * RATIO, 2) for d2 in dates]
+          labels_daily_new = [d2[2:4]+'.'+d2[5:7]+'.'+d2[8:10] for d2 in dates]
+          print(f"  최신: {labels_daily_new[-1]} = {nd_daily_new[-1]}")
 
-def render_html(results, asof):
-    names = [n for n, _ in INDICES]
-    # 헤더
-    head_cells = "".join(f"<th>{n}</th>" for n in names)
-    # 본문
-    rows = ""
-    for label, _ in PERIODS:
-        cells = ""
-        for n in names:
-            txt, cls = fmt(results.get(n, {}).get(label))
-            cells += f'<td class="{cls}">{txt}</td>'
-        rows += f'<tr><th class="period">{label}</th>{cells}</tr>'
+          time.sleep(2)
 
-    return f"""<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>글로벌 주요 지수 수익률</title>
-<style>
-  :root {{
-    --green:#2c7a52; --green-dark:#225f40; --sage:#e9f1ea;
-    --pos:#1b3a8f; --neg:#c0392b; --neg-bg:#fbe3e6; --line:#dfe6df;
-  }}
-  * {{ box-sizing:border-box; }}
-  body {{ margin:0; padding:24px; background:#f6f8f6;
-         font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-         color:#1c1c1c; }}
-  .wrap {{ max-width:1280px; margin:0 auto; }}
-  h1 {{ font-size:18px; margin:0 0 4px; }}
-  .sub {{ color:#667; font-size:12px; margin:0 0 16px; }}
-  .tablebox {{ overflow-x:auto; border:1px solid var(--line);
-              border-radius:10px; background:#fff;
-              box-shadow:0 1px 4px rgba(0,0,0,.05); }}
-  table {{ border-collapse:collapse; width:100%; min-width:1100px; font-size:14px; }}
-  th, td {{ text-align:center; padding:12px 8px; white-space:nowrap; }}
-  thead th {{ background:var(--green); color:#fff; font-weight:700;
-              border-right:1px solid var(--green-dark); position:sticky; top:0; }}
-  thead th:first-child {{ background:var(--green-dark); }}
-  tbody th.period {{ background:var(--sage); color:var(--green-dark);
-                     font-weight:700; border-right:1px solid var(--line); }}
-  tbody td {{ border-right:1px solid var(--line); border-top:1px solid var(--line);
-              font-variant-numeric:tabular-nums; }}
-  td.pos {{ color:var(--pos); }}
-  td.neg {{ color:var(--neg); background:var(--neg-bg); font-weight:600; }}
-  td.na  {{ color:#aab; }}
-  tbody tr:hover td {{ background:#f3f7f3; }}
-  tbody tr:hover td.neg {{ background:#f7d8dc; }}
-  .foot {{ margin-top:10px; font-size:11px; color:#889; text-align:right; }}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <h1>글로벌 주요 지수 수익률 (%)</h1>
-  <p class="sub">기간별 누적 수익률 · 매월 자동 업데이트</p>
-  <div class="tablebox">
-    <table>
-      <thead><tr><th>기간</th>{head_cells}</tr></thead>
-      <tbody>{rows}</tbody>
-    </table>
-  </div>
-  <p class="foot">자료: Yahoo Finance · 기준일 {asof} (KST) · 자동 생성</p>
-</div>
-</body>
-</html>"""
+          # ── HY OAS 일일 데이터 (FRED) ────────────────
+          print("HY OAS 일일 데이터 가져오는 중...")
+          end_date = datetime.date.today().strftime('%Y-%m-%d')
+          start_date = (datetime.date.today() - datetime.timedelta(days=14)).strftime('%Y-%m-%d')
+          url_hy = f"https://api.stlouisfed.org/fred/series/observations?series_id=BAMLH0A0HYM2&api_key={FRED_KEY}&observation_start={start_date}&observation_end={end_date}&file_type=json"
+          req2 = urllib.request.Request(url_hy, headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req2, timeout=15) as r2:
+              d2 = json.loads(r2.read())
+          obs = [o for o in d2['observations'] if o['value'] != '.']
+          obs = obs[-DAILY_KEEP:]
+          hy_daily_new = [float(o['value']) for o in obs]
+          hy_dates = [o['date'] for o in obs]
+          hy_map = {o['date']: float(o['value']) for o in obs}
+          hy_daily_aligned = []
+          last_hy = hy_daily_new[-1] if hy_daily_new else 2.75
+          for d3 in dates:
+              if d3 in hy_map:
+                  last_hy = hy_map[d3]
+              hy_daily_aligned.append(last_hy)
+          print(f"  최신: {hy_dates[-1]} = {hy_daily_new[-1]}%")
 
+          time.sleep(2)
 
-def main():
-    demo = "--demo" in sys.argv
-    results = fetch_demo() if demo else fetch_real()
-    asof = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
-    html = render_html(results, asof)
-    out = "global_index.html"
-    with open(out, "w", encoding="utf-8") as f:
-        f.write(html)
-    print(f"{out} 생성 완료 ({'demo' if demo else 'live'}) · 기준 {asof}")
+          # ── VIX 최신값 (FRED VIXCLS) ─────────────────
+          print("VIX 데이터 가져오는 중...")
+          url_vix = f"https://api.stlouisfed.org/fred/series/observations?series_id=VIXCLS&api_key={FRED_KEY}&limit=5&sort_order=desc&file_type=json"
+          req_vix = urllib.request.Request(url_vix, headers={'User-Agent':'Mozilla/5.0'})
+          try:
+              with urllib.request.urlopen(req_vix, timeout=15) as rv:
+                  dv = json.loads(rv.read())
+              vix_obs = [o for o in dv['observations'] if o['value'] != '.']
+              vix_now = float(vix_obs[0]['value'])
+              print(f"  VIX: {vix_now} ({vix_obs[0]['date']})")
+          except Exception as e:
+              vix_now = 20.0
+              print(f"  VIX 가져오기 실패, 기본값 사용: {e}")
 
+          # ── data.js 업데이트 ──────────────────────────
+          today = datetime.date.today().strftime('%Y-%m-%d')
+          with open('nasdaq_data.js', 'r') as f:
+              js = f.read()
 
-if __name__ == "__main__":
-    main()
+          js = re.sub(r'최신화: .*?\n', f'최신화: {labels_daily_new[-1]} ({today})\n', js)
+          nd_str = ','.join(str(v) for v in nd_daily_new)
+          hy_str = ','.join(str(v) for v in hy_daily_aligned)
+          lbl_str = "','".join(labels_daily_new)
+          js = re.sub(r'var nd_daily=\[.*?\];', f'var nd_daily=[{nd_str}];', js, flags=re.DOTALL)
+          js = re.sub(r'var hy_daily=\[.*?\];', f'var hy_daily=[{hy_str}];', js, flags=re.DOTALL)
+          js = re.sub(r'var labels_daily=\[.*?\];', f"var labels_daily=['{lbl_str}'];", js, flags=re.DOTALL)
+          js = re.sub(r'var W52_HIGH=.*?;', f'var W52_HIGH={max(nd_daily_new + [27190.21]):.2f};', js)
+          js = re.sub(r'var vix_recent=.*?;', f'var vix_recent={vix_now};', js)
+
+          with open('/tmp/nasdaq_data.js', 'w') as f:
+              f.write(js)
+          print("nasdaq_data.js 업데이트 완료")
+
+          # ── chart.html에 data.js 인라인 삽입 ──────────
+          with open('nasdaq_chart.html', 'r') as f:
+              html = f.read()
+          new_block = '<script>\n' + js + '\n</script>'
+          start = html.find('<script>\n// ===')
+          end = html.find('</script>', start) + len('</script>')
+          if start >= 0 and end > start:
+              result = html[:start] + new_block + html[end:]
+              print("chart.html 업데이트 완료")
+          else:
+              result = html
+              print("경고: chart.html script 블록 못찾음")
+          with open('/tmp/nasdaq_chart.html', 'w') as f:
+              f.write(result)
+          print(f"일일 데이터: {labels_daily_new}")
+          PYEOF
+
+      # ───────────────────────── 글로벌 지수 (신규) ─────────────────────────
+      - name: Update global_index.html
+        if: steps.guard.outputs.run_gl == 'true'
+        run: |
+          python fetch_indices.py
+          cp global_index.html /tmp/global_index.html
+          echo "global_index.html 생성 완료"
+
+      # ───────────────────────── 커밋 & 푸시 (통합) ─────────────────────────
+      - name: Commit and Push
+        if: steps.guard.outputs.run_nd == 'true' || steps.guard.outputs.run_gl == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 원격 최신 상태로 완전 동기화
+          git fetch origin main
+          git reset --hard origin/main
+          # /tmp에서 수정된 파일만 복사 (해당 잡이 돌았을 때만 존재)
+          if [ -f /tmp/nasdaq_data.js ]; then cp /tmp/nasdaq_data.js nasdaq_data.js; fi
+          if [ -f /tmp/nasdaq_chart.html ]; then cp /tmp/nasdaq_chart.html nasdaq_chart.html; fi
+          if [ -f /tmp/global_index.html ]; then cp /tmp/global_index.html global_index.html; fi
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto update: $(date +'%Y-%m-%d')"
+          git push origin main
