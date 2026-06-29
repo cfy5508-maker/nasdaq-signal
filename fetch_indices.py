@@ -14,27 +14,31 @@ from datetime import datetime, timezone, timedelta
 import pandas as pd
 
 INDICES = [
-    ("코스피",  "^KS11"),
-    ("닛케이",  "^N225"),
-    ("대만",    "^TWII"),
-    ("유로",    "^STOXX50E"),
-    ("CAC 40",  "^FCHI"),
-    ("태국",    "^SET.BK"),
-    ("다우",    "^DJI"),
-    ("호주",    "^AXJO"),
-    ("상하이",  "000001.SS"),
-    ("DAX",     "^GDAXI"),
-    ("인도",    "^BSESN"),
-    ("S&P",     "^GSPC"),
-    ("FTSE",    "^FTSE"),
-    ("나스닥",  "^IXIC"),
-    ("베트남",  "^VNINDEX"),   # Yahoo 미제공 가능 → N/A
-    ("멕시코",  "^MXX"),
-    ("브라질",  "^BVSP"),
-    ("항셍",    "^HSI"),
-    ("RTS",     "RTSI.ME"),    # 제재 이후 불안정 → N/A
+    # 왼쪽(반도체 무관) → 오른쪽(반도체 비중 높음) 순. 맨 오른쪽이 1위.
     ("인니",    "^JKSE"),
+    ("태국",    "^SET.BK"),
+    ("호주",    "^AXJO"),
+    ("브라질",  "^BVSP"),
+    ("멕시코",  "^MXX"),
+    ("FTSE",    "^FTSE"),
+    ("인도",    "^BSESN"),
+    ("항셍",    "^HSI"),
+    ("상하이",  "000001.SS"),
+    ("다우",    "^DJI"),
+    ("DAX",     "^GDAXI"),     # 인피니온
+    ("CAC 40",  "^FCHI"),      # ST마이크로
+    ("닛케이",  "^N225"),      # 도쿄일렉트론·어드반테스트(장비)
+    ("S&P",     "^GSPC"),
+    ("유로",    "^STOXX50E"),  # ASML·인피니온
+    ("코스피",  "^KS11"),      # 삼성전자·SK하이닉스
+    ("나스닥",  "^IXIC"),      # 엔비디아·브로드컴 등
+    ("대만",    "^TWII"),      # TSMC (1위)
 ]
+
+# 헤더 색 3단계 그룹 (반도체 비중)
+CORE = {"대만", "나스닥", "코스피", "유로", "S&P", "닛케이"}      # 핵심
+MID  = {"CAC 40", "DAX", "다우", "상하이", "항셍"}                # 중간
+# 그 외는 자동으로 '무관'
 PERIODS = [("-12개월", 12), ("-6개월", 6), ("-3개월", 3), ("-1개월", 1)]
 KST = timezone(timedelta(hours=9))
 
@@ -108,24 +112,41 @@ def cell(v):
             f'font-weight:600;">{r:.1f}</td>')
 
 
+def header_style(name):
+    if name in CORE:   # 핵심: 진한 초록
+        return "background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;"
+    if name in MID:    # 중간: 슬레이트 청록
+        return "background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;"
+    # 무관: 차분한 회색
+    return "background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;"
+
+
 def render_fragment(results, asof):
     names = [n for n, _ in INDICES]
-    th = ('padding:9px 7px;text-align:center;color:#d1fae5;font-weight:700;'
-          'background:#1f4d3a;border-right:1px solid #163a2c;white-space:nowrap;')
-    head = "".join(f'<th style="{th}">{n}</th>' for n in names)
+    thbase = "padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;"
+    corner = thbase + "background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;"
+    head = "".join(f'<th style="{thbase}{header_style(n)}">{n}</th>' for n in names)
     rows = ""
     for lab, _ in PERIODS:
         cells = "".join(cell(results.get(n, {}).get(lab)) for n in names)
         rows += (f'<tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;'
                  f'background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;'
                  f'white-space:nowrap;font-weight:700;">{lab}</th>{cells}</tr>')
+    legend = (
+        '<div style="margin-top:8px;font-size:10px;color:#8b8b9a;display:flex;gap:14px;flex-wrap:wrap;align-items:center;">'
+        '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f4d3a;vertical-align:middle;margin-right:4px;"></span>핵심 (반도체 비중 높음)</span>'
+        '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f3a4d;vertical-align:middle;margin-right:4px;"></span>중간</span>'
+        '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#26262e;border:1px solid #3a3a45;vertical-align:middle;margin-right:4px;"></span>무관</span>'
+        '</div>'
+    )
     return (
         START_MARK +
         '<div style="overflow-x:auto;">'
-        '<table style="border-collapse:collapse;width:100%;min-width:1050px;font-size:12px;color:#e2e2e8;">'
-        f'<thead><tr><th style="{th}">기간</th>{head}</tr></thead>'
+        '<table style="border-collapse:collapse;width:100%;min-width:980px;font-size:12px;color:#e2e2e8;">'
+        f'<thead><tr><th style="{corner}">기간</th>{head}</tr></thead>'
         f'<tbody>{rows}</tbody></table></div>'
-        f'<div style="margin-top:7px;font-size:10px;color:#52525b;text-align:right;">'
+        + legend +
+        f'<div style="margin-top:4px;font-size:10px;color:#52525b;text-align:right;">'
         f'자료: Yahoo Finance · 기준 {asof} (KST)</div>' +
         END_MARK
     )
