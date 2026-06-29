@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>글로벌 주요 지수 수익률</title>
+<style>
+  :root {
+    --green:#2c7a52; --green-dark:#225f40; --sage:#e9f1ea;
+    --pos:#1b3a8f; --neg:#c0392b; --neg-bg:#fbe3e6; --line:#dfe6df;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:24px; background:#f6f8f6;
+         font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+         color:#1c1c1c; }
+  .wrap { max-width:1280px; margin:0 auto; }
+  h1 { font-size:18px; margin:0 0 4px; }
+  .sub { color:#667; font-size:12px; margin:0 0 16px; }
+  .tablebox { overflow-x:auto; border:1px solid var(--line);
+              border-radius:10px; background:#fff;
+              box-shadow:0 1px 4px rgba(0,0,0,.05); }
+  table { border-collapse:collapse; width:100%; min-width:1100px; font-size:14px; }
+  th, td { text-align:center; padding:12px 8px; white-space:nowrap; }
+  thead th { background:var(--green); color:#fff; font-weight:700;
+              border-right:1px solid var(--green-dark); position:sticky; top:0; }
+  thead th:first-child { background:var(--green-dark); }
+  tbody th.period { background:var(--sage); color:var(--green-dark);
+                     font-weight:700; border-right:1px solid var(--line); }
+  tbody td { border-right:1px solid var(--line); border-top:1px solid var(--line);
+              font-variant-numeric:tabular-nums; }
+  td.pos { color:var(--pos); }
+  td.neg { color:var(--neg); background:var(--neg-bg); font-weight:600; }
+  td.na  { color:#aab; }
+  tbody tr:hover td { background:#f3f7f3; }
+  tbody tr:hover td.neg { background:#f7d8dc; }
+  .foot { margin-top:10px; font-size:11px; color:#889; text-align:right; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>글로벌 주요 지수 수익률 (%)</h1>
+  <p class="sub">기간별 누적 수익률 · 매월 자동 업데이트</p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>기간</th><th>코스피</th><th>닛케이</th><th>대만</th><th>유로</th><th>CAC 40</th><th>태국</th><th>다우</th><th>호주</th><th>상하이</th><th>DAX</th><th>인도</th><th>S&P</th><th>FTSE</th><th>나스닥</th><th>베트남</th><th>멕시코</th><th>브라질</th><th>항셍</th><th>RTS</th><th>인니</th></tr></thead>
+      <tbody><tr><th class="period">-12개월</th><td class="pos">+168.1</td><td class="pos">+69.9</td><td class="pos">+102.7</td><td class="pos">+18.6</td><td class="pos">+11.0</td><td class="pos">+39.4</td><td class="pos">+19.6</td><td class="pos">+2.7</td><td class="pos">+16.8</td><td class="pos">+4.3</td><td class="neg">-6.8</td><td class="pos">+19.8</td><td class="pos">+20.3</td><td class="pos">+25.4</td><td class="na">N/A</td><td class="pos">+17.0</td><td class="pos">+26.4</td><td class="neg">-4.3</td><td class="na">N/A</td><td class="neg">-15.1</td></tr><tr><th class="period">-6개월</th><td class="pos">+95.1</td><td class="pos">+36.2</td><td class="pos">+56.6</td><td class="pos">+8.2</td><td class="pos">+3.5</td><td class="pos">+22.5</td><td class="pos">+6.5</td><td class="pos">+0.5</td><td class="pos">+1.4</td><td class="pos">+1.3</td><td class="neg">-9.3</td><td class="pos">+6.1</td><td class="pos">+6.5</td><td class="pos">+7.2</td><td class="na">N/A</td><td class="pos">+2.4</td><td class="pos">+7.7</td><td class="neg">-10.1</td><td class="na">N/A</td><td class="neg">-31.9</td></tr><tr><th class="period">-3개월</th><td class="pos">+56.1</td><td class="pos">+32.6</td><td class="pos">+38.7</td><td class="pos">+11.8</td><td class="pos">+7.9</td><td class="pos">+6.9</td><td class="pos">+12.9</td><td class="pos">+3.7</td><td class="pos">+2.5</td><td class="pos">+9.1</td><td class="pos">+2.4</td><td class="pos">+13.5</td><td class="pos">+5.4</td><td class="pos">+18.2</td><td class="na">N/A</td><td class="pos">+0.2</td><td class="neg">-5.2</td><td class="neg">-6.9</td><td class="na">N/A</td><td class="neg">-17.0</td></tr><tr><th class="period">-1개월</th><td class="neg">-2.8</td><td class="pos">+3.7</td><td class="pos">+0.9</td><td class="pos">+2.6</td><td class="pos">+2.6</td><td class="neg">-0.7</td><td class="pos">+2.8</td><td class="pos">+0.5</td><td class="neg">-1.1</td><td class="neg">-2.0</td><td class="pos">+0.8</td><td class="neg">-2.2</td><td class="pos">+0.2</td><td class="neg">-5.1</td><td class="na">N/A</td><td class="neg">-2.8</td><td class="neg">-1.9</td><td class="neg">-8.5</td><td class="na">N/A</td><td class="neg">-4.0</td></tr></tbody>
+    </table>
+  </div>
+  <p class="foot">자료: Yahoo Finance · 기준일 2026-06-29 11:39 (KST) · 자동 생성</p>
+</div>
+</body>
+</html>
