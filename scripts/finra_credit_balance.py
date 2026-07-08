@@ -24,7 +24,6 @@ import datetime as dt
 from pathlib import Path
 
 import pandas as pd
-import requests
 
 XLSX_URL = "https://www.finra.org/sites/default/files/2021-03/margin-statistics.xlsx"
 PAGE_URL = "https://www.finra.org/rules-guidance/key-topics/margin-accounts/margin-statistics"
@@ -85,6 +84,7 @@ def _http_get(url, referer=None) -> bytes:
         print("[warn] curl_cffi 미설치 — requests로 폴백", file=sys.stderr)
 
     # 2) plain requests 폴백 (Akamai 없는 로컬/사내망 등)
+    import requests
     r = requests.get(url, headers=headers, timeout=60)
     r.raise_for_status()
     return r.content
