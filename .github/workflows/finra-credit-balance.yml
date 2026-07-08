@@ -24,7 +24,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install python deps
-        run: pip install --quiet pandas openpyxl lxml requests curl_cffi playwright
+        run: pip install --quiet pandas openpyxl lxml html5lib beautifulsoup4 requests curl_cffi playwright
 
       - name: Cache Playwright browser
         uses: actions/cache@v4
