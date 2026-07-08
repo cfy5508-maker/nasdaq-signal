@@ -282,12 +282,12 @@ def _browser_scrape():
                 "Object.defineProperty(navigator,'plugins',{get:()=>[1,2,3,4,5]});"
             )
             page = ctx.new_page()
-            page.goto(PAGE_URL, wait_until="networkidle", timeout=120000)
+            page.goto(PAGE_URL, wait_until="domcontentloaded", timeout=90000)
             try:
-                page.wait_for_selector("table", timeout=40000)
+                page.wait_for_selector("table", timeout=45000)
             except Exception:  # noqa: BLE001
                 pass
-            page.wait_for_timeout(2000)
+            page.wait_for_timeout(3000)
 
             html = page.content()
             print(f"[info] page title={page.title()!r} html_len={len(html)} "
