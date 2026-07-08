@@ -2,8 +2,8 @@ name: FINRA 현금여력 배지 갱신
 
 on:
   schedule:
-    # FINRA는 기준월 다음 달 '셋째 주'에 갱신 → 18~26일 매일 1회 시도(변경 시에만 커밋)
-    - cron: '0 13 18-26 * *'
+    # FINRA는 기준월 다음 달 '셋째 주'에 갱신 → 19~25일 매일 1회 시도(변경 시에만 커밋)
+    - cron: '0 13 19-25 * *'
   workflow_dispatch: {}          # 수동 실행/백필용
 
 permissions:
@@ -23,8 +23,17 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install deps
-        run: pip install --quiet pandas openpyxl requests lxml curl_cffi
+      - name: Install python deps
+        run: pip install --quiet pandas openpyxl lxml requests curl_cffi playwright
+
+      - name: Cache Playwright browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
 
       - name: Build badge
         run: python scripts/finra_credit_balance.py
