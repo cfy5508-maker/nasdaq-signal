@@ -251,66 +251,93 @@ def load_from_html(html: str) -> pd.DataFrame:
     raise ValueError("HTML에서 유효한 마진 표를 찾지 못함")
 
 
-def _browser_fetch(want: str = "xlsx"):
-    """실제 헤드리스 크롬으로 접근 — Akamai 봇매니저를 정상 통과.
-    want='xlsx' -> 파일 bytes / want='html' -> 페이지 HTML.
-    playwright 미설치면 ImportError를 던져 상위에서 http 폴백으로 넘어간다.
+def _browser_scrape():
+    """비헤드리스(xvfb) + 스텔스로 접근 — Akamai 헤드리스 탐지 회피.
+    한 세션에서 (xlsx_bytes|None, html) 을 함께 반환.
+    playwright 미설치면 ImportError -> 상위에서 http 폴백.
     """
     from playwright.sync_api import sync_playwright
 
-    ua = _headers()["User-Agent"]
+    ua = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+          "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
+        browser = p.chromium.launch(
+            headless=False,  # xvfb 가상 디스플레이에서 실제 크롬으로 구동
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-blink-features=AutomationControlled",
+            ],
+        )
         try:
             ctx = browser.new_context(
-                accept_downloads=True, user_agent=ua, locale="en-US"
+                user_agent=ua, locale="en-US",
+                viewport={"width": 1366, "height": 900},
+            )
+            # 스텔스: 자동화 탐지 신호 제거
+            ctx.add_init_script(
+                "Object.defineProperty(navigator,'webdriver',{get:()=>undefined});"
+                "window.chrome={runtime:{}};"
+                "Object.defineProperty(navigator,'languages',{get:()=>['en-US','en']});"
+                "Object.defineProperty(navigator,'plugins',{get:()=>[1,2,3,4,5]});"
             )
             page = ctx.new_page()
-            # 먼저 페이지 방문 -> Akamai 쿠키/JS 챌린지 해결
-            page.goto(PAGE_URL, wait_until="domcontentloaded", timeout=90000)
-            page.wait_for_timeout(2500)
+            page.goto(PAGE_URL, wait_until="networkidle", timeout=120000)
+            try:
+                page.wait_for_selector("table", timeout=40000)
+            except Exception:  # noqa: BLE001
+                pass
+            page.wait_for_timeout(2000)
 
-            if want == "html":
-                return page.content()
+            html = page.content()
+            print(f"[info] page title={page.title()!r} html_len={len(html)} "
+                  f"has_debit={'debit' in html.lower()}", file=sys.stderr)
 
-            # xlsx: 페이지 컨텍스트 안에서 fetch (실제 크롬 네트워크 + Akamai 쿠키 사용)
-            b64 = page.evaluate(
-                """async (url) => {
-                    const r = await fetch(url, { credentials: 'include' });
-                    if (!r.ok) throw new Error('HTTP ' + r.status);
-                    const bytes = new Uint8Array(await r.arrayBuffer());
-                    let bin = ''; const CH = 0x8000;
-                    for (let i = 0; i < bytes.length; i += CH) {
-                        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
-                    }
-                    return btoa(bin);
-                }""",
-                XLSX_URL,
-            )
-            import base64
-            return base64.b64decode(b64)
+            xlsx = None
+            try:
+                b64 = page.evaluate(
+                    """async (url) => {
+                        const r = await fetch(url, { credentials: 'include' });
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        const bytes = new Uint8Array(await r.arrayBuffer());
+                        let bin = ''; const CH = 0x8000;
+                        for (let i = 0; i < bytes.length; i += CH) {
+                            bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+                        }
+                        return btoa(bin);
+                    }""",
+                    XLSX_URL,
+                )
+                import base64
+                xlsx = base64.b64decode(b64)
+            except Exception as e:  # noqa: BLE001
+                print(f"[warn] in-page xlsx fetch 실패: {e}", file=sys.stderr)
+
+            return xlsx, html
         finally:
             browser.close()
 
 
 def fetch_latest() -> tuple[pd.DataFrame, str]:
     """(dataframe, source) 반환.
-    런너에선 브라우저 경로(Akamai 통과)를, 로컬 등에선 http 폴백을 사용.
-    순서: 브라우저-xlsx -> 브라우저-HTML -> http-xlsx -> http-HTML.
+    런너: 비헤드리스 브라우저(xlsx 우선, 실패 시 HTML). 로컬: http 폴백.
     """
-    # 1) 브라우저로 xlsx 다운로드 (1997~ 전체 히스토리)
     try:
-        return load_from_xlsx(_browser_fetch("xlsx")), "xlsx(browser)"
+        xlsx, html = _browser_scrape()
+        if xlsx:
+            try:
+                return load_from_xlsx(xlsx), "xlsx(browser)"
+            except Exception as e:  # noqa: BLE001
+                print(f"[warn] xlsx 파싱 실패: {e}", file=sys.stderr)
+        if html:
+            try:
+                return load_from_html(html), "html(browser)"
+            except Exception as e:  # noqa: BLE001
+                print(f"[warn] html 파싱 실패: {e}", file=sys.stderr)
     except Exception as e:  # noqa: BLE001
-        print(f"[warn] 브라우저 xlsx 실패: {e}", file=sys.stderr)
+        print(f"[warn] 브라우저 스크레이프 실패: {e}", file=sys.stderr)
 
-    # 2) 브라우저로 페이지 HTML 표 (최근 13개월)
-    try:
-        return load_from_html(_browser_fetch("html")), "html(browser)"
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] 브라우저 HTML 실패: {e}", file=sys.stderr)
-
-    # 3) http(curl_cffi/requests) 폴백 — Akamai 없는 로컬/사내망용
+    # http(curl_cffi/requests) 폴백 — Akamai 없는 로컬/사내망용
     try:
         return load_from_xlsx(_http_get(XLSX_URL, referer=PAGE_URL)), "xlsx(http)"
     except Exception as e:  # noqa: BLE001
