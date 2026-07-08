@@ -31,6 +31,7 @@ PAGE_URL = "https://www.finra.org/rules-guidance/key-topics/margin-accounts/marg
 
 # 리포 루트 기준 경로 (GitHub Actions 체크아웃 루트에서 실행)
 DATA_DIR = Path("data")
+LOCAL_XLSX = DATA_DIR / "finra_raw.xlsx"   # 사용자가 브라우저로 받아 커밋한 원본
 HISTORY_CSV = DATA_DIR / "finra_history.csv"
 BADGE_JSON = DATA_DIR / "finra_credit_balance.json"
 
@@ -419,7 +420,23 @@ def build_badge(hist: pd.DataFrame, source: str) -> dict:
 # --------------------------------------------------------------------------- #
 def main() -> int:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    new, source = fetch_latest()
+
+    # 1순위: 사용자가 브라우저로 받아 커밋한 원본 xlsx (Cloudflare 무관, 절대 안 깨짐)
+    if LOCAL_XLSX.exists():
+        new, source = load_from_xlsx(LOCAL_XLSX.read_bytes()), "xlsx(local)"
+    else:
+        # 폴백: 스크래핑(FINRA는 Cloudflare 뒤라 CI IP에선 대개 실패)
+        print("[warn] data/finra_raw.xlsx 없음 — 스크래핑 시도(Cloudflare로 실패 가능)",
+              file=sys.stderr)
+        try:
+            new, source = fetch_latest()
+        except Exception as e:  # noqa: BLE001
+            print(f"[error] 데이터 소스 없음: {e}", file=sys.stderr)
+            print("[hint] FINRA Margin Statistics 페이지에서 'Download the Data'로 "
+                  "xlsx를 받아 data/finra_raw.xlsx 로 커밋하세요. "
+                  "(사람 브라우저는 Cloudflare 통과, CI는 차단됨)", file=sys.stderr)
+            return 1
+
     if new.empty:
         print("[error] 신규 데이터가 비어 있음", file=sys.stderr)
         return 1
