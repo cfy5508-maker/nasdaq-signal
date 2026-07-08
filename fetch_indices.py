@@ -1,375 +1,177 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-FINRA Customer Margin Balance -> 투자자 현금여력(credit balance) 배지 생성기.
-
-매월 FINRA Margin Statistics를 받아
-  여유현금비율 = (Free Credit: Cash + Margin) / Debit(margin debt)
-를 계산하고, 2010-02 이후 히스토리 대비 백분위(percentile)를 산출해
-badge JSON을 씁니다.
-
-- 1차 소스: margin-statistics.xlsx (1997~ 전체 히스토리, 고정 URL)
-- 폴백    : 페이지 HTML 표 (최근 13개월) -> 캐시된 히스토리에 병합
-- 캐시    : data/finra_history.csv 에 월별 시계열을 누적 보관
-            (xlsx가 일시적으로 막혀도 백분위 계산이 유지됨)
-
-FINRA는 공식 API/피드가 없어 스크래핑이 유일한 경로입니다.
-포맷이 바뀌면 깨질 수 있어 방어적으로 파싱합니다.
+글로벌 주요 지수 수익률 표를 nasdaq_chart.html 안(차트 ③ 아래)에 주입.
+- 각 지수의 -12 / -6 / -3 / -1 개월 누적 수익률(%) 계산
+- nasdaq_chart.html 의 <!--GTABLE_START--> ~ <!--GTABLE_END--> 사이를 표로 교체
+- 나스닥 스텝이 먼저 돌아 /tmp/nasdaq_chart.html 을 만들었으면 그걸 입력으로 사용
+사용법:
+    python fetch_indices.py            # 실데이터(yfinance)
+    python fetch_indices.py --demo     # 네트워크 없이 샘플(이미지 수치)
 """
-from __future__ import annotations
-
-import io
-import json
-import sys
-import datetime as dt
-from pathlib import Path
-
+import os, sys, re
+from datetime import datetime, timezone, timedelta
 import pandas as pd
-import requests
 
-XLSX_URL = "https://www.finra.org/sites/default/files/2021-03/margin-statistics.xlsx"
-PAGE_URL = "https://www.finra.org/rules-guidance/key-topics/margin-accounts/margin-statistics"
+INDICES = [
+    # 왼쪽(반도체 무관) → 오른쪽(반도체 비중 높음) 순. 맨 오른쪽이 1위.
+    ("인니",    "^JKSE"),
+    ("태국",    "^SET.BK"),
+    ("호주",    "^AXJO"),
+    ("브라질",  "^BVSP"),
+    ("멕시코",  "^MXX"),
+    ("FTSE",    "^FTSE"),
+    ("인도",    "^BSESN"),
+    ("항셍",    "^HSI"),
+    ("상하이",  "000001.SS"),
+    ("다우",    "^DJI"),
+    ("DAX",     "^GDAXI"),     # 인피니온
+    ("CAC 40",  "^FCHI"),      # ST마이크로
+    ("닛케이",  "^N225"),      # 도쿄일렉트론·어드반테스트(장비)
+    ("S&P",     "^GSPC"),
+    ("유로",    "^STOXX50E"),  # ASML·인피니온
+    ("코스피",  "^KS11"),      # 삼성전자·SK하이닉스
+    ("나스닥",  "^IXIC"),      # 엔비디아·브로드컴 등
+    ("대만",    "^TWII"),      # TSMC (1위)
+]
 
-# 리포 루트 기준 경로 (GitHub Actions 체크아웃 루트에서 실행)
-DATA_DIR = Path("data")
-HISTORY_CSV = DATA_DIR / "finra_history.csv"
-BADGE_JSON = DATA_DIR / "finra_credit_balance.json"
+# 헤더 색 3단계 그룹 (반도체 비중)
+CORE = {"대만", "나스닥", "코스피", "유로", "S&P", "닛케이"}      # 핵심
+MID  = {"CAC 40", "DAX", "다우", "상하이", "항셍"}                # 중간
+# 그 외는 자동으로 '무관'
+PERIODS = [("-12개월", 12), ("-6개월", 6), ("-3개월", 3), ("-1개월", 1)]
+KST = timezone(timedelta(hours=9))
 
-# 전 회원사 일관 기준(Feb 2010~). 이 이전은 free credit 구조가 달라 백분위에서 제외.
-BASELINE_START = pd.Timestamp("2010-02-01")
-
-def _headers(referer=None):
-    h = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-        ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
-                  "image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-    }
-    if referer:
-        h["Referer"] = referer
-        h["Sec-Fetch-Site"] = "same-origin"
-    return h
-
-
-def _http_get(url, referer=None) -> bytes:
-    """FINRA는 Akamai 봇 매니저가 TLS 지문(JA3)으로 차단하므로,
-    curl_cffi로 실제 크롬 지문을 임퍼소네이트한다. 미설치/실패 시 requests 폴백.
-    """
-    import time
-    headers = _headers(referer)
-
-    # 1) curl_cffi (크롬 TLS/HTTP2 임퍼소네이트) — Akamai 403 우회
-    try:
-        from curl_cffi import requests as cffi
-        last = None
-        for attempt in range(3):
-            try:
-                r = cffi.get(url, headers=headers, impersonate="chrome", timeout=60)
-                if r.status_code == 200:
-                    return r.content
-                last = f"HTTP {r.status_code}"
-            except Exception as e:  # noqa: BLE001
-                last = repr(e)
-            time.sleep(2 * (attempt + 1))
-        raise RuntimeError(f"curl_cffi 3회 실패: {last}")
-    except ImportError:
-        print("[warn] curl_cffi 미설치 — requests로 폴백", file=sys.stderr)
-
-    # 2) plain requests 폴백 (Akamai 없는 로컬/사내망 등)
-    r = requests.get(url, headers=headers, timeout=60)
-    r.raise_for_status()
-    return r.content
-
-CANON = ["month", "debit", "fc_cash", "fc_margin"]
+# 차트 페이지 경로 (나스닥 스텝이 만든 /tmp 본을 우선 사용)
+CHART_REPO = "nasdaq_chart.html"
+CHART_TMP  = "/tmp/nasdaq_chart.html"
+START_MARK = "<!--GTABLE_START-->"
+END_MARK   = "<!--GTABLE_END-->"
 
 
-# --------------------------------------------------------------------------- #
-# 파싱 유틸
-# --------------------------------------------------------------------------- #
-def _norm(x) -> str:
-    return str(x).strip().lower().replace("\xa0", " ")
-
-
-def _to_num(x):
-    """'1,415,557' / 1415557 / '' -> float | None"""
-    if pd.isna(x):
+def trailing_return(close, months):
+    if close is None or len(close) == 0:
         return None
-    s = str(x).replace(",", "").replace("$", "").strip()
-    if s in ("", "-", "--", "n/a", "na"):
+    close = close.dropna()
+    if len(close) < 2:
         return None
-    try:
-        return float(s)
-    except ValueError:
-        return None
+    last = close.index[-1]
+    target = last - pd.DateOffset(months=months)
+    pos = close.index.get_indexer([target], method="nearest")[0]
+    past, now = float(close.iloc[pos]), float(close.iloc[-1])
+    return None if past == 0 else (now / past - 1.0) * 100.0
 
 
-_MONTH_FORMATS = ("%b-%y", "%b-%Y", "%B-%y", "%B-%Y",
-                  "%b %y", "%b %Y", "%B %y", "%B %Y",
-                  "%Y-%m", "%m/%Y", "%Y-%m-%d")
-
-
-def _to_month(x):
-    """'May-26' / 'May 2026' / '2026-05' / Timestamp -> month-start Timestamp | None.
-
-    FINRA는 'Mon-YY'(예: May-26)를 쓰는데 pandas 기본 파서는 '26'을 일(day)로
-    오인하므로 명시 포맷을 먼저 시도한다. %y는 26->2026, 97->1997로 매핑된다.
-    """
-    if pd.isna(x):
-        return None
-    if isinstance(x, (pd.Timestamp, dt.datetime, dt.date)):
-        return pd.Timestamp(x).normalize().replace(day=1)
-    s = str(x).strip()
-    if not s:
-        return None
-    for fmt in _MONTH_FORMATS:
-        ts = pd.to_datetime(s, format=fmt, errors="coerce")
-        if not pd.isna(ts):
-            return ts.normalize().replace(day=1)
-    ts = pd.to_datetime(s, errors="coerce")  # 최후의 일반 파서
-    return None if pd.isna(ts) else ts.normalize().replace(day=1)
-
-
-def _map_columns(cols) -> dict:
-    """헤더 문자열이 조금 달라져도 필요한 컬럼을 fuzzy 매칭."""
+def fetch_real():
+    import yfinance as yf
     out = {}
-    for c in cols:
-        n = _norm(c)
-        if "debit" in n:
-            out["debit"] = c
-        elif "free credit" in n and "cash" in n:
-            out["fc_cash"] = c
-        elif "free credit" in n and "margin" in n:
-            out["fc_margin"] = c
+    for name, ticker in INDICES:
+        try:
+            df = yf.download(ticker, period="400d", interval="1d",
+                             progress=False, auto_adjust=True)
+            if df is None or df.empty:
+                print(f"[WARN] no data: {name} ({ticker})", file=sys.stderr)
+                out[name] = {p: None for p, _ in PERIODS}; continue
+            close = df["Close"]
+            if isinstance(close, pd.DataFrame):
+                close = close.iloc[:, 0]
+            out[name] = {lab: trailing_return(close, m) for lab, m in PERIODS}
+        except Exception as e:
+            print(f"[ERROR] {name} ({ticker}): {e}", file=sys.stderr)
+            out[name] = {p: None for p, _ in PERIODS}
     return out
 
 
-def _normalize_table(df: pd.DataFrame) -> pd.DataFrame:
-    """임의 표 -> [month, debit, fc_cash, fc_margin] 정규화."""
-    df = df.copy()
-    df.columns = [str(c) for c in df.columns]
-    m = _map_columns(df.columns)
-    if not {"debit", "fc_cash", "fc_margin"} <= set(m):
-        raise ValueError(f"필요 컬럼 매칭 실패: found={list(m)} in {list(df.columns)}")
-
-    # 날짜 컬럼 = 매칭 안 된 컬럼 중 파싱 성공률이 가장 높은 것
-    used = set(m.values())
-    date_col, best = None, -1.0
-    for c in df.columns:
-        if c in used:
-            continue
-        ok = df[c].map(_to_month).notna().mean()
-        if ok > best:
-            date_col, best = c, ok
-    if date_col is None or best < 0.5:
-        raise ValueError("날짜 컬럼을 찾지 못함")
-
-    out = pd.DataFrame(
-        {
-            "month": df[date_col].map(_to_month),
-            "debit": df[m["debit"]].map(_to_num),
-            "fc_cash": df[m["fc_cash"]].map(_to_num),
-            "fc_margin": df[m["fc_margin"]].map(_to_num),
-        }
-    )
-    out = out.dropna(subset=CANON).reset_index(drop=True)
-    out["month"] = pd.to_datetime(out["month"])
-    return out
-
-
-def _find_table_in_sheet(raw: pd.DataFrame) -> pd.DataFrame:
-    """header=None으로 읽은 시트에서 'Debit' 헤더 행을 찾아 표로 복원."""
-    for i in range(min(25, len(raw))):
-        if any("debit" in _norm(v) for v in raw.iloc[i].tolist()):
-            body = raw.iloc[i + 1 :].copy()
-            body.columns = raw.iloc[i].tolist()
-            return body
-    raise ValueError("시트에서 'Debit' 헤더 행을 찾지 못함")
-
-
-# --------------------------------------------------------------------------- #
-# 소스 로더
-# --------------------------------------------------------------------------- #
-def load_from_xlsx(content: bytes) -> pd.DataFrame:
-    xls = pd.ExcelFile(io.BytesIO(content))
-    last_err = None
-    for sheet in xls.sheet_names:
-        try:
-            raw = pd.read_excel(xls, sheet_name=sheet, header=None)
-            return _normalize_table(_find_table_in_sheet(raw))
-        except Exception as e:  # noqa: BLE001
-            last_err = e
-    raise ValueError(f"xlsx 파싱 실패: {last_err}")
-
-
-def load_from_html(html: str) -> pd.DataFrame:
-    for tbl in pd.read_html(io.StringIO(html)):
-        try:
-            return _normalize_table(tbl)
-        except Exception:  # noqa: BLE001
-            continue
-    raise ValueError("HTML에서 유효한 마진 표를 찾지 못함")
-
-
-def _browser_fetch(want: str = "xlsx"):
-    """실제 헤드리스 크롬으로 접근 — Akamai 봇매니저를 정상 통과.
-    want='xlsx' -> 파일 bytes / want='html' -> 페이지 HTML.
-    playwright 미설치면 ImportError를 던져 상위에서 http 폴백으로 넘어간다.
-    """
-    from playwright.sync_api import sync_playwright
-
-    ua = _headers()["User-Agent"]
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
-        try:
-            ctx = browser.new_context(
-                accept_downloads=True, user_agent=ua, locale="en-US"
-            )
-            page = ctx.new_page()
-            # 먼저 페이지 방문 -> Akamai 쿠키/JS 챌린지 해결
-            page.goto(PAGE_URL, wait_until="domcontentloaded", timeout=90000)
-            page.wait_for_timeout(2500)
-
-            if want == "html":
-                return page.content()
-
-            # xlsx: 실제 브라우저 다운로드로 트리거(크롬 지문 + Akamai 쿠키 사용)
-            with page.expect_download(timeout=90000) as di:
-                page.evaluate(
-                    "url => { const a = document.createElement('a');"
-                    " a.href = url; a.download = ''; document.body.appendChild(a);"
-                    " a.click(); }",
-                    XLSX_URL,
-                )
-            with open(di.value.path(), "rb") as f:
-                return f.read()
-        finally:
-            browser.close()
-
-
-def fetch_latest() -> tuple[pd.DataFrame, str]:
-    """(dataframe, source) 반환.
-    런너에선 브라우저 경로(Akamai 통과)를, 로컬 등에선 http 폴백을 사용.
-    순서: 브라우저-xlsx -> 브라우저-HTML -> http-xlsx -> http-HTML.
-    """
-    # 1) 브라우저로 xlsx 다운로드 (1997~ 전체 히스토리)
-    try:
-        return load_from_xlsx(_browser_fetch("xlsx")), "xlsx(browser)"
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] 브라우저 xlsx 실패: {e}", file=sys.stderr)
-
-    # 2) 브라우저로 페이지 HTML 표 (최근 13개월)
-    try:
-        return load_from_html(_browser_fetch("html")), "html(browser)"
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] 브라우저 HTML 실패: {e}", file=sys.stderr)
-
-    # 3) http(curl_cffi/requests) 폴백 — Akamai 없는 로컬/사내망용
-    try:
-        return load_from_xlsx(_http_get(XLSX_URL, referer=PAGE_URL)), "xlsx(http)"
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] http xlsx 실패 -> HTML: {e}", file=sys.stderr)
-
-    return load_from_html(_http_get(PAGE_URL).decode("utf-8", "replace")), "html(http)"
-
-
-# --------------------------------------------------------------------------- #
-# 병합 / 계산
-# --------------------------------------------------------------------------- #
-def merge_history(new: pd.DataFrame) -> pd.DataFrame:
-    if HISTORY_CSV.exists():
-        old = pd.read_csv(HISTORY_CSV, parse_dates=["month"])
-        merged = pd.concat([old, new], ignore_index=True)
-    else:
-        merged = new
-    merged = (
-        merged.dropna(subset=CANON)
-        .drop_duplicates(subset=["month"], keep="last")
-        .sort_values("month")
-        .reset_index(drop=True)
-    )
-    return merged
-
-
-def _band(pct: float) -> tuple[str, str]:
-    if pct <= 5:
-        return "EXTREME_LOW", "#c0392b"   # 현금여력 고갈 = risk-on 과열(경고)
-    if pct <= 25:
-        return "LOW", "#e67e22"
-    if pct < 75:
-        return "NEUTRAL", "#7f8c8d"
-    if pct < 95:
-        return "HIGH", "#27ae60"          # dry powder 풍부(강세 연료)
-    return "EXTREME_HIGH", "#16a085"
-
-
-def build_badge(hist: pd.DataFrame, source: str) -> dict:
-    hist = hist.copy()
-    hist["free_credit"] = hist["fc_cash"] + hist["fc_margin"]
-    hist["ratio"] = hist["free_credit"] / hist["debit"]
-    hist["net_credit"] = hist["free_credit"] - hist["debit"]
-
-    base = hist[hist["month"] >= BASELINE_START].copy()
-    latest = hist.iloc[-1]
-    r = float(latest["ratio"])
-
-    # 백분위: 현재보다 낮은 비율의 비중(%). 낮을수록 현금여력 극단적으로 얇음.
-    pct = round(float((base["ratio"] < r).mean()) * 100, 1)
-    signal, color = _band(pct)
-
-    as_of = pd.Timestamp(latest["month"]).strftime("%Y-%m")
-    if pct <= 0:
-        label = f"현금여력 사상 최저 · {as_of}"
-    elif pct >= 100:
-        label = f"현금여력 사상 최고 · {as_of}"
-    elif pct <= 50:
-        label = f"현금여력 하위 {pct:.0f}% · {as_of}"
-    else:
-        label = f"현금여력 상위 {100 - pct:.0f}% · {as_of}"
-
-    return {
-        "as_of": as_of,
-        "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-        "source": source,
-        "margin_debt_musd": int(latest["debit"]),
-        "free_credit_total_musd": int(latest["free_credit"]),
-        "net_credit_balance_musd": int(latest["net_credit"]),
-        "cash_cover_ratio": round(r, 4),
-        "percentile": pct,
-        "percentile_basis": f"{BASELINE_START.strftime('%Y-%m')}~",
-        "signal": signal,
-        "color": color,
-        "label": label,
+def fetch_demo():
+    raw = {
+        "코스피":(201.6,122.0,57.7,16.1),"닛케이":(88.4,43.6,35.6,14.2),
+        "대만":(116.6,69.6,42.3,12.9),"유로":(20.6,9.9,14.7,4.8),
+        "CAC 40":(10.7,3.4,9.6,3.5),"태국":(47.4,24.0,9.8,2.3),
+        "다우":(22.5,6.9,13.5,2.2),"호주":(3.7,1.3,4.6,1.8),
+        "상하이":(23.9,6.3,5.2,1.2),"DAX":(7.7,3.5,12.3,1.0),
+        "인도":(-4.0,-7.9,4.3,1.6),"S&P":(25.2,8.6,14.9,-0.0),
+        "FTSE":(19.0,5.8,5.2,-0.3),"나스닥":(34.6,11.7,20.9,-0.7),
+        "베트남":(None,None,None,None),"멕시코":(19.3,3.6,4.7,-1.8),
+        "브라질":(24.3,7.7,-3.3,-3.3),"항셍":(1.7,-7.3,-5.4,-6.6),
+        "RTS":(None,None,None,None),"인니":(-11.4,-29.3,-13.9,-0.7),
     }
+    return {n:{lab:v[i] for i,(lab,_) in enumerate(PERIODS)} for n,v in raw.items()}
 
 
-# --------------------------------------------------------------------------- #
-def main() -> int:
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    new, source = fetch_latest()
-    if new.empty:
-        print("[error] 신규 데이터가 비어 있음", file=sys.stderr)
-        return 1
+def cell(v):
+    if v is None:
+        return '<td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;color:#52525b;">N/A</td>'
+    r = round(v, 1)
+    base = ("padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;"
+            "border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;")
+    if r == 0:
+        return f'<td style="{base}color:#9ca3af;">0.0</td>'
+    if r > 0:
+        return f'<td style="{base}color:#34d399;">+{r:.1f}</td>'
+    return (f'<td style="{base}color:#fb7185;background:rgba(244,63,94,0.10);'
+            f'font-weight:600;">{r:.1f}</td>')
 
-    hist = merge_history(new)
-    hist.to_csv(HISTORY_CSV, index=False)
 
-    badge = build_badge(hist, source)
-    BADGE_JSON.write_text(json.dumps(badge, ensure_ascii=False, indent=2), encoding="utf-8")
+def header_style(name):
+    if name in CORE:   # 핵심: 진한 초록
+        return "background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;"
+    if name in MID:    # 중간: 슬레이트 청록
+        return "background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;"
+    # 무관: 차분한 회색
+    return "background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;"
 
-    print(f"[ok] source={source} rows={len(hist)} "
-          f"as_of={badge['as_of']} ratio={badge['cash_cover_ratio']} "
-          f"pct={badge['percentile']} signal={badge['signal']}")
-    print(json.dumps(badge, ensure_ascii=False, indent=2))
-    return 0
+
+def render_fragment(results, asof):
+    names = [n for n, _ in INDICES]
+    thbase = "padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;"
+    corner = thbase + "background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;"
+    head = "".join(f'<th style="{thbase}{header_style(n)}">{n}</th>' for n in names)
+    rows = ""
+    for lab, _ in PERIODS:
+        cells = "".join(cell(results.get(n, {}).get(lab)) for n in names)
+        rows += (f'<tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;'
+                 f'background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;'
+                 f'white-space:nowrap;font-weight:700;">{lab}</th>{cells}</tr>')
+    legend = (
+        '<div style="margin-top:8px;font-size:10px;color:#8b8b9a;display:flex;gap:14px;flex-wrap:wrap;align-items:center;">'
+        '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f4d3a;vertical-align:middle;margin-right:4px;"></span>핵심 (반도체 비중 높음)</span>'
+        '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f3a4d;vertical-align:middle;margin-right:4px;"></span>중간</span>'
+        '<span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#26262e;border:1px solid #3a3a45;vertical-align:middle;margin-right:4px;"></span>무관</span>'
+        '</div>'
+    )
+    return (
+        START_MARK +
+        '<div style="overflow-x:auto;">'
+        '<table style="border-collapse:collapse;width:100%;min-width:980px;font-size:12px;color:#e2e2e8;">'
+        f'<thead><tr><th style="{corner}">기간</th>{head}</tr></thead>'
+        f'<tbody>{rows}</tbody></table></div>'
+        + legend +
+        f'<div style="margin-top:4px;font-size:10px;color:#52525b;text-align:right;">'
+        f'자료: Yahoo Finance · 기준 {asof} (KST)</div>' +
+        END_MARK
+    )
+
+
+def main():
+    demo = "--demo" in sys.argv
+    results = fetch_demo() if demo else fetch_real()
+    asof = datetime.now(KST).strftime("%Y-%m-%d")
+    fragment = render_fragment(results, asof)
+
+    src = CHART_TMP if os.path.exists(CHART_TMP) else CHART_REPO
+    with open(src, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    pat = re.compile(re.escape(START_MARK) + ".*?" + re.escape(END_MARK), re.DOTALL)
+    if not pat.search(html):
+        print("[ERROR] 차트 페이지에서 표 자리(GTABLE 마커)를 못 찾음", file=sys.stderr)
+        sys.exit(1)
+    html = pat.sub(lambda _: fragment, html)
+
+    with open(CHART_TMP, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"글로벌 지수 표 주입 완료 ({'demo' if demo else 'live'}) · 입력={src} · 기준 {asof}")
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
