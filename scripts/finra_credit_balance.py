@@ -37,13 +37,56 @@ BADGE_JSON = DATA_DIR / "finra_credit_balance.json"
 # 전 회원사 일관 기준(Feb 2010~). 이 이전은 free credit 구조가 달라 백분위에서 제외.
 BASELINE_START = pd.Timestamp("2010-02-01")
 
-UA = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-    ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-}
+def _headers(referer=None):
+    h = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                  "image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+    }
+    if referer:
+        h["Referer"] = referer
+        h["Sec-Fetch-Site"] = "same-origin"
+    return h
+
+
+def _http_get(url, referer=None) -> bytes:
+    """FINRA는 Akamai 봇 매니저가 TLS 지문(JA3)으로 차단하므로,
+    curl_cffi로 실제 크롬 지문을 임퍼소네이트한다. 미설치/실패 시 requests 폴백.
+    """
+    import time
+    headers = _headers(referer)
+
+    # 1) curl_cffi (크롬 TLS/HTTP2 임퍼소네이트) — Akamai 403 우회
+    try:
+        from curl_cffi import requests as cffi
+        last = None
+        for attempt in range(3):
+            try:
+                r = cffi.get(url, headers=headers, impersonate="chrome", timeout=60)
+                if r.status_code == 200:
+                    return r.content
+                last = f"HTTP {r.status_code}"
+            except Exception as e:  # noqa: BLE001
+                last = repr(e)
+            time.sleep(2 * (attempt + 1))
+        raise RuntimeError(f"curl_cffi 3회 실패: {last}")
+    except ImportError:
+        print("[warn] curl_cffi 미설치 — requests로 폴백", file=sys.stderr)
+
+    # 2) plain requests 폴백 (Akamai 없는 로컬/사내망 등)
+    r = requests.get(url, headers=headers, timeout=60)
+    r.raise_for_status()
+    return r.content
 
 CANON = ["month", "debit", "fc_cash", "fc_margin"]
 
@@ -175,18 +218,66 @@ def load_from_html(html: str) -> pd.DataFrame:
     raise ValueError("HTML에서 유효한 마진 표를 찾지 못함")
 
 
-def fetch_latest() -> tuple[pd.DataFrame, str]:
-    """(dataframe, source) 반환. xlsx 우선, 실패 시 HTML 폴백."""
-    try:
-        r = requests.get(XLSX_URL, headers=UA, timeout=60)
-        r.raise_for_status()
-        return load_from_xlsx(r.content), "xlsx"
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] xlsx 경로 실패 -> HTML 폴백: {e}", file=sys.stderr)
+def _browser_fetch(want: str = "xlsx"):
+    """실제 헤드리스 크롬으로 접근 — Akamai 봇매니저를 정상 통과.
+    want='xlsx' -> 파일 bytes / want='html' -> 페이지 HTML.
+    playwright 미설치면 ImportError를 던져 상위에서 http 폴백으로 넘어간다.
+    """
+    from playwright.sync_api import sync_playwright
 
-    r = requests.get(PAGE_URL, headers=UA, timeout=60)
-    r.raise_for_status()
-    return load_from_html(r.text), "html"
+    ua = _headers()["User-Agent"]
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
+        try:
+            ctx = browser.new_context(
+                accept_downloads=True, user_agent=ua, locale="en-US"
+            )
+            page = ctx.new_page()
+            # 먼저 페이지 방문 -> Akamai 쿠키/JS 챌린지 해결
+            page.goto(PAGE_URL, wait_until="domcontentloaded", timeout=90000)
+            page.wait_for_timeout(2500)
+
+            if want == "html":
+                return page.content()
+
+            # xlsx: 실제 브라우저 다운로드로 트리거(크롬 지문 + Akamai 쿠키 사용)
+            with page.expect_download(timeout=90000) as di:
+                page.evaluate(
+                    "url => { const a = document.createElement('a');"
+                    " a.href = url; a.download = ''; document.body.appendChild(a);"
+                    " a.click(); }",
+                    XLSX_URL,
+                )
+            with open(di.value.path(), "rb") as f:
+                return f.read()
+        finally:
+            browser.close()
+
+
+def fetch_latest() -> tuple[pd.DataFrame, str]:
+    """(dataframe, source) 반환.
+    런너에선 브라우저 경로(Akamai 통과)를, 로컬 등에선 http 폴백을 사용.
+    순서: 브라우저-xlsx -> 브라우저-HTML -> http-xlsx -> http-HTML.
+    """
+    # 1) 브라우저로 xlsx 다운로드 (1997~ 전체 히스토리)
+    try:
+        return load_from_xlsx(_browser_fetch("xlsx")), "xlsx(browser)"
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] 브라우저 xlsx 실패: {e}", file=sys.stderr)
+
+    # 2) 브라우저로 페이지 HTML 표 (최근 13개월)
+    try:
+        return load_from_html(_browser_fetch("html")), "html(browser)"
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] 브라우저 HTML 실패: {e}", file=sys.stderr)
+
+    # 3) http(curl_cffi/requests) 폴백 — Akamai 없는 로컬/사내망용
+    try:
+        return load_from_xlsx(_http_get(XLSX_URL, referer=PAGE_URL)), "xlsx(http)"
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] http xlsx 실패 -> HTML: {e}", file=sys.stderr)
+
+    return load_from_html(_http_get(PAGE_URL).decode("utf-8", "replace")), "html(http)"
 
 
 # --------------------------------------------------------------------------- #
