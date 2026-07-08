@@ -210,9 +210,42 @@ def load_from_xlsx(content: bytes) -> pd.DataFrame:
 
 
 def load_from_html(html: str) -> pd.DataFrame:
-    for tbl in pd.read_html(io.StringIO(html)):
+    # 1) BeautifulSoup 직접 파싱 (pandas read_html flavor 의존성 제거)
+    try:
+        from bs4 import BeautifulSoup
+
+        soup = BeautifulSoup(html, "lxml")
+        for table in soup.find_all("table"):
+            probe = " ".join(
+                c.get_text(" ", strip=True).lower()
+                for c in table.find_all(["th", "td"])[:12]
+            )
+            if "debit" not in probe:
+                continue
+            rows = []
+            for tr in table.find_all("tr"):
+                cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
+                if cells:
+                    rows.append(cells)
+            if len(rows) >= 2:
+                width = max(len(r) for r in rows)
+                rows = [r + [""] * (width - len(r)) for r in rows]
+                df = pd.DataFrame(rows[1:], columns=rows[0])
+                try:
+                    return _normalize_table(df)
+                except Exception:  # noqa: BLE001
+                    continue
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] bs4 파싱 실패: {e}", file=sys.stderr)
+
+    # 2) pandas read_html 폴백 (flavor 순차 시도)
+    for flavor in ("lxml", "bs4"):
         try:
-            return _normalize_table(tbl)
+            for tbl in pd.read_html(io.StringIO(html), flavor=flavor):
+                try:
+                    return _normalize_table(tbl)
+                except Exception:  # noqa: BLE001
+                    continue
         except Exception:  # noqa: BLE001
             continue
     raise ValueError("HTML에서 유효한 마진 표를 찾지 못함")
@@ -240,16 +273,22 @@ def _browser_fetch(want: str = "xlsx"):
             if want == "html":
                 return page.content()
 
-            # xlsx: 실제 브라우저 다운로드로 트리거(크롬 지문 + Akamai 쿠키 사용)
-            with page.expect_download(timeout=90000) as di:
-                page.evaluate(
-                    "url => { const a = document.createElement('a');"
-                    " a.href = url; a.download = ''; document.body.appendChild(a);"
-                    " a.click(); }",
-                    XLSX_URL,
-                )
-            with open(di.value.path(), "rb") as f:
-                return f.read()
+            # xlsx: 페이지 컨텍스트 안에서 fetch (실제 크롬 네트워크 + Akamai 쿠키 사용)
+            b64 = page.evaluate(
+                """async (url) => {
+                    const r = await fetch(url, { credentials: 'include' });
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    const bytes = new Uint8Array(await r.arrayBuffer());
+                    let bin = ''; const CH = 0x8000;
+                    for (let i = 0; i < bytes.length; i += CH) {
+                        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+                    }
+                    return btoa(bin);
+                }""",
+                XLSX_URL,
+            )
+            import base64
+            return base64.b64decode(b64)
         finally:
             browser.close()
 
