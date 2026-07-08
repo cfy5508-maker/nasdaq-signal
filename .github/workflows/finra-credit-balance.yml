@@ -1,0 +1,42 @@
+name: FINRA 현금여력 배지 갱신
+
+on:
+  schedule:
+    # FINRA는 기준월 다음 달 '셋째 주'에 갱신 → 18~26일 매일 1회 시도(변경 시에만 커밋)
+    - cron: '0 13 18-26 * *'
+  workflow_dispatch: {}          # 수동 실행/백필용
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finra-credit-balance
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: pip install --quiet pandas openpyxl requests lxml
+
+      - name: Build badge
+        run: python scripts/finra_credit_balance.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/finra_credit_balance.json data/finra_history.csv
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 생략"
+          else
+            git commit -m "chore: FINRA 현금여력 배지 갱신 ($(date -u +%F))"
+            git push
+          fi
