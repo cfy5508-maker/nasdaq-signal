@@ -1,10 +1,11 @@
 name: FINRA 현금여력 배지 갱신
 
 on:
+  push:
+    paths: ['data/finra_raw.xlsx']   # 원본 xlsx 갱신 시 자동 재계산
+  workflow_dispatch: {}
   schedule:
-    # FINRA는 기준월 다음 달 '셋째 주'에 갱신 → 19~25일 매일 1회 시도(변경 시에만 커밋)
-    - cron: '0 13 19-25 * *'
-  workflow_dispatch: {}          # 수동 실행/백필용
+    - cron: '0 13 19-25 * *'          # 혹시 몰라 월간에도 1회
 
 permissions:
   contents: write
@@ -23,22 +24,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install python deps
-        run: pip install --quiet pandas openpyxl lxml html5lib beautifulsoup4 requests curl_cffi playwright
-
-      - name: Cache Playwright browser
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}
-
-      - name: Install Chromium + xvfb
-        run: |
-          python -m playwright install --with-deps chromium
-          sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Install deps
+        run: pip install --quiet pandas openpyxl
 
       - name: Build badge
-        run: xvfb-run -a python scripts/finra_credit_balance.py
+        run: python scripts/finra_credit_balance.py
 
       - name: Commit if changed
         run: |
