@@ -32,11 +32,13 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}
 
-      - name: Install Chromium
-        run: python -m playwright install --with-deps chromium
+      - name: Install Chromium + xvfb
+        run: |
+          python -m playwright install --with-deps chromium
+          sudo apt-get update && sudo apt-get install -y xvfb
 
       - name: Build badge
-        run: python scripts/finra_credit_balance.py
+        run: xvfb-run -a python scripts/finra_credit_balance.py
 
       - name: Commit if changed
         run: |
