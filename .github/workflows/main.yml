@@ -171,12 +171,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # reset 전 data 폴더 전체 백업
+          cp -r data /tmp/databak 2>/dev/null || true
           # 원격 최신 상태로 완전 동기화
           git fetch origin main
           git reset --hard origin/main
-          # /tmp에서 수정된 파일만 복사 (해당 잡이 돌았을 때만 존재)
+          # /tmp에서 수정된 파일 복원
           if [ -f /tmp/nasdaq_data.js ]; then cp /tmp/nasdaq_data.js nasdaq_data.js; fi
           if [ -f /tmp/nasdaq_chart.html ]; then cp /tmp/nasdaq_chart.html nasdaq_chart.html; fi
+          # data 폴더 파일들 복원 (capex, FINRA 등)
+          if [ -d /tmp/databak ]; then mkdir -p data && cp -r /tmp/databak/* data/ 2>/dev/null || true; fi
           git add -A
           git diff --staged --quiet || git commit -m "Auto update: $(date +'%Y-%m-%d')"
           git push origin main
