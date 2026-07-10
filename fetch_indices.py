@@ -69,6 +69,10 @@ def fetch_real():
             close = df["Close"]
             if isinstance(close, pd.DataFrame):
                 close = close.iloc[:, 0]
+                # ↓ 디버그: 마지막 5거래일 날짜·종가 출력
+            print(f"[DEBUG] {name}: " + " | ".join(
+                f"{str(d)[:10]}={float(v):.1f}" for d,v in list(close.dropna().items())[-5:]),
+                file=sys.stderr)
             out[name] = {lab: trailing_return(close, m) for lab, m in PERIODS}
         except Exception as e:
             print(f"[ERROR] {name} ({ticker}): {e}", file=sys.stderr)
