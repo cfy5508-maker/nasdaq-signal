@@ -464,16 +464,18 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
   // 매크로 종합 배지 (요약 + 호버 체크리스트)
   var macroEl=document.getElementById('macroBadge');
   var macroLevel='주의', macroCol='#f59e0b';
-  var isDanger = (sig==='매도'||sig==='이격극단') || vixZone==='공포' || vixZone==='극공포';
-  var isGood   = (sig==='강한매수'||sig==='매수') && vixZone==='안정';
+  var isDanger = (sig==='매도'||sig==='이격극단') || vixZone==='공포' || vixZone==='극공포' || pos>=90;
+  var isWarn   = pos>=75 && pos<90;
+  var isGood   = (sig==='강한매수'||sig==='매수') && vixZone==='안정' && pos<75;
   if(isDanger){ macroLevel='위험'; macroCol='#f43f5e'; }
+  else if(isWarn){ macroLevel='주의'; macroCol='#f59e0b'; }
   else if(isGood){ macroLevel='양호'; macroCol='#10b981'; }
 
   var checks=[
     {label:'HY/이격 신호', ok:(sig!=='매도'&&sig!=='경고'&&sig!=='이격극단'), val:sig},
     {label:'VIX', ok:(vixZone==='안정'), val:vixNow.toFixed(1)+' · '+vixZone},
     {label:'RSI 다이버전스', ok:(divResult.type!=='베어리시↓'), val:divResult.type},
-    {label:'52주 밴드 위치', ok:null, val:Math.round(pos)+'%'}
+    {label:'52주 밴드 위치', ok:(pos<75), val:Math.round(pos)+'%'}
   ];
   var tooltipRows=checks.map(function(c){
     var mark = c.ok===null ? '<span style="color:#6b6b7a">-</span>'
