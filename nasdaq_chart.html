@@ -575,15 +575,11 @@ function initChart(){
         xsell_pts.forEach(function(idx){
           if(idx>=N)return;
           var pt=meta.data[idx];if(!pt)return;
-          var x=pt.x,y=pt.y,s=SZ+2;
-          ctx.save();
-          ctx.beginPath();ctx.arc(x,y,s+3,0,Math.PI*2);
-          ctx.strokeStyle='#dc2626';ctx.lineWidth=2.5;ctx.stroke();
-          ctx.beginPath();
+          var x=pt.x,y=pt.y,s=SZ;
+          ctx.save();ctx.beginPath();
           ctx.moveTo(x-s,y-s);ctx.lineTo(x+s,y-s);ctx.lineTo(x,y+s);
-          ctx.closePath();ctx.fillStyle='#dc2626';ctx.strokeStyle='#7f1d1d';ctx.lineWidth=1.5;
-          ctx.fill();ctx.stroke();
-          ctx.restore();
+          ctx.closePath();ctx.fillStyle=C.sell;ctx.strokeStyle=C.selld;ctx.lineWidth=1.5;
+          ctx.fill();ctx.stroke();ctx.restore();
         });
       }},
       {id:'ann',afterDraw:function(c){
@@ -592,8 +588,7 @@ function initChart(){
          {arr:buy_pts, t:'매수',    col:C.buy, dy:-24,show:sigState.buy},
          {arr:watch_pts,t:'관망',   col:C.wb,  dy:-22,show:sigState.wb},
          {arr:warn_pts, t:'경고',   col:C.warn,dy:24, show:sigState.warn},
-         {arr:sell_pts, t:'매도',   col:C.sell,dy:26, show:sigState.sell},
-         {arr:xsell_pts,t:'이격극단',col:'#dc2626',dy:42,show:sigState.xsell}
+         {arr:sell_pts, t:'매도',   col:C.sell,dy:26, show:sigState.sell}
         ].forEach(function(sm){
           if(!sm.show)return;
           sm.arr.forEach(function(i){
