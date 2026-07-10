@@ -242,6 +242,16 @@ h1{font-size:16px;font-weight:600;color:#f0f0f4;margin-bottom:2px;}
 .badge-label{font-size:9px;font-weight:700;margin-bottom:2px;letter-spacing:0.5px;}
 .badge-value{font-size:16px;font-weight:800;line-height:1.2;}
 .badge-sub{font-size:9px;margin-top:2px;opacity:.7;}
+  #macroBadge{position:relative;cursor:help;}
+.macro-tooltip{
+  position:absolute;top:110%;right:0;min-width:230px;
+  background:#1a1a22;border:1px solid #3a3a4a;border-radius:8px;
+  padding:10px 12px;font-size:11px;line-height:1.7;
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .15s,transform .15s;z-index:50;pointer-events:none;
+}
+#macroBadge:hover .macro-tooltip{opacity:1;visibility:visible;transform:translateY(0);}
+.macro-check{display:flex;justify-content:space-between;gap:14px;white-space:nowrap;}
 .stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:14px;}
 .stat{border-radius:10px;padding:10px 12px;border:1px solid;}
 .sl{font-size:10px;margin-bottom:2px;font-weight:700;}
@@ -438,7 +448,7 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
   document.getElementById('verLabel').textContent='전체 v2 · 18~'+labels[NOW];
 
 
-  // VIX 배지
+ // VIX 계산 (매크로 배지가 사용)
   var vixNow=typeof vix_recent!=='undefined'?vix_recent:
     (vix_monthly.length>0?vix_monthly[vix_monthly.length-1]:20);
   var vixCol,vixZone;
@@ -451,25 +461,39 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
     return r+','+gg+','+b;
   }
 
-  // 매크로 종합 배지 (기존 sig/vixZone/divResult 재사용, 신규 fetch 없음)
+  // 매크로 종합 배지 (요약 + 호버 체크리스트)
   var macroEl=document.getElementById('macroBadge');
   var macroLevel='주의', macroCol='#f59e0b';
   var isDanger = (sig==='매도'||sig==='이격극단') || vixZone==='공포' || vixZone==='극공포';
   var isGood   = (sig==='강한매수'||sig==='매수') && vixZone==='안정';
   if(isDanger){ macroLevel='위험'; macroCol='#f43f5e'; }
   else if(isGood){ macroLevel='양호'; macroCol='#10b981'; }
+
+  var checks=[
+    {label:'HY/이격 신호', ok:(sig!=='매도'&&sig!=='경고'&&sig!=='이격극단'), val:sig},
+    {label:'VIX', ok:(vixZone==='안정'), val:vixNow.toFixed(1)+' · '+vixZone},
+    {label:'RSI 다이버전스', ok:(divResult.type!=='베어리시↓'), val:divResult.type},
+    {label:'52주 밴드 위치', ok:null, val:Math.round(pos)+'%'}
+  ];
+  var tooltipRows=checks.map(function(c){
+    var mark = c.ok===null ? '<span style="color:#6b6b7a">-</span>'
+             : c.ok ? '<span style="color:#10b981">✓</span>'
+             : '<span style="color:#f43f5e">✗</span>';
+    return '<div class="macro-check"><span>'+mark+' '+c.label+'</span><span style="color:#9999aa">'+c.val+'</span></div>';
+  }).join('');
+
   macroEl.style.background='rgba('+hexToRgb3(macroCol)+',0.12)';
   macroEl.style.borderColor='rgba('+hexToRgb3(macroCol)+',0.45)';
   macroEl.innerHTML='<div class="badge-label" style="color:'+macroCol+'">매크로 · '+labels[NOW]+'</div>'
     +'<div class="badge-value" style="color:'+macroCol+'">'+macroLevel+'</div>'
-    +'<div class="badge-sub" style="color:'+macroCol+'">신호 '+sig+' · VIX '+vixZone+' · '+divResult.type+'</div>';
+    +'<div class="badge-sub" style="color:'+macroCol+'">호버하여 세부 확인</div>'
+    +'<div class="macro-tooltip">'+tooltipRows+'</div>';
 
   function hexToRgb(hex){
     var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
     return r+','+g+','+b;
   }
 })();
-
 var sigState={sbuy:true,buy:true,wb:true,warn:true,sell:true,xsell:true,now:true};
 var C={sbuy:'#a855f7',sbuyd:'#581c87',buy:'#10b981',buyd:'#064e3b',
        wb:'#f59e0b',wbd:'#78350f',warn:'#f43f5e',warnd:'#881337',
