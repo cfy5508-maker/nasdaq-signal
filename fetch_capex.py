@@ -113,9 +113,20 @@ def main():
 
     # 4사 모두 값이 있는 분기만 (합산 비교 공정성)
     full = sorted([q for q, m in bucket.items() if len(m) == len(CIKS)])
-    if len(full) < 2:
-        print(f"[ERROR] 4사 공통 분기가 2개 미만 (found={full})", file=sys.stderr)
-        # 부분 데이터라도 기록
+    sums = {q: sum(bucket[q].values()) for q in full}
+
+    def yoy(q):
+        """q(YYYY-Qn)의 전년동기 대비 증가율(%). 전년 동분기 없으면 None."""
+        y, qn = q.split("-")
+        prev_year_q = f"{int(y)-1}-{qn}"
+        if prev_year_q in sums and sums[prev_year_q]:
+            return (sums[q] / sums[prev_year_q] - 1.0) * 100.0
+        return None
+
+    # YoY가 계산되는 분기들 (최근순)
+    yoy_quarters = [q for q in full if yoy(q) is not None]
+    if len(yoy_quarters) < 1:
+        print(f"[ERROR] YoY 계산 가능한 분기 없음 (full={full})", file=sys.stderr)
         result = {
             "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
             "status": "insufficient",
@@ -125,38 +136,44 @@ def main():
         OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         return 1
 
-    prev_q, last_q = full[-2], full[-1]
-    prev_sum = sum(bucket[prev_q].values())
-    last_sum = sum(bucket[last_q].values())
-    qoq = (last_sum / prev_sum - 1.0) * 100.0 if prev_sum else None
+    last_q = yoy_quarters[-1]
+    last_yoy = yoy(last_q)
+    # 직전 분기(가능하면)의 YoY → 가속/둔화 판정용
+    prev_q = yoy_quarters[-2] if len(yoy_quarters) >= 2 else None
+    prev_yoy = yoy(prev_q) if prev_q else None
+    accel = (last_yoy - prev_yoy) if (prev_yoy is not None) else None  # YoY의 변화(2차)
 
-    # 색: 가속(+)이면 붉은 계열(과열 배경), 둔화(-)면 초록(회수 우려 완화)
-    if qoq is None:
-        color = "#7f8c8d"
-    elif qoq >= 10:
-        color = "#c0392b"      # capex 급가속
-    elif qoq >= 0:
-        color = "#e67e22"      # 완만한 증가
+    # 국면 판정: capex 증가율(YoY)이 가속이냐 둔화냐
+    if accel is None:
+        phase, color = "기준", "#7f8c8d"
+    elif accel >= 3:
+        phase, color = "가속", "#c0392b"     # 붐 심화(과열 배경 강화)
+    elif accel > -3:
+        phase, color = "유지", "#e67e22"     # 증가율 횡보
+    elif last_yoy > 0:
+        phase, color = "둔화", "#f1c40f"     # 증가율 꺾임 ← 버블 후기 경고
     else:
-        color = "#27ae60"      # 감소(둔화)
+        phase, color = "감소", "#27ae60"     # capex 자체 역성장
 
     result = {
         "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "status": "ok",
-        "prev_quarter": prev_q,
         "last_quarter": last_q,
-        "prev_sum_usd_b": round(prev_sum / 1e9, 1),
-        "last_sum_usd_b": round(last_sum / 1e9, 1),
-        "qoq_pct": round(qoq, 1) if qoq is not None else None,
+        "last_sum_usd_b": round(sums[last_q] / 1e9, 1),
+        "yoy_pct": round(last_yoy, 1),
+        "prev_quarter": prev_q,
+        "prev_yoy_pct": round(prev_yoy, 1) if prev_yoy is not None else None,
+        "yoy_change_pp": round(accel, 1) if accel is not None else None,  # 증가율 변화(%p)
+        "phase": phase,                # 가속 / 유지 / 둔화 / 감소
         "color": color,
         "per_company_last": {n: round(bucket[last_q].get(n, 0)/1e9, 1) for n in CIKS},
         "per_company_tags": {n: per_company[n]["tag"] for n in CIKS},
-        "label": (f"빅테크 capex {last_q} ${last_sum/1e9:.0f}B · "
-                  f"QoQ {'+' if qoq>=0 else ''}{qoq:.1f}%") if qoq is not None else "capex N/A",
+        "label": (f"빅테크 capex {last_q} ${sums[last_q]/1e9:.0f}B · "
+                  f"YoY {'+' if last_yoy>=0 else ''}{last_yoy:.0f}% ({phase})"),
     }
     OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"[ok] {prev_q} ${prev_sum/1e9:.1f}B → {last_q} ${last_sum/1e9:.1f}B "
-          f"= QoQ {qoq:+.1f}%")
+    acc_txt = f" | 직전 YoY {prev_yoy:+.1f}% → {accel:+.1f}%p {phase}" if accel is not None else ""
+    print(f"[ok] {last_q} ${sums[last_q]/1e9:.1f}B · YoY {last_yoy:+.1f}%{acc_txt}")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
