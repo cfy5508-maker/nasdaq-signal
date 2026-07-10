@@ -763,6 +763,7 @@ window.chartGap=new Chart(document.getElementById('cGap'),{
         +'<div class="badge-sub" style="color:'+col+'">'+pctTxt
           +(needUpdate?' · <span style="color:#fbbf24;font-weight:800;">⚠ 갱신 필요</span>':'')
           +'</div>';
+      el.style.display='flex';
     })
     .catch(function(e){console.error('credit badge',e);});
 })();
@@ -785,6 +786,8 @@ window.chartGap=new Chart(document.getElementById('cGap'),{
         +'<div class="badge-value" style="color:'+col+'">YoY '+(d.yoy_pct>=0?'+':'')+Math.round(d.yoy_pct)+'%</div>'
         +'<div class="badge-sub" style="color:'+col+'">'+d.last_quarter+' $'+Math.round(d.last_sum_usd_b)+'B · '
           +arrow+' '+(d.yoy_change_pp>=0?'+':'')+d.yoy_change_pp+'%p</div>';
+      el.style.display='flex';
+      
     })
     .catch(function(e){console.error('capex badge',e);});
 })();
