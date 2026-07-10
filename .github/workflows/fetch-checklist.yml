@@ -1,0 +1,38 @@
+name: Fetch checklist indicators
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: "분석할 티커 (예: GILD)"
+        required: true
+  schedule:
+    - cron: "35 21 * * 1-5"  # 매 평일 KST 06:35, 기존 대시보드와 동일 시간대
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Fetch macro
+        run: python fetch_indicators.py --macro
+
+      - name: Fetch ticker (manual run)
+        if: github.event_name == 'workflow_dispatch'
+        run: python fetch_indicators.py "${{ github.event.inputs.ticker }}"
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "update checklist data"
+          git push
