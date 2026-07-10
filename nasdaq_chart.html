@@ -210,6 +210,16 @@ function detectRSIDiv(idx){
   }
   window.SIGNALS={sbuy:sbuy,buy:buy,watch:watch,warn:warn,sell:sell};
 })();
+  // ── 이격 극단 고평가 별도 매도 경보 (이격 ≤ -30%, HY 무관 · 닷컴형 버블) ──
+(function(){
+  var xsell=[],wasX=false;
+  for(var i=1;i<N;i++){
+    var isX=gap[i]<=-30;
+    if(isX&&!wasX)xsell.push(i);
+    wasX=isX;
+  }
+  window.SIGNALS.xsell=xsell;
+})();
 
 // ── 배경색 ───────────────────────────────────────
 var bgColors=labels.map(function(_,i){
@@ -334,6 +344,7 @@ var buy_pts=SIGNALS.buy;
 var watch_pts=SIGNALS.watch;
 var warn_pts=SIGNALS.warn;
 var sell_pts=SIGNALS.sell;
+var xsell_pts=SIGNALS.xsell||[];
 
 // ── RSI(14) 계산 ──────────────────────────────────
 function calcRSI(prices, period) {
