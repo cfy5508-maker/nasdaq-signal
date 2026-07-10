@@ -765,5 +765,66 @@ window.chartGap=new Chart(document.getElementById('cGap'),{
     .catch(function(e){console.error('credit badge',e);});
 })();
 </script>
+  <script>
+// ── 반도체 집중도 3색등 배지 (글로벌 표 -1M/-2M DOM 파싱) ──
+(function(){
+  var SEMI=['닛케이','S&P','유로','코스피','나스닥','대만'];
+  function median(a){a=a.slice().sort(function(x,y){return x-y;});
+    var m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2;}
+  function hexToRgb(h){return parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16);}
+
+  // 특정 기간 행(라벨 정규식)의 지수명→값 맵 반환
+  function rowMap(tbl, heads, labelRe){
+    var rows=[].slice.call(tbl.querySelectorAll('tbody tr'));
+    var row=rows.filter(function(r){return labelRe.test(r.querySelector('th').textContent);})[0];
+    if(!row)return null;
+    var cells=[].slice.call(row.querySelectorAll('td'))
+      .map(function(td){var v=parseFloat(td.textContent.replace('+',''));return isNaN(v)?null:v;});
+    var map={};
+    heads.forEach(function(n,i){ if(cells[i]!==null) map[n]=cells[i]; });
+    return map;
+  }
+  // 집중도: 상위 절반에 든 반도체군 개수 / 6 × 100
+  function conc(map){
+    var all=Object.keys(map), half=Math.floor(all.length/2);
+    var top=all.slice().sort(function(a,b){return map[b]-map[a];}).slice(0,half);
+    return SEMI.filter(function(n){return top.indexOf(n)>=0;}).length/SEMI.length*100;
+  }
+
+  function run(){
+    var el=document.getElementById('semiBadge'); if(!el)return;
+    var tbl=document.querySelector('#globalTable table'); if(!tbl)return;
+    var heads=[].slice.call(tbl.querySelectorAll('thead th')).slice(1)
+                .map(function(th){return th.textContent.trim();});
+
+    var m1=rowMap(tbl,heads,/-\s*1개월/);   // -1M
+    var m2=rowMap(tbl,heads,/-\s*2개월/);   // -2M
+    if(!m1)return;
+
+    var rest=Object.keys(m1).filter(function(n){return SEMI.indexOf(n)<0;});
+    var semiVals=SEMI.filter(function(n){return n in m1;}).map(function(n){return m1[n];});
+    var restVals=rest.map(function(n){return m1[n];});
+    if(semiVals.length<3||restVals.length<3)return;
+
+    var c1=conc(m1), c2=(m2?conc(m2):c1);
+    var semiMed=median(semiVals), restMed=median(restVals);
+
+    // 판정: 매도 → 경고 → 주의 → 중립
+    var st,col,sub;
+    if(semiMed<0&&restMed<0){st='매도';col='#c026d3';sub='독주 붕괴';}
+    else if(c1>=67&&semiMed>0){st='경고';col='#f43f5e';sub='독주 심화';}
+    else if(c1<c2&&restMed>0){st='주의';col='#f59e0b';sub='확산·관찰';}
+    else{st='중립';col='#7f8c8d';sub='—';}
+
+    el.style.background='rgba('+hexToRgb(col)+',0.12)';
+    el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
+    el.innerHTML='<div class="badge-label" style="color:'+col+'">반도체집중 · '+st+'</div>'
+      +'<div class="badge-value" style="color:'+col+'">'+c1.toFixed(0)+'%</div>'
+      +'<div class="badge-sub" style="color:'+col+'">'+sub+' · 반도체'+(semiMed>=0?'+':'')+semiMed.toFixed(1)+'</div>';
+  }
+  if(document.readyState!=='loading')run();
+  else document.addEventListener('DOMContentLoaded',run);
+})();
+</script>
 </body>
 </html>
