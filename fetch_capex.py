@@ -144,16 +144,17 @@ def main():
     accel = (last_yoy - prev_yoy) if (prev_yoy is not None) else None  # YoY의 변화(2차)
 
     # 국면 판정: capex 증가율(YoY)이 가속이냐 둔화냐
+    # 가속=붐 강화(좋음)=초록, 둔화=붐 식음(경고)=노랑, 감소=붕괴=빨강
     if accel is None:
         phase, color = "기준", "#7f8c8d"
     elif accel >= 3:
-        phase, color = "가속", "#c0392b"     # 붐 심화(과열 배경 강화)
+        phase, color = "가속", "#27ae60"     # 증가율↑ 붐 강화(긍정)
     elif accel > -3:
-        phase, color = "유지", "#e67e22"     # 증가율 횡보
+        phase, color = "유지", "#7f8c8d"     # 증가율 횡보(중립)
     elif last_yoy > 0:
-        phase, color = "둔화", "#f1c40f"     # 증가율 꺾임 ← 버블 후기 경고
+        phase, color = "둔화", "#f1c40f"     # 증가율↓ 붐 식음(경고)
     else:
-        phase, color = "감소", "#27ae60"     # capex 자체 역성장
+        phase, color = "감소", "#c0392b"     # capex 역성장(붕괴 위험)
 
     result = {
         "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
