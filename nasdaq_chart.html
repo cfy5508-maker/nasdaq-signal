@@ -488,7 +488,7 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
   macroEl.style.borderColor='rgba('+hexToRgb3(macroCol)+',0.45)';
   macroEl.innerHTML='<div class="badge-label" style="color:'+macroCol+'">매크로 · '+labels[NOW]+'</div>'
     +'<div class="badge-value" style="color:'+macroCol+'">'+macroLevel+'</div>'
-    +'<div class="badge-sub" style="color:'+macroCol+'">호버하여 세부 확인</div>'
+    +'<div class="badge-sub" style="color:'+macroCol+'">마우스 오버하여 세부 확인</div>'
     +'<div class="macro-tooltip">'+tooltipRows+'</div>';
 
   function hexToRgb(hex){
