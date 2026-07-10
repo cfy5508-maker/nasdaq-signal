@@ -209,6 +209,16 @@ function detectRSIDiv(idx){
     prev=adj;
   }
   window.SIGNALS={sbuy:sbuy,buy:buy,watch:watch,warn:warn,sell:sell};
+  // ── 이격 극단 고평가 별도 매도 경보 (이격 ≤ -30%, HY 무관 · 닷컴형 버블) ──
+(function(){
+  var xsell=[],wasX=false;
+  for(var i=1;i<N;i++){
+    var isX=gap[i]<=-30;
+    if(isX&&!wasX)xsell.push(i);   // 진입 시점만 마킹
+    wasX=isX;
+  }
+  window.SIGNALS.xsell=xsell;
+})();
 })();
 
 // ── 배경색 ───────────────────────────────────────
@@ -268,6 +278,7 @@ h1{font-size:16px;font-weight:600;color:#f0f0f4;margin-bottom:2px;}
     <div class="tog" data-key="buy"  style="border-color:#10b981;color:#10b981;"><span class="tm" style="background:#10b981;"></span>매수</div>
     <div class="tog" data-key="wb"   style="border-color:#f59e0b;color:#b45309;"><span class="tm-sq" style="background:#f59e0b;"></span>관망</div>
     <div class="tog" data-key="warn" style="border-color:#f43f5e;color:#be123c;"><span class="tm-sq" style="background:#f43f5e;transform:rotate(45deg);"></span>경고</div>
+    <div class="tog" data-key="xsell" style="border-color:#dc2626;color:#dc2626;"><span class="tm" style="background:#dc2626;box-shadow:0 0 0 2px rgba(220,38,38,0.35);"></span>이격극단</div>
     <div class="tog" data-key="sell" style="border-color:#c026d3;color:#e879f9;"><span class="tm-tri" style="border-bottom:10px solid #c026d3;transform:rotate(180deg);margin-top:3px;"></span>매도</div>
     <div class="tog" data-key="now"  style="border-color:#7c3aed;color:#7c3aed;"><span class="tm" style="background:#7c3aed;"></span>현재</div>
   </div>
@@ -409,7 +420,8 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
 
   // 현재 신호 판단
   var sig='경고', col='#f43f5e';
-  if(h<3.0&&g<-20){sig='매도';col='#c026d3';}
+  if(g<=-30){sig='이격극단';col='#dc2626';}
+  else if(h<3.0&&g<-20){sig='매도';col='#c026d3';}
   else if(h<3.0&&g>=-20&&g<0){sig='경고';col='#f43f5e';}
   else if(g>20&&h>=4.5){sig='강한매수';col='#a855f7';}
   else if(g>20&&h>=3.5){sig='매수';col='#10b981';}
@@ -474,7 +486,7 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
   }
 })();
 
-var sigState={sbuy:true,buy:true,wb:true,warn:true,sell:true,now:true};
+var sigState={sbuy:true,buy:true,wb:true,warn:true,sell:true,xsell:true,now:true};
 var C={sbuy:'#a855f7',sbuyd:'#581c87',buy:'#10b981',buyd:'#064e3b',
        wb:'#f59e0b',wbd:'#78350f',warn:'#f43f5e',warnd:'#881337',
        sell:'#c026d3',selld:'#701a75'};
@@ -566,13 +578,31 @@ function initChart(){
           ctx.fill();ctx.stroke();ctx.restore();
         });
       }},
+      {id:'xsellMark',afterDatasetsDraw:function(c){
+        if(!sigState.xsell||!xsell_pts.length)return;
+        var ctx=c.ctx,meta=c.getDatasetMeta(1);
+        xsell_pts.forEach(function(idx){
+          if(idx>=N)return;
+          var pt=meta.data[idx];if(!pt)return;
+          var x=pt.x,y=pt.y,s=SZ+2;
+          ctx.save();
+          ctx.beginPath();ctx.arc(x,y,s+3,0,Math.PI*2);
+          ctx.strokeStyle='#dc2626';ctx.lineWidth=2.5;ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(x-s,y-s);ctx.lineTo(x+s,y-s);ctx.lineTo(x,y+s);
+          ctx.closePath();ctx.fillStyle='#dc2626';ctx.strokeStyle='#7f1d1d';ctx.lineWidth=1.5;
+          ctx.fill();ctx.stroke();
+          ctx.restore();
+        });
+      }},
       {id:'ann',afterDraw:function(c){
         var ctx=c.ctx,x=c.scales.x,y=c.scales.y;
         [{arr:sbuy_pts,t:'강한매수',col:C.sbuy,dy:-26,show:sigState.sbuy},
          {arr:buy_pts, t:'매수',    col:C.buy, dy:-24,show:sigState.buy},
          {arr:watch_pts,t:'관망',   col:C.wb,  dy:-22,show:sigState.wb},
          {arr:warn_pts, t:'경고',   col:C.warn,dy:24, show:sigState.warn},
-         {arr:sell_pts, t:'매도',   col:C.sell,dy:26, show:sigState.sell}
+         {arr:sell_pts, t:'매도',   col:C.sell,dy:26, show:sigState.sell},
+         {arr:xsell_pts,t:'이격극단',col:'#dc2626',dy:42,show:sigState.xsell}
         ].forEach(function(sm){
           if(!sm.show)return;
           sm.arr.forEach(function(i){
