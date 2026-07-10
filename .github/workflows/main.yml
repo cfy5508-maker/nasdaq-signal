@@ -161,6 +161,8 @@ jobs:
           python fetch_indices.py
       - name: Capex QoQ
         run: python fetch_capex.py
+      - name: Diagnose Amazon
+        run: python diagnose_amazon.py
           echo "글로벌 지수 표 주입 완료"
 
       # ───────────────────────── 커밋 & 푸시 (통합) ─────────────────────────
