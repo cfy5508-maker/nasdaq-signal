@@ -272,6 +272,7 @@ h1{font-size:16px;font-weight:600;color:#f0f0f4;margin-bottom:2px;}
     <div class="tog" data-key="now"  style="border-color:#7c3aed;color:#7c3aed;"><span class="tm" style="background:#7c3aed;"></span>현재</div>
   </div>
   <div style="display:flex;gap:8px;align-items:stretch;">
+    <div class="badge" id="macroBadge"></div>
     <div class="badge" id="nowBadge"></div>
     <div class="badge" id="semiBadge"></div>
     <div class="badge" id="capexBadge" style="display:none"></div>
@@ -477,6 +478,19 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
     return r+','+g+','+b;
   }
 })();
+
+  // 매크로 종합 배지 (기존 sig/col/vixZone/divResult 재사용, 신규 fetch 없음)
+  var macroEl=document.getElementById('macroBadge');
+  var macroLevel='주의', macroCol='#f59e0b';
+  var isDanger = (sig==='매도'||sig==='이격극단') || vixZone==='공포' || vixZone==='극공포';
+  var isGood   = (sig==='강한매수'||sig==='매수') && vixZone==='안정';
+  if(isDanger){ macroLevel='위험'; macroCol='#f43f5e'; }
+  else if(isGood){ macroLevel='양호'; macroCol='#10b981'; }
+  macroEl.style.background='rgba('+hexToRgb3(macroCol)+',0.12)';
+  macroEl.style.borderColor='rgba('+hexToRgb3(macroCol)+',0.45)';
+  macroEl.innerHTML='<div class="badge-label" style="color:'+macroCol+'">매크로 · '+labels[NOW]+'</div>'
+    +'<div class="badge-value" style="color:'+macroCol+'">'+macroLevel+'</div>'
+    +'<div class="badge-sub" style="color:'+macroCol+'">신호 '+sig+' · VIX '+vixZone+' · '+divResult.type+'</div>';
 
 var sigState={sbuy:true,buy:true,wb:true,warn:true,sell:true,xsell:true,now:true};
 var C={sbuy:'#a855f7',sbuyd:'#581c87',buy:'#10b981',buyd:'#064e3b',
