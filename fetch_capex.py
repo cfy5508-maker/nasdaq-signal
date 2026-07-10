@@ -11,14 +11,16 @@ import urllib.request
 UA = {"User-Agent": "nasdaq-signal capex-diagnose cfy5508@example.com"}
 AMZN_CIK = "0001018724"
 
-# 회사별 capex 태그 (아마존만 다른 태그 사용)
-COMPANY_TAGS = {
-    "Microsoft": ["PaymentsToAcquirePropertyPlantAndEquipment"],
-    "Alphabet":  ["PaymentsToAcquirePropertyPlantAndEquipment"],
-    "Amazon":    ["PaymentsToAcquireProductiveAssets",
-                  "PaymentsToAcquirePropertyPlantAndEquipment"],
-    "Meta":      ["PaymentsToAcquirePropertyPlantAndEquipment"],
-}
+# 아마존이 쓸 법한 capex 관련 태그 후보 (넓게)
+TAGS = [
+    "PaymentsToAcquirePropertyPlantAndEquipment",
+    "PaymentsToAcquireProductiveAssets",
+    "PaymentsToAcquireOtherPropertyPlantAndEquipment",
+    "PurchasesOfPropertyAndEquipment",
+    "PaymentsForCapitalImprovements",
+    "PaymentsToAcquirePropertyPlantAndEquipmentAndIntangibleAssets",
+]
+
 
 def get(url):
     req = urllib.request.Request(url, headers=UA)
