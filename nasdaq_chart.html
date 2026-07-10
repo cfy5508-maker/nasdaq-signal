@@ -439,7 +439,6 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
 
 
   // VIX 배지
-  var vixEl=document.getElementById('vixBadge');
   var vixNow=typeof vix_recent!=='undefined'?vix_recent:
     (vix_monthly.length>0?vix_monthly[vix_monthly.length-1]:20);
   var vixCol,vixZone;
