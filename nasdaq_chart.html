@@ -363,7 +363,7 @@
     function renderNowBadge(hVal, gVal, sigVal, colVal, isEstimated){
       el.style.background='rgba('+hexToRgb(colVal)+',0.12)';
       el.style.borderColor='rgba('+hexToRgb(colVal)+',0.45)';
-      el.innerHTML='<div class="badge-label" style="color:'+colVal+'">현재 · '+labels[NOW]+'</div>'
+      el.innerHTML='<div class="badge-label" style="color:'+colVal+'">HY OAS 이격도 · '+labels[NOW]+'</div>'
         +'<div class="badge-value" style="color:'+colVal+'">'+Math.round(cur).toLocaleString()+' / HY '+hVal.toFixed(2)+'%</div>'
         +'<div class="badge-sub" style="color:'+colVal+'">'+(isEstimated?'추정 ':'')+'이격 '+(gVal>=0?'+':'')+gVal+'% · '+sigVal+'</div>';
     }
