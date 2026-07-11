@@ -276,7 +276,7 @@ def analyze(ticker):
 
     stages_addon = {
         "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1)},
+        "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1), "rsi_percentile_52w": round(rsi_percentile, 1)},
         "4_pullback_depth": {"status": addon_stage4, "pullback_pct": round(pullback_pct, 1)},
         "5_volume_flow": {"status": addon_stage5, "recent5_avg_vol": round(vol_recent5), "prior5_avg_vol": round(vol_prior5)},
         "6_trend_continuation": {"status": addon_stage6, "adx": round(adx_last, 1), "plus_di_over_minus_di": bool(plus_di.iloc[-1] > minus_di.iloc[-1])},
