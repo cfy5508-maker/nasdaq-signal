@@ -269,7 +269,7 @@
     </a>
   </div>
   <div style="display:grid;grid-template-columns:20px 8px 55px repeat(8, 60px) minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">추매점수</span><span style="text-align:center;">신호</span><span></span>
+  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">눌림목점수</span><span style="text-align:center;">신호</span><span></span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -1056,7 +1056,7 @@
     toggleRow.innerHTML =
       '<div style="display:inline-flex;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;padding:2px;">' +
       '<button data-mode="entry" style="padding:5px 14px;font-size:11px;font-weight:700;border:none;border-radius:6px;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 '+full.score+'</button>' +
-      '<button data-mode="addon" style="padding:5px 14px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:transparent;color:#6b6b7a;cursor:pointer;">추매점수 '+full.score_addon+'</button>' +
+      '<button data-mode="addon" style="padding:5px 14px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:transparent;color:#6b6b7a;cursor:pointer;">눌림목점수 '+full.score_addon+'</button>' +
       '</div>';
 
     var body = document.createElement('div');
