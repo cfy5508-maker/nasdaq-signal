@@ -504,8 +504,6 @@
                 if(ctx.dataset.label==='나스닥'){
                   return '나스닥: '+Math.round(ctx.parsed.y).toLocaleString()+' | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%';
                 }
-                  return base;
-                }
                 if(ctx.dataset.label==='HY기준선'){
                   var hyVal = hyOas[ctx.dataIndex];
                   var tag = '확정';
