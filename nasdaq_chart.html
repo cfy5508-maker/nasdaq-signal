@@ -1027,7 +1027,8 @@
             .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
         });
 
-        head.querySelector('[data-remove]').addEventListener('click', function(){
+          head.querySelector('[data-remove]').addEventListener('click', function(){
+          if(!confirm(item.ticker + '을(를) 관심종목에서 제거하시겠습니까?')) return;
           row.style.opacity = '0.3';
           row.style.pointerEvents = 'none';
           window.open('https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=remove-ticker%3A'+item.ticker, '_blank');
