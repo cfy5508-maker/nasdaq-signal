@@ -260,8 +260,8 @@
       + 종목 추가
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 60px 60px 50px 1fr 70px 70px 50px 24px;gap:10px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span>종목</span><span>현재가</span><span>점수</span><span>업사이드</span><span>다이버전스</span><span>트리거</span><span>RSI</span><span></span>
+  <div style="display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px;gap:10px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <span></span><span></span><span>종목</span><span>현재가</span><span>점수</span><span>업사이드</span><span>다이버전스</span><span>트리거</span><span>RSI</span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -974,18 +974,18 @@
         row.style.cssText = 'padding:8px 0;' + (i < top.length-1 ? 'border-bottom:1px solid #2a2a35;' : '');
 
         var head = document.createElement('div');
-        head.style.cssText = 'display:grid;grid-template-columns:20px 8px 60px 60px 1fr 50px 70px 70px 50px 24px;gap:10px;align-items:center;cursor:pointer;';
+        head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px auto;gap:10px;align-items:center;cursor:pointer;';
         head.innerHTML =
-          '<span class="rankChev" ...>▾</span>' +
-          '<span style="width:8px;height:8px;...' + STATUS_FG[tag]+';"></span>' +
-          '<span style="font-size:13px;font-weight:700;color:#e2e2e8;">'+item.ticker+'</span>' +
-          '<span style="font-size:11px;color:#9999aa;">$'+item.price.toFixed(2)+'</span>' +
-          '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';">'+item.score+'</span>' +
-          '<span style="font-size:11px;color:#9999aa;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
-          '<span>'+pill(item.divergence)+'</span>' +
-          '<span>'+pill(item.trigger)+'</span>' +
-          '<span style="font-size:11px;color:#9999aa;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-          '<button data-remove data-ticker="'+item.ticker+'" ...>×</button>';
+          '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;">▾</span>' +
+          '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
+          '<span style="font-size:13px;font-weight:700;color:#e2e2e8;text-align:left;">'+item.ticker+'</span>' +
+          '<span style="font-size:11px;color:#9999aa;text-align:left;">$'+item.price.toFixed(2)+'</span>' +
+          '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:left;">'+item.score+'</span>' +
+          '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
+          '<span style="text-align:left;">'+pill(item.divergence)+'</span>' +
+          '<span style="text-align:left;">'+pill(item.trigger)+'</span>' +
+          '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
+          '<button data-remove data-ticker="'+item.ticker+'" style="background:none;border:none;color:#6b6b7a;cursor:pointer;font-size:13px;padding:0;">×</button>';
 
         var detail = document.createElement('div');
         detail.style.cssText = 'display:none;padding:8px 0 4px 30px;';
