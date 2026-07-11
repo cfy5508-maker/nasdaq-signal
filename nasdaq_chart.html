@@ -424,14 +424,12 @@ var divResult = detectDivergence(rsiValues, nasdaq, labels);
     +'<div class="badge-value" style="color:'+col+'">'+Math.round(cur).toLocaleString()+' / HY '+h.toFixed(2)+'%</div>'
     +'<div class="badge-sub" style="color:'+col+'">이격 '+(g>=0?'+':'')+g+'% · '+sig+'</div>';
 
-  // stat 카드 업데이트
-  document.getElementById('st0').textContent=sbuy_pts.length+'회';
-  document.getElementById('st1').textContent=buy_pts.length+'회';
-  document.getElementById('st2').textContent=watch_pts.length+'회';
-  document.getElementById('st3').textContent=warn_pts.length+'회';
-  var st3el=document.getElementById('st3sub');
-  st3el.innerHTML='HY&lt;3%+이격0~-20% · 현재 '+(g>=0?'+':'')+g+'%<br>분할매도';
-  document.getElementById('st4').textContent=sell_pts.length+'회';
+  // 토글 버튼 호버 툴팁
+  document.getElementById('sbuyTip').innerHTML=sbuy_pts.length+'회 · 3M 67% · +9.5%<br>HY≥4.5%+RSI불리시격상';
+  document.getElementById('buyTip').innerHTML=buy_pts.length+'회 · 3M 83% · +9.0%<br>HY 3.5~4.5%+RSI불리시격상';
+  document.getElementById('wbTip').innerHTML=watch_pts.length+'회<br>HY≥3%+이격0%전환 · 매수·매도준비';
+  document.getElementById('warnTip').innerHTML=warn_pts.length+'회 · 현재 '+(g>=0?'+':'')+g+'%<br>HY&lt;3%+이격0~-20% · 분할매도';
+  document.getElementById('sellTip').innerHTML=sell_pts.length+'회 · 3M 0% · -7.8%<br>HY&lt;3%+이격&lt;-20%';
 
   // 버전 라벨
   document.getElementById('verLabel').textContent='전체 v2 · 18~'+labels[NOW];
