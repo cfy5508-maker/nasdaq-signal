@@ -29,9 +29,12 @@ TICKER = "NVDA"
 N_DAYS = 5
 
 
+LOOKBACK_WINDOW = 252  # 실제 운영 로직(history(period="1y"))과 동일하게 고정
+
 def analyze_at(hist_full, cutoff_idx):
-    """hist_full의 0~cutoff_idx까지만 사용해서 그 시점 기준 점수를 계산."""
-    hist = hist_full.iloc[:cutoff_idx+1]
+    """hist_full에서 cutoff_idx 기준 정확히 최근 252거래일(1년)만 사용."""
+    start_idx = max(0, cutoff_idx + 1 - LOOKBACK_WINDOW)
+    hist = hist_full.iloc[start_idx:cutoff_idx+1]
     o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
 
     rsi = RSIIndicator(c, window=14).rsi()
