@@ -354,7 +354,7 @@ def compute_signal(ticker, today_score, score_key="score"):
     """상승신호/하락신호/신호없음 판정. score_key: 'score' 또는 'score_addon'."""
     hist = load_recent_history(ticker, days=4)
     if not hist:
-        return {"signal": "none", "detail": "이전 기록 없음"}
+        return {"signal": "none", "reasons": []}
 
     prev = hist[-1][score_key]
     change = today_score - prev
@@ -376,21 +376,29 @@ def compute_signal(ticker, today_score, score_key="score"):
         hist[i][score_key] > hist[i+1][score_key] for i in range(len(hist)-1)
     ) and today_score < hist[-1][score_key]
 
-    reasons_up = []
-    if spike_up: reasons_up.append(f"급등(+{change})")
-    if crossed_up: reasons_up.append("구간 상향 돌파")
-    if streak_up: reasons_up.append("3일 연속 상승")
+    reasons = []
+    change_str = f"전일 {prev} → 오늘 {today_score} (전일 대비 {'+' if change>=0 else ''}{change})"
+    if spike_up:
+        reasons.append({"label": "급등 기준 (+25 이상)", "detail": change_str})
+    if crossed_up:
+        reasons.append({"label": "구간 상향 돌파", "detail": None})
+    if streak_up:
+        reasons.append({"label": "3일 연속 상승", "detail": None})
 
-    reasons_down = []
-    if spike_down: reasons_down.append(f"급락({change})")
-    if crossed_down: reasons_down.append("구간 하향 이탈")
-    if streak_down: reasons_down.append("3일 연속 하락")
+    if reasons:
+        return {"signal": "up", "reasons": reasons}
 
-    if reasons_up:
-        return {"signal": "up", "detail": f"전일 {prev} → 오늘 {today_score} ({'+' if change>=0 else ''}{change}) · " + ", ".join(reasons_up)}
-    if reasons_down:
-        return {"signal": "down", "detail": f"전일 {prev} → 오늘 {today_score} ({change}) · " + ", ".join(reasons_down)}
-    return {"signal": "none", "detail": f"전일 {prev} → 오늘 {today_score} ({'+' if change>=0 else ''}{change})"}
+    if spike_down:
+        reasons.append({"label": "급락 기준 (-25 이상)", "detail": change_str})
+    if crossed_down:
+        reasons.append({"label": "구간 하향 이탈", "detail": None})
+    if streak_down:
+        reasons.append({"label": "3일 연속 하락", "detail": None})
+
+    if reasons:
+        return {"signal": "down", "reasons": reasons}
+
+    return {"signal": "none", "reasons": []}
 
 
 
