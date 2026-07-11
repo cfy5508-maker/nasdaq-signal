@@ -294,6 +294,7 @@ def analyze(ticker):
         addon_score = min(addon_score, 40)
     elif stage1_status == "unknown":
         addon_score = round(addon_score * 0.85)
+        "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1), "rsi_percentile_52w": round(rsi_percentile, 1)},  
 
     stages = {
         "1_macro": {"status": stage1_status, "index_name": index_name, "index_symbol": index_symbol},
