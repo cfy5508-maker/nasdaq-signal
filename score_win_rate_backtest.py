@@ -32,8 +32,11 @@ LOOKBACK_DAYS = int(sys.argv[2]) if len(sys.argv) > 2 else 150
 MIN_HISTORY = 260
 
 
+LOOKBACK_WINDOW = 252
+
 def score_at(hist_full, cutoff_idx):
-    hist = hist_full.iloc[:cutoff_idx+1]
+    start_idx = max(0, cutoff_idx + 1 - LOOKBACK_WINDOW)
+    hist = hist_full.iloc[start_idx:cutoff_idx+1]
     o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
 
     rsi = RSIIndicator(c, window=14).rsi()
