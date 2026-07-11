@@ -1009,6 +1009,7 @@
             .then(function(full){
               if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
               var rows = [
+                ['1단계 매크로', s1, s1detail],
                 ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
                 ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
                 ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
