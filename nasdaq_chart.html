@@ -954,6 +954,89 @@
     return 'fail';
   }
 
+  function renderRow(item, container, isLast){
+    var tag = overallTag(item.score);
+    var row = document.createElement('div');
+    row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
+
+    var head = document.createElement('div');
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
+    head.innerHTML =
+      '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;">▾</span>' +
+      '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
+      '<span style="font-size:13px;font-weight:700;color:#e2e2e8;text-align:left;">'+item.ticker+'</span>' +
+      '<span style="font-size:11px;color:#9999aa;text-align:left;">$'+item.price.toFixed(2)+'</span>' +
+      '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:left;">'+item.score+'</span>' +
+      '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
+      '<span style="text-align:left;">'+pill(item.divergence)+'</span>' +
+      '<span style="text-align:left;">'+pill(item.trigger)+'</span>' +
+      '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
+      '<span style="display:flex;justify-content:flex-end;">' +
+      '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
+      '</span>';
+
+    var detail = document.createElement('div');
+    detail.style.cssText = 'display:none;padding:8px 0 4px 30px;';
+    detail.innerHTML = '<span style="font-size:11px;color:#6b6b7a;">세부 체크리스트 불러오는 중...</span>';
+
+    head.addEventListener('click', function(e){
+      if(e.target.closest('[data-remove]')) return;
+      var chev = head.querySelector('.rankChev');
+      var open = detail.style.display === 'block';
+      if(open){
+        detail.style.display = 'none';
+        chev.style.transform = 'rotate(0deg)';
+        return;
+      }
+      chev.style.transform = 'rotate(180deg)';
+      detail.style.display = 'block';
+      fetch('./data/'+item.ticker+'.json?_='+Date.now())
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(full){
+          if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
+          var s1 = full.stages['1_macro'];
+          var s1detail = s1.index_name ? (s1.index_name+'('+s1.index_symbol+') 200일선 기준') : '소속 지수 확인 안 됨';
+          var rows = [
+            ['1단계 매크로', s1, s1detail],
+            ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
+            ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
+            ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
+            ['5단계 거래량', full.stages['5_volume_flow'], 'OBV다이버전스 '+full.stages['5_volume_flow'].obv_bullish_divergence],
+            ['6단계 추세소진', full.stages['6_trend_exhaustion'], 'ADX '+full.stages['6_trend_exhaustion'].adx],
+            ['7단계 멀티타임프레임', full.stages['7_multi_timeframe'], '주봉RSI '+full.stages['7_multi_timeframe'].weekly_rsi],
+            ['8단계 트리거캔들', full.stages['8_trigger_candle'], full.stages['8_trigger_candle'].breakout_confirmed ? (full.stages['8_trigger_candle'].pattern+' 확정('+full.stages['8_trigger_candle'].days_ago+'일 전) + 돌파 완료') : '반전캔들+돌파 없음']
+          ];
+          var html = '';
+          rows.forEach(function(r){
+            var stageParts = r[0].split(' ');
+            var stageNum = stageParts[0];
+            var stageName = stageParts.slice(1).join(' ');
+            html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
+              + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+pill(r[1].status)+' '+stageName+' · '+r[2]+'</span>'
+              + '</div>';
+          });
+          html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
+            + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l '
+            + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
+            + ' 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span>'
+            + '</div>';
+          detail.innerHTML = html;
+        })
+        .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
+    });
+
+    head.querySelector('[data-remove]').addEventListener('click', function(){
+      if(!confirm(item.ticker + '을(를) 관심종목에서 제거하시겠습니까?')) return;
+      row.style.opacity = '0.3';
+      row.style.pointerEvents = 'none';
+      window.open('https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=remove-ticker%3A'+item.ticker, '_blank');
+    });
+
+    row.appendChild(head);
+    row.appendChild(detail);
+    container.appendChild(row);
+  }
+
   fetch('./data/rankings.json?_='+Date.now())
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){
@@ -969,99 +1052,17 @@
       var rest = d.rankings.slice(TOP_N);
 
       top.forEach(function(item, i){
-        var tag = overallTag(item.score);
-        var row = document.createElement('div');
-        row.style.cssText = 'padding:8px 0;' + (i < top.length-1 ? 'border-bottom:1px solid #2a2a35;' : '');
-
-        var head = document.createElement('div');
-        head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
-        head.innerHTML =
-          '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;">▾</span>' +
-          '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
-          '<span style="font-size:13px;font-weight:700;color:#e2e2e8;text-align:left;">'+item.ticker+'</span>' +
-          '<span style="font-size:11px;color:#9999aa;text-align:left;">$'+item.price.toFixed(2)+'</span>' +
-          '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:left;">'+item.score+'</span>' +
-          '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
-          '<span style="text-align:left;">'+pill(item.divergence)+'</span>' +
-          '<span style="text-align:left;">'+pill(item.trigger)+'</span>' +
-          '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-          '<span style="display:flex;justify-content:flex-end;">' +
-          '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
-        '</span>';
-        
-        var detail = document.createElement('div');
-        detail.style.cssText = 'display:none;padding:8px 0 4px 30px;';
-        detail.innerHTML = '<span style="font-size:11px;color:#6b6b7a;">세부 체크리스트 불러오는 중...</span>';
-
-        head.addEventListener('click', function(e){
-          if(e.target.closest('[data-remove]')) return;
-          var chev = head.querySelector('.rankChev');
-          var open = detail.style.display === 'block';
-          if(open){
-            detail.style.display = 'none';
-            chev.style.transform = 'rotate(0deg)';
-            return;
-          }
-          chev.style.transform = 'rotate(180deg)';
-          detail.style.display = 'block';
-          fetch('./data/'+item.ticker+'.json?_='+Date.now())
-            .then(function(r){ return r.ok ? r.json() : null; })
-            .then(function(full){
-              if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
-              var s1 = full.stages['1_macro'];
-              var s1detail = s1.index_name ? (s1.index_name+'('+s1.index_symbol+') 200일선 기준') : '소속 지수 확인 안 됨';
-              var rows = [
-                ['1단계 매크로', s1, s1detail],
-                ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
-                ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
-                ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
-                ['5단계 거래량', full.stages['5_volume_flow'], 'OBV다이버전스 '+full.stages['5_volume_flow'].obv_bullish_divergence],
-                ['6단계 추세소진', full.stages['6_trend_exhaustion'], 'ADX '+full.stages['6_trend_exhaustion'].adx],
-                ['7단계 멀티타임프레임', full.stages['7_multi_timeframe'], '주봉RSI '+full.stages['7_multi_timeframe'].weekly_rsi],
-                ['8단계 트리거캔들', full.stages['8_trigger_candle'],full.stages['8_trigger_candle'].breakout_confirmed? (full.stages['8_trigger_candle'].pattern+' 확정('+full.stages['8_trigger_candle'].days_ago+'일 전) + 돌파 완료'): '반전캔들+돌파 없음']
-              ];
-              var html = '';
-              rows.forEach(function(r){
-                var stageParts = r[0].split(' ');
-                var stageNum = stageParts[0];
-                var stageName = stageParts.slice(1).join(' ');
-                html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
-                  + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+pill(r[1].status)+' '+stageName+' · '+r[2]+'</span>'
-                  + '</div>';
-              });
-              html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
-                + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l '
-                + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
-                + ' 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span>'
-                + '</div>';
-              detail.innerHTML = html;
-            })
-            .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
-        });
-
-          head.querySelector('[data-remove]').addEventListener('click', function(){
-          if(!confirm(item.ticker + '을(를) 관심종목에서 제거하시겠습니까?')) return;
-          row.style.opacity = '0.3';
-          row.style.pointerEvents = 'none';
-          window.open('https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=remove-ticker%3A'+item.ticker, '_blank');
-        });
-
-        row.appendChild(head);
-        row.appendChild(detail);
-        listEl.appendChild(row);
+        renderRow(item, listEl, i === top.length - 1);
       });
 
       if(rest.length){
         moreBtn.textContent = '나머지 ' + rest.length + '개 보기 ▾';
         moreBtn.addEventListener('click', function(){
-          var open = restEl.style.display === 'flex';
-          restEl.style.display = open ? 'none' : 'flex';
+          var open = restEl.style.display === 'block';
+          restEl.style.display = open ? 'none' : 'block';
           if(!open && restEl.children.length===0){
-            rest.forEach(function(item){
-              var chip = document.createElement('span');
-              chip.style.cssText = 'font-size:11px;color:#9999aa;padding:4px 10px;background:#20202a;border-radius:6px;';
-              chip.textContent = item.ticker + ' · ' + item.score + '점';
-              restEl.appendChild(chip);
+            rest.forEach(function(item, i){
+              renderRow(item, restEl, i === rest.length - 1);
             });
           }
         });
