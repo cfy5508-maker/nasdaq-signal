@@ -1,25 +1,25 @@
 {
-  "ticker": "AMSC",
-  "price": 35.96,
-  "updated": "2026-07-11T18:52:56.886704+00:00",
-  "score": 59,
+  "ticker": "MMM",
+  "price": 157.52,
+  "updated": "2026-07-11T18:53:01.459453+00:00",
+  "score": 37,
   "stages": {
     "1_macro": {
       "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
+      "index_name": "다우30",
+      "index_symbol": "^DJI"
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 81.7,
-      "forward_pe": 24.24275,
-      "peg": 0.74
+      "status": "fail",
+      "upside_pct": 8.8,
+      "forward_pe": 16.594538,
+      "peg": 1.64
     },
     "3_technical_position": {
       "status": "warn",
-      "rsi": 38.0,
-      "bb_low": 34.83,
-      "bb_high": 44.52
+      "rsi": 49.2,
+      "bb_low": 153.95,
+      "bb_high": 166.88
     },
     "4_divergence_momentum": {
       "status": "warn",
@@ -31,13 +31,13 @@
       "obv_bullish_divergence": false
     },
     "6_trend_exhaustion": {
-      "status": "unknown",
-      "adx": 25.0
+      "status": "pass",
+      "adx": 27.6
     },
     "7_multi_timeframe": {
-      "status": "pass",
-      "daily_rsi": 38.0,
-      "weekly_rsi": 43.7
+      "status": "warn",
+      "daily_rsi": 49.2,
+      "weekly_rsi": 52.5
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -49,11 +49,11 @@
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 12.4
+      "atr_stop_pct": 3.7
     },
     "10_target": {
-      "target_mean_price": 65.33333,
-      "upside_pct": 81.7
+      "target_mean_price": 171.43471,
+      "upside_pct": 8.8
     }
   },
   "sector": "Industrials",
