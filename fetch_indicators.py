@@ -109,6 +109,23 @@ def detect_morning_star(o, h, l, c):
     return d1_bear and d2_small and d3_bull
 
 
+def trigger_with_breakout(o, h, l, c):
+    """최근 1~3일 안에 반전캔들이 확정되고, 그 이후 종가가 그 캔들의 고점을 돌파했는지 확인."""
+    n = len(c)
+    for lookback in range(1, 4):
+        idx = n - 1 - lookback
+        if idx < 3:
+            continue
+        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
+        is_hammer = detect_hammer(sub_o, sub_h, sub_l, sub_c)
+        is_engulf = detect_bullish_engulfing(sub_o, sub_h, sub_l, sub_c)
+        is_star = detect_morning_star(sub_o, sub_h, sub_l, sub_c) if idx + 1 >= 3 else False
+        if (is_hammer or is_engulf or is_star) and c.iloc[-1] > h.iloc[idx]:
+            pattern_name = "해머" if is_hammer else ("불리시엔걸핑" if is_engulf else "모닝스타")
+            return True, pattern_name, lookback
+    return False, None, None
+
+
 def rs_line(ticker_close, bench_close):
     ratio = (ticker_close / bench_close).dropna()
     if len(ratio) < 64:
@@ -135,14 +152,14 @@ def analyze(ticker):
     bb_low, bb_high = float(bb.bollinger_lband().iloc[-1]), float(bb.bollinger_hband().iloc[-1])
     rsi_last = float(rsi.iloc[-1])
 
-    recent = c.iloc[-40:]
-    low1_idx, low2_idx = recent.iloc[:20].idxmin(), recent.iloc[20:].idxmin()
+    recent = c.iloc[-90:]
+    low1_idx, low2_idx = recent.iloc[:45].idxmin(), recent.iloc[45:].idxmin()
     price_lower_low = c[low2_idx] < c[low1_idx]
     rsi_higher_low = rsi[low2_idx] > rsi[low1_idx]
     bullish_divergence = bool(price_lower_low and rsi_higher_low)
 
     macd_hist = macd.macd_diff()
-    macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-40:-1].min() and macd_hist.iloc[-1] < 0)
+    macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min() and macd_hist.iloc[-1] < 0)
 
     adx_last, adx_prev = float(adx_ind.adx().iloc[-1]), float(adx_ind.adx().iloc[-6])
     trend_exhaustion = "pass" if (adx_prev >= 25 and adx_last < adx_prev) else "unknown"
@@ -153,10 +170,10 @@ def analyze(ticker):
     weekly_rsi = RSIIndicator(weekly["Close"], window=14).rsi()
     mtf_aligned = bool(rsi_last < 45 and weekly_rsi.iloc[-1] < 55)
 
+    breakout_ok, breakout_pattern, breakout_days_ago = trigger_with_breakout(o, h, l, c)
     hammer = detect_hammer(o, h, l, c)
     engulfing = detect_bullish_engulfing(o, h, l, c)
     morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
-    trigger_candle = bool(hammer or engulfing or morning_star)
 
     info = {}
     try:
@@ -188,7 +205,7 @@ def analyze(ticker):
              "warn" if (bullish_divergence or macd_hist_rising) else "fail"
     stage5 = "pass" if obv_up_while_price_down else "warn"
     stage7 = "pass" if mtf_aligned else "warn"
-    stage8 = "pass" if trigger_candle else "fail"
+    stage8 = "pass" if breakout_ok else "fail"
 
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
@@ -208,13 +225,22 @@ def analyze(ticker):
         "5_volume_flow": {"status": stage5, "obv_bullish_divergence": obv_up_while_price_down},
         "6_trend_exhaustion": {"status": trend_exhaustion, "adx": round(adx_last, 1)},
         "7_multi_timeframe": {"status": stage7, "daily_rsi": round(rsi_last, 1), "weekly_rsi": round(float(weekly_rsi.iloc[-1]), 1)},
-        "8_trigger_candle": {"status": stage8, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
+        "8_trigger_candle": {"status": stage8, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
         "9_position_sizing": {"atr_stop_pct": stop_pct},
         "10_target": {"target_mean_price": target_mean, "upside_pct": upside_pct},
     }
 
-    raw_score = sum(WEIGHTS[k] * STATUS_SCORE.get(stages[k]["status"], 0.25) for k in WEIGHTS)
-    score = round(raw_score / MAX_SCORE * 100)
+    known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
+    if known_weights:
+        raw_score = sum(known_weights[k] * STATUS_SCORE[stages[k]["status"]] for k in known_weights)
+        score = round(raw_score / sum(known_weights.values()) * 100)
+    else:
+        score = 0
+
+    if stage1_status == "fail":
+        score = min(score, 40)
+    elif stage1_status == "unknown":
+        score = round(score * 0.85)
 
     result = {
         "ticker": ticker.upper(),
