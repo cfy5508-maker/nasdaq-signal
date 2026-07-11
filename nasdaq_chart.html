@@ -502,14 +502,8 @@
             callbacks:{
               label:function(ctx){
                 if(ctx.dataset.label==='나스닥'){
-                  var base = '나스닥: '+Math.round(ctx.parsed.y).toLocaleString()+' | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%';
-                  if(ctx.dataIndex===NOW){
-                   if(window.HY_NOWCAST){
-                     base += ' | HY 확정'+window.HY_NOWCAST.confirmed_oas.toFixed(2)+'%→추정'+window.HY_NOWCAST.nowcast_oas.toFixed(2)+'%';
-                   } else {
-                     base += ' | HY '+hyOas[ctx.dataIndex].toFixed(2)+'%(확정)';
-                   }
-                 }
+                  return '나스닥: '+Math.round(ctx.parsed.y).toLocaleString()+' | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%';
+                }
                   return base;
                 }
                 if(ctx.dataset.label==='HY기준선'){
