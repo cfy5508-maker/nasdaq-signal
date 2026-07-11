@@ -823,30 +823,13 @@
         d.setDate(d.getDate()+1);
       }
     }
-    fetch('./data/finra_credit_balance.json?_='+Date.now())
-      .then(function(r){ return r.ok?r.json():null; })
-      .then(function(d){
-        if(!d) return;
-        var el=document.getElementById('creditBadge');
-        if(!el) return;
-        var col=d.color||'#7f8c8d';
-        var pctTxt = d.percentile<=0 ? '사상 최저'
-          : d.percentile>=100 ? '사상 최고'
-          : d.percentile<=50 ? ('하위 '+d.percentile+'%')
-          : ('상위 '+(100-d.percentile)+'%');
-        var parts=d.as_of.split('-'), y=+parts[0], m0=+parts[1]-1;
-        var dueMonth=(m0+2)%12;
-        var dueYear=y+Math.floor((m0+2)/12);
-        var due=thirdFriday(dueYear, dueMonth);
-        var needUpdate = due && (new Date() >= due);
-        el.style.background='rgba('+hexToRgb(col)+',0.12)';
-        el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
-        el.innerHTML='<div class="badge-label" style="color:'+col+'">현금여력 · '+d.as_of+'</div>'
-          +'<div class="badge-value" style="color:'+col+'">'+d.cash_cover_ratio.toFixed(2)+'</div>'
-          +'<div class="badge-sub" style="color:'+col+'">'+pctTxt+(needUpdate?' · <span style="color:#fbbf24;font-weight:800;">⚠ 갱신 필요</span>':'')+'</div>';
-        el.style.display='flex';
-      })
-      .catch(function(e){ console.error('credit badge',e); });
+    fetch('./data/'+item.ticker+'.json?_='+Date.now())
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(full){
+          if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
+          renderChecklistWithToggle(full, detail);
+        })
+        .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
   })();
 </script>
 
@@ -952,6 +935,90 @@
     if(score >= 65) return 'pass';
     if(score >= 40) return 'warn';
     return 'fail';
+  }
+
+  function buildEntryRows(full){
+    var s1 = full.stages['1_macro'];
+    var s1detail = s1.index_name ? (s1.index_name+'('+s1.index_symbol+') 200일선 기준') : '소속 지수 확인 안 됨';
+    return [
+      ['1단계 매크로', s1, s1detail],
+      ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
+      ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
+      ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
+      ['5단계 거래량', full.stages['5_volume_flow'], 'OBV다이버전스 '+full.stages['5_volume_flow'].obv_bullish_divergence],
+      ['6단계 추세소진', full.stages['6_trend_exhaustion'], 'ADX '+full.stages['6_trend_exhaustion'].adx],
+      ['7단계 멀티타임프레임', full.stages['7_multi_timeframe'], '주봉RSI '+full.stages['7_multi_timeframe'].weekly_rsi],
+      ['8단계 트리거캔들', full.stages['8_trigger_candle'], full.stages['8_trigger_candle'].breakout_confirmed ? (full.stages['8_trigger_candle'].pattern+' 확정('+full.stages['8_trigger_candle'].days_ago+'일 전) + 돌파 완료') : '반전캔들+돌파 없음']
+    ];
+  }
+
+  function buildAddonRows(full){
+    var s1 = full.stages['1_macro'];
+    var s1detail = s1.index_name ? (s1.index_name+'('+s1.index_symbol+') 200일선 기준') : '소속 지수 확인 안 됨';
+    var sa = full.stages_addon;
+    return [
+      ['1단계 매크로', s1, s1detail],
+      ['2단계 펀더멘털', sa['2_fundamentals'], '업사이드 '+(sa['2_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['2_fundamentals'].peg??'-')],
+      ['3단계 눌림위치', sa['3_pullback_position'], (sa['3_pullback_position'].near_20sma?'20일선 ':'')+(sa['3_pullback_position'].near_50sma?'50일선 ':'')+'근접, RSI '+sa['3_pullback_position'].rsi],
+      ['4단계 조정폭', sa['4_pullback_depth'], '고점대비 -'+sa['4_pullback_depth'].pullback_pct+'%'],
+      ['5단계 거래량', sa['5_volume_flow'], '최근5일 '+sa['5_volume_flow'].recent5_avg_vol.toLocaleString()+' vs 이전5일 '+sa['5_volume_flow'].prior5_avg_vol.toLocaleString()],
+      ['6단계 추세지속', sa['6_trend_continuation'], 'ADX '+sa['6_trend_continuation'].adx+', +DI우세 '+sa['6_trend_continuation'].plus_di_over_minus_di],
+      ['7단계 멀티타임프레임', sa['7_multi_timeframe'], '일봉 20선위 '+sa['7_multi_timeframe'].daily_above_20sma+', 주봉 20선위 '+sa['7_multi_timeframe'].weekly_above_20sma],
+      ['8단계 돌파확인', sa['8_trigger_breakout'], '최근5일고점 '+sa['8_trigger_breakout'].recent5_high+' 대비 오늘종가 '+sa['8_trigger_breakout'].today_close]
+    ];
+  }
+
+  function renderRowsHtml(rows, extraRow){
+    var html = '';
+    rows.forEach(function(r){
+      var stageParts = r[0].split(' ');
+      var stageNum = stageParts[0];
+      var stageName = stageParts.slice(1).join(' ');
+      html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
+        + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+pill(r[1].status)+' '+stageName+' · '+r[2]+'</span>'
+        + '</div>';
+    });
+    if(extraRow){
+      html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
+        + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l '
+        + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
+        + ' '+extraRow+'</span>'
+        + '</div>';
+    }
+    return html;
+  }
+
+  function renderChecklistWithToggle(full, container){
+    var wrap = document.createElement('div');
+
+    var toggleRow = document.createElement('div');
+    toggleRow.style.cssText = 'display:flex;gap:6px;margin-bottom:8px;';
+    toggleRow.innerHTML =
+      '<button data-mode="entry" style="flex:1;padding:5px 0;font-size:11px;border-radius:6px;border:1px solid #3a3a4a;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 ('+full.score+')</button>' +
+      '<button data-mode="addon" style="flex:1;padding:5px 0;font-size:11px;border-radius:6px;border:1px solid #3a3a4a;background:transparent;color:#9999aa;cursor:pointer;">추매 ('+full.score_addon+')</button>';
+
+    var body = document.createElement('div');
+    var entryHtml = renderRowsHtml(buildEntryRows(full), '손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%');
+    var addonHtml = renderRowsHtml(buildAddonRows(full), '손절폭 20일선기준 '+full.stages_addon['9_position_sizing'].stop_pct_from_20sma+'%');
+    body.innerHTML = entryHtml;
+
+    var btnEntry = toggleRow.querySelector('[data-mode="entry"]');
+    var btnAddon = toggleRow.querySelector('[data-mode="addon"]');
+    btnEntry.addEventListener('click', function(){
+      body.innerHTML = entryHtml;
+      btnEntry.style.background = '#7c3aed'; btnEntry.style.color = '#fff';
+      btnAddon.style.background = 'transparent'; btnAddon.style.color = '#9999aa';
+    });
+    btnAddon.addEventListener('click', function(){
+      body.innerHTML = addonHtml;
+      btnAddon.style.background = '#7c3aed'; btnAddon.style.color = '#fff';
+      btnEntry.style.background = 'transparent'; btnEntry.style.color = '#9999aa';
+    });
+
+    wrap.appendChild(toggleRow);
+    wrap.appendChild(body);
+    container.innerHTML = '';
+    container.appendChild(wrap);
   }
 
   function renderRow(item, container, isLast){
