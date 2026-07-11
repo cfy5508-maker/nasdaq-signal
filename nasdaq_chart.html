@@ -235,6 +235,16 @@ h1{font-size:16px;font-weight:600;color:#f0f0f4;margin-bottom:2px;}
 .tog{display:flex;align-items:center;gap:7px;padding:7px 15px;border-radius:22px;border:1.5px solid;cursor:pointer;font-size:12px;font-weight:700;transition:opacity .15s,transform .1s;user-select:none;}
 .tog:active{transform:scale(0.96);}
 .tog.off{opacity:0.22;}
+.tog{position:relative;}
+.tog-tooltip{
+  position:absolute;top:110%;left:0;min-width:190px;
+  background:#1a1a22;border:1px solid #3a3a4a;border-radius:8px;
+  padding:8px 10px;font-size:11px;line-height:1.6;color:#c7c7d1;
+  font-weight:400;text-align:left;white-space:normal;
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .15s,transform .15s;z-index:60;pointer-events:none;
+}
+.tog:hover .tog-tooltip{opacity:1;visibility:visible;transform:translateY(0);}
 .tm{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .tm-sq{width:10px;height:10px;border-radius:2px;flex-shrink:0;transform:rotate(45deg);}
 .tm-tri{width:0;height:0;flex-shrink:0;border-left:6px solid transparent;border-right:6px solid transparent;}
@@ -277,12 +287,11 @@ h1{font-size:16px;font-weight:600;color:#f0f0f4;margin-bottom:2px;}
 
 <div class="top-row">
   <div class="tog-row">
-    <div class="tog" data-key="sbuy" style="border-color:#a855f7;color:#a855f7;"><span class="tm-sq" style="background:#a855f7;transform:rotate(45deg);"></span>강한매수</div>
-    <div class="tog" data-key="buy"  style="border-color:#10b981;color:#10b981;"><span class="tm" style="background:#10b981;"></span>매수</div>
-    <div class="tog" data-key="wb"   style="border-color:#f59e0b;color:#b45309;"><span class="tm-sq" style="background:#f59e0b;"></span>관망</div>
-    <div class="tog" data-key="warn" style="border-color:#f43f5e;color:#be123c;"><span class="tm-sq" style="background:#f43f5e;transform:rotate(45deg);"></span>경고</div>
-    <div class="tog" data-key="sell" style="border-color:#c026d3;color:#e879f9;"><span class="tm-tri" style="border-bottom:10px solid #c026d3;transform:rotate(180deg);margin-top:3px;"></span>매도</div>
-    <div class="tog" data-key="now"  style="border-color:#7c3aed;color:#7c3aed;"><span class="tm" style="background:#7c3aed;"></span>현재</div>
+    <div class="tog" data-key="sbuy" style="border-color:#a855f7;color:#a855f7;"><span class="tm-sq" style="background:#a855f7;transform:rotate(45deg);"></span>강한매수<div class="tog-tooltip" id="sbuyTip"></div></div>
+    <div class="tog" data-key="buy"  style="border-color:#10b981;color:#10b981;"><span class="tm" style="background:#10b981;"></span>매수<div class="tog-tooltip" id="buyTip"></div></div>
+    <div class="tog" data-key="wb"   style="border-color:#f59e0b;color:#b45309;"><span class="tm-sq" style="background:#f59e0b;"></span>관망<div class="tog-tooltip" id="wbTip"></div></div>
+    <div class="tog" data-key="warn" style="border-color:#f43f5e;color:#be123c;"><span class="tm-sq" style="background:#f43f5e;transform:rotate(45deg);"></span>경고<div class="tog-tooltip" id="warnTip"></div></div>
+    <div class="tog" data-key="sell" style="border-color:#c026d3;color:#e879f9;"><span class="tm-tri" style="border-bottom:10px solid #c026d3;transform:rotate(180deg);margin-top:3px;"></span>매도<div class="tog-tooltip" id="sellTip"></div></div>
   </div>
   <div style="display:flex;gap:8px;align-items:stretch;">
     <div class="badge" id="macroBadge"></div>
