@@ -1,29 +1,29 @@
 {
-  "ticker": "GILD",
-  "price": 129.83,
-  "updated": "2026-07-11T18:53:41.270138+00:00",
-  "score": 44,
+  "ticker": "DG",
+  "price": 118.92,
+  "updated": "2026-07-11T18:53:48.402527+00:00",
+  "score": 10,
   "stages": {
     "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
+      "status": "unknown",
+      "index_name": null,
+      "index_symbol": null
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.9,
-      "forward_pe": 13.456648,
-      "peg": 2.14
+      "status": "fail",
+      "upside_pct": 10.2,
+      "forward_pe": 14.850205,
+      "peg": 1.65
     },
     "3_technical_position": {
       "status": "fail",
-      "rsi": 51.1,
-      "bb_low": 119.89,
-      "bb_high": 135.48
+      "rsi": 59.6,
+      "bb_low": 110.08,
+      "bb_high": 120.17
     },
     "4_divergence_momentum": {
-      "status": "warn",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
       "macd_hist_rising": false
     },
     "5_volume_flow": {
@@ -32,12 +32,12 @@
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 17.6
+      "adx": 18.8
     },
     "7_multi_timeframe": {
       "status": "warn",
-      "daily_rsi": 51.1,
-      "weekly_rsi": 49.4
+      "daily_rsi": 59.6,
+      "weekly_rsi": 50.1
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -49,13 +49,13 @@
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 4.5
+      "atr_stop_pct": 4.9
     },
     "10_target": {
-      "target_mean_price": 158.2963,
-      "upside_pct": 21.9
+      "target_mean_price": 131.06897,
+      "upside_pct": 10.2
     }
   },
-  "sector": "Healthcare",
-  "sector_relative_strength_up": false
+  "sector": "Consumer Defensive",
+  "sector_relative_strength_up": true
 }
