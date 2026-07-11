@@ -1067,6 +1067,7 @@
 
     var head = document.createElement('div');
     head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px 70px 90px minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
+
     var addonScore = item.score_addon;
     var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
     var addonLabel = addonScore;
