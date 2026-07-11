@@ -514,10 +514,12 @@
                 }
                 if(ctx.dataset.label==='HY기준선'){
                   var hyVal = hyOas[ctx.dataIndex];
+                  var tag = '확정';
                   if(ctx.dataIndex===NOW && window.HY_NOWCAST){
                     hyVal = window.HY_NOWCAST.nowcast_oas;
+                    tag = '추정';
                   }
-                  return 'HY 기준선: '+Math.round(ctx.parsed.y).toLocaleString()+' (추정 HY '+hyVal.toFixed(2)+'%)';
+                  return 'HY 기준선: '+Math.round(ctx.parsed.y).toLocaleString()+' ('+tag+' HY '+hyVal.toFixed(2)+'%)';
                 }
                 return '';
               }
