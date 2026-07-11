@@ -1,10 +1,13 @@
 """
 fetch_indicators.py
-사용법: python fetch_indicators.py TICKER
-결과: data/TICKER.json 생성 (2~10단계 판정값)
-추가로 python fetch_indicators.py --macro 실행 시 data/_macro.json 생성 (1단계용)
+사용법: python fetch_indicators.py
+동작: data/watchlist.json에 등록된 모든 티커를 순회하며
+      2~10단계 체크리스트를 계산해 data/<TICKER>.json에 저장하고,
+      점수를 매겨 data/rankings.json(순위표)를 생성한다.
+
+watchlist.json 형식: ["GILD", "JOBY", "AMSC", ...]
 """
-import sys, os, json
+import sys, os, json, time
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -13,6 +16,9 @@ from ta.trend import MACD, ADXIndicator
 from ta.volatility import BollingerBands, AverageTrueRange
 from ta.volume import OnBalanceVolumeIndicator
 
+WATCHLIST_PATH = "data/watchlist.json"
+OUT_DIR = "data"
+
 SECTOR_ETF = {
     "Healthcare": "XLV", "Technology": "XLK", "Financial Services": "XLF",
     "Energy": "XLE", "Industrials": "XLI", "Consumer Cyclical": "XLY",
@@ -20,10 +26,17 @@ SECTOR_ETF = {
     "Basic Materials": "XLB", "Communication Services": "XLC",
 }
 
-
-def rs_line(ticker_close, bench_close):
-    ratio = (ticker_close / bench_close).dropna()
-    return ratio.iloc[-1] > ratio.iloc[-63]  # 약 3개월 전 대비 상대강도 상승
+WEIGHTS = {
+    "2_fundamentals": 2.0,
+    "3_technical_position": 1.5,
+    "4_divergence_momentum": 1.5,
+    "5_volume_flow": 1.0,
+    "6_trend_exhaustion": 1.0,
+    "7_multi_timeframe": 1.0,
+    "8_trigger_candle": 1.5,
+}
+STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25}
+MAX_SCORE = sum(WEIGHTS.values())
 
 
 def detect_bullish_engulfing(o, h, l, c):
@@ -44,29 +57,11 @@ def detect_morning_star(o, h, l, c):
     return d1_bear and d2_small and d3_bull
 
 
-def fetch_macro():
-    spx = yf.Ticker("^GSPC").history(period="1y")["Close"]
-    ndx = yf.Ticker("^IXIC").history(period="1y")["Close"]
-    vix = yf.Ticker("^VIX").history(period="3mo")["Close"]
-
-    spx_above_200sma = spx.iloc[-1] > spx.rolling(200).mean().iloc[-1]
-    ndx_above_200sma = ndx.iloc[-1] > ndx.rolling(200).mean().iloc[-1]
-    vix_last = vix.iloc[-1]
-    vix_stable = vix_last < 20 and vix_last < vix.rolling(10).mean().iloc[-1]
-
-    result = {
-        "updated": pd.Timestamp.utcnow().isoformat(),
-        "spx_above_200sma": bool(spx_above_200sma),
-        "ndx_above_200sma": bool(ndx_above_200sma),
-        "vix": round(float(vix_last), 2),
-        "vix_stable": bool(vix_stable),
-        "macro_status": "pass" if (spx_above_200sma and ndx_above_200sma and vix_stable) else "warn"
-                        if (spx_above_200sma or ndx_above_200sma) else "fail",
-    }
-    os.makedirs("data", exist_ok=True)
-    with open("data/_macro.json", "w") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+def rs_line(ticker_close, bench_close):
+    ratio = (ticker_close / bench_close).dropna()
+    if len(ratio) < 64:
+        return None
+    return bool(ratio.iloc[-1] > ratio.iloc[-63])
 
 
 def analyze(ticker):
@@ -88,7 +83,6 @@ def analyze(ticker):
     bb_low, bb_high = float(bb.bollinger_lband().iloc[-1]), float(bb.bollinger_hband().iloc[-1])
     rsi_last = float(rsi.iloc[-1])
 
-    # 40일 구간에서 두 개의 저점 비교 -> RSI 불리시 다이버전스 근사 판정
     recent = c.iloc[-40:]
     low1_idx, low2_idx = recent.iloc[:20].idxmin(), recent.iloc[20:].idxmin()
     price_lower_low = c[low2_idx] < c[low1_idx]
@@ -112,7 +106,11 @@ def analyze(ticker):
     morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
     trigger_candle = bool(hammer or engulfing or morning_star)
 
-    info = tk.info
+    info = {}
+    try:
+        info = tk.info
+    except Exception:
+        pass
     target_mean = info.get("targetMeanPrice")
     forward_pe = info.get("forwardPE")
     peg = info.get("pegRatio")
@@ -121,8 +119,11 @@ def analyze(ticker):
 
     sector_rs = None
     if sector in SECTOR_ETF:
-        etf_close = yf.Ticker(SECTOR_ETF[sector]).history(period="1y")["Close"]
-        sector_rs = bool(rs_line(c, etf_close))
+        try:
+            etf_close = yf.Ticker(SECTOR_ETF[sector]).history(period="1y")["Close"]
+            sector_rs = rs_line(c, etf_close)
+        except Exception:
+            pass
 
     stage3 = "pass" if (last_close <= bb_low * 1.02 and rsi_last <= 35) else \
              "warn" if (last_close <= bb_low * 1.05 or rsi_last <= 40) else "fail"
@@ -142,36 +143,68 @@ def analyze(ticker):
     stage2 = "pass" if all(stage2_flags.values()) else \
              "fail" if not stage2_flags["upside_ge_15"] else "warn"
 
+    stages = {
+        "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "3_technical_position": {"status": stage3, "rsi": round(rsi_last, 1), "bb_low": round(bb_low, 2), "bb_high": round(bb_high, 2)},
+        "4_divergence_momentum": {"status": stage4, "bullish_divergence": bullish_divergence, "macd_hist_rising": macd_hist_rising},
+        "5_volume_flow": {"status": stage5, "obv_bullish_divergence": obv_up_while_price_down},
+        "6_trend_exhaustion": {"status": trend_exhaustion, "adx": round(adx_last, 1)},
+        "7_multi_timeframe": {"status": stage7, "daily_rsi": round(rsi_last, 1), "weekly_rsi": round(float(weekly_rsi.iloc[-1]), 1)},
+        "8_trigger_candle": {"status": stage8, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
+        "9_position_sizing": {"atr_stop_pct": stop_pct},
+        "10_target": {"target_mean_price": target_mean, "upside_pct": upside_pct},
+    }
+
+    raw_score = sum(WEIGHTS[k] * STATUS_SCORE.get(stages[k]["status"], 0.25) for k in WEIGHTS)
+    score = round(raw_score / MAX_SCORE * 100)
+
     result = {
         "ticker": ticker.upper(),
         "price": round(last_close, 2),
         "updated": pd.Timestamp.utcnow().isoformat(),
-        "stages": {
-            "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg,
-                                "note": "발행주식수 증감/최근 다운그레이드 이력은 야후 정보만으로는 부족 - 수동 확인 권장"},
-            "3_technical_position": {"status": stage3, "rsi": round(rsi_last, 1), "bb_low": round(bb_low, 2), "bb_high": round(bb_high, 2)},
-            "4_divergence_momentum": {"status": stage4, "bullish_divergence": bullish_divergence, "macd_hist_rising": macd_hist_rising},
-            "5_volume_flow": {"status": stage5, "obv_bullish_divergence": obv_up_while_price_down},
-            "6_trend_exhaustion": {"status": trend_exhaustion, "adx": round(adx_last, 1)},
-            "7_multi_timeframe": {"status": stage7, "daily_rsi": round(rsi_last, 1), "weekly_rsi": round(float(weekly_rsi.iloc[-1]), 1)},
-            "8_trigger_candle": {"status": stage8, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
-            "9_position_sizing": {"atr_stop_pct": stop_pct},
-            "10_target": {"target_mean_price": target_mean, "upside_pct": upside_pct},
-        },
+        "score": score,
+        "stages": stages,
         "sector": sector,
         "sector_relative_strength_up": sector_rs,
     }
-    os.makedirs("data", exist_ok=True)
-    with open(f"data/{ticker.upper()}.json", "w") as f:
+    with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return result
+
+
+def main():
+    if not os.path.exists(WATCHLIST_PATH):
+        print(f"watchlist not found: {WATCHLIST_PATH}", file=sys.stderr)
+        sys.exit(1)
+
+    with open(WATCHLIST_PATH) as f:
+        tickers = json.load(f)
+
+    os.makedirs(OUT_DIR, exist_ok=True)
+    results = []
+    for t in tickers:
+        try:
+            r = analyze(t)
+            results.append(r)
+            print(f"  {t}: score={r['score']}")
+        except Exception as e:
+            print(f"  {t}: FAILED ({e})", file=sys.stderr)
+        time.sleep(0.6)
+
+    rankings = sorted(
+        [{"ticker": r["ticker"], "score": r["score"], "price": r["price"],
+          "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
+          "rsi": r["stages"]["3_technical_position"]["rsi"],
+          "divergence": r["stages"]["4_divergence_momentum"]["status"],
+          "trigger": r["stages"]["8_trigger_candle"]["status"]}
+         for r in results],
+        key=lambda x: x["score"], reverse=True
+    )
+    with open(f"{OUT_DIR}/rankings.json", "w") as f:
+        json.dump({"updated": pd.Timestamp.utcnow().isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
+
+    print(f"\n완료: {len(results)}/{len(tickers)}개 성공, rankings.json 저장")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("usage: python fetch_indicators.py TICKER | --macro")
-        sys.exit(1)
-    if sys.argv[1] == "--macro":
-        fetch_macro()
-    else:
-        analyze(sys.argv[1])
+    main()
