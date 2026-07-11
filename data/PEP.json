@@ -1,30 +1,30 @@
 {
-  "ticker": "DG",
-  "price": 118.92,
-  "updated": "2026-07-11T20:35:52.411007+00:00",
-  "score": 10,
+  "ticker": "PEP",
+  "price": 137.38,
+  "updated": "2026-07-11T20:35:56.227964+00:00",
+  "score": 68,
   "stages": {
     "1_macro": {
-      "status": "unknown",
-      "index_name": null,
-      "index_symbol": null
+      "status": "pass",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC"
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 10.2,
-      "forward_pe": 14.850205,
-      "peg": 1.65
+      "status": "pass",
+      "upside_pct": 18.5,
+      "forward_pe": 15.276089,
+      "peg": 1.53
     },
     "3_technical_position": {
-      "status": "fail",
-      "rsi": 59.6,
-      "bb_low": 110.08,
-      "bb_high": 120.17
+      "status": "warn",
+      "rsi": 40.8,
+      "bb_low": 136.11,
+      "bb_high": 147.43
     },
     "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "macd_hist_rising": false
+      "status": "pass",
+      "bullish_divergence": true,
+      "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
@@ -32,12 +32,12 @@
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 18.8
+      "adx": 19.2
     },
     "7_multi_timeframe": {
-      "status": "warn",
-      "daily_rsi": 59.6,
-      "weekly_rsi": 50.1
+      "status": "pass",
+      "daily_rsi": 40.8,
+      "weekly_rsi": 38.9
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -49,55 +49,55 @@
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 4.9
+      "atr_stop_pct": 4.1
     },
     "10_target": {
-      "target_mean_price": 131.06897,
-      "upside_pct": 10.2
+      "target_mean_price": 162.81818,
+      "upside_pct": 18.5
     }
   },
-  "score_addon": 20,
+  "score_addon": 45,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 10.2,
-      "forward_pe": 14.850205,
-      "peg": 1.65
+      "status": "pass",
+      "upside_pct": 18.5,
+      "forward_pe": 15.276089,
+      "peg": 1.53
     },
     "3_pullback_position": {
       "status": "warn",
       "near_20sma": false,
       "near_50sma": false,
-      "rsi": 59.6
+      "rsi": 40.8
     },
     "4_pullback_depth": {
-      "status": "warn",
-      "pullback_pct": 1.2
+      "status": "pass",
+      "pullback_pct": 7.8
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 2295940,
-      "prior5_avg_vol": 2732840
+      "recent5_avg_vol": 11019440,
+      "prior5_avg_vol": 11271660
     },
     "6_trend_continuation": {
       "status": "fail",
-      "adx": 18.8,
-      "plus_di_over_minus_di": true
+      "adx": 19.2,
+      "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
-      "status": "warn",
-      "daily_above_20sma": true,
+      "status": "fail",
+      "daily_above_20sma": false,
       "weekly_above_20sma": false
     },
     "8_trigger_breakout": {
       "status": "fail",
-      "recent5_high": 119.04,
-      "today_close": 118.92
+      "recent5_high": 149.04,
+      "today_close": 137.38
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 3.2
     }
   },
   "sector": "Consumer Defensive",
-  "sector_relative_strength_up": true
+  "sector_relative_strength_up": false
 }
