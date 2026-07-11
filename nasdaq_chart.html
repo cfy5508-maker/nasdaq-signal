@@ -985,7 +985,7 @@
           '<span style="text-align:left;">'+pill(item.divergence)+'</span>' +
           '<span style="text-align:left;">'+pill(item.trigger)+'</span>' +
           '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-          '<button data-remove data-ticker="'+item.ticker+'" style="background:none;border:none;color:#6b6b7a;cursor:pointer;font-size:13px;padding:0;">×</button>';
+          '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;">×</span>';
 
         var detail = document.createElement('div');
         detail.style.cssText = 'display:none;padding:8px 0 4px 30px;';
