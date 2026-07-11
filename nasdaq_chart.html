@@ -1099,7 +1099,7 @@
       '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
       '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
-      '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
+      '<span style="font-size:11px;text-align:center;'+(item.rsi!=null&&item.rsi<=35?'color:#34d399;font-weight:700;':'color:#9999aa;')+'">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
       '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonLabel+'</span>' +
       '<span style="text-align:center;">'+signalBadge(item.signal)+'</span>' +
       '<span style="display:flex;justify-content:flex-end;">' +
