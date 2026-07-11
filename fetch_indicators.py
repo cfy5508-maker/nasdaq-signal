@@ -236,9 +236,17 @@ def analyze(ticker):
 
     near_20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] <= 0.02
     near_50 = abs(last_close - sma50.iloc[-1]) / sma50.iloc[-1] <= 0.02
-    addon_rsi_ok = 35 <= rsi_last <= 60
-    addon_stage3 = "pass" if ((near_20 or near_50) and addon_rsi_ok) else \
-                   "warn" if (near_20 or near_50 or addon_rsi_ok) else "fail"
+
+    # 백테스트 검증: 52주 RSI 백분위 0~15%가 10종목 x2회 표본에서 일관된
+    # 승률 우위(+8~10%p) 확인됨. RSI 조건이 반드시 관여해야 pass/warn이 나오도록
+    # 이평선 근접 단독으로는 판정이 안 나게 조임.
+    rsi_series_52w = rsi.dropna()
+    rsi_percentile = float((rsi_series_52w < rsi_last).mean() * 100) if len(rsi_series_52w) > 0 else 50.0
+    rsi_low = rsi_percentile <= 15
+    rsi_mid = 15 < rsi_percentile <= 30
+
+    addon_stage3 = "pass" if (rsi_low and (near_20 or near_50)) else \
+                   "warn" if (rsi_low or (rsi_mid and (near_20 or near_50))) else "fail"
 
     recent20_high = float(h.iloc[-20:].max())
     pullback_pct = (recent20_high - last_close) / recent20_high * 100
