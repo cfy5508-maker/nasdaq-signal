@@ -360,18 +360,34 @@
     var el=document.getElementById('nowBadge');
     el.style.background='rgba('+hexToRgb(col)+',0.12)';
     el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
-    el.innerHTML='<div class="badge-label" style="color:'+col+'">현재 · '+labels[NOW]+'</div>'
-      +'<div class="badge-value" style="color:'+col+'">'+Math.round(cur).toLocaleString()+' / HY '+h.toFixed(2)+'%</div>'
-      +'<div class="badge-sub" style="color:'+col+'">이격 '+(g>=0?'+':'')+g+'% · '+sig+'</div>';
+    function renderNowBadge(hVal, gVal, sigVal, colVal, isEstimated){
+      el.style.background='rgba('+hexToRgb(colVal)+',0.12)';
+      el.style.borderColor='rgba('+hexToRgb(colVal)+',0.45)';
+      el.innerHTML='<div class="badge-label" style="color:'+colVal+'">현재 · '+labels[NOW]+'</div>'
+        +'<div class="badge-value" style="color:'+colVal+'">'+Math.round(cur).toLocaleString()+' / HY '+hVal.toFixed(2)+'%</div>'
+        +'<div class="badge-sub" style="color:'+colVal+'">'+(isEstimated?'추정 ':'')+'이격 '+(gVal>=0?'+':'')+gVal+'% · '+sigVal+'</div>';
+    }
+
+    renderNowBadge(h, g, sig, col, false);
 
     fetch('./data/hy_oas_nowcast.json?_='+Date.now())
       .then(function(r){ return r.ok?r.json():null; })
       .then(function(nc){
         if(!nc) return;
         window.HY_NOWCAST = nc;
-        var sub = el.querySelector('.badge-sub');
-        sub.innerHTML += '<br>추정(오늘) HY ' + nc.nowcast_oas.toFixed(2) + '% · 확정 '
-          + nc.confirmed_oas.toFixed(2) + '%(' + nc.confirmed_date.slice(5) + ')';
+
+        var scaleFactor = hyLine[NOW] / hyOas[NOW];
+        var hyLineEst = nc.nowcast_oas * scaleFactor;
+        var gEst = parseFloat(((hyLineEst - cur) / cur * 100).toFixed(1));
+
+        var sigEst='경고', colEst='#f43f5e';
+        if(gEst<=-30){ sigEst='이격극단'; colEst='#dc2626'; }
+        else if(nc.nowcast_oas<3.0 && gEst<-20){ sigEst='매도'; colEst='#c026d3'; }
+        else if(nc.nowcast_oas<3.0 && gEst>=-20 && gEst<0){ sigEst='경고'; colEst='#f43f5e'; }
+        else if(gEst>20 && nc.nowcast_oas>=4.5){ sigEst='강한매수'; colEst='#a855f7'; }
+        else if(gEst>20 && nc.nowcast_oas>=3.5){ sigEst='매수'; colEst='#10b981'; }
+
+        renderNowBadge(nc.nowcast_oas, gEst, sigEst, colEst, true);
       })
       .catch(function(e){ console.error('nowcast',e); });
 
