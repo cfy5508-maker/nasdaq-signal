@@ -1019,17 +1019,17 @@
               ];
               var html = '';
               rows.forEach(function(r){
-                var stageParts = r[0].split(' ');  // 예: ['2단계', '펀더멘털']
+                var stageParts = r[0].split(' ');
                 var stageNum = stageParts[0];
                 var stageName = stageParts.slice(1).join(' ');
-                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;">'
-                  + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+stageName+' · '+r[2]+'</span>'
+                html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
                   + pill(r[1].status)
+                  + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+stageName+' · '+r[2]+'</span>'
                   + '</div>';
               });
-              html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;">'
-                + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span>'
+              html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
                 + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
+                + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span>'
                 + '</div>';
               detail.innerHTML = html;
             })
