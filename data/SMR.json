@@ -1,87 +1,87 @@
 {
-  "ticker": "SMCI",
-  "price": 28.31,
-  "updated": "2026-07-11T20:46:37.342435+00:00",
-  "score": 68,
+  "ticker": "SMR",
+  "price": 9.04,
+  "updated": "2026-07-11T20:46:40.317001+00:00",
+  "score": 53,
   "stages": {
     "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
+      "status": "unknown",
+      "index_name": null,
+      "index_symbol": null
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.926065,
-      "peg": 0.91
+      "status": "warn",
+      "upside_pct": 69.9,
+      "forward_pe": -13.490323,
+      "peg": null
     },
     "3_technical_position": {
-      "status": "fail",
-      "rsi": 43.3,
-      "bb_low": 25.1,
-      "bb_high": 34.4
+      "status": "warn",
+      "rsi": 39.1,
+      "bb_low": 8.53,
+      "bb_high": 11.48
     },
     "4_divergence_momentum": {
-      "status": "warn",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "macd_hist_rising": true
     },
     "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
+      "status": "pass",
+      "obv_bullish_divergence": true
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 22.2
+      "adx": 14.7
     },
     "7_multi_timeframe": {
       "status": "pass",
-      "daily_rsi": 43.3,
-      "weekly_rsi": 45.3
+      "daily_rsi": 39.1,
+      "weekly_rsi": 36.1
     },
     "8_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "불리시엔걸핑",
-      "days_ago": 2,
+      "status": "fail",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 13.4
+      "atr_stop_pct": 14.3
     },
     "10_target": {
-      "target_mean_price": 37.25,
-      "upside_pct": 31.6
+      "target_mean_price": 15.35714,
+      "upside_pct": 69.9
     }
   },
-  "score_addon": 34,
+  "score_addon": 20,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.926065,
-      "peg": 0.91
+      "status": "warn",
+      "upside_pct": 69.9,
+      "forward_pe": -13.490323,
+      "peg": null
     },
     "3_pullback_position": {
       "status": "warn",
       "near_20sma": false,
       "near_50sma": false,
-      "rsi": 43.3
+      "rsi": 39.1
     },
     "4_pullback_depth": {
       "status": "fail",
-      "pullback_pct": 23.1
+      "pullback_pct": 23.7
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 33163960,
-      "prior5_avg_vol": 58150600
+      "recent5_avg_vol": 23375900,
+      "prior5_avg_vol": 28291040
     },
     "6_trend_continuation": {
       "status": "fail",
-      "adx": 22.2,
+      "adx": 14.7,
       "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
@@ -91,13 +91,13 @@
     },
     "8_trigger_breakout": {
       "status": "fail",
-      "recent5_high": 29.22,
-      "today_close": 28.31
+      "recent5_high": 10.87,
+      "today_close": 9.04
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.1
+      "stop_pct_from_20sma": 10.7
     }
   },
-  "sector": "Technology",
+  "sector": "Industrials",
   "sector_relative_strength_up": false
 }

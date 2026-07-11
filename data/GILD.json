@@ -1,19 +1,19 @@
 {
   "ticker": "GILD",
   "price": 129.83,
-  "updated": "2026-07-11T20:35:49.980256+00:00",
-  "score": 18,
+  "updated": "2026-07-11T20:46:33.205739+00:00",
+  "score": 44,
   "stages": {
     "1_macro": {
-      "status": "unknown",
-      "index_name": null,
-      "index_symbol": null
+      "status": "pass",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC"
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
-      "peg": null
+      "status": "pass",
+      "upside_pct": 21.9,
+      "forward_pe": 13.456648,
+      "peg": 2.14
     },
     "3_technical_position": {
       "status": "fail",
@@ -52,17 +52,17 @@
       "atr_stop_pct": 4.5
     },
     "10_target": {
-      "target_mean_price": null,
-      "upside_pct": null
+      "target_mean_price": 158.2963,
+      "upside_pct": 21.9
     }
   },
-  "score_addon": 31,
+  "score_addon": 58,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
-      "peg": null
+      "status": "pass",
+      "upside_pct": 21.9,
+      "forward_pe": 13.456648,
+      "peg": 2.14
     },
     "3_pullback_position": {
       "status": "pass",
@@ -98,6 +98,6 @@
       "stop_pct_from_20sma": 1.7
     }
   },
-  "sector": null,
-  "sector_relative_strength_up": null
+  "sector": "Healthcare",
+  "sector_relative_strength_up": false
 }
