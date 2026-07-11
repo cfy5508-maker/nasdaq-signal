@@ -262,7 +262,7 @@
     </a>
   </div>
   <div style="display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px 70px 90px minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span style="text-align:left;">종목</span><span>현재가</span><span>점수</span><span>업사이드</span><span>다이버전스</span><span>트리거</span><span>RSI</span><span>추매점수</span><span>신호</span><span></span>
+  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">추매점수</span><span style="text-align:center;">신호</span><span></span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -1082,8 +1082,8 @@
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
       '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-      '<span style="font-size:11px;color:'+addonColor+';text-align:left;font-weight:700;">'+addonLabel+'</span>' +
-      '<span>'+signalBadge(item.signal)+'</span>' +
+      '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonLabel+'</span>' +
+      '<span style="text-align:center;">'+signalBadge(item.signal)+'</span>' +
       '<span style="display:flex;justify-content:flex-end;">' +
       '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
       '</span>';
