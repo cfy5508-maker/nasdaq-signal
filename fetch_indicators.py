@@ -161,7 +161,7 @@ def analyze(ticker):
     result = {
         "ticker": ticker.upper(),
         "price": round(last_close, 2),
-        "updated": pd.Timestamp.utcnow().isoformat(),
+        "updated": pd.Timestamp.now("UTC").isoformat(),
         "score": score,
         "stages": stages,
         "sector": sector,
@@ -201,7 +201,7 @@ def main():
         key=lambda x: x["score"], reverse=True
     )
     with open(f"{OUT_DIR}/rankings.json", "w") as f:
-        json.dump({"updated": pd.Timestamp.utcnow().isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
+        json.dump({"updated": pd.Timestamp.now("UTC").isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
 
     print(f"\n완료: {len(results)}/{len(tickers)}개 성공, rankings.json 저장")
 
