@@ -260,8 +260,8 @@
       + 종목 추가
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px 20px minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span>종목</span><span>현재가</span><span>점수</span><span>업사이드</span><span>다이버전스</span><span>트리거</span><span>RSI</span><span></span><span></span>
+  <div style="display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <span></span><span></span><span>종목</span><span>현재가</span><span>점수</span><span>업사이드</span><span>다이버전스</span><span>트리거</span><span>RSI</span><span></span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -974,7 +974,7 @@
         row.style.cssText = 'padding:8px 0;' + (i < top.length-1 ? 'border-bottom:1px solid #2a2a35;' : '');
 
         var head = document.createElement('div');
-        head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px 20px minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
+        head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
         head.innerHTML =
           '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;">▾</span>' +
           '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
@@ -985,8 +985,9 @@
           '<span style="text-align:left;">'+pill(item.divergence)+'</span>' +
           '<span style="text-align:left;">'+pill(item.trigger)+'</span>' +
           '<span style="font-size:11px;color:#9999aa;text-align:left;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-          '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;text-align:left;">×</span>' +
-          '<span></span>';
+          '<span style="display:flex;justify-content:flex-end;">' +
+          '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
+        '</span>';
         
         var detail = document.createElement('div');
         detail.style.cssText = 'display:none;padding:8px 0 4px 30px;';
