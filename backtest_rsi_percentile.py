@@ -14,7 +14,7 @@ import pandas as pd
 import yfinance as yf
 from ta.momentum import RSIIndicator
 
-TICKERS = ["NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD"]
+TICKERS = ["TSLA", "JPM", "DIS", "PFE", "CVX", "MCD", "NFLX", "GE", "CSCO", "UNH"]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 LOOKBACK = 252
 MIN_SAMPLES_PER_TICKER = 10  # 이보다 표본 적으면 그 종목은 해당 구간에서 제외
