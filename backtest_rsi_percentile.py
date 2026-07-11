@@ -3,9 +3,9 @@ backtest_rsi_percentile.py
 사용법: python backtest_rsi_percentile.py [FORWARD_DAYS]
 기본값: FORWARD_DAYS=10
 
-동작: 여러 티커에 대해 1년 롤링 백분위 기준 RSI 눌림목 신호(15~35%)가 뜬 날 이후
-      N영업일 뒤 수익률을 계산해서 승률/평균수익률을 산출하고,
-      전체 기간 무작위 기준선과 비교한다. 종목별 + 전체 통합 결과를 모두 출력.
+동작: 10개 종목에 대해 RSI 백분위 구간을 여러 개(5~10, 10~20, ... 등)로 나눠서
+      스윕하며, 각 구간에서 N영업일 뒤 승률/평균수익률이 전체 기준선 대비
+      얼마나 우위인지 비교한다. 어느 구간이 실제로 신호로서 유효한지 찾기 위함.
 """
 import sys
 import numpy as np
@@ -15,7 +15,14 @@ from ta.momentum import RSIIndicator
 
 TICKERS = ["NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD"]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
-LOOKBACK = 252  # 52주 롤링 윈도우(거래일 기준)
+LOOKBACK = 252
+
+# 스윕할 백분위 구간들 (하한, 상한)
+BANDS = [
+    (0, 5), (5, 10), (10, 15), (15, 20), (20, 25), (25, 30), (30, 35),
+    (35, 40), (40, 45), (45, 50),
+    (0, 10), (0, 15), (0, 20), (5, 15), (5, 20), (10, 25), (15, 35),
+]
 
 
 def rolling_percentile(series, window):
@@ -41,35 +48,24 @@ def build_df(ticker):
     return df
 
 
-def stats_for(df, mask, label):
-    sub = df[mask]
+def compute_stats(sub):
     if len(sub) == 0:
-        print(f"  {label}: 표본 없음")
         return None
-    win_rate = (sub["fwd_return"] > 0).mean() * 100
-    avg_return = sub["fwd_return"].mean() * 100
-    median_return = sub["fwd_return"].median() * 100
-    print(f"  {label}: 표본 {len(sub)}일 | 승률 {win_rate:.1f}% | 평균수익률 {avg_return:+.2f}% | 중앙값 {median_return:+.2f}%")
-    return {"n": len(sub), "win_rate": win_rate, "avg_return": avg_return}
+    return {
+        "n": len(sub),
+        "win_rate": (sub["fwd_return"] > 0).mean() * 100,
+        "avg_return": sub["fwd_return"].mean() * 100,
+    }
 
 
 def main():
     all_dfs = []
-    print(f"=== 종목별 결과 (신호 후 {FORWARD_DAYS}영업일 뒤 수익률 기준) ===\n")
-
     for t in TICKERS:
         df = build_df(t)
-        if df is None:
-            print(f"{t}: 데이터 없음\n")
-            continue
-        all_dfs.append(df)
-
-        print(f"[{t}]")
-        pass_mask = (df["rsi_pctile"] >= 15) & (df["rsi_pctile"] <= 35)
-        all_mask = pd.Series(True, index=df.index)
-        stats_for(df, pass_mask, "PASS(15~35%)")
-        stats_for(df, all_mask, "전체 기준선")
-        print()
+        if df is not None:
+            all_dfs.append(df)
+        else:
+            print(f"{t}: 데이터 없음")
 
     if not all_dfs:
         print("데이터를 하나도 못 가져왔습니다.")
@@ -77,24 +73,36 @@ def main():
 
     combined = pd.concat(all_dfs, ignore_index=False)
 
-    print("=== 10개 종목 통합 결과 ===\n")
-    pass_mask = (combined["rsi_pctile"] >= 15) & (combined["rsi_pctile"] <= 35)
-    warn_mask = ((combined["rsi_pctile"] >= 5) & (combined["rsi_pctile"] < 15)) | \
-                ((combined["rsi_pctile"] > 35) & (combined["rsi_pctile"] <= 45))
-    fail_mask = ~pass_mask & ~warn_mask
-    all_mask = pd.Series(True, index=combined.index)
+    baseline = compute_stats(combined)
+    print(f"=== 전체 기준선 ===")
+    print(f"표본 {baseline['n']}일 | 승률 {baseline['win_rate']:.1f}% | 평균수익률 {baseline['avg_return']:+.2f}%\n")
 
-    pass_stats = stats_for(combined, pass_mask, "PASS(백분위 15~35%)")
-    stats_for(combined, warn_mask, "WARN(5~15% 또는 35~45%)")
-    stats_for(combined, fail_mask, "FAIL(그 외)")
-    baseline_stats = stats_for(combined, all_mask, "전체 기준선(모든 날짜, 모든 종목)")
+    print(f"=== 구간별 스윕 결과 ({FORWARD_DAYS}영업일 뒤 수익률 기준, 10개 종목 통합) ===")
+    print(f"{'구간':>12} | {'표본':>6} | {'승률':>7} | {'평균수익률':>10} | {'기준선 대비':>10}")
+    print("-" * 60)
+
+    results = []
+    for lo, hi in BANDS:
+        mask = (combined["rsi_pctile"] >= lo) & (combined["rsi_pctile"] < hi)
+        stats = compute_stats(combined[mask])
+        if stats is None or stats["n"] < 20:
+            continue
+        gap = stats["win_rate"] - baseline["win_rate"]
+        results.append((lo, hi, stats, gap))
+        print(f"{lo:>4}~{hi:<4}%   | {stats['n']:>6} | {stats['win_rate']:>6.1f}% | {stats['avg_return']:>+9.2f}% | {gap:>+9.1f}%p")
 
     print()
-    if pass_stats and baseline_stats:
-        gap = pass_stats["win_rate"] - baseline_stats["win_rate"]
-        verdict = "의미 있는 신호로 판단 가능" if gap >= 5 else "기준선 대비 우위 불충분 — 구간 재조정 필요"
-        print(f"PASS 승률({pass_stats['win_rate']:.1f}%) - 전체 기준선({baseline_stats['win_rate']:.1f}%) = {gap:+.1f}%p")
-        print(f"판정: {verdict}")
+    results.sort(key=lambda r: r[3], reverse=True)
+    print("=== 승률 우위 상위 5개 구간 ===")
+    for lo, hi, stats, gap in results[:5]:
+        print(f"{lo}~{hi}%: 승률 {stats['win_rate']:.1f}% (기준선 대비 {gap:+.1f}%p), 표본 {stats['n']}일")
+
+    print()
+    best = results[0]
+    if best[3] >= 5:
+        print(f"결론: {best[0]}~{best[1]}% 구간이 가장 유의미한 우위({best[3]:+.1f}%p)를 보임. 이 구간으로 재설정 고려.")
+    else:
+        print("결론: 어느 구간도 5%p 이상의 뚜렷한 우위를 보이지 않음. RSI 백분위 단독으로는 신뢰도 낮은 신호일 가능성.")
 
 
 if __name__ == "__main__":
