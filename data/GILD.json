@@ -1,8 +1,8 @@
 {
   "ticker": "GILD",
   "price": 129.83,
-  "updated": "2026-07-11T18:23:52.788463+00:00",
-  "score": 34,
+  "updated": "2026-07-11T18:48:41.874375+00:00",
+  "score": 44,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -22,8 +22,8 @@
       "bb_high": 135.48
     },
     "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
+      "status": "warn",
+      "bullish_divergence": true,
       "macd_hist_rising": false
     },
     "5_volume_flow": {
@@ -41,6 +41,9 @@
     },
     "8_trigger_candle": {
       "status": "fail",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
