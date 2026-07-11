@@ -503,13 +503,24 @@
               label:function(ctx){
                 if(ctx.dataset.label==='나스닥'){
                   var base = '나스닥: '+Math.round(ctx.parsed.y).toLocaleString()+' | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%';
-                  if(ctx.dataIndex===NOW && window.HY_NOWCAST){
-                    base += ' | HY 확정'+window.HY_NOWCAST.confirmed_oas.toFixed(2)+'%→추정'+window.HY_NOWCAST.nowcast_oas.toFixed(2)+'%';
+                  if(ctx.dataIndex===NOW){
+                    if(window.HY_NOWCAST){
+                      base += ' | HY 확정'+window.HY_NOWCAST.confirmed_oas.toFixed(2)+'%→추정'+window.HY_NOWCAST.nowcast_oas.toFixed(2)+'%';
+                    } else {
+                      base += ' | HY '+hyOas[ctx.dataIndex].toFixed(2)+'%(확정)';
+                    }
                   }
                   return base;
                 }
-                if(ctx.dataset.label==='HY기준선')
-                  return 'HY기준선: '+Math.round(ctx.parsed.y).toLocaleString()+' (HY '+hyOas[ctx.dataIndex].toFixed(2)+'%)';
+                if(ctx.dataset.label==='HY기준선'){
+                  var hyVal = hyOas[ctx.dataIndex];
+                  var estTag = '';
+                  if(ctx.dataIndex===NOW && window.HY_NOWCAST){
+                    hyVal = window.HY_NOWCAST.nowcast_oas;
+                    estTag = '(추정)';
+                  }
+                  return 'HY 기준선: '+Math.round(ctx.parsed.y).toLocaleString()+' (추정 HY '+hyVal.toFixed(2)+'%'+estTag+')';
+                }
                 return '';
               }
             }
