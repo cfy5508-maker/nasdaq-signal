@@ -823,13 +823,30 @@
         d.setDate(d.getDate()+1);
       }
     }
-    fetch('./data/'+item.ticker+'.json?_='+Date.now())
-        .then(function(r){ return r.ok ? r.json() : null; })
-        .then(function(full){
-          if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
-          renderChecklistWithToggle(full, detail);
-        })
-        .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
+    fetch('./data/finra_credit_balance.json?_='+Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if(!d) return;
+        var el = document.getElementById('creditBadge');
+        if(!el) return;
+        var col = d.color || '#7f8c8d';
+        var pctTxt = d.percentile<=0 ? '사상 최저'
+          : d.percentile>=100 ? '사상 최고'
+          : d.percentile<=50 ? ('하위 ' + d.percentile + '%')
+          : ('상위 ' + (100 - d.percentile) + '%');
+        var parts = d.as_of.split('-'), y = +parts[0], m0 = +parts[1] - 1;
+        var dueMonth = (m0 + 2) % 12;
+        var dueYear = y + Math.floor((m0 + 2) / 12);
+        var due = thirdFriday(dueYear, dueMonth);
+        var needUpdate = due && (new Date() >= due);
+        el.style.background = 'rgba(' + hexToRgb(col) + ',0.12)';
+        el.style.borderColor = 'rgba(' + hexToRgb(col) + ',0.45)';
+        el.innerHTML = '<div class="badge-label" style="color:' + col + '">현금여력 · ' + d.as_of + '</div>'
+          + '<div class="badge-value" style="color:' + col + '">' + d.cash_cover_ratio.toFixed(2) + '</div>'
+          + '<div class="badge-sub" style="color:' + col + '">' + pctTxt + (needUpdate ? ' · <span style="color:#fbbf24;font-weight:800;">⚠ 갱신 필요</span>' : '') + '</div>';
+        el.style.display = 'flex';
+      })
+      .catch(function(e){ console.error('credit badge', e); });
   })();
 </script>
 
