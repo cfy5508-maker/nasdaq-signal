@@ -1,8 +1,8 @@
 {
-  "ticker": "SMCI",
-  "price": 28.31,
-  "updated": "2026-07-11T22:11:50.229181+00:00",
-  "score": 68,
+  "ticker": "NVDA",
+  "price": 210.96,
+  "updated": "2026-07-11T22:11:59.827946+00:00",
+  "score": 53,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -11,20 +11,20 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.926065,
-      "peg": 0.91
+      "upside_pct": 43.0,
+      "forward_pe": 16.494099,
+      "peg": 0.63
     },
     "3_technical_position": {
       "status": "fail",
-      "rsi": 43.3,
-      "bb_low": 25.1,
-      "bb_high": 34.4
+      "rsi": 57.0,
+      "bb_low": 190.1,
+      "bb_high": 213.8
     },
     "4_divergence_momentum": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
-      "macd_hist_rising": true
+      "macd_hist_rising": false
     },
     "5_volume_flow": {
       "status": "warn",
@@ -32,70 +32,70 @@
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 22.2
+      "adx": 16.9
     },
     "7_multi_timeframe": {
-      "status": "pass",
-      "daily_rsi": 43.3,
-      "weekly_rsi": 45.3
+      "status": "warn",
+      "daily_rsi": 57.0,
+      "weekly_rsi": 57.1
     },
     "8_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
-      "pattern": "불리시엔걸핑",
-      "days_ago": 2,
+      "pattern": "해머",
+      "days_ago": 1,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 13.4
+      "atr_stop_pct": 5.1
     },
     "10_target": {
-      "target_mean_price": 37.25,
-      "upside_pct": 31.6
+      "target_mean_price": 301.6207,
+      "upside_pct": 43.0
     }
   },
-  "score_addon": 34,
+  "score_addon": 74,
   "stages_addon": {
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.926065,
-      "peg": 0.91
+      "upside_pct": 43.0,
+      "forward_pe": 16.494099,
+      "peg": 0.63
     },
     "3_pullback_position": {
-      "status": "warn",
+      "status": "pass",
       "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 43.3
+      "near_50sma": true,
+      "rsi": 57.0
     },
     "4_pullback_depth": {
-      "status": "fail",
-      "pullback_pct": 23.1
+      "status": "warn",
+      "pullback_pct": 1.4
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 33163960,
-      "prior5_avg_vol": 58150600
+      "recent5_avg_vol": 132146820,
+      "prior5_avg_vol": 156566560
     },
     "6_trend_continuation": {
       "status": "fail",
-      "adx": 22.2,
-      "plus_di_over_minus_di": false
+      "adx": 16.9,
+      "plus_di_over_minus_di": true
     },
     "7_multi_timeframe": {
-      "status": "fail",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
+      "status": "pass",
+      "daily_above_20sma": true,
+      "weekly_above_20sma": true
     },
     "8_trigger_breakout": {
-      "status": "fail",
-      "recent5_high": 29.22,
-      "today_close": 28.31
+      "status": "pass",
+      "recent5_high": 205.16,
+      "today_close": 210.96
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.1
+      "stop_pct_from_20sma": 4.3
     }
   },
   "sector": "Technology",
