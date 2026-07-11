@@ -1,19 +1,19 @@
 {
   "ticker": "SMCI",
   "price": 28.31,
-  "updated": "2026-07-11T21:14:14.187623+00:00",
-  "score": 68,
+  "updated": "2026-07-11T21:15:32.280745+00:00",
+  "score": 37,
   "stages": {
     "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
+      "status": "unknown",
+      "index_name": null,
+      "index_symbol": null
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.926065,
-      "peg": 0.91
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_technical_position": {
       "status": "fail",
@@ -52,17 +52,17 @@
       "atr_stop_pct": 13.4
     },
     "10_target": {
-      "target_mean_price": 37.25,
-      "upside_pct": 31.6
+      "target_mean_price": null,
+      "upside_pct": null
     }
   },
-  "score_addon": 34,
+  "score_addon": 11,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.926065,
-      "peg": 0.91
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_pullback_position": {
       "status": "warn",
@@ -98,6 +98,6 @@
       "stop_pct_from_20sma": 5.1
     }
   },
-  "sector": "Technology",
-  "sector_relative_strength_up": false
+  "sector": null,
+  "sector_relative_strength_up": null
 }
