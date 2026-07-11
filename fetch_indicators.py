@@ -328,7 +328,72 @@ def analyze(ticker):
     return result
 
 
-def log_snapshot(r):
+def load_recent_history(ticker, days=4):
+    """score_history.jsonl에서 해당 티커의 최근 기록(날짜 오름차순)을 최대 days개 반환."""
+    if not os.path.exists(HISTORY_PATH):
+        return []
+    rows = []
+    with open(HISTORY_PATH) as f:
+        for line in f:
+            try:
+                rec = json.loads(line)
+            except Exception:
+                continue
+            if rec.get("ticker") == ticker:
+                rows.append(rec)
+    rows.sort(key=lambda r: r["date"])
+    # 같은 날짜 중복 시 마지막 값만 유지
+    dedup = {}
+    for r in rows:
+        dedup[r["date"]] = r
+    rows = list(dedup.values())
+    return rows[-days:]
+
+
+def compute_signal(ticker, today_score, score_key="score"):
+    """상승신호/하락신호/신호없음 판정. score_key: 'score' 또는 'score_addon'."""
+    hist = load_recent_history(ticker, days=4)
+    if not hist:
+        return {"signal": "none", "detail": "이전 기록 없음"}
+
+    prev = hist[-1][score_key]
+    change = today_score - prev
+
+    def zone(s):
+        if s >= 65: return 2
+        if s >= 40: return 1
+        return 0
+
+    crossed_up = zone(today_score) > zone(prev)
+    crossed_down = zone(today_score) < zone(prev)
+    spike_up = change >= 25
+    spike_down = change <= -25
+
+    streak_up = len(hist) >= 2 and all(
+        hist[i][score_key] < hist[i+1][score_key] for i in range(len(hist)-1)
+    ) and today_score > hist[-1][score_key]
+    streak_down = len(hist) >= 2 and all(
+        hist[i][score_key] > hist[i+1][score_key] for i in range(len(hist)-1)
+    ) and today_score < hist[-1][score_key]
+
+    reasons_up = []
+    if spike_up: reasons_up.append(f"급등(+{change})")
+    if crossed_up: reasons_up.append("구간 상향 돌파")
+    if streak_up: reasons_up.append("3일 연속 상승")
+
+    reasons_down = []
+    if spike_down: reasons_down.append(f"급락({change})")
+    if crossed_down: reasons_down.append("구간 하향 이탈")
+    if streak_down: reasons_down.append("3일 연속 하락")
+
+    if reasons_up:
+        return {"signal": "up", "detail": f"전일 {prev} → 오늘 {today_score} ({'+' if change>=0 else ''}{change}) · " + ", ".join(reasons_up)}
+    if reasons_down:
+        return {"signal": "down", "detail": f"전일 {prev} → 오늘 {today_score} ({change}) · " + ", ".join(reasons_down)}
+    return {"signal": "none", "detail": f"전일 {prev} → 오늘 {today_score} ({'+' if change>=0 else ''}{change})"}
+
+
+
     """나중 승률 재보정용 원본 데이터. 날짜별로 한 줄씩 누적(jsonl), 덮어쓰지 않음."""
     snap = {
         "date": pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
@@ -356,9 +421,11 @@ def main():
     for t in tickers:
         try:
             r = analyze(t)
+            r["signal"] = compute_signal(t, r["score"], "score")
+            r["signal_addon"] = compute_signal(t, r["score_addon"], "score_addon")
             results.append(r)
             log_snapshot(r)
-            print(f"  {t}: score={r['score']}")
+            print(f"  {t}: score={r['score']} signal={r['signal']['signal']}")
         except Exception as e:
             print(f"  {t}: FAILED ({e})", file=sys.stderr)
         time.sleep(0.6)
@@ -368,7 +435,8 @@ def main():
           "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
           "rsi": r["stages"]["3_technical_position"]["rsi"],
           "divergence": r["stages"]["4_divergence_momentum"]["status"],
-          "trigger": r["stages"]["8_trigger_candle"]["status"]}
+          "trigger": r["stages"]["8_trigger_candle"]["status"],
+          "signal": r["signal"], "signal_addon": r["signal_addon"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
     )
