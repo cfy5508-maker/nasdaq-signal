@@ -855,13 +855,15 @@ window.chartGap=new Chart(document.getElementById('cGap'),{
     var restVals=rest.map(function(n){return m1[n];});
     if(semiVals.length<3||restVals.length<3)return;
 
-    var c1=conc(m1), c2=(m2?conc(m2):c1);
+    var r1=concShare(m1), r2=(m2?concShare(m2):r1);
+    if(!r1) return;
+    var c1=r1.pct, c2=r2?r2.pct:c1;
     var semiMed=median(semiVals), restMed=median(restVals);
 
     // 판정: 매도 → 경고 → 주의 → 중립
     var st,col,sub;
     if(semiMed<0&&restMed<0){st='매도';col='#c026d3';sub='독주 붕괴';}
-    else if(c1>=67&&semiMed>0){st='경고';col='#f43f5e';sub='독주 심화';}
+    else if(c1>=70){st='경고';col='#f43f5e';sub='상승분 반도체 편중';}
     else if(c1<c2&&restMed>0){st='주의';col='#f59e0b';sub='확산·관찰';}
     else{st='중립';col='#7f8c8d';sub='—';}
 
@@ -869,7 +871,7 @@ window.chartGap=new Chart(document.getElementById('cGap'),{
     el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
     el.innerHTML='<div class="badge-label" style="color:'+col+'">반도체 버블 신호 · '+st+'</div>'
       +'<div class="badge-value" style="color:'+col+'">'+c1.toFixed(0)+'%</div>'
-      +'<div class="badge-sub" style="color:'+col+'">'+sub+' · 반도체'+(semiMed>=0?'+':'')+semiMed.toFixed(1)+'</div>';
+      +'<div class="badge-sub" style="color:'+col+'">'+sub+' · 상승'+r1.riserCount+'개 중 반도체'+r1.semiCount+'개</div>';
   }
   if(document.readyState!=='loading')run();
   else document.addEventListener('DOMContentLoaded',run);
