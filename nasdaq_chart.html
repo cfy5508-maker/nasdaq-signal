@@ -945,9 +945,9 @@
 
   function pill(status){
     var s = status || 'unknown';
-    return '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:'+STATUS_BG[s]+';color:'+STATUS_FG[s]+';font-size:10px;white-space:nowrap;">'+STATUS_LABEL[s]+'</span>';
+    return '<span style="height:20px;padding:0 9px;border-radius:5px;background:'+STATUS_BG[s]+';color:'+STATUS_FG[s]+';font-size:11px;font-weight:700;display:flex;align-items:center;white-space:nowrap;">'+STATUS_LABEL[s]+'</span>';
   }
-
+  
   function overallTag(score){
     if(score >= 65) return 'pass';
     if(score >= 40) return 'warn';
@@ -986,33 +986,36 @@
   }
 
   function renderRowsHtml(rows, extraRow){
-    var html = '';
-    rows.forEach(function(r){
+    var html = '<div style="display:flex;flex-direction:column;">';
+    rows.forEach(function(r, i){
       var stageParts = r[0].split(' ');
       var stageNum = stageParts[0];
       var stageName = stageParts.slice(1).join(' ');
-      html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
-        + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+pill(r[1].status)+' '+stageName+' · '+r[2]+'</span>'
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #1f1f27;">'
+        + pill(r[1].status)
+        + '<span style="font-size:12px;color:#c7c7d1;"><b style="color:#e2e2e8;">'+stageNum+'</b> '+stageName+' · '+r[2]+'</span>'
         + '</div>';
     });
     if(extraRow){
-      html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
-        + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l '
-        + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
-        + ' '+extraRow+'</span>'
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;">'
+        + '<span style="height:20px;padding:0 9px;border-radius:5px;background:rgba(107,107,122,0.18);color:#9999aa;font-size:11px;font-weight:700;display:flex;align-items:center;">참고</span>'
+        + '<span style="font-size:12px;color:#c7c7d1;"><b style="color:#e2e2e8;">9단계</b> '+extraRow+'</span>'
         + '</div>';
     }
+    html += '</div>';
     return html;
   }
 
   function renderChecklistWithToggle(full, container){
     var wrap = document.createElement('div');
 
-    var toggleRow = document.createElement('div');
-    toggleRow.style.cssText = 'display:flex;gap:6px;margin-bottom:6px;max-width:650px;';
+   var toggleRow = document.createElement('div');
+    toggleRow.style.cssText = 'display:flex;justify-content:flex-end;margin-bottom:14px;';
     toggleRow.innerHTML =
-      '<button data-mode="entry" style="flex:1;padding:5px 0;font-size:11px;border-radius:6px;border:1px solid #3a3a4a;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 ('+full.score+')</button>' +
-      '<button data-mode="addon" style="flex:1;padding:5px 0;font-size:11px;border-radius:6px;border:1px solid #3a3a4a;background:transparent;color:#9999aa;cursor:pointer;">추매 ('+full.score_addon+')</button>';
+      '<div style="display:inline-flex;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;padding:2px;">' +
+      '<button data-mode="entry" style="padding:5px 14px;font-size:11px;font-weight:700;border:none;border-radius:6px;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 '+full.score+'</button>' +
+      '<button data-mode="addon" style="padding:5px 14px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:transparent;color:#6b6b7a;cursor:pointer;">추매 '+full.score_addon+'</button>' +
+      '</div>';
 
     var body = document.createElement('div');
     var entryHtml = renderRowsHtml(buildEntryRows(full), '손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%');
@@ -1023,13 +1026,13 @@
     var btnAddon = toggleRow.querySelector('[data-mode="addon"]');
     btnEntry.addEventListener('click', function(){
       body.innerHTML = entryHtml;
-      btnEntry.style.background = '#7c3aed'; btnEntry.style.color = '#fff';
-      btnAddon.style.background = 'transparent'; btnAddon.style.color = '#9999aa';
+      btnEntry.style.background = '#7c3aed'; btnEntry.style.color = '#fff'; btnEntry.style.fontWeight = '700';
+      btnAddon.style.background = 'transparent'; btnAddon.style.color = '#6b6b7a'; btnAddon.style.fontWeight = '500';
     });
     btnAddon.addEventListener('click', function(){
       body.innerHTML = addonHtml;
-      btnAddon.style.background = '#7c3aed'; btnAddon.style.color = '#fff';
-      btnEntry.style.background = 'transparent'; btnEntry.style.color = '#9999aa';
+      btnAddon.style.background = '#7c3aed'; btnAddon.style.color = '#fff'; btnAddon.style.fontWeight = '700';
+      btnEntry.style.background = 'transparent'; btnEntry.style.color = '#6b6b7a'; btnEntry.style.fontWeight = '500';
     });
 
     wrap.appendChild(toggleRow);
@@ -1047,10 +1050,8 @@
     head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px 70px minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
 
     var addonScore = item.score_addon;
-    var addonLabel, addonColor;
-    if(addonScore >= 65){ addonLabel = '추매'; addonColor = STATUS_FG.pass; }
-    else if(addonScore >= 40){ addonLabel = '추매대기'; addonColor = STATUS_FG.warn; }
-    else{ addonLabel = '추매금지'; addonColor = STATUS_FG.fail; }
+    var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
+    var addonLabel = addonScore;
     
     head.innerHTML =
       '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;">▾</span>' +
