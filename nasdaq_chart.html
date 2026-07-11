@@ -968,7 +968,7 @@
     return [
       ['1단계 매크로', s1, s1detail],
       ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
-     ['3단계 눌림위치', sa['3_pullback_position'], (sa['3_pullback_position'].near_20sma||sa['3_pullback_position'].near_50sma ? (sa['3_pullback_position'].near_20sma?'20일선 근접':'')+(sa['3_pullback_position'].near_50sma?' 50일선 근접':'') : '이평선 근접 안됨') + ', RSI '+sa['3_pullback_position'].rsi+' (52주백분위 '+sa['3_pullback_position'].rsi_percentile_52w+'%)'],
+      ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
       ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
       ['5단계 거래량', full.stages['5_volume_flow'], 'OBV다이버전스 '+full.stages['5_volume_flow'].obv_bullish_divergence],
       ['6단계 추세소진', full.stages['6_trend_exhaustion'], 'ADX '+full.stages['6_trend_exhaustion'].adx],
@@ -984,7 +984,7 @@
     return [
       ['1단계 매크로', s1, s1detail],
       ['2단계 펀더멘털', sa['2_fundamentals'], '업사이드 '+(sa['2_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['2_fundamentals'].peg??'-')],
-      ['3단계 눌림위치', sa['3_pullback_position'], (sa['3_pullback_position'].near_20sma?'20일선 ':'')+(sa['3_pullback_position'].near_50sma?'50일선 ':'')+'근접, RSI '+sa['3_pullback_position'].rsi],
+      ['3단계 눌림위치', sa['3_pullback_position'], (sa['3_pullback_position'].near_20sma||sa['3_pullback_position'].near_50sma ? (sa['3_pullback_position'].near_20sma?'20일선 근접':'')+(sa['3_pullback_position'].near_50sma?' 50일선 근접':'') : '이평선 근접 안됨') + ', RSI '+sa['3_pullback_position'].rsi+' (52주백분위 '+sa['3_pullback_position'].rsi_percentile_52w+'%)'],
       ['4단계 조정폭', sa['4_pullback_depth'], '고점대비 -'+sa['4_pullback_depth'].pullback_pct+'%'],
       ['5단계 거래량', sa['5_volume_flow'], '최근5일 '+sa['5_volume_flow'].recent5_avg_vol.toLocaleString()+' vs 이전5일 '+sa['5_volume_flow'].prior5_avg_vol.toLocaleString()],
       ['6단계 추세지속', sa['6_trend_continuation'], 'ADX '+sa['6_trend_continuation'].adx+', +DI우세 '+sa['6_trend_continuation'].plus_di_over_minus_di],
