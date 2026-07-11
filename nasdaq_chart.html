@@ -213,6 +213,7 @@
   .scroll-wrap::-webkit-scrollbar-thumb:hover { background:#4a4a5a; }
   #globalTable tbody tr:nth-child(3),
   #globalTable tbody tr:nth-child(6) { display:none; }
+  .sig-wrap:hover .sig-tip{opacity:1;visibility:visible;transform:translateY(0);}
 </style>
 </head>
 <body>
@@ -261,7 +262,7 @@
     </a>
   </div>
   <div style="display:grid;grid-template-columns:20px 8px 55px 60px 40px 65px 70px 60px 40px 70px minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
- <span></span><span></span><span>종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">추매점수</span><span></span>
+  <span style="text-align:left;">종목</span><span>현재가</span><span>점수</span><span>업사이드</span><span>다이버전스</span><span>트리거</span><span>RSI</span><span>추매점수</span><span>신호</span><span></span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -985,6 +986,21 @@
     ];
   }
 
+ function signalBadge(sig){
+    if(!sig) return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
+    if(sig.signal === 'none'){
+      return '<span style="font-size:10px;color:#6b6b7a;" title="'+sig.detail+'">신호 없음</span>';
+    }
+    var up = sig.signal === 'up';
+    var col = up ? '#34d399' : '#fb7185';
+    var bg = up ? 'rgba(16,185,129,0.18)' : 'rgba(244,63,94,0.18)';
+    var label = up ? '상승신호' : '하락신호';
+    return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+      + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg+';border:1px solid '+col+';color:'+col+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;">'+label+'</span>'
+      + '<div class="sig-tip" style="position:absolute;top:130%;left:0;min-width:220px;background:#1a1a22;border:1px solid #3a3a4a;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.7;color:#c7c7d1;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s;z-index:20;">'+sig.detail+'</div>'
+      + '</span>';
+  }
+
   function renderRowsHtml(rows, extraRow){
     var html = '<div style="display:flex;flex-direction:column;">';
     rows.forEach(function(r, i){
@@ -1066,7 +1082,8 @@
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
       '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-      '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonLabel+'</span>' +
+      '<span style="font-size:11px;color:'+addonColor+';text-align:left;font-weight:700;">'+addonLabel+'</span>' +
+      '<span>'+signalBadge(item.signal)+'</span>' +
       '<span style="display:flex;justify-content:flex-end;">' +
       '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
       '</span>';
