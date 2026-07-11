@@ -1,0 +1,29 @@
+name: Backtest RSI Percentile Signal
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: "백테스트할 티커 (예: NVDA)"
+        required: false
+        default: "NVDA"
+      forward_days:
+        description: "신호 후 며칠 뒤 수익률을 볼지"
+        required: false
+        default: "10"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas numpy ta
+
+      - name: Run backtest
+        run: python backtest_rsi_percentile.py "${{ github.event.inputs.ticker }}" "${{ github.event.inputs.forward_days }}"
