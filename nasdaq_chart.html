@@ -994,17 +994,28 @@
   }
 
  function signalBadge(sig){
-    if(!sig) return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
-    if(sig.signal === 'none'){
-      return '<span style="font-size:10px;color:#6b6b7a;" title="'+sig.detail+'">신호 없음</span>';
+    if(!sig || sig.signal === 'none'){
+      return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
     }
     var up = sig.signal === 'up';
     var col = up ? '#34d399' : '#fb7185';
     var bg = up ? 'rgba(16,185,129,0.18)' : 'rgba(244,63,94,0.18)';
     var label = up ? '상승신호' : '하락신호';
+
+    var reasonsHtml = (sig.reasons || []).map(function(r){
+      var line = '<div style="display:flex;align-items:center;gap:6px;">'
+        + '<span style="color:'+col+';font-size:12px;">✓</span>'
+        + '<span style="font-size:11px;color:#c7c7d1;">'+r.label+'</span>'
+        + '</div>';
+      if(r.detail){
+        line += '<div style="font-size:10px;color:#6b6b7a;margin-left:18px;margin-top:2px;">'+r.detail+'</div>';
+      }
+      return line;
+    }).join('');
+
     return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
       + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg+';border:1px solid '+col+';color:'+col+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;">'+label+'</span>'
-      + '<div class="sig-tip">'+sig.detail+'</div>'
+      + '<div class="sig-tip"><div style="display:flex;flex-direction:column;gap:8px;">'+reasonsHtml+'</div></div>'
       + '</span>';
   }
 
