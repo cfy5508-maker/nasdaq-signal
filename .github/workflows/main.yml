@@ -48,7 +48,7 @@ jobs:
 
       - name: Install deps (글로벌 지수용)
         if: steps.guard.outputs.run_gl == 'true'
-        run: pip install yfinance pandas
+        run: pip install yfinance pandas openpyxl curl_cffi beautifulsoup4 lxml ta
 
       # ───────────────────────── 나스닥 (기존 그대로) ─────────────────────────
       - name: Update nasdaq_data.js
@@ -168,7 +168,8 @@ jobs:
           FRED_KEY: ${{ secrets.FRED_KEY }}
         run: python fetch_hy_oas_nowcast.py
 
-       - name: Fetch watchlist rankings
+      - name: Fetch watchlist rankings
+        if: steps.guard.outputs.run_gl == 'true'
         run: python fetch_indicators.py
           
 
