@@ -53,8 +53,25 @@ result = {
     "confirmed_oas": round(float(confirmed_oas), 2),
     "nowcast_oas": round(float(nowcast_oas), 2),
     "gap_days": len(after),
+    "beta_hyg": round(float(b_hyg), 3),
+    "beta_ief": round(float(b_ief), 3),
+    "beta_vix": round(float(b_vix), 3),
+    "intercept": round(float(intercept), 3),
+    "train_window": len(train),
 }
 os.makedirs("data", exist_ok=True)
 with open("data/hy_oas_nowcast.json", "w") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
+
+# ── 베타 이력 누적 (드리프트 추적용) ──
+history_path = "data/hy_oas_beta_history.json"
+history = []
+if os.path.exists(history_path):
+    with open(history_path) as f:
+        history = json.load(f)
+history.append(result)
+history = history[-90:]   # 최근 90회분만 유지
+with open(history_path, "w") as f:
+    json.dump(history, f, ensure_ascii=False, indent=2)
+
 print(json.dumps(result, ensure_ascii=False, indent=2))
