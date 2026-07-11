@@ -32,8 +32,7 @@ jobs:
           RUN_ND=false
           if [ "$DOW" -ge 1 ] && [ "$DOW" -le 5 ]; then RUN_ND=true; fi
 
-          RUN_GL=false
-          if [ "$KDAY" = "1" ] || [ "$KDAY" = "15" ] || [ "$KTOM" = "1" ]; then RUN_GL=true; fi
+          RUN_GL=true
 
           if [ "$MANUAL" = "true" ]; then RUN_ND=true; RUN_GL=true; fi
 
