@@ -1,0 +1,110 @@
+name: Manage Watchlist
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  handle:
+    if: |
+      startsWith(github.event.issue.title, 'add-ticker:') ||
+      startsWith(github.event.issue.title, 'remove-ticker:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas numpy ta
+
+      - name: Update watchlist.json
+        id: update
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          python3 << 'PYEOF'
+          import json, os, re
+
+          title = os.environ["ISSUE_TITLE"].strip()
+          m = re.match(r'^(add-ticker|remove-ticker):\s*([A-Za-z\.\-]{1,10})\s*$', title)
+
+          path = "data/watchlist.json"
+          if os.path.exists(path):
+              with open(path) as f:
+                  watchlist = json.load(f)
+          else:
+              watchlist = []
+
+          result = "invalid"
+          ticker = None
+
+          if m:
+              action, ticker = m.group(1), m.group(2).upper()
+              if action == "add-ticker":
+                  if ticker in watchlist:
+                      result = "already_exists"
+                  elif len(watchlist) >= 40:
+                      result = "limit_reached"
+                  else:
+                      watchlist.append(ticker)
+                      result = "added"
+              elif action == "remove-ticker":
+                  if ticker in watchlist:
+                      watchlist.remove(ticker)
+                      result = "removed"
+                  else:
+                      result = "not_found"
+
+          os.makedirs("data", exist_ok=True)
+          with open(path, "w") as f:
+              json.dump(watchlist, f, ensure_ascii=False, indent=2)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"result={result}\n")
+              f.write(f"ticker={ticker or ''}\n")
+          print(f"result={result} ticker={ticker} watchlist_size={len(watchlist)}")
+          PYEOF
+
+      - name: Refresh rankings (only if watchlist changed)
+        if: steps.update.outputs.result == 'added' || steps.update.outputs.result == 'removed'
+        run: python fetch_indicators.py
+
+      - name: Remove stale ticker file
+        if: steps.update.outputs.result == 'removed'
+        run: rm -f "data/${{ steps.update.outputs.ticker }}.json"
+
+      - name: Commit and push
+        if: steps.update.outputs.result == 'added' || steps.update.outputs.result == 'removed'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/watchlist.json data/rankings.json data/*.json
+          git diff --staged --quiet || git commit -m "watchlist: ${{ steps.update.outputs.result }} ${{ steps.update.outputs.ticker }}"
+          git push
+
+      - name: Comment and close issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RESULT: ${{ steps.update.outputs.result }}
+          TICKER: ${{ steps.update.outputs.ticker }}
+          ISSUE_NUM: ${{ github.event.issue.number }}
+        run: |
+          case "$RESULT" in
+            added)          MSG="✅ $TICKER 관심종목에 추가하고 데이터 갱신했습니다." ;;
+            removed)        MSG="✅ $TICKER 관심종목에서 제거했습니다." ;;
+            already_exists) MSG="ℹ️ $TICKER 는 이미 관심종목에 있습니다." ;;
+            not_found)      MSG="ℹ️ $TICKER 는 관심종목에 없어서 제거할 게 없습니다." ;;
+            limit_reached)  MSG="⚠️ 관심종목이 40개로 가득 차서 $TICKER 를 추가할 수 없습니다. 먼저 몇 개를 제거해주세요." ;;
+            *)               MSG="⚠️ 이슈 제목 형식을 인식하지 못했습니다. add-ticker:GILD 또는 remove-ticker:GILD 형식으로 다시 작성해주세요." ;;
+          esac
+          gh issue comment "$ISSUE_NUM" --body "$MSG"
+          gh issue close "$ISSUE_NUM"
