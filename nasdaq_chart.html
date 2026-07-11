@@ -1009,7 +1009,7 @@
     var wrap = document.createElement('div');
 
     var toggleRow = document.createElement('div');
-    toggleRow.style.cssText = 'display:flex;gap:6px;margin-bottom:8px;';
+    toggleRow.style.cssText = 'display:flex;gap:6px;margin-bottom:6px;max-width:650px;';
     toggleRow.innerHTML =
       '<button data-mode="entry" style="flex:1;padding:5px 0;font-size:11px;border-radius:6px;border:1px solid #3a3a4a;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 ('+full.score+')</button>' +
       '<button data-mode="addon" style="flex:1;padding:5px 0;font-size:11px;border-radius:6px;border:1px solid #3a3a4a;background:transparent;color:#9999aa;cursor:pointer;">추매 ('+full.score_addon+')</button>';
