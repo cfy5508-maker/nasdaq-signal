@@ -1,30 +1,30 @@
 {
-  "ticker": "TOYO",
-  "price": 6.05,
-  "updated": "2026-07-11T21:52:51.133043+00:00",
-  "score": 47,
+  "ticker": "MCD",
+  "price": 274.6,
+  "updated": "2026-07-11T21:52:55.951485+00:00",
+  "score": 41,
   "stages": {
     "1_macro": {
       "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
+      "index_name": "다우30",
+      "index_symbol": "^DJI"
     },
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 172.7,
-      "forward_pe": 1.4901478,
-      "peg": null
+      "upside_pct": 19.8,
+      "forward_pe": 19.326284,
+      "peg": 2.56
     },
     "3_technical_position": {
       "status": "warn",
-      "rsi": 27.5,
-      "bb_low": 3.42,
-      "bb_high": 14.8
+      "rsi": 47.1,
+      "bb_low": 263.18,
+      "bb_high": 290.28
     },
     "4_divergence_momentum": {
       "status": "warn",
-      "bullish_divergence": false,
-      "macd_hist_rising": true
+      "bullish_divergence": true,
+      "macd_hist_rising": false
     },
     "5_volume_flow": {
       "status": "warn",
@@ -32,12 +32,12 @@
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 32.0
+      "adx": 15.9
     },
     "7_multi_timeframe": {
-      "status": "pass",
-      "daily_rsi": 27.5,
-      "weekly_rsi": 38.7
+      "status": "warn",
+      "daily_rsi": 47.1,
+      "weekly_rsi": 39.2
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -49,39 +49,39 @@
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 27.4
+      "atr_stop_pct": 3.3
     },
     "10_target": {
-      "target_mean_price": 16.5,
-      "upside_pct": 172.7
+      "target_mean_price": 329.03226,
+      "upside_pct": 19.8
     }
   },
-  "score_addon": 16,
+  "score_addon": 42,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 172.7,
-      "forward_pe": 1.4901478,
-      "peg": null
+      "upside_pct": 19.8,
+      "forward_pe": 19.326284,
+      "peg": 2.56
     },
     "3_pullback_position": {
-      "status": "fail",
-      "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 27.5
+      "status": "pass",
+      "near_20sma": true,
+      "near_50sma": true,
+      "rsi": 47.1
     },
     "4_pullback_depth": {
-      "status": "fail",
-      "pullback_pct": 55.6
+      "status": "pass",
+      "pullback_pct": 5.1
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 763360,
-      "prior5_avg_vol": 1526900
+      "recent5_avg_vol": 4350540,
+      "prior5_avg_vol": 5494260
     },
     "6_trend_continuation": {
       "status": "fail",
-      "adx": 32.0,
+      "adx": 15.9,
       "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
@@ -91,13 +91,13 @@
     },
     "8_trigger_breakout": {
       "status": "fail",
-      "recent5_high": 7.07,
-      "today_close": 6.05
+      "recent5_high": 287.1,
+      "today_close": 274.6
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 50.6
+      "stop_pct_from_20sma": 0.8
     }
   },
-  "sector": "Technology",
+  "sector": "Consumer Cyclical",
   "sector_relative_strength_up": false
 }
