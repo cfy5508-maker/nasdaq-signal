@@ -1,0 +1,28 @@
+name: Backtest HY OAS Model
+
+on:
+  workflow_dispatch:
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install yfinance pandas numpy
+
+      - name: Run backtest
+        env:
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+        run: python backtest_hy_oas_model.py
+
+      - name: Upload result CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: backtest-result
+          path: backtest_result.csv
