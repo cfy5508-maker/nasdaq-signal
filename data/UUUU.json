@@ -1,7 +1,7 @@
 {
   "ticker": "UUUU",
   "price": 13.58,
-  "updated": "2026-07-11T18:58:19.506739+00:00",
+  "updated": "2026-07-11T19:16:42.075425+00:00",
   "score": 40,
   "stages": {
     "1_macro": {
@@ -54,6 +54,48 @@
     "10_target": {
       "target_mean_price": 26.125,
       "upside_pct": 92.4
+    }
+  },
+  "score_addon": 20,
+  "stages_addon": {
+    "2_fundamentals": {
+      "status": "warn",
+      "upside_pct": 92.4,
+      "forward_pe": 41.151512,
+      "peg": null
+    },
+    "3_pullback_position": {
+      "status": "warn",
+      "near_20sma": false,
+      "near_50sma": false,
+      "rsi": 38.0
+    },
+    "4_pullback_depth": {
+      "status": "fail",
+      "pullback_pct": 24.8
+    },
+    "5_volume_flow": {
+      "status": "warn",
+      "recent5_avg_vol": 6576680,
+      "prior5_avg_vol": 8896900
+    },
+    "6_trend_continuation": {
+      "status": "fail",
+      "adx": 15.0,
+      "plus_di_over_minus_di": false
+    },
+    "7_multi_timeframe": {
+      "status": "fail",
+      "daily_above_20sma": false,
+      "weekly_above_20sma": false
+    },
+    "8_trigger_breakout": {
+      "status": "fail",
+      "recent5_high": 15.0,
+      "today_close": 13.58
+    },
+    "9_position_sizing": {
+      "stop_pct_from_20sma": 7.7
     }
   },
   "sector": "Energy",

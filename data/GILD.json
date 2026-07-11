@@ -1,7 +1,7 @@
 {
   "ticker": "GILD",
   "price": 129.83,
-  "updated": "2026-07-11T18:58:16.640723+00:00",
+  "updated": "2026-07-11T19:16:38.920430+00:00",
   "score": 44,
   "stages": {
     "1_macro": {
@@ -54,6 +54,48 @@
     "10_target": {
       "target_mean_price": 158.2963,
       "upside_pct": 21.9
+    }
+  },
+  "score_addon": 58,
+  "stages_addon": {
+    "2_fundamentals": {
+      "status": "pass",
+      "upside_pct": 21.9,
+      "forward_pe": 13.456648,
+      "peg": 2.14
+    },
+    "3_pullback_position": {
+      "status": "pass",
+      "near_20sma": true,
+      "near_50sma": true,
+      "rsi": 51.1
+    },
+    "4_pullback_depth": {
+      "status": "pass",
+      "pullback_pct": 5.7
+    },
+    "5_volume_flow": {
+      "status": "warn",
+      "recent5_avg_vol": 8027000,
+      "prior5_avg_vol": 9791660
+    },
+    "6_trend_continuation": {
+      "status": "fail",
+      "adx": 17.6,
+      "plus_di_over_minus_di": true
+    },
+    "7_multi_timeframe": {
+      "status": "warn",
+      "daily_above_20sma": true,
+      "weekly_above_20sma": false
+    },
+    "8_trigger_breakout": {
+      "status": "fail",
+      "recent5_high": 137.7,
+      "today_close": 129.83
+    },
+    "9_position_sizing": {
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Healthcare",

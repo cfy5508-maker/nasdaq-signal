@@ -1,7 +1,7 @@
 {
   "ticker": "JOBY",
   "price": 7.72,
-  "updated": "2026-07-11T18:58:17.623443+00:00",
+  "updated": "2026-07-11T19:16:40.239697+00:00",
   "score": 55,
   "stages": {
     "1_macro": {
@@ -54,6 +54,48 @@
     "10_target": {
       "target_mean_price": 11.12,
       "upside_pct": 44.0
+    }
+  },
+  "score_addon": 14,
+  "stages_addon": {
+    "2_fundamentals": {
+      "status": "warn",
+      "upside_pct": 44.0,
+      "forward_pe": -15.44,
+      "peg": null
+    },
+    "3_pullback_position": {
+      "status": "fail",
+      "near_20sma": false,
+      "near_50sma": false,
+      "rsi": 33.8
+    },
+    "4_pullback_depth": {
+      "status": "fail",
+      "pullback_pct": 25.0
+    },
+    "5_volume_flow": {
+      "status": "warn",
+      "recent5_avg_vol": 39507020,
+      "prior5_avg_vol": 52940800
+    },
+    "6_trend_continuation": {
+      "status": "fail",
+      "adx": 22.0,
+      "plus_di_over_minus_di": false
+    },
+    "7_multi_timeframe": {
+      "status": "fail",
+      "daily_above_20sma": false,
+      "weekly_above_20sma": false
+    },
+    "8_trigger_breakout": {
+      "status": "fail",
+      "recent5_high": 9.43,
+      "today_close": 7.72
+    },
+    "9_position_sizing": {
+      "stop_pct_from_20sma": 15.8
     }
   },
   "sector": "Industrials",

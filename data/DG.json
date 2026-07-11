@@ -1,7 +1,7 @@
 {
   "ticker": "DG",
   "price": 118.92,
-  "updated": "2026-07-11T18:58:21.828078+00:00",
+  "updated": "2026-07-11T19:16:44.229383+00:00",
   "score": 10,
   "stages": {
     "1_macro": {
@@ -54,6 +54,48 @@
     "10_target": {
       "target_mean_price": 131.06897,
       "upside_pct": 10.2
+    }
+  },
+  "score_addon": 20,
+  "stages_addon": {
+    "2_fundamentals": {
+      "status": "fail",
+      "upside_pct": 10.2,
+      "forward_pe": 14.850205,
+      "peg": 1.65
+    },
+    "3_pullback_position": {
+      "status": "warn",
+      "near_20sma": false,
+      "near_50sma": false,
+      "rsi": 59.6
+    },
+    "4_pullback_depth": {
+      "status": "warn",
+      "pullback_pct": 1.2
+    },
+    "5_volume_flow": {
+      "status": "warn",
+      "recent5_avg_vol": 2295940,
+      "prior5_avg_vol": 2732840
+    },
+    "6_trend_continuation": {
+      "status": "fail",
+      "adx": 18.8,
+      "plus_di_over_minus_di": true
+    },
+    "7_multi_timeframe": {
+      "status": "warn",
+      "daily_above_20sma": true,
+      "weekly_above_20sma": false
+    },
+    "8_trigger_breakout": {
+      "status": "fail",
+      "recent5_high": 119.04,
+      "today_close": 118.92
+    },
+    "9_position_sizing": {
+      "stop_pct_from_20sma": 3.2
     }
   },
   "sector": "Consumer Defensive",
