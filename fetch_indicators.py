@@ -18,6 +18,7 @@ from ta.volume import OnBalanceVolumeIndicator
 
 WATCHLIST_PATH = "data/watchlist.json"
 OUT_DIR = "data"
+HISTORY_PATH = "data/score_history.jsonl"
 
 SECTOR_ETF = {
     "Healthcare": "XLV", "Technology": "XLK", "Financial Services": "XLF",
@@ -327,6 +328,21 @@ def analyze(ticker):
     return result
 
 
+def log_snapshot(r):
+    """나중 승률 재보정용 원본 데이터. 날짜별로 한 줄씩 누적(jsonl), 덮어쓰지 않음."""
+    snap = {
+        "date": pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
+        "ticker": r["ticker"],
+        "price": r["price"],
+        "score": r["score"],
+        "score_addon": r["score_addon"],
+        "stage_status": {k: v["status"] for k, v in r["stages"].items() if "status" in v},
+        "stage_status_addon": {k: v["status"] for k, v in r["stages_addon"].items() if "status" in v},
+    }
+    with open(HISTORY_PATH, "a") as f:
+        f.write(json.dumps(snap, ensure_ascii=False) + "\n")
+
+
 def main():
     if not os.path.exists(WATCHLIST_PATH):
         print(f"watchlist not found: {WATCHLIST_PATH}", file=sys.stderr)
@@ -341,6 +357,7 @@ def main():
         try:
             r = analyze(t)
             results.append(r)
+            log_snapshot(r)
             print(f"  {t}: score={r['score']}")
         except Exception as e:
             print(f"  {t}: FAILED ({e})", file=sys.stderr)
