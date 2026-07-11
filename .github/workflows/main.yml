@@ -162,6 +162,11 @@ jobs:
 
       - name: Capex QoQ
         run: python fetch_capex.py
+
+       - name: HY OAS Nowcast
+        env:
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+        run: python fetch_hy_oas_nowcast.py
           
 
       # ───────────────────────── 커밋 & 푸시 (통합) ─────────────────────────
