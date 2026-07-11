@@ -1008,6 +1008,8 @@
             .then(function(r){ return r.ok ? r.json() : null; })
             .then(function(full){
               if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
+              var s1 = full.stages['1_macro'];
+              var s1detail = s1.index_name ? (s1.index_name+'('+s1.index_symbol+') 200일선 기준') : '소속 지수 확인 안 됨';
               var rows = [
                 ['1단계 매크로', s1, s1detail],
                 ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
