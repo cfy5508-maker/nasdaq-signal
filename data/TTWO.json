@@ -1,8 +1,8 @@
 {
-  "ticker": "GILD",
-  "price": 129.83,
-  "updated": "2026-07-11T19:32:14.916394+00:00",
-  "score": 44,
+  "ticker": "TTWO",
+  "price": 243.2,
+  "updated": "2026-07-11T19:32:22.164483+00:00",
+  "score": 24,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -10,20 +10,20 @@
       "index_symbol": "^IXIC"
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.9,
-      "forward_pe": 13.456648,
-      "peg": 2.14
+      "status": "warn",
+      "upside_pct": 16.8,
+      "forward_pe": 24.31691,
+      "peg": 3.51
     },
     "3_technical_position": {
       "status": "fail",
-      "rsi": 51.1,
-      "bb_low": 119.89,
-      "bb_high": 135.48
+      "rsi": 54.8,
+      "bb_low": 212.29,
+      "bb_high": 266.9
     },
     "4_divergence_momentum": {
-      "status": "warn",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
       "macd_hist_rising": false
     },
     "5_volume_flow": {
@@ -32,12 +32,12 @@
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 17.6
+      "adx": 27.1
     },
     "7_multi_timeframe": {
       "status": "warn",
-      "daily_rsi": 51.1,
-      "weekly_rsi": 49.4
+      "daily_rsi": 54.8,
+      "weekly_rsi": 56.9
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -49,55 +49,55 @@
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 4.5
+      "atr_stop_pct": 5.3
     },
     "10_target": {
-      "target_mean_price": 158.2963,
-      "upside_pct": 21.9
+      "target_mean_price": 284.13965,
+      "upside_pct": 16.8
     }
   },
-  "score_addon": 58,
+  "score_addon": 68,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.9,
-      "forward_pe": 13.456648,
-      "peg": 2.14
+      "status": "warn",
+      "upside_pct": 16.8,
+      "forward_pe": 24.31691,
+      "peg": 3.51
     },
     "3_pullback_position": {
       "status": "pass",
       "near_20sma": true,
-      "near_50sma": true,
-      "rsi": 51.1
+      "near_50sma": false,
+      "rsi": 54.8
     },
     "4_pullback_depth": {
       "status": "pass",
-      "pullback_pct": 5.7
+      "pullback_pct": 8.6
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 8027000,
-      "prior5_avg_vol": 9791660
+      "recent5_avg_vol": 2025060,
+      "prior5_avg_vol": 3548400
     },
     "6_trend_continuation": {
-      "status": "fail",
-      "adx": 17.6,
+      "status": "pass",
+      "adx": 27.1,
       "plus_di_over_minus_di": true
     },
     "7_multi_timeframe": {
-      "status": "warn",
+      "status": "pass",
       "daily_above_20sma": true,
-      "weekly_above_20sma": false
+      "weekly_above_20sma": true
     },
     "8_trigger_breakout": {
       "status": "fail",
-      "recent5_high": 137.7,
-      "today_close": 129.83
+      "recent5_high": 265.94,
+      "today_close": 243.2
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.7
+      "stop_pct_from_20sma": 1.5
     }
   },
-  "sector": "Healthcare",
-  "sector_relative_strength_up": false
+  "sector": "Communication Services",
+  "sector_relative_strength_up": true
 }
