@@ -26,6 +26,58 @@ SECTOR_ETF = {
     "Basic Materials": "XLB", "Communication Services": "XLC",
 }
 
+DOW30 = {
+    "AAPL","AMGN","AMZN","AXP","BA","CAT","CRM","CSCO","CVX","DIS",
+    "GS","HD","HON","IBM","JNJ","JPM","KO","MCD","MMM","MRK",
+    "MSFT","NKE","NVDA","PG","SHW","TRV","UNH","V","VZ","WMT"
+}
+
+_INDEX_CACHE = {}
+_SP500_SET = None
+
+
+def get_sp500_set():
+    global _SP500_SET
+    if _SP500_SET is not None:
+        return _SP500_SET
+    cache_path = os.path.join(OUT_DIR, "sp500_constituents.json")
+    try:
+        tables = pd.read_html("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
+        symbols = set(tables[0]["Symbol"].str.replace(".", "-", regex=False))
+        with open(cache_path, "w") as f:
+            json.dump(sorted(symbols), f)
+        _SP500_SET = symbols
+    except Exception:
+        if os.path.exists(cache_path):
+            with open(cache_path) as f:
+                _SP500_SET = set(json.load(f))
+        else:
+            _SP500_SET = set()
+    return _SP500_SET
+
+
+def determine_index(ticker, exchange):
+    if exchange in ("NMS", "NGM", "NCM"):
+        return ("나스닥", "^IXIC")
+    if ticker in get_sp500_set():
+        return ("S&P500", "^GSPC")
+    if ticker in DOW30:
+        return ("다우30", "^DJI")
+    return (None, None)
+
+
+def index_macro_status(index_symbol):
+    if index_symbol in _INDEX_CACHE:
+        return _INDEX_CACHE[index_symbol]
+    try:
+        hist = yf.Ticker(index_symbol).history(period="1y")["Close"]
+        above_200sma = bool(hist.iloc[-1] > hist.rolling(200).mean().iloc[-1])
+    except Exception:
+        above_200sma = None
+    result = "pass" if above_200sma else ("fail" if above_200sma is False else "unknown")
+    _INDEX_CACHE[index_symbol] = result
+    return result
+
 WEIGHTS = {
     "2_fundamentals": 2.0,
     "3_technical_position": 1.5,
@@ -111,6 +163,11 @@ def analyze(ticker):
         info = tk.info
     except Exception:
         pass
+
+    exchange = info.get("exchange")
+    index_name, index_symbol = determine_index(ticker.upper(), exchange)
+    stage1_status = index_macro_status(index_symbol) if index_symbol else "unknown"
+
     target_mean = info.get("targetMeanPrice")
     forward_pe = info.get("forwardPE")
     peg = info.get("pegRatio")
@@ -144,6 +201,7 @@ def analyze(ticker):
              "fail" if not stage2_flags["upside_ge_15"] else "warn"
 
     stages = {
+        "1_macro": {"status": stage1_status, "index_name": index_name, "index_symbol": index_symbol},
         "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_technical_position": {"status": stage3, "rsi": round(rsi_last, 1), "bb_low": round(bb_low, 2), "bb_high": round(bb_high, 2)},
         "4_divergence_momentum": {"status": stage4, "bullish_divergence": bullish_divergence, "macd_hist_rising": macd_hist_rising},
@@ -161,7 +219,7 @@ def analyze(ticker):
     result = {
         "ticker": ticker.upper(),
         "price": round(last_close, 2),
-        "updated": pd.Timestamp.now("UTC").isoformat(),
+        "updated": pd.Timestamp.utcnow().isoformat(),
         "score": score,
         "stages": stages,
         "sector": sector,
@@ -201,7 +259,7 @@ def main():
         key=lambda x: x["score"], reverse=True
     )
     with open(f"{OUT_DIR}/rankings.json", "w") as f:
-        json.dump({"updated": pd.Timestamp.now("UTC").isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
+        json.dump({"updated": pd.Timestamp.utcnow().isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
 
     print(f"\n완료: {len(results)}/{len(tickers)}개 성공, rankings.json 저장")
 
