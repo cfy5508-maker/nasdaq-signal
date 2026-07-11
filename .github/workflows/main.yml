@@ -167,6 +167,9 @@ jobs:
         env:
           FRED_KEY: ${{ secrets.FRED_KEY }}
         run: python fetch_hy_oas_nowcast.py
+
+       - name: Fetch watchlist rankings
+        run: python fetch_indicators.py
           
 
       # ───────────────────────── 커밋 & 푸시 (통합) ─────────────────────────
