@@ -261,7 +261,7 @@
       + 종목 추가
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(8, 80px) minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(8, 60px) minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
   <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">추매점수</span><span style="text-align:center;">신호</span><span></span>
   </div>
   <div id="rankList"></div>
@@ -1066,7 +1066,7 @@
     row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
 
     var head = document.createElement('div');
-    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(8, 80px) minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(8, 60px) minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
 
     var addonScore = item.score_addon;
     var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
