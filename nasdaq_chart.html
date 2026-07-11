@@ -213,6 +213,13 @@
   .scroll-wrap::-webkit-scrollbar-thumb:hover { background:#4a4a5a; }
   #globalTable tbody tr:nth-child(3),
   #globalTable tbody tr:nth-child(6) { display:none; }
+  .sig-tip{
+    position:absolute; top:130%; left:0; min-width:220px;
+    background:#1a1a22; border:1px solid #3a3a4a; border-radius:8px;
+    padding:10px 12px; font-size:11px; line-height:1.7; color:#c7c7d1;
+    opacity:0; visibility:hidden; transform:translateY(-4px);
+    transition:opacity .15s,transform .15s; z-index:20;
+  }
   .sig-wrap:hover .sig-tip{opacity:1;visibility:visible;transform:translateY(0);}
 </style>
 </head>
@@ -997,7 +1004,7 @@
     var label = up ? '상승신호' : '하락신호';
     return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
       + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg+';border:1px solid '+col+';color:'+col+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;">'+label+'</span>'
-      + '<div class="sig-tip" style="position:absolute;top:130%;left:0;min-width:220px;background:#1a1a22;border:1px solid #3a3a4a;border-radius:8px;padding:10px 12px;font-size:11px;line-height:1.7;color:#c7c7d1;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s;z-index:20;">'+sig.detail+'</div>'
+      + '<div class="sig-tip">'+sig.detail+'</div>'
       + '</span>';
   }
 
