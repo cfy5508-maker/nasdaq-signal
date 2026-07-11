@@ -1037,8 +1037,11 @@
 
     wrap.appendChild(toggleRow);
     wrap.appendChild(body);
-    container.innerHTML = '';
-    container.appendChild(wrap);
+    container.innerHTML = '<span></span><span></span>';
+    var col3 = document.createElement('div');
+    col3.style.paddingTop = '8px';
+    col3.appendChild(wrap);
+    container.appendChild(col3);
   }
 
   function renderRow(item, container, isLast){
@@ -1069,20 +1072,20 @@
       '</span>';
 
     var detail = document.createElement('div');
-    detail.style.cssText = 'display:none;padding:16px 0 4px 30px;';
-    detail.innerHTML = '<span style="font-size:11px;color:#6b6b7a;">세부 체크리스트 불러오는 중...</span>';
+    detail.style.cssText = 'display:none;grid-template-columns:20px 8px 1fr;gap:18px;padding:8px 0 4px 0;';
+    detail.innerHTML = '<span></span><span></span><div style="padding-top:8px;"><span style="font-size:11px;color:#6b6b7a;">세부 체크리스트 불러오는 중...</span></div>';
 
     head.addEventListener('click', function(e){
       if(e.target.closest('[data-remove]')) return;
       var chev = head.querySelector('.rankChev');
-      var open = detail.style.display === 'block';
+      var open = detail.style.display === 'grid';
       if(open){
         detail.style.display = 'none';
         chev.style.transform = 'rotate(0deg)';
         return;
       }
       chev.style.transform = 'rotate(180deg)';
-      detail.style.display = 'block';
+      detail.style.display = 'grid';
       fetch('./data/'+item.ticker+'.json?_='+Date.now())
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(full){
