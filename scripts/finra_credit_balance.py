@@ -321,8 +321,15 @@ def _browser_scrape():
 
 def fetch_latest() -> tuple[pd.DataFrame, str]:
     """(dataframe, source) 반환.
-    런너: 비헤드리스 브라우저(xlsx 우선, 실패 시 HTML). 로컬: http 폴백.
+    http(curl_cffi 임퍼소네이트) 우선 → 실패 시 브라우저 스텔스 → 실패 시 HTML.
     """
+    # 1순위: http(curl_cffi/requests) — xlsx 직접 다운로드가 차단 없이 되는 걸 확인함
+    try:
+        return load_from_xlsx(_http_get(XLSX_URL, referer=PAGE_URL)), "xlsx(http)"
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] http xlsx 실패: {e}", file=sys.stderr)
+
+    # 2순위: 비헤드리스 브라우저(xlsx 우선, 실패 시 HTML)
     try:
         xlsx, html = _browser_scrape()
         if xlsx:
@@ -338,12 +345,7 @@ def fetch_latest() -> tuple[pd.DataFrame, str]:
     except Exception as e:  # noqa: BLE001
         print(f"[warn] 브라우저 스크레이프 실패: {e}", file=sys.stderr)
 
-    # http(curl_cffi/requests) 폴백 — Akamai 없는 로컬/사내망용
-    try:
-        return load_from_xlsx(_http_get(XLSX_URL, referer=PAGE_URL)), "xlsx(http)"
-    except Exception as e:  # noqa: BLE001
-        print(f"[warn] http xlsx 실패 -> HTML: {e}", file=sys.stderr)
-
+    # 3순위: 단순 GET으로 페이지 HTML 파싱
     return load_from_html(_http_get(PAGE_URL).decode("utf-8", "replace")), "html(http)"
 
 
@@ -421,20 +423,22 @@ def build_badge(hist: pd.DataFrame, source: str) -> dict:
 def main() -> int:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 1순위: 사용자가 브라우저로 받아 커밋한 원본 xlsx (Cloudflare 무관, 절대 안 깨짐)
-    if LOCAL_XLSX.exists():
-        new, source = load_from_xlsx(LOCAL_XLSX.read_bytes()), "xlsx(local)"
-    else:
-        # 폴백: 스크래핑(FINRA는 Cloudflare 뒤라 CI IP에선 대개 실패)
-        print("[warn] data/finra_raw.xlsx 없음 — 스크래핑 시도(Cloudflare로 실패 가능)",
-              file=sys.stderr)
-        try:
-            new, source = fetch_latest()
-        except Exception as e:  # noqa: BLE001
-            print(f"[error] 데이터 소스 없음: {e}", file=sys.stderr)
+    # 1순위: 자동 수집 (http curl_cffi 임퍼소네이트 → 실패 시 브라우저 스텔스 → HTML)
+    new, source = None, None
+    try:
+        new, source = fetch_latest()
+    except Exception as e:  # noqa: BLE001
+        print(f"[warn] 자동 수집 실패: {e}", file=sys.stderr)
+
+    # 2순위 폴백: 사용자가 브라우저로 받아 커밋한 원본 xlsx
+    if new is None or new.empty:
+        if LOCAL_XLSX.exists():
+            print("[info] 자동 수집 실패 — data/finra_raw.xlsx 로 폴백", file=sys.stderr)
+            new, source = load_from_xlsx(LOCAL_XLSX.read_bytes()), "xlsx(local)"
+        else:
+            print("[error] 자동 수집도 실패했고 data/finra_raw.xlsx도 없음", file=sys.stderr)
             print("[hint] FINRA Margin Statistics 페이지에서 'Download the Data'로 "
-                  "xlsx를 받아 data/finra_raw.xlsx 로 커밋하세요. "
-                  "(사람 브라우저는 Cloudflare 통과, CI는 차단됨)", file=sys.stderr)
+                  "xlsx를 받아 data/finra_raw.xlsx 로 커밋하세요.", file=sys.stderr)
             return 1
 
     if new.empty:
