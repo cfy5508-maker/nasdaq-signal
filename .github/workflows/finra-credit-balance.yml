@@ -1,11 +1,9 @@
 name: FINRA 현금여력 배지 갱신
 
 on:
-  push:
-    paths: ['data/finra_raw.xlsx']   # 원본 xlsx 갱신 시 자동 재계산
   workflow_dispatch: {}
   schedule:
-    - cron: '0 13 19-25 * *'          # 혹시 몰라 월간에도 1회
+    - cron: '0 13 19-25 * *'          # FINRA 발표 주기(매월 3주차)에 맞춰 매일 시도
 
 permissions:
   contents: write
@@ -25,7 +23,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install deps
-        run: pip install --quiet pandas openpyxl
+        run: pip install --quiet pandas openpyxl curl_cffi beautifulsoup4 lxml
 
       - name: Build badge
         run: python scripts/finra_credit_balance.py
