@@ -1019,11 +1019,18 @@
               ];
               var html = '';
               rows.forEach(function(r){
-                html += '<div style="display:flex;gap:8px;padding:4px 0;align-items:center;">'+pill(r[1].status)+'<span style="font-size:11px;color:#9999aa;">'+r[0]+' · '+r[2]+'</span></div>';
+                var stageParts = r[0].split(' ');  // 예: ['2단계', '펀더멘털']
+                var stageNum = stageParts[0];
+                var stageName = stageParts.slice(1).join(' ');
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;">'
+                  + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+stageName+' · '+r[2]+'</span>'
+                  + pill(r[1].status)
+                  + '</div>';
               });
-              html += '<div style="display:flex;gap:8px;padding:4px 0;align-items:center;">'
+              html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;">'
+                + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span>'
                 + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
-                + '<span style="font-size:11px;color:#9999aa;">9단계 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span></div>';
+                + '</div>';
               detail.innerHTML = html;
             })
             .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
