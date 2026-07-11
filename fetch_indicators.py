@@ -90,6 +90,16 @@ WEIGHTS = {
 STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25}
 MAX_SCORE = sum(WEIGHTS.values())
 
+ADDON_WEIGHTS = {
+    "2_fundamentals": 2.0,
+    "3_pullback_position": 1.5,
+    "4_pullback_depth": 1.0,
+    "5_volume_flow": 1.0,
+    "6_trend_continuation": 1.5,
+    "7_multi_timeframe": 1.0,
+    "8_trigger_breakout": 1.5,
+}
+
 
 def detect_bullish_engulfing(o, h, l, c):
     return c.iloc[-1] > o.iloc[-2] and o.iloc[-1] < c.iloc[-2] and c.iloc[-1] > c.iloc[-2] and o.iloc[-2] > c.iloc[-2]
@@ -217,6 +227,65 @@ def analyze(ticker):
     stage2 = "pass" if all(stage2_flags.values()) else \
              "fail" if not stage2_flags["upside_ge_15"] else "warn"
 
+    # ── 추매(불타기) 체크리스트 계산 ──────────────────
+    sma20 = c.rolling(20).mean()
+    sma50 = c.rolling(50).mean()
+    plus_di = adx_ind.adx_pos()
+    minus_di = adx_ind.adx_neg()
+
+    near_20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] <= 0.02
+    near_50 = abs(last_close - sma50.iloc[-1]) / sma50.iloc[-1] <= 0.02
+    addon_rsi_ok = 35 <= rsi_last <= 60
+    addon_stage3 = "pass" if ((near_20 or near_50) and addon_rsi_ok) else \
+                   "warn" if (near_20 or near_50 or addon_rsi_ok) else "fail"
+
+    recent20_high = float(h.iloc[-20:].max())
+    pullback_pct = (recent20_high - last_close) / recent20_high * 100
+    addon_stage4 = "pass" if 3 <= pullback_pct <= 10 else \
+                   "warn" if pullback_pct < 3 else "fail"
+
+    vol_recent5 = float(v.iloc[-5:].mean())
+    vol_prior5 = float(v.iloc[-10:-5].mean())
+    addon_volume_up = bool(vol_recent5 > vol_prior5)
+    addon_stage5 = "pass" if addon_volume_up else "warn"
+
+    addon_adx_ok = bool(adx_last >= 20 and plus_di.iloc[-1] > minus_di.iloc[-1])
+    addon_stage6 = "pass" if addon_adx_ok else "fail"
+
+    weekly_sma20 = weekly["Close"].rolling(20).mean()
+    daily_above_sma20 = bool(last_close > sma20.iloc[-1])
+    weekly_above_sma20 = bool(len(weekly_sma20.dropna()) > 0 and weekly["Close"].iloc[-1] > weekly_sma20.iloc[-1])
+    addon_mtf_ok = daily_above_sma20 and weekly_above_sma20
+    addon_stage7 = "pass" if addon_mtf_ok else \
+                   "warn" if daily_above_sma20 else "fail"
+
+    recent5_high = float(h.iloc[-6:-1].max())
+    addon_breakout = bool(c.iloc[-1] > recent5_high and c.iloc[-1] > o.iloc[-1])
+    addon_stage8 = "pass" if addon_breakout else "fail"
+
+    addon_stop_pct = round(abs(last_close - sma20.iloc[-1]) / last_close * 100, 1)
+
+    stages_addon = {
+        "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1)},
+        "4_pullback_depth": {"status": addon_stage4, "pullback_pct": round(pullback_pct, 1)},
+        "5_volume_flow": {"status": addon_stage5, "recent5_avg_vol": round(vol_recent5), "prior5_avg_vol": round(vol_prior5)},
+        "6_trend_continuation": {"status": addon_stage6, "adx": round(adx_last, 1), "plus_di_over_minus_di": bool(plus_di.iloc[-1] > minus_di.iloc[-1])},
+        "7_multi_timeframe": {"status": addon_stage7, "daily_above_20sma": daily_above_sma20, "weekly_above_20sma": weekly_above_sma20},
+        "8_trigger_breakout": {"status": addon_stage8, "recent5_high": round(recent5_high, 2), "today_close": round(float(c.iloc[-1]), 2)},
+        "9_position_sizing": {"stop_pct_from_20sma": addon_stop_pct},
+    }
+    addon_known_weights = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if stages_addon[k]["status"] != "unknown"}
+    if addon_known_weights:
+        addon_raw = sum(addon_known_weights[k] * STATUS_SCORE[stages_addon[k]["status"]] for k in addon_known_weights)
+        addon_score = round(addon_raw / sum(addon_known_weights.values()) * 100)
+    else:
+        addon_score = 0
+    if stage1_status == "fail":
+        addon_score = min(addon_score, 40)
+    elif stage1_status == "unknown":
+        addon_score = round(addon_score * 0.85)
+
     stages = {
         "1_macro": {"status": stage1_status, "index_name": index_name, "index_symbol": index_symbol},
         "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
@@ -245,9 +314,11 @@ def analyze(ticker):
     result = {
         "ticker": ticker.upper(),
         "price": round(last_close, 2),
-        "updated": pd.Timestamp.utcnow().isoformat(),
+        "updated": pd.Timestamp.now("UTC").isoformat(),
         "score": score,
         "stages": stages,
+        "score_addon": addon_score,
+        "stages_addon": stages_addon,
         "sector": sector,
         "sector_relative_strength_up": sector_rs,
     }
@@ -276,7 +347,7 @@ def main():
         time.sleep(0.6)
 
     rankings = sorted(
-        [{"ticker": r["ticker"], "score": r["score"], "price": r["price"],
+        [{"ticker": r["ticker"], "score": r["score"], "score_addon": r["score_addon"], "price": r["price"],
           "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
           "rsi": r["stages"]["3_technical_position"]["rsi"],
           "divergence": r["stages"]["4_divergence_momentum"]["status"],
@@ -285,7 +356,7 @@ def main():
         key=lambda x: x["score"], reverse=True
     )
     with open(f"{OUT_DIR}/rankings.json", "w") as f:
-        json.dump({"updated": pd.Timestamp.utcnow().isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
+        json.dump({"updated": pd.Timestamp.now("UTC").isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
 
     print(f"\n완료: {len(results)}/{len(tickers)}개 성공, rankings.json 저장")
 
