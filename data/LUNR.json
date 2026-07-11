@@ -1,8 +1,8 @@
 {
-  "ticker": "ASTS",
-  "price": 73.32,
-  "updated": "2026-07-11T21:52:08.684030+00:00",
-  "score": 26,
+  "ticker": "LUNR",
+  "price": 16.14,
+  "updated": "2026-07-11T21:52:11.493700+00:00",
+  "score": 47,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -10,16 +10,16 @@
       "index_symbol": "^IXIC"
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 11.1,
-      "forward_pe": -357.30994,
+      "status": "warn",
+      "upside_pct": 152.7,
+      "forward_pe": -322.8,
       "peg": null
     },
     "3_technical_position": {
-      "status": "fail",
-      "rsi": 42.4,
-      "bb_low": 63.72,
-      "bb_high": 95.37
+      "status": "warn",
+      "rsi": 30.5,
+      "bb_low": 14.09,
+      "bb_high": 28.05
     },
     "4_divergence_momentum": {
       "status": "warn",
@@ -32,56 +32,56 @@
     },
     "6_trend_exhaustion": {
       "status": "unknown",
-      "adx": 13.9
+      "adx": 23.3
     },
     "7_multi_timeframe": {
       "status": "pass",
-      "daily_rsi": 42.4,
-      "weekly_rsi": 45.9
+      "daily_rsi": 30.5,
+      "weekly_rsi": 41.5
     },
     "8_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": true,
+      "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
     },
     "9_position_sizing": {
-      "atr_stop_pct": 16.6
+      "atr_stop_pct": 22.5
     },
     "10_target": {
-      "target_mean_price": 81.46667,
-      "upside_pct": 11.1
+      "target_mean_price": 40.77778,
+      "upside_pct": 152.7
     }
   },
-  "score_addon": 13,
+  "score_addon": 16,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 11.1,
-      "forward_pe": -357.30994,
+      "status": "warn",
+      "upside_pct": 152.7,
+      "forward_pe": -322.8,
       "peg": null
     },
     "3_pullback_position": {
-      "status": "warn",
+      "status": "fail",
       "near_20sma": false,
       "near_50sma": false,
-      "rsi": 42.4
+      "rsi": 30.5
     },
     "4_pullback_depth": {
       "status": "fail",
-      "pullback_pct": 25.3
+      "pullback_pct": 47.8
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 10560120,
-      "prior5_avg_vol": 22789560
+      "recent5_avg_vol": 9148340,
+      "prior5_avg_vol": 13135760
     },
     "6_trend_continuation": {
       "status": "fail",
-      "adx": 13.9,
+      "adx": 23.3,
       "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
@@ -91,13 +91,13 @@
     },
     "8_trigger_breakout": {
       "status": "fail",
-      "recent5_high": 90.64,
-      "today_close": 73.32
+      "recent5_high": 21.45,
+      "today_close": 16.14
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.5
+      "stop_pct_from_20sma": 30.6
     }
   },
-  "sector": "Technology",
+  "sector": "Industrials",
   "sector_relative_strength_up": false
 }
