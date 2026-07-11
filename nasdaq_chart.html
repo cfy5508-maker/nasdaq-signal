@@ -833,10 +833,11 @@ window.chartGap=new Chart(document.getElementById('cGap'),{
     return map;
   }
   // 집중도: 상위 절반에 든 반도체군 개수 / 6 × 100
-  function conc(map){
-    var all=Object.keys(map), half=Math.floor(all.length/2);
-    var top=all.slice().sort(function(a,b){return map[b]-map[a];}).slice(0,half);
-    return SEMI.filter(function(n){return top.indexOf(n)>=0;}).length/SEMI.length*100;
+  function concShare(map){
+    var risers = Object.keys(map).filter(function(n){ return map[n] > 0; });
+    if(risers.length < 5) return null;
+    var semiRisers = SEMI.filter(function(n){ return risers.indexOf(n) >= 0; });
+    return { pct: semiRisers.length/risers.length*100, riserCount:risers.length, semiCount:semiRisers.length };
   }
 
   function run(){
