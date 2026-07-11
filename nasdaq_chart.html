@@ -813,10 +813,10 @@
           : d.percentile>=100 ? '사상 최고'
           : d.percentile<=50 ? ('하위 '+d.percentile+'%')
           : ('상위 '+(100-d.percentile)+'%');
-       var parts=d.as_of.split('-'), y=+parts[0], m0=+parts[1]-1;
-       var dueMonth=(m0+2)%12;
-       var dueYear=y+Math.floor((m0+2)/12);
-       var due=thirdFriday(dueYear, dueMonth);
+        var parts=d.as_of.split('-'), y=+parts[0], m0=+parts[1]-1;
+        var dueMonth=(m0+2)%12;
+        var dueYear=y+Math.floor((m0+2)/12);
+        var due=thirdFriday(dueYear, dueMonth);
         var needUpdate = due && (new Date() >= due);
         el.style.background='rgba('+hexToRgb(col)+',0.12)';
         el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
