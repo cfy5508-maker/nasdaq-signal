@@ -1086,33 +1086,7 @@
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(full){
           if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
-          var s1 = full.stages['1_macro'];
-          var s1detail = s1.index_name ? (s1.index_name+'('+s1.index_symbol+') 200일선 기준') : '소속 지수 확인 안 됨';
-          var rows = [
-            ['1단계 매크로', s1, s1detail],
-            ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
-            ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
-            ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
-            ['5단계 거래량', full.stages['5_volume_flow'], 'OBV다이버전스 '+full.stages['5_volume_flow'].obv_bullish_divergence],
-            ['6단계 추세소진', full.stages['6_trend_exhaustion'], 'ADX '+full.stages['6_trend_exhaustion'].adx],
-            ['7단계 멀티타임프레임', full.stages['7_multi_timeframe'], '주봉RSI '+full.stages['7_multi_timeframe'].weekly_rsi],
-            ['8단계 트리거캔들', full.stages['8_trigger_candle'], full.stages['8_trigger_candle'].breakout_confirmed ? (full.stages['8_trigger_candle'].pattern+' 확정('+full.stages['8_trigger_candle'].days_ago+'일 전) + 돌파 완료') : '반전캔들+돌파 없음']
-          ];
-          var html = '';
-          rows.forEach(function(r){
-            var stageParts = r[0].split(' ');
-            var stageNum = stageParts[0];
-            var stageName = stageParts.slice(1).join(' ');
-            html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
-              + '<span style="font-size:11px;color:#9999aa;"><b>'+stageNum+'</b> l '+pill(r[1].status)+' '+stageName+' · '+r[2]+'</span>'
-              + '</div>';
-          });
-          html += '<div style="display:flex;gap:8px;align-items:center;padding:4px 0;">'
-            + '<span style="font-size:11px;color:#9999aa;"><b>9단계</b> l '
-            + '<span style="display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;background:rgba(107,107,122,0.15);color:#9999aa;font-size:10px;">참고</span>'
-            + ' 손절폭 ATR기준 '+full.stages['9_position_sizing'].atr_stop_pct+'%</span>'
-            + '</div>';
-          detail.innerHTML = html;
+          renderChecklistWithToggle(full, detail);
         })
         .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
     });
