@@ -156,6 +156,9 @@ def find_divergence_signals(ticker, benchmark_close):
             "rsi_weak": rsi_weak,
             "recent_rsi_strong": recent_rsi_strong,
             "recent_rsi_strong_and_candle": bool(recent_rsi_strong and has_trigger_candle),
+            "rsi_and_candle_same_day": bool(rsi_oversold and has_trigger_candle),
+            "rsi_and_bb_same_day": bool(rsi_oversold and near_bb),
+            "rsi_and_candle_and_bb": bool(rsi_oversold and has_trigger_candle and near_bb),
             "near_bb": near_bb,
             "vol_confirmed": vol_confirmed,
             "rs_positive": rs_positive,
@@ -213,11 +216,19 @@ def analyze_group(signals, group_label, exclude_factor=None):
         for s in signals:
             raw = sum(w for k, w in weights.items() if s[k])
             s["combo_score"] = round(raw / total_w * 100)
-    elif exclude_factor == "vol_confirmed":  # 중소형주 - 시차결합(최근10일 rsi_strong + 오늘 반전캔들) 반영
-        n_combo = sum(1 for s in signals if s["recent_rsi_strong_and_candle"])
-        n_recent_strong = sum(1 for s in signals if s["recent_rsi_strong"])
-        print(f"  [진단] recent_rsi_strong(최근10일내 10%이하 있었음): {n_recent_strong}건, 시차결합(그+오늘반전캔들): {n_combo}건\n")
-        weights = {"recent_rsi_strong_and_candle": 3.0, "rsi_oversold": 1.0, "near_bb": 0.5}
+    elif exclude_factor == "vol_confirmed":  # 중소형주 - 같은날 RSI+캔들/볼린저 결합 검증
+        n_rsi_candle = sum(1 for s in signals if s["rsi_and_candle_same_day"])
+        n_rsi_bb = sum(1 for s in signals if s["rsi_and_bb_same_day"])
+        n_all3 = sum(1 for s in signals if s["rsi_and_candle_and_bb"])
+        print(f"  [진단] RSI+캔들 동시(같은날): {n_rsi_candle}건, RSI+볼린저 동시: {n_rsi_bb}건, 셋다: {n_all3}건")
+        for key in ["rsi_and_candle_same_day", "rsi_and_bb_same_day", "rsi_and_candle_and_bb"]:
+            sub = [s for s in signals if s[key]]
+            wr, avg = win_rate(sub)
+            if wr is not None:
+                gap = wr - baseline_wr
+                print(f"    [{key}] 표본 {len(sub)}일 | 승률 {wr:.1f}% | 기준선 대비 {gap:+.1f}%p")
+        print()
+        weights = {"rsi_and_candle_same_day": 3.0, "rsi_oversold": 1.0, "near_bb": 0.5}
         total_w = sum(weights.values())
         for s in signals:
             raw = sum(w for k, w in weights.items() if s[k])
