@@ -1,4 +1,4 @@
-name: Zone 20-30 Downtrend Traits Backtest
+name: Zone 20-30 Threshold Sweep Backtest
 
 on:
   workflow_dispatch:
@@ -22,4 +22,4 @@ jobs:
         run: pip install --quiet yfinance pandas numpy ta
 
       - name: Run backtest
-        run: python zone_20_30_downtrend_traits_backtest.py "${{ github.event.inputs.forward_days }}"
+        run: python zone_20_30_threshold_sweep_backtest.py "${{ github.event.inputs.forward_days }}"
