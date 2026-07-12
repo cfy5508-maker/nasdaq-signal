@@ -71,6 +71,12 @@ def find_signals(ticker):
         low2_pos = hist.index.get_loc(low2_idx)
         days_since_low2 = i - low2_pos
 
+        # low2 확정 이후 오늘(i)까지, 저가가 low2 가격을 다시 하회한 적 있는지
+        low2_price = float(c[low2_idx])
+        h_series, l_series = hist["High"], hist["Low"]
+        subsequent_lows = l_series.iloc[low2_pos+1:i+1]
+        held_the_low = bool((subsequent_lows >= low2_price).all()) if len(subsequent_lows) > 0 else True
+
         entry = float(c.iloc[i])
         fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
 
@@ -78,6 +84,7 @@ def find_signals(ticker):
             "ticker": ticker,
             "is_large": ticker in LARGECAP_SET,
             "days_since_low2": days_since_low2,
+            "held_the_low": held_the_low,
             "fwd_return": fwd_return,
         })
     return results
@@ -108,6 +115,20 @@ def analyze_group(signals, label):
         gap = wr - baseline_wr
         hi_label = str(hi) if hi < 999 else "이상"
         print(f"{lo:>3}~{hi_label:<4}일 | {len(sub):>6} | {wr:>6.1f}% | {avg:>+9.2f}% | {gap:>+9.1f}%p")
+    print()
+
+    # 5~10일 구간을 저점유지 여부로 교차 분석 (핵심 확인 포인트)
+    window_5_10 = [s for s in signals if 5 <= s["days_since_low2"] < 10]
+    held = [s for s in window_5_10 if s["held_the_low"]]
+    broke = [s for s in window_5_10 if not s["held_the_low"]]
+    print("  [5~10일 구간을 저점유지 여부로 교차분석]")
+    for label2, recs in [("저점 유지(안 깸)", held), ("저점 이탈(깸)", broke)]:
+        wr, avg = win_rate(recs)
+        if wr is None:
+            print(f"    {label2}: 표본 없음")
+            continue
+        gap = wr - baseline_wr
+        print(f"    {label2}: 표본 {len(recs)}일 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
     print()
 
 
