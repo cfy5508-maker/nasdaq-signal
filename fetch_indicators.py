@@ -80,12 +80,11 @@ def index_macro_status(index_symbol):
     return result
 
 WEIGHTS = {
-    "2_fundamentals": 2.0,
-    "3_technical_position": 2.5,   # Z-score (구 볼린저+RSI절대값 대체)
-    "4_divergence_momentum": 2.0,  # 다이버전스 게이트 (새 방식: 스윙저점+간격3일)
-    "6_trend_strength_adx": 1.5,   # ADX (신규 추가, 스윕 검증됨)
-    "5_volume_flow": 1.0,
-    "8_trigger_candle": 1.0,
+    "1_fundamentals": 2.0,
+    "2_divergence_gate": 2.0,   # 다이버전스 게이트 (스윙저점+간격3일 이상)
+    "3_zscore": 2.5,            # Z-score (종목별 개별 계산)
+    "4_adx": 1.5,                # 추세강도
+    "5_trigger_candle": 1.0,     # 반전캔들+돌파
 }
 STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25}
 MAX_SCORE = sum(WEIGHTS.values())
@@ -209,14 +208,10 @@ def analyze(ticker):
     macd_hist = macd.macd_diff()
     macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min()) if len(macd_hist) > 90 else False
 
-    adx_last, adx_prev = float(adx_ind.adx().iloc[-1]), float(adx_ind.adx().iloc[-6])
-    trend_exhaustion = "pass" if (adx_prev >= 25 and adx_last < adx_prev) else "unknown"
-
-    obv_up_while_price_down = bool(obv.iloc[-1] > obv.iloc[-20] and c.iloc[-1] < c.iloc[-20])
+    adx_last = float(adx_ind.adx().iloc[-1])
 
     weekly = hist.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
     weekly_rsi = RSIIndicator(weekly["Close"], window=14).rsi()
-    mtf_aligned = bool(rsi_last < 45 and weekly_rsi.iloc[-1] < 55)
 
     breakout_ok, breakout_pattern, breakout_days_ago = trigger_with_breakout(o, h, l, c)
     hammer = detect_hammer(o, h, l, c)
@@ -231,7 +226,6 @@ def analyze(ticker):
 
     exchange = info.get("exchange")
     index_name, index_symbol = determine_index(ticker.upper(), exchange)
-    stage1_status = index_macro_status(index_symbol) if index_symbol else "unknown"
 
     target_mean = info.get("targetMeanPrice")
     forward_pe = info.get("forwardPE")
@@ -255,11 +249,11 @@ def analyze(ticker):
     else:
         stage3 = "fail"
 
-    # 4단계: 다이버전스 게이트 (새 방식) - 다이버전스 자체가 없으면 fail
-    stage4 = "pass" if bullish_divergence else "fail"
+    # 2단계: 다이버전스 게이트 - 다이버전스 자체가 없으면 fail
+    stage_divergence = "pass" if bullish_divergence else "fail"
 
-    # 5단계: 추세강도(ADX) - 다이버전스가 뜬 상태에서 추세가 뚜렷할 때만 신뢰
-    # 백테스트 검증(스윕): ADX>=25 최적점, 22 이상부터 유의미한 개선 확인
+    # 4단계: 추세강도(ADX) - 다이버전스가 뜬 상태에서 추세가 뚜렷할 때만 신뢰
+    # 백테스트 검증(스윕): ADX>=25 최적점(승률67.9%), 22~25는 애매구간(승률64.5%)
     if bullish_divergence and adx_last >= 25:
         stage_adx = "pass"
     elif bullish_divergence and adx_last >= 22:
@@ -267,19 +261,19 @@ def analyze(ticker):
     else:
         stage_adx = "fail"
 
-    stage5 = "pass" if obv_up_while_price_down else "warn"
-    stage7 = "pass" if mtf_aligned else "warn"
-    stage8 = "pass" if breakout_ok else "fail"
+    # 5단계: 트리거캔들
+    stage_trigger = "pass" if breakout_ok else "fail"
 
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
-    stage2_flags = {
+    # 1단계: 펀더멘털
+    stage1_flags = {
         "upside_ge_15": (upside_pct or 0) >= 15,
         "peg_reasonable": (peg is not None and peg <= 2.5),
         "forward_pe_present": forward_pe is not None,
     }
-    stage2 = "pass" if all(stage2_flags.values()) else \
-             "fail" if not stage2_flags["upside_ge_15"] else "warn"
+    stage1 = "pass" if all(stage1_flags.values()) else \
+             "fail" if not stage1_flags["upside_ge_15"] else "warn"
 
     # ── 추매(불타기) 체크리스트 계산 ──────────────────
     sma20 = c.rolling(20).mean()
@@ -323,7 +317,7 @@ def analyze(ticker):
     plus_di_over_minus_di = bool(plus_di.iloc[-1] > minus_di.iloc[-1])
 
     stages_addon = {
-        "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1), "rsi_percentile_52w": round(rsi_percentile, 1)},
         "4_pullback_depth": {"status": addon_stage4, "pullback_pct": round(pullback_pct, 1)},
         "5_volume_flow": {"status": addon_stage5, "recent5_avg_vol": round(vol_recent5), "prior5_avg_vol": round(vol_prior5)},
@@ -338,22 +332,13 @@ def analyze(ticker):
         addon_score = round(addon_raw / sum(addon_known_weights.values()) * 100)
     else:
         addon_score = 0
-    if stage1_status == "fail":
-        addon_score = min(addon_score, 40)
-    elif stage1_status == "unknown":
-        addon_score = round(addon_score * 0.85)
 
     stages = {
-        "1_macro": {"status": stage1_status, "index_name": index_name, "index_symbol": index_symbol},
-        "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_technical_position": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
-        "4_divergence_momentum": {"status": stage4, "bullish_divergence": bullish_divergence, "gap_days": gap_days, "macd_hist_rising": macd_hist_rising},
-        "5_volume_flow": {"status": stage5, "obv_bullish_divergence": obv_up_while_price_down},
-        "6_trend_strength_adx": {"status": stage_adx, "adx": round(adx_last, 1)},
-        "7_multi_timeframe": {"status": stage7, "weekly_rsi": round(float(weekly_rsi.iloc[-1]), 1) if not weekly_rsi.empty else None, "daily_rsi": round(rsi_last, 1)},
-        "8_trigger_candle": {"status": stage8, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
-        "9_position_sizing": {"atr_stop_pct": stop_pct},
-        "10_target": {"target_mean_price": target_mean, "upside_pct": upside_pct},
+        "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "2_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "gap_days": gap_days},
+        "3_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
+        "4_adx": {"status": stage_adx, "adx": round(adx_last, 1)},
+        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
@@ -367,17 +352,13 @@ def analyze(ticker):
     if not bullish_divergence:
         score = min(score, 30)
 
-    if stage1_status == "fail":
-        score = min(score, 40)
-    elif stage1_status == "unknown":
-        score = round(score * 0.85)
-
     result = {
         "ticker": ticker.upper(),
         "price": round(last_close, 2),
         "updated": pd.Timestamp.now("UTC").isoformat(),
         "score": score,
         "stages": stages,
+        "entry_atr_stop_pct": stop_pct,
         "score_addon": addon_score,
         "stages_addon": stages_addon,
         "sector": sector,
@@ -500,10 +481,10 @@ def main():
 
     rankings = sorted(
         [{"ticker": r["ticker"], "score": r["score"], "score_addon": r["score_addon"], "price": r["price"],
-          "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
-          "rsi": r["stages"]["3_technical_position"]["rsi"],
-          "divergence": r["stages"]["4_divergence_momentum"]["status"],
-          "trigger": r["stages"]["8_trigger_candle"]["status"],
+          "upside_pct": r["stages"]["1_fundamentals"]["upside_pct"],
+          "rsi": r["stages"]["3_zscore"]["rsi"],
+          "divergence": r["stages"]["2_divergence_gate"]["status"],
+          "trigger": r["stages"]["5_trigger_candle"]["status"],
           "signal": r["signal"], "signal_addon": r["signal_addon"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
