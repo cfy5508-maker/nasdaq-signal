@@ -200,6 +200,10 @@ def analyze_group(signals, group_label, exclude_factor=None):
             raw = sum(w for k, w in weights.items() if s[k])
             s["combo_score"] = round(raw / total_w * 100)
     elif exclude_factor == "vol_confirmed":  # 중소형주 - RSI 2단계(강/약) 반영
+        n_strong = sum(1 for s in signals if s["rsi_strong"])
+        n_weak = sum(1 for s in signals if s["rsi_weak"])
+        n_strong_and_candle = sum(1 for s in signals if s["rsi_strong"] and s["trigger_candle"])
+        print(f"  [진단] rsi_strong(10%이하): {n_strong}건, rsi_weak(10~15%): {n_weak}건, rsi_strong+반전캔들 동시충족: {n_strong_and_candle}건\n")
         RSI_WEIGHT = 2.5
         other_weights = {"trigger_candle": 1.0, "near_bb": 0.5}
         total_w = RSI_WEIGHT + sum(other_weights.values())
