@@ -72,7 +72,7 @@ def trigger_with_breakout(o, h, l, c):
     return False
 
 
-def find_divergence_signals(ticker):
+def find_divergence_signals(ticker, benchmark_close):
     hist = yf.Ticker(ticker).history(period="2y")
     if hist.empty:
         return None
@@ -81,6 +81,9 @@ def find_divergence_signals(ticker):
     bb = BollingerBands(c, window=20, window_dev=2)
     bb_low = bb.bollinger_lband()
     macd_hist = MACD(c).macd_diff()
+
+    # 벤치마크(IWM)를 이 종목 날짜 인덱스에 맞춰 정렬
+    bench_aligned = benchmark_close.reindex(c.index, method="ffill")
 
     n = len(hist)
     start = max(MIN_HISTORY, n - LOOKBACK_DAYS - FORWARD_DAYS)
@@ -120,6 +123,13 @@ def find_divergence_signals(ticker):
         vol2 = float(v[low2_idx])
         vol_confirmed = bool(vol2 < vol1)
 
+        # 상대강도(RS): 최근 20일 이 종목 수익률 - 벤치마크(IWM) 수익률
+        rs_positive = False
+        if i >= 20 and not pd.isna(bench_aligned.iloc[i]) and not pd.isna(bench_aligned.iloc[i-20]):
+            stock_ret_20d = float(c.iloc[i]) / float(c.iloc[i-20]) - 1
+            bench_ret_20d = float(bench_aligned.iloc[i]) / float(bench_aligned.iloc[i-20]) - 1
+            rs_positive = bool(stock_ret_20d > bench_ret_20d)
+
         entry = float(c.iloc[i])
         fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
 
@@ -131,6 +141,7 @@ def find_divergence_signals(ticker):
             "rsi_oversold": rsi_oversold,
             "near_bb": near_bb,
             "vol_confirmed": vol_confirmed,
+            "rs_positive": rs_positive,
             "fwd_return": fwd_return,
         })
     return results
@@ -157,6 +168,7 @@ def analyze_group(signals, group_label, exclude_factor=None):
         ("rsi_oversold", "RSI 백분위 15% 이하"),
         ("near_bb", "볼린저 하단 근접"),
         ("vol_confirmed", "다이버전스 거래량 확인(2번째저점 거래량<1번째)"),
+        ("rs_positive", "상대강도(RS, 최근20일 IWM 대비 초과수익)"),
     ]
 
     for key, label in factors:
@@ -179,8 +191,8 @@ def analyze_group(signals, group_label, exclude_factor=None):
     # 우선순위 기반 가중치 점수식으로 실제 테스트
     if exclude_factor == "near_bb":  # 대형주
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0}
-    elif exclude_factor == "vol_confirmed":  # 중소형주
-        weights = {"rsi_oversold": 2.0, "trigger_candle": 1.5, "near_bb": 0.5}
+    elif exclude_factor == "vol_confirmed":  # 중소형주 - RS 추가
+        weights = {"rsi_oversold": 2.0, "trigger_candle": 1.5, "near_bb": 0.5, "rs_positive": 1.5}
     else:
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0, "near_bb": 0.5}
 
@@ -205,9 +217,12 @@ def analyze_group(signals, group_label, exclude_factor=None):
 
 
 def main():
+    print("벤치마크(IWM, 러셀2000 ETF) 데이터 로딩 중...")
+    benchmark_close = yf.Ticker("IWM").history(period="2y")["Close"]
+
     all_signals = []
     for t in TICKERS:
-        recs = find_divergence_signals(t)
+        recs = find_divergence_signals(t, benchmark_close)
         if recs is None:
             print(f"{t}: 데이터 없음")
             continue
