@@ -34,6 +34,9 @@ LOOKBACK_DAYS = 250
 MIN_HISTORY = 260
 
 ZSCORE_BANDS = [(-999, -2.0), (-2.0, -1.5), (-1.5, -1.0), (-1.0, -0.5), (-0.5, 0), (0, 999)]
+ZSCORE_BANDS_FINE = [(-999, -2.3), (-2.3, -2.1), (-2.1, -1.9), (-1.9, -1.7), (-1.7, -1.5),
+                      (-1.5, -1.3), (-1.3, -1.1), (-1.1, -0.9), (-0.9, -0.7), (-0.7, -0.5),
+                      (-0.5, -0.3), (-0.3, 0)]
 
 
 def find_signals(ticker):
@@ -125,6 +128,16 @@ def main():
         lo_label = str(lo) if lo > -999 else "~"
         hi_label = str(hi) if hi < 999 else "이상"
         print(f"  {lo_label}~{hi_label}: 표본 {len(sub)} | 승률 {wr:.1f}% | 기준대비 {gap:+.1f}%p")
+
+    print("\n[RSI Z-score 세밀 구간(0.2단위) 승률]")
+    for lo, hi in ZSCORE_BANDS_FINE:
+        sub = [s for s in all_signals if lo <= s["zscore"] < hi]
+        wr, avg = win_rate(sub)
+        if wr is None:
+            continue
+        gap = wr - baseline_wr
+        lo_label = str(lo) if lo > -999 else "~"
+        print(f"  {lo_label}~{hi}: 표본 {len(sub)} | 승률 {wr:.1f}% | 기준대비 {gap:+.1f}%p")
 
     print("\n해석: Z-score가 더 낮을수록(평균보다 표준편차 몇 개 더 아래) 승률이 오르면")
     print("'평균 대비 이례적으로 눌린 정도'가 진짜 신뢰도 지표라는 뜻.")
