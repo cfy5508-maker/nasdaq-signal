@@ -126,7 +126,7 @@ def score_at(hist_full, cutoff_idx):
     known_a = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if k in addon_stages and addon_stages[k] != "unknown"}
     addon_score = round(sum(known_a[k] * STATUS_SCORE[addon_stages[k]] for k in known_a) / sum(known_a.values()) * 100) if known_a else 0
 
-    return entry_score, entry_stages, addon_score, addon_stages
+    return entry_score, entry_stages, addon_score, addon_stages, bullish_divergence
 
 
 def build_records(ticker):
@@ -138,7 +138,9 @@ def build_records(ticker):
     start = max(MIN_HISTORY, n - LOOKBACK_DAYS - FORWARD_DAYS)
     end = n - FORWARD_DAYS
     for cutoff_idx in range(start, end):
-        entry_score, entry_stages, addon_score, addon_stages = score_at(hist_full, cutoff_idx)
+        entry_score, entry_stages, addon_score, addon_stages, bullish_divergence = score_at(hist_full, cutoff_idx)
+        if not bullish_divergence:  # 게이트: 다이버전스 뜬 날만 후보로 인정
+            continue
         close_now = float(hist_full["Close"].iloc[cutoff_idx])
         close_fwd = float(hist_full["Close"].iloc[cutoff_idx + FORWARD_DAYS])
         fwd_return = close_fwd / close_now - 1
