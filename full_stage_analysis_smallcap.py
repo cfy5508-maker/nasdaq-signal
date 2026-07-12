@@ -72,7 +72,7 @@ def rolling_pctile_series(rsi, window=252):
 
 def find_signals(ticker, benchmark_close):
     hist = yf.Ticker(ticker).history(period="2y")
-    if hist.empty:
+    if hist.empty or len(hist) < MIN_HISTORY + 20:
         return None
     o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
     rsi = RSIIndicator(c, window=14).rsi()
@@ -179,7 +179,11 @@ def main():
 
     all_signals = []
     for t in SMALLCAP_TICKERS:
-        recs = find_signals(t, bench)
+        try:
+            recs = find_signals(t, bench)
+        except Exception as e:
+            print(f"{t}: 에러로 스킵 ({e})")
+            continue
         if recs:
             all_signals.extend(recs)
         print(f"{t}: {len(recs) if recs else 0}건")
