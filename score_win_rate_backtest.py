@@ -82,10 +82,9 @@ def score_at(hist_full, cutoff_idx):
 
     entry_stages = {
         "2_fundamentals": "warn", "3_technical_position": stage3, "4_divergence_momentum": stage4,
-        "5_volume_flow": stage5, "6_trend_exhaustion": trend_exhaustion,
-        "7_multi_timeframe": stage7, "8_trigger_candle": stage8,
+        "5_volume_flow": stage5, "8_trigger_candle": stage8,
     }
-    known = {k: WEIGHTS[k] for k in WEIGHTS if entry_stages[k] != "unknown"}
+    known = {k: WEIGHTS[k] for k in WEIGHTS if k in entry_stages and entry_stages[k] != "unknown"}
     entry_score = round(sum(known[k] * STATUS_SCORE[entry_stages[k]] for k in known) / sum(known.values()) * 100) if known else 0
 
     sma20 = c.rolling(20).mean()
@@ -180,8 +179,7 @@ def main():
         print()
 
     print("=== 신규진입 단계별(3~8) pass/warn/fail 승률 ===\n")
-    entry_stage_keys = ["3_technical_position", "4_divergence_momentum", "5_volume_flow",
-                         "6_trend_exhaustion", "7_multi_timeframe", "8_trigger_candle"]
+    entry_stage_keys = ["3_technical_position", "4_divergence_momentum", "5_volume_flow", "8_trigger_candle"]
     for sk in entry_stage_keys:
         print(f"[{sk}]")
         for status in ["pass", "warn", "fail", "unknown"]:
