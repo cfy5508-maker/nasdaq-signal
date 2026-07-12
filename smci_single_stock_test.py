@@ -33,6 +33,7 @@ def main():
     print(f"=== {TICKER} 개별 종목 다이버전스 전수 확인 ({FORWARD_DAYS}일 뒤 기준) ===\n")
 
     rows = []
+    seen_low2 = set()
     for i in range(start, end):
         recent = c.iloc[max(0, i-90):i+1]
         if len(recent) < 90:
@@ -49,6 +50,11 @@ def main():
 
         if not (bullish_divergence and macd_rising):
             continue
+
+        # 중복 제거: 같은 low2_idx(같은 저점)를 가리키는 신호는 최초 1회만 인정
+        if low2_idx in seen_low2:
+            continue
+        seen_low2.add(low2_idx)
 
         low2_pos = hist.index.get_loc(low2_idx)
         rsi_window = rsi.iloc[max(0, low2_pos-252):low2_pos+1].dropna()
