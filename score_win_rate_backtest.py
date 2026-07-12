@@ -26,17 +26,15 @@ from fetch_indicators import (
     trigger_with_breakout, WEIGHTS, ADDON_WEIGHTS, STATUS_SCORE
 )
 
-TICKERS = ["NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD"]
+TICKERS = ["NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD",
+           "TSLA", "JPM", "DIS", "PFE", "CVX", "MCD", "NFLX", "GE", "CSCO", "UNH"]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
-LOOKBACK_DAYS = int(sys.argv[2]) if len(sys.argv) > 2 else 150
+LOOKBACK_DAYS = int(sys.argv[2]) if len(sys.argv) > 2 else 250
 MIN_HISTORY = 260
 
 
-LOOKBACK_WINDOW = 252
-
 def score_at(hist_full, cutoff_idx):
-    start_idx = max(0, cutoff_idx + 1 - LOOKBACK_WINDOW)
-    hist = hist_full.iloc[start_idx:cutoff_idx+1]
+    hist = hist_full.iloc[:cutoff_idx+1]
     o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
 
     rsi = RSIIndicator(c, window=14).rsi()
@@ -124,7 +122,7 @@ def score_at(hist_full, cutoff_idx):
     known_a = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if addon_stages[k] != "unknown"}
     addon_score = round(sum(known_a[k] * STATUS_SCORE[addon_stages[k]] for k in known_a) / sum(known_a.values()) * 100) if known_a else 0
 
-    return entry_score, addon_score
+    return entry_score, addon_score, addon_stages
 
 
 def build_records(ticker):
@@ -136,11 +134,12 @@ def build_records(ticker):
     start = max(MIN_HISTORY, n - LOOKBACK_DAYS - FORWARD_DAYS)
     end = n - FORWARD_DAYS
     for cutoff_idx in range(start, end):
-        entry_score, addon_score = score_at(hist_full, cutoff_idx)
+        entry_score, addon_score, addon_stages = score_at(hist_full, cutoff_idx)
         close_now = float(hist_full["Close"].iloc[cutoff_idx])
         close_fwd = float(hist_full["Close"].iloc[cutoff_idx + FORWARD_DAYS])
         fwd_return = close_fwd / close_now - 1
-        records.append({"ticker": ticker, "entry_score": entry_score, "addon_score": addon_score, "fwd_return": fwd_return})
+        records.append({"ticker": ticker, "entry_score": entry_score, "addon_score": addon_score,
+                         "addon_stages": addon_stages, "fwd_return": fwd_return})
     return records
 
 
@@ -170,12 +169,12 @@ def main():
     baseline_wr, baseline_avg = win_rate(all_records)
     print(f"전체 기준선: 승률 {baseline_wr:.1f}%, 평균수익률 {baseline_avg:+.2f}%\n")
 
-    for label, key in [("신규진입 점수", "entry_score"), ("추매 점수", "addon_score")]:
+    for label, key in [("추매 점수", "addon_score")]:
         high = [r for r in all_records if r[key] >= 65]
         mid = [r for r in all_records if 40 <= r[key] < 65]
         low = [r for r in all_records if r[key] < 40]
 
-        print(f"--- {label} ---")
+        print(f"--- {label} (합산 점수 기준) ---")
         for band_label, recs in [("65점 이상(pass)", high), ("40~64점(warn)", mid), ("40점 미만(fail)", low)]:
             wr, avg = win_rate(recs)
             if wr is None:
@@ -183,6 +182,22 @@ def main():
                 continue
             gap = wr - baseline_wr
             print(f"  {band_label}: 표본 {len(recs)}일 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
+        print()
+
+    # ── 단계별(2~9) 개별 pass/warn/fail 승률 ──
+    print("=== 추매 단계별(2~9) pass/warn/fail 승률 — 어느 단계가 실제로 유효한지 확인 ===\n")
+    stage_keys = ["3_pullback_position", "4_pullback_depth", "5_volume_flow",
+                  "6_trend_continuation", "7_multi_timeframe", "8_trigger_breakout"]
+    for sk in stage_keys:
+        print(f"[{sk}]")
+        for status in ["pass", "warn", "fail"]:
+            recs = [r for r in all_records if r["addon_stages"].get(sk) == status]
+            wr, avg = win_rate(recs)
+            if wr is None:
+                print(f"  {status}: 표본 없음")
+                continue
+            gap = wr - baseline_wr
+            print(f"  {status}: 표본 {len(recs)}일 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
         print()
 
 
