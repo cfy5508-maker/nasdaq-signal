@@ -968,10 +968,10 @@
     return [
       ['1단계 매크로', s1, s1detail],
       ['2단계 펀더멘털', full.stages['2_fundamentals'], '업사이드 '+(full.stages['2_fundamentals'].upside_pct??'-')+'%, PEG '+(full.stages['2_fundamentals'].peg??'-')],
-      ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi],
-      ['4단계 다이버전스', full.stages['4_divergence_momentum'], 'MACD상승 '+full.stages['4_divergence_momentum'].macd_hist_rising],
+      ['3단계 기술적위치', full.stages['3_technical_position'], 'RSI '+full.stages['3_technical_position'].rsi+' (Z-score '+(full.stages['3_technical_position'].rsi_zscore_1y??'-')+')'],
+      ['4단계 다이버전스', full.stages['4_divergence_momentum'], full.stages['4_divergence_momentum'].bullish_divergence ? ('다이버전스 확정, 간격 '+full.stages['4_divergence_momentum'].gap_days+'일') : '다이버전스 없음'],
       ['5단계 거래량', full.stages['5_volume_flow'], 'OBV다이버전스 '+full.stages['5_volume_flow'].obv_bullish_divergence],
-      ['6단계 추세소진', full.stages['6_trend_exhaustion'], 'ADX '+full.stages['6_trend_exhaustion'].adx],
+      ['6단계 추세강도', full.stages['6_trend_strength_adx'], 'ADX '+full.stages['6_trend_strength_adx'].adx],
       ['7단계 멀티타임프레임', full.stages['7_multi_timeframe'], '주봉RSI '+full.stages['7_multi_timeframe'].weekly_rsi],
       ['8단계 트리거캔들', full.stages['8_trigger_candle'], full.stages['8_trigger_candle'].breakout_confirmed ? (full.stages['8_trigger_candle'].pattern+' 확정('+full.stages['8_trigger_candle'].days_ago+'일 전) + 돌파 완료') : '반전캔들+돌파 없음']
     ];
