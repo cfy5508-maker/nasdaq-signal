@@ -228,10 +228,10 @@ def analyze_group(signals, group_label, exclude_factor=None):
                 gap = wr - baseline_wr
                 print(f"    [{key}] 표본 {len(sub)}일 | 승률 {wr:.1f}% | 기준선 대비 {gap:+.1f}%p")
         print()
-        weights = {"rsi_and_candle_same_day": 3.0, "rsi_oversold": 1.0, "near_bb": 0.5}
+        weights = {"rsi_and_bb_same_day": 3.0, "trigger_candle": 1.0}
         total_w = sum(weights.values())
         for s in signals:
-            raw = sum(w for k, w in weights.items() if s[k])
+            raw = sum(w for k, w in weights.items() if s.get(k, False))
             s["combo_score"] = round(raw / total_w * 100)
     else:
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0, "near_bb": 0.5}
