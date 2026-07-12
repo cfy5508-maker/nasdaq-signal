@@ -26,9 +26,9 @@ from fetch_indicators import (
     trigger_with_breakout, WEIGHTS, ADDON_WEIGHTS, STATUS_SCORE
 )
 
-TICKERS = ["RKLB", "SMCI", "PLTR", "SOFI", "RIVN", "LCID", "CHPT", "U", "RBLX", "DKNG",
-           "AFRM", "UPST", "COIN", "MARA", "RIOT", "CVNA", "ROOT", "OPEN", "CLSK", "IONQ"]
-FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
+TICKERS = ["NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD",
+           "TSLA", "JPM", "DIS", "PFE", "CVX", "MCD", "NFLX", "GE", "CSCO", "UNH"]
+FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 5
 LOOKBACK_DAYS = int(sys.argv[2]) if len(sys.argv) > 2 else 250
 MIN_HISTORY = 260
 
@@ -67,7 +67,7 @@ def score_at(hist_full, cutoff_idx):
              "warn" if (bullish_divergence or macd_hist_rising) else "fail"
 
     obv_bearish_signal = bool(obv.iloc[-1] > obv.iloc[-20] and c.iloc[-1] < c.iloc[-20])
-    stage5 = "fail" if obv_bearish_signal else "pass"
+    stage5 = "pass" if obv_bearish_signal else "warn"
 
     adx_last, adx_prev = float(adx_ind.adx().iloc[-1]), float(adx_ind.adx().iloc[-6])
     trend_exhaustion = "pass" if (adx_prev >= 25 and adx_last < adx_prev) else "unknown"
