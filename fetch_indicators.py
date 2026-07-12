@@ -155,11 +155,18 @@ def find_realtime_lows(close_values, order=5):
     return positions
 
 
-def analyze(ticker):
+def analyze(ticker, trim_days=0, write_file=True):
+    """trim_days: 0이면 오늘 기준. 1이면 마지막 1거래일을 잘라내고
+    '그 전날 기준'으로 계산한다(소급 계산용, score_history 백필에 사용).
+    write_file: False면 data/<TICKER>.json을 덮어쓰지 않는다(백필 시 오늘자 파일 보호)."""
     tk = yf.Ticker(ticker)
     hist = tk.history(period="1y")
     if hist.empty:
         raise ValueError(f"no price history for {ticker}")
+    if trim_days > 0:
+        if len(hist) <= trim_days:
+            raise ValueError(f"not enough history to trim {trim_days} days for {ticker}")
+        hist = hist.iloc[:-trim_days]
 
     o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
 
@@ -399,6 +406,7 @@ def analyze(ticker):
         "ticker": ticker.upper(),
         "price": round(last_close, 2),
         "updated": pd.Timestamp.now("UTC").isoformat(),
+        "as_of_date": str(hist.index[-1].date()),
         "score": score,
         "stages": stages,
         "entry_atr_stop_pct": stop_pct,
@@ -407,8 +415,9 @@ def analyze(ticker):
         "sector": sector,
         "sector_relative_strength_up": sector_rs,
     }
-    with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
+    if write_file:
+        with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
     return result
 
 
@@ -485,10 +494,11 @@ def compute_signal(ticker, today_score, score_key="score"):
     return {"signal": "none", "reasons": []}
 
 
-
-    """나중 승률 재보정용 원본 데이터. 날짜별로 한 줄씩 누적(jsonl), 덮어쓰지 않음."""
+def log_snapshot(r):
+    """나중 승률 재보정용 원본 데이터. 날짜별로 한 줄씩 누적(jsonl), 덮어쓰지 않음.
+    r에 as_of_date가 있으면 그 날짜로 기록(백필용), 없으면 오늘(UTC) 날짜로 기록."""
     snap = {
-        "date": pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
+        "date": r.get("as_of_date") or pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
         "ticker": r["ticker"],
         "price": r["price"],
         "score": r["score"],
