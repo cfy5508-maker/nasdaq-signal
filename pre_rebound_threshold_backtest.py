@@ -22,7 +22,7 @@ SMALLCAP_TICKERS = [
     "AI", "PTON", "SNAP", "LYFT", "DASH", "PINS", "ETSY", "BILL", "TTD", "ROKU",
 ]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
-LOOKBACK_DAYS = 250
+LOOKBACK_DAYS = 500
 MIN_HISTORY = 260
 
 REBOUND_BANDS = [(-999, 0), (0, 3), (3, 6), (6, 9), (9, 12), (12, 15), (15, 20), (20, 999)]
