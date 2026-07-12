@@ -62,19 +62,45 @@ def main():
 
         if is_divergence:
             div_count += 1
+            # Z-score 계산: pos2 시점 기준, 그 이전 1년 RSI 평균/표준편차 대비
+            rsi_window = rsi.iloc[max(0, pos2-252):pos2+1].dropna()
+            zscore = None
+            if len(rsi_window) >= 60:
+                rsi_mean = float(rsi_window.mean())
+                rsi_std = float(rsi_window.std())
+                if rsi_std > 0:
+                    zscore = (rsi2 - rsi_mean) / rsi_std
+
             fwd_str = ""
             if pos2 + FORWARD_DAYS < n:
                 entry = float(c.iloc[pos2])
                 fwd_return = float(c.iloc[pos2 + FORWARD_DAYS]) / entry - 1
                 win = fwd_return > 0
-                rows.append({"date": date2, "fwd_return": fwd_return, "win": win})
-                fwd_str = f" | {FORWARD_DAYS}일뒤 {fwd_return*100:+.2f}% | {'승리' if win else '패배'}"
+                rows.append({"date": date2, "fwd_return": fwd_return, "win": win, "zscore": zscore})
+                z_str = f"{zscore:.2f}" if zscore is not None else "N/A"
+                fwd_str = f" | Z={z_str} | {FORWARD_DAYS}일뒤 {fwd_return*100:+.2f}% | {'승리' if win else '패배'}"
             print(f"  {date1}(가{price1:.1f},R{rsi1:.1f}) -> {date2}(가{price2:.1f},R{rsi2:.1f}) | 간격{gap}일 | {marker}{fwd_str}")
 
     print(f"\n=== 실시간 방식 다이버전스 총 {div_count}건 (수익률 계산 가능 {len(rows)}건) ===")
     if rows:
         wins = sum(1 for r in rows if r["win"])
-        print(f"승률: {wins}/{len(rows)} = {wins/len(rows)*100:.1f}%")
+        print(f"전체 승률: {wins}/{len(rows)} = {wins/len(rows)*100:.1f}%\n")
+
+        # Z-score 구간별 승률
+        z_rows = [r for r in rows if r["zscore"] is not None]
+        z_rows.sort(key=lambda r: r["zscore"])
+        print("[Z-score 낮은 순 정렬]")
+        for r in z_rows:
+            print(f"  {r['date']}: Z={r['zscore']:.2f} | {r['fwd_return']*100:+.2f}% | {'승리' if r['win'] else '패배'}")
+
+        if len(z_rows) >= 3:
+            n_third = len(z_rows) // 3
+            lower = z_rows[:n_third]
+            upper = z_rows[-n_third:]
+            w_low = sum(1 for r in lower if r["win"])
+            w_up = sum(1 for r in upper if r["win"])
+            print(f"\nZ-score 낮은 1/3(극단): {w_low}/{len(lower)} = {w_low/len(lower)*100:.1f}%")
+            print(f"Z-score 높은 1/3(덜 극단): {w_up}/{len(upper)} = {w_up/len(upper)*100:.1f}%")
     else:
         print("표본 없음")
 
