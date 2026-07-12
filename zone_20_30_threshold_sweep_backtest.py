@@ -17,13 +17,8 @@ from ta.momentum import RSIIndicator
 from ta.trend import MACD
 
 SMALLCAP_TICKERS = [
-    "RKLB", "SMCI", "PLTR", "SOFI", "RIVN", "LCID", "CHPT", "U", "RBLX", "DKNG",
-    "AFRM", "UPST", "COIN", "MARA", "RIOT", "CVNA", "ROOT", "OPEN", "CLSK", "IONQ",
-    "FUBO", "PATH", "ASAN", "BBAI", "SOUN", "RUN", "ENVX", "JOBY", "ACHR", "LAZR",
-    "QS", "FSLY", "PLUG", "NIO", "XPEV", "BYND", "WOLF", "GPRO", "DNA", "HOOD",
-    "AI", "PTON", "SNAP", "LYFT", "DASH", "PINS", "ETSY", "BILL", "TTD", "ROKU",
-    "W", "CHWY", "PENN", "ABNB", "DOCU", "ZM", "BROS", "CAVA", "SG", "APP",
-    "SMR", "OKLO", "VKTX", "RXRX", "ARQQ", "DAVE", "NU", "CELH", "ELF", "FIGS",
+    "CRSP", "BEAM", "EDIT", "NTLA", "SANA", "GTLB", "DDOG", "NET", "ESTC", "FROG",
+    "IOT", "S", "DOCN", "FVRR", "UPWK", "TOST", "SQSP", "YELP", "ANGI", "CFLT",
 ]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 LOOKBACK_DAYS = 250
