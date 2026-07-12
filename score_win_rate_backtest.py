@@ -26,8 +26,18 @@ from fetch_indicators import (
     trigger_with_breakout, WEIGHTS, ADDON_WEIGHTS, STATUS_SCORE
 )
 
-TICKERS = ["FUBO", "PATH", "ASAN", "BBAI", "SOUN", "RUN", "ENVX", "JOBY", "ACHR", "LAZR",
-           "QS", "FSLY", "PLUG", "NIO", "XPEV", "BYND", "WOLF", "GPRO", "DNA", "HOOD"]
+TICKERS = [
+    "NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD",
+    "TSLA", "JPM", "DIS", "PFE", "CVX", "MCD", "NFLX", "GE", "CSCO", "UNH",
+    "MSFT", "GOOGL", "AMZN", "JNJ", "PG", "V", "MA", "HD", "ORCL", "ABBV",
+    "MRK", "ADBE", "CRM", "TXN", "LIN", "NEE", "LOW", "SBUX", "TMO", "ACN",
+    "COST", "AVGO", "QCOM", "IBM", "GS", "BAC", "C", "T", "VZ", "UPS",
+    "RKLB", "SMCI", "PLTR", "SOFI", "RIVN", "LCID", "CHPT", "U", "RBLX", "DKNG",
+    "AFRM", "UPST", "COIN", "MARA", "RIOT", "CVNA", "ROOT", "OPEN", "CLSK", "IONQ",
+    "FUBO", "PATH", "ASAN", "BBAI", "SOUN", "RUN", "ENVX", "JOBY", "ACHR", "LAZR",
+    "QS", "FSLY", "PLUG", "NIO", "XPEV", "BYND", "WOLF", "GPRO", "DNA", "HOOD",
+    "AI", "PTON", "SNAP", "LYFT", "DASH", "PINS", "ETSY", "BILL", "TTD", "ROKU",
+]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 5
 LOOKBACK_DAYS = int(sys.argv[2]) if len(sys.argv) > 2 else 250
 MIN_HISTORY = 260
@@ -81,18 +91,11 @@ def score_at(hist_full, cutoff_idx):
     stage8 = "pass" if breakout_ok else "fail"
 
     entry_stages = {
-        "2_fundamentals": "warn", "3_technical_position": stage3,
+        "2_fundamentals": "warn", "3_technical_position": stage3, "4_divergence_momentum": stage4,
         "5_volume_flow": stage5, "8_trigger_candle": stage8,
     }
-    WEIGHTS_SMALL = {"2_fundamentals": 2.0, "3_technical_position": 0.5, "5_volume_flow": 2.0, "8_trigger_candle": 1.0}
-    known = {k: WEIGHTS_SMALL[k] for k in WEIGHTS_SMALL if k in entry_stages and entry_stages[k] != "unknown"}
+    known = {k: WEIGHTS[k] for k in WEIGHTS if k in entry_stages and entry_stages[k] != "unknown"}
     entry_score = round(sum(known[k] * STATUS_SCORE[entry_stages[k]] for k in known) / sum(known.values()) * 100) if known else 0
-
-    # 중소형주 전용: 4단계(다이버전스) 결과로 점수 상한 캡
-    if stage4 == "fail":
-        entry_score = min(entry_score, 45)
-    elif stage4 == "warn":
-        entry_score = min(entry_score, 70)
 
     sma20 = c.rolling(20).mean()
     sma50 = c.rolling(50).mean()
@@ -186,7 +189,7 @@ def main():
         print()
 
     print("=== 신규진입 단계별(3~8) pass/warn/fail 승률 ===\n")
-    entry_stage_keys = ["3_technical_position", "5_volume_flow", "8_trigger_candle"]
+    entry_stage_keys = ["3_technical_position", "4_divergence_momentum", "5_volume_flow", "8_trigger_candle"]
     for sk in entry_stage_keys:
         print(f"[{sk}]")
         for status in ["pass", "warn", "fail", "unknown"]:
