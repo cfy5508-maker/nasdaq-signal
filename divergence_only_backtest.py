@@ -143,7 +143,7 @@ def win_rate(recs):
     return float((arr > 0).mean() * 100), float(arr.mean() * 100)
 
 
-def analyze_group(signals, group_label):
+def analyze_group(signals, group_label, exclude_factor=None):
     baseline_wr, baseline_avg = win_rate(signals)
     if baseline_wr is None:
         print(f"=== {group_label}: 표본 없음 ===\n")
@@ -160,6 +160,9 @@ def analyze_group(signals, group_label):
     ]
 
     for key, label in factors:
+        if key == exclude_factor:
+            print(f"  [{label}] -- 이 그룹에서 제외됨 --\n")
+            continue
         yes = [s for s in signals if s[key]]
         no = [s for s in signals if not s[key]]
         wr_yes, avg_yes = win_rate(yes)
@@ -171,6 +174,33 @@ def analyze_group(signals, group_label):
         if wr_no is not None:
             gap = wr_no - baseline_wr
             print(f"    미충족: 표본 {len(no)}일 | 승률 {wr_no:.1f}% | 평균수익률 {avg_no:+.2f}% | 기준선 대비 {gap:+.1f}%p")
+    print()
+
+    # 우선순위 기반 가중치 점수식으로 실제 테스트
+    if exclude_factor == "near_bb":  # 대형주
+        weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0}
+    elif exclude_factor == "vol_confirmed":  # 중소형주
+        weights = {"rsi_oversold": 2.0, "trigger_candle": 1.5, "near_bb": 0.5}
+    else:
+        weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0, "near_bb": 0.5}
+
+    total_w = sum(weights.values())
+    for s in signals:
+        raw = sum(w for k, w in weights.items() if s[k])
+        s["combo_score"] = round(raw / total_w * 100)
+
+    high = [s for s in signals if s["combo_score"] >= 65]
+    mid = [s for s in signals if 40 <= s["combo_score"] < 65]
+    low = [s for s in signals if s["combo_score"] < 40]
+
+    print(f"  [가중치 점수식: {weights}]")
+    for band_label, recs in [("65점 이상", high), ("40~64점", mid), ("40점 미만", low)]:
+        wr, avg = win_rate(recs)
+        if wr is None:
+            print(f"    {band_label}: 표본 없음")
+            continue
+        gap = wr - baseline_wr
+        print(f"    {band_label}: 표본 {len(recs)}일 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
     print()
 
 
@@ -193,8 +223,8 @@ def main():
 
     print()
     analyze_group(all_signals, "전체(대형주+중소형주 통합)")
-    analyze_group(large_signals, "대형주만")
-    analyze_group(small_signals, "중소형주만")
+    analyze_group(large_signals, "대형주만 (볼린저하단 제외)", exclude_factor="near_bb")
+    analyze_group(small_signals, "중소형주만 (거래량확인 제외)", exclude_factor="vol_confirmed")
 
     print("해석: 다이버전스만으로 이미 필터링된 상태에서, 각 근거가 '충족'일 때")
     print("승률이 유의미하게 더 높으면 그 근거를 추가 조건으로 결합할 가치가 있음.")
