@@ -85,6 +85,13 @@ def find_divergence_signals(ticker, benchmark_close):
     # 벤치마크(IWM)를 이 종목 날짜 인덱스에 맞춰 정렬
     bench_aligned = benchmark_close.reindex(c.index, method="ffill")
 
+    # RSI 롤링 백분위 시계열 미리 계산 (시차 결합용)
+    rsi_pctile_series = pd.Series(index=rsi.index, dtype=float)
+    for j in range(252, len(rsi)):
+        window = rsi.iloc[j-252:j].dropna()
+        if len(window) > 0:
+            rsi_pctile_series.iloc[j] = (window < rsi.iloc[j]).mean() * 100
+
     n = len(hist)
     start = max(MIN_HISTORY, n - LOOKBACK_DAYS - FORWARD_DAYS)
     end = n - FORWARD_DAYS
@@ -118,6 +125,10 @@ def find_divergence_signals(ticker, benchmark_close):
         rsi_strong = rsi_pctile <= 10
         rsi_weak = 10 < rsi_pctile <= 15
 
+        # 시차 결합: 최근 10일(오늘 포함) 안에 rsi_strong이 한 번이라도 있었는지
+        window_pctile = rsi_pctile_series.iloc[max(0, i-9):i+1]
+        recent_rsi_strong = bool((window_pctile <= 10).any())
+
         bb_low_now = float(bb_low.iloc[i])
         near_bb = float(c.iloc[i]) <= bb_low_now * 1.05
 
@@ -143,6 +154,8 @@ def find_divergence_signals(ticker, benchmark_close):
             "rsi_oversold": rsi_oversold,
             "rsi_strong": rsi_strong,
             "rsi_weak": rsi_weak,
+            "recent_rsi_strong": recent_rsi_strong,
+            "recent_rsi_strong_and_candle": bool(recent_rsi_strong and has_trigger_candle),
             "near_bb": near_bb,
             "vol_confirmed": vol_confirmed,
             "rs_positive": rs_positive,
@@ -173,6 +186,7 @@ def analyze_group(signals, group_label, exclude_factor=None):
         ("near_bb", "볼린저 하단 근접"),
         ("vol_confirmed", "다이버전스 거래량 확인(2번째저점 거래량<1번째)"),
         ("rs_positive", "상대강도(RS, 최근20일 IWM 대비 초과수익)"),
+        ("recent_rsi_strong_and_candle", "시차결합(최근10일내 RSI10%이하 + 오늘 반전캔들)"),
     ]
 
     for key, label in factors:
@@ -199,18 +213,14 @@ def analyze_group(signals, group_label, exclude_factor=None):
         for s in signals:
             raw = sum(w for k, w in weights.items() if s[k])
             s["combo_score"] = round(raw / total_w * 100)
-    elif exclude_factor == "vol_confirmed":  # 중소형주 - RSI 2단계(강/약) 반영
-        n_strong = sum(1 for s in signals if s["rsi_strong"])
-        n_weak = sum(1 for s in signals if s["rsi_weak"])
-        n_strong_and_candle = sum(1 for s in signals if s["rsi_strong"] and s["trigger_candle"])
-        print(f"  [진단] rsi_strong(10%이하): {n_strong}건, rsi_weak(10~15%): {n_weak}건, rsi_strong+반전캔들 동시충족: {n_strong_and_candle}건\n")
-        RSI_WEIGHT = 2.5
-        other_weights = {"trigger_candle": 1.0, "near_bb": 0.5}
-        total_w = RSI_WEIGHT + sum(other_weights.values())
-        weights = {"rsi_strong(1.0)/rsi_weak(0.5)": RSI_WEIGHT, **other_weights}
+    elif exclude_factor == "vol_confirmed":  # 중소형주 - 시차결합(최근10일 rsi_strong + 오늘 반전캔들) 반영
+        n_combo = sum(1 for s in signals if s["recent_rsi_strong_and_candle"])
+        n_recent_strong = sum(1 for s in signals if s["recent_rsi_strong"])
+        print(f"  [진단] recent_rsi_strong(최근10일내 10%이하 있었음): {n_recent_strong}건, 시차결합(그+오늘반전캔들): {n_combo}건\n")
+        weights = {"recent_rsi_strong_and_candle": 3.0, "rsi_oversold": 1.0, "near_bb": 0.5}
+        total_w = sum(weights.values())
         for s in signals:
-            rsi_component = 1.0 if s["rsi_strong"] else 0.5 if s["rsi_weak"] else 0.0
-            raw = RSI_WEIGHT * rsi_component + sum(w for k, w in other_weights.items() if s[k])
+            raw = sum(w for k, w in weights.items() if s[k])
             s["combo_score"] = round(raw / total_w * 100)
     else:
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0, "near_bb": 0.5}
