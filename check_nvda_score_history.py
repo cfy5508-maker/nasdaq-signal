@@ -138,6 +138,9 @@ def analyze_at(hist_full, cutoff_idx):
         "entry_stages": entry_stages,
         "addon_score": addon_score,
         "addon_stages": addon_stages,
+        "debug_adx": round(adx_last, 1),
+        "debug_plus_di": round(float(plus_di.iloc[-1]), 1),
+        "debug_minus_di": round(float(minus_di.iloc[-1]), 1),
     }
 
 
@@ -159,6 +162,7 @@ def main():
         print(f"[{r['date']}] 종가 {r['close']} | RSI {r['rsi']} (백분위 {r['rsi_percentile']}%)")
         print(f"  신규진입 점수: {r['entry_score']:>3}  | " + ", ".join(f"{k.split('_',1)[1]}:{v}" for k, v in r['entry_stages'].items() if k != '2_fundamentals'))
         print(f"  추매 점수:    {r['addon_score']:>3}  | " + ", ".join(f"{k.split('_',1)[1]}:{v}" for k, v in r['addon_stages'].items() if k != '2_fundamentals'))
+        print(f"    [디버그] ADX={r['debug_adx']}, +DI={r['debug_plus_di']}, -DI={r['debug_minus_di']}")
         print()
 
 
