@@ -1,45 +1,30 @@
 {
   "ticker": "DG",
   "price": 118.92,
-  "updated": "2026-07-12T22:06:16.874989+00:00",
-  "score": 4,
+  "updated": "2026-07-12T22:16:56.491573+00:00",
+  "score": 0,
   "stages": {
-    "1_macro": {
-      "status": "unknown",
-      "index_name": null,
-      "index_symbol": null
-    },
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "fail",
       "upside_pct": 10.2,
       "forward_pe": 14.850205,
       "peg": 1.71
     },
-    "3_technical_position": {
+    "2_divergence_gate": {
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": null
+    },
+    "3_zscore": {
       "status": "fail",
       "rsi": 59.6,
       "rsi_zscore_1y": null
     },
-    "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "gap_days": null,
-      "macd_hist_rising": true
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
-    },
-    "6_trend_strength_adx": {
+    "4_adx": {
       "status": "fail",
       "adx": 18.8
     },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "weekly_rsi": 50.1,
-      "daily_rsi": 59.6
-    },
-    "8_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -47,16 +32,10 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
-    },
-    "9_position_sizing": {
-      "atr_stop_pct": 4.9
-    },
-    "10_target": {
-      "target_mean_price": 131.06897,
-      "upside_pct": 10.2
     }
   },
-  "score_addon": 25,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 29,
   "stages_addon": {
     "2_fundamentals": {
       "status": "fail",

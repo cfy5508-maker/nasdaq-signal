@@ -1,45 +1,30 @@
 {
   "ticker": "PEP",
   "price": 137.38,
-  "updated": "2026-07-12T22:06:21.863392+00:00",
-  "score": 5,
+  "updated": "2026-07-12T22:17:01.053977+00:00",
+  "score": 0,
   "stages": {
-    "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
-    },
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "fail",
       "upside_pct": 13.9,
       "forward_pe": 15.276089,
       "peg": 1.48
     },
-    "3_technical_position": {
+    "2_divergence_gate": {
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": 1
+    },
+    "3_zscore": {
       "status": "fail",
       "rsi": 40.8,
       "rsi_zscore_1y": null
     },
-    "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "gap_days": 1,
-      "macd_hist_rising": true
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
-    },
-    "6_trend_strength_adx": {
+    "4_adx": {
       "status": "fail",
       "adx": 19.2
     },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "weekly_rsi": 38.9,
-      "daily_rsi": 40.8
-    },
-    "8_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -47,15 +32,9 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
-    },
-    "9_position_sizing": {
-      "atr_stop_pct": 4.1
-    },
-    "10_target": {
-      "target_mean_price": 156.40909,
-      "upside_pct": 13.9
     }
   },
+  "entry_atr_stop_pct": 4.1,
   "score_addon": 36,
   "stages_addon": {
     "2_fundamentals": {

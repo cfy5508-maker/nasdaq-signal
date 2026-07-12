@@ -1,45 +1,30 @@
 {
   "ticker": "JOBY",
   "price": 7.72,
-  "updated": "2026-07-12T22:06:15.492963+00:00",
-  "score": 13,
+  "updated": "2026-07-12T22:16:55.367206+00:00",
+  "score": 11,
   "stages": {
-    "1_macro": {
-      "status": "unknown",
-      "index_name": null,
-      "index_symbol": null
-    },
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "warn",
       "upside_pct": 44.0,
       "forward_pe": -15.44,
       "peg": null
     },
-    "3_technical_position": {
+    "2_divergence_gate": {
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": 2
+    },
+    "3_zscore": {
       "status": "fail",
       "rsi": 33.8,
       "rsi_zscore_1y": null
     },
-    "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "gap_days": 2,
-      "macd_hist_rising": true
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
-    },
-    "6_trend_strength_adx": {
+    "4_adx": {
       "status": "fail",
       "adx": 22.0
     },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "weekly_rsi": 37.8,
-      "daily_rsi": 33.8
-    },
-    "8_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -47,16 +32,10 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
-    },
-    "9_position_sizing": {
-      "atr_stop_pct": 12.3
-    },
-    "10_target": {
-      "target_mean_price": 11.12,
-      "upside_pct": 44.0
     }
   },
-  "score_addon": 58,
+  "entry_atr_stop_pct": 12.3,
+  "score_addon": 68,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",

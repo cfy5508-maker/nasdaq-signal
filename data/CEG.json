@@ -1,45 +1,30 @@
 {
   "ticker": "CEG",
   "price": 251.38,
-  "updated": "2026-07-12T22:06:25.376213+00:00",
-  "score": 25,
+  "updated": "2026-07-12T22:17:03.876809+00:00",
+  "score": 22,
   "stages": {
-    "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
-    },
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "warn",
       "upside_pct": 42.3,
       "forward_pe": 18.506918,
       "peg": 3.74
     },
-    "3_technical_position": {
+    "2_divergence_gate": {
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": null
+    },
+    "3_zscore": {
       "status": "fail",
       "rsi": 45.0,
       "rsi_zscore_1y": null
     },
-    "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "gap_days": null,
-      "macd_hist_rising": true
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
-    },
-    "6_trend_strength_adx": {
+    "4_adx": {
       "status": "fail",
       "adx": 22.7
     },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "weekly_rsi": 41.3,
-      "daily_rsi": 45.0
-    },
-    "8_trigger_candle": {
+    "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
@@ -47,15 +32,9 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
-    },
-    "9_position_sizing": {
-      "atr_stop_pct": 5.8
-    },
-    "10_target": {
-      "target_mean_price": 357.81332,
-      "upside_pct": 42.3
     }
   },
+  "entry_atr_stop_pct": 5.8,
   "score_addon": 57,
   "stages_addon": {
     "2_fundamentals": {

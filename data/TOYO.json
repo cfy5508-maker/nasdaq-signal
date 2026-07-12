@@ -1,45 +1,30 @@
 {
   "ticker": "TOYO",
   "price": 6.05,
-  "updated": "2026-07-12T22:06:24.023690+00:00",
-  "score": 15,
+  "updated": "2026-07-12T22:17:02.777645+00:00",
+  "score": 11,
   "stages": {
-    "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
-    },
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "warn",
       "upside_pct": 172.7,
       "forward_pe": 1.4901478,
       "peg": null
     },
-    "3_technical_position": {
+    "2_divergence_gate": {
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": 1
+    },
+    "3_zscore": {
       "status": "fail",
       "rsi": 27.5,
       "rsi_zscore_1y": null
     },
-    "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "gap_days": 1,
-      "macd_hist_rising": true
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
-    },
-    "6_trend_strength_adx": {
+    "4_adx": {
       "status": "fail",
       "adx": 32.0
     },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "weekly_rsi": 38.7,
-      "daily_rsi": 27.5
-    },
-    "8_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -47,15 +32,9 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false
-    },
-    "9_position_sizing": {
-      "atr_stop_pct": 27.4
-    },
-    "10_target": {
-      "target_mean_price": 16.5,
-      "upside_pct": 172.7
     }
   },
+  "entry_atr_stop_pct": 27.4,
   "score_addon": 68,
   "stages_addon": {
     "2_fundamentals": {

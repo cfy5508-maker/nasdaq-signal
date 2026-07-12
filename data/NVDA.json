@@ -1,45 +1,30 @@
 {
   "ticker": "NVDA",
   "price": 210.96,
-  "updated": "2026-07-12T22:06:29.501932+00:00",
+  "updated": "2026-07-12T22:17:07.311537+00:00",
   "score": 30,
   "stages": {
-    "1_macro": {
-      "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC"
-    },
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "pass",
       "upside_pct": 43.0,
       "forward_pe": 16.494099,
       "peg": 0.65
     },
-    "3_technical_position": {
+    "2_divergence_gate": {
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": null
+    },
+    "3_zscore": {
       "status": "fail",
       "rsi": 57.0,
       "rsi_zscore_1y": null
     },
-    "4_divergence_momentum": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "gap_days": null,
-      "macd_hist_rising": true
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "obv_bullish_divergence": false
-    },
-    "6_trend_strength_adx": {
+    "4_adx": {
       "status": "fail",
       "adx": 16.9
     },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "weekly_rsi": 57.1,
-      "daily_rsi": 57.0
-    },
-    "8_trigger_candle": {
+    "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
@@ -47,15 +32,9 @@
       "hammer": false,
       "bullish_engulfing": true,
       "morning_star": false
-    },
-    "9_position_sizing": {
-      "atr_stop_pct": 5.1
-    },
-    "10_target": {
-      "target_mean_price": 301.6207,
-      "upside_pct": 43.0
     }
   },
+  "entry_atr_stop_pct": 5.1,
   "score_addon": 36,
   "stages_addon": {
     "2_fundamentals": {
