@@ -343,6 +343,7 @@ def analyze(ticker):
         "4_divergence_momentum": {"status": stage4, "bullish_divergence": bullish_divergence, "gap_days": gap_days, "macd_hist_rising": macd_hist_rising},
         "5_volume_flow": {"status": stage5, "obv_bullish_divergence": obv_up_while_price_down},
         "6_trend_strength_adx": {"status": stage_adx, "adx": round(adx_last, 1)},
+        "7_multi_timeframe": {"status": stage7, "weekly_rsi": round(float(weekly_rsi.iloc[-1]), 1) if not weekly_rsi.empty else None, "daily_rsi": round(rsi_last, 1)},
         "8_trigger_candle": {"status": stage8, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
         "9_position_sizing": {"atr_stop_pct": stop_pct},
         "10_target": {"target_mean_price": target_mean, "upside_pct": upside_pct},
