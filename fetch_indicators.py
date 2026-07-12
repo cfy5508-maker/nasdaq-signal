@@ -317,11 +317,18 @@ def analyze(ticker):
 
     addon_stop_pct = round(abs(last_close - sma20.iloc[-1]) / last_close * 100, 1)
 
+    weekly_sma20 = weekly["Close"].rolling(20).mean()
+    daily_above_20sma = bool(last_close > sma20.iloc[-1])
+    weekly_above_20sma = bool(weekly["Close"].iloc[-1] > weekly_sma20.iloc[-1]) if not pd.isna(weekly_sma20.iloc[-1]) else None
+    plus_di_over_minus_di = bool(plus_di.iloc[-1] > minus_di.iloc[-1])
+
     stages_addon = {
         "2_fundamentals": {"status": stage2, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1), "rsi_percentile_52w": round(rsi_percentile, 1)},
         "4_pullback_depth": {"status": addon_stage4, "pullback_pct": round(pullback_pct, 1)},
         "5_volume_flow": {"status": addon_stage5, "recent5_avg_vol": round(vol_recent5), "prior5_avg_vol": round(vol_prior5)},
+        "6_trend_continuation": {"status": "unknown", "adx": round(adx_last, 1), "plus_di_over_minus_di": plus_di_over_minus_di},
+        "7_multi_timeframe": {"status": "unknown", "daily_above_20sma": daily_above_20sma, "weekly_above_20sma": weekly_above_20sma},
         "8_trigger_breakout": {"status": addon_stage8, "recent5_high": round(recent5_high, 2), "today_close": round(float(c.iloc[-1]), 2)},
         "9_position_sizing": {"stop_pct_from_20sma": addon_stop_pct},
     }
