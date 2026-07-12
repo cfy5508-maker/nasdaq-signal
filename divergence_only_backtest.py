@@ -215,12 +215,20 @@ def analyze_group(signals, group_label, exclude_factor=None):
             raw = sum(w for k, w in weights.items() if s[k])
             s["combo_score"] = round(raw / total_w * 100)
 
-    high = [s for s in signals if s["combo_score"] >= 65]
-    mid = [s for s in signals if 40 <= s["combo_score"] < 65]
-    low = [s for s in signals if s["combo_score"] < 40]
+    if exclude_factor == "vol_confirmed":  # 중소형주는 85점 구간 추가로 세분화
+        very_high = [s for s in signals if s["combo_score"] >= 85]
+        high = [s for s in signals if 65 <= s["combo_score"] < 85]
+        mid = [s for s in signals if 40 <= s["combo_score"] < 65]
+        low = [s for s in signals if s["combo_score"] < 40]
+        bands = [("85점 이상", very_high), ("65~84점", high), ("40~64점", mid), ("40점 미만", low)]
+    else:
+        high = [s for s in signals if s["combo_score"] >= 65]
+        mid = [s for s in signals if 40 <= s["combo_score"] < 65]
+        low = [s for s in signals if s["combo_score"] < 40]
+        bands = [("65점 이상", high), ("40~64점", mid), ("40점 미만", low)]
 
     print(f"  [가중치 점수식: {weights}]")
-    for band_label, recs in [("65점 이상", high), ("40~64점", mid), ("40점 미만", low)]:
+    for band_label, recs in bands:
         wr, avg = win_rate(recs)
         if wr is None:
             print(f"    {band_label}: 표본 없음")
