@@ -1,8 +1,8 @@
 {
   "ticker": "PFE",
   "price": 24.17,
-  "updated": "2026-07-12T22:36:56.624480+00:00",
-  "score": 30,
+  "updated": "2026-07-12T22:39:31.540957+00:00",
+  "score": 50,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
@@ -11,10 +11,11 @@
       "peg": 2.83
     },
     "2_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
+      "divergence_present": true,
       "gap_days": 6,
-      "signal_fresh": null
+      "signal_fresh": false
     },
     "3_zscore": {
       "status": "fail",

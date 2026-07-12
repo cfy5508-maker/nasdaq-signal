@@ -1,8 +1,8 @@
 {
   "ticker": "MCD",
   "price": 274.6,
-  "updated": "2026-07-12T22:36:55.226252+00:00",
-  "score": 22,
+  "updated": "2026-07-12T22:39:30.558154+00:00",
+  "score": 33,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
@@ -11,10 +11,11 @@
       "peg": 2.52
     },
     "2_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
+      "divergence_present": true,
       "gap_days": 10,
-      "signal_fresh": null
+      "signal_fresh": true
     },
     "3_zscore": {
       "status": "fail",
