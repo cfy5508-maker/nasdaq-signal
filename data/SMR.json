@@ -1,11 +1,11 @@
 {
   "ticker": "SMR",
   "price": 9.04,
-  "updated": "2026-07-12T22:28:06.395155+00:00",
-  "score": 11,
+  "updated": "2026-07-12T22:30:20.928772+00:00",
+  "score": 22,
   "stages": {
     "1_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 69.9,
       "forward_pe": -13.490323,
       "peg": null
@@ -13,12 +13,13 @@
     "2_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
-      "gap_days": null
+      "gap_days": 1,
+      "signal_fresh": null
     },
     "3_zscore": {
       "status": "fail",
       "rsi": 39.1,
-      "rsi_zscore_1y": null
+      "rsi_zscore_1y": -0.54
     },
     "4_adx": {
       "status": "fail",
@@ -35,10 +36,10 @@
     }
   },
   "entry_atr_stop_pct": 14.3,
-  "score_addon": 57,
+  "score_addon": 71,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 69.9,
       "forward_pe": -13.490323,
       "peg": null

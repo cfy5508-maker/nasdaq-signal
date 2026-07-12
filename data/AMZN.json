@@ -1,8 +1,8 @@
 {
   "ticker": "AMZN",
   "price": 245.34,
-  "updated": "2026-07-12T22:28:12.170830+00:00",
-  "score": 22,
+  "updated": "2026-07-12T22:30:28.510022+00:00",
+  "score": 30,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
@@ -13,15 +13,16 @@
     "2_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
-      "gap_days": null
+      "gap_days": 3,
+      "signal_fresh": null
     },
     "3_zscore": {
       "status": "fail",
       "rsi": 50.9,
-      "rsi_zscore_1y": null
+      "rsi_zscore_1y": -0.02
     },
     "4_adx": {
-      "status": "fail",
+      "status": "warn",
       "adx": 22.5
     },
     "5_trigger_candle": {

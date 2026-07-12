@@ -1,11 +1,11 @@
 {
   "ticker": "JOBY",
   "price": 7.72,
-  "updated": "2026-07-12T22:28:02.397585+00:00",
-  "score": 11,
+  "updated": "2026-07-12T22:30:15.537711+00:00",
+  "score": 30,
   "stages": {
     "1_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 44.0,
       "forward_pe": -15.44,
       "peg": null
@@ -13,12 +13,13 @@
     "2_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
-      "gap_days": 2
+      "gap_days": 2,
+      "signal_fresh": null
     },
     "3_zscore": {
-      "status": "fail",
+      "status": "warn",
       "rsi": 33.8,
-      "rsi_zscore_1y": null
+      "rsi_zscore_1y": -1.24
     },
     "4_adx": {
       "status": "fail",
@@ -35,10 +36,10 @@
     }
   },
   "entry_atr_stop_pct": 12.3,
-  "score_addon": 68,
+  "score_addon": 82,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 44.0,
       "forward_pe": -15.44,
       "peg": null

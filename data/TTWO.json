@@ -1,11 +1,11 @@
 {
   "ticker": "TTWO",
   "price": 243.2,
-  "updated": "2026-07-12T22:28:03.368636+00:00",
-  "score": 11,
+  "updated": "2026-07-12T22:30:16.934495+00:00",
+  "score": 30,
   "stages": {
     "1_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 16.8,
       "forward_pe": 24.31691,
       "peg": 3.4
@@ -13,15 +13,16 @@
     "2_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
-      "gap_days": 1
+      "gap_days": 1,
+      "signal_fresh": null
     },
     "3_zscore": {
       "status": "fail",
       "rsi": 54.8,
-      "rsi_zscore_1y": null
+      "rsi_zscore_1y": 0.3
     },
     "4_adx": {
-      "status": "fail",
+      "status": "pass",
       "adx": 27.1
     },
     "5_trigger_candle": {
@@ -35,10 +36,10 @@
     }
   },
   "entry_atr_stop_pct": 5.3,
-  "score_addon": 50,
+  "score_addon": 64,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 16.8,
       "forward_pe": 24.31691,
       "peg": 3.4

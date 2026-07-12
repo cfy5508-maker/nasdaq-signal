@@ -1,11 +1,11 @@
 {
   "ticker": "MCD",
   "price": 274.6,
-  "updated": "2026-07-12T22:28:09.462693+00:00",
-  "score": 11,
+  "updated": "2026-07-12T22:30:25.040831+00:00",
+  "score": 22,
   "stages": {
     "1_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 19.8,
       "forward_pe": 19.326284,
       "peg": 2.52
@@ -13,12 +13,13 @@
     "2_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
-      "gap_days": 10
+      "gap_days": 10,
+      "signal_fresh": null
     },
     "3_zscore": {
       "status": "fail",
       "rsi": 47.1,
-      "rsi_zscore_1y": null
+      "rsi_zscore_1y": -0.21
     },
     "4_adx": {
       "status": "fail",
@@ -35,10 +36,10 @@
     }
   },
   "entry_atr_stop_pct": 3.3,
-  "score_addon": 50,
+  "score_addon": 64,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "warn",
+      "status": "pass",
       "upside_pct": 19.8,
       "forward_pe": 19.326284,
       "peg": 2.52
