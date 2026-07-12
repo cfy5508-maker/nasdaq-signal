@@ -1135,7 +1135,7 @@
           if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
           renderChecklistWithToggle(full, detail);
         })
-        .catch(function(){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
+        .catch(function(e){ console.error('detail load failed for', item.ticker, e); detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
     });
 
     head.querySelector('[data-remove]').addEventListener('click', function(){
