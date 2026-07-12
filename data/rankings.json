@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-12T22:54:34.864040+00:00",
+  "updated": "2026-07-12T22:59:48.880633+00:00",
   "rankings": [
     {
       "ticker": "PFE",
@@ -13,6 +13,33 @@
       "signal": {
         "signal": "none",
         "reasons": []
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": []
+      }
+    },
+    {
+      "ticker": "PEP",
+      "score": 33,
+      "score_addon": 64,
+      "price": 137.38,
+      "upside_pct": 13.9,
+      "rsi": 40.8,
+      "divergence": "warn",
+      "trigger": "fail",
+      "signal": {
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "급락 기준 (-25 이상)",
+            "detail": "전일 68 → 오늘 33 (전일 대비 -35)"
+          },
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
       },
       "signal_addon": {
         "signal": "none",
@@ -94,56 +121,6 @@
             "detail": null
           }
         ]
-      }
-    },
-    {
-      "ticker": "GILD",
-      "score": 22,
-      "score_addon": 64,
-      "price": 129.83,
-      "upside_pct": 21.9,
-      "rsi": 51.1,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "down",
-        "reasons": [
-          {
-            "label": "구간 하향 이탈",
-            "detail": null
-          }
-        ]
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      }
-    },
-    {
-      "ticker": "PEP",
-      "score": 22,
-      "score_addon": 64,
-      "price": 137.38,
-      "upside_pct": 13.9,
-      "rsi": 40.8,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "down",
-        "reasons": [
-          {
-            "label": "급락 기준 (-25 이상)",
-            "detail": "전일 68 → 오늘 22 (전일 대비 -46)"
-          },
-          {
-            "label": "구간 하향 이탈",
-            "detail": null
-          }
-        ]
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
       }
     }
   ]
