@@ -191,8 +191,8 @@ def analyze_group(signals, group_label, exclude_factor=None):
     # 우선순위 기반 가중치 점수식으로 실제 테스트
     if exclude_factor == "near_bb":  # 대형주
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0}
-    elif exclude_factor == "vol_confirmed":  # 중소형주 - RS 추가
-        weights = {"rsi_oversold": 2.0, "trigger_candle": 1.5, "near_bb": 0.5, "rs_positive": 1.5}
+    elif exclude_factor == "vol_confirmed":  # 중소형주 - RSI 비중 상향, RS 제외
+        weights = {"rsi_oversold": 3.0, "trigger_candle": 1.0, "near_bb": 0.5}
     else:
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0, "near_bb": 0.5}
 
