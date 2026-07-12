@@ -62,11 +62,12 @@ def score_at(hist_full, cutoff_idx):
     else:
         bullish_divergence = False
     macd_hist = macd.macd_diff()
-    macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min() and macd_hist.iloc[-1] < 0) if len(macd_hist) > 90 else False
+    macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min()) if len(macd_hist) > 90 else False
     stage4 = "pass" if (bullish_divergence and macd_hist_rising) else \
              "warn" if (bullish_divergence or macd_hist_rising) else "fail"
 
-    stage5 = "pass" if bool(obv.iloc[-1] > obv.iloc[-20] and c.iloc[-1] < c.iloc[-20]) else "warn"
+    obv_bearish_signal = bool(obv.iloc[-1] > obv.iloc[-20] and c.iloc[-1] < c.iloc[-20])
+    stage5 = "fail" if obv_bearish_signal else "pass"
 
     adx_last, adx_prev = float(adx_ind.adx().iloc[-1]), float(adx_ind.adx().iloc[-6])
     trend_exhaustion = "pass" if (adx_prev >= 25 and adx_last < adx_prev) else "unknown"
