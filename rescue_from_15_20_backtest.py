@@ -1,12 +1,13 @@
 """
-rescue_from_15_20_backtest.py
-사용법: python rescue_from_15_20_backtest.py [FORWARD_DAYS]
+zone_20_30_threshold_sweep_backtest.py
+사용법: python zone_20_30_threshold_sweep_backtest.py [FORWARD_DAYS]
 기본값: FORWARD_DAYS=10
 
-동작: 다이버전스가 RSI 백분위 20~30% 구간에서 뜬 신호들을,
-      "최근 10일 안에 15~20% 구간을 거쳐서 올라왔는지(구제형)"와
-      "15~20%를 거치지 않고 곧장 20~30%대에 머문 경우(순수형)"로 나눠서
-      승률을 비교한다.
+동작: "다이버전스+RSI백분위20~30%+궤적하락중" 그룹 안에서,
+      1) RSI백분위 하락속도(5일간) 임계값
+      2) 20일선 대비 이격도 임계값
+      을 각각 스윕해서 어느 지점에서 승률이 최적화되는지 확인하고,
+      두 조건을 결합했을 때의 최종 승률도 확인한다.
 """
 import sys
 import numpy as np
@@ -16,25 +17,24 @@ from ta.momentum import RSIIndicator
 from ta.trend import MACD
 
 SMALLCAP_TICKERS = [
-    "RKLB", "SMCI", "PLTR", "SOFI", "RIVN", "LCID", "CHPT", "U", "RBLX", "DKNG",
-    "AFRM", "UPST", "COIN", "MARA", "RIOT", "CVNA", "ROOT", "OPEN", "CLSK", "IONQ",
-    "FUBO", "PATH", "ASAN", "BBAI", "SOUN", "RUN", "ENVX", "JOBY", "ACHR", "LAZR",
-    "QS", "FSLY", "PLUG", "NIO", "XPEV", "BYND", "WOLF", "GPRO", "DNA", "HOOD",
-    "AI", "PTON", "SNAP", "LYFT", "DASH", "PINS", "ETSY", "BILL", "TTD", "ROKU",
-    "W", "CHWY", "PENN", "ABNB", "DOCU", "ZM", "BROS", "CAVA", "SG", "APP",
-    "SMR", "OKLO", "VKTX", "RXRX", "ARQQ", "DAVE", "NU", "CELH", "ELF", "FIGS",
+    "CRSP", "BEAM", "EDIT", "NTLA", "SANA", "GTLB", "DDOG", "NET", "ESTC", "FROG",
+    "IOT", "S", "DOCN", "FVRR", "UPWK", "TOST", "SQSP", "YELP", "ANGI", "CFLT",
 ]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 LOOKBACK_DAYS = 250
 MIN_HISTORY = 260
 
+SPEED_THRESHOLDS = [15, 18, 20, 22, 25, 30]
+DIST_THRESHOLDS = [1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
 
-def rolling_pctile_series(rsi, window=252):
-    result = pd.Series(index=rsi.index, dtype=float)
-    for j in range(window, len(rsi)):
-        w = rsi.iloc[j-window:j]
-        result.iloc[j] = (w < rsi.iloc[j]).mean() * 100
-    return result
+
+def rolling_pctile_at(rsi, pos, window=252):
+    start = max(0, pos - window)
+    w = rsi.iloc[start:pos+1].dropna()
+    if len(w) == 0:
+        return None
+    val = rsi.iloc[pos]
+    return float((w < val).mean() * 100)
 
 
 def find_signals(ticker):
@@ -44,7 +44,7 @@ def find_signals(ticker):
     c = hist["Close"]
     rsi = RSIIndicator(c, window=14).rsi()
     macd_hist = MACD(c).macd_diff()
-    pctile_series = rolling_pctile_series(rsi)
+    sma20 = c.rolling(20).mean()
 
     n = len(hist)
     start = max(MIN_HISTORY, n - LOOKBACK_DAYS - FORWARD_DAYS)
@@ -69,22 +69,30 @@ def find_signals(ticker):
             continue
 
         low2_pos = hist.index.get_loc(low2_idx)
-        pctile_now = pctile_series.iloc[low2_pos] if not pd.isna(pctile_series.iloc[low2_pos]) else None
-        if pctile_now is None:
+        if low2_pos < 5:
+            continue
+
+        pctile_now = rolling_pctile_at(rsi, low2_pos)
+        pctile_5ago = rolling_pctile_at(rsi, low2_pos - 5)
+        if pctile_now is None or pctile_5ago is None:
             continue
 
         if not (20 <= pctile_now < 30):
             continue
+        if not (pctile_now < pctile_5ago):
+            continue
 
-        window_start = max(0, low2_pos - 10)
-        recent_pctiles = pctile_series.iloc[window_start:low2_pos]
-        passed_through_15_20 = bool(((recent_pctiles >= 15) & (recent_pctiles < 20)).any())
+        decline_speed = pctile_5ago - pctile_now
+
+        sma20_now = float(sma20.iloc[i]) if not pd.isna(sma20.iloc[i]) else None
+        dist_from_sma20 = (float(c.iloc[i]) - sma20_now) / sma20_now * 100 if sma20_now else float("nan")
 
         entry = float(c.iloc[i])
         fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
 
         results.append({
-            "passed_through_15_20": passed_through_15_20,
+            "decline_speed": decline_speed,
+            "dist_from_sma20": dist_from_sma20,
             "fwd_return": fwd_return,
         })
     return results
@@ -104,27 +112,48 @@ def main():
         if recs:
             all_signals.extend(recs)
 
-    print(f"=== RSI백분위 20~30% 구간 다이버전스 신호 {len(all_signals)}건 ===\n")
+    print(f"=== 기준 그룹(다이버전스+20~30%+궤적하락중) {len(all_signals)}건 ===\n")
     if not all_signals:
         print("신호 없음")
         return
 
     baseline_wr, baseline_avg = win_rate(all_signals)
-    print(f"전체 기준선: 승률 {baseline_wr:.1f}%, 평균수익률 {baseline_avg:+.2f}%\n")
+    print(f"기준 승률: {baseline_wr:.1f}%, 평균수익률 {baseline_avg:+.2f}%\n")
 
-    rescued = [s for s in all_signals if s["passed_through_15_20"]]
-    pure = [s for s in all_signals if not s["passed_through_15_20"]]
-
-    for label, sub in [("구제형(최근10일내 15~20% 거침)", rescued), ("순수형(15~20% 안 거침)", pure)]:
+    print("=== 하락속도 <= 임계값 스윕 ===")
+    print(f"{'임계값':>8} | {'표본':>6} | {'승률':>7} | {'기준대비':>8}")
+    for th in SPEED_THRESHOLDS:
+        sub = [s for s in all_signals if s["decline_speed"] <= th]
         wr, avg = win_rate(sub)
         if wr is None:
-            print(f"{label}: 표본 없음")
             continue
         gap = wr - baseline_wr
-        print(f"{label}: 표본 {len(sub)}건 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
+        print(f"{th:>7} | {len(sub):>6} | {wr:>6.1f}% | {gap:>+7.1f}%p")
 
-    print("\n해석: '구제형'의 승률이 '순수형'과 비슷하거나 더 높으면,")
-    print("15~20%를 거쳐 20~30%로 회복하는 게 안전한 매수 시점이라는 가설이 지지됨.")
+    print("\n=== 20일선 이격도 <= 임계값 스윕 ===")
+    print(f"{'임계값':>8} | {'표본':>6} | {'승률':>7} | {'기준대비':>8}")
+    for th in DIST_THRESHOLDS:
+        sub = [s for s in all_signals if not (isinstance(s["dist_from_sma20"], float) and np.isnan(s["dist_from_sma20"])) and s["dist_from_sma20"] <= th]
+        wr, avg = win_rate(sub)
+        if wr is None:
+            continue
+        gap = wr - baseline_wr
+        print(f"{th:>7} | {len(sub):>6} | {wr:>6.1f}% | {gap:>+7.1f}%p")
+
+    print("\n=== 두 조건 결합(하락속도<=20 AND 이격도<=3.0) ===")
+    combo = [s for s in all_signals
+             if s["decline_speed"] <= 20
+             and not (isinstance(s["dist_from_sma20"], float) and np.isnan(s["dist_from_sma20"]))
+             and s["dist_from_sma20"] <= 3.0]
+    wr, avg = win_rate(combo)
+    if wr is not None:
+        gap = wr - baseline_wr
+        print(f"표본 {len(combo)}건 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준 대비 {gap:+.1f}%p")
+    else:
+        print("표본 없음")
+
+    print("\n해석: 임계값을 좁힐수록 표본이 줄지만 승률이 오르는지가 핵심.")
+    print("승률 개선폭 대비 표본 손실이 과하면 그 임계값은 과최적화 위험.")
 
 
 if __name__ == "__main__":
