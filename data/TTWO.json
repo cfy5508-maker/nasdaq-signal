@@ -1,8 +1,8 @@
 {
   "ticker": "TTWO",
   "price": 243.2,
-  "updated": "2026-07-11T23:15:21.272230+00:00",
-  "score": 24,
+  "updated": "2026-07-12T21:51:45.448979+00:00",
+  "score": 15,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -13,31 +13,26 @@
       "status": "warn",
       "upside_pct": 16.8,
       "forward_pe": 24.31691,
-      "peg": 3.51
+      "peg": 3.4
     },
     "3_technical_position": {
       "status": "fail",
       "rsi": 54.8,
-      "bb_low": 212.29,
-      "bb_high": 266.9
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
       "status": "fail",
       "bullish_divergence": false,
-      "macd_hist_rising": false
+      "gap_days": 1,
+      "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 27.1
-    },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "daily_rsi": 54.8,
-      "weekly_rsi": 56.9
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -56,13 +51,13 @@
       "upside_pct": 16.8
     }
   },
-  "score_addon": 53,
+  "score_addon": 50,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",
       "upside_pct": 16.8,
       "forward_pe": 24.31691,
-      "peg": 3.51
+      "peg": 3.4
     },
     "3_pullback_position": {
       "status": "fail",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 60.9
     },
     "4_pullback_depth": {
-      "status": "pass",
+      "status": "warn",
       "pullback_pct": 8.6
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 2025060,
       "prior5_avg_vol": 3548400
     },
-    "6_trend_continuation": {
-      "status": "pass",
-      "adx": 27.1,
-      "plus_di_over_minus_di": true
-    },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "daily_above_20sma": true,
-      "weekly_above_20sma": true
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 265.94,
       "today_close": 243.2
     },

@@ -1,8 +1,8 @@
 {
   "ticker": "NVDA",
   "price": 210.96,
-  "updated": "2026-07-11T23:15:31.503820+00:00",
-  "score": 53,
+  "updated": "2026-07-12T21:51:54.536853+00:00",
+  "score": 30,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -13,31 +13,26 @@
       "status": "pass",
       "upside_pct": 43.0,
       "forward_pe": 16.494099,
-      "peg": 0.63
+      "peg": 0.65
     },
     "3_technical_position": {
       "status": "fail",
       "rsi": 57.0,
-      "bb_low": 190.1,
-      "bb_high": 213.8
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
       "status": "fail",
       "bullish_divergence": false,
-      "macd_hist_rising": false
+      "gap_days": null,
+      "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 16.9
-    },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "daily_rsi": 57.0,
-      "weekly_rsi": 57.1
     },
     "8_trigger_candle": {
       "status": "pass",
@@ -56,13 +51,13 @@
       "upside_pct": 43.0
     }
   },
-  "score_addon": 58,
+  "score_addon": 36,
   "stages_addon": {
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 43.0,
       "forward_pe": 16.494099,
-      "peg": 0.63
+      "peg": 0.65
     },
     "3_pullback_position": {
       "status": "fail",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 70.6
     },
     "4_pullback_depth": {
-      "status": "warn",
+      "status": "fail",
       "pullback_pct": 1.4
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 132146820,
       "prior5_avg_vol": 156566560
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 16.9,
-      "plus_di_over_minus_di": true
-    },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "daily_above_20sma": true,
-      "weekly_above_20sma": true
-    },
     "8_trigger_breakout": {
-      "status": "pass",
+      "status": "fail",
       "recent5_high": 205.16,
       "today_close": 210.96
     },

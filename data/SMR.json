@@ -1,8 +1,8 @@
 {
   "ticker": "SMR",
   "price": 9.04,
-  "updated": "2026-07-11T23:15:25.696878+00:00",
-  "score": 53,
+  "updated": "2026-07-12T21:51:49.289755+00:00",
+  "score": 17,
   "stages": {
     "1_macro": {
       "status": "unknown",
@@ -16,28 +16,23 @@
       "peg": null
     },
     "3_technical_position": {
-      "status": "warn",
+      "status": "fail",
       "rsi": 39.1,
-      "bb_low": 8.53,
-      "bb_high": 11.48
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": null,
       "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "pass",
       "obv_bullish_divergence": true
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 14.7
-    },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "daily_rsi": 39.1,
-      "weekly_rsi": 36.1
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -56,7 +51,7 @@
       "upside_pct": 69.9
     }
   },
-  "score_addon": 14,
+  "score_addon": 48,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 36.1
     },
     "4_pullback_depth": {
-      "status": "fail",
+      "status": "pass",
       "pullback_pct": 23.7
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 23375900,
       "prior5_avg_vol": 28291040
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 14.7,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "fail",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 10.87,
       "today_close": 9.04
     },

@@ -1,8 +1,8 @@
 {
   "ticker": "DG",
   "price": 118.92,
-  "updated": "2026-07-11T23:15:20.149767+00:00",
-  "score": 10,
+  "updated": "2026-07-12T21:51:44.433104+00:00",
+  "score": 4,
   "stages": {
     "1_macro": {
       "status": "unknown",
@@ -13,31 +13,26 @@
       "status": "fail",
       "upside_pct": 10.2,
       "forward_pe": 14.850205,
-      "peg": 1.65
+      "peg": 1.71
     },
     "3_technical_position": {
       "status": "fail",
       "rsi": 59.6,
-      "bb_low": 110.08,
-      "bb_high": 120.17
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
       "status": "fail",
       "bullish_divergence": false,
-      "macd_hist_rising": false
+      "gap_days": null,
+      "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 18.8
-    },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "daily_rsi": 59.6,
-      "weekly_rsi": 50.1
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -56,13 +51,13 @@
       "upside_pct": 10.2
     }
   },
-  "score_addon": 14,
+  "score_addon": 25,
   "stages_addon": {
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 10.2,
       "forward_pe": 14.850205,
-      "peg": 1.65
+      "peg": 1.71
     },
     "3_pullback_position": {
       "status": "fail",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 74.4
     },
     "4_pullback_depth": {
-      "status": "warn",
+      "status": "fail",
       "pullback_pct": 1.2
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 2295940,
       "prior5_avg_vol": 2732840
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 18.8,
-      "plus_di_over_minus_di": true
-    },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "daily_above_20sma": true,
-      "weekly_above_20sma": false
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 119.04,
       "today_close": 118.92
     },

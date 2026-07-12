@@ -1,8 +1,8 @@
 {
   "ticker": "PEP",
   "price": 137.38,
-  "updated": "2026-07-11T23:15:24.737227+00:00",
-  "score": 68,
+  "updated": "2026-07-12T21:51:48.437395+00:00",
+  "score": 5,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -10,34 +10,29 @@
       "index_symbol": "^IXIC"
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 18.5,
+      "status": "fail",
+      "upside_pct": 13.9,
       "forward_pe": 15.276089,
-      "peg": 1.53
+      "peg": 1.48
     },
     "3_technical_position": {
-      "status": "warn",
+      "status": "fail",
       "rsi": 40.8,
-      "bb_low": 136.11,
-      "bb_high": 147.43
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": 1,
       "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 19.2
-    },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "daily_rsi": 40.8,
-      "weekly_rsi": 38.9
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -52,17 +47,17 @@
       "atr_stop_pct": 4.1
     },
     "10_target": {
-      "target_mean_price": 162.81818,
-      "upside_pct": 18.5
+      "target_mean_price": 156.40909,
+      "upside_pct": 13.9
     }
   },
-  "score_addon": 37,
+  "score_addon": 36,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 18.5,
+      "status": "fail",
+      "upside_pct": 13.9,
       "forward_pe": 15.276089,
-      "peg": 1.53
+      "peg": 1.48
     },
     "3_pullback_position": {
       "status": "fail",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 18.5
     },
     "4_pullback_depth": {
-      "status": "pass",
+      "status": "warn",
       "pullback_pct": 7.8
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 11019440,
       "prior5_avg_vol": 11271660
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 19.2,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "fail",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 149.04,
       "today_close": 137.38
     },

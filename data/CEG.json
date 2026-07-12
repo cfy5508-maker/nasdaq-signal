@@ -1,8 +1,8 @@
 {
   "ticker": "CEG",
   "price": 251.38,
-  "updated": "2026-07-11T23:15:27.829904+00:00",
-  "score": 50,
+  "updated": "2026-07-12T21:51:51.214036+00:00",
+  "score": 25,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -18,26 +18,21 @@
     "3_technical_position": {
       "status": "fail",
       "rsi": 45.0,
-      "bb_low": 232.42,
-      "bb_high": 280.99
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
+      "gap_days": null,
       "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 22.7
-    },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "daily_rsi": 45.0,
-      "weekly_rsi": 41.3
     },
     "8_trigger_candle": {
       "status": "pass",
@@ -56,7 +51,7 @@
       "upside_pct": 42.3
     }
   },
-  "score_addon": 16,
+  "score_addon": 57,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 34.5
     },
     "4_pullback_depth": {
-      "status": "fail",
+      "status": "pass",
       "pullback_pct": 11.1
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 2908300,
       "prior5_avg_vol": 5003720
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 22.7,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "fail",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 251.63,
       "today_close": 251.38
     },

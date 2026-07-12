@@ -1,8 +1,8 @@
 {
   "ticker": "NXT",
   "price": 111.5,
-  "updated": "2026-07-11T23:15:23.571428+00:00",
-  "score": 38,
+  "updated": "2026-07-12T21:51:47.385033+00:00",
+  "score": 15,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -11,33 +11,28 @@
     },
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 35.2,
+      "upside_pct": 35.3,
       "forward_pe": 18.940521,
-      "peg": 3.85
+      "peg": 3.91
     },
     "3_technical_position": {
       "status": "fail",
       "rsi": 43.5,
-      "bb_low": 104.54,
-      "bb_high": 130.0
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
+      "gap_days": null,
       "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 15.5
-    },
-    "7_multi_timeframe": {
-      "status": "pass",
-      "daily_rsi": 43.5,
-      "weekly_rsi": 48.4
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -52,17 +47,17 @@
       "atr_stop_pct": 11.6
     },
     "10_target": {
-      "target_mean_price": 150.6923,
-      "upside_pct": 35.2
+      "target_mean_price": 150.8077,
+      "upside_pct": 35.3
     }
   },
-  "score_addon": 24,
+  "score_addon": 68,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 35.2,
+      "upside_pct": 35.3,
       "forward_pe": 18.940521,
-      "peg": 3.85
+      "peg": 3.91
     },
     "3_pullback_position": {
       "status": "warn",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 11.8
     },
     "4_pullback_depth": {
-      "status": "fail",
+      "status": "pass",
       "pullback_pct": 14.2
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 2162260,
       "prior5_avg_vol": 8086020
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 15.5,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "fail",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 123.52,
       "today_close": 111.5
     },

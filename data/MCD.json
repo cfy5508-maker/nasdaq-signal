@@ -1,8 +1,8 @@
 {
   "ticker": "MCD",
   "price": 274.6,
-  "updated": "2026-07-11T23:15:29.274155+00:00",
-  "score": 41,
+  "updated": "2026-07-12T21:51:52.459082+00:00",
+  "score": 15,
   "stages": {
     "1_macro": {
       "status": "pass",
@@ -13,31 +13,26 @@
       "status": "warn",
       "upside_pct": 19.8,
       "forward_pe": 19.326284,
-      "peg": 2.56
+      "peg": 2.52
     },
     "3_technical_position": {
-      "status": "warn",
+      "status": "fail",
       "rsi": 47.1,
-      "bb_low": 263.18,
-      "bb_high": 290.28
+      "rsi_zscore_1y": null
     },
     "4_divergence_momentum": {
-      "status": "warn",
-      "bullish_divergence": true,
-      "macd_hist_rising": false
+      "status": "fail",
+      "bullish_divergence": false,
+      "gap_days": 10,
+      "macd_hist_rising": true
     },
     "5_volume_flow": {
       "status": "warn",
       "obv_bullish_divergence": false
     },
-    "6_trend_exhaustion": {
-      "status": "unknown",
+    "6_trend_strength_adx": {
+      "status": "fail",
       "adx": 15.9
-    },
-    "7_multi_timeframe": {
-      "status": "warn",
-      "daily_rsi": 47.1,
-      "weekly_rsi": 39.2
     },
     "8_trigger_candle": {
       "status": "fail",
@@ -52,17 +47,17 @@
       "atr_stop_pct": 3.3
     },
     "10_target": {
-      "target_mean_price": 329.03226,
+      "target_mean_price": 328.87097,
       "upside_pct": 19.8
     }
   },
-  "score_addon": 26,
+  "score_addon": 50,
   "stages_addon": {
     "2_fundamentals": {
       "status": "warn",
       "upside_pct": 19.8,
       "forward_pe": 19.326284,
-      "peg": 2.56
+      "peg": 2.52
     },
     "3_pullback_position": {
       "status": "fail",
@@ -72,7 +67,7 @@
       "rsi_percentile_52w": 43.3
     },
     "4_pullback_depth": {
-      "status": "pass",
+      "status": "warn",
       "pullback_pct": 5.1
     },
     "5_volume_flow": {
@@ -80,18 +75,8 @@
       "recent5_avg_vol": 4350540,
       "prior5_avg_vol": 5494260
     },
-    "6_trend_continuation": {
-      "status": "fail",
-      "adx": 15.9,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "fail",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
     "8_trigger_breakout": {
-      "status": "fail",
+      "status": "pass",
       "recent5_high": 287.1,
       "today_close": 274.6
     },
