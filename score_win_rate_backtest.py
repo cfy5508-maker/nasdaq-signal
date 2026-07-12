@@ -26,8 +26,8 @@ from fetch_indicators import (
     trigger_with_breakout, WEIGHTS, ADDON_WEIGHTS, STATUS_SCORE
 )
 
-TICKERS = ["NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD",
-           "TSLA", "JPM", "DIS", "PFE", "CVX", "MCD", "NFLX", "GE", "CSCO", "UNH"]
+TICKERS = ["RKLB", "SMCI", "PLTR", "SOFI", "RIVN", "LCID", "CHPT", "U", "RBLX", "DKNG",
+           "AFRM", "UPST", "COIN", "MARA", "RIOT", "CVNA", "ROOT", "OPEN", "CLSK", "IONQ"]
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 LOOKBACK_DAYS = int(sys.argv[2]) if len(sys.argv) > 2 else 250
 MIN_HISTORY = 260
