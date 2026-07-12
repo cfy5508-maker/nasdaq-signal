@@ -185,6 +185,8 @@ def analyze(ticker):
     # 추가: 오늘이 정확히 새 저점을 찍은 날이 아니어도, 마지막 저점가 대비 +3% 이내면
     # 신호가 아직 유효(저점 근처에서 다지는 중)한 것으로 간주한다.
     TOLERANCE_PCT = 0.03
+    MIN_GAP_DAYS = 3
+    MAX_GAP_DAYS = 30  # 30일(약 1.5개월) 넘게 떨어진 저점은 다른 하락 사이클로 간주해 배제
     close_values = c.values
     realtime_lows = find_realtime_lows(close_values, order=5)
     bullish_divergence = False     # pass인 경우만 True (점수 캡 판정용)
@@ -193,8 +195,17 @@ def analyze(ticker):
     gap_days = None
     signal_fresh = None  # True=오늘 신규 확정, False=오차범위 내 유지, None=신호없음
     if len(realtime_lows) >= 2:
-        pos1, pos2 = realtime_lows[-2], realtime_lows[-1]
-        gap_days = pos2 - pos1
+        pos2 = realtime_lows[-1]
+
+        # 저점1: "그냥 직전 저점"이 아니라, 저점2 이전 MIN~MAX_GAP일 구간 안에서
+        # 실제로 가장 낮았던(가장 의미있는) 저점을 찾는다. 이래야 PEP처럼 저점이
+        # 매일 조금씩 갱신되는 종목에서, 진짜 깊었던 저점(예: 10일 전 최저가)을
+        # 놓치지 않고 비교할 수 있다.
+        candidates = [p for p in realtime_lows
+                      if p != pos2 and MIN_GAP_DAYS <= (pos2 - p) <= MAX_GAP_DAYS]
+        pos1 = min(candidates, key=lambda p: close_values[p]) if candidates else None
+
+        gap_days = (pos2 - pos1) if pos1 is not None else None
         is_today_new_low = (pos2 == len(close_values) - 1)
 
         # 오늘이 새 저점이 아니면, 마지막 저점가 대비 오늘 가격이 +3% 이내인지 확인
@@ -202,7 +213,7 @@ def analyze(ticker):
         price_today = float(c.iloc[-1])
         within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
 
-        if gap_days >= 3 and (is_today_new_low or within_tolerance):
+        if pos1 is not None and (is_today_new_low or within_tolerance):
             price1, price2 = float(c.iloc[pos1]), price2_raw
             rsi1, rsi2 = float(rsi.iloc[pos1]), float(rsi.iloc[pos2])
             if not (pd.isna(rsi1) or pd.isna(rsi2)):
