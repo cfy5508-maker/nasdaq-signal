@@ -29,7 +29,7 @@ REBOUND_BANDS = [(-999, 0), (0, 3), (3, 6), (6, 9), (9, 12), (12, 15), (15, 20),
 
 
 def find_signals(ticker):
-    hist = yf.Ticker(ticker).history(period="2y")
+    hist = yf.Ticker(ticker).history(period="3y")
     if hist.empty:
         return None
     c, l = hist["Close"], hist["Low"]
