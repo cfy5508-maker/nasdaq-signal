@@ -182,28 +182,41 @@ def analyze(ticker):
 
     # ── 검증된 새 다이버전스 게이트: 진짜 스윙저점(전후 5일보다 낮은 지점) 기반 ──
     # 백테스트 검증: 68건 표본에서 Z-score 낮을수록 승률 66.7%→52.4%→26.1% 단조감소 확인
+    # 추가: 오늘이 정확히 새 저점을 찍은 날이 아니어도, 마지막 저점가 대비 +3% 이내면
+    # 신호가 아직 유효(저점 근처에서 다지는 중)한 것으로 간주한다.
+    TOLERANCE_PCT = 0.03
     close_values = c.values
     realtime_lows = find_realtime_lows(close_values, order=5)
     bullish_divergence = False
     gap_days = None
-    rsi_zscore = None
-    if len(realtime_lows) >= 2 and realtime_lows[-1] == len(close_values) - 1:
-        # 오늘이 방금 새로 확정된 저점일 때만 "신선한 신호"로 인정
+    signal_fresh = None  # True=오늘 신규 확정, False=오차범위 내 유지, None=신호없음
+    if len(realtime_lows) >= 2:
         pos1, pos2 = realtime_lows[-2], realtime_lows[-1]
         gap_days = pos2 - pos1
-        if gap_days >= 3:  # 3일 미만은 가짜 다이버전스(하락 중간 지점)로 배제
-            price1, price2 = float(c.iloc[pos1]), float(c.iloc[pos2])
+        is_today_new_low = (pos2 == len(close_values) - 1)
+
+        # 오늘이 새 저점이 아니면, 마지막 저점가 대비 오늘 가격이 +3% 이내인지 확인
+        price2_raw = float(c.iloc[pos2])
+        price_today = float(c.iloc[-1])
+        within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
+
+        if gap_days >= 3 and (is_today_new_low or within_tolerance):
+            price1, price2 = float(c.iloc[pos1]), price2_raw
             rsi1, rsi2 = float(rsi.iloc[pos1]), float(rsi.iloc[pos2])
             if not (pd.isna(rsi1) or pd.isna(rsi2)):
                 bullish_divergence = bool(price2 < price1 and rsi2 > rsi1)
                 if bullish_divergence:
-                    # Z-score: 이 종목 자신의 1년 RSI 평균/표준편차 기준 개별 계산
-                    rsi_window = rsi.dropna()
-                    if len(rsi_window) >= 60:
-                        rsi_mean_1y = float(rsi_window.mean())
-                        rsi_std_1y = float(rsi_window.std())
-                        if rsi_std_1y > 0:
-                            rsi_zscore = (rsi2 - rsi_mean_1y) / rsi_std_1y
+                    signal_fresh = is_today_new_low
+
+    # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 1년 평균 대비
+    # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
+    rsi_zscore = None
+    rsi_window_1y = rsi.dropna()
+    if len(rsi_window_1y) >= 60:
+        rsi_mean_1y = float(rsi_window_1y.mean())
+        rsi_std_1y = float(rsi_window_1y.std())
+        if rsi_std_1y > 0:
+            rsi_zscore = (rsi_last - rsi_mean_1y) / rsi_std_1y
 
     macd_hist = macd.macd_diff()
     macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min()) if len(macd_hist) > 90 else False
@@ -252,11 +265,11 @@ def analyze(ticker):
     # 2단계: 다이버전스 게이트 - 다이버전스 자체가 없으면 fail
     stage_divergence = "pass" if bullish_divergence else "fail"
 
-    # 4단계: 추세강도(ADX) - 다이버전스가 뜬 상태에서 추세가 뚜렷할 때만 신뢰
+    # 4단계: 추세강도(ADX) - 다이버전스 유무와 무관하게 "지금" 추세강도를 항상 표시
     # 백테스트 검증(스윕): ADX>=25 최적점(승률67.9%), 22~25는 애매구간(승률64.5%)
-    if bullish_divergence and adx_last >= 25:
+    if adx_last >= 25:
         stage_adx = "pass"
-    elif bullish_divergence and adx_last >= 22:
+    elif adx_last >= 22:
         stage_adx = "warn"
     else:
         stage_adx = "fail"
@@ -266,14 +279,20 @@ def analyze(ticker):
 
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
-    # 1단계: 펀더멘털
+    # 1단계: 펀더멘털 - PEG가 좋을수록 업사이드 커트라인을 낮춰줌 (서로 보완)
+    if peg is not None and peg <= 1.0:
+        upside_threshold = 5
+    elif peg is not None and peg <= 1.5:
+        upside_threshold = 10
+    else:
+        upside_threshold = 15
+
     stage1_flags = {
-        "upside_ge_15": (upside_pct or 0) >= 15,
-        "peg_reasonable": (peg is not None and peg <= 2.5),
+        "upside_ge_threshold": (upside_pct or 0) >= upside_threshold,
         "forward_pe_present": forward_pe is not None,
     }
     stage1 = "pass" if all(stage1_flags.values()) else \
-             "fail" if not stage1_flags["upside_ge_15"] else "warn"
+             "warn" if stage1_flags["upside_ge_threshold"] else "fail"
 
     # ── 추매(불타기) 체크리스트 계산 ──────────────────
     sma20 = c.rolling(20).mean()
@@ -335,7 +354,7 @@ def analyze(ticker):
 
     stages = {
         "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "2_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "gap_days": gap_days},
+        "2_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "gap_days": gap_days, "signal_fresh": signal_fresh},
         "3_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
         "4_adx": {"status": stage_adx, "adx": round(adx_last, 1)},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
