@@ -114,7 +114,9 @@ def find_divergence_signals(ticker, benchmark_close):
         rsi_series = rsi.iloc[max(0, i-252):i+1].dropna()
         rsi_last = float(rsi.iloc[i])
         rsi_pctile = float((rsi_series < rsi_last).mean() * 100) if len(rsi_series) > 0 else 50.0
-        rsi_oversold = rsi_pctile <= 15
+        rsi_oversold = rsi_pctile <= 15  # 기존 이진 판정도 유지(참고용 출력에 사용)
+        rsi_strong = rsi_pctile <= 10
+        rsi_weak = 10 < rsi_pctile <= 15
 
         bb_low_now = float(bb_low.iloc[i])
         near_bb = float(c.iloc[i]) <= bb_low_now * 1.05
@@ -139,6 +141,8 @@ def find_divergence_signals(ticker, benchmark_close):
             "macd_rising": macd_rising,
             "trigger_candle": has_trigger_candle,
             "rsi_oversold": rsi_oversold,
+            "rsi_strong": rsi_strong,
+            "rsi_weak": rsi_weak,
             "near_bb": near_bb,
             "vol_confirmed": vol_confirmed,
             "rs_positive": rs_positive,
@@ -191,15 +195,25 @@ def analyze_group(signals, group_label, exclude_factor=None):
     # 우선순위 기반 가중치 점수식으로 실제 테스트
     if exclude_factor == "near_bb":  # 대형주
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0}
-    elif exclude_factor == "vol_confirmed":  # 중소형주 - RSI 비중 상향, RS 제외
-        weights = {"rsi_oversold": 3.0, "trigger_candle": 1.0, "near_bb": 0.5}
+        total_w = sum(weights.values())
+        for s in signals:
+            raw = sum(w for k, w in weights.items() if s[k])
+            s["combo_score"] = round(raw / total_w * 100)
+    elif exclude_factor == "vol_confirmed":  # 중소형주 - RSI 2단계(강/약) 반영
+        RSI_WEIGHT = 2.5
+        other_weights = {"trigger_candle": 1.0, "near_bb": 0.5}
+        total_w = RSI_WEIGHT + sum(other_weights.values())
+        weights = {"rsi_strong(1.0)/rsi_weak(0.5)": RSI_WEIGHT, **other_weights}
+        for s in signals:
+            rsi_component = 1.0 if s["rsi_strong"] else 0.5 if s["rsi_weak"] else 0.0
+            raw = RSI_WEIGHT * rsi_component + sum(w for k, w in other_weights.items() if s[k])
+            s["combo_score"] = round(raw / total_w * 100)
     else:
         weights = {"vol_confirmed": 2.5, "rsi_oversold": 2.0, "trigger_candle": 1.0, "near_bb": 0.5}
-
-    total_w = sum(weights.values())
-    for s in signals:
-        raw = sum(w for k, w in weights.items() if s[k])
-        s["combo_score"] = round(raw / total_w * 100)
+        total_w = sum(weights.values())
+        for s in signals:
+            raw = sum(w for k, w in weights.items() if s[k])
+            s["combo_score"] = round(raw / total_w * 100)
 
     high = [s for s in signals if s["combo_score"] >= 65]
     mid = [s for s in signals if 40 <= s["combo_score"] < 65]
