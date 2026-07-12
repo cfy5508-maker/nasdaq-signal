@@ -19,6 +19,7 @@ TICKER = "SMCI"
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 ORDER = 5
 MAX_GAP = 60
+MIN_GAP = 5  # 5일 미만은 진짜 다이버전스로 안 봄(너무 짧은 하락 중간 지점일 가능성)
 
 
 def find_realtime_lows(c, order=5):
@@ -48,7 +49,7 @@ def main():
         pos1 = low_positions[idx]
         pos2 = low_positions[idx + 1]
         gap = pos2 - pos1
-        if gap > MAX_GAP:
+        if gap > MAX_GAP or gap < MIN_GAP:
             continue
 
         price1, price2 = float(c.iloc[pos1]), float(c.iloc[pos2])
