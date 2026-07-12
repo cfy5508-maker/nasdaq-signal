@@ -98,28 +98,22 @@ def score_at(hist_full, cutoff_idx):
 
     recent20_high = float(h.iloc[-20:].max())
     pullback_pct = (recent20_high - last_close) / recent20_high * 100
-    addon_stage4 = "pass" if 3 <= pullback_pct <= 10 else "warn" if pullback_pct < 3 else "fail"
+    # 뒤집음: 깊은 조정(>10%)을 pass로, 얕은 조정(<3%)을 fail로
+    addon_stage4 = "pass" if pullback_pct > 10 else "warn" if 3 <= pullback_pct <= 10 else "fail"
 
     vol_recent5 = float(v.iloc[-5:].mean())
     vol_prior5 = float(v.iloc[-10:-5].mean())
     addon_stage5 = "pass" if vol_recent5 > vol_prior5 else "warn"
 
-    addon_stage6 = "pass" if bool(adx_last >= 20 and plus_di.iloc[-1] > minus_di.iloc[-1]) else "fail"
-
-    weekly_sma20 = weekly["Close"].rolling(20).mean()
-    daily_above_sma20 = bool(last_close > sma20.iloc[-1])
-    weekly_above_sma20 = bool(len(weekly_sma20.dropna()) > 0 and weekly["Close"].iloc[-1] > weekly_sma20.iloc[-1])
-    addon_stage7 = "pass" if (daily_above_sma20 and weekly_above_sma20) else "warn" if daily_above_sma20 else "fail"
-
     recent5_high = float(h.iloc[-6:-1].max())
-    addon_stage8 = "pass" if bool(c.iloc[-1] > recent5_high and c.iloc[-1] > o.iloc[-1]) else "fail"
+    # 뒤집음: 돌파 "안 한" 상태(아직 고점 아래, 눌린 채로 대기)를 pass로
+    addon_stage8 = "fail" if bool(c.iloc[-1] > recent5_high and c.iloc[-1] > o.iloc[-1]) else "pass"
 
     addon_stages = {
-        "2_fundamentals": "warn", "3_pullback_position": addon_stage3, "4_pullback_depth": addon_stage4,
-        "5_volume_flow": addon_stage5, "6_trend_continuation": addon_stage6,
-        "7_multi_timeframe": addon_stage7, "8_trigger_breakout": addon_stage8,
+        "3_pullback_position": addon_stage3, "4_pullback_depth": addon_stage4,
+        "5_volume_flow": addon_stage5, "8_trigger_breakout": addon_stage8,
     }
-    known_a = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if addon_stages[k] != "unknown"}
+    known_a = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if k in addon_stages and addon_stages[k] != "unknown"}
     addon_score = round(sum(known_a[k] * STATUS_SCORE[addon_stages[k]] for k in known_a) / sum(known_a.values()) * 100) if known_a else 0
 
     return entry_score, addon_score, addon_stages
@@ -186,8 +180,7 @@ def main():
 
     # ── 단계별(2~9) 개별 pass/warn/fail 승률 ──
     print("=== 추매 단계별(2~9) pass/warn/fail 승률 — 어느 단계가 실제로 유효한지 확인 ===\n")
-    stage_keys = ["3_pullback_position", "4_pullback_depth", "5_volume_flow",
-                  "6_trend_continuation", "7_multi_timeframe", "8_trigger_breakout"]
+    stage_keys = ["3_pullback_position", "4_pullback_depth", "5_volume_flow", "8_trigger_breakout"]
     for sk in stage_keys:
         print(f"[{sk}]")
         for status in ["pass", "warn", "fail"]:
