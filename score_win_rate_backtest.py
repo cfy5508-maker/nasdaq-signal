@@ -116,7 +116,7 @@ def score_at(hist_full, cutoff_idx):
     known_a = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if k in addon_stages and addon_stages[k] != "unknown"}
     addon_score = round(sum(known_a[k] * STATUS_SCORE[addon_stages[k]] for k in known_a) / sum(known_a.values()) * 100) if known_a else 0
 
-    return entry_score, addon_score, addon_stages
+    return entry_score, entry_stages, addon_score, addon_stages
 
 
 def build_records(ticker):
@@ -128,12 +128,12 @@ def build_records(ticker):
     start = max(MIN_HISTORY, n - LOOKBACK_DAYS - FORWARD_DAYS)
     end = n - FORWARD_DAYS
     for cutoff_idx in range(start, end):
-        entry_score, addon_score, addon_stages = score_at(hist_full, cutoff_idx)
+        entry_score, entry_stages, addon_score, addon_stages = score_at(hist_full, cutoff_idx)
         close_now = float(hist_full["Close"].iloc[cutoff_idx])
         close_fwd = float(hist_full["Close"].iloc[cutoff_idx + FORWARD_DAYS])
         fwd_return = close_fwd / close_now - 1
-        records.append({"ticker": ticker, "entry_score": entry_score, "addon_score": addon_score,
-                         "addon_stages": addon_stages, "fwd_return": fwd_return})
+        records.append({"ticker": ticker, "entry_score": entry_score, "entry_stages": entry_stages,
+                         "addon_score": addon_score, "addon_stages": addon_stages, "fwd_return": fwd_return})
     return records
 
 
@@ -162,6 +162,36 @@ def main():
 
     baseline_wr, baseline_avg = win_rate(all_records)
     print(f"전체 기준선: 승률 {baseline_wr:.1f}%, 평균수익률 {baseline_avg:+.2f}%\n")
+
+    for label, key in [("신규진입 점수", "entry_score")]:
+        high = [r for r in all_records if r[key] >= 65]
+        mid = [r for r in all_records if 40 <= r[key] < 65]
+        low = [r for r in all_records if r[key] < 40]
+
+        print(f"--- {label} (합산 점수 기준) ---")
+        for band_label, recs in [("65점 이상(pass)", high), ("40~64점(warn)", mid), ("40점 미만(fail)", low)]:
+            wr, avg = win_rate(recs)
+            if wr is None:
+                print(f"  {band_label}: 표본 없음")
+                continue
+            gap = wr - baseline_wr
+            print(f"  {band_label}: 표본 {len(recs)}일 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
+        print()
+
+    print("=== 신규진입 단계별(3~8) pass/warn/fail 승률 ===\n")
+    entry_stage_keys = ["3_technical_position", "4_divergence_momentum", "5_volume_flow",
+                         "6_trend_exhaustion", "7_multi_timeframe", "8_trigger_candle"]
+    for sk in entry_stage_keys:
+        print(f"[{sk}]")
+        for status in ["pass", "warn", "fail", "unknown"]:
+            recs = [r for r in all_records if r["entry_stages"].get(sk) == status]
+            wr, avg = win_rate(recs)
+            if wr is None:
+                print(f"  {status}: 표본 없음")
+                continue
+            gap = wr - baseline_wr
+            print(f"  {status}: 표본 {len(recs)}일 | 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}% | 기준선 대비 {gap:+.1f}%p")
+        print()
 
     for label, key in [("추매 점수", "addon_score")]:
         high = [r for r in all_records if r[key] >= 65]
