@@ -1,7 +1,7 @@
 {
   "ticker": "SMCI",
   "price": 27.66,
-  "updated": "2026-07-13T21:15:57.690132+00:00",
+  "updated": "2026-07-13T22:07:46.278668+00:00",
   "as_of_date": "2026-07-13",
   "score": 27,
   "stages": {
@@ -22,7 +22,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 34.7,
-      "forward_pe": 8.721123,
+      "forward_pe": 8.7202425,
       "peg": 0.91
     },
     "3_divergence_gate": {
@@ -59,14 +59,17 @@
     "1_fundamentals": {
       "status": "pass",
       "upside_pct": 34.7,
-      "forward_pe": 8.721123,
+      "forward_pe": 8.7202425,
       "peg": 0.91
     },
     "2_pullback_gate": {
       "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
-      "ma_converged_ignored": false
+      "near_ma_count": 0,
+      "ma_converged_ignored": false,
+      "was_above_20_recently": false,
+      "was_above_40_recently": false
     },
     "3_rsi_zone": {
       "status": "fail",
@@ -74,10 +77,11 @@
     },
     "4_trigger_confirmed": {
       "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
-      "trigger_confirmed": false,
-      "trigger_lag": null
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 6.8

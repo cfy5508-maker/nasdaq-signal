@@ -1,7 +1,7 @@
 {
   "ticker": "PFE",
   "price": 24.48,
-  "updated": "2026-07-13T21:15:50.059097+00:00",
+  "updated": "2026-07-13T22:07:38.501372+00:00",
   "as_of_date": "2026-07-13",
   "score": 27,
   "stages": {
@@ -54,7 +54,7 @@
     }
   },
   "entry_atr_stop_pct": 3.3,
-  "score_addon": 57,
+  "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
@@ -63,10 +63,13 @@
       "peg": 2.83
     },
     "2_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
-      "near_sma40": true,
-      "ma_converged_ignored": false
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false,
+      "near_ma_count": 0,
+      "ma_converged_ignored": false,
+      "was_above_20_recently": false,
+      "was_above_40_recently": false
     },
     "3_rsi_zone": {
       "status": "fail",
@@ -74,10 +77,11 @@
     },
     "4_trigger_confirmed": {
       "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
-      "trigger_confirmed": false,
-      "trigger_lag": null
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 0.6

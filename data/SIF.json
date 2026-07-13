@@ -1,7 +1,7 @@
 {
   "ticker": "SIF",
   "price": 22.3,
-  "updated": "2026-07-13T21:15:58.902502+00:00",
+  "updated": "2026-07-13T22:07:47.211468+00:00",
   "as_of_date": "2026-07-13",
   "score": 20,
   "stages": {
@@ -54,7 +54,7 @@
     }
   },
   "entry_atr_stop_pct": 12.7,
-  "score_addon": 68,
+  "score_addon": 61,
   "stages_addon": {
     "1_fundamentals": {
       "status": "warn",
@@ -66,7 +66,10 @@
       "status": "pass",
       "near_sma20": true,
       "near_sma40": false,
-      "ma_converged_ignored": false
+      "near_ma_count": 1,
+      "ma_converged_ignored": false,
+      "was_above_20_recently": true,
+      "was_above_40_recently": true
     },
     "3_rsi_zone": {
       "status": "warn",
@@ -74,10 +77,11 @@
     },
     "4_trigger_confirmed": {
       "status": "warn",
-      "setup_confirmed": true,
-      "setup_days_ago": 1,
-      "trigger_confirmed": false,
-      "trigger_lag": null
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
+      "wick_present": true,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 0.0

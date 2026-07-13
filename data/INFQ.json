@@ -1,7 +1,7 @@
 {
   "ticker": "INFQ",
   "price": 10.13,
-  "updated": "2026-07-13T21:16:03.866293+00:00",
+  "updated": "2026-07-13T22:07:52.184401+00:00",
   "as_of_date": "2026-07-13",
   "score": 30,
   "stages": {
@@ -54,7 +54,7 @@
     }
   },
   "entry_atr_stop_pct": 19.7,
-  "score_addon": 21,
+  "score_addon": 36,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
@@ -66,18 +66,22 @@
       "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
-      "ma_converged_ignored": false
+      "near_ma_count": 0,
+      "ma_converged_ignored": false,
+      "was_above_20_recently": false,
+      "was_above_40_recently": false
     },
     "3_rsi_zone": {
       "status": "fail",
       "rsi": 35.2
     },
     "4_trigger_confirmed": {
-      "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
-      "trigger_confirmed": false,
-      "trigger_lag": null
+      "status": "warn",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
+      "wick_present": true,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 28.4

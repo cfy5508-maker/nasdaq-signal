@@ -1,7 +1,7 @@
 {
   "ticker": "LMT",
   "price": 520.68,
-  "updated": "2026-07-13T21:15:56.740021+00:00",
+  "updated": "2026-07-13T22:07:45.366513+00:00",
   "as_of_date": "2026-07-13",
   "score": 40,
   "stages": {
@@ -54,7 +54,7 @@
     }
   },
   "entry_atr_stop_pct": 3.9,
-  "score_addon": 71,
+  "score_addon": 57,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
@@ -66,18 +66,22 @@
       "status": "pass",
       "near_sma20": true,
       "near_sma40": true,
-      "ma_converged_ignored": false
+      "near_ma_count": 2,
+      "ma_converged_ignored": false,
+      "was_above_20_recently": true,
+      "was_above_40_recently": true
     },
     "3_rsi_zone": {
       "status": "fail",
       "rsi": 49.1
     },
     "4_trigger_confirmed": {
-      "status": "warn",
-      "setup_confirmed": true,
-      "setup_days_ago": 1,
-      "trigger_confirmed": false,
-      "trigger_lag": null
+      "status": "fail",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 0.2

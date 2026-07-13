@@ -1,10 +1,10 @@
 {
-  "updated": "2026-07-13T21:16:06.530516+00:00",
+  "updated": "2026-07-13T22:07:54.821336+00:00",
   "rankings": [
     {
       "ticker": "RKLB",
       "score": 93,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 76.73,
       "upside_pct": 51.8,
       "rsi": 35.0,
@@ -32,13 +32,8 @@
       "divergence": "warn",
       "trigger": "fail",
       "signal": {
-        "signal": "down",
-        "reasons": [
-          {
-            "label": "구간 하향 이탈",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -51,7 +46,7 @@
     {
       "ticker": "PEP",
       "score": 53,
-      "score_addon": 57,
+      "score_addon": 42,
       "price": 138.49,
       "upside_pct": 12.9,
       "rsi": 43.2,
@@ -72,7 +67,7 @@
     {
       "ticker": "AVEX",
       "score": 47,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 15.91,
       "upside_pct": 124.7,
       "rsi": 37.5,
@@ -93,7 +88,7 @@
     {
       "ticker": "LMT",
       "score": 40,
-      "score_addon": 71,
+      "score_addon": 57,
       "price": 520.68,
       "upside_pct": 18.3,
       "rsi": 49.1,
@@ -104,8 +99,17 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "none",
-        "reasons": []
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          },
+          {
+            "label": "3일 연속 하락",
+            "detail": null
+          }
+        ]
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -114,7 +118,7 @@
     {
       "ticker": "TTWO",
       "score": 40,
-      "score_addon": 79,
+      "score_addon": 57,
       "price": 244.1,
       "upside_pct": 16.4,
       "rsi": 55.6,
@@ -125,8 +129,13 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "none",
-        "reasons": []
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -182,7 +191,7 @@
     {
       "ticker": "STZ",
       "score": 30,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 134.51,
       "upside_pct": 27.1,
       "rsi": 42.0,
@@ -208,7 +217,7 @@
     {
       "ticker": "AMSC",
       "score": 30,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 34.18,
       "upside_pct": 91.1,
       "rsi": 34.9,
@@ -234,24 +243,15 @@
     {
       "ticker": "NXT",
       "score": 30,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 99.67,
       "upside_pct": 51.3,
       "rsi": 35.9,
       "divergence": "fail",
       "trigger": "warn",
       "signal": {
-        "signal": "down",
-        "reasons": [
-          {
-            "label": "급락 기준 (-25 이상)",
-            "detail": "전일 93 → 오늘 30 (전일 대비 -63)"
-          },
-          {
-            "label": "구간 하향 이탈",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -264,7 +264,7 @@
     {
       "ticker": "INFQ",
       "score": 30,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 10.13,
       "upside_pct": 107.3,
       "rsi": 35.2,
@@ -285,7 +285,7 @@
     {
       "ticker": "FSLR",
       "score": 30,
-      "score_addon": 21,
+      "score_addon": 36,
       "price": 221.03,
       "upside_pct": 14.0,
       "rsi": 37.4,
@@ -311,7 +311,7 @@
     {
       "ticker": "PFE",
       "score": 27,
-      "score_addon": 57,
+      "score_addon": 21,
       "price": 24.48,
       "upside_pct": 18.2,
       "rsi": 46.3,
@@ -322,8 +322,17 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "none",
-        "reasons": []
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "급락 기준 (-25 이상)",
+            "detail": "전일 57 → 오늘 21 (전일 대비 -36)"
+          },
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -358,7 +367,7 @@
     {
       "ticker": "LASR",
       "score": 27,
-      "score_addon": 64,
+      "score_addon": 61,
       "price": 68.79,
       "upside_pct": 31.9,
       "rsi": 51.6,
@@ -384,7 +393,7 @@
     {
       "ticker": "SIF",
       "score": 20,
-      "score_addon": 68,
+      "score_addon": 61,
       "price": 22.3,
       "upside_pct": null,
       "rsi": 52.2,
@@ -395,8 +404,13 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "none",
-        "reasons": []
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
