@@ -1,31 +1,31 @@
 {
-  "ticker": "AMSC",
-  "price": 35.96,
-  "updated": "2026-07-13T00:52:30.276889+00:00",
+  "ticker": "AVEX",
+  "price": 16.46,
+  "updated": "2026-07-13T00:52:31.948373+00:00",
   "as_of_date": "2026-07-10",
-  "score": 67,
+  "score": 33,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 81.7,
-      "forward_pe": 24.24275,
-      "peg": 0.74
+      "upside_pct": 117.2,
+      "forward_pe": 33.012432,
+      "peg": null
     },
     "2_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "warn",
+      "bullish_divergence": false,
       "divergence_present": true,
-      "gap_days": 17,
-      "signal_fresh": false
+      "gap_days": 11,
+      "signal_fresh": true
     },
     "3_zscore": {
-      "status": "warn",
-      "rsi": 38.0,
-      "rsi_zscore_1y": -1.01
+      "status": "fail",
+      "rsi": 38.7,
+      "rsi_zscore_1y": null
     },
     "4_adx": {
-      "status": "warn",
-      "adx": 25.0
+      "status": "fail",
+      "adx": 14.9
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -37,50 +37,50 @@
       "morning_star": false
     }
   },
-  "entry_atr_stop_pct": 12.4,
+  "entry_atr_stop_pct": 21.4,
   "score_addon": 71,
   "stages_addon": {
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 81.7,
-      "forward_pe": 24.24275,
-      "peg": 0.74
+      "upside_pct": 117.2,
+      "forward_pe": 33.012432,
+      "peg": null
     },
     "3_pullback_position": {
       "status": "fail",
       "near_20sma": false,
       "near_50sma": false,
-      "rsi": 38.0,
-      "rsi_percentile_52w": 17.6
+      "rsi": 38.7,
+      "rsi_percentile_52w": 22.2
     },
     "4_pullback_depth": {
       "status": "pass",
-      "pullback_pct": 20.8
+      "pullback_pct": 28.1
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 738500,
-      "prior5_avg_vol": 1060260
+      "recent5_avg_vol": 1738680,
+      "prior5_avg_vol": 3920260
     },
     "6_trend_continuation": {
       "status": "unknown",
-      "adx": 25.0,
+      "adx": 14.9,
       "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
       "status": "unknown",
       "daily_above_20sma": false,
-      "weekly_above_20sma": false
+      "weekly_above_20sma": null
     },
     "8_trigger_breakout": {
       "status": "pass",
-      "recent5_high": 40.45,
-      "today_close": 35.96
+      "recent5_high": 22.45,
+      "today_close": 16.46
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.3
+      "stop_pct_from_20sma": 12.9
     }
   },
   "sector": "Industrials",
-  "sector_relative_strength_up": false
+  "sector_relative_strength_up": null
 }
