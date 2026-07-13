@@ -16,6 +16,36 @@ from ta.trend import MACD, ADXIndicator
 from ta.volatility import BollingerBands, AverageTrueRange
 from ta.volume import OnBalanceVolumeIndicator
 
+
+def _market_already_closed_today():
+    """미 동부시간 기준, 오늘 정규장(16:00 ET)이 이미 마감됐는지 확인.
+    주말/공휴일 등 세세한 휴장일까지는 안 따지고, 단순히 '오늘 16:00 ET가 지났는지'만 본다.
+    (장중에 실행하면 yfinance가 주는 마지막 행이 미확정 데이터라, 이 경우 잘라내기 위함)"""
+    try:
+        from zoneinfo import ZoneInfo
+        now_et = pd.Timestamp.now(tz=ZoneInfo("America/New_York"))
+    except Exception:
+        now_et = pd.Timestamp.now(tz="US/Eastern")
+    market_close_today = now_et.replace(hour=16, minute=0, second=0, microsecond=0)
+    return now_et >= market_close_today
+
+
+def get_confirmed_history(ticker_or_obj, period="1y"):
+    """yfinance로 일봉 데이터를 가져오되, 오늘 미국 정규장이 아직 안 끝났다면
+    마지막 행(장중 미확정 데이터)을 잘라내서 항상 '가장 최근에 완결된 거래일'까지만
+    반환한다. 워크플로우를 언제(장중이든 장마감후든) 돌리든 같은 결과가 나오게 하기 위함.
+    ticker_or_obj: 티커 문자열 또는 이미 만든 yf.Ticker 객체."""
+    tk = ticker_or_obj if hasattr(ticker_or_obj, "history") else yf.Ticker(ticker_or_obj)
+    hist = tk.history(period=period)
+    if hist.empty:
+        return hist
+    if not _market_already_closed_today():
+        today_et_date = pd.Timestamp.now(tz="US/Eastern").date()
+        last_row_date = hist.index[-1].date()
+        if last_row_date == today_et_date:
+            hist = hist.iloc[:-1]
+    return hist
+
 WATCHLIST_PATH = "data/watchlist.json"
 OUT_DIR = "data"
 HISTORY_PATH = "data/score_history.jsonl"
@@ -87,7 +117,7 @@ def market_volume_health(index_symbol, months=3):
     if etf_symbol in _VOLUME_CACHE:
         return _VOLUME_CACHE[etf_symbol]
     try:
-        hist = yf.Ticker(etf_symbol).history(period="6mo")
+        hist = get_confirmed_history(etf_symbol, period="6mo")
         vol = hist["Volume"]
         close = hist["Close"]
         latest_vol = float(vol.iloc[-1])  # 가장 최근 마감된 거래일의 거래량
@@ -106,7 +136,7 @@ def index_macro_status(index_symbol):
     if index_symbol in _INDEX_CACHE:
         return _INDEX_CACHE[index_symbol]
     try:
-        hist = yf.Ticker(index_symbol).history(period="1y")["Close"]
+        hist = get_confirmed_history(index_symbol, period="1y")["Close"]
         above_200sma = bool(hist.iloc[-1] > hist.rolling(200).mean().iloc[-1])
     except Exception:
         above_200sma = None
@@ -215,13 +245,13 @@ def find_realtime_lows(close_values, order=5):
 
 
 def analyze(ticker, trim_days=0, write_file=True):
-    """trim_days: 0이면 오늘 기준. 1이면 마지막 1거래일을 잘라내고
-    '그 전날 기준'으로 계산한다(소급 계산용, score_history 백필에 사용).
-    write_file: False면 data/<TICKER>.json을 덮어쓰지 않는다(백필 시 오늘자 파일 보호)."""
+    """trim_days: 0이면 '가장 최근 확정 거래일' 기준. 1이면 그 하루 전(소급 계산용,
+    score_history 백필에 사용). write_file: False면 data/<TICKER>.json을 덮어쓰지 않는다."""
     tk = yf.Ticker(ticker)
-    hist = tk.history(period="1y")
+    hist = get_confirmed_history(tk, period="1y")
     if hist.empty:
         raise ValueError(f"no price history for {ticker}")
+
     if trim_days > 0:
         if len(hist) <= trim_days:
             raise ValueError(f"not enough history to trim {trim_days} days for {ticker}")
@@ -439,7 +469,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     sector_rs = None
     if sector in SECTOR_ETF:
         try:
-            etf_close = yf.Ticker(SECTOR_ETF[sector]).history(period="1y")["Close"]
+            etf_close = get_confirmed_history(SECTOR_ETF[sector], period="1y")["Close"]
             sector_rs = rs_line(c, etf_close)
         except Exception:
             pass
