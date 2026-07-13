@@ -1,9 +1,9 @@
 {
-  "ticker": "PEP",
-  "price": 138.69,
-  "updated": "2026-07-13T17:42:02.391160+00:00",
+  "ticker": "FSLR",
+  "price": 221.63,
+  "updated": "2026-07-13T17:42:06.166972+00:00",
   "as_of_date": "2026-07-13",
-  "score": 53,
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -15,21 +15,21 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.8,
-      "forward_pe": 15.402625,
-      "peg": 1.48
+      "upside_pct": 13.7,
+      "forward_pe": 9.452596,
+      "peg": 0.6
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
-      "divergence_present": true,
-      "gap_days": 7,
-      "signal_fresh": false
+      "divergence_present": false,
+      "gap_days": 3,
+      "signal_fresh": null
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 43.6,
-      "rsi_zscore_1y": -0.64
+      "status": "warn",
+      "rsi": 37.7,
+      "rsi_zscore_1y": -1.36
     },
     "5_trigger_candle": {
       "status": "pass",
@@ -40,31 +40,31 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 18.9,
+      "wick_days_ago": 3,
+      "adx_reference": 28.1,
       "volume_confirmed": true,
-      "trigger_day_volume": 18763700,
-      "avg_volume_divergence_window": 11459675
+      "trigger_day_volume": 1713700,
+      "avg_volume_divergence_window": 1388974
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 57,
+  "entry_atr_stop_pct": 8.8,
+  "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.8,
-      "forward_pe": 15.402625,
-      "peg": 1.48
+      "upside_pct": 13.7,
+      "forward_pe": 9.452596,
+      "peg": 0.6
     },
     "2_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
-      "near_sma40": true,
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false,
       "ma_converged_ignored": false
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 43.6
+      "rsi": 37.7
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,15 +74,20 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.0
+      "stop_pct_from_20sma": 9.5
     }
   },
-  "sector": "Consumer Defensive",
+  "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 247,
+    "days_since_prior_divergence": 3,
+    "price_drop_since_pct": 1.2
+  },
   "pullback_stop_signal": {
-    "stop_reference_price": 137.38,
+    "stop_reference_price": 221.63,
     "stopped_out": false
   },
   "divergence_stop_signal": null
