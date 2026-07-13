@@ -1136,7 +1136,7 @@
     try { posData = JSON.parse(localStorage.getItem(posKey) || 'null'); } catch(e) { posData = null; }
 
     var posWrap = document.createElement('div');
-    posWrap.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;';
+    posWrap.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;max-width:680px;';
 
     function renderPosBlock(){
       posWrap.innerHTML = '';
@@ -1202,8 +1202,8 @@
       '</div>';
 
     var body = document.createElement('div');
-    var entryHtml = renderRowsHtml(buildEntryRows(full), '손절폭 ATR기준 '+full.entry_atr_stop_pct+'%');
-    var addonHtml = renderRowsHtml(buildAddonRows(full), '손절폭 20일선기준 '+full.stages_addon['9_position_sizing'].stop_pct_from_20sma+'%');
+    var entryHtml = renderRowsHtml(buildEntryRows(full));
+    var addonHtml = renderRowsHtml(buildAddonRows(full));
     body.innerHTML = entryHtml;
 
     var btnEntry = toggleRow.querySelector('[data-mode="entry"]');
