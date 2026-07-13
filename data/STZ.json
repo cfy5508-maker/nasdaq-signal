@@ -1,23 +1,23 @@
 {
   "ticker": "STZ",
   "price": 134.06,
-  "updated": "2026-07-13T06:58:27.482463+00:00",
+  "updated": "2026-07-13T07:08:02.118371+00:00",
   "as_of_date": "2026-07-10",
-  "score": 40,
+  "score": 67,
   "stages": {
     "1_market_health": {
-      "status": "unknown",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
       "volume_diff_pct_3m": -21.2,
-      "price_up_today": true
+      "price_up_latest": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
-      "peg": null
+      "status": "pass",
+      "upside_pct": 27.6,
+      "forward_pe": 10.833525,
+      "peg": 2.55
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -44,13 +44,13 @@
     }
   },
   "entry_atr_stop_pct": 5.1,
-  "score_addon": 43,
+  "score_addon": 71,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
-      "peg": null
+      "status": "pass",
+      "upside_pct": 27.6,
+      "forward_pe": 10.833525,
+      "peg": 2.55
     },
     "3_pullback_position": {
       "status": "fail",
@@ -87,6 +87,6 @@
       "stop_pct_from_20sma": 4.2
     }
   },
-  "sector": null,
-  "sector_relative_strength_up": null
+  "sector": "Consumer Defensive",
+  "sector_relative_strength_up": false
 }
