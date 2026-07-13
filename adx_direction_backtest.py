@@ -52,7 +52,10 @@ def analyze_ticker(ticker):
         return None
     h, l, c = hist["High"], hist["Low"], hist["Close"]
     rsi = RSIIndicator(c, window=14).rsi()
-    adx_series = ADXIndicator(h, l, c, window=14).adx()
+    adx_ind = ADXIndicator(h, l, c, window=14)
+    adx_series = adx_ind.adx()
+    plus_di_series = adx_ind.adx_pos()
+    minus_di_series = adx_ind.adx_neg()
     close_values = c.values
     n = len(hist)
 
@@ -110,12 +113,33 @@ def analyze_ticker(ticker):
         rsi_rise = rsi2 - rsi1
         slope_ratio = (rsi_rise / price_drop_pct) if price_drop_pct > 0 else None
 
+        # +DI/-DI 방향 지표 (오늘 시점, 그리고 구간 내 변화)
+        plus_di_today = float(plus_di_series.iloc[i]) if not pd.isna(plus_di_series.iloc[i]) else None
+        minus_di_today = float(minus_di_series.iloc[i]) if not pd.isna(minus_di_series.iloc[i]) else None
+        plus_di_1 = float(plus_di_series.iloc[pos1]) if not pd.isna(plus_di_series.iloc[pos1]) else None
+        minus_di_1 = float(minus_di_series.iloc[pos1]) if not pd.isna(minus_di_series.iloc[pos1]) else None
+        plus_di_2 = float(plus_di_series.iloc[pos2]) if not pd.isna(plus_di_series.iloc[pos2]) else None
+        minus_di_2 = float(minus_di_series.iloc[pos2]) if not pd.isna(minus_di_series.iloc[pos2]) else None
+
+        di_bullish_today = None
+        di_gap_improving = None
+        di_just_crossed_up = None
+        if plus_di_today is not None and minus_di_today is not None:
+            di_bullish_today = plus_di_today > minus_di_today
+        if None not in (plus_di_1, minus_di_1, plus_di_2, minus_di_2):
+            di_gap_1 = plus_di_1 - minus_di_1
+            di_gap_2 = plus_di_2 - minus_di_2
+            di_gap_improving = di_gap_2 > di_gap_1
+            di_just_crossed_up = bool(di_gap_1 <= 0 and di_gap_2 > 0)
+
         entry = float(c.iloc[i])
         fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
 
         rows.append({"adx": adx_today, "adx_zscore": adx_zscore,
                      "adx_declining_within": adx_declining_within, "adx_change_within": adx_change_within,
                      "price_drop_pct": price_drop_pct, "rsi_rise": rsi_rise, "slope_ratio": slope_ratio,
+                     "di_bullish_today": di_bullish_today, "di_gap_improving": di_gap_improving,
+                     "di_just_crossed_up": di_just_crossed_up,
                      "fwd_return": fwd_return, "win": fwd_return > 0})
     return rows
 
@@ -162,6 +186,39 @@ def main():
     wr_h, avg_h = win_rate(high_adx)
     if wr_h is not None:
         print(f"전체: 표본 {len(high_adx)}건 | 승률 {wr_h:.1f}% | 기준대비 {wr_h-baseline_wr:+.1f}%p")
+
+    print(f"\n=== +DI/-DI 검증 1: 오늘(저점2) 시점에 +DI가 -DI보다 큰지 (매수압력 우세) ===")
+    di_rows = [r for r in all_rows if r["di_bullish_today"] is not None]
+    bullish = [r for r in di_rows if r["di_bullish_today"]]
+    bearish = [r for r in di_rows if not r["di_bullish_today"]]
+    wr_b, avg_b = win_rate(bullish)
+    wr_be, avg_be = win_rate(bearish)
+    if wr_b is not None:
+        print(f"  +DI>-DI(매수압력 우세): 표본 {len(bullish)}건 | 승률 {wr_b:.1f}% | 기준대비 {wr_b-baseline_wr:+.1f}%p")
+    if wr_be is not None:
+        print(f"  +DI<=-DI(매도압력 우세): 표본 {len(bearish)}건 | 승률 {wr_be:.1f}% | 기준대비 {wr_be-baseline_wr:+.1f}%p")
+
+    print(f"\n=== +DI/-DI 검증 2: 다이버전스 구간(저점1~저점2) 동안 (+DI-(-DI)) 격차가 개선됐는지 ===")
+    gap_rows = [r for r in all_rows if r["di_gap_improving"] is not None]
+    improving = [r for r in gap_rows if r["di_gap_improving"]]
+    worsening = [r for r in gap_rows if not r["di_gap_improving"]]
+    wr_i, avg_i = win_rate(improving)
+    wr_w, avg_w = win_rate(worsening)
+    if wr_i is not None:
+        print(f"  격차 개선(매수압력 강해지는중): 표본 {len(improving)}건 | 승률 {wr_i:.1f}% | 기준대비 {wr_i-baseline_wr:+.1f}%p")
+    if wr_w is not None:
+        print(f"  격차 악화(매수압력 약해지는중): 표본 {len(worsening)}건 | 승률 {wr_w:.1f}% | 기준대비 {wr_w-baseline_wr:+.1f}%p")
+
+    print(f"\n=== +DI/-DI 검증 3: 다이버전스 구간 내에서 -DI우세→+DI우세로 골든크로스 발생 여부 ===")
+    cross_rows = [r for r in all_rows if r["di_just_crossed_up"] is not None]
+    crossed = [r for r in cross_rows if r["di_just_crossed_up"]]
+    not_crossed = [r for r in cross_rows if not r["di_just_crossed_up"]]
+    wr_c, avg_c = win_rate(crossed)
+    wr_n, avg_n = win_rate(not_crossed)
+    if wr_c is not None:
+        print(f"  골든크로스 발생: 표본 {len(crossed)}건 | 승률 {wr_c:.1f}% | 기준대비 {wr_c-baseline_wr:+.1f}%p")
+    if wr_n is not None:
+        print(f"  골든크로스 없음: 표본 {len(not_crossed)}건 | 승률 {wr_n:.1f}% | 기준대비 {wr_n-baseline_wr:+.1f}%p")
 
     print(f"\n=== ADX Z-score(종목별 개별계산) 구간별 승률 ===")
     z_rows = [r for r in all_rows if r["adx_zscore"] is not None]
