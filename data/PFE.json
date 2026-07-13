@@ -1,9 +1,9 @@
 {
   "ticker": "PFE",
   "price": 24.17,
-  "updated": "2026-07-13T01:46:43.603591+00:00",
+  "updated": "2026-07-13T02:03:06.156523+00:00",
   "as_of_date": "2026-07-10",
-  "score": 50,
+  "score": 40,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
@@ -23,18 +23,15 @@
       "rsi": 41.7,
       "rsi_zscore_1y": -0.99
     },
-    "4_adx": {
-      "status": "pass",
-      "adx": 27.8
-    },
-    "5_trigger_candle": {
+    "4_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false
+      "morning_star": false,
+      "adx_reference": 27.8
     }
   },
   "entry_atr_stop_pct": 3.4,
