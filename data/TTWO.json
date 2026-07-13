@@ -1,35 +1,35 @@
 {
-  "ticker": "PFE",
-  "price": 24.17,
-  "updated": "2026-07-13T11:58:15.489622+00:00",
+  "ticker": "TTWO",
+  "price": 243.2,
+  "updated": "2026-07-13T11:58:27.156099+00:00",
   "as_of_date": "2026-07-10",
   "score": 40,
   "stages": {
     "1_market_health": {
       "status": "neutral",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -21.2,
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -39.9,
       "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.7,
-      "forward_pe": 8.525212,
-      "peg": 2.83
+      "upside_pct": 16.8,
+      "forward_pe": 24.31691,
+      "peg": 3.4
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": false
+      "gap_days": 20,
+      "signal_fresh": true
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 41.7,
-      "rsi_zscore_1y": -0.99
+      "rsi": 54.8,
+      "rsi_zscore_1y": 0.3
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -41,30 +41,30 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.8,
+      "adx_reference": 27.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 65,
+  "entry_atr_stop_pct": 5.3,
+  "score_addon": 41,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.7,
-      "forward_pe": 8.525212,
-      "peg": 2.83
+      "upside_pct": 16.8,
+      "forward_pe": 24.31691,
+      "peg": 3.4
     },
     "2_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": true,
       "near_sma40": false,
-      "ma_converged_ignored": false
+      "ma_converged_ignored": true
     },
     "3_rsi_zone": {
-      "status": "fail",
-      "rsi": 41.7
+      "status": "warn",
+      "rsi": 54.8
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,15 +74,15 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.2
+      "stop_pct_from_20sma": 1.5
     }
   },
-  "sector": "Healthcare",
-  "sector_relative_strength_up": false,
+  "sector": "Communication Services",
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.72,
+    "stop_reference_price": 243.2,
     "stopped_out": false
   },
   "divergence_stop_signal": null
