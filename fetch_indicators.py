@@ -294,7 +294,9 @@ def detect_long_lower_wick(o, h, l, c):
 
 def long_lower_wick_recent(o, h, l, c, lookback_days=3):
     """오늘뿐 아니라 최근 lookback_days일 안에 긴 아래꼬리가 있었는지 확인.
-    (trigger_with_breakout처럼 돌파 확정까지는 요구하지 않음 - 약한 warn 신호이므로)"""
+    (trigger_with_breakout처럼 돌파 확정까지는 요구하지 않음 - 약한 warn 신호이므로)
+    ※ pos2(저점)가 있으면 wick_near_low()를 대신 쓰는 게 맞다 - 이 함수는 pos2를 못 구한
+    예외적인 경우(저점 후보가 부족한 경우)의 폴백용으로만 남겨둔다."""
     n = len(c)
     for days_ago in range(0, lookback_days + 1):
         idx = n - 1 - days_ago
@@ -306,8 +308,25 @@ def long_lower_wick_recent(o, h, l, c, lookback_days=3):
     return False, None
 
 
+def wick_near_low(o, h, l, c, pos2, max_forward_days=3):
+    """저점(pos2) 시점부터 그 이후 max_forward_days일 사이에서만 긴 아래꼬리를 찾는다.
+    '오늘 기준 최근 며칠'이 아니라 '저점 근처'로 앵커링해서, 이미 저점에서 멀리
+    반등한 뒤에 우연히 나온 무관한 캔들을 트리거로 착각하지 않도록 한다."""
+    n = len(c)
+    if pos2 is None:
+        return False, None
+    for idx in range(pos2, min(pos2 + max_forward_days + 1, n)):
+        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
+        if detect_long_lower_wick(sub_o, sub_h, sub_l, sub_c):
+            days_ago = (n - 1) - idx
+            return True, days_ago
+    return False, None
+
+
 def trigger_with_breakout(o, h, l, c):
-    """최근 1~3일 안에 반전캔들이 확정되고, 그 이후 종가가 그 캔들의 고점을 돌파했는지 확인."""
+    """최근 1~3일 안에 반전캔들이 확정되고, 그 이후 종가가 그 캔들의 고점을 돌파했는지 확인.
+    ※ pos2(저점)가 있으면 breakout_near_low()를 대신 쓰는 게 맞다 - 이 함수는 pos2를 못
+    구한 예외적인 경우의 폴백용으로만 남겨둔다."""
     n = len(c)
     for lookback in range(1, 4):
         idx = n - 1 - lookback
@@ -320,6 +339,26 @@ def trigger_with_breakout(o, h, l, c):
         if (is_hammer or is_engulf or is_star) and c.iloc[-1] > h.iloc[idx]:
             pattern_name = "해머" if is_hammer else ("불리시엔걸핑" if is_engulf else "모닝스타")
             return True, pattern_name, lookback
+    return False, None, None
+
+
+def breakout_near_low(o, h, l, c, pos2, max_forward_days=3):
+    """저점(pos2) 시점부터 그 이후 max_forward_days일 사이에서 반전캔들(해머/엔걸핑/모닝스타)이
+    있었는지 찾고, 오늘 종가가 그 캔들의 고점을 돌파했는지 확인한다. '오늘 기준 최근 며칠'이
+    아니라 '저점 근처'로 앵커링해서, 이미 저점과 무관하게 멀리 떨어진 뒤의 캔들을
+    트리거로 착각하지 않도록 한다."""
+    n = len(c)
+    if pos2 is None:
+        return False, None, None
+    for idx in range(pos2, min(pos2 + max_forward_days + 1, n)):
+        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
+        is_hammer = detect_hammer(sub_o, sub_h, sub_l, sub_c)
+        is_engulf = detect_bullish_engulfing(sub_o, sub_h, sub_l, sub_c)
+        is_star = detect_morning_star(sub_o, sub_h, sub_l, sub_c) if idx + 1 >= 3 else False
+        if (is_hammer or is_engulf or is_star) and float(c.iloc[-1]) > float(h.iloc[idx]):
+            pattern_name = "해머" if is_hammer else ("불리시엔걸핑" if is_engulf else "모닝스타")
+            days_ago = (n - 1) - idx
+            return True, pattern_name, days_ago
     return False, None, None
 
 
@@ -567,11 +606,18 @@ def analyze(ticker, trim_days=0, write_file=True):
     weekly = hist.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
     weekly_rsi = RSIIndicator(weekly["Close"], window=14).rsi()
 
-    breakout_ok, breakout_pattern, breakout_days_ago = trigger_with_breakout(o, h, l, c)
+    # 트리거캔들은 "오늘 기준 최근 며칠"이 아니라, 반드시 pos2(가장 최근 저점) 시점부터
+    # 그 이후에 발생한 것만 인정한다. AMSC 사례에서 확인됨: 저점(pos2) 확정 전에
+    # 나왔던 캔들(가격이 아직 더 빠지기 전의 "가짜 반전 시도")을 트리거로 착각하면 안 됨.
+    if pos2 is not None:
+        breakout_ok, breakout_pattern, breakout_days_ago = breakout_near_low(o, h, l, c, pos2)
+        long_lower_wick, wick_days_ago = wick_near_low(o, h, l, c, pos2)
+    else:
+        breakout_ok, breakout_pattern, breakout_days_ago = trigger_with_breakout(o, h, l, c)
+        long_lower_wick, wick_days_ago = long_lower_wick_recent(o, h, l, c, lookback_days=3)
     hammer = detect_hammer(o, h, l, c)
     engulfing = detect_bullish_engulfing(o, h, l, c)
     morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
-    long_lower_wick, wick_days_ago = long_lower_wick_recent(o, h, l, c, lookback_days=3)
 
     info = {}
     try:
