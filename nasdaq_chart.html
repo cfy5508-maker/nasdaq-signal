@@ -1071,14 +1071,23 @@
 
   function buildAddonRows(full){
     var sa = full.stages_addon;
+    var gateDetail = sa['2_pullback_gate'].near_sma20 && sa['2_pullback_gate'].near_sma40 ? '20일선+40일선 둘다 근접' :
+      sa['2_pullback_gate'].near_sma20 ? '20일선 근접' :
+      sa['2_pullback_gate'].near_sma40 ? '40일선 근접' : '이평선 근접 안됨';
+    var triggerDetail = sa['4_trigger_confirmed'].trigger_confirmed
+      ? ('셋업('+sa['4_trigger_confirmed'].setup_days_ago+'일전) 고가 돌파 확정('+sa['4_trigger_confirmed'].trigger_lag+'일만에)')
+      : sa['4_trigger_confirmed'].setup_confirmed
+        ? ('셋업('+sa['4_trigger_confirmed'].setup_days_ago+'일전) 발생, 아직 돌파 대기중')
+        : '셋업 자체가 없음';
+    var stopDetail = full.pullback_stop_signal
+      ? ('직전저점 '+full.pullback_stop_signal.stop_reference_price+' 대비 ' + (full.pullback_stop_signal.stopped_out ? '이탈됨(손절)' : '유지중'))
+      : '판단불가';
     return [
-      ['1단계 펀더멘털', sa['2_fundamentals'], '업사이드 '+(sa['2_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['2_fundamentals'].peg??'-')],
-      ['2단계 눌림위치', sa['3_pullback_position'], (sa['3_pullback_position'].near_20sma||sa['3_pullback_position'].near_50sma ? (sa['3_pullback_position'].near_20sma?'20일선 근접':'')+(sa['3_pullback_position'].near_50sma?' 50일선 근접':'') : '이평선 근접 안됨') + ', RSI '+sa['3_pullback_position'].rsi+' (52주백분위 '+sa['3_pullback_position'].rsi_percentile_52w+'%)'],
-      ['3단계 조정폭', sa['4_pullback_depth'], '고점대비 -'+sa['4_pullback_depth'].pullback_pct+'%'],
-      ['4단계 거래량', sa['5_volume_flow'], '최근5일 '+sa['5_volume_flow'].recent5_avg_vol.toLocaleString()+' vs 이전5일 '+sa['5_volume_flow'].prior5_avg_vol.toLocaleString()],
-      ['5단계 추세지속', sa['6_trend_continuation'], 'ADX '+sa['6_trend_continuation'].adx+', +DI우세 '+sa['6_trend_continuation'].plus_di_over_minus_di],
-      ['6단계 멀티타임프레임', sa['7_multi_timeframe'], '일봉 20선위 '+sa['7_multi_timeframe'].daily_above_20sma+', 주봉 20선위 '+sa['7_multi_timeframe'].weekly_above_20sma],
-      ['7단계 돌파확인', sa['8_trigger_breakout'], '최근5일고점 '+sa['8_trigger_breakout'].recent5_high+' 대비 오늘종가 '+sa['8_trigger_breakout'].today_close]
+      ['1단계 펀더멘털', sa['1_fundamentals'], '업사이드 '+(sa['1_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['1_fundamentals'].peg??'-')],
+      ['2단계 눌림목게이트', sa['2_pullback_gate'], gateDetail],
+      ['3단계 RSI존', sa['3_rsi_zone'], 'RSI '+sa['3_rsi_zone'].rsi+' ('+(sa['3_rsi_zone'].rsi>=60?'60이상 강신호':sa['3_rsi_zone'].rsi>=50?'50~60 약신호':'50미만')+')'],
+      ['4단계 셋업/트리거', sa['4_trigger_confirmed'], triggerDetail],
+      ['손절신호(참고)', {status: full.pullback_stop_signal && full.pullback_stop_signal.stopped_out ? 'fail' : 'neutral'}, stopDetail]
     ];
   }
 
