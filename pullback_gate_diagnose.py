@@ -1,21 +1,22 @@
 """
-pullback_gate_diagnose.py
-사용법: python pullback_gate_diagnose.py TICKER
+pullback_setup_diagnose.py
+사용법: python pullback_setup_diagnose.py TICKER
 
-동작: fetch_indicators.py의 눌림목 게이트(2_pullback_gate) 로직을 그대로
-      재현해서, 20/40/60일선 값과 근접 여부, 60일선 수렴 무시 여부까지
-      단계별로 출력한다.
+동작: fetch_indicators.py의 눌림목 셋업/트리거 로직을 그대로 재현해서,
+      최근 1~3일 각각에 대해 "셋업(20/40일선 근접+RSI50이상)"이었는지,
+      그리고 그 셋업일 고가를 오늘 종가가 돌파했는지를 하나씩 보여준다.
 """
 import sys
 import pandas as pd
 import yfinance as yf
+from ta.momentum import RSIIndicator
 
 PULLBACK_MA_TOLERANCE = 0.03
 
 
 def main():
     if len(sys.argv) < 2:
-        print("사용법: python pullback_gate_diagnose.py TICKER")
+        print("사용법: python pullback_setup_diagnose.py TICKER")
         sys.exit(1)
     ticker = sys.argv[1].upper()
 
@@ -23,64 +24,65 @@ def main():
     if hist.empty:
         print(f"{ticker}: 데이터 없음")
         return
-    c = hist["Close"]
-    last_close = float(c.iloc[-1])
-
+    o, h, l, c = hist["Open"], hist["High"], hist["Low"], hist["Close"]
+    rsi = RSIIndicator(c, window=14).rsi()
     sma20 = c.rolling(20).mean()
     sma40 = c.rolling(40).mean()
-    sma60 = c.rolling(60).mean()
+    n = len(c)
 
-    sma20_now = float(sma20.iloc[-1]) if not pd.isna(sma20.iloc[-1]) else None
-    sma40_now = float(sma40.iloc[-1]) if not pd.isna(sma40.iloc[-1]) else None
-    sma60_now = float(sma60.iloc[-1]) if not pd.isna(sma60.iloc[-1]) else None
+    print(f"=== {ticker} 눌림목 셋업/트리거 진단 ===\n")
+    print(f"오늘 종가: {float(c.iloc[-1]):.2f}\n")
 
-    print(f"=== {ticker} 눌림목 게이트 진단 ===\n")
-    print(f"오늘 종가: {last_close:.2f}")
-    print(f"20일선: {sma20_now:.2f}" if sma20_now else "20일선: 데이터 없음")
-    print(f"40일선: {sma40_now:.2f}" if sma40_now else "40일선: 데이터 없음")
-    print(f"60일선: {sma60_now:.2f}" if sma60_now else "60일선: 데이터 없음")
+    setup_confirmed = False
+    setup_days_ago = None
+    trigger_confirmed = False
+    trigger_lag = None
 
-    dist_sma20 = abs(last_close - sma20_now) / sma20_now if sma20_now else None
-    dist_sma40 = abs(last_close - sma40_now) / sma40_now if sma40_now else None
-    near_sma20 = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
-    near_sma40 = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
+    for days_ago in range(1, 4):
+        idx = n - 1 - days_ago
+        if idx < 40:
+            print(f"  {days_ago}일 전: 데이터 부족")
+            continue
+        setup_price = float(c.iloc[idx])
+        setup_sma20 = float(sma20.iloc[idx]) if not pd.isna(sma20.iloc[idx]) else None
+        setup_sma40 = float(sma40.iloc[idx]) if not pd.isna(sma40.iloc[idx]) else None
+        setup_rsi = float(rsi.iloc[idx]) if not pd.isna(rsi.iloc[idx]) else None
+        date_str = str(hist.index[idx].date())
 
-    print(f"\n20일선과의 거리: {dist_sma20*100:.2f}% (근접기준 3%)" if dist_sma20 is not None else "")
-    print(f"40일선과의 거리: {dist_sma40*100:.2f}% (근접기준 3%)" if dist_sma40 is not None else "")
-    print(f"20일선 근접 여부: {near_sma20}")
-    print(f"40일선 근접 여부: {near_sma40}")
+        if setup_sma20 is None or setup_sma40 is None or setup_rsi is None:
+            print(f"  {days_ago}일 전({date_str}): 지표 데이터 부족")
+            continue
 
-    sma60_is_lowest = bool(sma60_now is not None and sma20_now is not None and sma40_now is not None
-                           and sma60_now < sma20_now and sma60_now < sma40_now)
-    print(f"\n60일선이 가장 아래인가(20일선, 40일선 둘 다보다 낮음): {sma60_is_lowest}")
+        dist20 = abs(setup_price - setup_sma20) / setup_sma20
+        dist40 = abs(setup_price - setup_sma40) / setup_sma40
+        near20 = dist20 <= PULLBACK_MA_TOLERANCE
+        near40 = dist40 <= PULLBACK_MA_TOLERANCE
+        setup_near = near20 or near40
+        rsi_ok = setup_rsi >= 50
 
-    if sma60_now is not None and sma20_now is not None:
-        dist20_60 = abs(sma20_now - sma60_now) / sma60_now if sma60_now > 0 else None
-        near20_60 = bool(dist20_60 is not None and dist20_60 <= PULLBACK_MA_TOLERANCE)
-        print(f"20일선-60일선 거리: {dist20_60*100:.2f}% -> 수렴여부: {near20_60}" if dist20_60 is not None else "")
+        print(f"  {days_ago}일 전({date_str}): 종가{setup_price:.2f} 20일선{setup_sma20:.2f}(거리{dist20*100:.2f}%,근접={near20}) 40일선{setup_sma40:.2f}(거리{dist40*100:.2f}%,근접={near40}) RSI{setup_rsi:.1f}(50이상={rsi_ok})")
+
+        if setup_near and rsi_ok:
+            setup_confirmed = True
+            setup_days_ago = days_ago
+            setup_high = float(h.iloc[idx])
+            today_close = float(c.iloc[-1])
+            breakout = today_close > setup_high
+            print(f"    => 셋업 조건 충족! 그날 고가: {setup_high:.2f}, 오늘종가: {today_close:.2f}, 돌파여부: {breakout}")
+            if breakout:
+                trigger_confirmed = True
+                trigger_lag = days_ago
+            break
+        else:
+            print(f"    => 셋업 조건 미충족 (근접={setup_near}, RSI50이상={rsi_ok})")
+
+    print(f"\n=== 최종 판정 ===")
+    if trigger_confirmed:
+        print(f"status: pass (셋업 {setup_days_ago}일전 확정 + 오늘 돌파 완료)")
+    elif setup_confirmed:
+        print(f"status: warn (셋업 {setup_days_ago}일전 발생, 아직 돌파 대기중)")
     else:
-        near20_60 = False
-
-    if sma60_now is not None and sma40_now is not None:
-        dist40_60 = abs(sma40_now - sma60_now) / sma60_now if sma60_now > 0 else None
-        near40_60 = bool(dist40_60 is not None and dist40_60 <= PULLBACK_MA_TOLERANCE)
-        print(f"40일선-60일선 거리: {dist40_60*100:.2f}% -> 수렴여부: {near40_60}" if dist40_60 is not None else "")
-    else:
-        near40_60 = False
-
-    ma_converged_ignore = sma60_is_lowest and (near20_60 or near40_60)
-    near_ma_signal = near_sma20 or near_sma40
-
-    print(f"\n20/40일선 근접신호(near_ma_signal): {near_ma_signal}")
-    print(f"60일선 수렴 무시 조건(ma_converged_ignore): {ma_converged_ignore}")
-
-    if ma_converged_ignore and near_ma_signal:
-        pullback_gate = False
-    else:
-        pullback_gate = near_ma_signal
-
-    print(f"\n최종 게이트 통과 여부: {pullback_gate}")
-    print(f"=> 판정: {'PASS' if pullback_gate else 'FAIL'}")
+        print(f"status: fail (셋업 자체가 없음)")
 
 
 if __name__ == "__main__":
