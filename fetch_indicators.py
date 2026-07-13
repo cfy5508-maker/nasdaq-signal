@@ -587,9 +587,17 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     # 3단계: 기술적 위치 - Z-score 기반(종목별 개별 계산). RSI 절대값은 참고 표시용.
     # 백테스트 검증: Z<=-1.0일 때 승률 58.1%, Z>-1.0일 때 27.3% (43건 표본)
+    # 라벨(pass/warn/fail)은 기존 임계값 그대로 유지하되, 실제 점수 계산은 이산값(1.0/0.5/0.0)이
+    # 아니라 min~max 사이 연속값으로 매겨서 "낮을수록 더 좋다"를 세밀하게 반영한다.
+    # min(-3.0)에 가까울수록 만점(1.0), max(1.0)에 가까울수록 최저점(0.0).
+    ZSCORE_SCALE_MIN = -3.0
+    ZSCORE_SCALE_MAX = 1.0
+    zscore_quality = None
     if rsi_zscore is not None:
         stage3 = "pass" if rsi_zscore <= -1.5 else \
                  "warn" if rsi_zscore <= -1.0 else "fail"
+        clamped = max(ZSCORE_SCALE_MIN, min(ZSCORE_SCALE_MAX, rsi_zscore))
+        zscore_quality = (ZSCORE_SCALE_MAX - clamped) / (ZSCORE_SCALE_MAX - ZSCORE_SCALE_MIN)
     else:
         stage3 = "fail"
 
@@ -807,13 +815,19 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
-        "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
+        "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
     if known_weights:
-        raw_score = sum(known_weights[k] * STATUS_SCORE[stages[k]["status"]] for k in known_weights)
+        # 4단계(Z-score)는 이산값(1.0/0.5/0.0) 대신, min~max 사이 연속값(zscore_quality)을
+        # 그대로 써서 "낮을수록 더 좋다"를 세밀하게 반영한다. 나머지 단계는 기존 방식 유지.
+        def _stage_score(k):
+            if k == "4_zscore" and zscore_quality is not None:
+                return zscore_quality
+            return STATUS_SCORE[stages[k]["status"]]
+        raw_score = sum(known_weights[k] * _stage_score(k) for k in known_weights)
         score = round(raw_score / sum(known_weights.values()) * 100)
     else:
         score = 0
