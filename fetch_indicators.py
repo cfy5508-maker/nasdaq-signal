@@ -326,8 +326,10 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 다이버전스 무효화 신호: 과거(최근 30일 내)에 정석 다이버전스(pass)가 있었는데,
     # 그 이후 가격이 그 저점보다 더 뚫렸고(신저점 갱신) + RSI도 같이 더 낮아진 경우.
     # "반등 기대가 깨지고 계속 하락 중"이라는 뜻. 점수 계산에는 반영하지 않는 참고용.
+    # 단, 현재 가장 최근 저점쌍이 이미 새로운 다이버전스(pass/warn)를 형성했다면,
+    # 그건 이미 "새 사이클이 시작된 것"이므로 더 오래된 무효화 이력은 무시한다.
     divergence_invalidated_signal = None
-    if len(realtime_lows) >= 3:
+    if len(realtime_lows) >= 3 and not divergence_present:
         pos_latest = realtime_lows[-1]  # 가장 최근 저점(=현재 진행 중인 하락의 끝)
         price_latest = float(c.iloc[pos_latest])
         rsi_latest_low = float(rsi.iloc[pos_latest])
