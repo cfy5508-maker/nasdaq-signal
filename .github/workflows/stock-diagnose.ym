@@ -1,0 +1,25 @@
+name: Stock Diagnose
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: "진단할 종목 티커 (예: PEP, UUUU, AAPL)"
+        required: true
+        default: "AAPL"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas numpy ta
+
+      - name: Run check
+        run: python stock_diagnose.py "${{ github.event.inputs.ticker }}"
