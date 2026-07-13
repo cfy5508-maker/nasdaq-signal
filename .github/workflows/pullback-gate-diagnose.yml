@@ -1,4 +1,4 @@
-name: Pullback Gate Diagnose
+name: Pullback Setup Diagnose
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install --quiet yfinance pandas
+        run: pip install --quiet yfinance pandas ta
 
       - name: Run check
-        run: python pullback_gate_diagnose.py "${{ github.event.inputs.ticker }}"
+        run: python pullback_setup_diagnose.py "${{ github.event.inputs.ticker }}"
