@@ -1,29 +1,37 @@
 {
   "ticker": "AMSC",
   "price": 35.96,
-  "updated": "2026-07-13T02:03:08.274089+00:00",
+  "updated": "2026-07-13T06:58:28.742406+00:00",
   "as_of_date": "2026-07-10",
   "score": 70,
   "stages": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "unknown",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -39.9,
+      "price_up_today": true
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 81.7,
       "forward_pe": 24.24275,
       "peg": 0.74
     },
-    "2_divergence_gate": {
+    "3_divergence_gate": {
       "status": "pass",
       "bullish_divergence": true,
       "divergence_present": true,
       "gap_days": 17,
       "signal_fresh": false
     },
-    "3_zscore": {
+    "4_zscore": {
       "status": "warn",
       "rsi": 38.0,
       "rsi_zscore_1y": -1.01
     },
-    "4_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -31,6 +39,7 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
+      "long_lower_wick": false,
       "adx_reference": 25.0
     }
   },

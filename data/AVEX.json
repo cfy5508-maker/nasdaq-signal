@@ -1,36 +1,45 @@
 {
   "ticker": "AVEX",
   "price": 16.46,
-  "updated": "2026-07-13T02:03:09.983344+00:00",
+  "updated": "2026-07-13T06:58:30.659775+00:00",
   "as_of_date": "2026-07-10",
-  "score": 40,
+  "score": 47,
   "stages": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "unknown",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -21.2,
+      "price_up_today": true
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 117.2,
       "forward_pe": 33.012432,
       "peg": null
     },
-    "2_divergence_gate": {
+    "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 11,
       "signal_fresh": true
     },
-    "3_zscore": {
+    "4_zscore": {
       "status": "fail",
       "rsi": 38.7,
       "rsi_zscore_1y": -0.66
     },
-    "4_trigger_candle": {
-      "status": "fail",
+    "5_trigger_candle": {
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
+      "long_lower_wick": true,
       "adx_reference": 14.9
     }
   },

@@ -1,36 +1,45 @@
 {
   "ticker": "RKLB",
   "price": 81.04,
-  "updated": "2026-07-13T02:03:09.131949+00:00",
+  "updated": "2026-07-13T06:58:29.765100+00:00",
   "as_of_date": "2026-07-10",
-  "score": 57,
+  "score": 60,
   "stages": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "unknown",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -39.9,
+      "price_up_today": true
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 43.8,
       "forward_pe": 2431.443,
       "peg": null
     },
-    "2_divergence_gate": {
+    "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 10,
       "signal_fresh": true
     },
-    "3_zscore": {
+    "4_zscore": {
       "status": "warn",
       "rsi": 37.3,
       "rsi_zscore_1y": -1.39
     },
-    "4_trigger_candle": {
-      "status": "fail",
+    "5_trigger_candle": {
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
+      "long_lower_wick": true,
       "adx_reference": 24.0
     }
   },

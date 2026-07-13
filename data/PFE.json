@@ -1,29 +1,37 @@
 {
   "ticker": "PFE",
   "price": 24.17,
-  "updated": "2026-07-13T02:03:06.156523+00:00",
+  "updated": "2026-07-13T06:58:26.370899+00:00",
   "as_of_date": "2026-07-10",
   "score": 40,
   "stages": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "unknown",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -21.2,
+      "price_up_today": true
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 19.7,
       "forward_pe": 8.525212,
       "peg": 2.83
     },
-    "2_divergence_gate": {
+    "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": false
     },
-    "3_zscore": {
+    "4_zscore": {
       "status": "fail",
       "rsi": 41.7,
       "rsi_zscore_1y": -0.99
     },
-    "4_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -31,6 +39,7 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
+      "long_lower_wick": false,
       "adx_reference": 27.8
     }
   },

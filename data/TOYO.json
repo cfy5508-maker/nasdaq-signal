@@ -1,29 +1,37 @@
 {
   "ticker": "TOYO",
   "price": 6.05,
-  "updated": "2026-07-13T02:03:04.948788+00:00",
+  "updated": "2026-07-13T06:58:24.827048+00:00",
   "as_of_date": "2026-07-10",
   "score": 30,
   "stages": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "unknown",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -39.9,
+      "price_up_today": true
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 172.7,
       "forward_pe": 1.4901478,
       "peg": null
     },
-    "2_divergence_gate": {
+    "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
       "divergence_present": false,
       "gap_days": 3,
       "signal_fresh": null
     },
-    "3_zscore": {
+    "4_zscore": {
       "status": "pass",
       "rsi": 27.5,
       "rsi_zscore_1y": -2.21
     },
-    "4_trigger_candle": {
+    "5_trigger_candle": {
       "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
@@ -31,6 +39,7 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
+      "long_lower_wick": false,
       "adx_reference": 32.0
     }
   },

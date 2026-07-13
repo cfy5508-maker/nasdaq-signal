@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T02:03:10.585209+00:00",
+  "updated": "2026-07-13T06:58:31.261394+00:00",
   "rankings": [
     {
       "ticker": "AMSC",
@@ -20,22 +20,17 @@
       }
     },
     {
-      "ticker": "STZ",
-      "score": 67,
-      "score_addon": 71,
-      "price": 134.06,
-      "upside_pct": 27.6,
-      "rsi": 41.1,
-      "divergence": "pass",
-      "trigger": "pass",
+      "ticker": "RKLB",
+      "score": 60,
+      "score_addon": 82,
+      "price": 81.04,
+      "upside_pct": 43.8,
+      "rsi": 37.3,
+      "divergence": "warn",
+      "trigger": "warn",
       "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -43,14 +38,14 @@
       }
     },
     {
-      "ticker": "RKLB",
-      "score": 57,
-      "score_addon": 82,
-      "price": 81.04,
-      "upside_pct": 43.8,
-      "rsi": 37.3,
+      "ticker": "AVEX",
+      "score": 47,
+      "score_addon": 71,
+      "price": 16.46,
+      "upside_pct": 117.2,
+      "rsi": 38.7,
       "divergence": "warn",
-      "trigger": "fail",
+      "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": []
@@ -79,26 +74,39 @@
       }
     },
     {
-      "ticker": "AVEX",
+      "ticker": "STZ",
       "score": 40,
-      "score_addon": 71,
-      "price": 16.46,
-      "upside_pct": 117.2,
-      "rsi": 38.7,
-      "divergence": "warn",
-      "trigger": "fail",
+      "score_addon": 43,
+      "price": 134.06,
+      "upside_pct": null,
+      "rsi": 41.1,
+      "divergence": "pass",
+      "trigger": "pass",
       "signal": {
-        "signal": "up",
+        "signal": "down",
         "reasons": [
           {
-            "label": "구간 상향 돌파",
+            "label": "급락 기준 (-25 이상)",
+            "detail": "전일 67 → 오늘 40 (전일 대비 -27)"
+          },
+          {
+            "label": "구간 하향 이탈",
             "detail": null
           }
         ]
       },
       "signal_addon": {
-        "signal": "none",
-        "reasons": []
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "급락 기준 (-25 이상)",
+            "detail": "전일 71 → 오늘 43 (전일 대비 -28)"
+          },
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
       }
     },
     {

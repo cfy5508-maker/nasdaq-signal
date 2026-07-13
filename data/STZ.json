@@ -1,29 +1,37 @@
 {
   "ticker": "STZ",
   "price": 134.06,
-  "updated": "2026-07-13T02:03:07.271739+00:00",
+  "updated": "2026-07-13T06:58:27.482463+00:00",
   "as_of_date": "2026-07-10",
-  "score": 67,
+  "score": 40,
   "stages": {
-    "1_fundamentals": {
-      "status": "pass",
-      "upside_pct": 27.6,
-      "forward_pe": 10.833525,
-      "peg": 2.55
+    "1_market_health": {
+      "status": "unknown",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -21.2,
+      "price_up_today": true
     },
-    "2_divergence_gate": {
+    "2_fundamentals": {
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
+    },
+    "3_divergence_gate": {
       "status": "pass",
       "bullish_divergence": true,
       "divergence_present": true,
       "gap_days": 23,
       "signal_fresh": false
     },
-    "3_zscore": {
+    "4_zscore": {
       "status": "fail",
       "rsi": 41.1,
       "rsi_zscore_1y": -0.49
     },
-    "4_trigger_candle": {
+    "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
@@ -31,17 +39,18 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": true,
+      "long_lower_wick": false,
       "adx_reference": 15.9
     }
   },
   "entry_atr_stop_pct": 5.1,
-  "score_addon": 71,
+  "score_addon": 43,
   "stages_addon": {
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 27.6,
-      "forward_pe": 10.833525,
-      "peg": 2.55
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_pullback_position": {
       "status": "fail",
@@ -78,6 +87,6 @@
       "stop_pct_from_20sma": 4.2
     }
   },
-  "sector": "Consumer Defensive",
-  "sector_relative_strength_up": false
+  "sector": null,
+  "sector_relative_strength_up": null
 }
