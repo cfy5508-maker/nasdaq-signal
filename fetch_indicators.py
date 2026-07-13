@@ -77,26 +77,27 @@ _VOLUME_CACHE = {}
 
 def market_volume_health(index_symbol, months=3):
     """종목이 속한 지수의 대표 ETF 거래량이, 최근 N개월 평균 거래량 대비
-    몇 % 높은지/낮은지, 그리고 오늘 가격이 올랐는지 내렸는지를 함께 보여준다.
+    몇 % 높은지/낮은지, 그리고 가장 최근 마감일 가격이 올랐는지 내렸는지를 함께 보여준다.
+    ※ '오늘'이 아니라 yfinance가 제공하는 '가장 최근에 확정된(마감된) 거래일' 기준이다.
     (거래량 비율만으로는 방향을 알 수 없어서, 가격 방향과 같이 봐야 해석이 됨)
     참고용이며 점수 계산에는 반영하지 않는다."""
     etf_symbol = INDEX_ETF_MAP.get(index_symbol)
     if etf_symbol is None:
-        return {"etf": None, "today_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_today": None}
+        return {"etf": None, "latest_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_latest": None}
     if etf_symbol in _VOLUME_CACHE:
         return _VOLUME_CACHE[etf_symbol]
     try:
         hist = yf.Ticker(etf_symbol).history(period="6mo")
         vol = hist["Volume"]
         close = hist["Close"]
-        today_vol = float(vol.iloc[-1])
-        avg_vol_3m = float(vol.iloc[-63:-1].mean())  # 최근 3개월(약 63거래일) 평균, 오늘 제외
-        diff_pct = round((today_vol / avg_vol_3m - 1) * 100, 1) if avg_vol_3m > 0 else None
-        price_up_today = bool(close.iloc[-1] > close.iloc[-2]) if len(close) >= 2 else None
-        result = {"etf": etf_symbol, "today_volume": int(today_vol),
-                   "avg_volume_3m": int(avg_vol_3m), "diff_pct": diff_pct, "price_up_today": price_up_today}
+        latest_vol = float(vol.iloc[-1])  # 가장 최근 마감된 거래일의 거래량
+        avg_vol_3m = float(vol.iloc[-63:-1].mean())  # 최근 3개월(약 63거래일) 평균, 최신일 제외
+        diff_pct = round((latest_vol / avg_vol_3m - 1) * 100, 1) if avg_vol_3m > 0 else None
+        price_up_latest = bool(close.iloc[-1] > close.iloc[-2]) if len(close) >= 2 else None
+        result = {"etf": etf_symbol, "latest_volume": int(latest_vol),
+                   "avg_volume_3m": int(avg_vol_3m), "diff_pct": diff_pct, "price_up_latest": price_up_latest}
     except Exception:
-        result = {"etf": etf_symbol, "today_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_today": None}
+        result = {"etf": etf_symbol, "latest_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_latest": None}
     _VOLUME_CACHE[etf_symbol] = result
     return result
 
@@ -120,7 +121,7 @@ WEIGHTS = {
     "4_zscore": 2.5,            # Z-score (종목별 개별 계산)
     "5_trigger_candle": 1.0,    # 반전캔들+돌파
 }
-STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25}
+STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25, "neutral": 0.25}
 MAX_SCORE = sum(WEIGHTS.values())
 
 ADDON_WEIGHTS = {
@@ -430,9 +431,9 @@ def analyze(ticker, trim_days=0, write_file=True):
         addon_score = 0
 
     stages = {
-        "1_market_health": {"status": "unknown", "index_name": index_name, "index_symbol": index_symbol,
+        "1_market_health": {"status": "neutral", "index_name": index_name, "index_symbol": index_symbol,
                              "etf": volume_health["etf"], "volume_diff_pct_3m": volume_health["diff_pct"],
-                             "price_up_today": volume_health["price_up_today"]},
+                             "price_up_latest": volume_health["price_up_latest"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
