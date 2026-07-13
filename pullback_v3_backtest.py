@@ -108,6 +108,10 @@ def analyze_ticker(ticker):
 
         sma40_now = float(sma40.iloc[i]) if not pd.isna(sma40.iloc[i]) else None
         cond4_above_sma40 = bool(sma40_now is not None and close_values[i] > sma40_now)
+        dist_sma40_pct = ((close_values[i] - sma40_now) / sma40_now * 100) if sma40_now else None
+
+        sma40_20ago = float(sma40.iloc[i-20]) if i >= 20 and not pd.isna(sma40.iloc[i-20]) else None
+        sma40_uptrend = bool(sma40_now is not None and sma40_20ago is not None and sma40_now > sma40_20ago)
 
         recent_obv_low, prior_obv_low = obv_lows_upto[-1], obv_lows_upto[-2]
         cond5_obv_rising = bool(obv_values[recent_obv_low] > obv_values[prior_obv_low])
@@ -130,6 +134,8 @@ def analyze_ticker(ticker):
             "cond2_higher_low": cond2_higher_low,
             "cond3_no_crash": cond3_no_crash,
             "cond4_above_sma40": cond4_above_sma40,
+            "dist_sma40_pct": dist_sma40_pct,
+            "sma40_uptrend": sma40_uptrend,
             "cond5_obv_rising": cond5_obv_rising,
             "has_trigger": has_trigger,
             "fwd_return": fwd_return, "win": fwd_return > 0,
@@ -185,7 +191,40 @@ def main():
         if wr_y is not None:
             diffs.append((label, wr_y - baseline_wr, len(yes)))
 
-    print("\n=== 기여도(충족시 승률 개선폭) 순위 ===")
+    print("\n=== 40일선 이격도(%) 구간별 발생빈도 + 승률 (전체구간) ===")
+    dist_rows = [r for r in all_rows if r["dist_sma40_pct"] is not None]
+    total_n = len(dist_rows)
+    for lo, hi in [(-999, -5), (-5, -2), (-2, 0), (0, 2), (2, 5), (5, 999)]:
+        sub = [r for r in dist_rows if lo <= r["dist_sma40_pct"] < hi]
+        wr, avg = win_rate(sub)
+        freq_pct = len(sub) / total_n * 100 if total_n else 0
+        lo_l = str(lo) if lo > -999 else "~"
+        hi_l = str(hi) if hi < 999 else "이상"
+        if wr is not None:
+            print(f"  {lo_l}~{hi_l}%: 표본 {len(sub)}건({freq_pct:.1f}%) | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p")
+
+    print("\n=== 40일선 이격도(%) 구간별 x 트리거캔들 유무 교차분석 ===")
+    for lo, hi in [(-999, -5), (-5, -2), (-2, 0), (0, 2), (2, 5), (5, 999)]:
+        lo_l = str(lo) if lo > -999 else "~"
+        hi_l = str(hi) if hi < 999 else "이상"
+        for trig_val, trig_label in [(True, "트리거O"), (False, "트리거X")]:
+            sub = [r for r in dist_rows if lo <= r["dist_sma40_pct"] < hi and r["has_trigger"] == trig_val]
+            wr, avg = win_rate(sub)
+            freq_pct = len(sub) / total_n * 100 if total_n else 0
+            if wr is not None:
+                print(f"  {lo_l}~{hi_l}% + {trig_label}: 표본 {len(sub)}건({freq_pct:.1f}%) | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p")
+
+    print("\n=== 40일선 자체 기울기(20일전 대비 우상향인지) - 진짜 상승추세 확인 ===")
+    up_slope = [r for r in all_rows if r["sma40_uptrend"] is True]
+    down_slope = [r for r in all_rows if r["sma40_uptrend"] is False]
+    wr_u, avg_u = win_rate(up_slope)
+    wr_d, avg_d = win_rate(down_slope)
+    if wr_u is not None:
+        print(f"  40일선 우상향: 표본 {len(up_slope)} | 승률 {wr_u:.1f}% | 기준대비 {wr_u-baseline_wr:+.1f}%p")
+    if wr_d is not None:
+        print(f"  40일선 우하향/횡보: 표본 {len(down_slope)} | 승률 {wr_d:.1f}% | 기준대비 {wr_d-baseline_wr:+.1f}%p")
+
+    print("\n=== 기여도(충족시 승률 개선폭) 순위 - 1~6번 조건 ===")
     diffs.sort(key=lambda x: x[1], reverse=True)
     for label, diff, n_sample in diffs:
         print(f"  {label}: {diff:+.1f}%p (표본 {n_sample})")
