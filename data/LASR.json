@@ -1,9 +1,9 @@
 {
-  "ticker": "RKLB",
-  "price": 81.04,
-  "updated": "2026-07-13T10:51:16.891458+00:00",
+  "ticker": "LASR",
+  "price": 72.05,
+  "updated": "2026-07-13T10:51:23.200585+00:00",
   "as_of_date": "2026-07-10",
-  "score": 60,
+  "score": 27,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -15,43 +15,43 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 43.8,
-      "forward_pe": 2701.3335,
-      "peg": null
+      "upside_pct": 25.9,
+      "forward_pe": 106.65227,
+      "peg": 1.78
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
-      "divergence_present": true,
-      "gap_days": 10,
-      "signal_fresh": true
+      "divergence_present": false,
+      "gap_days": 7,
+      "signal_fresh": null
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 37.3,
-      "rsi_zscore_1y": -1.39
+      "status": "fail",
+      "rsi": 55.2,
+      "rsi_zscore_1y": -0.33
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 24.0
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 14.4
     }
   },
-  "entry_atr_stop_pct": 16.2,
-  "score_addon": 35,
+  "entry_atr_stop_pct": 13.2,
+  "score_addon": 41,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 43.8,
-      "forward_pe": 2701.3335,
-      "peg": null
+      "upside_pct": 25.9,
+      "forward_pe": 106.65227,
+      "peg": 1.78
     },
     "2_pullback_gate": {
       "status": "fail",
@@ -60,8 +60,8 @@
       "sma60_is_lowest_ignored": false
     },
     "3_rsi_zone": {
-      "status": "fail",
-      "rsi": 37.3
+      "status": "warn",
+      "rsi": 55.2
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -71,15 +71,25 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 18.2
+      "stop_pct_from_20sma": 8.5
     }
   },
-  "sector": "Industrials",
-  "sector_relative_strength_up": true,
-  "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "sector": "Technology",
+  "sector_relative_strength_up": false,
+  "uptrend_entry_signal": {
+    "active": true,
+    "days_since_divergence": 2,
+    "gain_since_low_pct": 22.8,
+    "divergence_date_index": 248
+  },
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 247,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 0.6
+  },
   "pullback_stop_signal": {
-    "stop_reference_price": 81.04,
+    "stop_reference_price": 58.68,
     "stopped_out": false
   },
   "divergence_stop_signal": null
