@@ -1,7 +1,7 @@
 {
   "ticker": "STZ",
   "price": 134.06,
-  "updated": "2026-07-13T08:15:40.866329+00:00",
+  "updated": "2026-07-13T10:11:01.869092+00:00",
   "as_of_date": "2026-07-10",
   "score": 67,
   "stages": {
@@ -45,44 +45,29 @@
     }
   },
   "entry_atr_stop_pct": 5.1,
-  "score_addon": 71,
+  "score_addon": 35,
   "stages_addon": {
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "pass",
       "upside_pct": 27.6,
       "forward_pe": 10.833525,
       "peg": 2.55
     },
-    "3_pullback_position": {
+    "2_pullback_gate": {
       "status": "fail",
-      "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 41.1,
-      "rsi_percentile_52w": 26.5
+      "near_sma20": false,
+      "near_sma40": false
     },
-    "4_pullback_depth": {
-      "status": "pass",
-      "pullback_pct": 11.2
+    "3_rsi_zone": {
+      "status": "fail",
+      "rsi": 41.1
     },
-    "5_volume_flow": {
-      "status": "warn",
-      "recent5_avg_vol": 2533980,
-      "prior5_avg_vol": 3501180
-    },
-    "6_trend_continuation": {
-      "status": "unknown",
-      "adx": 15.9,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "unknown",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
-    "8_trigger_breakout": {
-      "status": "pass",
-      "recent5_high": 139.76,
-      "today_close": 134.06
+    "4_trigger_confirmed": {
+      "status": "fail",
+      "setup_confirmed": false,
+      "setup_days_ago": null,
+      "trigger_confirmed": false,
+      "trigger_lag": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 4.2
@@ -91,5 +76,9 @@
   "sector": "Consumer Defensive",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null
+  "divergence_invalidated_signal": null,
+  "pullback_stop_signal": {
+    "stop_reference_price": 130.34,
+    "stopped_out": false
+  }
 }

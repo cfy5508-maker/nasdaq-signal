@@ -1,7 +1,7 @@
 {
   "ticker": "NXT",
   "price": 111.5,
-  "updated": "2026-07-13T08:15:44.423186+00:00",
+  "updated": "2026-07-13T10:11:05.530829+00:00",
   "as_of_date": "2026-07-10",
   "score": 60,
   "stages": {
@@ -45,44 +45,29 @@
     }
   },
   "entry_atr_stop_pct": 11.6,
-  "score_addon": 82,
+  "score_addon": 35,
   "stages_addon": {
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "pass",
       "upside_pct": 35.3,
       "forward_pe": 18.940521,
       "peg": 3.91
     },
-    "3_pullback_position": {
-      "status": "warn",
-      "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 43.5,
-      "rsi_percentile_52w": 11.8
+    "2_pullback_gate": {
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false
     },
-    "4_pullback_depth": {
-      "status": "pass",
-      "pullback_pct": 14.2
+    "3_rsi_zone": {
+      "status": "fail",
+      "rsi": 43.5
     },
-    "5_volume_flow": {
-      "status": "warn",
-      "recent5_avg_vol": 2162260,
-      "prior5_avg_vol": 8086020
-    },
-    "6_trend_continuation": {
-      "status": "unknown",
-      "adx": 15.5,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "unknown",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
-    "8_trigger_breakout": {
-      "status": "pass",
-      "recent5_high": 123.52,
-      "today_close": 111.5
+    "4_trigger_confirmed": {
+      "status": "fail",
+      "setup_confirmed": false,
+      "setup_days_ago": null,
+      "trigger_confirmed": false,
+      "trigger_lag": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 5.2
@@ -91,5 +76,9 @@
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null
+  "divergence_invalidated_signal": null,
+  "pullback_stop_signal": {
+    "stop_reference_price": 108.85,
+    "stopped_out": false
+  }
 }

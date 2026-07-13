@@ -1,7 +1,7 @@
 {
   "ticker": "AMSC",
   "price": 35.96,
-  "updated": "2026-07-13T08:15:41.868130+00:00",
+  "updated": "2026-07-13T10:11:02.883377+00:00",
   "as_of_date": "2026-07-10",
   "score": 77,
   "stages": {
@@ -45,44 +45,29 @@
     }
   },
   "entry_atr_stop_pct": 12.4,
-  "score_addon": 71,
+  "score_addon": 35,
   "stages_addon": {
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "pass",
       "upside_pct": 81.7,
       "forward_pe": 24.24275,
       "peg": 0.74
     },
-    "3_pullback_position": {
+    "2_pullback_gate": {
       "status": "fail",
-      "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 38.0,
-      "rsi_percentile_52w": 17.6
+      "near_sma20": false,
+      "near_sma40": false
     },
-    "4_pullback_depth": {
-      "status": "pass",
-      "pullback_pct": 20.8
+    "3_rsi_zone": {
+      "status": "fail",
+      "rsi": 38.0
     },
-    "5_volume_flow": {
-      "status": "warn",
-      "recent5_avg_vol": 738500,
-      "prior5_avg_vol": 1060260
-    },
-    "6_trend_continuation": {
-      "status": "unknown",
-      "adx": 25.0,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "unknown",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
-    "8_trigger_breakout": {
-      "status": "pass",
-      "recent5_high": 40.45,
-      "today_close": 35.96
+    "4_trigger_confirmed": {
+      "status": "fail",
+      "setup_confirmed": false,
+      "setup_days_ago": null,
+      "trigger_confirmed": false,
+      "trigger_lag": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 10.3
@@ -91,5 +76,9 @@
   "sector": "Industrials",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null
+  "divergence_invalidated_signal": null,
+  "pullback_stop_signal": {
+    "stop_reference_price": 35.55,
+    "stopped_out": false
+  }
 }

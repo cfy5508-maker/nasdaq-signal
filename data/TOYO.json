@@ -1,7 +1,7 @@
 {
   "ticker": "TOYO",
   "price": 6.05,
-  "updated": "2026-07-13T08:15:38.341395+00:00",
+  "updated": "2026-07-13T10:10:59.296102+00:00",
   "as_of_date": "2026-07-10",
   "score": 30,
   "stages": {
@@ -45,44 +45,29 @@
     }
   },
   "entry_atr_stop_pct": 27.4,
-  "score_addon": 82,
+  "score_addon": 35,
   "stages_addon": {
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "pass",
       "upside_pct": 172.7,
       "forward_pe": 1.4901478,
       "peg": null
     },
-    "3_pullback_position": {
-      "status": "warn",
-      "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 27.5,
-      "rsi_percentile_52w": 0.4
+    "2_pullback_gate": {
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false
     },
-    "4_pullback_depth": {
-      "status": "pass",
-      "pullback_pct": 55.6
+    "3_rsi_zone": {
+      "status": "fail",
+      "rsi": 27.5
     },
-    "5_volume_flow": {
-      "status": "warn",
-      "recent5_avg_vol": 763360,
-      "prior5_avg_vol": 1526900
-    },
-    "6_trend_continuation": {
-      "status": "unknown",
-      "adx": 32.0,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "unknown",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
-    "8_trigger_breakout": {
-      "status": "pass",
-      "recent5_high": 7.07,
-      "today_close": 6.05
+    "4_trigger_confirmed": {
+      "status": "fail",
+      "setup_confirmed": false,
+      "setup_days_ago": null,
+      "trigger_confirmed": false,
+      "trigger_lag": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 50.6
@@ -96,5 +81,9 @@
     "prior_divergence_date_index": 249,
     "days_since_prior_divergence": 1,
     "price_drop_since_pct": 1.9
+  },
+  "pullback_stop_signal": {
+    "stop_reference_price": 6.05,
+    "stopped_out": false
   }
 }

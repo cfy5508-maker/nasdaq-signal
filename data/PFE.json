@@ -1,7 +1,7 @@
 {
   "ticker": "PFE",
   "price": 24.17,
-  "updated": "2026-07-13T08:15:39.687939+00:00",
+  "updated": "2026-07-13T10:11:00.804498+00:00",
   "as_of_date": "2026-07-10",
   "score": 40,
   "stages": {
@@ -45,44 +45,29 @@
     }
   },
   "entry_atr_stop_pct": 3.4,
-  "score_addon": 75,
+  "score_addon": 65,
   "stages_addon": {
-    "2_fundamentals": {
+    "1_fundamentals": {
       "status": "pass",
       "upside_pct": 19.7,
       "forward_pe": 8.525212,
       "peg": 2.83
     },
-    "3_pullback_position": {
-      "status": "warn",
-      "near_20sma": false,
-      "near_50sma": false,
-      "rsi": 41.7,
-      "rsi_percentile_52w": 13.4
-    },
-    "4_pullback_depth": {
-      "status": "warn",
-      "pullback_pct": 8.8
-    },
-    "5_volume_flow": {
-      "status": "warn",
-      "recent5_avg_vol": 39506860,
-      "prior5_avg_vol": 54004580
-    },
-    "6_trend_continuation": {
-      "status": "unknown",
-      "adx": 27.8,
-      "plus_di_over_minus_di": false
-    },
-    "7_multi_timeframe": {
-      "status": "unknown",
-      "daily_above_20sma": false,
-      "weekly_above_20sma": false
-    },
-    "8_trigger_breakout": {
+    "2_pullback_gate": {
       "status": "pass",
-      "recent5_high": 24.57,
-      "today_close": 24.17
+      "near_sma20": true,
+      "near_sma40": false
+    },
+    "3_rsi_zone": {
+      "status": "fail",
+      "rsi": 41.7
+    },
+    "4_trigger_confirmed": {
+      "status": "fail",
+      "setup_confirmed": false,
+      "setup_days_ago": null,
+      "trigger_confirmed": false,
+      "trigger_lag": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 2.2
@@ -91,5 +76,9 @@
   "sector": "Healthcare",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null
+  "divergence_invalidated_signal": null,
+  "pullback_stop_signal": {
+    "stop_reference_price": 23.72,
+    "stopped_out": false
+  }
 }
