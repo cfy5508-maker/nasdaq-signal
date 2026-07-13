@@ -64,7 +64,41 @@ def determine_index(ticker, exchange):
         return ("S&P500", "^GSPC")
     if ticker in DOW30:
         return ("다우30", "^DJI")
-    return (None, None)
+    return ("S&P500", "^GSPC")  # 아무 데도 안 걸리면 S&P500을 기본값으로
+
+
+INDEX_ETF_MAP = {
+    "^IXIC": "QQQ",
+    "^GSPC": "SPY",
+    "^DJI": "DIA",
+}
+_VOLUME_CACHE = {}
+
+
+def market_volume_health(index_symbol, months=3):
+    """종목이 속한 지수의 대표 ETF 거래량이, 최근 N개월 평균 거래량 대비
+    몇 % 높은지/낮은지, 그리고 오늘 가격이 올랐는지 내렸는지를 함께 보여준다.
+    (거래량 비율만으로는 방향을 알 수 없어서, 가격 방향과 같이 봐야 해석이 됨)
+    참고용이며 점수 계산에는 반영하지 않는다."""
+    etf_symbol = INDEX_ETF_MAP.get(index_symbol)
+    if etf_symbol is None:
+        return {"etf": None, "today_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_today": None}
+    if etf_symbol in _VOLUME_CACHE:
+        return _VOLUME_CACHE[etf_symbol]
+    try:
+        hist = yf.Ticker(etf_symbol).history(period="6mo")
+        vol = hist["Volume"]
+        close = hist["Close"]
+        today_vol = float(vol.iloc[-1])
+        avg_vol_3m = float(vol.iloc[-63:-1].mean())  # 최근 3개월(약 63거래일) 평균, 오늘 제외
+        diff_pct = round((today_vol / avg_vol_3m - 1) * 100, 1) if avg_vol_3m > 0 else None
+        price_up_today = bool(close.iloc[-1] > close.iloc[-2]) if len(close) >= 2 else None
+        result = {"etf": etf_symbol, "today_volume": int(today_vol),
+                   "avg_volume_3m": int(avg_vol_3m), "diff_pct": diff_pct, "price_up_today": price_up_today}
+    except Exception:
+        result = {"etf": etf_symbol, "today_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_today": None}
+    _VOLUME_CACHE[etf_symbol] = result
+    return result
 
 
 def index_macro_status(index_symbol):
@@ -80,10 +114,11 @@ def index_macro_status(index_symbol):
     return result
 
 WEIGHTS = {
-    "1_fundamentals": 2.0,
-    "2_divergence_gate": 2.0,   # 다이버전스 게이트 (스윙저점+간격3일 이상)
-    "3_zscore": 2.5,            # Z-score (종목별 개별 계산)
-    "4_trigger_candle": 1.0,    # 반전캔들+돌파 (구 5단계, ADX 제거로 4단계로 재번호)
+    # 1_market_health(시장건전성)는 참고용이라 여기 없음 - 점수 계산에 반영 안 됨
+    "2_fundamentals": 2.0,
+    "3_divergence_gate": 2.0,   # 다이버전스 게이트 (스윙저점+간격3일 이상)
+    "4_zscore": 2.5,            # Z-score (종목별 개별 계산)
+    "5_trigger_candle": 1.0,    # 반전캔들+돌파
 }
 STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25}
 MAX_SCORE = sum(WEIGHTS.values())
@@ -113,6 +148,17 @@ def detect_morning_star(o, h, l, c):
     d2_small = abs(c.iloc[-2] - o.iloc[-2]) < abs(c.iloc[-3] - o.iloc[-3]) * 0.4
     d3_bull = c.iloc[-1] > o.iloc[-1] and c.iloc[-1] > (o.iloc[-3] + c.iloc[-3]) / 2
     return d1_bear and d2_small and d3_bull
+
+
+def detect_long_lower_wick(o, h, l, c):
+    """긴 아래꼬리: 해머보다 완화된 기준(위꼬리 제한 없음).
+    백테스트 검증: 아래꼬리 있음 51.9%(+2.6%p) vs 없음 48.9%(-0.4%p), 표본158건 - 약한 신호."""
+    body = abs(c.iloc[-1] - o.iloc[-1])
+    lower_wick = min(o.iloc[-1], c.iloc[-1]) - l.iloc[-1]
+    total_range = h.iloc[-1] - l.iloc[-1]
+    if total_range <= 0:
+        return False
+    return (lower_wick / total_range) >= 0.5
 
 
 def trigger_with_breakout(o, h, l, c):
@@ -260,6 +306,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     hammer = detect_hammer(o, h, l, c)
     engulfing = detect_bullish_engulfing(o, h, l, c)
     morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
+    long_lower_wick = detect_long_lower_wick(o, h, l, c)
 
     info = {}
     try:
@@ -269,6 +316,7 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     exchange = info.get("exchange")
     index_name, index_symbol = determine_index(ticker.upper(), exchange)
+    volume_health = market_volume_health(index_symbol)
 
     target_mean = info.get("targetMeanPrice")
     forward_pe = info.get("forwardPE")
@@ -297,8 +345,14 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 4단계(ADX)는 백테스트 재검증 결과 두 독립 표본에서 방향이 계속 뒤집혀 폐기함.
     # adx_last 값 자체는 참고용으로 남겨두되, 점수 계산에는 반영하지 않음 (나중에 재검토).
 
-    # 5단계: 트리거캔들
-    stage_trigger = "pass" if breakout_ok else "fail"
+    # 4단계: 트리거캔들
+    # 백테스트 검증: 돌파확정 pass / 긴아래꼬리만 있어도 약한 warn(+2.6%p, 표본158건) / 없으면 fail
+    if breakout_ok:
+        stage_trigger = "pass"
+    elif long_lower_wick:
+        stage_trigger = "warn"
+    else:
+        stage_trigger = "fail"
 
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
@@ -376,10 +430,13 @@ def analyze(ticker, trim_days=0, write_file=True):
         addon_score = 0
 
     stages = {
-        "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "2_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
-        "3_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
-        "4_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "adx_reference": round(adx_last, 1)},
+        "1_market_health": {"status": "unknown", "index_name": index_name, "index_symbol": index_symbol,
+                             "etf": volume_health["etf"], "volume_diff_pct_3m": volume_health["diff_pct"],
+                             "price_up_today": volume_health["price_up_today"]},
+        "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
+        "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
+        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "adx_reference": round(adx_last, 1)},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
@@ -527,10 +584,10 @@ def main():
 
     rankings = sorted(
         [{"ticker": r["ticker"], "score": r["score"], "score_addon": r["score_addon"], "price": r["price"],
-          "upside_pct": r["stages"]["1_fundamentals"]["upside_pct"],
-          "rsi": r["stages"]["3_zscore"]["rsi"],
-          "divergence": r["stages"]["2_divergence_gate"]["status"],
-          "trigger": r["stages"]["4_trigger_candle"]["status"],
+          "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
+          "rsi": r["stages"]["4_zscore"]["rsi"],
+          "divergence": r["stages"]["3_divergence_gate"]["status"],
+          "trigger": r["stages"]["5_trigger_candle"]["status"],
           "signal": r["signal"], "signal_addon": r["signal_addon"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
