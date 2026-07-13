@@ -1,4 +1,4 @@
-name: Zone 5-7 Failure Analysis
+name: Pullback Backtest
 
 on:
   workflow_dispatch:
@@ -22,4 +22,4 @@ jobs:
         run: pip install --quiet yfinance pandas numpy ta
 
       - name: Run backtest
-        run: python zone_5_7_failure_analysis.py "${{ github.event.inputs.forward_days }}"
+        run: python pullback_backtest.py "${{ github.event.inputs.forward_days }}"
