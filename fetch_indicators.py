@@ -298,6 +298,31 @@ def analyze(ticker, trim_days=0, write_file=True):
                 else:
                     stage_divergence = "fail"      # RSI도 개선 안 됨
 
+    # 상승추세 진입 신호: 30일 이내에 정석 다이버전스가 있었지만, 그 이후 가격이
+    # 오차범위(3%)를 넘어서 확실히 반등한 경우. 신규진입 점수(캡 30/60점)와는 별개로,
+    # "이미 반등이 확인된 상태"를 알려주는 참고용 신호. 점수 계산에는 반영하지 않는다.
+    uptrend_entry_signal = None
+    if len(realtime_lows) >= 2:
+        pos2_u = realtime_lows[-1]
+        candidates_u = [p for p in realtime_lows
+                        if p != pos2_u and MIN_GAP_DAYS <= (pos2_u - p) <= MAX_GAP_DAYS]
+        pos1_u = min(candidates_u, key=lambda p: close_values[p]) if candidates_u else None
+        if pos1_u is not None:
+            price1_u, price2_u = float(c.iloc[pos1_u]), float(c.iloc[pos2_u])
+            rsi1_u, rsi2_u = float(rsi.iloc[pos1_u]), float(rsi.iloc[pos2_u])
+            price_today_u = float(c.iloc[-1])
+            was_real_divergence = bool(price2_u < price1_u and rsi2_u > rsi1_u and
+                                        not pd.isna(rsi1_u) and not pd.isna(rsi2_u))
+            gain_since_low = (price_today_u - price2_u) / price2_u if price2_u > 0 else 0
+            already_broke_tolerance = gain_since_low > TOLERANCE_PCT
+            if was_real_divergence and already_broke_tolerance:
+                uptrend_entry_signal = {
+                    "active": True,
+                    "days_since_divergence": (len(close_values) - 1) - pos2_u,
+                    "gain_since_low_pct": round(gain_since_low * 100, 1),
+                    "divergence_date_index": pos2_u,
+                }
+
     # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 평균 대비
     # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
     # 상장 초기 등으로 1년치 데이터가 없으면, 있는 만큼(최소 30일)으로 계산한다.
@@ -479,6 +504,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "stages_addon": stages_addon,
         "sector": sector,
         "sector_relative_strength_up": sector_rs,
+        "uptrend_entry_signal": uptrend_entry_signal,
     }
     if write_file:
         with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
@@ -603,7 +629,8 @@ def main():
           "rsi": r["stages"]["4_zscore"]["rsi"],
           "divergence": r["stages"]["3_divergence_gate"]["status"],
           "trigger": r["stages"]["5_trigger_candle"]["status"],
-          "signal": r["signal"], "signal_addon": r["signal_addon"]}
+          "signal": r["signal"], "signal_addon": r["signal_addon"],
+          "uptrend_entry_signal": r["uptrend_entry_signal"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
     )
