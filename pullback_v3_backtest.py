@@ -116,6 +116,18 @@ def analyze_ticker(ticker):
         recent_obv_low, prior_obv_low = obv_lows_upto[-1], obv_lows_upto[-2]
         cond5_obv_rising = bool(obv_values[recent_obv_low] > obv_values[prior_obv_low])
 
+        # 최근 N일간 OBV 기울기(연속값) - 스윙비교가 아니라 단순 최근 추세
+        obv_slope_10 = None
+        obv_slope_20 = None
+        if i >= 10 and not np.isnan(obv_values[i-10]):
+            obv_slope_10 = obv_values[i] - obv_values[i-10]
+        if i >= 20 and not np.isnan(obv_values[i-20]):
+            obv_slope_20 = obv_values[i] - obv_values[i-20]
+        # 정규화: OBV 절대값 스케일이 종목마다 다르므로, 최근 60일 OBV 표준편차로 나눠서 비교 가능하게 함
+        obv_window = obv_values[max(0, i-60):i+1]
+        obv_std_60 = float(np.std(obv_window)) if len(obv_window) > 10 else None
+        obv_slope_10_norm = (obv_slope_10 / obv_std_60) if (obv_slope_10 is not None and obv_std_60) else None
+
         # 트리거캔들: 신저점 확정일 기준 최근 1~3일 소급 확인(신규진입과 동일 방식)
         has_trigger = False
         for lb in range(0, 4):
@@ -137,6 +149,7 @@ def analyze_ticker(ticker):
             "dist_sma40_pct": dist_sma40_pct,
             "sma40_uptrend": sma40_uptrend,
             "cond5_obv_rising": cond5_obv_rising,
+            "obv_slope_10_norm": obv_slope_10_norm,
             "has_trigger": has_trigger,
             "fwd_return": fwd_return, "win": fwd_return > 0,
         })
@@ -223,6 +236,28 @@ def main():
         print(f"  40일선 우상향: 표본 {len(up_slope)} | 승률 {wr_u:.1f}% | 기준대비 {wr_u-baseline_wr:+.1f}%p")
     if wr_d is not None:
         print(f"  40일선 우하향/횡보: 표본 {len(down_slope)} | 승률 {wr_d:.1f}% | 기준대비 {wr_d-baseline_wr:+.1f}%p")
+
+    print("\n=== OBV 최근 10일 기울기(정규화, 60일표준편차 단위) 구간별 승률 ===")
+    obv_rows = [r for r in all_rows if r["obv_slope_10_norm"] is not None]
+    obv_total = len(obv_rows)
+    for lo, hi in [(-999, -1.0), (-1.0, -0.3), (-0.3, 0), (0, 0.3), (0.3, 1.0), (1.0, 999)]:
+        sub = [r for r in obv_rows if lo <= r["obv_slope_10_norm"] < hi]
+        wr, avg = win_rate(sub)
+        freq_pct = len(sub) / obv_total * 100 if obv_total else 0
+        lo_l = str(lo) if lo > -999 else "~"
+        hi_l = str(hi) if hi < 999 else "이상"
+        if wr is not None:
+            print(f"  {lo_l}~{hi_l}: 표본 {len(sub)}건({freq_pct:.1f}%) | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p | 평균수익률 {avg:+.2f}%")
+
+    print("\n=== OBV기울기(단순 양수/음수)만으로 이분 ===")
+    obv_pos = [r for r in obv_rows if r["obv_slope_10_norm"] > 0]
+    obv_neg = [r for r in obv_rows if r["obv_slope_10_norm"] <= 0]
+    wr_p, avg_p = win_rate(obv_pos)
+    wr_ng, avg_ng = win_rate(obv_neg)
+    if wr_p is not None:
+        print(f"  양수(상승중): 표본 {len(obv_pos)} | 승률 {wr_p:.1f}% | 기준대비 {wr_p-baseline_wr:+.1f}%p")
+    if wr_ng is not None:
+        print(f"  음수(하락중): 표본 {len(obv_neg)} | 승률 {wr_ng:.1f}% | 기준대비 {wr_ng-baseline_wr:+.1f}%p")
 
     print("\n=== 기여도(충족시 승률 개선폭) 순위 - 1~6번 조건 ===")
     diffs.sort(key=lambda x: x[1], reverse=True)
