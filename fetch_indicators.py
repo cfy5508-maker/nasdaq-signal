@@ -261,6 +261,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     stage_divergence = "fail"
     gap_days = None
     signal_fresh = None  # True=오늘 신규 확정, False=오차범위 내 유지, None=신호없음
+    pos1, pos2 = None, None  # 다이버전스 구간(저점1~저점2) - 거래량 비교에도 재사용
     if len(realtime_lows) >= 2:
         pos2 = realtime_lows[-1]
 
@@ -465,6 +466,22 @@ def analyze(ticker, trim_days=0, write_file=True):
     else:
         stage_trigger = "fail"
 
+    # 트리거캔들 거래량 확인: 트리거캔들 당일 거래량이, 그 다이버전스 구간(저점1~저점2)의
+    # 평균 거래량보다 높으면 "거래량 실린 트리거"로 보고 가중치를 높인다.
+    trigger_day_idx = None
+    if breakout_ok:
+        trigger_day_idx = len(c) - 1 - breakout_days_ago
+    elif long_lower_wick:
+        trigger_day_idx = len(c) - 1 - wick_days_ago
+
+    trigger_volume_confirmed = False
+    avg_vol_divergence_window = None
+    trigger_day_volume = None
+    if trigger_day_idx is not None and pos1 is not None and pos2 is not None and pos1 <= pos2:
+        avg_vol_divergence_window = float(v.iloc[pos1:pos2 + 1].mean())
+        trigger_day_volume = float(v.iloc[trigger_day_idx])
+        trigger_volume_confirmed = bool(trigger_day_volume > avg_vol_divergence_window)
+
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
     # 1단계: 펀더멘털 - PEG가 좋을수록 업사이드 커트라인을 낮춰줌 (서로 보완)
@@ -608,10 +625,14 @@ def analyze(ticker, trim_days=0, write_file=True):
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
-        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1)},
+        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
 
+    # 트리거캔들에 거래량이 실렸으면(구간평균 초과) 그 단계 가중치를 1.5배로 상향
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
+    if "5_trigger_candle" in known_weights and trigger_volume_confirmed and stage_trigger in ("pass", "warn"):
+        known_weights["5_trigger_candle"] = known_weights["5_trigger_candle"] * 1.5
+
     if known_weights:
         raw_score = sum(known_weights[k] * STATUS_SCORE[stages[k]["status"]] for k in known_weights)
         score = round(raw_score / sum(known_weights.values()) * 100)
