@@ -1,9 +1,9 @@
 {
   "ticker": "AMSC",
   "price": 35.96,
-  "updated": "2026-07-13T07:10:09.612148+00:00",
+  "updated": "2026-07-13T07:39:46.641743+00:00",
   "as_of_date": "2026-07-10",
-  "score": 70,
+  "score": 77,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -32,14 +32,15 @@
       "rsi_zscore_1y": -1.01
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
+      "long_lower_wick": true,
+      "wick_days_ago": 1,
       "adx_reference": 25.0
     }
   },
