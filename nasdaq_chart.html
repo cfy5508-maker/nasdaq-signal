@@ -268,8 +268,8 @@
       + 종목 추가
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(8, 60px) minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">눌림목점수</span><span style="text-align:center;">신호</span><span></span>
+  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">신호</span><span></span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -973,19 +973,6 @@
     ];
   }
 
-  function buildAddonRows(full){
-    var sa = full.stages_addon;
-    return [
-      ['1단계 펀더멘털', sa['2_fundamentals'], '업사이드 '+(sa['2_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['2_fundamentals'].peg??'-')],
-      ['2단계 눌림위치', sa['3_pullback_position'], (sa['3_pullback_position'].near_20sma||sa['3_pullback_position'].near_50sma ? (sa['3_pullback_position'].near_20sma?'20일선 근접':'')+(sa['3_pullback_position'].near_50sma?' 50일선 근접':'') : '이평선 근접 안됨') + ', RSI '+sa['3_pullback_position'].rsi+' (52주백분위 '+sa['3_pullback_position'].rsi_percentile_52w+'%)'],
-      ['3단계 조정폭', sa['4_pullback_depth'], '고점대비 -'+sa['4_pullback_depth'].pullback_pct+'%'],
-      ['4단계 거래량', sa['5_volume_flow'], '최근5일 '+sa['5_volume_flow'].recent5_avg_vol.toLocaleString()+' vs 이전5일 '+sa['5_volume_flow'].prior5_avg_vol.toLocaleString()],
-      ['5단계 추세지속', sa['6_trend_continuation'], 'ADX '+sa['6_trend_continuation'].adx+', +DI우세 '+sa['6_trend_continuation'].plus_di_over_minus_di],
-      ['6단계 멀티타임프레임', sa['7_multi_timeframe'], '일봉 20선위 '+sa['7_multi_timeframe'].daily_above_20sma+', 주봉 20선위 '+sa['7_multi_timeframe'].weekly_above_20sma],
-      ['7단계 돌파확인', sa['8_trigger_breakout'], '최근5일고점 '+sa['8_trigger_breakout'].recent5_high+' 대비 오늘종가 '+sa['8_trigger_breakout'].today_close]
-    ];
-  }
-
  function signalBadge(sig){
     if(!sig || sig.signal === 'none'){
       return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
@@ -1043,34 +1030,9 @@
 
   function renderChecklistWithToggle(full, container){
     var wrap = document.createElement('div');
-
-   var toggleRow = document.createElement('div');
-    toggleRow.style.cssText = 'display:flex;justify-content:flex-start;margin-bottom:14px;';
-    toggleRow.innerHTML =
-      '<div style="display:inline-flex;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;padding:2px;">' +
-      '<button data-mode="entry" style="padding:5px 14px;font-size:11px;font-weight:700;border:none;border-radius:6px;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 '+full.score+'</button>' +
-      '<button data-mode="addon" style="padding:5px 14px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:transparent;color:#6b6b7a;cursor:pointer;">눌림목점수 '+full.score_addon+'</button>' +
-      '</div>';
-
     var body = document.createElement('div');
     var entryHtml = renderRowsHtml(buildEntryRows(full), '손절폭 ATR기준 '+full.entry_atr_stop_pct+'%');
-    var addonHtml = renderRowsHtml(buildAddonRows(full), '손절폭 20일선기준 '+full.stages_addon['9_position_sizing'].stop_pct_from_20sma+'%');
     body.innerHTML = entryHtml;
-
-    var btnEntry = toggleRow.querySelector('[data-mode="entry"]');
-    var btnAddon = toggleRow.querySelector('[data-mode="addon"]');
-    btnEntry.addEventListener('click', function(){
-      body.innerHTML = entryHtml;
-      btnEntry.style.background = '#7c3aed'; btnEntry.style.color = '#fff'; btnEntry.style.fontWeight = '700';
-      btnAddon.style.background = 'transparent'; btnAddon.style.color = '#6b6b7a'; btnAddon.style.fontWeight = '500';
-    });
-    btnAddon.addEventListener('click', function(){
-      body.innerHTML = addonHtml;
-      btnAddon.style.background = '#7c3aed'; btnAddon.style.color = '#fff'; btnAddon.style.fontWeight = '700';
-      btnEntry.style.background = 'transparent'; btnEntry.style.color = '#6b6b7a'; btnEntry.style.fontWeight = '500';
-    });
-
-    wrap.appendChild(toggleRow);
     wrap.appendChild(body);
     container.innerHTML = '<span></span><span></span>';
     var col3 = document.createElement('div');
@@ -1085,12 +1047,8 @@
     row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
 
     var head = document.createElement('div');
-    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(8, 60px) minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
 
-    var addonScore = item.score_addon;
-    var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
-    var addonLabel = addonScore;
-    
     head.innerHTML =
       '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;transform-origin:50% 45%;width:11px;text-align:center;">▾</span>' +
       '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
@@ -1101,7 +1059,6 @@
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
       '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
       '<span style="font-size:11px;text-align:center;'+rsiColorStyle(item.rsi)+'">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-      '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonLabel+'</span>' +
       '<span style="text-align:center;">'+signalBadge(item.signal)+'</span>' +
       '<span style="display:flex;justify-content:flex-end;">' +
       '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
