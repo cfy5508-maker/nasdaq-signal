@@ -1,0 +1,25 @@
+name: Volume Recovery Axis Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      n_days:
+        description: "회복 여부를 볼 기간(일)"
+        required: false
+        default: "10"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance numpy
+
+      - name: Run check
+        run: python volume_recovery_axis_test.py "${{ github.event.inputs.n_days }}"
