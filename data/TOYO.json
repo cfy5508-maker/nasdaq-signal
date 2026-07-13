@@ -1,7 +1,7 @@
 {
   "ticker": "TOYO",
   "price": 5.75,
-  "updated": "2026-07-13T23:07:33.863197+00:00",
+  "updated": "2026-07-13T23:33:43.465242+00:00",
   "as_of_date": "2026-07-13",
   "score": 30,
   "stages": {
@@ -29,13 +29,14 @@
       "status": "fail",
       "bullish_divergence": false,
       "divergence_present": false,
-      "gap_days": 4,
+      "gap_days": 6,
       "signal_fresh": null
     },
     "4_zscore": {
       "status": "pass",
       "rsi": 26.5,
-      "rsi_zscore_1y": -2.28
+      "rsi_zscore_1y": -2.28,
+      "zscore_quality": 0.821
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -92,9 +93,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 248,
-    "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 6.8
+    "prior_divergence_date_index": 249,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 5.0
   },
   "pullback_stop_signal": {
     "stop_reference_price": 5.75,

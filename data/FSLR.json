@@ -1,9 +1,9 @@
 {
   "ticker": "FSLR",
   "price": 221.03,
-  "updated": "2026-07-13T23:07:50.126187+00:00",
+  "updated": "2026-07-13T23:34:01.926218+00:00",
   "as_of_date": "2026-07-13",
-  "score": 30,
+  "score": 80,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -26,19 +26,20 @@
       "peg": 0.6
     },
     "3_divergence_gate": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "divergence_present": false,
-      "gap_days": 3,
-      "signal_fresh": null
+      "status": "pass",
+      "bullish_divergence": true,
+      "divergence_present": true,
+      "gap_days": 6,
+      "signal_fresh": true
     },
     "4_zscore": {
       "status": "warn",
       "rsi": 37.4,
-      "rsi_zscore_1y": -1.38
+      "rsi_zscore_1y": -1.38,
+      "zscore_quality": 0.595
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -48,9 +49,9 @@
       "long_lower_wick": true,
       "wick_days_ago": 3,
       "adx_reference": 28.1,
-      "volume_confirmed": true,
+      "volume_confirmed": false,
       "trigger_day_volume": 1713700,
-      "avg_volume_divergence_window": 1620738
+      "avg_volume_divergence_window": 1810279
     }
   },
   "entry_atr_stop_pct": 8.9,
@@ -90,12 +91,7 @@
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
-    "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 1.5
-  },
+  "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 221.03,
     "stopped_out": false
