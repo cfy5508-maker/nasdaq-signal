@@ -106,28 +106,118 @@ _VOLUME_CACHE = {}
 
 
 def market_volume_health(index_symbol, months=3):
-    """종목이 속한 지수의 대표 ETF 거래량이, 최근 N개월 평균 거래량 대비
-    몇 % 높은지/낮은지, 그리고 가장 최근 마감일 가격이 올랐는지 내렸는지를 함께 보여준다.
+    """종목이 속한 지수의 대표 ETF를 기준으로 시장건전성(참고용, 점수 미반영)을 계산한다.
+
+    구성:
+      축1 - 거래량 수준: 오늘 거래량이 3개월평균 대비 몇 % 높은지/낮은지
+      축2 - 거래량 추세: 최근3일 평균거래량이 직전3일 평균거래량보다 늘고있는지/줄고있는지
+      축3 - 지수 당일 변동폭: |오늘종가-어제종가|/어제종가, 3%+ 급락 시 상태를 한단계 격하
+
+    백테스트 검증(QQQ+SPY+DIA, 5년, 표본3570건, 다음날 지수 반응 기준):
+      높음(30%+)+하락중: 60.7%(+6.4%p, 135건) -> pass  ("급등후 숨고르기, 아직 안 끝남")
+      낮음(-30%↓)+상승중: 58.1%(+3.7%p, 136건) -> pass  ("바닥에서 관심 되살아나는 초입")
+      낮음(-30%↓)+하락중: 49.7%(-4.7%p, 459건) -> warn  (유일하게 뚜렷히 나쁜 조합, 표본충분)
+      그 외 전부: 기준선(54.4%) 근처, 뚜렷한 신호 없음 -> neutral
+
+    축3(변동폭)은 백테스트 미검증, 트레이더 일반 상식 기준. 오늘 3%+ 급락이면
+    위에서 계산한 상태를 한단계 격하(pass->neutral->warn->fail).
+    axis3: 지수 당일 변동폭(3%+급락시 격하), 지수 자체 반전캔들(격상)
+    axis4: 20/40/60일선 골든크로스(최근10일, 격상) / 데드크로스(최근10일, 격하)
+
+    백테스트 검증(QQQ+SPY+DIA, 5년):
+      20-60일선 데드크로스(최근10일내 발생): 10일뒤 상승비율 50.3%(-10.2%p, 표본310건) -> 격하
+      20-40일선 골든크로스(최근10일내 발생): 5일뒤 상승비율 61.4%(+2.8%p, 표본430건) -> 약하게 격상
     ※ '오늘'이 아니라 yfinance가 제공하는 '가장 최근에 확정된(마감된) 거래일' 기준이다.
-    (거래량 비율만으로는 방향을 알 수 없어서, 가격 방향과 같이 봐야 해석이 됨)
-    참고용이며 점수 계산에는 반영하지 않는다."""
+    """
     etf_symbol = INDEX_ETF_MAP.get(index_symbol)
+    empty_result = {"etf": None, "latest_volume": None, "avg_volume_3m": None, "diff_pct": None,
+                     "trend_pct": None, "trend_up": None, "daily_change_pct": None,
+                     "volatility_label": None, "index_trigger_candle": None,
+                     "golden_cross_recent": None, "dead_cross_recent": None, "status": "neutral"}
     if etf_symbol is None:
-        return {"etf": None, "latest_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_latest": None}
+        return empty_result
     if etf_symbol in _VOLUME_CACHE:
         return _VOLUME_CACHE[etf_symbol]
     try:
-        hist = get_confirmed_history(etf_symbol, period="6mo")
+        hist = get_confirmed_history(etf_symbol, period="1y")
+        o, h, l = hist["Open"], hist["High"], hist["Low"]
         vol = hist["Volume"]
         close = hist["Close"]
-        latest_vol = float(vol.iloc[-1])  # 가장 최근 마감된 거래일의 거래량
-        avg_vol_3m = float(vol.iloc[-63:-1].mean())  # 최근 3개월(약 63거래일) 평균, 최신일 제외
+
+        latest_vol = float(vol.iloc[-1])
+        avg_vol_3m = float(vol.iloc[-63:-1].mean())
         diff_pct = round((latest_vol / avg_vol_3m - 1) * 100, 1) if avg_vol_3m > 0 else None
-        price_up_latest = bool(close.iloc[-1] > close.iloc[-2]) if len(close) >= 2 else None
-        result = {"etf": etf_symbol, "latest_volume": int(latest_vol),
-                   "avg_volume_3m": int(avg_vol_3m), "diff_pct": diff_pct, "price_up_latest": price_up_latest}
+
+        recent3_avg = float(vol.iloc[-3:].mean())
+        prior3_avg = float(vol.iloc[-6:-3].mean())
+        trend_up = bool(recent3_avg > prior3_avg) if prior3_avg > 0 else None
+        trend_pct = round((recent3_avg / prior3_avg - 1) * 100, 1) if prior3_avg > 0 else None
+
+        daily_change_pct = round((float(close.iloc[-1]) / float(close.iloc[-2]) - 1) * 100, 2) if len(close) >= 2 else None
+
+        # 축1x축2 조합으로 base_status 결정
+        base_status = "neutral"
+        if diff_pct is not None and trend_up is not None:
+            if (diff_pct >= 30 and not trend_up) or (diff_pct <= -30 and trend_up):
+                base_status = "pass"
+            elif diff_pct <= -30 and trend_up is False:
+                base_status = "warn"
+
+        # 축3: 오늘 3%이상 급락이면 한 단계 격하
+        DOWNGRADE = {"pass": "neutral", "neutral": "warn", "warn": "fail", "fail": "fail"}
+        status = base_status
+        volatility_label = "정상"
+        if daily_change_pct is not None:
+            abs_change = abs(daily_change_pct)
+            if abs_change >= 3:
+                volatility_label = "급변"
+                if daily_change_pct <= -3:
+                    status = DOWNGRADE[base_status]
+            elif abs_change >= 2:
+                volatility_label = "변동성큼"
+            elif abs_change >= 1:
+                volatility_label = "다소변동"
+
+        # 지수 자체에 오늘 반전캔들(해머/불리시엔걸핑)이 확인되면 한 단계 격상.
+        # 급락(축3 격하)과 반전캔들(격상)이 같은 날 동시에 걸리면 서로 상쇄되어
+        # 원래 상태로 돌아간다 - "급락했지만 반전 조짐도 있다"는 애매함을 반영.
+        UPGRADE = {"fail": "warn", "warn": "neutral", "neutral": "pass", "pass": "pass"}
+        index_trigger_candle = bool(detect_hammer(o, h, l, close) or detect_bullish_engulfing(o, h, l, close))
+        if index_trigger_candle:
+            status = UPGRADE[status]
+
+        # axis4: 20/40/60일선 골든크로스(최근10일내, 격상) / 데드크로스(최근10일내, 격하)
+        CROSS_LOOKBACK = 10
+        sma20 = close.rolling(20).mean()
+        sma40 = close.rolling(40).mean()
+        sma60 = close.rolling(60).mean()
+        above_20_40 = sma20 > sma40
+        above_20_60 = sma20 > sma60
+
+        golden_cross_recent = False
+        dead_cross_recent = False
+        if len(close) > 60 + CROSS_LOOKBACK:
+            for j in range(len(close) - CROSS_LOOKBACK + 1, len(close)):
+                a2_40, a2_40_prev = above_20_40.iloc[j], above_20_40.iloc[j - 1]
+                a2_60, a2_60_prev = above_20_60.iloc[j], above_20_60.iloc[j - 1]
+                if pd.notna(a2_40) and pd.notna(a2_40_prev) and a2_40 and not a2_40_prev:
+                    golden_cross_recent = True  # 20일선이 40일선을 상향 돌파
+                if pd.notna(a2_60) and pd.notna(a2_60_prev) and not a2_60 and a2_60_prev:
+                    dead_cross_recent = True    # 20일선이 60일선을 하향 돌파
+
+        if dead_cross_recent:
+            status = DOWNGRADE[status]
+        if golden_cross_recent:
+            status = UPGRADE[status]
+
+        result = {"etf": etf_symbol, "latest_volume": int(latest_vol), "avg_volume_3m": int(avg_vol_3m),
+                   "diff_pct": diff_pct, "trend_pct": trend_pct, "trend_up": trend_up,
+                   "daily_change_pct": daily_change_pct, "volatility_label": volatility_label,
+                   "index_trigger_candle": index_trigger_candle,
+                   "golden_cross_recent": golden_cross_recent, "dead_cross_recent": dead_cross_recent,
+                   "status": status}
     except Exception:
-        result = {"etf": etf_symbol, "latest_volume": None, "avg_volume_3m": None, "diff_pct": None, "price_up_latest": None}
+        result = empty_result
     _VOLUME_CACHE[etf_symbol] = result
     return result
 
@@ -653,9 +743,12 @@ def analyze(ticker, trim_days=0, write_file=True):
         addon_score = 0
 
     stages = {
-        "1_market_health": {"status": "neutral", "index_name": index_name, "index_symbol": index_symbol,
+        "1_market_health": {"status": volume_health["status"], "index_name": index_name, "index_symbol": index_symbol,
                              "etf": volume_health["etf"], "volume_diff_pct_3m": volume_health["diff_pct"],
-                             "price_up_latest": volume_health["price_up_latest"]},
+                             "volume_trend_pct_3d": volume_health["trend_pct"], "volume_trend_up": volume_health["trend_up"],
+                             "daily_change_pct": volume_health["daily_change_pct"], "volatility_label": volume_health["volatility_label"],
+                             "index_trigger_candle": volume_health["index_trigger_candle"],
+                             "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
