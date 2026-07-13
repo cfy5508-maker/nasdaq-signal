@@ -529,9 +529,9 @@ def analyze(ticker, trim_days=0, write_file=True):
     near_sma20 = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
     near_sma40 = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
 
-    # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선 또는 40일선 "자체"가
+    # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선과 40일선 "둘 다" 함께
     # 60일선에 근접(수렴)해오면 추세 힘빠짐으로 보고 무시한다.
-    # (가격이 20/40일선에 근접한 것과는 다른 비교 - 이평선끼리의 수렴 여부)
+    # (하나만 수렴한 경우는 아직 전체 추세가 흔들리는 것으로 보기 어려워 무시하지 않음)
     sma20_now_v = float(sma20.iloc[-1]) if not pd.isna(sma20.iloc[-1]) else None
     sma40_now_v = float(sma40_addon.iloc[-1]) if not pd.isna(sma40_addon.iloc[-1]) else None
     sma60_now_v = float(sma60.iloc[-1]) if not pd.isna(sma60.iloc[-1]) else None
@@ -542,7 +542,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                                   and abs(sma20_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
     sma40_converged_to_60 = bool(sma60_now_v is not None and sma40_now_v is not None and sma60_now_v > 0
                                   and abs(sma40_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
-    ma_converged_ignore = sma60_is_lowest and (sma20_converged_to_60 or sma40_converged_to_60)
+    ma_converged_ignore = sma60_is_lowest and (sma20_converged_to_60 and sma40_converged_to_60)
 
     near_ma_signal = near_sma20 or near_sma40
     if ma_converged_ignore and near_ma_signal:
