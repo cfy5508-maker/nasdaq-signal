@@ -457,17 +457,8 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 4단계(ADX)는 백테스트 재검증 결과 두 독립 표본에서 방향이 계속 뒤집혀 폐기함.
     # adx_last 값 자체는 참고용으로 남겨두되, 점수 계산에는 반영하지 않음 (나중에 재검토).
 
-    # 4단계: 트리거캔들
-    # 백테스트 검증: 돌파확정 pass / 긴아래꼬리만 있어도 약한 warn(+2.6%p, 표본158건) / 없으면 fail
-    if breakout_ok:
-        stage_trigger = "pass"
-    elif long_lower_wick:
-        stage_trigger = "warn"
-    else:
-        stage_trigger = "fail"
-
     # 트리거캔들 거래량 확인: 트리거캔들 당일 거래량이, 그 다이버전스 구간(저점1~저점2)의
-    # 평균 거래량보다 높으면 "거래량 실린 트리거"로 보고 가중치를 높인다.
+    # 평균 거래량보다 높으면 "거래량 실린 트리거"로 보고 warn을 pass로 승격시킨다.
     trigger_day_idx = None
     if breakout_ok:
         trigger_day_idx = len(c) - 1 - breakout_days_ago
@@ -481,6 +472,19 @@ def analyze(ticker, trim_days=0, write_file=True):
         avg_vol_divergence_window = float(v.iloc[pos1:pos2 + 1].mean())
         trigger_day_volume = float(v.iloc[trigger_day_idx])
         trigger_volume_confirmed = bool(trigger_day_volume > avg_vol_divergence_window)
+
+    # 4단계: 트리거캔들
+    # 백테스트 검증: 돌파확정 pass / 긴아래꼬리만 있어도 약한 warn(+2.6%p, 표본158건) / 없으면 fail
+    # 긴아래꼬리(warn)에 거래량까지 실렸다면 pass로 승격 (이론적 근거: 매수세 유입 강도가
+    # 돌파확정과 비슷한 수준의 신뢰도를 가진다고 보되, 아직 백테스트 검증 전 - 추후 확인 필요)
+    if breakout_ok:
+        stage_trigger = "pass"
+    elif long_lower_wick and trigger_volume_confirmed:
+        stage_trigger = "pass"
+    elif long_lower_wick:
+        stage_trigger = "warn"
+    else:
+        stage_trigger = "fail"
 
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
@@ -628,11 +632,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
 
-    # 트리거캔들에 거래량이 실렸으면(구간평균 초과) 그 단계 가중치를 1.5배로 상향
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
-    if "5_trigger_candle" in known_weights and trigger_volume_confirmed and stage_trigger in ("pass", "warn"):
-        known_weights["5_trigger_candle"] = known_weights["5_trigger_candle"] * 1.5
-
     if known_weights:
         raw_score = sum(known_weights[k] * STATUS_SCORE[stages[k]["status"]] for k in known_weights)
         score = round(raw_score / sum(known_weights.values()) * 100)
