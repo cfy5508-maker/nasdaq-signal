@@ -926,6 +926,24 @@ def log_snapshot(r):
         f.write(json.dumps(snap, ensure_ascii=False) + "\n")
 
 
+def get_usd_krw_rate():
+    """USD/KRW 환율을 가져와서 data/exchange_rate.json에 저장한다.
+    매수가를 원화로 입력받아 매일 환율로 환산 표시하는 기능에 사용."""
+    try:
+        hist = get_confirmed_history("USDKRW=X", period="5d")
+        if hist.empty:
+            return None
+        rate = float(hist["Close"].iloc[-1])
+        result = {"rate": round(rate, 2), "updated": pd.Timestamp.now("UTC").isoformat(),
+                  "as_of_date": str(hist.index[-1].date())}
+        with open(f"{OUT_DIR}/exchange_rate.json", "w") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        return result
+    except Exception as e:
+        print(f"환율 조회 실패: {e}", file=sys.stderr)
+        return None
+
+
 def main():
     if not os.path.exists(WATCHLIST_PATH):
         print(f"watchlist not found: {WATCHLIST_PATH}", file=sys.stderr)
@@ -935,6 +953,11 @@ def main():
         tickers = json.load(f)
 
     os.makedirs(OUT_DIR, exist_ok=True)
+
+    exchange_rate = get_usd_krw_rate()
+    if exchange_rate:
+        print(f"환율 갱신: 1USD = {exchange_rate['rate']}KRW ({exchange_rate['as_of_date']})")
+
     results = []
     for t in tickers:
         try:
