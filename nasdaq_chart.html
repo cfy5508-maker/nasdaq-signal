@@ -1033,7 +1033,21 @@
     return [
       ['1단계 시장건전성(참고)', mh, mhDetail],
       ['2단계 펀더멘털', s['2_fundamentals'], '업사이드 '+(s['2_fundamentals'].upside_pct??'-')+'%, PEG '+(s['2_fundamentals'].peg??'-')],
-      ['3단계 다이버전스', s['3_divergence_gate'], s['3_divergence_gate'].divergence_present ? ((s['3_divergence_gate'].bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)')+', 간격 '+s['3_divergence_gate'].gap_days+'일' + (s['3_divergence_gate'].signal_fresh===false ? ' (저점 근처 유지중)' : ' (신규)')) : '다이버전스 없음'],
+      ['3단계 다이버전스', s['3_divergence_gate'], (function(){
+        var g = s['3_divergence_gate'];
+        var base;
+        if (g.divergence_present) {
+          base = (g.bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)') + ', 간격 ' + g.gap_days + '일' + (g.signal_fresh === false ? ' (저점 근처 유지중)' : ' (신규)');
+        } else if (g.status === 'neutral') {
+          base = '다이버전스는 있었으나 오차범위 초과 반등(상승추세 진입 참고)';
+        } else {
+          base = '다이버전스 없음';
+        }
+        if (full.divergence_invalidated_signal && full.divergence_invalidated_signal.active) {
+          base += ' · ' + full.divergence_invalidated_signal.days_since_prior_divergence + '일 전 다이버전스 발생했으나 무효화됨(-' + full.divergence_invalidated_signal.price_drop_since_pct + '%)';
+        }
+        return base;
+      })()],
       ['4단계 Z-score', s['4_zscore'], 'RSI '+s['4_zscore'].rsi+' (Z-score '+(s['4_zscore'].rsi_zscore_1y??'-')+')'],
       ['5단계 트리거캔들', s['5_trigger_candle'],
         s['5_trigger_candle'].breakout_confirmed
