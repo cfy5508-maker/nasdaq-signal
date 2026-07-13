@@ -211,36 +211,45 @@ def main():
     price_latest = float(c.iloc[pos_latest])
     rsi_latest_low = float(rsi.iloc[pos_latest])
     print(f"  현재 최근저점: {hist.index[pos_latest].date()} 종가{price_latest:.2f} RSI{rsi_latest_low:.1f}")
-    found_invalidation = False
-    for idx in range(len(realtime_lows) - 2, -1, -1):
-        candidate_pos2 = realtime_lows[idx]
-        if candidate_pos2 >= pos_latest:
-            continue
-        if pos_latest - candidate_pos2 > MAX_GAP_DAYS:
-            print(f"  {hist.index[candidate_pos2].date()} 이전은 30일 초과라 탐색 중단")
+
+    current_divergence_present = was_real_divergence if pos1_u is not None else False
+    if not current_divergence_present and pos1_u is not None:
+        rsi_improved_check = rsi2_u > rsi1_u
+        current_divergence_present = rsi_improved_check  # warn(이중바닥)도 포함
+
+    if current_divergence_present:
+        print("  현재 가장 최근 저점쌍이 이미 다이버전스(정석 또는 이중바닥)를 형성 중 -> 무효화 탐색 스킵 (새 사이클 시작됨)")
+    else:
+        found_invalidation = False
+        for idx in range(len(realtime_lows) - 2, -1, -1):
+            candidate_pos2 = realtime_lows[idx]
+            if candidate_pos2 >= pos_latest:
+                continue
+            if pos_latest - candidate_pos2 > MAX_GAP_DAYS:
+                print(f"  {hist.index[candidate_pos2].date()} 이전은 30일 초과라 탐색 중단")
+                break
+            own_candidates = [p for p in realtime_lows if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
+            own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
+            if own_pos1 is None:
+                print(f"  {hist.index[candidate_pos2].date()}: 자기 저점쌍 없음, 스킵")
+                continue
+            own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
+            own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
+            had_pass = bool(own_price2 < own_price1 and own_rsi2 > own_rsi1)
+            print(f"  {hist.index[candidate_pos2].date()} (종가{own_price2:.2f} RSI{own_rsi2:.1f}): 정석다이버전스였나={had_pass}")
+            if not had_pass:
+                continue
+            price_broke = price_latest < own_price2
+            rsi_broke = rsi_latest_low < own_rsi2
+            print(f"    => 가장 가까운 과거 다이버전스로 확정. 가격더뚫림={price_broke}, RSI도더낮음={rsi_broke}")
+            if price_broke and rsi_broke:
+                print(f"    => 다이버전스 무효화 신호 ON")
+                found_invalidation = True
+            else:
+                print(f"    => 다이버전스 무효화 신호 OFF (아직 유효하거나 조건 불충족)")
             break
-        own_candidates = [p for p in realtime_lows if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
-        own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
-        if own_pos1 is None:
-            print(f"  {hist.index[candidate_pos2].date()}: 자기 저점쌍 없음, 스킵")
-            continue
-        own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
-        own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
-        had_pass = bool(own_price2 < own_price1 and own_rsi2 > own_rsi1)
-        print(f"  {hist.index[candidate_pos2].date()} (종가{own_price2:.2f} RSI{own_rsi2:.1f}): 정석다이버전스였나={had_pass}")
-        if not had_pass:
-            continue
-        price_broke = price_latest < own_price2
-        rsi_broke = rsi_latest_low < own_rsi2
-        print(f"    => 가장 가까운 과거 다이버전스로 확정. 가격더뚫림={price_broke}, RSI도더낮음={rsi_broke}")
-        if price_broke and rsi_broke:
-            print(f"    => 다이버전스 무효화 신호 ON")
-            found_invalidation = True
-        else:
-            print(f"    => 다이버전스 무효화 신호 OFF (아직 유효하거나 조건 불충족)")
-        break
-    if not found_invalidation:
-        print("  (탐색 결과: 무효화 신호 없음)")
+        if not found_invalidation:
+            print("  (탐색 결과: 무효화 신호 없음)")
 
 
 if __name__ == "__main__":
