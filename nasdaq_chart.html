@@ -1087,22 +1087,42 @@
 
   function buildAddonRows(full){
     var sa = full.stages_addon;
-    var gateDetail = sa['2_pullback_gate'].near_sma20 && sa['2_pullback_gate'].near_sma40 ? '20일선+40일선 둘다 근접' :
-      sa['2_pullback_gate'].near_sma20 ? '20일선 근접' :
-      sa['2_pullback_gate'].near_sma40 ? '40일선 근접' : '이평선 근접 안됨';
-    var triggerDetail = sa['4_trigger_confirmed'].trigger_confirmed
-      ? ('셋업('+sa['4_trigger_confirmed'].setup_days_ago+'일전) 고가 돌파 확정('+sa['4_trigger_confirmed'].trigger_lag+'일만에)')
-      : sa['4_trigger_confirmed'].setup_confirmed
-        ? ('셋업('+sa['4_trigger_confirmed'].setup_days_ago+'일전) 발생, 아직 돌파 대기중')
-        : '셋업 자체가 없음';
+    var g = sa['2_pullback_gate'];
+    var gateDetail;
+    if (g.near_sma20 && g.near_sma40) {
+      gateDetail = '20일선+40일선 둘다 근접(최근 이평선 위 이력 확인됨)';
+    } else if (g.near_sma20) {
+      gateDetail = '20일선 근접(얕은 눌림, 가중치 0.5배)';
+    } else if (g.near_sma40) {
+      gateDetail = '40일선 근접(깊은 눌림, 가중치 0.75배)';
+    } else if (g.ma_converged_ignored) {
+      gateDetail = '이평선 근접했으나 60일선 수렴으로 무시됨';
+    } else {
+      gateDetail = '이평선 근접 안됨 (또는 최근에 위에 있었던 이력 없음)';
+    }
+
+    var t = sa['4_trigger_confirmed'];
+    var triggerDetail;
+    if (t.trigger_weight_tier === 'reversal_volume') {
+      triggerDetail = '반전캔들(해머/엔걸핑) + 거래량 실림 (가장 강한 신호)';
+    } else if (t.trigger_weight_tier === 'reversal_only') {
+      triggerDetail = '반전캔들(해머/엔걸핑) 확인, 거래량은 평범';
+    } else if (t.trigger_weight_tier === 'wick_volume') {
+      triggerDetail = '긴 아래꼬리 + 거래량 실림';
+    } else if (t.wick_present) {
+      triggerDetail = '긴 아래꼬리만 있음 (거래량 확인 안됨, 약한신호)';
+    } else {
+      triggerDetail = '트리거캔들 없음';
+    }
+
     var stopDetail = full.pullback_stop_signal
       ? ('직전저점 '+full.pullback_stop_signal.stop_reference_price+' 대비 ' + (full.pullback_stop_signal.stopped_out ? '이탈됨(손절)' : '유지중'))
       : '판단불가';
     return [
       ['1단계 펀더멘털', sa['1_fundamentals'], '업사이드 '+(sa['1_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['1_fundamentals'].peg??'-')],
-      ['2단계 눌림목게이트', sa['2_pullback_gate'], gateDetail],
+      ['2단계 눌림목게이트', g, gateDetail],
       ['3단계 RSI존', sa['3_rsi_zone'], 'RSI '+sa['3_rsi_zone'].rsi+' ('+(sa['3_rsi_zone'].rsi>=60?'60이상 강신호':sa['3_rsi_zone'].rsi>=50?'50~60 약신호':'50미만')+')'],
-      ['4단계 셋업/트리거', sa['4_trigger_confirmed'], triggerDetail],
+      ['4단계 트리거캔들', t, triggerDetail],
       ['손절신호(참고)', {status: full.pullback_stop_signal && full.pullback_stop_signal.stopped_out ? 'fail' : 'neutral'}, stopDetail]
     ];
   }
