@@ -54,6 +54,18 @@ def detect_long_lower_wick(o, h, l, c):
     return bool((lower_wick / total_range) >= 0.5)
 
 
+def long_lower_wick_recent(o, h, l, c, lookback_days=3):
+    n = len(c)
+    for days_ago in range(0, lookback_days + 1):
+        idx = n - 1 - days_ago
+        if idx < 0:
+            break
+        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
+        if detect_long_lower_wick(sub_o, sub_h, sub_l, sub_c):
+            return True, days_ago
+    return False, None
+
+
 def trigger_with_breakout(o, h, l, c):
     """최근 1~3일 안에 반전캔들이 확정되고, 그 이후 종가가 그 캔들의 고점을 돌파했는지 확인."""
     n = len(c)
@@ -156,11 +168,11 @@ def main():
     print(f"\n[트리거캔들 진단]")
     today_hammer = detect_hammer(o, h, l, c)
     today_engulf = detect_bullish_engulfing(o, h, l, c)
-    today_wick = detect_long_lower_wick(o, h, l, c)
+    wick_found, wick_days_ago = long_lower_wick_recent(o, h, l, c, lookback_days=3)
     print(f"  오늘 캔들: 시가{float(o.iloc[-1]):.2f} 고가{float(h.iloc[-1]):.2f} 저가{float(l.iloc[-1]):.2f} 종가{float(c.iloc[-1]):.2f}")
     print(f"  오늘이 해머인가: {today_hammer}")
     print(f"  오늘이 불리시엔걸핑인가: {today_engulf}")
-    print(f"  오늘이 긴아래꼬리(완화기준, 범위50%+)인가: {today_wick}")
+    print(f"  최근 3일 안에 긴아래꼬리(완화기준, 범위50%+) 있었는가: {wick_found}" + (f" ({wick_days_ago}일 전)" if wick_found else ""))
 
     breakout_ok, pattern, lookback, detail = trigger_with_breakout(o, h, l, c)
     print(f"\n  [최근 1~3일 반전캔들+돌파 확인]")
@@ -168,10 +180,67 @@ def main():
         print(f"    {lb}일 전 캔들: 해머={is_h} 엔걸핑={is_e} 모닝스타={is_s} | 그날고점{high_val:.2f} 대비 오늘종가 돌파={brk}")
     if breakout_ok:
         print(f"\n  => 판정: PASS ({pattern}, {lookback}일 전 확정 + 돌파 완료)")
-    elif today_wick:
-        print(f"\n  => 판정: WARN (긴 아래꼬리만 있음, 돌파 확정은 없음)")
+    elif wick_found:
+        print(f"\n  => 판정: WARN (긴 아래꼬리 {wick_days_ago}일 전 있음, 돌파 확정은 없음)")
     else:
         print(f"\n  => 판정: FAIL (반전캔들도 없고 긴아래꼬리도 없음)")
+
+    # 상승추세 진입 / 다이버전스 무효화 진단
+    print(f"\n[상승추세 진입 / 다이버전스 무효화 진단]")
+    pos2_u = realtime_lows[-1]
+    candidates_u = [p for p in realtime_lows if p != pos2_u and MIN_GAP_DAYS <= (pos2_u - p) <= MAX_GAP_DAYS]
+    pos1_u = min(candidates_u, key=lambda p: close_values[p]) if candidates_u else None
+    if pos1_u is not None:
+        price1_u, price2_u = float(c.iloc[pos1_u]), float(c.iloc[pos2_u])
+        rsi1_u, rsi2_u = float(rsi.iloc[pos1_u]), float(rsi.iloc[pos2_u])
+        price_today_u = float(c.iloc[-1])
+        was_real_divergence = bool(price2_u < price1_u and rsi2_u > rsi1_u)
+        gain_since_low = (price_today_u - price2_u) / price2_u if price2_u > 0 else 0
+        print(f"  가장최근 저점쌍: 저점1({hist.index[pos1_u].date()} {price1_u:.2f}) -> 저점2({hist.index[pos2_u].date()} {price2_u:.2f})")
+        print(f"  이게 정석 다이버전스였나: {was_real_divergence}")
+        print(f"  저점2 대비 오늘 등락률: {gain_since_low*100:+.1f}%")
+        if was_real_divergence and gain_since_low > TOLERANCE_PCT:
+            print(f"  => 상승추세 진입 신호 ON (오차범위 {TOLERANCE_PCT*100:.0f}% 초과 반등)")
+        else:
+            print(f"  => 상승추세 진입 신호 OFF")
+    else:
+        print("  저점쌍 없음 (간격조건 불충족)")
+
+    print(f"\n  [다이버전스 무효화 탐색 - 최근 저점부터 역순]")
+    pos_latest = realtime_lows[-1]
+    price_latest = float(c.iloc[pos_latest])
+    rsi_latest_low = float(rsi.iloc[pos_latest])
+    print(f"  현재 최근저점: {hist.index[pos_latest].date()} 종가{price_latest:.2f} RSI{rsi_latest_low:.1f}")
+    found_invalidation = False
+    for idx in range(len(realtime_lows) - 2, -1, -1):
+        candidate_pos2 = realtime_lows[idx]
+        if candidate_pos2 >= pos_latest:
+            continue
+        if pos_latest - candidate_pos2 > MAX_GAP_DAYS:
+            print(f"  {hist.index[candidate_pos2].date()} 이전은 30일 초과라 탐색 중단")
+            break
+        own_candidates = [p for p in realtime_lows if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
+        own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
+        if own_pos1 is None:
+            print(f"  {hist.index[candidate_pos2].date()}: 자기 저점쌍 없음, 스킵")
+            continue
+        own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
+        own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
+        had_pass = bool(own_price2 < own_price1 and own_rsi2 > own_rsi1)
+        print(f"  {hist.index[candidate_pos2].date()} (종가{own_price2:.2f} RSI{own_rsi2:.1f}): 정석다이버전스였나={had_pass}")
+        if not had_pass:
+            continue
+        price_broke = price_latest < own_price2
+        rsi_broke = rsi_latest_low < own_rsi2
+        print(f"    => 가장 가까운 과거 다이버전스로 확정. 가격더뚫림={price_broke}, RSI도더낮음={rsi_broke}")
+        if price_broke and rsi_broke:
+            print(f"    => 다이버전스 무효화 신호 ON")
+            found_invalidation = True
+        else:
+            print(f"    => 다이버전스 무효화 신호 OFF (아직 유효하거나 조건 불충족)")
+        break
+    if not found_invalidation:
+        print("  (탐색 결과: 무효화 신호 없음)")
 
 
 if __name__ == "__main__":
