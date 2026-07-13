@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T10:58:44.840567+00:00",
+  "updated": "2026-07-13T11:09:18.556586+00:00",
   "rankings": [
     {
       "ticker": "AMSC",
@@ -124,7 +124,12 @@
         "reasons": []
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 237,
+        "days_since_prior_divergence": 9,
+        "price_drop_since_pct": 5.4
+      },
       "divergence_stop_signal": null
     },
     {
@@ -223,12 +228,7 @@
         "gain_since_low_pct": 22.8,
         "divergence_date_index": 248
       },
-      "divergence_invalidated_signal": {
-        "active": true,
-        "prior_divergence_date_index": 247,
-        "days_since_prior_divergence": 1,
-        "price_drop_since_pct": 0.6
-      },
+      "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -245,17 +245,8 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "급등 기준 (+25 이상)",
-            "detail": "전일 18 → 오늘 65 (전일 대비 +47)"
-          },
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
