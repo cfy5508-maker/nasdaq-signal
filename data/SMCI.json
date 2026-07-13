@@ -1,9 +1,9 @@
 {
-  "ticker": "AMSC",
-  "price": 35.96,
-  "updated": "2026-07-13T10:30:38.160996+00:00",
+  "ticker": "SMCI",
+  "price": 28.31,
+  "updated": "2026-07-13T10:30:43.228744+00:00",
   "as_of_date": "2026-07-10",
-  "score": 77,
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -15,43 +15,43 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 81.7,
-      "forward_pe": 24.24275,
-      "peg": 0.74
+      "upside_pct": 31.6,
+      "forward_pe": 8.926065,
+      "peg": 0.91
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
-      "divergence_present": true,
-      "gap_days": 17,
-      "signal_fresh": false
+      "status": "fail",
+      "bullish_divergence": false,
+      "divergence_present": false,
+      "gap_days": 3,
+      "signal_fresh": null
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 38.0,
-      "rsi_zscore_1y": -1.01
+      "status": "fail",
+      "rsi": 43.3,
+      "rsi_zscore_1y": -0.3
     },
     "5_trigger_candle": {
-      "status": "warn",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "status": "pass",
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 2,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 25.0
+      "wick_days_ago": 3,
+      "adx_reference": 22.2
     }
   },
-  "entry_atr_stop_pct": 12.4,
+  "entry_atr_stop_pct": 13.4,
   "score_addon": 35,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 81.7,
-      "forward_pe": 24.24275,
-      "peg": 0.74
+      "upside_pct": 31.6,
+      "forward_pe": 8.926065,
+      "peg": 0.91
     },
     "2_pullback_gate": {
       "status": "fail",
@@ -60,7 +60,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 38.0
+      "rsi": 43.3
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -70,15 +70,20 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.3
+      "stop_pct_from_20sma": 5.1
     }
   },
-  "sector": "Industrials",
+  "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 246,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 3.5
+  },
   "pullback_stop_signal": {
-    "stop_reference_price": 35.55,
+    "stop_reference_price": 26.25,
     "stopped_out": false
   }
 }
