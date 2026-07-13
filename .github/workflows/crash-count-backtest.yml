@@ -1,0 +1,29 @@
+name: Crash Count Backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      n_pct:
+        description: "하락캔들 기준(%, 예: 3)"
+        required: false
+        default: "3"
+      lookback_days:
+        description: "몇일 이내로 셀지"
+        required: false
+        default: "20"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance numpy
+
+      - name: Run backtest
+        run: python crash_count_backtest.py "${{ github.event.inputs.n_pct }}" "${{ github.event.inputs.lookback_days }}"
