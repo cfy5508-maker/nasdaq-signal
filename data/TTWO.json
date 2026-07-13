@@ -1,22 +1,28 @@
 {
   "ticker": "TTWO",
-  "price": 243.2,
-  "updated": "2026-07-13T18:37:39.894157+00:00",
-  "as_of_date": "2026-07-10",
+  "price": 244.1,
+  "updated": "2026-07-13T21:16:02.012306+00:00",
+  "as_of_date": "2026-07-13",
   "score": 40,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.9,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 16.8,
-      "forward_pe": 24.49589,
+      "upside_pct": 16.4,
+      "forward_pe": 24.4064,
       "peg": 3.4
     },
     "3_divergence_gate": {
@@ -24,12 +30,12 @@
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 20,
-      "signal_fresh": true
+      "signal_fresh": false
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.8,
-      "rsi_zscore_1y": 0.3
+      "rsi": 55.6,
+      "rsi_zscore_1y": 0.37
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -41,19 +47,19 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.1,
+      "adx_reference": 26.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 5.3,
-  "score_addon": 64,
+  "entry_atr_stop_pct": 5.1,
+  "score_addon": 79,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 16.8,
-      "forward_pe": 24.49589,
+      "upside_pct": 16.4,
+      "forward_pe": 24.4064,
       "peg": 3.4
     },
     "2_pullback_gate": {
@@ -64,17 +70,17 @@
     },
     "3_rsi_zone": {
       "status": "warn",
-      "rsi": 54.8
+      "rsi": 55.6
     },
     "4_trigger_confirmed": {
-      "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
+      "status": "warn",
+      "setup_confirmed": true,
+      "setup_days_ago": 1,
       "trigger_confirmed": false,
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.5
+      "stop_pct_from_20sma": 1.2
     }
   },
   "sector": "Communication Services",

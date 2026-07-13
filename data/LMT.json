@@ -1,22 +1,28 @@
 {
   "ticker": "LMT",
-  "price": 523.22,
-  "updated": "2026-07-13T18:37:33.223924+00:00",
-  "as_of_date": "2026-07-10",
+  "price": 520.68,
+  "updated": "2026-07-13T21:15:56.740021+00:00",
+  "as_of_date": "2026-07-13",
   "score": 40,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -21.2,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -18.8,
+      "volume_trend_pct_3d": -8.0,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.77,
+      "volatility_label": "정상",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.7,
-      "forward_pe": 16.161646,
+      "upside_pct": 18.3,
+      "forward_pe": 16.231342,
       "peg": 1.11
     },
     "3_divergence_gate": {
@@ -28,8 +34,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.2,
-      "rsi_zscore_1y": -0.18
+      "rsi": 49.1,
+      "rsi_zscore_1y": -0.25
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -37,23 +43,23 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.0,
+      "adx_reference": 15.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
   "entry_atr_stop_pct": 3.9,
-  "score_addon": 79,
+  "score_addon": 71,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.7,
-      "forward_pe": 16.161646,
+      "upside_pct": 18.3,
+      "forward_pe": 16.231342,
       "peg": 1.11
     },
     "2_pullback_gate": {
@@ -63,18 +69,18 @@
       "ma_converged_ignored": false
     },
     "3_rsi_zone": {
-      "status": "warn",
-      "rsi": 50.2
+      "status": "fail",
+      "rsi": 49.1
     },
     "4_trigger_confirmed": {
       "status": "warn",
       "setup_confirmed": true,
-      "setup_days_ago": 2,
+      "setup_days_ago": 1,
       "trigger_confirmed": false,
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.4
+      "stop_pct_from_20sma": 0.2
     }
   },
   "sector": "Industrials",

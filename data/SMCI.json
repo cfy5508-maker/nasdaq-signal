@@ -1,22 +1,28 @@
 {
   "ticker": "SMCI",
-  "price": 28.31,
-  "updated": "2026-07-13T18:37:34.214825+00:00",
-  "as_of_date": "2026-07-10",
-  "score": 30,
+  "price": 27.66,
+  "updated": "2026-07-13T21:15:57.690132+00:00",
+  "as_of_date": "2026-07-13",
+  "score": 27,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.9,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.637568,
+      "upside_pct": 34.7,
+      "forward_pe": 8.721123,
       "peg": 0.91
     },
     "3_divergence_gate": {
@@ -28,32 +34,32 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.3,
-      "rsi_zscore_1y": -0.29
+      "rsi": 41.9,
+      "rsi_zscore_1y": -0.4
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "불리시엔걸핑",
-      "days_ago": 2,
+      "status": "fail",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 3,
-      "adx_reference": 22.2,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 22.0,
       "volume_confirmed": false,
-      "trigger_day_volume": 37264400,
-      "avg_volume_divergence_window": 41178475
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 13.4,
+  "entry_atr_stop_pct": 13.2,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 31.6,
-      "forward_pe": 8.637568,
+      "upside_pct": 34.7,
+      "forward_pe": 8.721123,
       "peg": 0.91
     },
     "2_pullback_gate": {
@@ -64,7 +70,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 43.3
+      "rsi": 41.9
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +80,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.1
+      "stop_pct_from_20sma": 6.8
     }
   },
   "sector": "Technology",

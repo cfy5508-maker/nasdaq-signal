@@ -1,35 +1,41 @@
 {
   "ticker": "NXT",
-  "price": 111.5,
-  "updated": "2026-07-13T18:37:31.452916+00:00",
-  "as_of_date": "2026-07-10",
-  "score": 60,
+  "price": 99.67,
+  "updated": "2026-07-13T21:15:54.977837+00:00",
+  "as_of_date": "2026-07-13",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.9,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.3,
-      "forward_pe": 17.445663,
+      "upside_pct": 51.3,
+      "forward_pe": 16.930956,
       "peg": 3.91
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
-      "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": false
+      "divergence_present": false,
+      "gap_days": 10,
+      "signal_fresh": null
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 43.5,
-      "rsi_zscore_1y": -1.09
+      "status": "pass",
+      "rsi": 35.9,
+      "rsi_zscore_1y": -1.81
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -40,20 +46,20 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 15.5,
+      "wick_days_ago": 3,
+      "adx_reference": 16.3,
       "volume_confirmed": false,
       "trigger_day_volume": 1921600,
-      "avg_volume_divergence_window": 6442529
+      "avg_volume_divergence_window": 5011757
     }
   },
-  "entry_atr_stop_pct": 11.6,
+  "entry_atr_stop_pct": 13.4,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.3,
-      "forward_pe": 17.445663,
+      "upside_pct": 51.3,
+      "forward_pe": 16.930956,
       "peg": 3.91
     },
     "2_pullback_gate": {
@@ -64,7 +70,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 43.5
+      "rsi": 35.9
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +80,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.2
+      "stop_pct_from_20sma": 16.7
     }
   },
   "sector": "Technology",
@@ -82,7 +88,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 108.85,
+    "stop_reference_price": 99.67,
     "stopped_out": false
   },
   "divergence_stop_signal": null

@@ -1,22 +1,28 @@
 {
   "ticker": "LASR",
-  "price": 72.05,
-  "updated": "2026-07-13T18:37:37.474443+00:00",
-  "as_of_date": "2026-07-10",
+  "price": 68.79,
+  "updated": "2026-07-13T21:15:59.918840+00:00",
+  "as_of_date": "2026-07-13",
   "score": 27,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.9,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 25.9,
-      "forward_pe": 101.32334,
+      "upside_pct": 31.9,
+      "forward_pe": 101.82664,
       "peg": 1.78
     },
     "3_divergence_gate": {
@@ -28,8 +34,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.2,
-      "rsi_zscore_1y": -0.32
+      "rsi": 51.6,
+      "rsi_zscore_1y": -0.71
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -47,24 +53,24 @@
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 13.2,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 13.9,
+  "score_addon": 64,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 25.9,
-      "forward_pe": 101.32334,
+      "upside_pct": 31.9,
+      "forward_pe": 101.82664,
       "peg": 1.78
     },
     "2_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
-      "near_sma40": false,
+      "near_sma40": true,
       "ma_converged_ignored": false
     },
     "3_rsi_zone": {
       "status": "warn",
-      "rsi": 55.2
+      "rsi": 51.6
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,15 +80,15 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.5
+      "stop_pct_from_20sma": 4.2
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "days_since_divergence": 2,
-    "gain_since_low_pct": 22.8,
+    "days_since_divergence": 3,
+    "gain_since_low_pct": 17.2,
     "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,

@@ -1,35 +1,41 @@
 {
   "ticker": "IREN",
-  "price": 41.14,
-  "updated": "2026-07-13T18:37:43.777041+00:00",
-  "as_of_date": "2026-07-10",
-  "score": 30,
+  "price": 38.98,
+  "updated": "2026-07-13T21:16:05.925064+00:00",
+  "as_of_date": "2026-07-13",
+  "score": 57,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.9,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.7,
-      "forward_pe": -40.861702,
+      "upside_pct": 107.6,
+      "forward_pe": -41.468086,
       "peg": 3.11
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
-      "divergence_present": false,
-      "gap_days": 3,
-      "signal_fresh": null
+      "divergence_present": true,
+      "gap_days": 6,
+      "signal_fresh": true
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 38.6,
-      "rsi_zscore_1y": -1.24
+      "rsi": 36.3,
+      "rsi_zscore_1y": -1.4
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -41,19 +47,19 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.4,
+      "adx_reference": 29.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 16.9,
+  "entry_atr_stop_pct": 17.7,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.7,
-      "forward_pe": -40.861702,
+      "upside_pct": 107.6,
+      "forward_pe": -41.468086,
       "peg": 3.11
     },
     "2_pullback_gate": {
@@ -64,7 +70,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 38.6
+      "rsi": 36.3
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +80,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 20.9
+      "stop_pct_from_20sma": 25.3
     }
   },
   "sector": "Financial Services",
@@ -82,7 +88,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 38.82,
+    "stop_reference_price": 38.98,
     "stopped_out": false
   },
   "divergence_stop_signal": null
