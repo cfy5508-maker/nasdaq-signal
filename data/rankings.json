@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T22:39:22.721094+00:00",
+  "updated": "2026-07-13T23:07:51.813541+00:00",
   "rankings": [
     {
       "ticker": "RKLB",
@@ -61,6 +61,38 @@
         "reasons": []
       },
       "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "STZ",
+      "score": 47,
+      "score_addon": 36,
+      "price": 134.51,
+      "upside_pct": 27.1,
+      "rsi": 42.0,
+      "divergence": "neutral",
+      "trigger": "pass",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "구간 상향 돌파",
+            "detail": null
+          }
+        ]
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": []
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 3,
+        "gain_since_low_pct": 3.2,
+        "divergence_date_index": 247,
+        "was_pass_type": true
+      },
       "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
@@ -149,6 +181,60 @@
       "divergence_stop_signal": null
     },
     {
+      "ticker": "PFE",
+      "score": 33,
+      "score_addon": 21,
+      "price": 24.48,
+      "upside_pct": 18.2,
+      "rsi": 46.3,
+      "divergence": "neutral",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": []
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": []
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 5,
+        "gain_since_low_pct": 3.2,
+        "divergence_date_index": 245,
+        "was_pass_type": false
+      },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "LASR",
+      "score": 33,
+      "score_addon": 61,
+      "price": 68.79,
+      "upside_pct": 31.9,
+      "rsi": 51.6,
+      "divergence": "neutral",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": []
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": []
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 3,
+        "gain_since_low_pct": 17.2,
+        "divergence_date_index": 247,
+        "was_pass_type": true
+      },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
       "ticker": "TOYO",
       "score": 30,
       "score_addon": 21,
@@ -172,32 +258,6 @@
         "days_since_prior_divergence": 2,
         "price_drop_since_pct": 6.8
       },
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "STZ",
-      "score": 30,
-      "score_addon": 36,
-      "price": 134.51,
-      "upside_pct": 27.1,
-      "rsi": 42.0,
-      "divergence": "fail",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": []
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 3,
-        "gain_since_low_pct": 3.2,
-        "divergence_date_index": 247
-      },
-      "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -295,27 +355,6 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "PFE",
-      "score": 27,
-      "score_addon": 21,
-      "price": 24.48,
-      "upside_pct": 18.2,
-      "rsi": 46.3,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": []
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
       "ticker": "SMCI",
       "score": 27,
       "score_addon": 21,
@@ -339,32 +378,6 @@
         "days_since_prior_divergence": 1,
         "price_drop_since_pct": 3.5
       },
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "LASR",
-      "score": 27,
-      "score_addon": 61,
-      "price": 68.79,
-      "upside_pct": 31.9,
-      "rsi": 51.6,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": []
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 3,
-        "gain_since_low_pct": 17.2,
-        "divergence_date_index": 247
-      },
-      "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
     {

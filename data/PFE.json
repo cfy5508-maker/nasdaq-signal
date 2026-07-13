@@ -1,9 +1,9 @@
 {
   "ticker": "PFE",
   "price": 24.48,
-  "updated": "2026-07-13T22:39:07.147711+00:00",
+  "updated": "2026-07-13T23:07:35.262077+00:00",
   "as_of_date": "2026-07-13",
-  "score": 27,
+  "score": 33,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -26,7 +26,7 @@
       "peg": 2.83
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "neutral",
       "bullish_divergence": false,
       "divergence_present": false,
       "gap_days": 6,
@@ -89,7 +89,13 @@
   },
   "sector": "Healthcare",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "days_since_divergence": 5,
+    "gain_since_low_pct": 3.2,
+    "divergence_date_index": 245,
+    "was_pass_type": false
+  },
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 23.72,
