@@ -1,7 +1,7 @@
 {
   "ticker": "LMT",
-  "price": 518.18,
-  "updated": "2026-07-13T17:33:37.795108+00:00",
+  "price": 518.42,
+  "updated": "2026-07-13T17:34:59.926837+00:00",
   "as_of_date": "2026-07-13",
   "score": 40,
   "stages": {
@@ -10,25 +10,25 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -63.2,
+      "volume_diff_pct_3m": -63.1,
       "price_up_latest": false
     },
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 18.8,
-      "forward_pe": 16.153292,
+      "forward_pe": 16.16089,
       "peg": 1.11
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
-      "gap_days": 12,
-      "signal_fresh": true
+      "gap_days": 10,
+      "signal_fresh": false
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.1,
+      "rsi": 48.2,
       "rsi_zscore_1y": -0.31
     },
     "5_trigger_candle": {
@@ -53,7 +53,7 @@
     "1_fundamentals": {
       "status": "pass",
       "upside_pct": 18.8,
-      "forward_pe": 16.153292,
+      "forward_pe": 16.16089,
       "peg": 1.11
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 48.1
+      "rsi": 48.2
     },
     "4_trigger_confirmed": {
       "status": "warn",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.3
+      "stop_pct_from_20sma": 0.2
     }
   },
   "sector": "Industrials",
@@ -82,7 +82,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 518.18,
+    "stop_reference_price": 518.26,
     "stopped_out": false
   },
   "divergence_stop_signal": null
