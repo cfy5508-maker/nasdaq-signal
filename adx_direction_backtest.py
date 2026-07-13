@@ -88,15 +88,35 @@ def analyze_ticker(ticker):
             continue  # pass 케이스만(정석 다이버전스) 대상으로 ADX 방향 검증
 
         adx_today = float(adx_series.iloc[i]) if not pd.isna(adx_series.iloc[i]) else None
-        adx_5ago = float(adx_series.iloc[i - 5]) if i >= 5 and not pd.isna(adx_series.iloc[i - 5]) else None
-        if adx_today is None or adx_5ago is None:
+        adx1 = float(adx_series.iloc[pos1]) if not pd.isna(adx_series.iloc[pos1]) else None
+        adx2 = float(adx_series.iloc[pos2]) if not pd.isna(adx_series.iloc[pos2]) else None
+        if adx_today is None or adx1 is None or adx2 is None:
             continue
-        adx_rising = adx_today > adx_5ago
+        # 다이버전스 구간(저점1~저점2) 내부에서만 ADX 변화를 봄
+        adx_declining_within = adx2 < adx1  # 정석 이론: RSI개선+ADX하락이 추세소진 신호
+        adx_change_within = adx2 - adx1
+
+        # ADX 종목별 개별 Z-score (참고용으로 계속 유지)
+        adx_window = adx_series.iloc[max(0, i - 252):i + 1].dropna()
+        adx_zscore = None
+        if len(adx_window) >= 60:
+            adx_mean = float(adx_window.mean())
+            adx_std = float(adx_window.std())
+            if adx_std > 0:
+                adx_zscore = (adx_today - adx_mean) / adx_std
+
+        # 가격 하락폭 대비 RSI 개선폭의 비율 - "기울기 균형" 가설 검증용
+        price_drop_pct = (price1 - price2) / price1 * 100
+        rsi_rise = rsi2 - rsi1
+        slope_ratio = (rsi_rise / price_drop_pct) if price_drop_pct > 0 else None
 
         entry = float(c.iloc[i])
         fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
 
-        rows.append({"adx": adx_today, "adx_rising": adx_rising, "fwd_return": fwd_return, "win": fwd_return > 0})
+        rows.append({"adx": adx_today, "adx_zscore": adx_zscore,
+                     "adx_declining_within": adx_declining_within, "adx_change_within": adx_change_within,
+                     "price_drop_pct": price_drop_pct, "rsi_rise": rsi_rise, "slope_ratio": slope_ratio,
+                     "fwd_return": fwd_return, "win": fwd_return > 0})
     return rows
 
 
@@ -126,26 +146,45 @@ def main():
     baseline_wr, baseline_avg = win_rate(all_rows)
     print(f"전체 기준선: 승률 {baseline_wr:.1f}%\n")
 
-    low_adx = [r for r in all_rows if r["adx"] < 22]
-    print(f"=== ADX<22 구간(현재 fail 처리) 세부 분석: 표본 {len(low_adx)}건 ===")
-    wr, avg = win_rate(low_adx)
-    if wr is not None:
-        print(f"전체: 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p\n")
-
-    rising = [r for r in low_adx if r["adx_rising"]]
-    falling = [r for r in low_adx if not r["adx_rising"]]
+    print(f"=== 핵심 검증: 다이버전스 구간(저점1~저점2) 내부에서 ADX 변화 방향 ===")
+    print("(정석 이론: RSI는 개선되는데 ADX는 하락 = 추세소진 신호 = 좋은 신호일 것)")
+    declining = [r for r in all_rows if r["adx_declining_within"]]
+    rising = [r for r in all_rows if not r["adx_declining_within"]]
+    wr_d, avg_d = win_rate(declining)
     wr_r, avg_r = win_rate(rising)
-    wr_f, avg_f = win_rate(falling)
+    if wr_d is not None:
+        print(f"  구간내 ADX 하락(저점2<저점1, 추세소진 이론과 일치): 표본 {len(declining)}건 | 승률 {wr_d:.1f}% | 기준대비 {wr_d-baseline_wr:+.1f}%p | 평균수익률 {avg_d:+.2f}%")
     if wr_r is not None:
-        print(f"  ADX 회복중(5일전보다 상승): 표본 {len(rising)}건 | 승률 {wr_r:.1f}% | 기준대비 {wr_r-baseline_wr:+.1f}%p")
-    if wr_f is not None:
-        print(f"  ADX 계속하락(5일전보다 하락): 표본 {len(falling)}건 | 승률 {wr_f:.1f}% | 기준대비 {wr_f-baseline_wr:+.1f}%p")
+        print(f"  구간내 ADX 상승(저점2>=저점1, 추세소진 이론과 불일치): 표본 {len(rising)}건 | 승률 {wr_r:.1f}% | 기준대비 {wr_r-baseline_wr:+.1f}%p | 평균수익률 {avg_r:+.2f}%")
 
     print(f"\n=== 참고: ADX>=22 구간(현재 pass/warn) ===")
     high_adx = [r for r in all_rows if r["adx"] >= 22]
     wr_h, avg_h = win_rate(high_adx)
     if wr_h is not None:
         print(f"전체: 표본 {len(high_adx)}건 | 승률 {wr_h:.1f}% | 기준대비 {wr_h-baseline_wr:+.1f}%p")
+
+    print(f"\n=== ADX Z-score(종목별 개별계산) 구간별 승률 ===")
+    z_rows = [r for r in all_rows if r["adx_zscore"] is not None]
+    for lo, hi in [(-999, -1.0), (-1.0, -0.5), (-0.5, 0), (0, 0.5), (0.5, 1.0), (1.0, 1.5), (1.5, 999)]:
+        sub = [r for r in z_rows if lo <= r["adx_zscore"] < hi]
+        wr, avg = win_rate(sub)
+        if wr is not None:
+            lo_l = str(lo) if lo > -999 else "~"
+            hi_l = str(hi) if hi < 999 else "이상"
+            print(f"  {lo_l}~{hi_l}: 표본 {len(sub)} | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p")
+
+    print(f"\n=== 가격하락폭 대비 RSI개선폭 비율(slope_ratio) 구간별 승률 ===")
+    print("(비율이 낮음=가격만 많이 빠지고 RSI는 조금 개선 / 비율이 높음=가격은 조금 빠졌는데 RSI는 많이 개선)")
+    sr_rows = [r for r in all_rows if r["slope_ratio"] is not None]
+    ratios = np.array([r["slope_ratio"] for r in sr_rows])
+    print(f"분포: 평균 {ratios.mean():.2f} | 중앙값 {np.median(ratios):.2f} | 5~95% 범위 {np.percentile(ratios,5):.2f}~{np.percentile(ratios,95):.2f}\n")
+    for lo, hi in [(-999, 1), (1, 2), (2, 4), (4, 7), (7, 12), (12, 999)]:
+        sub = [r for r in sr_rows if lo <= r["slope_ratio"] < hi]
+        wr, avg = win_rate(sub)
+        if wr is not None:
+            lo_l = str(lo) if lo > -999 else "~"
+            hi_l = str(hi) if hi < 999 else "이상"
+            print(f"  {lo_l}~{hi_l}: 표본 {len(sub)} | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p")
 
 
 if __name__ == "__main__":
