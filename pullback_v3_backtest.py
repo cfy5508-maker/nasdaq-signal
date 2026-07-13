@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 from ta.volume import OnBalanceVolumeIndicator
+from ta.momentum import RSIIndicator
 
 LARGECAP_TICKERS = [
     "NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD",
@@ -71,6 +72,9 @@ def analyze_ticker(ticker):
     close_values = c.values
     daily_ret = c.pct_change()
     sma40 = c.rolling(40).mean()
+    sma20 = c.rolling(20).mean()
+    sma60 = c.rolling(60).mean()
+    rsi = RSIIndicator(c, window=14).rsi()
     obv = OnBalanceVolumeIndicator(c, v).on_balance_volume()
     obv_values = obv.values
     n = len(hist)
@@ -113,6 +117,16 @@ def analyze_ticker(ticker):
         sma40_20ago = float(sma40.iloc[i-20]) if i >= 20 and not pd.isna(sma40.iloc[i-20]) else None
         sma40_uptrend = bool(sma40_now is not None and sma40_20ago is not None and sma40_now > sma40_20ago)
 
+        # 20일선/60일선 근접 여부(±3% 이내) + 그 시점 RSI
+        MA_TOLERANCE = 0.03
+        sma20_now = float(sma20.iloc[i]) if not pd.isna(sma20.iloc[i]) else None
+        sma60_now = float(sma60.iloc[i]) if not pd.isna(sma60.iloc[i]) else None
+        near_sma20 = bool(sma20_now is not None and abs(close_values[i] - sma20_now) / sma20_now <= MA_TOLERANCE)
+        near_sma60 = bool(sma60_now is not None and abs(close_values[i] - sma60_now) / sma60_now <= MA_TOLERANCE)
+        near_any_ma = near_sma20 or near_sma60
+        rsi_now = float(rsi.iloc[i]) if not pd.isna(rsi.iloc[i]) else None
+        rsi_above_50 = bool(rsi_now is not None and rsi_now >= 50)
+
         recent_obv_low, prior_obv_low = obv_lows_upto[-1], obv_lows_upto[-2]
         cond5_obv_rising = bool(obv_values[recent_obv_low] > obv_values[prior_obv_low])
 
@@ -148,6 +162,8 @@ def analyze_ticker(ticker):
             "cond4_above_sma40": cond4_above_sma40,
             "dist_sma40_pct": dist_sma40_pct,
             "sma40_uptrend": sma40_uptrend,
+            "near_any_ma": near_any_ma, "near_sma20": near_sma20, "near_sma60": near_sma60,
+            "rsi_now": rsi_now, "rsi_above_50": rsi_above_50,
             "cond5_obv_rising": cond5_obv_rising,
             "obv_slope_10_norm": obv_slope_10_norm,
             "has_trigger": has_trigger,
@@ -258,6 +274,40 @@ def main():
         print(f"  양수(상승중): 표본 {len(obv_pos)} | 승률 {wr_p:.1f}% | 기준대비 {wr_p-baseline_wr:+.1f}%p")
     if wr_ng is not None:
         print(f"  음수(하락중): 표본 {len(obv_neg)} | 승률 {wr_ng:.1f}% | 기준대비 {wr_ng-baseline_wr:+.1f}%p")
+
+    print("\n=== 20일선/60일선 근접(±3%) 여부 ===")
+    near = [r for r in all_rows if r["near_any_ma"]]
+    far = [r for r in all_rows if not r["near_any_ma"]]
+    wr_near, avg_near = win_rate(near)
+    wr_far, avg_far = win_rate(far)
+    if wr_near is not None:
+        print(f"  근접: 표본 {len(near)} | 승률 {wr_near:.1f}% | 기준대비 {wr_near-baseline_wr:+.1f}%p")
+    if wr_far is not None:
+        print(f"  비근접: 표본 {len(far)} | 승률 {wr_far:.1f}% | 기준대비 {wr_far-baseline_wr:+.1f}%p")
+
+    print("\n=== 핵심 검증: 20/60일선 근접 + RSI50이상 조합 ===")
+    combos = [
+        ("근접+RSI50이상", lambda r: r["near_any_ma"] and r["rsi_above_50"]),
+        ("근접+RSI50미만", lambda r: r["near_any_ma"] and not r["rsi_above_50"]),
+        ("비근접+RSI50이상", lambda r: not r["near_any_ma"] and r["rsi_above_50"]),
+        ("비근접+RSI50미만", lambda r: not r["near_any_ma"] and not r["rsi_above_50"]),
+    ]
+    for label, cond in combos:
+        sub = [r for r in all_rows if r["rsi_now"] is not None and cond(r)]
+        wr, avg = win_rate(sub)
+        if wr is not None:
+            print(f"  {label}: 표본 {len(sub)} | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p | 평균수익률 {avg:+.2f}%")
+
+    print("\n=== 근접+RSI50이상 구간에서 트리거캔들 유무 ===")
+    target = [r for r in all_rows if r["near_any_ma"] and r["rsi_above_50"]]
+    t_yes = [r for r in target if r["has_trigger"]]
+    t_no = [r for r in target if not r["has_trigger"]]
+    wr_ty, avg_ty = win_rate(t_yes)
+    wr_tn, avg_tn = win_rate(t_no)
+    if wr_ty is not None:
+        print(f"  트리거O: 표본 {len(t_yes)} | 승률 {wr_ty:.1f}% | 기준대비 {wr_ty-baseline_wr:+.1f}%p")
+    if wr_tn is not None:
+        print(f"  트리거X: 표본 {len(t_no)} | 승률 {wr_tn:.1f}% | 기준대비 {wr_tn-baseline_wr:+.1f}%p")
 
     print("\n=== 기여도(충족시 승률 개선폭) 순위 - 1~6번 조건 ===")
     diffs.sort(key=lambda x: x[1], reverse=True)
