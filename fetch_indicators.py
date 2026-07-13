@@ -412,23 +412,30 @@ def analyze(ticker, trim_days=0, write_file=True):
         price_today = float(c.iloc[-1])
         within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
 
-        if pos1 is not None and (is_today_new_low or within_tolerance):
+        if pos1 is not None:
             price1, price2 = float(c.iloc[pos1]), price2_raw
             rsi1, rsi2 = float(rsi.iloc[pos1]), float(rsi.iloc[pos2])
             if not (pd.isna(rsi1) or pd.isna(rsi2)):
                 price_lower_low_gate = price2 < price1
                 rsi_improved = rsi2 > rsi1
-                if price_lower_low_gate and rsi_improved:
-                    stage_divergence = "pass"      # 정석 다이버전스
-                    bullish_divergence = True
-                    divergence_present = True
-                    signal_fresh = is_today_new_low
-                elif rsi_improved:
-                    stage_divergence = "warn"      # 가격은 안 낮아졌지만 RSI는 개선(이중바닥 성격)
-                    divergence_present = True
-                    signal_fresh = is_today_new_low
+                if is_today_new_low or within_tolerance:
+                    if price_lower_low_gate and rsi_improved:
+                        stage_divergence = "pass"      # 정석 다이버전스
+                        bullish_divergence = True
+                        divergence_present = True
+                        signal_fresh = is_today_new_low
+                    elif rsi_improved:
+                        stage_divergence = "warn"      # 가격은 안 낮아졌지만 RSI는 개선(이중바닥 성격)
+                        divergence_present = True
+                        signal_fresh = is_today_new_low
+                    else:
+                        stage_divergence = "fail"      # RSI도 개선 안 됨
                 else:
-                    stage_divergence = "fail"      # RSI도 개선 안 됨
+                    # 오차범위(3%)를 이미 넘어선 상태(가격이 그만큼 반등함).
+                    # RSI가 개선됐던 저점쌍이었다면, 이건 "다이버전스 실패"가 아니라
+                    # "이미 성공해서 상승추세로 넘어간 것"이므로 위반(fail) 대신 중립으로 본다.
+                    # (실제 방향 확인은 uptrend_entry_signal이 담당)
+                    stage_divergence = "neutral" if rsi_improved else "fail"
 
     # 상승추세 진입 신호: 30일 이내에 정석 다이버전스가 있었지만, 그 이후 가격이
     # 오차범위(3%)를 넘어서 확실히 반등한 경우. 신규진입 점수(캡 30/60점)와는 별개로,
@@ -451,12 +458,15 @@ def analyze(ticker, trim_days=0, write_file=True):
                                         not pd.isna(rsi1_u) and not pd.isna(rsi2_u))
             gain_since_low = (price_today_u - price2_u) / price2_u if price2_u > 0 else 0
             already_broke_tolerance = gain_since_low > TOLERANCE_PCT
-            if was_real_divergence and already_broke_tolerance:
+            # pass(정석)든 warn(이중바닥)이든, RSI가 개선된 저점쌍이었다면 "다이버전스 성립"으로 보고
+            # 상승추세 진입 신호를 켠다 (was_real_divergence만 쓰면 이중바닥 케이스를 놓침 - PFE에서 확인된 버그)
+            if pair_rsi_improved and already_broke_tolerance:
                 uptrend_entry_signal = {
                     "active": True,
                     "days_since_divergence": (len(close_values) - 1) - pos2_u,
                     "gain_since_low_pct": round(gain_since_low * 100, 1),
                     "divergence_date_index": pos2_u,
+                    "was_pass_type": was_real_divergence,
                 }
 
     # 다이버전스 무효화 신호: 과거(최근 30일 내)에 정석 다이버전스(pass)가 있었는데,
