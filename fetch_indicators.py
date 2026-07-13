@@ -323,6 +323,47 @@ def analyze(ticker, trim_days=0, write_file=True):
                     "divergence_date_index": pos2_u,
                 }
 
+    # 다이버전스 무효화 신호: 과거(최근 30일 내)에 정석 다이버전스(pass)가 있었는데,
+    # 그 이후 가격이 그 저점보다 더 뚫렸고(신저점 갱신) + RSI도 같이 더 낮아진 경우.
+    # "반등 기대가 깨지고 계속 하락 중"이라는 뜻. 점수 계산에는 반영하지 않는 참고용.
+    divergence_invalidated_signal = None
+    if len(realtime_lows) >= 3:
+        pos_latest = realtime_lows[-1]  # 가장 최근 저점(=현재 진행 중인 하락의 끝)
+        price_latest = float(c.iloc[pos_latest])
+        rsi_latest_low = float(rsi.iloc[pos_latest])
+        # 가장 최근 저점보다 이전에, "정석 다이버전스가 확정됐었던 저점"이 있었는지
+        # 최근 것부터 역순으로, 30일 이내 범위에서 탐색
+        for idx in range(len(realtime_lows) - 2, -1, -1):
+            candidate_pos2 = realtime_lows[idx]
+            if candidate_pos2 >= pos_latest:
+                continue
+            if pos_latest - candidate_pos2 > MAX_GAP_DAYS:
+                break  # 30일 넘게 과거로 가면 더 볼 필요 없음
+            # 이 candidate_pos2 시점에 정석 다이버전스가 있었는지, 그 자신의 pos1을 구해 확인
+            own_candidates = [p for p in realtime_lows
+                               if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
+            own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
+            if own_pos1 is None:
+                continue
+            own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
+            own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
+            if pd.isna(own_rsi1) or pd.isna(own_rsi2):
+                continue
+            had_pass_divergence = bool(own_price2 < own_price1 and own_rsi2 > own_rsi1)
+            if not had_pass_divergence:
+                continue
+            # 정석 다이버전스가 있었던 저점을 찾음 -> 이후 가격/RSI가 더 무너졌는지 확인
+            price_broke_down = price_latest < own_price2
+            rsi_broke_down = rsi_latest_low < own_rsi2
+            if price_broke_down and rsi_broke_down:
+                divergence_invalidated_signal = {
+                    "active": True,
+                    "prior_divergence_date_index": candidate_pos2,
+                    "days_since_prior_divergence": pos_latest - candidate_pos2,
+                    "price_drop_since_pct": round((own_price2 - price_latest) / own_price2 * 100, 1),
+                }
+            break  # 가장 가까운 과거 다이버전스 하나만 확인하고 종료
+
     # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 평균 대비
     # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
     # 상장 초기 등으로 1년치 데이터가 없으면, 있는 만큼(최소 30일)으로 계산한다.
@@ -505,6 +546,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "sector": sector,
         "sector_relative_strength_up": sector_rs,
         "uptrend_entry_signal": uptrend_entry_signal,
+        "divergence_invalidated_signal": divergence_invalidated_signal,
     }
     if write_file:
         with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
@@ -630,7 +672,8 @@ def main():
           "divergence": r["stages"]["3_divergence_gate"]["status"],
           "trigger": r["stages"]["5_trigger_candle"]["status"],
           "signal": r["signal"], "signal_addon": r["signal_addon"],
-          "uptrend_entry_signal": r["uptrend_entry_signal"]}
+          "uptrend_entry_signal": r["uptrend_entry_signal"],
+          "divergence_invalidated_signal": r["divergence_invalidated_signal"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
     )
