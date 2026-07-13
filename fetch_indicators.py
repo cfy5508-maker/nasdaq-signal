@@ -83,8 +83,7 @@ WEIGHTS = {
     "1_fundamentals": 2.0,
     "2_divergence_gate": 2.0,   # 다이버전스 게이트 (스윙저점+간격3일 이상)
     "3_zscore": 2.5,            # Z-score (종목별 개별 계산)
-    "4_adx": 1.5,                # 추세강도
-    "5_trigger_candle": 1.0,     # 반전캔들+돌파
+    "4_trigger_candle": 1.0,    # 반전캔들+돌파 (구 5단계, ADX 제거로 4단계로 재번호)
 }
 STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25}
 MAX_SCORE = sum(WEIGHTS.values())
@@ -238,11 +237,12 @@ def analyze(ticker, trim_days=0, write_file=True):
                 else:
                     stage_divergence = "fail"      # RSI도 개선 안 됨
 
-    # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 1년 평균 대비
+    # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 평균 대비
     # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
+    # 상장 초기 등으로 1년치 데이터가 없으면, 있는 만큼(최소 30일)으로 계산한다.
     rsi_zscore = None
     rsi_window_1y = rsi.dropna()
-    if len(rsi_window_1y) >= 60:
+    if len(rsi_window_1y) >= 30:
         rsi_mean_1y = float(rsi_window_1y.mean())
         rsi_std_1y = float(rsi_window_1y.std())
         if rsi_std_1y > 0:
@@ -294,14 +294,8 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     # 2단계: 다이버전스 게이트 - stage_divergence는 위에서 이미 pass/warn/fail로 계산됨
 
-    # 4단계: 추세강도(ADX) - 다이버전스 유무와 무관하게 "지금" 추세강도를 항상 표시
-    # 백테스트 검증(스윕): ADX>=25 최적점(승률67.9%), 22~25는 애매구간(승률64.5%)
-    if adx_last >= 25:
-        stage_adx = "pass"
-    elif adx_last >= 22:
-        stage_adx = "warn"
-    else:
-        stage_adx = "fail"
+    # 4단계(ADX)는 백테스트 재검증 결과 두 독립 표본에서 방향이 계속 뒤집혀 폐기함.
+    # adx_last 값 자체는 참고용으로 남겨두되, 점수 계산에는 반영하지 않음 (나중에 재검토).
 
     # 5단계: 트리거캔들
     stage_trigger = "pass" if breakout_ok else "fail"
@@ -385,8 +379,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "2_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
         "3_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
-        "4_adx": {"status": stage_adx, "adx": round(adx_last, 1)},
-        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star)},
+        "4_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "adx_reference": round(adx_last, 1)},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
@@ -537,7 +530,7 @@ def main():
           "upside_pct": r["stages"]["1_fundamentals"]["upside_pct"],
           "rsi": r["stages"]["3_zscore"]["rsi"],
           "divergence": r["stages"]["2_divergence_gate"]["status"],
-          "trigger": r["stages"]["5_trigger_candle"]["status"],
+          "trigger": r["stages"]["4_trigger_candle"]["status"],
           "signal": r["signal"], "signal_addon": r["signal_addon"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
