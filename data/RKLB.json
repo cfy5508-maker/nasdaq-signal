@@ -1,31 +1,31 @@
 {
-  "ticker": "INFQ",
-  "price": 11.17,
-  "updated": "2026-07-13T00:48:50.654816+00:00",
+  "ticker": "RKLB",
+  "price": 81.04,
+  "updated": "2026-07-13T00:48:52.472169+00:00",
   "as_of_date": "2026-07-10",
-  "score": 22,
+  "score": 56,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 88.0,
-      "forward_pe": -39.861538,
+      "upside_pct": 43.8,
+      "forward_pe": 2431.443,
       "peg": null
     },
     "2_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
-      "divergence_present": false,
-      "gap_days": 3,
-      "signal_fresh": null
+      "divergence_present": true,
+      "gap_days": 10,
+      "signal_fresh": true
     },
     "3_zscore": {
-      "status": "fail",
-      "rsi": 39.1,
-      "rsi_zscore_1y": -0.83
+      "status": "warn",
+      "rsi": 37.3,
+      "rsi_zscore_1y": -1.39
     },
     "4_adx": {
-      "status": "fail",
-      "adx": 10.1
+      "status": "warn",
+      "adx": 24.0
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -37,34 +37,34 @@
       "morning_star": false
     }
   },
-  "entry_atr_stop_pct": 18.1,
+  "entry_atr_stop_pct": 16.2,
   "score_addon": 82,
   "stages_addon": {
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 88.0,
-      "forward_pe": -39.861538,
+      "upside_pct": 43.8,
+      "forward_pe": 2431.443,
       "peg": null
     },
     "3_pullback_position": {
       "status": "warn",
       "near_20sma": false,
       "near_50sma": false,
-      "rsi": 39.1,
-      "rsi_percentile_52w": 13.8
+      "rsi": 37.3,
+      "rsi_percentile_52w": 7.6
     },
     "4_pullback_depth": {
       "status": "pass",
-      "pullback_pct": 32.7
+      "pullback_pct": 31.5
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 8994020,
-      "prior5_avg_vol": 17378480
+      "recent5_avg_vol": 19652480,
+      "prior5_avg_vol": 30790880
     },
     "6_trend_continuation": {
       "status": "unknown",
-      "adx": 10.1,
+      "adx": 24.0,
       "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
@@ -74,13 +74,13 @@
     },
     "8_trigger_breakout": {
       "status": "pass",
-      "recent5_high": 14.54,
-      "today_close": 11.17
+      "recent5_high": 106.99,
+      "today_close": 81.04
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 18.2
     }
   },
-  "sector": "Technology",
-  "sector_relative_strength_up": false
+  "sector": "Industrials",
+  "sector_relative_strength_up": true
 }
