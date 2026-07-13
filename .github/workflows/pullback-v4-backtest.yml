@@ -1,15 +1,15 @@
-name: Pullback V4 Backtest
+name: Pullback Gate Diagnose
 
 on:
   workflow_dispatch:
     inputs:
-      forward_days:
-        description: "신호 후 며칠 뒤 수익률을 볼지"
-        required: false
-        default: "10"
+      ticker:
+        description: "진단할 종목 티커"
+        required: true
+        default: "TTWO"
 
 jobs:
-  backtest:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +19,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install --quiet yfinance pandas numpy ta
+        run: pip install --quiet yfinance pandas
 
-      - name: Run backtest
-        run: python pullback_v4_backtest.py "${{ github.event.inputs.forward_days }}"
+      - name: Run check
+        run: python pullback_gate_diagnose.py "${{ github.event.inputs.ticker }}"
