@@ -83,7 +83,6 @@ def analyze_ticker(ticker):
     start = 300
     end = n - FORWARD_DAYS
     for i in range(start, end):
-        # i 시점까지 "완전히 확정된" 스윙 포인트만 사용 (p+order<=i 여야 미래참조 없음)
         lows_upto = [p for p in swing_lows_full if p + SWING_ORDER <= i]
         highs_upto = [p for p in swing_highs_full if p + SWING_ORDER <= i]
         obv_lows_upto = [p for p in swing_lows_obv_full if p + SWING_ORDER <= i]
@@ -94,33 +93,47 @@ def analyze_ticker(ticker):
         recent_low, prior_low = lows_upto[-1], lows_upto[-2]
         recent_high, prior_high = highs_upto[-1], highs_upto[-2]
 
-        cond1 = close_values[recent_high] > close_values[prior_high]
-        cond2 = close_values[recent_low] > close_values[prior_low]
-        if not (cond1 and cond2):
+        # 신저점이 "오늘 막 확정된 첫날"만 신호로 인정 (필수 게이트 - 진입시점 자체를 정의)
+        is_freshly_confirmed = (i == recent_low + SWING_ORDER)
+        if not is_freshly_confirmed:
             continue
 
-        # 직전스윙고점 -> 최근스윙저점 구간 (시간순 확인)
-        if prior_high >= recent_low:
-            continue
-        segment_ret = daily_ret.iloc[prior_high+1:recent_low+1]
-        cond3 = bool((segment_ret >= CRASH_THRESHOLD).all()) if len(segment_ret) > 0 else True
+        cond1_higher_high = bool(close_values[recent_high] > close_values[prior_high])
+        cond2_higher_low = bool(close_values[recent_low] > close_values[prior_low])
+
+        cond3_no_crash = None
+        if prior_high < recent_low:
+            segment_ret = daily_ret.iloc[prior_high+1:recent_low+1]
+            cond3_no_crash = bool((segment_ret >= CRASH_THRESHOLD).all()) if len(segment_ret) > 0 else True
 
         sma40_now = float(sma40.iloc[i]) if not pd.isna(sma40.iloc[i]) else None
-        cond4 = bool(sma40_now is not None and close_values[i] > sma40_now)
+        cond4_above_sma40 = bool(sma40_now is not None and close_values[i] > sma40_now)
 
         recent_obv_low, prior_obv_low = obv_lows_upto[-1], obv_lows_upto[-2]
-        cond5 = bool(obv_values[recent_obv_low] > obv_values[prior_obv_low])
+        cond5_obv_rising = bool(obv_values[recent_obv_low] > obv_values[prior_obv_low])
 
-        gate_pass = cond1 and cond2 and cond3 and cond4 and cond5
-        if not gate_pass:
-            continue
-
-        has_trigger = detect_hammer(o, h, l, c, i) or detect_bullish_engulfing(o, h, l, c, i)
+        # 트리거캔들: 신저점 확정일 기준 최근 1~3일 소급 확인(신규진입과 동일 방식)
+        has_trigger = False
+        for lb in range(0, 4):
+            idx = i - lb
+            if idx < 3:
+                continue
+            if detect_hammer(o, h, l, c, idx) or detect_bullish_engulfing(o, h, l, c, idx):
+                has_trigger = True
+                break
 
         entry = float(c.iloc[i])
         fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
 
-        rows.append({"has_trigger": has_trigger, "fwd_return": fwd_return, "win": fwd_return > 0})
+        rows.append({
+            "cond1_higher_high": cond1_higher_high,
+            "cond2_higher_low": cond2_higher_low,
+            "cond3_no_crash": cond3_no_crash,
+            "cond4_above_sma40": cond4_above_sma40,
+            "cond5_obv_rising": cond5_obv_rising,
+            "has_trigger": has_trigger,
+            "fwd_return": fwd_return, "win": fwd_return > 0,
+        })
     return rows
 
 
@@ -141,24 +154,41 @@ def main():
             continue
         if rows:
             all_rows.extend(rows)
-            print(f"{t}: 게이트 통과 {len(rows)}건")
 
-    print(f"\n=== 눌림목 v3(상승채널+OBV) 게이트 통과 총 {len(all_rows)}건, {FORWARD_DAYS}일 뒤 기준 ===\n")
+    print(f"\n=== 신저점 확정 시점(기본 게이트만) 총 {len(all_rows)}건, {FORWARD_DAYS}일 뒤 기준 ===\n")
     if not all_rows:
         print("표본 없음")
         return
 
-    wr, avg = win_rate(all_rows)
-    print(f"전체: 승률 {wr:.1f}% | 평균수익률 {avg:+.2f}%\n")
+    baseline_wr, baseline_avg = win_rate(all_rows)
+    print(f"기준선(조건 미적용): 승률 {baseline_wr:.1f}% | 평균수익률 {baseline_avg:+.2f}%\n")
 
-    trig = [r for r in all_rows if r["has_trigger"]]
-    no_trig = [r for r in all_rows if not r["has_trigger"]]
-    wr_t, avg_t = win_rate(trig)
-    wr_n, avg_n = win_rate(no_trig)
-    if wr_t is not None:
-        print(f"트리거캔들 있음: 표본 {len(trig)} | 승률 {wr_t:.1f}% | 기준대비 {wr_t-wr:+.1f}%p")
-    if wr_n is not None:
-        print(f"트리거캔들 없음: 표본 {len(no_trig)} | 승률 {wr_n:.1f}% | 기준대비 {wr_n-wr:+.1f}%p")
+    conditions = [
+        ("cond1_higher_high", "1. 고점 우상향(Higher High)"),
+        ("cond2_higher_low", "2. 저점 우상향(Higher Low)"),
+        ("cond3_no_crash", "3. 급락캔들(-5%+) 없음"),
+        ("cond4_above_sma40", "4. 40일선 위"),
+        ("cond5_obv_rising", "5. OBV 저점 우상향"),
+        ("has_trigger", "6. 트리거캔들(최근1~3일)"),
+    ]
+    diffs = []
+    for key, label in conditions:
+        yes = [r for r in all_rows if r[key] is True]
+        no = [r for r in all_rows if r[key] is False]
+        wr_y, avg_y = win_rate(yes)
+        wr_n, avg_n = win_rate(no)
+        print(f"[{label}]")
+        if wr_y is not None:
+            print(f"  충족: 표본 {len(yes)} | 승률 {wr_y:.1f}% | 기준대비 {wr_y-baseline_wr:+.1f}%p")
+        if wr_n is not None:
+            print(f"  미충족: 표본 {len(no)} | 승률 {wr_n:.1f}% | 기준대비 {wr_n-baseline_wr:+.1f}%p")
+        if wr_y is not None:
+            diffs.append((label, wr_y - baseline_wr, len(yes)))
+
+    print("\n=== 기여도(충족시 승률 개선폭) 순위 ===")
+    diffs.sort(key=lambda x: x[1], reverse=True)
+    for label, diff, n_sample in diffs:
+        print(f"  {label}: {diff:+.1f}%p (표본 {n_sample})")
 
 
 if __name__ == "__main__":
