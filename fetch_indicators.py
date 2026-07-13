@@ -125,7 +125,7 @@ STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25, "neutral
 MAX_SCORE = sum(WEIGHTS.values())
 
 ADDON_WEIGHTS = {
-    "1_fundamentals": 3.0,          # 눌림목은 업사이드 여유가 핵심이라 신규진입(2.0)보다 상향
+    "1_fundamentals": 1.5,          # 3.0에서 하향 - 펀더멘털 혼자 점수를 과하게 끌어올리던 문제 수정
     "2_pullback_gate": 2.5,         # 20/40일선 근접 - 가장 강한 근거(대규모 검증)
     "3_rsi_zone": 1.0,              # RSI 50~60구간 - 약한 보조 신호
     "4_trigger_confirmed": 2.0,     # 셋업당일 고가 1~3일내 돌파 확정
