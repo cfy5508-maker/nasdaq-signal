@@ -186,7 +186,8 @@ def market_volume_health(index_symbol, months=3):
         if index_trigger_candle:
             status = UPGRADE[status]
 
-        # axis4: 20/40/60일선 골든크로스(최근10일내, 격상) / 데드크로스(최근10일내, 격하)
+        # axis4: 골든크로스는 20-40일선, 데드크로스는 20-60일선 (서로 다른 쌍, 검증된 대로 분리유지).
+        # 각 쌍 안에서도 최근10일 안에 크로스가 여러 번 있었을 수 있으므로, "가장 최근" 것만 반영.
         CROSS_LOOKBACK = 10
         sma20 = close.rolling(20).mean()
         sma40 = close.rolling(40).mean()
@@ -194,16 +195,26 @@ def market_volume_health(index_symbol, months=3):
         above_20_40 = sma20 > sma40
         above_20_60 = sma20 > sma60
 
-        golden_cross_recent = False
-        dead_cross_recent = False
-        if len(close) > 60 + CROSS_LOOKBACK:
-            for j in range(len(close) - CROSS_LOOKBACK + 1, len(close)):
-                a2_40, a2_40_prev = above_20_40.iloc[j], above_20_40.iloc[j - 1]
-                a2_60, a2_60_prev = above_20_60.iloc[j], above_20_60.iloc[j - 1]
-                if pd.notna(a2_40) and pd.notna(a2_40_prev) and a2_40 and not a2_40_prev:
-                    golden_cross_recent = True  # 20일선이 40일선을 상향 돌파
-                if pd.notna(a2_60) and pd.notna(a2_60_prev) and not a2_60 and a2_60_prev:
-                    dead_cross_recent = True    # 20일선이 60일선을 하향 돌파
+        def latest_cross_in_window(above_series, lookback):
+            """윈도우 안에서 가장 최근 크로스 종류('golden'/'dead'/None)를 반환."""
+            latest = None
+            n_local = len(above_series)
+            if n_local <= lookback:
+                return None
+            for j in range(n_local - lookback + 1, n_local):
+                a_now, a_prev = above_series.iloc[j], above_series.iloc[j - 1]
+                if pd.isna(a_now) or pd.isna(a_prev):
+                    continue
+                if a_now and not a_prev:
+                    latest = "golden"
+                elif not a_now and a_prev:
+                    latest = "dead"
+            return latest
+
+        golden_cross_type = latest_cross_in_window(above_20_40, CROSS_LOOKBACK)  # 20-40일선
+        dead_cross_type = latest_cross_in_window(above_20_60, CROSS_LOOKBACK)    # 20-60일선
+        golden_cross_recent = (golden_cross_type == "golden")
+        dead_cross_recent = (dead_cross_type == "dead")
 
         if dead_cross_recent:
             status = DOWNGRADE[status]
@@ -248,7 +259,7 @@ ADDON_WEIGHTS = {
     "1_fundamentals": 1.5,          # 3.0에서 하향 - 펀더멘털 혼자 점수를 과하게 끌어올리던 문제 수정
     "2_pullback_gate": 2.5,         # 20/40일선 근접 - 가장 강한 근거(대규모 검증)
     "3_rsi_zone": 1.0,              # RSI 50~60구간 - 약한 보조 신호
-    "4_trigger_confirmed": 2.0,     # 셋업당일 고가 1~3일내 돌파 확정
+    "4_trigger_confirmed": 2.0,     # 트리거캔들(해머/엔걸핑/긴아래꼬리)+거래량 - 가중치는 조합별 차등
 }
 
 
@@ -646,8 +657,23 @@ def analyze(ticker, trim_days=0, write_file=True):
     PULLBACK_MA_TOLERANCE = 0.03
     dist_sma20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] if not pd.isna(sma20.iloc[-1]) else None
     dist_sma40 = abs(last_close - sma40_addon.iloc[-1]) / sma40_addon.iloc[-1] if not pd.isna(sma40_addon.iloc[-1]) else None
-    near_sma20 = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
-    near_sma40 = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
+    near_sma20_raw = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
+    near_sma40_raw = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
+
+    # "근접"만으로는 위에서 내려와 닿은 건지, 아래에서 올라와 닿은 건지 구분이 안 된다.
+    # 진짜 눌림목은 "최근에 이평선 위에 있다가 지금 눌린 것"이어야 하므로,
+    # 최근 10일(오늘 제외) 중 종가가 그 이평선보다 확실히(3% 이상) 위에 있었던 적이
+    # 있어야만 근접을 인정한다.
+    RECENT_ABOVE_LOOKBACK = 10
+    RECENT_ABOVE_MARGIN = 0.03
+    recent_close = c.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
+    recent_sma20 = sma20.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
+    recent_sma40 = sma40_addon.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
+    was_above_20_recently = bool(((recent_close > recent_sma20 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
+    was_above_40_recently = bool(((recent_close > recent_sma40 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
+
+    near_sma20 = near_sma20_raw and was_above_20_recently
+    near_sma40 = near_sma40_raw and was_above_40_recently
 
     # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선과 40일선 "둘 다" 함께
     # 60일선에 근접(수렴)해오면 추세 힘빠짐으로 보고 무시한다.
@@ -665,11 +691,12 @@ def analyze(ticker, trim_days=0, write_file=True):
     ma_converged_ignore = sma60_is_lowest and (sma20_converged_to_60 and sma40_converged_to_60)
 
     near_ma_signal = near_sma20 or near_sma40
+    near_ma_count = int(near_sma20) + int(near_sma40)  # 1개 또는 2개 근접 (가중치 조정용)
+
     if ma_converged_ignore and near_ma_signal:
-        pullback_gate = False  # 60일선이 가장 아래인데 20/40일선이 그쪽으로 수렴 -> 신호 무시
+        addon_stage_gate = "fail"  # 60일선이 가장 아래인데 20/40일선이 그쪽으로 수렴 -> 신호 무시
     else:
-        pullback_gate = near_ma_signal
-    addon_stage_gate = "pass" if pullback_gate else "fail"
+        addon_stage_gate = "pass" if near_ma_signal else "fail"
 
     # RSI 존: 60이상 pass, 50~60 warn, 50미만 fail
     if rsi_last >= 60:
@@ -679,36 +706,37 @@ def analyze(ticker, trim_days=0, write_file=True):
     else:
         addon_stage_rsi = "fail"
 
-    # 셋업/트리거: 게이트+RSI50이상이 성립한 최근 1~3일 중 하루를 "셋업일"로 보고,
-    # 그날 고가를 그 이후(오늘 포함) 종가가 넘었는지 확인
-    setup_confirmed = False
-    setup_days_ago = None
-    trigger_confirmed = False
-    trigger_lag = None
-    for days_ago in range(1, 4):
-        idx = len(c) - 1 - days_ago
-        if idx < 40:
-            continue
-        setup_price = float(c.iloc[idx])
-        setup_sma20 = float(sma20.iloc[idx]) if not pd.isna(sma20.iloc[idx]) else None
-        setup_sma40 = float(sma40_addon.iloc[idx]) if not pd.isna(sma40_addon.iloc[idx]) else None
-        setup_rsi = float(rsi.iloc[idx]) if not pd.isna(rsi.iloc[idx]) else None
-        if setup_sma20 is None or setup_sma40 is None or setup_rsi is None:
-            continue
-        setup_near = (abs(setup_price - setup_sma20) / setup_sma20 <= PULLBACK_MA_TOLERANCE) or \
-                     (abs(setup_price - setup_sma40) / setup_sma40 <= PULLBACK_MA_TOLERANCE)
-        if setup_near and setup_rsi >= 50:
-            setup_confirmed = True
-            setup_days_ago = days_ago
-            setup_high = float(h.iloc[idx])
-            if float(c.iloc[-1]) > setup_high:
-                trigger_confirmed = True
-                trigger_lag = days_ago
-            break
-    if trigger_confirmed:
+    # 4단계: 트리거캔들 + 거래량 (2/3단계와 완전히 독립 - 이평선/RSI 조건 없음, 순수 캔들+거래량만 봄)
+    # hammer, engulfing, long_lower_wick, wick_days_ago는 신규진입 5단계에서 이미 계산된 값을 재사용.
+    VOL_LOOKBACK_20 = 20
+
+    def _volume_confirmed_for_day(day_idx):
+        if day_idx is None or day_idx < VOL_LOOKBACK_20:
+            return False
+        avg_vol = float(v.iloc[day_idx - VOL_LOOKBACK_20:day_idx].mean())
+        day_vol = float(v.iloc[day_idx])
+        return bool(avg_vol > 0 and day_vol > avg_vol)
+
+    has_reversal_candle = bool(hammer or engulfing)  # 오늘 기준
+    reversal_day_idx = len(c) - 1
+    reversal_volume_confirmed = _volume_confirmed_for_day(reversal_day_idx) if has_reversal_candle else False
+
+    wick_present = bool(long_lower_wick)  # 0~3일 이내
+    wick_day_idx = (len(c) - 1 - wick_days_ago) if (wick_present and wick_days_ago is not None) else None
+    wick_volume_confirmed = _volume_confirmed_for_day(wick_day_idx) if wick_day_idx is not None else False
+
+    trigger_weight_tier = None
+    if has_reversal_candle and reversal_volume_confirmed:
         addon_stage_trigger = "pass"
-    elif setup_confirmed:
-        addon_stage_trigger = "warn"  # 셋업은 있지만 아직 돌파 대기중
+        trigger_weight_tier = "reversal_volume"   # 가장 높은 가중치
+    elif has_reversal_candle:
+        addon_stage_trigger = "pass"
+        trigger_weight_tier = "reversal_only"     # 중간 가중치
+    elif wick_present and wick_volume_confirmed:
+        addon_stage_trigger = "pass"
+        trigger_weight_tier = "wick_volume"        # 가장 낮은 pass 가중치
+    elif wick_present:
+        addon_stage_trigger = "warn"                # 거래량 없는 긴아래꼬리만
     else:
         addon_stage_trigger = "fail"
 
@@ -728,14 +756,32 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     stages_addon = {
         "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal)},
+        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
         "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1)},
-        "4_trigger_confirmed": {"status": addon_stage_trigger, "setup_confirmed": setup_confirmed,
-                                 "setup_days_ago": setup_days_ago, "trigger_confirmed": trigger_confirmed,
-                                 "trigger_lag": trigger_lag},
+        "4_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
+                                 "reversal_volume_confirmed": reversal_volume_confirmed,
+                                 "wick_present": wick_present, "wick_volume_confirmed": wick_volume_confirmed,
+                                 "trigger_weight_tier": trigger_weight_tier},
         "9_position_sizing": {"stop_pct_from_20sma": addon_stop_pct},
     }
     addon_known_weights = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if stages_addon[k]["status"] != "unknown"}
+    # 2단계(눌림목게이트): pass는 그대로 두되, 근접한 이평선 종류에 따라 가중치를 차등 적용.
+    # 20일선만 근접(얕은 눌림) < 40일선만 근접(더 깊은 눌림, 신뢰도 더 높음) < 둘 다 근접(원래 가중치)
+    if "2_pullback_gate" in addon_known_weights and stages_addon["2_pullback_gate"]["status"] == "pass":
+        if near_ma_count == 2:
+            gate_multiplier = 1.0
+        elif near_sma40:  # 40일선만 근접
+            gate_multiplier = 0.75
+        else:  # 20일선만 근접
+            gate_multiplier = 0.5
+        addon_known_weights["2_pullback_gate"] = addon_known_weights["2_pullback_gate"] * gate_multiplier
+
+    # 4단계(트리거): pass 안에서도 어떤 조합인지에 따라 가중치 차등
+    # 긴아래꼬리+거래량(가장낮음) < 반전캔들만(중간) < 반전캔들+거래량(가장높음)
+    TRIGGER_WEIGHT_MULTIPLIER = {"wick_volume": 0.5, "reversal_only": 0.75, "reversal_volume": 1.0}
+    if "4_trigger_confirmed" in addon_known_weights and stages_addon["4_trigger_confirmed"]["status"] == "pass" and trigger_weight_tier:
+        addon_known_weights["4_trigger_confirmed"] = addon_known_weights["4_trigger_confirmed"] * TRIGGER_WEIGHT_MULTIPLIER[trigger_weight_tier]
+
     if addon_known_weights:
         addon_raw = sum(addon_known_weights[k] * STATUS_SCORE[stages_addon[k]["status"]] for k in addon_known_weights)
         addon_score = round(addon_raw / sum(addon_known_weights.values()) * 100)
