@@ -728,13 +728,19 @@ def analyze(ticker, trim_days=0, write_file=True):
     else:
         addon_stage_gate = "pass" if near_ma_signal else "fail"
 
-    # RSI 존: 60이상 pass, 50~60 warn, 50미만 fail
+    # RSI 존: 60이상 pass, 50~60 warn, 50미만 fail (라벨은 유지)
+    # 점수 계산은 이산값(1.0/0.5/0.0) 대신 min~max 사이 연속값으로, RSI가 높을수록(60 방향)
+    # 더 좋게, 낮을수록(50 미만 방향) 더 나쁘게 세밀하게 반영한다.
+    RSI_ZONE_SCALE_MIN = 40   # 이 이하면 최저점(0.0)
+    RSI_ZONE_SCALE_MAX = 65   # 이 이상이면 만점(1.0)
     if rsi_last >= 60:
         addon_stage_rsi = "pass"
     elif rsi_last >= 50:
         addon_stage_rsi = "warn"
     else:
         addon_stage_rsi = "fail"
+    rsi_zone_clamped = max(RSI_ZONE_SCALE_MIN, min(RSI_ZONE_SCALE_MAX, rsi_last))
+    rsi_zone_quality = (rsi_zone_clamped - RSI_ZONE_SCALE_MIN) / (RSI_ZONE_SCALE_MAX - RSI_ZONE_SCALE_MIN)
 
     # 4단계: 트리거캔들 + 거래량 (2/3단계와 완전히 독립 - 이평선/RSI 조건 없음, 순수 캔들+거래량만 봄)
     # hammer, engulfing, long_lower_wick, wick_days_ago는 신규진입 5단계에서 이미 계산된 값을 재사용.
@@ -787,7 +793,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     stages_addon = {
         "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
-        "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1)},
+        "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3)},
         "4_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
                                  "reversal_volume_confirmed": reversal_volume_confirmed,
                                  "wick_present": wick_present, "wick_volume_confirmed": wick_volume_confirmed,
@@ -813,7 +819,13 @@ def analyze(ticker, trim_days=0, write_file=True):
         addon_known_weights["4_trigger_confirmed"] = addon_known_weights["4_trigger_confirmed"] * TRIGGER_WEIGHT_MULTIPLIER[trigger_weight_tier]
 
     if addon_known_weights:
-        addon_raw = sum(addon_known_weights[k] * STATUS_SCORE[stages_addon[k]["status"]] for k in addon_known_weights)
+        # 3단계(RSI존)는 이산값 대신 연속값(rsi_zone_quality)을 그대로 써서
+        # "RSI가 60에 가까울수록 더 좋다"를 세밀하게 반영. 나머지는 기존 방식 유지.
+        def _addon_stage_score(k):
+            if k == "3_rsi_zone":
+                return rsi_zone_quality
+            return STATUS_SCORE[stages_addon[k]["status"]]
+        addon_raw = sum(addon_known_weights[k] * _addon_stage_score(k) for k in addon_known_weights)
         addon_score = round(addon_raw / sum(addon_known_weights.values()) * 100)
     else:
         addon_score = 0
