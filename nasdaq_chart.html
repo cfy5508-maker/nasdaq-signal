@@ -968,8 +968,7 @@
       ['1단계 펀더멘털', s['1_fundamentals'], '업사이드 '+(s['1_fundamentals'].upside_pct??'-')+'%, PEG '+(s['1_fundamentals'].peg??'-')],
       ['2단계 다이버전스', s['2_divergence_gate'], s['2_divergence_gate'].divergence_present ? ((s['2_divergence_gate'].bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)')+', 간격 '+s['2_divergence_gate'].gap_days+'일' + (s['2_divergence_gate'].signal_fresh===false ? ' (저점 근처 유지중)' : ' (신규)')) : '다이버전스 없음'],
       ['3단계 Z-score', s['3_zscore'], 'RSI '+s['3_zscore'].rsi+' (Z-score '+(s['3_zscore'].rsi_zscore_1y??'-')+')'],
-      ['4단계 추세강도', s['4_adx'], 'ADX '+s['4_adx'].adx],
-      ['5단계 트리거캔들', s['5_trigger_candle'], s['5_trigger_candle'].breakout_confirmed ? (s['5_trigger_candle'].pattern+' 확정('+s['5_trigger_candle'].days_ago+'일 전) + 돌파 완료') : '반전캔들+돌파 없음']
+      ['4단계 트리거캔들', s['4_trigger_candle'], s['4_trigger_candle'].breakout_confirmed ? (s['4_trigger_candle'].pattern+' 확정('+s['4_trigger_candle'].days_ago+'일 전) + 돌파 완료 · 참고ADX '+s['4_trigger_candle'].adx_reference) : ('반전캔들+돌파 없음 · 참고ADX '+s['4_trigger_candle'].adx_reference)]
     ];
   }
 
