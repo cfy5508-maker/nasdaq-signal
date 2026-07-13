@@ -1,0 +1,25 @@
+name: Market Health Cross Diagnose
+
+on:
+  workflow_dispatch:
+    inputs:
+      etf:
+        description: "확인할 ETF (QQQ/SPY/DIA)"
+        required: false
+        default: "QQQ"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas
+
+      - name: Run check
+        run: python market_health_cross_diagnose.py "${{ github.event.inputs.etf }}"
