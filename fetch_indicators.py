@@ -162,6 +162,20 @@ def detect_long_lower_wick(o, h, l, c):
     return (lower_wick / total_range) >= 0.5
 
 
+def long_lower_wick_recent(o, h, l, c, lookback_days=3):
+    """오늘뿐 아니라 최근 lookback_days일 안에 긴 아래꼬리가 있었는지 확인.
+    (trigger_with_breakout처럼 돌파 확정까지는 요구하지 않음 - 약한 warn 신호이므로)"""
+    n = len(c)
+    for days_ago in range(0, lookback_days + 1):
+        idx = n - 1 - days_ago
+        if idx < 0:
+            break
+        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
+        if detect_long_lower_wick(sub_o, sub_h, sub_l, sub_c):
+            return True, days_ago
+    return False, None
+
+
 def trigger_with_breakout(o, h, l, c):
     """최근 1~3일 안에 반전캔들이 확정되고, 그 이후 종가가 그 캔들의 고점을 돌파했는지 확인."""
     n = len(c)
@@ -307,7 +321,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     hammer = detect_hammer(o, h, l, c)
     engulfing = detect_bullish_engulfing(o, h, l, c)
     morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
-    long_lower_wick = detect_long_lower_wick(o, h, l, c)
+    long_lower_wick, wick_days_ago = long_lower_wick_recent(o, h, l, c, lookback_days=3)
 
     info = {}
     try:
@@ -437,7 +451,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None},
-        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "adx_reference": round(adx_last, 1)},
+        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1)},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
