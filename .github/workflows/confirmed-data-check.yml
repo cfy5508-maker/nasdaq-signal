@@ -1,0 +1,25 @@
+name: Confirmed Data Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        description: "확인할 종목 티커"
+        required: true
+        default: "RKLB"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas numpy ta
+
+      - name: Run check
+        run: python confirmed_data_check.py "${{ github.event.inputs.ticker }}"
