@@ -463,19 +463,28 @@ def analyze(ticker, trim_days=0, write_file=True):
     stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
 
     # 1단계: 펀더멘털 - PEG가 좋을수록 업사이드 커트라인을 낮춰줌 (서로 보완)
-    if peg is not None and peg <= 1.0:
-        upside_threshold = 5
-    elif peg is not None and peg <= 1.5:
-        upside_threshold = 10
+    # 업사이드(애널리스트 목표가) 데이터 자체가 없는 종목은 PEG만으로 판정한다.
+    if upside_pct is None:
+        if peg is not None and peg <= 1.0:
+            stage1 = "pass"
+        elif peg is not None and peg <= 2.0:
+            stage1 = "warn"
+        else:
+            stage1 = "fail"
     else:
-        upside_threshold = 15
+        if peg is not None and peg <= 1.0:
+            upside_threshold = 5
+        elif peg is not None and peg <= 1.5:
+            upside_threshold = 10
+        else:
+            upside_threshold = 15
 
-    stage1_flags = {
-        "upside_ge_threshold": (upside_pct or 0) >= upside_threshold,
-        "forward_pe_present": forward_pe is not None,
-    }
-    stage1 = "pass" if all(stage1_flags.values()) else \
-             "warn" if stage1_flags["upside_ge_threshold"] else "fail"
+        stage1_flags = {
+            "upside_ge_threshold": upside_pct >= upside_threshold,
+            "forward_pe_present": forward_pe is not None,
+        }
+        stage1 = "pass" if all(stage1_flags.values()) else \
+                 "warn" if stage1_flags["upside_ge_threshold"] else "fail"
 
     # ── 눌림목(재진입) 계산식 ──────────────────
     # 백테스트 검증(대형주50종목):
@@ -494,18 +503,24 @@ def analyze(ticker, trim_days=0, write_file=True):
     near_sma20 = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
     near_sma40 = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
 
-    # 60일선이 20/40일선보다 가장 아래에 있는 경우(정배열이 눌려서 수렴 중인 흐름)라면,
-    # 20/40일선 근접 신호가 떠도 "추세 힘빠짐"으로 보고 무시한다.
-    # 60일선이 가장 아래가 아닌 경우(역배열 등)는 근접 신호를 그대로 인정한다.
+    # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선 또는 40일선 "자체"가
+    # 60일선에 근접(수렴)해오면 추세 힘빠짐으로 보고 무시한다.
+    # (가격이 20/40일선에 근접한 것과는 다른 비교 - 이평선끼리의 수렴 여부)
     sma20_now_v = float(sma20.iloc[-1]) if not pd.isna(sma20.iloc[-1]) else None
     sma40_now_v = float(sma40_addon.iloc[-1]) if not pd.isna(sma40_addon.iloc[-1]) else None
     sma60_now_v = float(sma60.iloc[-1]) if not pd.isna(sma60.iloc[-1]) else None
     sma60_is_lowest = bool(sma60_now_v is not None and sma20_now_v is not None and sma40_now_v is not None
                            and sma60_now_v < sma20_now_v and sma60_now_v < sma40_now_v)
 
+    sma20_converged_to_60 = bool(sma60_now_v is not None and sma20_now_v is not None and sma60_now_v > 0
+                                  and abs(sma20_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
+    sma40_converged_to_60 = bool(sma60_now_v is not None and sma40_now_v is not None and sma60_now_v > 0
+                                  and abs(sma40_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
+    ma_converged_ignore = sma60_is_lowest and (sma20_converged_to_60 or sma40_converged_to_60)
+
     near_ma_signal = near_sma20 or near_sma40
-    if sma60_is_lowest and near_ma_signal:
-        pullback_gate = False  # 60일선이 가장 아래인데 근접 -> 신호 무시
+    if ma_converged_ignore and near_ma_signal:
+        pullback_gate = False  # 60일선이 가장 아래인데 20/40일선이 그쪽으로 수렴 -> 신호 무시
     else:
         pullback_gate = near_ma_signal
     addon_stage_gate = "pass" if pullback_gate else "fail"
@@ -567,7 +582,7 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     stages_addon = {
         "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "sma60_is_lowest_ignored": bool(sma60_is_lowest and near_ma_signal)},
+        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal)},
         "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1)},
         "4_trigger_confirmed": {"status": addon_stage_trigger, "setup_confirmed": setup_confirmed,
                                  "setup_days_ago": setup_days_ago, "trigger_confirmed": trigger_confirmed,
