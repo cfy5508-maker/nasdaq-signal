@@ -505,11 +505,23 @@ def analyze(ticker, trim_days=0, write_file=True):
             price_broke_down = price_latest < own_price2
             rsi_broke_down = rsi_latest_low < own_rsi2
             if price_broke_down and rsi_broke_down:
+                # 무효화된 이후(pos_latest부터 오늘까지) 반전캔들(해머/엔걸핑/긴아래꼬리)이
+                # 한 번이라도 있었는지 확인. 있었다면 "완전한 실패"가 아니라 "반등 시도 중"이므로
+                # 화면에서 위험(fail)이 아니라 중립으로 낮춰서 보여준다.
+                rescue_attempted = False
+                for chk_idx in range(pos_latest, len(close_values)):
+                    sub_o3, sub_h3, sub_l3, sub_c3 = o.iloc[:chk_idx+1], h.iloc[:chk_idx+1], l.iloc[:chk_idx+1], c.iloc[:chk_idx+1]
+                    if (detect_hammer(sub_o3, sub_h3, sub_l3, sub_c3) or
+                        detect_bullish_engulfing(sub_o3, sub_h3, sub_l3, sub_c3) or
+                        detect_long_lower_wick(sub_o3, sub_h3, sub_l3, sub_c3)):
+                        rescue_attempted = True
+                        break
                 divergence_invalidated_signal = {
                     "active": True,
                     "prior_divergence_date_index": candidate_pos2,
                     "days_since_prior_divergence": pos_latest - candidate_pos2,
                     "price_drop_since_pct": round((own_price2 - price_latest) / own_price2 * 100, 1),
+                    "rescue_attempted": rescue_attempted,
                 }
             break  # 가장 가까운 과거 다이버전스 하나만 확인하고 종료
 
