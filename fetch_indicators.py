@@ -302,7 +302,8 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 오차범위(3%)를 넘어서 확실히 반등한 경우. 신규진입 점수(캡 30/60점)와는 별개로,
     # "이미 반등이 확인된 상태"를 알려주는 참고용 신호. 점수 계산에는 반영하지 않는다.
     uptrend_entry_signal = None
-    was_real_divergence = False  # 무효화 탐색 게이트에서도 재사용하므로 기본값 보장
+    was_real_divergence = False  # 정석(pass)류 판정 - 상승추세진입 신호 전용
+    pair_rsi_improved = False    # RSI개선 여부(pass+warn 공통조건) - 무효화탐색 게이트 전용
     if len(realtime_lows) >= 2:
         pos2_u = realtime_lows[-1]
         candidates_u = [p for p in realtime_lows
@@ -312,6 +313,8 @@ def analyze(ticker, trim_days=0, write_file=True):
             price1_u, price2_u = float(c.iloc[pos1_u]), float(c.iloc[pos2_u])
             rsi1_u, rsi2_u = float(rsi.iloc[pos1_u]), float(rsi.iloc[pos2_u])
             price_today_u = float(c.iloc[-1])
+            if not (pd.isna(rsi1_u) or pd.isna(rsi2_u)):
+                pair_rsi_improved = bool(rsi2_u > rsi1_u)
             was_real_divergence = bool(price2_u < price1_u and rsi2_u > rsi1_u and
                                         not pd.isna(rsi1_u) and not pd.isna(rsi2_u))
             gain_since_low = (price_today_u - price2_u) / price2_u if price2_u > 0 else 0
@@ -327,13 +330,11 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 다이버전스 무효화 신호: 과거(최근 30일 내)에 정석 다이버전스(pass)가 있었는데,
     # 그 이후 가격이 그 저점보다 더 뚫렸고(신저점 갱신) + RSI도 같이 더 낮아진 경우.
     # "반등 기대가 깨지고 계속 하락 중"이라는 뜻. 점수 계산에는 반영하지 않는 참고용.
-    # 단, 현재 가장 최근 저점쌍 자체가 이미 다이버전스를 구조적으로 형성했다면
-    # (오늘 가격이 오차범위를 넘어 크게 반등한 경우 포함), 그건 "이미 성립된 다이버전스가
-    # 상승추세로 전환된 것"이지 무효화가 아니므로 무효화 탐색 자체를 건너뛴다.
-    # (divergence_present는 "오늘 신선함/오차범위" 조건까지 걸려있어 이 판단에 부적합 -
-    #  구조적 판정인 was_real_divergence를 대신 사용)
+    # 단, 현재 가장 최근 저점쌍 자체가 이미 다이버전스(정석 pass 또는 이중바닥 warn -
+    # 즉 RSI가 개선된 상태)를 구조적으로 형성했다면, 그건 무효화가 아니라 "이미 성립된
+    # 다이버전스가 진행 중(또는 상승추세로 전환)인 것"이므로 무효화 탐색을 건너뛴다.
     divergence_invalidated_signal = None
-    if len(realtime_lows) >= 3 and not was_real_divergence:
+    if len(realtime_lows) >= 3 and not pair_rsi_improved:
         pos_latest = realtime_lows[-1]  # 가장 최근 저점(=현재 진행 중인 하락의 끝)
         price_latest = float(c.iloc[pos_latest])
         rsi_latest_low = float(rsi.iloc[pos_latest])
