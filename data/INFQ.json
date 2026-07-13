@@ -1,8 +1,8 @@
 {
   "ticker": "INFQ",
-  "price": 10.22,
-  "updated": "2026-07-13T18:30:55.586141+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 11.17,
+  "updated": "2026-07-13T18:37:41.859527+00:00",
+  "as_of_date": "2026-07-10",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -10,13 +10,13 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -56.6,
-      "price_up_latest": false
+      "volume_diff_pct_3m": -21.2,
+      "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 105.5,
-      "forward_pe": -36.470985,
+      "upside_pct": 88.0,
+      "forward_pe": -36.63193,
       "peg": null
     },
     "3_divergence_gate": {
@@ -27,9 +27,9 @@
       "signal_fresh": null
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 35.5,
-      "rsi_zscore_1y": -1.15
+      "status": "fail",
+      "rsi": 39.1,
+      "rsi_zscore_1y": -0.83
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -40,20 +40,20 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 10.6,
+      "wick_days_ago": 1,
+      "adx_reference": 10.1,
       "volume_confirmed": false,
       "trigger_day_volume": 6921400,
-      "avg_volume_divergence_window": 7086140
+      "avg_volume_divergence_window": 9155475
     }
   },
-  "entry_atr_stop_pct": 19.4,
+  "entry_atr_stop_pct": 18.1,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 105.5,
-      "forward_pe": -36.470985,
+      "upside_pct": 88.0,
+      "forward_pe": -36.63193,
       "peg": null
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 35.5
+      "rsi": 39.1
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 27.3
+      "stop_pct_from_20sma": 18.2
     }
   },
   "sector": "Technology",
@@ -82,7 +82,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 10.22,
+    "stop_reference_price": 11.17,
     "stopped_out": false
   },
   "divergence_stop_signal": null

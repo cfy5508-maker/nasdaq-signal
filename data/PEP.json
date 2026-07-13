@@ -1,8 +1,8 @@
 {
   "ticker": "PEP",
-  "price": 138.77,
-  "updated": "2026-07-13T18:30:51.586814+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 137.38,
+  "updated": "2026-07-13T18:37:38.798080+00:00",
+  "as_of_date": "2026-07-10",
   "score": 53,
   "stages": {
     "1_market_health": {
@@ -10,13 +10,13 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -42.2,
-      "price_up_latest": false
+      "volume_diff_pct_3m": -39.9,
+      "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.7,
-      "forward_pe": 15.4115095,
+      "upside_pct": 13.9,
+      "forward_pe": 15.422614,
       "peg": 1.48
     },
     "3_divergence_gate": {
@@ -24,12 +24,12 @@
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 7,
-      "signal_fresh": false
+      "signal_fresh": true
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.7,
-      "rsi_zscore_1y": -0.62
+      "rsi": 40.8,
+      "rsi_zscore_1y": -0.89
     },
     "5_trigger_candle": {
       "status": "pass",
@@ -40,41 +40,41 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 18.9,
+      "wick_days_ago": 1,
+      "adx_reference": 19.2,
       "volume_confirmed": true,
       "trigger_day_volume": 18763700,
       "avg_volume_divergence_window": 11459675
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 57,
+  "entry_atr_stop_pct": 4.1,
+  "score_addon": 36,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.7,
-      "forward_pe": 15.4115095,
+      "upside_pct": 13.9,
+      "forward_pe": 15.422614,
       "peg": 1.48
     },
     "2_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
-      "near_sma40": true,
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false,
       "ma_converged_ignored": false
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 43.7
+      "rsi": 40.8
     },
     "4_trigger_confirmed": {
-      "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
+      "status": "warn",
+      "setup_confirmed": true,
+      "setup_days_ago": 3,
       "trigger_confirmed": false,
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.0
+      "stop_pct_from_20sma": 3.2
     }
   },
   "sector": "Consumer Defensive",

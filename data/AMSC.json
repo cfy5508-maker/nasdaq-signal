@@ -1,38 +1,38 @@
 {
   "ticker": "AMSC",
-  "price": 34.06,
-  "updated": "2026-07-13T18:30:40.781872+00:00",
-  "as_of_date": "2026-07-13",
-  "score": 30,
+  "price": 35.96,
+  "updated": "2026-07-13T18:37:28.890477+00:00",
+  "as_of_date": "2026-07-10",
+  "score": 77,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -42.2,
-      "price_up_latest": false
+      "volume_diff_pct_3m": -39.9,
+      "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 91.8,
-      "forward_pe": 22.96185,
+      "upside_pct": 81.7,
+      "forward_pe": 23.022524,
       "peg": 0.74
     },
     "3_divergence_gate": {
-      "status": "fail",
-      "bullish_divergence": false,
-      "divergence_present": false,
-      "gap_days": 4,
-      "signal_fresh": null
+      "status": "pass",
+      "bullish_divergence": true,
+      "divergence_present": true,
+      "gap_days": 17,
+      "signal_fresh": false
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 34.7,
-      "rsi_zscore_1y": -1.26
+      "rsi": 38.0,
+      "rsi_zscore_1y": -1.0
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -40,20 +40,20 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 26.0,
-      "volume_confirmed": true,
+      "wick_days_ago": 1,
+      "adx_reference": 25.0,
+      "volume_confirmed": false,
       "trigger_day_volume": 717200,
-      "avg_volume_divergence_window": 624683
+      "avg_volume_divergence_window": 1084911
     }
   },
-  "entry_atr_stop_pct": 12.7,
+  "entry_atr_stop_pct": 12.4,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 91.8,
-      "forward_pe": 22.96185,
+      "upside_pct": 81.7,
+      "forward_pe": 23.022524,
       "peg": 0.74
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 34.7
+      "rsi": 38.0
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,20 +74,15 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.7
+      "stop_pct_from_20sma": 10.3
     }
   },
   "sector": "Industrials",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
-    "active": true,
-    "prior_divergence_date_index": 246,
-    "days_since_prior_divergence": 4,
-    "price_drop_since_pct": 4.2
-  },
+  "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 34.06,
+    "stop_reference_price": 35.55,
     "stopped_out": false
   },
   "divergence_stop_signal": null

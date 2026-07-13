@@ -1,8 +1,8 @@
 {
   "ticker": "SIF",
-  "price": 22.41,
-  "updated": "2026-07-13T18:30:48.916331+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 22.02,
+  "updated": "2026-07-13T18:37:36.587734+00:00",
+  "as_of_date": "2026-07-10",
   "score": 20,
   "stages": {
     "1_market_health": {
@@ -10,8 +10,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -56.6,
-      "price_up_latest": false
+      "volume_diff_pct_3m": -21.2,
+      "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "warn",
@@ -28,8 +28,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.6,
-      "rsi_zscore_1y": -0.36
+      "rsi": 51.0,
+      "rsi_zscore_1y": -0.51
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -40,14 +40,14 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 28.1,
+      "wick_days_ago": 0,
+      "adx_reference": 29.1,
       "volume_confirmed": false,
       "trigger_day_volume": 104800,
       "avg_volume_divergence_window": 117384
     }
   },
-  "entry_atr_stop_pct": 12.6,
+  "entry_atr_stop_pct": 13.2,
   "score_addon": 68,
   "stages_addon": {
     "1_fundamentals": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "warn",
-      "rsi": 52.6
+      "rsi": 51.0
     },
     "4_trigger_confirmed": {
       "status": "warn",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.4
+      "stop_pct_from_20sma": 1.2
     }
   },
   "sector": "Industrials",

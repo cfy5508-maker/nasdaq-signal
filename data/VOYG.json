@@ -1,8 +1,8 @@
 {
   "ticker": "VOYG",
-  "price": 29.56,
-  "updated": "2026-07-13T18:30:54.458049+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 31.16,
+  "updated": "2026-07-13T18:37:40.939656+00:00",
+  "as_of_date": "2026-07-10",
   "score": 40,
   "stages": {
     "1_market_health": {
@@ -10,26 +10,26 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -56.6,
-      "price_up_latest": false
+      "volume_diff_pct_3m": -21.2,
+      "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 47.0,
-      "forward_pe": -21.418427,
+      "upside_pct": 39.5,
+      "forward_pe": -21.407558,
       "peg": null
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
-      "gap_days": 10,
+      "gap_days": 9,
       "signal_fresh": true
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.1,
-      "rsi_zscore_1y": -0.85
+      "rsi": 41.8,
+      "rsi_zscore_1y": -0.62
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -41,19 +41,19 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.0,
+      "adx_reference": 17.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 16.4,
+  "entry_atr_stop_pct": 16.1,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 47.0,
-      "forward_pe": -21.418427,
+      "upside_pct": 39.5,
+      "forward_pe": -21.407558,
       "peg": null
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 39.1
+      "rsi": 41.8
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 14.4
+      "stop_pct_from_20sma": 11.4
     }
   },
   "sector": "Industrials",
@@ -82,7 +82,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 29.56,
+    "stop_reference_price": 31.16,
     "stopped_out": false
   },
   "divergence_stop_signal": null

@@ -1,35 +1,35 @@
 {
   "ticker": "PFE",
-  "price": 24.43,
-  "updated": "2026-07-13T18:30:38.096177+00:00",
-  "as_of_date": "2026-07-13",
-  "score": 27,
+  "price": 24.17,
+  "updated": "2026-07-13T18:37:26.490593+00:00",
+  "as_of_date": "2026-07-10",
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -56.6,
-      "price_up_latest": false
+      "volume_diff_pct_3m": -21.2,
+      "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 18.4,
-      "forward_pe": 8.617862,
+      "upside_pct": 19.7,
+      "forward_pe": 8.610808,
       "peg": 2.83
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 6,
-      "signal_fresh": null
+      "signal_fresh": false
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 45.7,
-      "rsi_zscore_1y": -0.56
+      "status": "warn",
+      "rsi": 41.7,
+      "rsi_zscore_1y": -1.02
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -41,19 +41,19 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.1,
+      "adx_reference": 27.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 3.3,
+  "entry_atr_stop_pct": 3.4,
   "score_addon": 57,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 18.4,
-      "forward_pe": 8.617862,
+      "upside_pct": 19.7,
+      "forward_pe": 8.610808,
       "peg": 2.83
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 45.7
+      "rsi": 41.7
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 2.2
     }
   },
   "sector": "Healthcare",
