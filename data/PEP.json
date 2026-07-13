@@ -1,85 +1,85 @@
 {
-  "ticker": "PFE",
-  "price": 24.17,
-  "updated": "2026-07-13T11:23:39.347108+00:00",
+  "ticker": "PEP",
+  "price": 137.38,
+  "updated": "2026-07-13T11:23:49.460496+00:00",
   "as_of_date": "2026-07-10",
-  "score": 40,
+  "score": 47,
   "stages": {
     "1_market_health": {
       "status": "neutral",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -21.2,
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -39.9,
       "price_up_latest": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.7,
-      "forward_pe": 8.525212,
-      "peg": 2.83
+      "upside_pct": 13.9,
+      "forward_pe": 15.257139,
+      "peg": 1.48
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": false
+      "gap_days": 7,
+      "signal_fresh": true
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 41.7,
-      "rsi_zscore_1y": -0.99
+      "rsi": 40.8,
+      "rsi_zscore_1y": -0.89
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 27.8
+      "long_lower_wick": true,
+      "wick_days_ago": 1,
+      "adx_reference": 19.2
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 65,
+  "entry_atr_stop_pct": 4.1,
+  "score_addon": 47,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.7,
-      "forward_pe": 8.525212,
-      "peg": 2.83
+      "upside_pct": 13.9,
+      "forward_pe": 15.257139,
+      "peg": 1.48
     },
     "2_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "ma_converged_ignored": false
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 41.7
+      "rsi": 40.8
     },
     "4_trigger_confirmed": {
-      "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
+      "status": "warn",
+      "setup_confirmed": true,
+      "setup_days_ago": 3,
       "trigger_confirmed": false,
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.2
+      "stop_pct_from_20sma": 3.2
     }
   },
-  "sector": "Healthcare",
+  "sector": "Consumer Defensive",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.72,
+    "stop_reference_price": 137.38,
     "stopped_out": false
   },
   "divergence_stop_signal": null
