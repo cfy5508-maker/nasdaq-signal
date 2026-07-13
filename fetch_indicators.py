@@ -383,7 +383,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 추가: 오늘이 정확히 새 저점을 찍은 날이 아니어도, 마지막 저점가 대비 +3% 이내면
     # 신호가 아직 유효(저점 근처에서 다지는 중)한 것으로 간주한다.
     TOLERANCE_PCT = 0.03
-    MIN_GAP_DAYS = 3
+    MIN_GAP_DAYS = 5  # 3일에서 상향(SMCI 사례: 3일 간격은 "같은 되돌림 안의 노이즈"를 다이버전스로 착각할 위험 확인)
     MAX_GAP_DAYS = 30  # 30일(약 1.5개월) 넘게 떨어진 저점은 다른 하락 사이클로 간주해 배제
     close_values = c.values
     realtime_lows = find_realtime_lows(close_values, order=5)
