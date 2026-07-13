@@ -1,7 +1,7 @@
 {
   "ticker": "FSLR",
-  "price": 221.88,
-  "updated": "2026-07-13T17:46:20.375016+00:00",
+  "price": 219.93,
+  "updated": "2026-07-13T18:30:56.772763+00:00",
   "as_of_date": "2026-07-13",
   "score": 30,
   "stages": {
@@ -10,13 +10,13 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -48.2,
+      "volume_diff_pct_3m": -42.2,
       "price_up_latest": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.6,
-      "forward_pe": 9.463259,
+      "upside_pct": 14.6,
+      "forward_pe": 9.379877,
       "peg": 0.6
     },
     "3_divergence_gate": {
@@ -28,11 +28,11 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 37.8,
-      "rsi_zscore_1y": -1.35
+      "rsi": 37.0,
+      "rsi_zscore_1y": -1.42
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -40,20 +40,20 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
+      "wick_days_ago": 3,
       "adx_reference": 28.1,
-      "volume_confirmed": false,
-      "trigger_day_volume": 880431,
-      "avg_volume_divergence_window": 1391233
+      "volume_confirmed": true,
+      "trigger_day_volume": 1713700,
+      "avg_volume_divergence_window": 1421486
     }
   },
-  "entry_atr_stop_pct": 8.8,
+  "entry_atr_stop_pct": 8.9,
   "score_addon": 21,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.6,
-      "forward_pe": 9.463259,
+      "upside_pct": 14.6,
+      "forward_pe": 9.379877,
       "peg": 0.6
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 37.8
+      "rsi": 37.0
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.4
+      "stop_pct_from_20sma": 10.3
     }
   },
   "sector": "Technology",
@@ -84,10 +84,10 @@
     "active": true,
     "prior_divergence_date_index": 247,
     "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 1.1
+    "price_drop_since_pct": 2.0
   },
   "pullback_stop_signal": {
-    "stop_reference_price": 221.88,
+    "stop_reference_price": 219.93,
     "stopped_out": false
   },
   "divergence_stop_signal": null

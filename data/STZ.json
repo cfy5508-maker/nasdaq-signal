@@ -1,7 +1,7 @@
 {
   "ticker": "STZ",
-  "price": 134.71,
-  "updated": "2026-07-13T17:46:06.942227+00:00",
+  "price": 134.58,
+  "updated": "2026-07-13T18:30:39.436994+00:00",
   "as_of_date": "2026-07-13",
   "score": 30,
   "stages": {
@@ -10,13 +10,13 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -62.2,
+      "volume_diff_pct_3m": -56.6,
       "price_up_latest": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.9,
-      "forward_pe": 10.885649,
+      "upside_pct": 27.1,
+      "forward_pe": 10.875547,
       "peg": 2.55
     },
     "3_divergence_gate": {
@@ -28,14 +28,14 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.4,
-      "rsi_zscore_1y": -0.41
+      "rsi": 42.2,
+      "rsi_zscore_1y": -0.43
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
-      "pattern": "모닝스타",
-      "days_ago": 1,
+      "pattern": "해머",
+      "days_ago": 2,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
@@ -43,7 +43,7 @@
       "wick_days_ago": 2,
       "adx_reference": 14.9,
       "volume_confirmed": false,
-      "trigger_day_volume": 2133000,
+      "trigger_day_volume": 2323800,
       "avg_volume_divergence_window": 2556525
     }
   },
@@ -52,8 +52,8 @@
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.9,
-      "forward_pe": 10.885649,
+      "upside_pct": 27.1,
+      "forward_pe": 10.875547,
       "peg": 2.55
     },
     "2_pullback_gate": {
@@ -64,7 +64,7 @@
     },
     "3_rsi_zone": {
       "status": "fail",
-      "rsi": 42.4
+      "rsi": 42.2
     },
     "4_trigger_confirmed": {
       "status": "fail",
@@ -74,7 +74,7 @@
       "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.4
+      "stop_pct_from_20sma": 3.5
     }
   },
   "sector": "Consumer Defensive",

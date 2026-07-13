@@ -1,7 +1,7 @@
 {
   "ticker": "SIF",
-  "price": 22.68,
-  "updated": "2026-07-13T17:46:14.499237+00:00",
+  "price": 22.41,
+  "updated": "2026-07-13T18:30:48.916331+00:00",
   "as_of_date": "2026-07-13",
   "score": 20,
   "stages": {
@@ -10,7 +10,7 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -62.2,
+      "volume_diff_pct_3m": -56.6,
       "price_up_latest": false
     },
     "2_fundamentals": {
@@ -28,8 +28,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.7,
-      "rsi_zscore_1y": -0.26
+      "rsi": 52.6,
+      "rsi_zscore_1y": -0.36
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -47,8 +47,8 @@
       "avg_volume_divergence_window": 117384
     }
   },
-  "entry_atr_stop_pct": 12.5,
-  "score_addon": 82,
+  "entry_atr_stop_pct": 12.6,
+  "score_addon": 68,
   "stages_addon": {
     "1_fundamentals": {
       "status": "warn",
@@ -64,17 +64,17 @@
     },
     "3_rsi_zone": {
       "status": "warn",
-      "rsi": 53.7
+      "rsi": 52.6
     },
     "4_trigger_confirmed": {
-      "status": "pass",
+      "status": "warn",
       "setup_confirmed": true,
       "setup_days_ago": 1,
-      "trigger_confirmed": true,
-      "trigger_lag": 1
+      "trigger_confirmed": false,
+      "trigger_lag": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.6
+      "stop_pct_from_20sma": 0.4
     }
   },
   "sector": "Industrials",
