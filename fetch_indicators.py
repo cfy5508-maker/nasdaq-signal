@@ -463,13 +463,28 @@ def analyze(ticker, trim_days=0, write_file=True):
     #   - 폐기: 고점/저점 우상향, OBV, 급락캔들없음, 40일선기울기, ATR기반이격도 (전부 역효과/무의미)
     sma20 = c.rolling(20).mean()
     sma40_addon = sma40  # 신규진입에서 이미 계산된 40일선 재사용
+    sma60 = c.rolling(60).mean()
 
     PULLBACK_MA_TOLERANCE = 0.03
     dist_sma20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] if not pd.isna(sma20.iloc[-1]) else None
     dist_sma40 = abs(last_close - sma40_addon.iloc[-1]) / sma40_addon.iloc[-1] if not pd.isna(sma40_addon.iloc[-1]) else None
     near_sma20 = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
     near_sma40 = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
-    pullback_gate = near_sma20 or near_sma40
+
+    # 60일선이 20/40일선보다 가장 아래에 있는 경우(정배열이 눌려서 수렴 중인 흐름)라면,
+    # 20/40일선 근접 신호가 떠도 "추세 힘빠짐"으로 보고 무시한다.
+    # 60일선이 가장 아래가 아닌 경우(역배열 등)는 근접 신호를 그대로 인정한다.
+    sma20_now_v = float(sma20.iloc[-1]) if not pd.isna(sma20.iloc[-1]) else None
+    sma40_now_v = float(sma40_addon.iloc[-1]) if not pd.isna(sma40_addon.iloc[-1]) else None
+    sma60_now_v = float(sma60.iloc[-1]) if not pd.isna(sma60.iloc[-1]) else None
+    sma60_is_lowest = bool(sma60_now_v is not None and sma20_now_v is not None and sma40_now_v is not None
+                           and sma60_now_v < sma20_now_v and sma60_now_v < sma40_now_v)
+
+    near_ma_signal = near_sma20 or near_sma40
+    if sma60_is_lowest and near_ma_signal:
+        pullback_gate = False  # 60일선이 가장 아래인데 근접 -> 신호 무시
+    else:
+        pullback_gate = near_ma_signal
     addon_stage_gate = "pass" if pullback_gate else "fail"
 
     # RSI 존: 60이상 pass, 50~60 warn, 50미만 fail
@@ -529,7 +544,7 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     stages_addon = {
         "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40},
+        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "sma60_is_lowest_ignored": bool(sma60_is_lowest and near_ma_signal)},
         "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1)},
         "4_trigger_confirmed": {"status": addon_stage_trigger, "setup_confirmed": setup_confirmed,
                                  "setup_days_ago": setup_days_ago, "trigger_confirmed": trigger_confirmed,
