@@ -366,6 +366,29 @@ def analyze(ticker, trim_days=0, write_file=True):
                 }
             break  # 가장 가까운 과거 다이버전스 하나만 확인하고 종료
 
+    # 다이버전스 무효화 이후 손절신호: 무효화가 확정된 저점(pos_latest) 이후 오늘까지
+    # 반전캔들(해머/엔걸핑/긴아래꼬리)이 한 번도 안 나왔고, N일(기본 5일) 이상 지났으면
+    # "반등 기회 자체가 없다"고 보고 손절신호를 켠다. 점수 계산에는 반영하지 않는 참고용.
+    DIVERGENCE_STOP_WINDOW_DAYS = 5
+    divergence_stop_signal = None
+    if divergence_invalidated_signal is not None and divergence_invalidated_signal.get("active"):
+        days_since_break = (len(close_values) - 1) - pos_latest
+        if days_since_break >= DIVERGENCE_STOP_WINDOW_DAYS:
+            had_rescue_trigger = False
+            for chk_idx in range(pos_latest, len(close_values)):
+                sub_o2, sub_h2, sub_l2, sub_c2 = o.iloc[:chk_idx+1], h.iloc[:chk_idx+1], l.iloc[:chk_idx+1], c.iloc[:chk_idx+1]
+                if (detect_hammer(sub_o2, sub_h2, sub_l2, sub_c2) or
+                    detect_bullish_engulfing(sub_o2, sub_h2, sub_l2, sub_c2) or
+                    detect_long_lower_wick(sub_o2, sub_h2, sub_l2, sub_c2)):
+                    had_rescue_trigger = True
+                    break
+            if not had_rescue_trigger:
+                divergence_stop_signal = {
+                    "active": True,
+                    "days_since_break": days_since_break,
+                    "reason": f"무효화 이후 {days_since_break}일간 반전캔들 없음",
+                }
+
     # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 평균 대비
     # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
     # 상장 초기 등으로 1년치 데이터가 없으면, 있는 만큼(최소 30일)으로 계산한다.
@@ -596,6 +619,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "uptrend_entry_signal": uptrend_entry_signal,
         "divergence_invalidated_signal": divergence_invalidated_signal,
         "pullback_stop_signal": pullback_stop_signal,
+        "divergence_stop_signal": divergence_stop_signal,
     }
     if write_file:
         with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
@@ -722,7 +746,8 @@ def main():
           "trigger": r["stages"]["5_trigger_candle"]["status"],
           "signal": r["signal"], "signal_addon": r["signal_addon"],
           "uptrend_entry_signal": r["uptrend_entry_signal"],
-          "divergence_invalidated_signal": r["divergence_invalidated_signal"]}
+          "divergence_invalidated_signal": r["divergence_invalidated_signal"],
+          "divergence_stop_signal": r["divergence_stop_signal"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
     )
