@@ -125,11 +125,10 @@ STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25, "neutral
 MAX_SCORE = sum(WEIGHTS.values())
 
 ADDON_WEIGHTS = {
-    "2_fundamentals": 2.0,
-    "3_pullback_position": 1.5,
-    "4_pullback_depth": 1.0,
-    "5_volume_flow": 1.0,
-    "8_trigger_breakout": 1.5,
+    "1_fundamentals": 3.0,          # 눌림목은 업사이드 여유가 핵심이라 신규진입(2.0)보다 상향
+    "2_pullback_gate": 2.5,         # 20/40일선 근접 - 가장 강한 근거(대규모 검증)
+    "3_rsi_zone": 1.0,              # RSI 50~60구간 - 약한 보조 신호
+    "4_trigger_confirmed": 2.0,     # 셋업당일 고가 1~3일내 돌파 확정
 }
 
 
@@ -454,55 +453,86 @@ def analyze(ticker, trim_days=0, write_file=True):
     stage1 = "pass" if all(stage1_flags.values()) else \
              "warn" if stage1_flags["upside_ge_threshold"] else "fail"
 
-    # ── 추매(불타기) 체크리스트 계산 ──────────────────
+    # ── 눌림목(재진입) 계산식 ──────────────────
+    # 백테스트 검증(대형주50종목):
+    #   - 20/40일선 ±3% 근접이 핵심 게이트 (근접 단독으로 이미 기준선 대비 효과 대부분)
+    #   - RSI 50~60구간이 60에 가까울수록 약하게 개선(효과는 작음, 참고용 가중치)
+    #   - 셋업(근접+RSI50+) 당일 고가를 1~3일 내 종가로 돌파해야 진입확정(트리거) - 표본 늘고 승률도 개선
+    #   - 손절: 직전 스윙저점 이탈 시 (16.8% vs 75.3%로 매우 강력한 근거, 별도 신호로만 관리 - 점수 미반영)
+    #   - 폐기: 고점/저점 우상향, OBV, 급락캔들없음, 40일선기울기, ATR기반이격도 (전부 역효과/무의미)
     sma20 = c.rolling(20).mean()
-    sma50 = c.rolling(50).mean()
-    plus_di = adx_ind.adx_pos()
-    minus_di = adx_ind.adx_neg()
+    sma40_addon = sma40  # 신규진입에서 이미 계산된 40일선 재사용
 
-    near_20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] <= 0.02
-    near_50 = abs(last_close - sma50.iloc[-1]) / sma50.iloc[-1] <= 0.02
+    PULLBACK_MA_TOLERANCE = 0.03
+    dist_sma20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] if not pd.isna(sma20.iloc[-1]) else None
+    dist_sma40 = abs(last_close - sma40_addon.iloc[-1]) / sma40_addon.iloc[-1] if not pd.isna(sma40_addon.iloc[-1]) else None
+    near_sma20 = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
+    near_sma40 = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
+    pullback_gate = near_sma20 or near_sma40
+    addon_stage_gate = "pass" if pullback_gate else "fail"
 
-    # 백테스트 검증: 52주 RSI 백분위 0~15%가 10종목 x2회 표본에서 일관된
-    # 승률 우위(+8~10%p) 확인됨. RSI 조건이 반드시 관여해야 pass/warn이 나오도록
-    # 이평선 근접 단독으로는 판정이 안 나게 조임.
-    rsi_series_52w = rsi.dropna()
-    rsi_percentile = float((rsi_series_52w < rsi_last).mean() * 100) if len(rsi_series_52w) > 0 else 50.0
-    rsi_low = rsi_percentile <= 15
-    rsi_mid = 15 < rsi_percentile <= 30
+    # RSI 존: 60이상 pass, 50~60 warn, 50미만 fail
+    if rsi_last >= 60:
+        addon_stage_rsi = "pass"
+    elif rsi_last >= 50:
+        addon_stage_rsi = "warn"
+    else:
+        addon_stage_rsi = "fail"
 
-    addon_stage3 = "pass" if (rsi_low and (near_20 or near_50)) else \
-                   "warn" if (rsi_low or (rsi_mid and (near_20 or near_50))) else "fail"
+    # 셋업/트리거: 게이트+RSI50이상이 성립한 최근 1~3일 중 하루를 "셋업일"로 보고,
+    # 그날 고가를 그 이후(오늘 포함) 종가가 넘었는지 확인
+    setup_confirmed = False
+    setup_days_ago = None
+    trigger_confirmed = False
+    trigger_lag = None
+    for days_ago in range(1, 4):
+        idx = len(c) - 1 - days_ago
+        if idx < 40:
+            continue
+        setup_price = float(c.iloc[idx])
+        setup_sma20 = float(sma20.iloc[idx]) if not pd.isna(sma20.iloc[idx]) else None
+        setup_sma40 = float(sma40_addon.iloc[idx]) if not pd.isna(sma40_addon.iloc[idx]) else None
+        setup_rsi = float(rsi.iloc[idx]) if not pd.isna(rsi.iloc[idx]) else None
+        if setup_sma20 is None or setup_sma40 is None or setup_rsi is None:
+            continue
+        setup_near = (abs(setup_price - setup_sma20) / setup_sma20 <= PULLBACK_MA_TOLERANCE) or \
+                     (abs(setup_price - setup_sma40) / setup_sma40 <= PULLBACK_MA_TOLERANCE)
+        if setup_near and setup_rsi >= 50:
+            setup_confirmed = True
+            setup_days_ago = days_ago
+            setup_high = float(h.iloc[idx])
+            if float(c.iloc[-1]) > setup_high:
+                trigger_confirmed = True
+                trigger_lag = days_ago
+            break
+    if trigger_confirmed:
+        addon_stage_trigger = "pass"
+    elif setup_confirmed:
+        addon_stage_trigger = "warn"  # 셋업은 있지만 아직 돌파 대기중
+    else:
+        addon_stage_trigger = "fail"
 
-    recent20_high = float(h.iloc[-20:].max())
-    pullback_pct = (recent20_high - last_close) / recent20_high * 100
-    addon_stage4 = "pass" if pullback_pct > 10 else \
-                   "warn" if 3 <= pullback_pct <= 10 else "fail"
-
-    vol_recent5 = float(v.iloc[-5:].mean())
-    vol_prior5 = float(v.iloc[-10:-5].mean())
-    addon_volume_up = bool(vol_recent5 > vol_prior5)
-    addon_stage5 = "pass" if addon_volume_up else "warn"
-
-    recent5_high = float(h.iloc[-6:-1].max())
-    addon_breakout = bool(c.iloc[-1] > recent5_high and c.iloc[-1] > o.iloc[-1])
-    addon_stage8 = "fail" if addon_breakout else "pass"
+    # 손절신호(점수 미반영, 별도 참고): 직전 스윙저점 이탈 여부
+    pullback_stop_signal = None
+    try:
+        _lows = find_realtime_lows(c.values, order=5)
+        if len(_lows) >= 1:
+            _recent_low_pos = _lows[-1]
+            _recent_low_price = float(c.iloc[_recent_low_pos])
+            _stopped = bool(last_close < _recent_low_price)
+            pullback_stop_signal = {"stop_reference_price": round(_recent_low_price, 2), "stopped_out": _stopped}
+    except Exception:
+        pass
 
     addon_stop_pct = round(abs(last_close - sma20.iloc[-1]) / last_close * 100, 1)
 
-    weekly_sma20 = weekly["Close"].rolling(20).mean()
-    daily_above_20sma = bool(last_close > sma20.iloc[-1])
-    weekly_above_20sma = bool(weekly["Close"].iloc[-1] > weekly_sma20.iloc[-1]) if not pd.isna(weekly_sma20.iloc[-1]) else None
-    plus_di_over_minus_di = bool(plus_di.iloc[-1] > minus_di.iloc[-1])
-
     stages_addon = {
-        "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_pullback_position": {"status": addon_stage3, "near_20sma": bool(near_20), "near_50sma": bool(near_50), "rsi": round(rsi_last, 1), "rsi_percentile_52w": round(rsi_percentile, 1)},
-        "4_pullback_depth": {"status": addon_stage4, "pullback_pct": round(pullback_pct, 1)},
-        "5_volume_flow": {"status": addon_stage5, "recent5_avg_vol": round(vol_recent5), "prior5_avg_vol": round(vol_prior5)},
-        "6_trend_continuation": {"status": "unknown", "adx": round(adx_last, 1), "plus_di_over_minus_di": plus_di_over_minus_di},
-        "7_multi_timeframe": {"status": "unknown", "daily_above_20sma": daily_above_20sma, "weekly_above_20sma": weekly_above_20sma},
-        "8_trigger_breakout": {"status": addon_stage8, "recent5_high": round(recent5_high, 2), "today_close": round(float(c.iloc[-1]), 2)},
+        "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40},
+        "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1)},
+        "4_trigger_confirmed": {"status": addon_stage_trigger, "setup_confirmed": setup_confirmed,
+                                 "setup_days_ago": setup_days_ago, "trigger_confirmed": trigger_confirmed,
+                                 "trigger_lag": trigger_lag},
         "9_position_sizing": {"stop_pct_from_20sma": addon_stop_pct},
     }
     addon_known_weights = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if stages_addon[k]["status"] != "unknown"}
@@ -549,6 +579,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "sector_relative_strength_up": sector_rs,
         "uptrend_entry_signal": uptrend_entry_signal,
         "divergence_invalidated_signal": divergence_invalidated_signal,
+        "pullback_stop_signal": pullback_stop_signal,
     }
     if write_file:
         with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
