@@ -1,31 +1,31 @@
 {
-  "ticker": "TOYO",
-  "price": 6.05,
-  "updated": "2026-07-13T00:04:54.099372+00:00",
+  "ticker": "UUUU",
+  "price": 13.58,
+  "updated": "2026-07-13T00:04:58.065297+00:00",
   "as_of_date": "2026-07-10",
   "score": 30,
   "stages": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 172.7,
-      "forward_pe": 1.4901478,
+      "upside_pct": 92.4,
+      "forward_pe": 41.151512,
       "peg": null
     },
     "2_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
       "divergence_present": false,
-      "gap_days": 3,
+      "gap_days": 17,
       "signal_fresh": null
     },
     "3_zscore": {
-      "status": "pass",
-      "rsi": 27.5,
-      "rsi_zscore_1y": -2.21
+      "status": "warn",
+      "rsi": 38.0,
+      "rsi_zscore_1y": -1.25
     },
     "4_adx": {
-      "status": "pass",
-      "adx": 32.0
+      "status": "fail",
+      "adx": 15.0
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -37,34 +37,34 @@
       "morning_star": false
     }
   },
-  "entry_atr_stop_pct": 27.4,
+  "entry_atr_stop_pct": 11.6,
   "score_addon": 82,
   "stages_addon": {
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 172.7,
-      "forward_pe": 1.4901478,
+      "upside_pct": 92.4,
+      "forward_pe": 41.151512,
       "peg": null
     },
     "3_pullback_position": {
       "status": "warn",
       "near_20sma": false,
       "near_50sma": false,
-      "rsi": 27.5,
-      "rsi_percentile_52w": 0.4
+      "rsi": 38.0,
+      "rsi_percentile_52w": 7.1
     },
     "4_pullback_depth": {
       "status": "pass",
-      "pullback_pct": 55.6
+      "pullback_pct": 24.8
     },
     "5_volume_flow": {
       "status": "warn",
-      "recent5_avg_vol": 763360,
-      "prior5_avg_vol": 1526900
+      "recent5_avg_vol": 6576680,
+      "prior5_avg_vol": 8896900
     },
     "6_trend_continuation": {
       "status": "unknown",
-      "adx": 32.0,
+      "adx": 15.0,
       "plus_di_over_minus_di": false
     },
     "7_multi_timeframe": {
@@ -74,13 +74,13 @@
     },
     "8_trigger_breakout": {
       "status": "pass",
-      "recent5_high": 7.07,
-      "today_close": 6.05
+      "recent5_high": 15.0,
+      "today_close": 13.58
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 50.6
+      "stop_pct_from_20sma": 7.7
     }
   },
-  "sector": "Technology",
+  "sector": "Energy",
   "sector_relative_strength_up": false
 }
