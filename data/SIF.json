@@ -1,8 +1,8 @@
 {
   "ticker": "SIF",
-  "price": 22.02,
-  "updated": "2026-07-13T12:22:54.729112+00:00",
-  "as_of_date": "2026-07-10",
+  "price": 22.68,
+  "updated": "2026-07-13T17:33:41.064535+00:00",
+  "as_of_date": "2026-07-13",
   "score": 20,
   "stages": {
     "1_market_health": {
@@ -10,8 +10,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -21.2,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -63.2,
+      "price_up_latest": false
     },
     "2_fundamentals": {
       "status": "warn",
@@ -28,8 +28,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.0,
-      "rsi_zscore_1y": -0.51
+      "rsi": 53.7,
+      "rsi_zscore_1y": -0.26
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -40,15 +40,15 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 29.1,
+      "wick_days_ago": 1,
+      "adx_reference": 28.1,
       "volume_confirmed": false,
       "trigger_day_volume": 104800,
       "avg_volume_divergence_window": 117384
     }
   },
-  "entry_atr_stop_pct": 13.2,
-  "score_addon": 68,
+  "entry_atr_stop_pct": 12.5,
+  "score_addon": 82,
   "stages_addon": {
     "1_fundamentals": {
       "status": "warn",
@@ -64,17 +64,17 @@
     },
     "3_rsi_zone": {
       "status": "warn",
-      "rsi": 51.0
+      "rsi": 53.7
     },
     "4_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "setup_confirmed": true,
       "setup_days_ago": 1,
-      "trigger_confirmed": false,
-      "trigger_lag": null
+      "trigger_confirmed": true,
+      "trigger_lag": 1
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.2
+      "stop_pct_from_20sma": 1.6
     }
   },
   "sector": "Industrials",

@@ -1,8 +1,8 @@
 {
   "ticker": "TTWO",
-  "price": 243.2,
-  "updated": "2026-07-13T12:22:58.929120+00:00",
-  "as_of_date": "2026-07-10",
+  "price": 244.91,
+  "updated": "2026-07-13T17:33:44.187835+00:00",
+  "as_of_date": "2026-07-13",
   "score": 40,
   "stages": {
     "1_market_health": {
@@ -10,13 +10,13 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.9,
-      "price_up_latest": true
+      "volume_diff_pct_3m": -49.3,
+      "price_up_latest": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 16.8,
-      "forward_pe": 24.31691,
+      "upside_pct": 16.0,
+      "forward_pe": 24.48789,
       "peg": 3.4
     },
     "3_divergence_gate": {
@@ -24,12 +24,12 @@
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 20,
-      "signal_fresh": true
+      "signal_fresh": false
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.8,
-      "rsi_zscore_1y": 0.3
+      "rsi": 56.3,
+      "rsi_zscore_1y": 0.42
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -41,19 +41,19 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.1,
+      "adx_reference": 26.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 5.3,
-  "score_addon": 64,
+  "entry_atr_stop_pct": 5.1,
+  "score_addon": 79,
   "stages_addon": {
     "1_fundamentals": {
       "status": "pass",
-      "upside_pct": 16.8,
-      "forward_pe": 24.31691,
+      "upside_pct": 16.0,
+      "forward_pe": 24.48789,
       "peg": 3.4
     },
     "2_pullback_gate": {
@@ -64,12 +64,12 @@
     },
     "3_rsi_zone": {
       "status": "warn",
-      "rsi": 54.8
+      "rsi": 56.3
     },
     "4_trigger_confirmed": {
-      "status": "fail",
-      "setup_confirmed": false,
-      "setup_days_ago": null,
+      "status": "warn",
+      "setup_confirmed": true,
+      "setup_days_ago": 1,
       "trigger_confirmed": false,
       "trigger_lag": null
     },
