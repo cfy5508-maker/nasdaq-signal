@@ -96,7 +96,7 @@ def main():
     if hist.empty:
         print(f"{ticker}: 데이터 없음")
         return
-    o, h, l, c = hist["Open"], hist["High"], hist["Low"], hist["Close"]
+    o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
     rsi = RSIIndicator(c, window=14).rsi()
     close_values = c.values
     n = len(close_values)
@@ -184,6 +184,26 @@ def main():
         print(f"\n  => 판정: WARN (긴 아래꼬리 {wick_days_ago}일 전 있음, 돌파 확정은 없음)")
     else:
         print(f"\n  => 판정: FAIL (반전캔들도 없고 긴아래꼬리도 없음)")
+
+    # 트리거캔들 거래량 확인: 트리거캔들 당일 거래량 vs 다이버전스 구간(저점1~저점2) 평균거래량
+    print(f"\n[트리거캔들 거래량 확인]")
+    trigger_day_idx = None
+    if breakout_ok:
+        trigger_day_idx = n - 1 - lookback
+    elif wick_found:
+        trigger_day_idx = n - 1 - wick_days_ago
+
+    if trigger_day_idx is not None and pos1 is not None and pos2 is not None and pos1 <= pos2:
+        avg_vol_window = float(v.iloc[pos1:pos2 + 1].mean())
+        trigger_vol = float(v.iloc[trigger_day_idx])
+        vol_confirmed = trigger_vol > avg_vol_window
+        print(f"  다이버전스 구간({hist.index[pos1].date()}~{hist.index[pos2].date()}) 평균거래량: {avg_vol_window:,.0f}")
+        print(f"  트리거캔들({hist.index[trigger_day_idx].date()}) 거래량: {trigger_vol:,.0f}")
+        print(f"  거래량 실린 트리거인가(구간평균 초과): {vol_confirmed}")
+        if vol_confirmed:
+            print(f"  => 가중치 1.5배 상향 대상")
+    else:
+        print("  트리거캔들 또는 다이버전스 구간이 없어 비교 불가")
 
     # 상승추세 진입 / 다이버전스 무효화 진단
     print(f"\n[상승추세 진입 / 다이버전스 무효화 진단]")
