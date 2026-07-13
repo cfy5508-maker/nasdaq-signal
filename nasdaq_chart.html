@@ -983,7 +983,12 @@
           ? (s['5_trigger_candle'].pattern+' 확정('+s['5_trigger_candle'].days_ago+'일 전) + 돌파 완료 · 참고ADX '+s['5_trigger_candle'].adx_reference)
           : (s['5_trigger_candle'].long_lower_wick
               ? ('긴 아래꼬리(약한신호, '+s['5_trigger_candle'].wick_days_ago+'일 전) · 참고ADX '+s['5_trigger_candle'].adx_reference)
-              : ('반전캔들+돌파 없음 · 참고ADX '+s['5_trigger_candle'].adx_reference))]
+              : ('반전캔들+돌파 없음 · 참고ADX '+s['5_trigger_candle'].adx_reference))],
+      ['손절신호(참고)',
+        {status: full.divergence_stop_signal && full.divergence_stop_signal.active ? 'fail' : 'neutral'},
+        full.divergence_stop_signal && full.divergence_stop_signal.active
+          ? full.divergence_stop_signal.reason
+          : '해당 없음']
     ];
   }
 
