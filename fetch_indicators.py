@@ -239,6 +239,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     last_close = float(c.iloc[-1])
     bb_low, bb_high = float(bb.bollinger_lband().iloc[-1]), float(bb.bollinger_hband().iloc[-1])
     rsi_last = float(rsi.iloc[-1])
+    sma40 = c.rolling(40).mean()  # 눌림목 게이트에서 사용 (20/40일선 근접 판정)
 
     recent = c.iloc[-90:]
     low1_idx, low2_idx = recent.iloc[:45].idxmin(), recent.iloc[45:].idxmin()
