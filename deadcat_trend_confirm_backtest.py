@@ -78,27 +78,32 @@ def analyze_ticker(ticker):
 
     rows = []
     div_count_since_high = 0
+    RECENT_HIGH_LOOKBACK = 20  # 저점2 이전 20일 종가 최고치 = "직전 저항선"
     for i in range(HIGH_LOOKBACK, n - FORWARD_DAYS):
         if not pd.isna(rolling_high.iloc[i]) and close_values[i] >= rolling_high.iloc[i]:
             div_count_since_high = 0
         if i in is_pass_divergence:
             div_count_since_high += 1
             price2 = close_values[i]
+
+            lookback_start = max(0, i - RECENT_HIGH_LOOKBACK)
+            resistance = float(close_values[lookback_start:i].max()) if i > lookback_start else price2
+
             future_window = close_values[i+1:i+1+FORWARD_DAYS]
-            trend_confirmed = bool((future_window >= price2).all())  # 단 하루도 저점2 아래로 안 떨어짐
+            new_high_achieved = bool((future_window > resistance).any())  # 직전 저항선을 실제로 돌파했는지
 
             max_return = float(future_window.max() / price2 - 1) if len(future_window) > 0 else None
             final_return = float(future_window[-1] / price2 - 1) if len(future_window) > 0 else None
 
-            rows.append({"nth": div_count_since_high, "trend_confirmed": trend_confirmed,
+            rows.append({"nth": div_count_since_high, "new_high_achieved": new_high_achieved,
                         "max_return": max_return, "final_return": final_return})
     return rows
 
 
-def confirm_rate(recs):
+def new_high_rate(recs):
     if not recs:
         return None
-    return float(np.mean([r["trend_confirmed"] for r in recs]) * 100)
+    return float(np.mean([r["new_high_achieved"] for r in recs]) * 100)
 
 
 def main():
@@ -117,10 +122,10 @@ def main():
         print("표본 없음")
         return
 
-    baseline_rate = confirm_rate(all_rows)
-    print(f"전체 기준선(추세전환 성공률=저점 안 깨짐): {baseline_rate:.1f}%\n")
+    baseline_rate = new_high_rate(all_rows)
+    print(f"전체 기준선(새고점 달성률=직전20일 저항선 돌파): {baseline_rate:.1f}%\n")
 
-    print("=== 고점(6개월) 이후 몇 번째 다이버전스인지별 '추세전환 성공률' ===")
+    print("=== 고점(6개월) 이후 몇 번째 다이버전스인지별 '새고점 달성률' ===")
     for n_val in [1, 2, 3, 4]:
         if n_val < 4:
             sub = [r for r in all_rows if r["nth"] == n_val]
@@ -128,11 +133,11 @@ def main():
         else:
             sub = [r for r in all_rows if r["nth"] >= n_val]
             label = f"{n_val}번째 이상"
-        rate = confirm_rate(sub)
+        rate = new_high_rate(sub)
         if rate is not None:
             avg_max = np.mean([r["max_return"] for r in sub]) * 100
             avg_final = np.mean([r["final_return"] for r in sub]) * 100
-            print(f"  {label}: 표본{len(sub)}건 | 추세전환성공률 {rate:.1f}% | 기준대비 {rate-baseline_rate:+.1f}%p | 기간중최고평균 +{avg_max:.2f}% | 종료시점평균 {avg_final:+.2f}%")
+            print(f"  {label}: 표본{len(sub)}건 | 새고점달성률 {rate:.1f}% | 기준대비 {rate-baseline_rate:+.1f}%p | 기간중최고평균 +{avg_max:.2f}% | 종료시점평균 {avg_final:+.2f}%")
 
 
 if __name__ == "__main__":
