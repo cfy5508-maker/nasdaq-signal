@@ -1,12 +1,12 @@
 """
-divergence_since_high_backtest.py
-사용법: python divergence_since_high_backtest.py [FORWARD_DAYS]
+deadcat_trend_confirm_backtest.py
+사용법: python deadcat_trend_confirm_backtest.py [FORWARD_DAYS]
 기본값: FORWARD_DAYS=10
 
-동작: 각 종목의 "6개월(126거래일) 고점" 이후, 정석 다이버전스(pass)가
-      몇 번째로 발생했는지(1번째/2번째/3번째/4번째이상) 카운트하고,
-      그 순번별로 이후 승률이 어떻게 달라지는지 확인한다.
-      (가설: 고점 이후 다이버전스가 반복될수록 신뢰도가 떨어질 것)
+동작: 정석 다이버전스(pass)가 확정된 이후, FORWARD_DAYS 동안 단 하루도
+      저점2 종가 아래로 다시 떨어지지 않았는지(=진짜 추세전환 성공)를 판정하고,
+      "고점(6개월) 이후 경과일수" 구간별로 이 추세전환 성공률을 비교한다.
+      (10일 뒤 스냅샷 수익률이 아니라, 그 기간 내내 저점을 지켰는지를 본다)
 """
 import sys
 import numpy as np
@@ -29,7 +29,7 @@ TICKERS = LARGECAP_TICKERS + SMALLCAP_TICKERS
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 10
 MIN_GAP_DAYS = 5
 MAX_GAP_DAYS = 30
-HIGH_LOOKBACK = 126  # 약 6개월
+HIGH_LOOKBACK = 126
 
 
 def find_realtime_lows(close_values, order=5):
@@ -60,11 +60,9 @@ def analyze_ticker(ticker):
     n = len(hist)
 
     realtime_lows = find_realtime_lows(close_values, order=5)
-    low_set = set(realtime_lows)
 
-    # 각 저점(pos2)이 정석 다이버전스(pass)였는지 사전 계산
     is_pass_divergence = {}
-    for idx, pos2 in enumerate(realtime_lows):
+    for pos2 in realtime_lows:
         candidates = [p for p in realtime_lows if p != pos2 and MIN_GAP_DAYS <= (pos2 - p) <= MAX_GAP_DAYS]
         if not candidates:
             continue
@@ -76,28 +74,31 @@ def analyze_ticker(ticker):
         if price2 < price1 and rsi2 > rsi1:
             is_pass_divergence[pos2] = True
 
-    # 126일 롤링 최고가 - 오늘이 그 최고가를 새로 찍은 날인지 확인(causal)
     rolling_high = c.rolling(HIGH_LOOKBACK, min_periods=20).max()
 
     rows = []
     div_count_since_high = 0
     for i in range(HIGH_LOOKBACK, n - FORWARD_DAYS):
-        # 오늘이 새로운 126일 고점이면 카운터 리셋
         if not pd.isna(rolling_high.iloc[i]) and close_values[i] >= rolling_high.iloc[i]:
             div_count_since_high = 0
         if i in is_pass_divergence:
             div_count_since_high += 1
-            entry = float(c.iloc[i])
-            fwd_return = float(c.iloc[i + FORWARD_DAYS]) / entry - 1
-            rows.append({"nth": div_count_since_high, "fwd_return": fwd_return, "win": fwd_return > 0})
+            price2 = close_values[i]
+            future_window = close_values[i+1:i+1+FORWARD_DAYS]
+            trend_confirmed = bool((future_window >= price2).all())  # 단 하루도 저점2 아래로 안 떨어짐
+
+            max_return = float(future_window.max() / price2 - 1) if len(future_window) > 0 else None
+            final_return = float(future_window[-1] / price2 - 1) if len(future_window) > 0 else None
+
+            rows.append({"nth": div_count_since_high, "trend_confirmed": trend_confirmed,
+                        "max_return": max_return, "final_return": final_return})
     return rows
 
 
-def win_rate(recs):
+def confirm_rate(recs):
     if not recs:
-        return None, None
-    arr = np.array([r["fwd_return"] for r in recs])
-    return float((arr > 0).mean() * 100), float(arr.mean() * 100)
+        return None
+    return float(np.mean([r["trend_confirmed"] for r in recs]) * 100)
 
 
 def main():
@@ -111,15 +112,15 @@ def main():
         if rows:
             all_rows.extend(rows)
 
-    print(f"\n=== 정석 다이버전스(pass) 총 {len(all_rows)}건, {FORWARD_DAYS}일 뒤 기준 ===\n")
+    print(f"\n=== 정석 다이버전스(pass) 총 {len(all_rows)}건, {FORWARD_DAYS}일 이내 저점유지 여부 기준 ===\n")
     if not all_rows:
         print("표본 없음")
         return
 
-    baseline_wr, baseline_avg = win_rate(all_rows)
-    print(f"전체 기준선: 승률 {baseline_wr:.1f}%\n")
+    baseline_rate = confirm_rate(all_rows)
+    print(f"전체 기준선(추세전환 성공률=저점 안 깨짐): {baseline_rate:.1f}%\n")
 
-    print("=== 6개월 고점 이후 몇 번째 다이버전스인지 별 승률 ===")
+    print("=== 고점(6개월) 이후 몇 번째 다이버전스인지별 '추세전환 성공률' ===")
     for n_val in [1, 2, 3, 4]:
         if n_val < 4:
             sub = [r for r in all_rows if r["nth"] == n_val]
@@ -127,9 +128,11 @@ def main():
         else:
             sub = [r for r in all_rows if r["nth"] >= n_val]
             label = f"{n_val}번째 이상"
-        wr, avg = win_rate(sub)
-        if wr is not None:
-            print(f"  {label}: 표본{len(sub)}건 | 승률 {wr:.1f}% | 기준대비 {wr-baseline_wr:+.1f}%p | 평균수익률 {avg:+.2f}%")
+        rate = confirm_rate(sub)
+        if rate is not None:
+            avg_max = np.mean([r["max_return"] for r in sub]) * 100
+            avg_final = np.mean([r["final_return"] for r in sub]) * 100
+            print(f"  {label}: 표본{len(sub)}건 | 추세전환성공률 {rate:.1f}% | 기준대비 {rate-baseline_rate:+.1f}%p | 기간중최고평균 +{avg_max:.2f}% | 종료시점평균 {avg_final:+.2f}%")
 
 
 if __name__ == "__main__":
