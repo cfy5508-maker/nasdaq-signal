@@ -1,9 +1,9 @@
 {
   "ticker": "LMT",
   "price": 520.68,
-  "updated": "2026-07-14T08:44:54.107180+00:00",
+  "updated": "2026-07-14T09:28:40.652625+00:00",
   "as_of_date": "2026-07-13",
-  "score": 49,
+  "score": 64,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -26,12 +26,13 @@
       "peg": 1.11
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "pass",
       "bullish_divergence": false,
       "divergence_present": true,
       "gap_days": 10,
       "signal_fresh": false,
-      "divergence_quality": 0.456
+      "divergence_quality": 1.0,
+      "rsi_improvement": 11.4
     },
     "4_zscore": {
       "status": "fail",
