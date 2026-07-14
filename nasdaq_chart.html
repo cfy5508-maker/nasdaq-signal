@@ -1273,7 +1273,10 @@
         posWrap.innerHTML =
           '<div style="display:flex;justify-content:space-between;align-items:center;">' +
             '<span style="font-size:11px;color:#9999aa;">내 매수가 '+Math.round(posData.priceKRW).toLocaleString()+'원'+(posData.date ? (' · '+posData.date) : '')+'</span>' +
-            '<span data-clear-pos style="font-size:11px;color:#6b6b7a;cursor:pointer;text-decoration:underline;">매수 취소</span>' +
+            '<span style="display:flex;align-items:center;gap:10px;">' +
+              '<span data-edit-pos style="font-size:11px;color:#a78bfa;cursor:pointer;text-decoration:underline;">매수가 수정</span>' +
+              '<span data-clear-pos style="font-size:11px;color:#6b6b7a;cursor:pointer;text-decoration:underline;">매수 취소</span>' +
+            '</span>' +
           '</div>' +
           '<div style="font-size:13px;margin-top:6px;color:'+pnlColor+';font-weight:700;">'+(pnlPct>=0?'+':'')+pnlPct.toFixed(1)+'% <span style="font-size:11px;color:#6b6b7a;font-weight:400;">(현재가 '+Math.round(currentPriceKRW).toLocaleString()+'원 · $'+full.price.toFixed(2)+' · 환율 '+rate.toLocaleString()+'원)</span></div>' +
           '<div style="font-size:11px;margin-top:4px;color:#c7c7d1;">ATR기준 손절가: '+Math.round(stopPriceKRW).toLocaleString()+'원 (매수가 대비 -'+stopPctFromBuy.toFixed(1)+'%)</div>';
@@ -1282,6 +1285,31 @@
           localStorage.removeItem(posKey);
           posData = null;
           renderPosBlock(rate, fx);
+        });
+
+        posWrap.querySelector('[data-edit-pos]').addEventListener('click', function(){
+          posWrap.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+              '<span style="display:flex;align-items:center;gap:6px;">' +
+                '<span style="font-size:11px;color:#9999aa;">매수가(원):</span>' +
+                '<input type="number" step="1" value="'+Math.round(posData.priceKRW)+'" style="width:110px;padding:5px 8px;border-radius:6px;border:1px solid #3a3a4a;background:#1a1a22;color:#e2e2e8;font-size:12px;" data-price-input>' +
+              '</span>' +
+              '<span style="display:flex;align-items:center;gap:10px;">' +
+                '<button data-save-price style="font-size:11px;padding:5px 10px;border-radius:6px;border:none;background:#7c3aed;color:#fff;cursor:pointer;">저장</button>' +
+                '<span data-cancel-input style="font-size:11px;color:#6b6b7a;cursor:pointer;">취소</span>' +
+              '</span>' +
+            '</div>';
+
+          posWrap.querySelector('[data-save-price]').addEventListener('click', function(){
+            var val = parseFloat(posWrap.querySelector('[data-price-input]').value);
+            if (!val || val <= 0) { alert('올바른 매수가(원화)를 입력해주세요.'); return; }
+            posData = {priceKRW: val, date: posData.date || new Date().toISOString().slice(0,10)};
+            localStorage.setItem(posKey, JSON.stringify(posData));
+            renderPosBlock(rate, fx);
+          });
+          posWrap.querySelector('[data-cancel-input]').addEventListener('click', function(){
+            renderPosBlock(rate, fx);
+          });
         });
       } else {
         posWrap.innerHTML =
