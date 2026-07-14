@@ -268,7 +268,7 @@
       + 종목 추가
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <div id="rankHeaderRow" style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
   <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">추세신호</span><span></span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">손절신호</span><span></span>
   </div>
   <div id="rankList"></div>
@@ -1223,7 +1223,14 @@
     try { posData = JSON.parse(localStorage.getItem(posKey) || 'null'); } catch(e) { posData = null; }
 
     var posWrap = document.createElement('div');
-    posWrap.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;max-width:680px;';
+    posWrap.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;width:100%;max-width:881px;box-sizing:border-box;';
+    var headerRowEl = document.getElementById('rankHeaderRow');
+    if (headerRowEl) {
+      posWrap.style.width = headerRowEl.getBoundingClientRect().width + 'px';
+      posWrap.style.boxSizing = 'border-box';
+    } else {
+      posWrap.style.maxWidth = '680px';
+    }
 
     if (window.EXCHANGE_RATE != null) {
       renderPosBlock(window.EXCHANGE_RATE, null);
