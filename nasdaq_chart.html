@@ -268,8 +268,8 @@
       + 종목 추가
     </a>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(9, 60px) 14px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">신호</span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span></span><span style="text-align:center;">손절신호</span><span></span>
+  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">추세신호</span><span></span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">손절신호</span><span></span>
   </div>
   <div id="rankList"></div>
   <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
@@ -1328,7 +1328,7 @@
     row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
 
     var head = document.createElement('div');
-    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(9, 60px) 14px 74px minmax(110px,1fr);gap:18px;align-items:center;cursor:pointer;';
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;align-items:center;cursor:pointer;';
 
     var addonScore = item.score_addon;
     var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
@@ -1339,13 +1339,15 @@
       : '<span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(107,107,122,0.15);color:#6b6b7a;">매수안함</span>';
 
     var stopInfo = getStopBadgeInfo(item, window.EXCHANGE_RATE);
-    var stopBadge = '';
+    var stopBadge;
     if (stopInfo) {
       var stopLabelMap = { signal: '손절신호', executed: '즉시손절', pending: '손절대기' };
       var stopColorMap = { signal: '#ef4444', executed: '#f43f5e', pending: '#f59e0b' };
       var stopBgMap = { signal: 'rgba(239,68,68,0.18)', executed: 'rgba(244,63,94,0.18)', pending: 'rgba(245,158,11,0.15)' };
       var stopTooltip = stopInfo.reasons.join(' / ');
       stopBadge = '<span title="'+stopTooltip.replace(/"/g,'&quot;')+'" style="font-size:10px;padding:2px 8px;border-radius:999px;background:'+stopBgMap[stopInfo.level]+';border:1px solid '+stopColorMap[stopInfo.level]+';color:'+stopColorMap[stopInfo.level]+';font-weight:700;white-space:nowrap;cursor:help;">'+stopLabelMap[stopInfo.level]+'</span>';
+    } else {
+      stopBadge = '<span style="font-size:10px;color:#6b6b7a;">신호없음</span>';
     }
 
     head.innerHTML =
@@ -1360,8 +1362,8 @@
       '<span style="font-size:11px;text-align:center;'+rsiColorStyle(item.rsi)+'">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
       '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonScore+'</span>' +
       '<span style="display:flex;justify-content:center;align-items:center;">'+signalBadge(item)+'</span>' +
-      '<span style="display:flex;justify-content:center;align-items:center;">'+purchasedBadge+'</span>' +
       '<span></span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+purchasedBadge+'</span>' +
       '<span style="display:flex;justify-content:center;align-items:center;">'+stopBadge+'</span>' +
       '<span style="display:flex;justify-content:flex-end;">' +
       '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
