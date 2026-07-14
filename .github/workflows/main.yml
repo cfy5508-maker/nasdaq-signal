@@ -117,40 +117,41 @@ jobs:
               vix_now = 20.0
               print(f"  VIX 가져오기 실패, 기본값 사용: {e}")
 
-          # ── data.js 업데이트 ──────────────────────────
+          # ── 공통 치환 함수 ──────────────────────────
+          # (기존엔 nasdaq_data.js만 이 치환을 거치고, 그 결과를 통째로
+          #  <script>...</script>로 감싸서 nasdaq_chart.html의 '<script>\n// ===' 마커
+          #  위치에 끼워넣는 방식이었음. 그런데 그 마커가 chart.html에서 사라진 뒤로
+          #  find()가 항상 -1을 반환 → chart.html이 계속 예전 데이터로 방치되고 있었음.
+          #  (nasdaq_data.js 쪽은 정상 갱신되어 왔기 때문에 "에러 없음"으로 보였던 것)
+          #  → 마커 의존을 없애고, chart.html에도 동일한 정규식 치환을 직접 적용.
           today = datetime.date.today().strftime('%Y-%m-%d')
-          with open('nasdaq_data.js', 'r') as f:
-              js = f.read()
-
-          js = re.sub(r'최신화: .*?\n', f'최신화: {labels_daily_new[-1]} ({today})\n', js)
           nd_str = ','.join(str(v) for v in nd_daily_new)
           hy_str = ','.join(str(v) for v in hy_daily_aligned)
           lbl_str = "','".join(labels_daily_new)
-          js = re.sub(r'var nd_daily=\[.*?\];', f'var nd_daily=[{nd_str}];', js, flags=re.DOTALL)
-          js = re.sub(r'var hy_daily=\[.*?\];', f'var hy_daily=[{hy_str}];', js, flags=re.DOTALL)
-          js = re.sub(r'var labels_daily=\[.*?\];', f"var labels_daily=['{lbl_str}'];", js, flags=re.DOTALL)
-          js = re.sub(r'var W52_HIGH=.*?;', f'var W52_HIGH={max(nd_daily_new + [27190.21]):.2f};', js)
-          js = re.sub(r'var vix_recent=.*?;', f'var vix_recent={vix_now};', js)
+          w52 = max(nd_daily_new + [27190.21])
 
+          def apply_daily_update(text):
+              text = re.sub(r'최신화: .*?\n', f'최신화: {labels_daily_new[-1]} ({today})\n', text)
+              text = re.sub(r'var nd_daily=\[.*?\];', f'var nd_daily=[{nd_str}];', text, flags=re.DOTALL)
+              text = re.sub(r'var hy_daily=\[.*?\];', f'var hy_daily=[{hy_str}];', text, flags=re.DOTALL)
+              text = re.sub(r'var labels_daily=\[.*?\];', f"var labels_daily=['{lbl_str}'];", text, flags=re.DOTALL)
+              text = re.sub(r'var W52_HIGH=.*?;', f'var W52_HIGH={w52:.2f};', text)
+              text = re.sub(r'var vix_recent=.*?;', f'var vix_recent={vix_now};', text)
+              return text
+
+          # nasdaq_data.js 갱신 (기존과 동일)
+          with open('nasdaq_data.js', 'r') as f:
+              js = apply_daily_update(f.read())
           with open('/tmp/nasdaq_data.js', 'w') as f:
               f.write(js)
           print("nasdaq_data.js 업데이트 완료")
 
-          # ── chart.html에 data.js 인라인 삽입 ──────────
+          # nasdaq_chart.html 직접 갱신 — 마커 찾기 없이 바로 치환
           with open('nasdaq_chart.html', 'r') as f:
-              html = f.read()
-          new_block = '<script>\n' + js + '\n</script>'
-          start = html.find('<script>\n// ===')
-          end = html.find('</script>', start) + len('</script>')
-          if start >= 0 and end > start:
-              result = html[:start] + new_block + html[end:]
-              print("chart.html 업데이트 완료")
-          else:
-              result = html
-              print("경고: chart.html script 블록 못찾음")
+              html = apply_daily_update(f.read())
           with open('/tmp/nasdaq_chart.html', 'w') as f:
-              f.write(result)
-          print(f"일일 데이터: {labels_daily_new}")
+              f.write(html)
+          print(f"chart.html 업데이트 완료 — 일일 데이터: {labels_daily_new}")
           PYEOF
 
       # ───────────────────────── 글로벌 지수 (신규) ─────────────────────────
