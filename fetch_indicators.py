@@ -1,1095 +1,1516 @@
-"""
-fetch_indicators.py
-사용법: python fetch_indicators.py
-동작: data/watchlist.json에 등록된 모든 티커를 순회하며
-      2~10단계 체크리스트를 계산해 data/<TICKER>.json에 저장하고,
-      점수를 매겨 data/rankings.json(순위표)를 생성한다.
-
-watchlist.json 형식: ["GILD", "JOBY", "AMSC", ...]
-"""
-import sys, os, json, time
-import numpy as np
-import pandas as pd
-import yfinance as yf
-from ta.momentum import RSIIndicator
-from ta.trend import MACD, ADXIndicator
-from ta.volatility import BollingerBands, AverageTrueRange
-from ta.volume import OnBalanceVolumeIndicator
-
-
-def _market_already_closed_today():
-    """미 동부시간 기준, 오늘 정규장(16:00 ET)이 이미 마감됐는지 확인.
-    주말/공휴일 등 세세한 휴장일까지는 안 따지고, 단순히 '오늘 16:00 ET가 지났는지'만 본다.
-    (장중에 실행하면 yfinance가 주는 마지막 행이 미확정 데이터라, 이 경우 잘라내기 위함)"""
-    try:
-        from zoneinfo import ZoneInfo
-        now_et = pd.Timestamp.now(tz=ZoneInfo("America/New_York"))
-    except Exception:
-        now_et = pd.Timestamp.now(tz="US/Eastern")
-    market_close_today = now_et.replace(hour=16, minute=0, second=0, microsecond=0)
-    return now_et >= market_close_today
-
-
-def get_confirmed_history(ticker_or_obj, period="1y"):
-    """yfinance로 일봉 데이터를 가져오되, 오늘 미국 정규장이 아직 안 끝났다면
-    마지막 행(장중 미확정 데이터)을 잘라내서 항상 '가장 최근에 완결된 거래일'까지만
-    반환한다. 워크플로우를 언제(장중이든 장마감후든) 돌리든 같은 결과가 나오게 하기 위함.
-    ticker_or_obj: 티커 문자열 또는 이미 만든 yf.Ticker 객체."""
-    tk = ticker_or_obj if hasattr(ticker_or_obj, "history") else yf.Ticker(ticker_or_obj)
-    hist = tk.history(period=period)
-    if hist.empty:
-        return hist
-    if not _market_already_closed_today():
-        today_et_date = pd.Timestamp.now(tz="US/Eastern").date()
-        last_row_date = hist.index[-1].date()
-        if last_row_date == today_et_date:
-            hist = hist.iloc[:-1]
-    return hist
-
-WATCHLIST_PATH = "data/watchlist.json"
-OUT_DIR = "data"
-HISTORY_PATH = "data/score_history.jsonl"
-
-SECTOR_ETF = {
-    "Healthcare": "XLV", "Technology": "XLK", "Financial Services": "XLF",
-    "Energy": "XLE", "Industrials": "XLI", "Consumer Cyclical": "XLY",
-    "Consumer Defensive": "XLP", "Utilities": "XLU", "Real Estate": "XLRE",
-    "Basic Materials": "XLB", "Communication Services": "XLC",
-}
-
-DOW30 = {
-    "AAPL","AMGN","AMZN","AXP","BA","CAT","CRM","CSCO","CVX","DIS",
-    "GS","HD","HON","IBM","JNJ","JPM","KO","MCD","MMM","MRK",
-    "MSFT","NKE","NVDA","PG","SHW","TRV","UNH","V","VZ","WMT"
-}
-
-_INDEX_CACHE = {}
-_SP500_SET = None
-
-
-def get_sp500_set():
-    global _SP500_SET
-    if _SP500_SET is not None:
-        return _SP500_SET
-    cache_path = os.path.join(OUT_DIR, "sp500_constituents.json")
-    try:
-        tables = pd.read_html("https://en.wikipedia.org/wiki/List_of_S%26P_500_companies")
-        symbols = set(tables[0]["Symbol"].str.replace(".", "-", regex=False))
-        with open(cache_path, "w") as f:
-            json.dump(sorted(symbols), f)
-        _SP500_SET = symbols
-    except Exception:
-        if os.path.exists(cache_path):
-            with open(cache_path) as f:
-                _SP500_SET = set(json.load(f))
-        else:
-            _SP500_SET = set()
-    return _SP500_SET
-
-
-def determine_index(ticker, exchange):
-    if exchange in ("NMS", "NGM", "NCM"):
-        return ("나스닥", "^IXIC")
-    if ticker in get_sp500_set():
-        return ("S&P500", "^GSPC")
-    if ticker in DOW30:
-        return ("다우30", "^DJI")
-    return ("S&P500", "^GSPC")  # 아무 데도 안 걸리면 S&P500을 기본값으로
-
-
-INDEX_ETF_MAP = {
-    "^IXIC": "QQQ",
-    "^GSPC": "SPY",
-    "^DJI": "DIA",
-}
-_VOLUME_CACHE = {}
-
-
-def market_volume_health(index_symbol, months=3):
-    """종목이 속한 지수의 대표 ETF를 기준으로 시장건전성(참고용, 점수 미반영)을 계산한다.
-
-    구성:
-      축1 - 거래량 수준: 오늘 거래량이 3개월평균 대비 몇 % 높은지/낮은지
-      축2 - 거래량 추세: 최근3일 평균거래량이 직전3일 평균거래량보다 늘고있는지/줄고있는지
-      축3 - 지수 당일 변동폭: |오늘종가-어제종가|/어제종가, 3%+ 급락 시 상태를 한단계 격하
-
-    백테스트 검증(QQQ+SPY+DIA, 5년, 표본3570건, 다음날 지수 반응 기준):
-      높음(30%+)+하락중: 60.7%(+6.4%p, 135건) -> pass  ("급등후 숨고르기, 아직 안 끝남")
-      낮음(-30%↓)+상승중: 58.1%(+3.7%p, 136건) -> pass  ("바닥에서 관심 되살아나는 초입")
-      낮음(-30%↓)+하락중: 49.7%(-4.7%p, 459건) -> warn  (유일하게 뚜렷히 나쁜 조합, 표본충분)
-      그 외 전부: 기준선(54.4%) 근처, 뚜렷한 신호 없음 -> neutral
-
-    축3(변동폭)은 백테스트 미검증, 트레이더 일반 상식 기준. 오늘 3%+ 급락이면
-    위에서 계산한 상태를 한단계 격하(pass->neutral->warn->fail).
-    axis3: 지수 당일 변동폭(3%+급락시 격하), 지수 자체 반전캔들(격상)
-    axis4: 20/40/60일선 골든크로스(최근10일, 격상) / 데드크로스(최근10일, 격하)
-
-    백테스트 검증(QQQ+SPY+DIA, 5년):
-      20-60일선 데드크로스(최근10일내 발생): 10일뒤 상승비율 50.3%(-10.2%p, 표본310건) -> 격하
-      20-40일선 골든크로스(최근10일내 발생): 5일뒤 상승비율 61.4%(+2.8%p, 표본430건) -> 약하게 격상
-    ※ '오늘'이 아니라 yfinance가 제공하는 '가장 최근에 확정된(마감된) 거래일' 기준이다.
-    """
-    etf_symbol = INDEX_ETF_MAP.get(index_symbol)
-    empty_result = {"etf": None, "latest_volume": None, "avg_volume_3m": None, "diff_pct": None,
-                     "trend_pct": None, "trend_up": None, "daily_change_pct": None,
-                     "volatility_label": None, "index_trigger_candle": None,
-                     "golden_cross_recent": None, "dead_cross_recent": None, "status": "neutral"}
-    if etf_symbol is None:
-        return empty_result
-    if etf_symbol in _VOLUME_CACHE:
-        return _VOLUME_CACHE[etf_symbol]
-    try:
-        hist = get_confirmed_history(etf_symbol, period="1y")
-        o, h, l = hist["Open"], hist["High"], hist["Low"]
-        vol = hist["Volume"]
-        close = hist["Close"]
-
-        latest_vol = float(vol.iloc[-1])
-        avg_vol_3m = float(vol.iloc[-63:-1].mean())
-        diff_pct = round((latest_vol / avg_vol_3m - 1) * 100, 1) if avg_vol_3m > 0 else None
-
-        recent3_avg = float(vol.iloc[-3:].mean())
-        prior3_avg = float(vol.iloc[-6:-3].mean())
-        trend_up = bool(recent3_avg > prior3_avg) if prior3_avg > 0 else None
-        trend_pct = round((recent3_avg / prior3_avg - 1) * 100, 1) if prior3_avg > 0 else None
-
-        daily_change_pct = round((float(close.iloc[-1]) / float(close.iloc[-2]) - 1) * 100, 2) if len(close) >= 2 else None
-
-        # 축1x축2 조합으로 base_status 결정
-        base_status = "neutral"
-        if diff_pct is not None and trend_up is not None:
-            if (diff_pct >= 30 and not trend_up) or (diff_pct <= -30 and trend_up):
-                base_status = "pass"
-            elif diff_pct <= -30 and trend_up is False:
-                base_status = "warn"
-
-        # 축3: 오늘 3%이상 급락이면 한 단계 격하
-        DOWNGRADE = {"pass": "neutral", "neutral": "warn", "warn": "fail", "fail": "fail"}
-        status = base_status
-        volatility_label = "정상"
-        if daily_change_pct is not None:
-            abs_change = abs(daily_change_pct)
-            if abs_change >= 3:
-                volatility_label = "급변"
-                if daily_change_pct <= -3:
-                    status = DOWNGRADE[base_status]
-            elif abs_change >= 2:
-                volatility_label = "변동성큼"
-            elif abs_change >= 1:
-                volatility_label = "다소변동"
-
-        # 지수 자체에 오늘 반전캔들(해머/불리시엔걸핑)이 확인되면 한 단계 격상.
-        # 급락(축3 격하)과 반전캔들(격상)이 같은 날 동시에 걸리면 서로 상쇄되어
-        # 원래 상태로 돌아간다 - "급락했지만 반전 조짐도 있다"는 애매함을 반영.
-        UPGRADE = {"fail": "warn", "warn": "neutral", "neutral": "pass", "pass": "pass"}
-        index_trigger_candle = bool(detect_hammer(o, h, l, close) or detect_bullish_engulfing(o, h, l, close))
-        if index_trigger_candle:
-            status = UPGRADE[status]
-
-        # axis4: 골든크로스는 20-40일선, 데드크로스는 20-60일선 (서로 다른 쌍, 검증된 대로 분리유지).
-        # 각 쌍 안에서도 최근10일 안에 크로스가 여러 번 있었을 수 있으므로, "가장 최근" 것만 반영.
-        CROSS_LOOKBACK = 10
-        sma20 = close.rolling(20).mean()
-        sma40 = close.rolling(40).mean()
-        sma60 = close.rolling(60).mean()
-        above_20_40 = sma20 > sma40
-        above_20_60 = sma20 > sma60
-
-        def latest_cross_in_window(above_series, lookback):
-            """윈도우 안에서 가장 최근 크로스 종류('golden'/'dead'/None)를 반환."""
-            latest = None
-            n_local = len(above_series)
-            if n_local <= lookback:
-                return None
-            for j in range(n_local - lookback + 1, n_local):
-                a_now, a_prev = above_series.iloc[j], above_series.iloc[j - 1]
-                if pd.isna(a_now) or pd.isna(a_prev):
-                    continue
-                if a_now and not a_prev:
-                    latest = "golden"
-                elif not a_now and a_prev:
-                    latest = "dead"
-            return latest
-
-        golden_cross_type = latest_cross_in_window(above_20_40, CROSS_LOOKBACK)  # 20-40일선
-        dead_cross_type = latest_cross_in_window(above_20_60, CROSS_LOOKBACK)    # 20-60일선
-        golden_cross_recent = (golden_cross_type == "golden")
-        dead_cross_recent = (dead_cross_type == "dead")
-
-        if dead_cross_recent:
-            status = DOWNGRADE[status]
-        if golden_cross_recent:
-            status = UPGRADE[status]
-
-        result = {"etf": etf_symbol, "latest_volume": int(latest_vol), "avg_volume_3m": int(avg_vol_3m),
-                   "diff_pct": diff_pct, "trend_pct": trend_pct, "trend_up": trend_up,
-                   "daily_change_pct": daily_change_pct, "volatility_label": volatility_label,
-                   "index_trigger_candle": index_trigger_candle,
-                   "golden_cross_recent": golden_cross_recent, "dead_cross_recent": dead_cross_recent,
-                   "status": status}
-    except Exception:
-        result = empty_result
-    _VOLUME_CACHE[etf_symbol] = result
-    return result
-
-
-def index_macro_status(index_symbol):
-    if index_symbol in _INDEX_CACHE:
-        return _INDEX_CACHE[index_symbol]
-    try:
-        hist = get_confirmed_history(index_symbol, period="1y")["Close"]
-        above_200sma = bool(hist.iloc[-1] > hist.rolling(200).mean().iloc[-1])
-    except Exception:
-        above_200sma = None
-    result = "pass" if above_200sma else ("fail" if above_200sma is False else "unknown")
-    _INDEX_CACHE[index_symbol] = result
-    return result
-
-WEIGHTS = {
-    # 1_market_health(시장건전성)는 참고용이라 여기 없음 - 점수 계산에 반영 안 됨
-    "2_fundamentals": 2.0,
-    "3_divergence_gate": 2.0,   # 다이버전스 게이트 (스윙저점+간격3일 이상)
-    "4_zscore": 2.5,            # Z-score (종목별 개별 계산)
-    "5_trigger_candle": 1.0,    # 반전캔들+돌파
-}
-STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25, "neutral": 0.25}
-MAX_SCORE = sum(WEIGHTS.values())
-
-ADDON_WEIGHTS = {
-    # 1_market_health(시장건전성)는 참고용이라 여기 없음 - 점수 계산에 반영 안 됨 (신규진입과 동일)
-    "2_fundamentals": 1.5,          # 3.0에서 하향 - 펀더멘털 혼자 점수를 과하게 끌어올리던 문제 수정
-    "3_pullback_gate": 2.5,         # 20/40일선 근접 - 가장 강한 근거(대규모 검증)
-    "4_rsi_zone": 1.0,              # RSI 50~60구간 - 약한 보조 신호
-    "5_trigger_confirmed": 2.0,     # 트리거캔들(해머/엔걸핑/긴아래꼬리)+거래량 - 가중치는 조합별 차등
-}
-
-
-def detect_bullish_engulfing(o, h, l, c):
-    return c.iloc[-1] > o.iloc[-2] and o.iloc[-1] < c.iloc[-2] and c.iloc[-1] > c.iloc[-2] and o.iloc[-2] > c.iloc[-2]
-
-
-def detect_hammer(o, h, l, c):
-    body = abs(c.iloc[-1] - o.iloc[-1])
-    lower_wick = min(o.iloc[-1], c.iloc[-1]) - l.iloc[-1]
-    upper_wick = h.iloc[-1] - max(o.iloc[-1], c.iloc[-1])
-    return body > 0 and lower_wick > body * 2 and upper_wick < body * 0.5
-
-
-def detect_morning_star(o, h, l, c):
-    d1_bear = c.iloc[-3] < o.iloc[-3]
-    d2_small = abs(c.iloc[-2] - o.iloc[-2]) < abs(c.iloc[-3] - o.iloc[-3]) * 0.4
-    d3_bull = c.iloc[-1] > o.iloc[-1] and c.iloc[-1] > (o.iloc[-3] + c.iloc[-3]) / 2
-    return d1_bear and d2_small and d3_bull
-
-
-def detect_long_lower_wick(o, h, l, c):
-    """긴 아래꼬리: 해머보다 완화된 기준(위꼬리 제한 없음).
-    백테스트 검증: 아래꼬리 있음 51.9%(+2.6%p) vs 없음 48.9%(-0.4%p), 표본158건 - 약한 신호."""
-    body = abs(c.iloc[-1] - o.iloc[-1])
-    lower_wick = min(o.iloc[-1], c.iloc[-1]) - l.iloc[-1]
-    total_range = h.iloc[-1] - l.iloc[-1]
-    if total_range <= 0:
-        return False
-    return (lower_wick / total_range) >= 0.5
-
-
-def long_lower_wick_recent(o, h, l, c, lookback_days=3):
-    """오늘뿐 아니라 최근 lookback_days일 안에 긴 아래꼬리가 있었는지 확인.
-    (trigger_with_breakout처럼 돌파 확정까지는 요구하지 않음 - 약한 warn 신호이므로)
-    ※ pos2(저점)가 있으면 wick_near_low()를 대신 쓰는 게 맞다 - 이 함수는 pos2를 못 구한
-    예외적인 경우(저점 후보가 부족한 경우)의 폴백용으로만 남겨둔다."""
-    n = len(c)
-    for days_ago in range(0, lookback_days + 1):
-        idx = n - 1 - days_ago
-        if idx < 0:
-            break
-        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
-        if detect_long_lower_wick(sub_o, sub_h, sub_l, sub_c):
-            return True, days_ago
-    return False, None
-
-
-def wick_near_low(o, h, l, c, pos2, max_forward_days=3):
-    """저점(pos2) 시점부터 그 이후 max_forward_days일 사이에서만 긴 아래꼬리를 찾는다.
-    '오늘 기준 최근 며칠'이 아니라 '저점 근처'로 앵커링해서, 이미 저점에서 멀리
-    반등한 뒤에 우연히 나온 무관한 캔들을 트리거로 착각하지 않도록 한다."""
-    n = len(c)
-    if pos2 is None:
-        return False, None
-    for idx in range(pos2, min(pos2 + max_forward_days + 1, n)):
-        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
-        if detect_long_lower_wick(sub_o, sub_h, sub_l, sub_c):
-            days_ago = (n - 1) - idx
-            return True, days_ago
-    return False, None
-
-
-def trigger_with_breakout(o, h, l, c):
-    """최근 1~3일 안에 반전캔들이 확정되고, 그 이후 종가가 그 캔들의 고점을 돌파했는지 확인.
-    ※ pos2(저점)가 있으면 breakout_near_low()를 대신 쓰는 게 맞다 - 이 함수는 pos2를 못
-    구한 예외적인 경우의 폴백용으로만 남겨둔다."""
-    n = len(c)
-    for lookback in range(1, 4):
-        idx = n - 1 - lookback
-        if idx < 3:
-            continue
-        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
-        is_hammer = detect_hammer(sub_o, sub_h, sub_l, sub_c)
-        is_engulf = detect_bullish_engulfing(sub_o, sub_h, sub_l, sub_c)
-        is_star = detect_morning_star(sub_o, sub_h, sub_l, sub_c) if idx + 1 >= 3 else False
-        if (is_hammer or is_engulf or is_star) and c.iloc[-1] > h.iloc[idx]:
-            pattern_name = "해머" if is_hammer else ("불리시엔걸핑" if is_engulf else "모닝스타")
-            return True, pattern_name, lookback
-    return False, None, None
-
-
-def breakout_near_low(o, h, l, c, pos2, max_forward_days=3):
-    """저점(pos2) 시점부터 그 이후 max_forward_days일 사이에서 반전캔들(해머/엔걸핑/모닝스타)이
-    있었는지 찾고, 오늘 종가가 그 캔들의 고점을 돌파했는지 확인한다. '오늘 기준 최근 며칠'이
-    아니라 '저점 근처'로 앵커링해서, 이미 저점과 무관하게 멀리 떨어진 뒤의 캔들을
-    트리거로 착각하지 않도록 한다."""
-    n = len(c)
-    if pos2 is None:
-        return False, None, None
-    for idx in range(pos2, min(pos2 + max_forward_days + 1, n)):
-        sub_o, sub_h, sub_l, sub_c = o.iloc[:idx+1], h.iloc[:idx+1], l.iloc[:idx+1], c.iloc[:idx+1]
-        is_hammer = detect_hammer(sub_o, sub_h, sub_l, sub_c)
-        is_engulf = detect_bullish_engulfing(sub_o, sub_h, sub_l, sub_c)
-        is_star = detect_morning_star(sub_o, sub_h, sub_l, sub_c) if idx + 1 >= 3 else False
-        if (is_hammer or is_engulf or is_star) and float(c.iloc[-1]) > float(h.iloc[idx]):
-            pattern_name = "해머" if is_hammer else ("불리시엔걸핑" if is_engulf else "모닝스타")
-            days_ago = (n - 1) - idx
-            return True, pattern_name, days_ago
-    return False, None, None
-
-
-def rs_line(ticker_close, bench_close):
-    ratio = (ticker_close / bench_close).dropna()
-    if len(ratio) < 64:
-        return None
-    return bool(ratio.iloc[-1] > ratio.iloc[-63])
-
-
-def find_realtime_lows(close_values, order=5):
-    """미래 데이터를 보지 않고, '오늘 종가가 최근 order일 종가보다 낮은지'만으로
-    저점 후보를 표시한다. 이 방식으로 찾은 마지막 저점이 오늘(n-1)과 일치하면
-    '오늘 막 새 저점을 확정했다'는 뜻이라 실시간 신호로 쓸 수 있다.
-    (백테스트로 검증된 방식: 스윙저점 두 개 연속 비교 + 간격 3일 이상 + Z-score + ADX)
-    """
-    positions = []
-    n = len(close_values)
-    for i in range(order, n):
-        past_window = close_values[i - order:i]
-        if close_values[i] < past_window.min():
-            positions.append(i)
-    return positions
-
-
-def analyze(ticker, trim_days=0, write_file=True):
-    """trim_days: 0이면 '가장 최근 확정 거래일' 기준. 1이면 그 하루 전(소급 계산용,
-    score_history 백필에 사용). write_file: False면 data/<TICKER>.json을 덮어쓰지 않는다."""
-    tk = yf.Ticker(ticker)
-    hist = get_confirmed_history(tk, period="1y")
-    if hist.empty:
-        raise ValueError(f"no price history for {ticker}")
-
-    if trim_days > 0:
-        if len(hist) <= trim_days:
-            raise ValueError(f"not enough history to trim {trim_days} days for {ticker}")
-        hist = hist.iloc[:-trim_days]
-
-    o, h, l, c, v = hist["Open"], hist["High"], hist["Low"], hist["Close"], hist["Volume"]
-
-    rsi = RSIIndicator(c, window=14).rsi()
-    bb = BollingerBands(c, window=20, window_dev=2)
-    macd = MACD(c)
-    adx_ind = ADXIndicator(h, l, c, window=14)
-    obv = OnBalanceVolumeIndicator(c, v).on_balance_volume()
-    atr = AverageTrueRange(h, l, c, window=14).average_true_range()
-
-    last_close = float(c.iloc[-1])
-    bb_low, bb_high = float(bb.bollinger_lband().iloc[-1]), float(bb.bollinger_hband().iloc[-1])
-    rsi_last = float(rsi.iloc[-1])
-    sma40 = c.rolling(40).mean()  # 눌림목 게이트에서 사용 (20/40일선 근접 판정)
-
-    recent = c.iloc[-90:]
-    low1_idx, low2_idx = recent.iloc[:45].idxmin(), recent.iloc[45:].idxmin()
-    price_lower_low = c[low2_idx] < c[low1_idx]
-    rsi_higher_low = rsi[low2_idx] > rsi[low1_idx]
-    bullish_divergence_legacy = bool(price_lower_low and rsi_higher_low)  # 참고용(구방식), 점수 미반영
-
-    # ── 검증된 새 다이버전스 게이트: 진짜 스윙저점(전후 5일보다 낮은 지점) 기반 ──
-    # 백테스트 검증: 68건 표본에서 Z-score 낮을수록 승률 66.7%→52.4%→26.1% 단조감소 확인
-    # 추가: 오늘이 정확히 새 저점을 찍은 날이 아니어도, 마지막 저점가 대비 +3% 이내면
-    # 신호가 아직 유효(저점 근처에서 다지는 중)한 것으로 간주한다.
-    TOLERANCE_PCT = 0.03
-    MIN_GAP_DAYS = 5  # 3일에서 상향(SMCI 사례: 3일 간격은 "같은 되돌림 안의 노이즈"를 다이버전스로 착각할 위험 확인)
-    MAX_GAP_DAYS = 30  # 30일(약 1.5개월) 넘게 떨어진 저점은 다른 하락 사이클로 간주해 배제
-    close_values = c.values
-    realtime_lows = find_realtime_lows(close_values, order=5)
-    bullish_divergence = False     # pass인 경우만 True (점수 캡 판정용)
-    divergence_present = False     # pass 또는 warn (약한 신호 포함) - 캡 완화용
-    stage_divergence = "fail"
-    gap_days = None
-    signal_fresh = None  # True=오늘 신규 확정, False=오차범위 내 유지, None=신호없음
-    pos1, pos2 = None, None  # 다이버전스 구간(저점1~저점2) - 거래량 비교에도 재사용
-    if len(realtime_lows) >= 2:
-        pos2 = realtime_lows[-1]
-
-        # 저점1: "그냥 직전 저점"이 아니라, 저점2 이전 MIN~MAX_GAP일 구간 안에서
-        # 실제로 가장 낮았던(가장 의미있는) 저점을 찾는다. 이래야 PEP처럼 저점이
-        # 매일 조금씩 갱신되는 종목에서, 진짜 깊었던 저점(예: 10일 전 최저가)을
-        # 놓치지 않고 비교할 수 있다.
-        candidates = [p for p in realtime_lows
-                      if p != pos2 and MIN_GAP_DAYS <= (pos2 - p) <= MAX_GAP_DAYS]
-        pos1 = min(candidates, key=lambda p: close_values[p]) if candidates else None
-
-        gap_days = (pos2 - pos1) if pos1 is not None else None
-        is_today_new_low = (pos2 == len(close_values) - 1)
-
-        # 오늘이 새 저점이 아니면, 마지막 저점가 대비 오늘 가격이 +3% 이내인지 확인
-        price2_raw = float(c.iloc[pos2])
-        price_today = float(c.iloc[-1])
-        within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
-
-        if pos1 is not None:
-            price1, price2 = float(c.iloc[pos1]), price2_raw
-            rsi1, rsi2 = float(rsi.iloc[pos1]), float(rsi.iloc[pos2])
-            if not (pd.isna(rsi1) or pd.isna(rsi2)):
-                price_lower_low_gate = price2 < price1
-                rsi_improved = rsi2 > rsi1
-                if is_today_new_low or within_tolerance:
-                    if price_lower_low_gate and rsi_improved:
-                        stage_divergence = "pass"      # 정석 다이버전스
-                        bullish_divergence = True
-                        divergence_present = True
-                        signal_fresh = is_today_new_low
-                    elif rsi_improved:
-                        stage_divergence = "warn"      # 가격은 안 낮아졌지만 RSI는 개선(이중바닥 성격)
-                        divergence_present = True
-                        signal_fresh = is_today_new_low
-                    else:
-                        stage_divergence = "fail"      # RSI도 개선 안 됨
-                else:
-                    # 오차범위(3%)를 이미 넘어선 상태(가격이 그만큼 반등함).
-                    # RSI가 개선됐던 저점쌍이었다면, 이건 "다이버전스 실패"가 아니라
-                    # "이미 성공해서 상승추세로 넘어간 것"이므로 위반(fail) 대신 중립으로 본다.
-                    # (실제 방향 확인은 uptrend_entry_signal이 담당)
-                    stage_divergence = "neutral" if rsi_improved else "fail"
-
-    # 상승추세 진입 신호: 30일 이내에 정석 다이버전스가 있었지만, 그 이후 가격이
-    # 오차범위(3%)를 넘어서 확실히 반등한 경우. 신규진입 점수(캡 30/60점)와는 별개로,
-    # "이미 반등이 확인된 상태"를 알려주는 참고용 신호. 점수 계산에는 반영하지 않는다.
-    uptrend_entry_signal = None
-    was_real_divergence = False  # 정석(pass)류 판정 - 상승추세진입 신호 전용
-    pair_rsi_improved = False    # RSI개선 여부(pass+warn 공통조건) - 무효화탐색 게이트 전용
-    if len(realtime_lows) >= 2:
-        pos2_u = realtime_lows[-1]
-        candidates_u = [p for p in realtime_lows
-                        if p != pos2_u and MIN_GAP_DAYS <= (pos2_u - p) <= MAX_GAP_DAYS]
-        pos1_u = min(candidates_u, key=lambda p: close_values[p]) if candidates_u else None
-        if pos1_u is not None:
-            price1_u, price2_u = float(c.iloc[pos1_u]), float(c.iloc[pos2_u])
-            rsi1_u, rsi2_u = float(rsi.iloc[pos1_u]), float(rsi.iloc[pos2_u])
-            price_today_u = float(c.iloc[-1])
-            if not (pd.isna(rsi1_u) or pd.isna(rsi2_u)):
-                pair_rsi_improved = bool(rsi2_u > rsi1_u)
-            was_real_divergence = bool(price2_u < price1_u and rsi2_u > rsi1_u and
-                                        not pd.isna(rsi1_u) and not pd.isna(rsi2_u))
-            gain_since_low = (price_today_u - price2_u) / price2_u if price2_u > 0 else 0
-            already_broke_tolerance = gain_since_low > TOLERANCE_PCT
-            # pass(정석)든 warn(이중바닥)이든, RSI가 개선된 저점쌍이었다면 "다이버전스 성립"으로 보고
-            # 상승추세 진입 신호를 켠다 (was_real_divergence만 쓰면 이중바닥 케이스를 놓침 - PFE에서 확인된 버그)
-            if pair_rsi_improved and already_broke_tolerance:
-                uptrend_entry_signal = {
-                    "active": True,
-                    "days_since_divergence": (len(close_values) - 1) - pos2_u,
-                    "gain_since_low_pct": round(gain_since_low * 100, 1),
-                    "divergence_date_index": pos2_u,
-                    "was_pass_type": was_real_divergence,
-                }
-
-    # 다이버전스 무효화 신호: 과거(최근 30일 내)에 정석 다이버전스(pass)가 있었는데,
-    # 그 이후 가격이 그 저점보다 더 뚫렸고(신저점 갱신) + RSI도 같이 더 낮아진 경우.
-    # "반등 기대가 깨지고 계속 하락 중"이라는 뜻. 점수 계산에는 반영하지 않는 참고용.
-    # 단, 현재 가장 최근 저점쌍 자체가 이미 다이버전스(정석 pass 또는 이중바닥 warn -
-    # 즉 RSI가 개선된 상태)를 구조적으로 형성했다면, 그건 무효화가 아니라 "이미 성립된
-    # 다이버전스가 진행 중(또는 상승추세로 전환)인 것"이므로 무효화 탐색을 건너뛴다.
-    divergence_invalidated_signal = None
-    if len(realtime_lows) >= 3 and not pair_rsi_improved:
-        pos_latest = realtime_lows[-1]  # 가장 최근 저점(=현재 진행 중인 하락의 끝)
-        price_latest = float(c.iloc[pos_latest])
-        rsi_latest_low = float(rsi.iloc[pos_latest])
-        # 가장 최근 저점보다 이전에, "정석 다이버전스가 확정됐었던 저점"이 있었는지
-        # 최근 것부터 역순으로, 30일 이내 범위에서 탐색
-        for idx in range(len(realtime_lows) - 2, -1, -1):
-            candidate_pos2 = realtime_lows[idx]
-            if candidate_pos2 >= pos_latest:
-                continue
-            if pos_latest - candidate_pos2 > MAX_GAP_DAYS:
-                break  # 30일 넘게 과거로 가면 더 볼 필요 없음
-            # 이 candidate_pos2 시점에 정석 다이버전스가 있었는지, 그 자신의 pos1을 구해 확인
-            own_candidates = [p for p in realtime_lows
-                               if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
-            own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
-            if own_pos1 is None:
-                continue
-            own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
-            own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
-            if pd.isna(own_rsi1) or pd.isna(own_rsi2):
-                continue
-            had_pass_divergence = bool(own_price2 < own_price1 and own_rsi2 > own_rsi1)
-            if not had_pass_divergence:
-                continue
-            # 정석 다이버전스가 있었던 저점을 찾음 -> 이후 가격/RSI가 더 무너졌는지 확인
-            price_broke_down = price_latest < own_price2
-            rsi_broke_down = rsi_latest_low < own_rsi2
-            if price_broke_down and rsi_broke_down:
-                # 무효화된 이후(pos_latest부터 오늘까지) 반전캔들(해머/엔걸핑/긴아래꼬리)이
-                # 한 번이라도 있었는지 확인. 있었다면 "완전한 실패"가 아니라 "반등 시도 중"이므로
-                # 화면에서 위험(fail)이 아니라 중립으로 낮춰서 보여준다.
-                rescue_attempted = False
-                for chk_idx in range(pos_latest, len(close_values)):
-                    sub_o3, sub_h3, sub_l3, sub_c3 = o.iloc[:chk_idx+1], h.iloc[:chk_idx+1], l.iloc[:chk_idx+1], c.iloc[:chk_idx+1]
-                    if (detect_hammer(sub_o3, sub_h3, sub_l3, sub_c3) or
-                        detect_bullish_engulfing(sub_o3, sub_h3, sub_l3, sub_c3) or
-                        detect_long_lower_wick(sub_o3, sub_h3, sub_l3, sub_c3)):
-                        rescue_attempted = True
-                        break
-                divergence_invalidated_signal = {
-                    "active": True,
-                    "prior_divergence_date_index": candidate_pos2,
-                    "days_since_prior_divergence": pos_latest - candidate_pos2,
-                    "price_drop_since_pct": round((own_price2 - price_latest) / own_price2 * 100, 1),
-                    "rescue_attempted": rescue_attempted,
-                }
-            break  # 가장 가까운 과거 다이버전스 하나만 확인하고 종료
-
-    # 다이버전스 무효화 이후 손절신호: 무효화가 확정된 저점(pos_latest) 이후 오늘까지
-    # 반전캔들(해머/엔걸핑/긴아래꼬리)이 한 번도 안 나왔고, N일(기본 5일) 이상 지났으면
-    # "반등 기회 자체가 없다"고 보고 손절신호를 켠다. 점수 계산에는 반영하지 않는 참고용.
-    DIVERGENCE_STOP_WINDOW_DAYS = 5
-    divergence_stop_signal = None
-    if divergence_invalidated_signal is not None and divergence_invalidated_signal.get("active"):
-        days_since_break = (len(close_values) - 1) - pos_latest
-        if days_since_break >= DIVERGENCE_STOP_WINDOW_DAYS:
-            had_rescue_trigger = False
-            for chk_idx in range(pos_latest, len(close_values)):
-                sub_o2, sub_h2, sub_l2, sub_c2 = o.iloc[:chk_idx+1], h.iloc[:chk_idx+1], l.iloc[:chk_idx+1], c.iloc[:chk_idx+1]
-                if (detect_hammer(sub_o2, sub_h2, sub_l2, sub_c2) or
-                    detect_bullish_engulfing(sub_o2, sub_h2, sub_l2, sub_c2) or
-                    detect_long_lower_wick(sub_o2, sub_h2, sub_l2, sub_c2)):
-                    had_rescue_trigger = True
-                    break
-            if not had_rescue_trigger:
-                divergence_stop_signal = {
-                    "active": True,
-                    "days_since_break": days_since_break,
-                    "reason": f"무효화 이후 {days_since_break}일간 반전캔들 없음",
-                }
-
-    # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 평균 대비
-    # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
-    # 상장 초기 등으로 1년치 데이터가 없으면, 있는 만큼(최소 30일)으로 계산한다.
-    rsi_zscore = None
-    rsi_window_1y = rsi.dropna()
-    if len(rsi_window_1y) >= 30:
-        rsi_mean_1y = float(rsi_window_1y.mean())
-        rsi_std_1y = float(rsi_window_1y.std())
-        if rsi_std_1y > 0:
-            rsi_zscore = (rsi_last - rsi_mean_1y) / rsi_std_1y
-
-    macd_hist = macd.macd_diff()
-    macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min()) if len(macd_hist) > 90 else False
-
-    adx_last = float(adx_ind.adx().iloc[-1])
-
-    weekly = hist.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
-    weekly_rsi = RSIIndicator(weekly["Close"], window=14).rsi()
-
-    # 트리거캔들은 "오늘 기준 최근 며칠"이 아니라, 반드시 pos2(가장 최근 저점) 시점부터
-    # 그 이후에 발생한 것만 인정한다. AMSC 사례에서 확인됨: 저점(pos2) 확정 전에
-    # 나왔던 캔들(가격이 아직 더 빠지기 전의 "가짜 반전 시도")을 트리거로 착각하면 안 됨.
-    if pos2 is not None:
-        breakout_ok, breakout_pattern, breakout_days_ago = breakout_near_low(o, h, l, c, pos2)
-        long_lower_wick, wick_days_ago = wick_near_low(o, h, l, c, pos2)
-    else:
-        breakout_ok, breakout_pattern, breakout_days_ago = trigger_with_breakout(o, h, l, c)
-        long_lower_wick, wick_days_ago = long_lower_wick_recent(o, h, l, c, lookback_days=3)
-    hammer = detect_hammer(o, h, l, c)
-    engulfing = detect_bullish_engulfing(o, h, l, c)
-    morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
-
-    info = {}
-    try:
-        info = tk.info
-    except Exception:
-        pass
-
-    exchange = info.get("exchange")
-    index_name, index_symbol = determine_index(ticker.upper(), exchange)
-    volume_health = market_volume_health(index_symbol)
-
-    target_mean = info.get("targetMeanPrice")
-    forward_pe = info.get("forwardPE")
-    peg = info.get("pegRatio")
-    sector = info.get("sector")
-    upside_pct = round((target_mean / last_close - 1) * 100, 1) if target_mean else None
-
-    sector_rs = None
-    if sector in SECTOR_ETF:
-        try:
-            etf_close = get_confirmed_history(SECTOR_ETF[sector], period="1y")["Close"]
-            sector_rs = rs_line(c, etf_close)
-        except Exception:
-            pass
-
-    # 3단계: 기술적 위치 - Z-score 기반(종목별 개별 계산). RSI 절대값은 참고 표시용.
-    # 백테스트 검증: Z<=-1.0일 때 승률 58.1%, Z>-1.0일 때 27.3% (43건 표본)
-    # 라벨(pass/warn/fail)은 기존 임계값 그대로 유지하되, 실제 점수 계산은 이산값(1.0/0.5/0.0)이
-    # 아니라 min~max 사이 연속값으로 매겨서 "낮을수록 더 좋다"를 세밀하게 반영한다.
-    # min(-3.0)에 가까울수록 만점(1.0), max(1.0)에 가까울수록 최저점(0.0).
-    ZSCORE_SCALE_MIN = -3.0
-    ZSCORE_SCALE_MAX = 1.0
-    zscore_quality = None
-    if rsi_zscore is not None:
-        stage3 = "pass" if rsi_zscore <= -1.5 else \
-                 "warn" if rsi_zscore <= -1.0 else "fail"
-        clamped = max(ZSCORE_SCALE_MIN, min(ZSCORE_SCALE_MAX, rsi_zscore))
-        zscore_quality = (ZSCORE_SCALE_MAX - clamped) / (ZSCORE_SCALE_MAX - ZSCORE_SCALE_MIN)
-    else:
-        stage3 = "fail"
-
-    # 2단계: 다이버전스 게이트 - stage_divergence는 위에서 이미 pass/warn/fail로 계산됨
-
-    # 4단계(ADX)는 백테스트 재검증 결과 두 독립 표본에서 방향이 계속 뒤집혀 폐기함.
-    # adx_last 값 자체는 참고용으로 남겨두되, 점수 계산에는 반영하지 않음 (나중에 재검토).
-
-    # 트리거캔들 거래량 확인: 트리거캔들 당일 거래량이, 그 다이버전스 구간(저점1~저점2)의
-    # 평균 거래량보다 높으면 "거래량 실린 트리거"로 보고 warn을 pass로 승격시킨다.
-    trigger_day_idx = None
-    if breakout_ok:
-        trigger_day_idx = len(c) - 1 - breakout_days_ago
-    elif long_lower_wick:
-        trigger_day_idx = len(c) - 1 - wick_days_ago
-
-    trigger_volume_confirmed = False
-    avg_vol_divergence_window = None
-    trigger_day_volume = None
-    if trigger_day_idx is not None and pos1 is not None and pos2 is not None and pos1 <= pos2:
-        avg_vol_divergence_window = float(v.iloc[pos1:pos2 + 1].mean())
-        trigger_day_volume = float(v.iloc[trigger_day_idx])
-        trigger_volume_confirmed = bool(trigger_day_volume > avg_vol_divergence_window)
-
-    # 4단계: 트리거캔들
-    # 백테스트 검증: 돌파확정 pass / 긴아래꼬리만 있어도 약한 warn(+2.6%p, 표본158건) / 없으면 fail
-    # 긴아래꼬리(warn)에 거래량까지 실렸다면 pass로 승격 (이론적 근거: 매수세 유입 강도가
-    # 돌파확정과 비슷한 수준의 신뢰도를 가진다고 보되, 아직 백테스트 검증 전 - 추후 확인 필요)
-    if breakout_ok:
-        stage_trigger = "pass"
-    elif long_lower_wick and trigger_volume_confirmed:
-        stage_trigger = "pass"
-    elif long_lower_wick:
-        stage_trigger = "warn"
-    else:
-        stage_trigger = "fail"
-
-    stop_pct = round(float(atr.iloc[-1]) * 1.5 / last_close * 100, 1)
-
-    # 1단계: 펀더멘털 - PEG가 좋을수록 업사이드 커트라인을 낮춰줌 (서로 보완)
-    # 업사이드(애널리스트 목표가) 데이터 자체가 없는 종목은 PEG만으로 판정한다.
-    if upside_pct is None:
-        if peg is not None and peg <= 1.0:
-            stage1 = "pass"
-        elif peg is not None and peg <= 2.0:
-            stage1 = "warn"
-        else:
-            stage1 = "fail"
-    else:
-        if peg is not None and peg <= 1.0:
-            upside_threshold = 5
-        elif peg is not None and peg <= 1.5:
-            upside_threshold = 10
-        else:
-            upside_threshold = 15
-
-        stage1_flags = {
-            "upside_ge_threshold": upside_pct >= upside_threshold,
-            "forward_pe_present": forward_pe is not None,
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나스닥 합성 선행지수</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  var nd_monthly=[
+    7001,7273,7063,6630,7207,7510,8006,7998,8046,7305,7029,6635,
+    7281,7533,7729,8096,7963,8006,8175,7962,7999,8292,8665,8973,
+    9150,9018,7950,8192,9192,10059,10745,11775,11167,11553,12198,12888,
+    13071,13193,13247,13655,13749,14504,14672,14837,15048,15499,15791,15645,
+    14935,14261,13751,12927,12131,11029,11834,13656,10971,11047,11468,10940,
+    11621,11927,11890,12372,12980,13591,13790,13620,13210,13035,14240,14903,
+    14900,15330,16110,15998,17130,17715,17800,17571,17620,18415,19900,19762,
+    21100,19213,17800,16801,19010,17533,19960,19114,18500,18974,19900,19744,
+    20250,20580,18950,20100
+  ];
+  var hy_monthly=[
+    3.32,3.49,3.40,3.52,3.47,3.45,3.38,3.44,3.40,3.58,3.97,4.23,
+    4.38,4.10,3.96,3.80,4.11,3.75,3.89,4.23,3.96,3.72,3.54,3.46,
+    3.44,3.40,8.73,7.22,6.01,5.36,4.72,4.23,4.47,3.97,3.65,3.57,
+    3.51,3.53,3.27,3.18,3.18,3.18,3.11,3.13,3.34,3.05,3.02,2.83,
+    3.60,3.81,4.06,3.89,4.41,4.75,4.64,4.53,5.02,4.77,4.68,4.68,
+    4.67,4.74,4.62,4.42,4.33,4.17,4.04,4.17,4.41,4.56,4.10,3.99,
+    3.36,3.25,3.22,3.22,3.05,3.11,3.25,2.97,3.20,2.99,2.73,2.64,
+    2.57,2.68,3.53,3.95,3.24,3.18,3.14,3.05,3.15,2.97,2.87,2.88,
+    2.99,3.02,3.40,3.28
+  ];
+  var labels_monthly=[
+    '18.01','18.02','18.03','18.04','18.05','18.06','18.07','18.08','18.09','18.10','18.11','18.12',
+    '19.01','19.02','19.03','19.04','19.05','19.06','19.07','19.08','19.09','19.10','19.11','19.12',
+    '20.01','20.02','20.03','20.04','20.05','20.06','20.07','20.08','20.09','20.10','20.11','20.12',
+    '21.01','21.02','21.03','21.04','21.05','21.06','21.07','21.08','21.09','21.10','21.11','21.12',
+    '22.01','22.02','22.03','22.04','22.05','22.06','22.07','22.08','22.09','22.10','22.11','22.12',
+    '23.01','23.02','23.03','23.04','23.05','23.06','23.07','23.08','23.09','23.10','23.11','23.12',
+    '24.01','24.02','24.03','24.04','24.05','24.06','24.07','24.08','24.09','24.10','24.11','24.12',
+    '25.01','25.02','25.03','25.04','25.05','25.06','25.07','25.08','25.09','25.10','25.11','25.12',
+    '26.01','26.02','26.03','26.04'
+  ];
+  var nd_weekly=[24200,26247,26225,26343.97,26972.62];
+  var hy_weekly=[3.10,3.00,2.92,2.88,2.85];
+  var labels_weekly=['26.05 W1','26.05 W2','26.05 W3','26.05 W4','26.05 W5'];
+  var nd_daily=[26035.72,25584.42,25951.34,25470.6,25542.77,25967.86,26047.92];
+  var hy_daily=[2.74,2.75,2.72,2.67,2.7,2.7,2.7];
+  var labels_daily=['26.07.01','26.07.02','26.07.06','26.07.07','26.07.08','26.07.09','26.07.10'];
+  var W52_HIGH=27190.21;
+  var W52_LOW=19226.22;
+  var vix_monthly=[
+    11.0,19.9,19.6,15.9,14.8,13.4,12.2,12.6,12.1,21.3,18.5,25.4,
+    18.9,15.4,13.7,13.2,15.8,14.9,12.9,16.1,15.9,13.2,12.3,13.8,
+    18.8,40.1,57.7,41.2,30.0,26.5,24.6,22.5,26.4,27.6,24.0,21.5,
+    24.8,22.5,20.1,17.8,18.6,16.5,16.0,17.1,20.0,15.8,17.5,18.9,
+    24.2,27.6,26.7,24.3,27.2,27.2,23.0,21.8,26.2,30.6,24.2,21.5,
+    20.3,20.0,19.4,17.1,17.0,14.0,13.9,15.9,17.5,19.3,14.9,13.0,
+    13.3,13.8,13.0,15.6,13.5,12.4,13.9,15.8,17.0,20.5,14.8,15.9,
+    17.9,19.6,22.3,29.5,24.8,17.5,16.4,15.8,17.2,18.1,15.8,16.3,
+    18.2,19.8,22.5,24.1
+  ];
+  var vix_recent=15.84;
+  var ND_2016_END=5383;
+  var nd_now=nd_daily[nd_daily.length-1];
+  var cagr_2026=Math.pow(nd_now/ND_2016_END,0.1)-1;
+  var CAGR_MAP={
+    2018:0.155,2019:0.147,2020:0.171,2021:0.196,2022:0.137,
+    2023:0.136,2024:0.154,2025:0.147,
+    2026:parseFloat(cagr_2026.toFixed(3))
+  };
+  var labels=labels_monthly.concat(labels_weekly).concat(labels_daily);
+  var nasdaq=nd_monthly.concat(nd_weekly).concat(nd_daily);
+  var hyOas=hy_monthly.concat(hy_weekly).concat(hy_daily);
+  var N=labels.length;
+  var NOW=N-1;
+  var MONTHLY_END=labels_monthly.length-1;
+  var WEEKLY_END=labels_monthly.length+labels_weekly.length-1;
+  var SCALE=nd_monthly[0]/hy_monthly[0];
+
+  function getYear(l){ return 2000+parseInt(l.substring(0,2)); }
+  function getMG(l){ var c=CAGR_MAP[getYear(l)]||0.160; return Math.pow(1+c,1/12); }
+
+  var hyLine=[], cum=1.0;
+  for(var i=0;i<N;i++){
+    if(i>0) cum*=getMG(labels[i]);
+    hyLine.push(hyOas[i]*SCALE*cum);
+  }
+
+  var gap=hyLine.map(function(v,i){
+    return parseFloat(((v-nasdaq[i])/nasdaq[i]*100).toFixed(1));
+  });
+
+  var rsiArr=(function(){
+    var prices=nasdaq.slice(0,labels_monthly.length+labels_weekly.length);
+    var period=14, rsi=[], gains=[], losses=[];
+    for(var i=0;i<period;i++) rsi.push(null);
+    for(var i=1;i<prices.length;i++){
+      var d=prices[i]-prices[i-1];
+      gains.push(d>0?d:0);
+      losses.push(d<0?-d:0);
+    }
+    var ag=0, al=0;
+    for(var i=0;i<period;i++){ ag+=gains[i]; al+=losses[i]; }
+    ag/=period; al/=period;
+    for(var i=period;i<prices.length;i++){
+      var rs=al===0?100:ag/al;
+      rsi.push(100-100/(1+rs));
+      ag=(ag*(period-1)+gains[i-1])/period;
+      al=(al*(period-1)+losses[i-1])/period;
+    }
+    while(rsi.length<N) rsi.push(rsi[rsi.length-1]);
+    return rsi;
+  })();
+
+  function detectRSIDiv(idx){
+    var LK=8, THRESH=3;
+    var cur_p=nasdaq[idx], cur_r=rsiArr[idx];
+    if(cur_r===null) return 'none';
+    var start=Math.max(0,idx-LK);
+    var low_i=-1, low_p=Infinity;
+    for(var i=start;i<idx;i++){
+      if(nasdaq[i]<low_p && rsiArr[i]!==null){ low_p=nasdaq[i]; low_i=i; }
+    }
+    if(low_i>=0 && cur_p<=low_p*1.05 && cur_r>rsiArr[low_i]+THRESH) return 'bullish';
+    return 'none';
+  }
+
+  (function(){
+    var order=['sell','warn','watch','buy','sbuy'];
+    var sbuy=[], buy=[], watch=[], warn=[], sell=[];
+    var prev=null;
+    for(var i=1;i<N;i++){
+      var g=gap[i], h=hyOas[i], gp=gap[i-1];
+      var base=null;
+      if(h<3.0 && g<-20) base='sell';
+      else if(h<3.0 && -20<=g && g<0) base='warn';
+      else if(h>=3.0 && ((gp<=0&&g>0)||(gp>0&&g<=0))) base='watch';
+      else if(g>20 && h>=3.5 && h<4.5) base='buy';
+      else if(g>20 && h>=4.5) base='sbuy';
+      var adj=base;
+      if(base!==null && base!=='watch'){
+        var div=detectRSIDiv(i);
+        if(div==='bullish'){
+          var idx2=order.indexOf(base);
+          if(idx2>=0) adj=order[Math.min(idx2+1,order.length-1)];
         }
-        stage1 = "pass" if all(stage1_flags.values()) else \
-                 "warn" if stage1_flags["upside_ge_threshold"] else "fail"
-
-    # ── 눌림목(재진입) 계산식 ──────────────────
-    # 백테스트 검증(대형주50종목):
-    #   - 20/40일선 ±3% 근접이 핵심 게이트 (근접 단독으로 이미 기준선 대비 효과 대부분)
-    #   - RSI 50~60구간이 60에 가까울수록 약하게 개선(효과는 작음, 참고용 가중치)
-    #   - 셋업(근접+RSI50+) 당일 고가를 1~3일 내 종가로 돌파해야 진입확정(트리거) - 표본 늘고 승률도 개선
-    #   - 손절: 직전 스윙저점 이탈 시 (16.8% vs 75.3%로 매우 강력한 근거, 별도 신호로만 관리 - 점수 미반영)
-    #   - 폐기: 고점/저점 우상향, OBV, 급락캔들없음, 40일선기울기, ATR기반이격도 (전부 역효과/무의미)
-    sma20 = c.rolling(20).mean()
-    sma40_addon = sma40  # 신규진입에서 이미 계산된 40일선 재사용
-    sma60 = c.rolling(60).mean()
-
-    PULLBACK_MA_TOLERANCE = 0.03
-    dist_sma20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] if not pd.isna(sma20.iloc[-1]) else None
-    dist_sma40 = abs(last_close - sma40_addon.iloc[-1]) / sma40_addon.iloc[-1] if not pd.isna(sma40_addon.iloc[-1]) else None
-    near_sma20_raw = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
-    near_sma40_raw = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
-
-    # "근접"만으로는 위에서 내려와 닿은 건지, 아래에서 올라와 닿은 건지 구분이 안 된다.
-    # 진짜 눌림목은 "최근에 이평선 위에 있다가 지금 눌린 것"이어야 하므로,
-    # 최근 10일(오늘 제외) 중 종가가 그 이평선보다 확실히(3% 이상) 위에 있었던 적이
-    # 있어야만 근접을 인정한다.
-    RECENT_ABOVE_LOOKBACK = 10
-    RECENT_ABOVE_MARGIN = 0.03
-    recent_close = c.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
-    recent_sma20 = sma20.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
-    recent_sma40 = sma40_addon.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
-    was_above_20_recently = bool(((recent_close > recent_sma20 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
-    was_above_40_recently = bool(((recent_close > recent_sma40 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
-
-    near_sma20 = near_sma20_raw and was_above_20_recently
-    near_sma40 = near_sma40_raw and was_above_40_recently
-
-    # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선과 40일선 "둘 다" 함께
-    # 60일선에 근접(수렴)해오면 추세 힘빠짐으로 보고 무시한다.
-    # (하나만 수렴한 경우는 아직 전체 추세가 흔들리는 것으로 보기 어려워 무시하지 않음)
-    sma20_now_v = float(sma20.iloc[-1]) if not pd.isna(sma20.iloc[-1]) else None
-    sma40_now_v = float(sma40_addon.iloc[-1]) if not pd.isna(sma40_addon.iloc[-1]) else None
-    sma60_now_v = float(sma60.iloc[-1]) if not pd.isna(sma60.iloc[-1]) else None
-    sma60_is_lowest = bool(sma60_now_v is not None and sma20_now_v is not None and sma40_now_v is not None
-                           and sma60_now_v < sma20_now_v and sma60_now_v < sma40_now_v)
-
-    sma20_converged_to_60 = bool(sma60_now_v is not None and sma20_now_v is not None and sma60_now_v > 0
-                                  and abs(sma20_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
-    sma40_converged_to_60 = bool(sma60_now_v is not None and sma40_now_v is not None and sma60_now_v > 0
-                                  and abs(sma40_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
-    ma_converged_ignore = sma60_is_lowest and (sma20_converged_to_60 and sma40_converged_to_60)
-
-    near_ma_signal = near_sma20 or near_sma40
-    near_ma_count = int(near_sma20) + int(near_sma40)  # 1개 또는 2개 근접 (가중치 조정용)
-
-    if ma_converged_ignore and near_ma_signal:
-        addon_stage_gate = "fail"  # 60일선이 가장 아래인데 20/40일선이 그쪽으로 수렴 -> 신호 무시
-    else:
-        addon_stage_gate = "pass" if near_ma_signal else "fail"
-
-    # RSI 존: 60이상 pass, 50~60 warn, 50미만 fail (라벨은 유지)
-    # 점수 계산은 이산값(1.0/0.5/0.0) 대신 min~max 사이 연속값으로, RSI가 높을수록(60 방향)
-    # 더 좋게, 낮을수록(50 미만 방향) 더 나쁘게 세밀하게 반영한다.
-    RSI_ZONE_SCALE_MIN = 40   # 이 이하면 최저점(0.0)
-    RSI_ZONE_SCALE_MAX = 65   # 이 이상이면 만점(1.0)
-    if rsi_last >= 60:
-        addon_stage_rsi = "pass"
-    elif rsi_last >= 50:
-        addon_stage_rsi = "warn"
-    else:
-        addon_stage_rsi = "fail"
-    rsi_zone_clamped = max(RSI_ZONE_SCALE_MIN, min(RSI_ZONE_SCALE_MAX, rsi_last))
-    rsi_zone_quality = (rsi_zone_clamped - RSI_ZONE_SCALE_MIN) / (RSI_ZONE_SCALE_MAX - RSI_ZONE_SCALE_MIN)
-
-    # 4단계: 트리거캔들 + 거래량 (2/3단계와 완전히 독립 - 이평선/RSI 조건 없음, 순수 캔들+거래량만 봄)
-    # hammer, engulfing, long_lower_wick, wick_days_ago는 신규진입 5단계에서 이미 계산된 값을 재사용.
-    VOL_LOOKBACK_20 = 20
-
-    def _volume_confirmed_for_day(day_idx):
-        if day_idx is None or day_idx < VOL_LOOKBACK_20:
-            return False
-        avg_vol = float(v.iloc[day_idx - VOL_LOOKBACK_20:day_idx].mean())
-        day_vol = float(v.iloc[day_idx])
-        return bool(avg_vol > 0 and day_vol > avg_vol)
-
-    has_reversal_candle = bool(hammer or engulfing)  # 오늘 기준
-    reversal_day_idx = len(c) - 1
-    reversal_volume_confirmed = _volume_confirmed_for_day(reversal_day_idx) if has_reversal_candle else False
-
-    wick_present = bool(long_lower_wick)  # 0~3일 이내
-    wick_day_idx = (len(c) - 1 - wick_days_ago) if (wick_present and wick_days_ago is not None) else None
-    wick_volume_confirmed = _volume_confirmed_for_day(wick_day_idx) if wick_day_idx is not None else False
-
-    trigger_weight_tier = None
-    if has_reversal_candle and reversal_volume_confirmed:
-        addon_stage_trigger = "pass"
-        trigger_weight_tier = "reversal_volume"   # 가장 높은 가중치
-    elif has_reversal_candle:
-        addon_stage_trigger = "pass"
-        trigger_weight_tier = "reversal_only"     # 중간 가중치
-    elif wick_present and wick_volume_confirmed:
-        addon_stage_trigger = "pass"
-        trigger_weight_tier = "wick_volume"        # 가장 낮은 pass 가중치
-    elif wick_present:
-        addon_stage_trigger = "warn"                # 거래량 없는 긴아래꼬리만
-    else:
-        addon_stage_trigger = "fail"
-
-    # 손절신호(점수 미반영, 별도 참고): 직전 스윙저점 이탈 여부
-    pullback_stop_signal = None
-    try:
-        _lows = find_realtime_lows(c.values, order=5)
-        if len(_lows) >= 1:
-            _recent_low_pos = _lows[-1]
-            _recent_low_price = float(c.iloc[_recent_low_pos])
-            _stopped = bool(last_close < _recent_low_price)
-            pullback_stop_signal = {"stop_reference_price": round(_recent_low_price, 2), "stopped_out": _stopped}
-    except Exception:
-        pass
-
-    addon_stop_pct = round(abs(last_close - sma20.iloc[-1]) / last_close * 100, 1)
-
-    stages_addon = {
-        "1_market_health": {"status": volume_health["status"], "index_name": index_name, "index_symbol": index_symbol,
-                             "etf": volume_health["etf"], "volume_diff_pct_3m": volume_health["diff_pct"],
-                             "volume_trend_pct_3d": volume_health["trend_pct"], "volume_trend_up": volume_health["trend_up"],
-                             "daily_change_pct": volume_health["daily_change_pct"], "volatility_label": volume_health["volatility_label"],
-                             "index_trigger_candle": volume_health["index_trigger_candle"],
-                             "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
-        "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
-        "4_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3)},
-        "5_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
-                                 "reversal_volume_confirmed": reversal_volume_confirmed,
-                                 "wick_present": wick_present, "wick_volume_confirmed": wick_volume_confirmed,
-                                 "trigger_weight_tier": trigger_weight_tier},
-        "9_position_sizing": {"stop_pct_from_20sma": addon_stop_pct},
+      }
+      if(adj==='sell' && adj!==prev) sell.push(i);
+      if(adj==='warn' && adj!==prev) warn.push(i);
+      if(adj==='watch') watch.push(i);
+      if(adj==='buy' && adj!==prev) buy.push(i);
+      if(adj==='sbuy' && adj!==prev) sbuy.push(i);
+      prev=adj;
     }
-    addon_known_weights = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if stages_addon[k]["status"] != "unknown"}
-    # 3단계(눌림목게이트, 구 2단계): pass는 그대로 두되, 근접한 이평선 종류에 따라 가중치를 차등 적용.
-    # 20일선만 근접(얕은 눌림) < 40일선만 근접(더 깊은 눌림, 신뢰도 더 높음) < 둘 다 근접(원래 가중치)
-    if "3_pullback_gate" in addon_known_weights and stages_addon["3_pullback_gate"]["status"] == "pass":
-        if near_ma_count == 2:
-            gate_multiplier = 1.0
-        elif near_sma40:  # 40일선만 근접
-            gate_multiplier = 0.75
-        else:  # 20일선만 근접
-            gate_multiplier = 0.5
-        addon_known_weights["3_pullback_gate"] = addon_known_weights["3_pullback_gate"] * gate_multiplier
+    window.SIGNALS={sbuy:sbuy, buy:buy, watch:watch, warn:warn, sell:sell};
+  })();
 
-    # 5단계(트리거, 구 4단계): pass 안에서도 어떤 조합인지에 따라 가중치 차등
-    # 긴아래꼬리+거래량(가장낮음) < 반전캔들만(중간) < 반전캔들+거래량(가장높음)
-    TRIGGER_WEIGHT_MULTIPLIER = {"wick_volume": 0.5, "reversal_only": 0.75, "reversal_volume": 1.0}
-    if "5_trigger_confirmed" in addon_known_weights and stages_addon["5_trigger_confirmed"]["status"] == "pass" and trigger_weight_tier:
-        addon_known_weights["5_trigger_confirmed"] = addon_known_weights["5_trigger_confirmed"] * TRIGGER_WEIGHT_MULTIPLIER[trigger_weight_tier]
+  var bgColors=labels.map(function(_,i){
+    var g=gap[i], h=hyOas[i];
+    if(g>20 && h>=4.5) return 'rgba(168,85,247,0.14)';
+    if(g>20 && h>=3.5) return 'rgba(16,185,129,0.12)';
+    if(g>20) return 'rgba(16,185,129,0.06)';
+    if(g>0) return 'rgba(16,185,129,0.04)';
+    if(h<3.0 && g<-20) return 'rgba(192,38,211,0.18)';
+    if(h<3.0 && g>=-20) return 'rgba(244,63,94,0.10)';
+    return 'rgba(251,191,36,0.05)';
+  });
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0f0f12; color:#e2e2e8; padding:20px; }
+  h1 { font-size:16px; font-weight:600; color:#f0f0f4; margin-bottom:2px; }
+  .sub { font-size:11px; color:#6b6b7a; margin-bottom:14px; }
+  .ver { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:8px; background:rgba(124,58,237,0.2); color:#a78bfa; border:1px solid rgba(124,58,237,0.4); margin-left:8px; vertical-align:middle; }
+  .top-row { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .tog-row { display:flex; flex-wrap:wrap; gap:7px; }
+  .tog { display:flex; align-items:center; gap:7px; padding:7px 15px; border-radius:22px; border:1.5px solid; cursor:pointer; font-size:12px; font-weight:700; transition:opacity .15s,transform .1s; user-select:none; position:relative; }
+  .tog:active { transform:scale(0.96); }
+  .tog.off { opacity:0.22; }
+  .tog-tooltip {
+    position:absolute; top:110%; left:0; min-width:190px;
+    background:#1a1a22; border:1px solid #3a3a4a; border-radius:8px;
+    padding:8px 10px; font-size:11px; line-height:1.6; color:#c7c7d1;
+    font-weight:400; text-align:left; white-space:normal;
+    opacity:0; visibility:hidden; transform:translateY(-4px);
+    transition:opacity .15s,transform .15s; z-index:60; pointer-events:none;
+  }
+  .tog:hover .tog-tooltip { opacity:1; visibility:visible; transform:translateY(0); }
+  .tm { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .tm-sq { width:10px; height:10px; border-radius:2px; flex-shrink:0; transform:rotate(45deg); }
+  .tm-tri { width:0; height:0; flex-shrink:0; border-left:6px solid transparent; border-right:6px solid transparent; }
+  .badge { display:flex; flex-direction:column; align-items:flex-end; padding:8px 14px; border-radius:12px; border:1.5px solid; min-width:160px; }
+  .badge-label { font-size:9px; font-weight:700; margin-bottom:2px; letter-spacing:0.5px; }
+  .badge-value { font-size:16px; font-weight:800; line-height:1.2; }
+  .badge-sub { font-size:9px; margin-top:2px; opacity:.7; }
+  #macroBadge { position:relative; cursor:help; }
+  .macro-tooltip {
+    position:absolute; top:110%; right:0; min-width:230px;
+    background:#1a1a22; border:1px solid #3a3a4a; border-radius:8px;
+    padding:10px 12px; font-size:11px; line-height:1.7;
+    opacity:0; visibility:hidden; transform:translateY(-4px);
+    transition:opacity .15s,transform .15s; z-index:50; pointer-events:none;
+  }
+  #macroBadge:hover .macro-tooltip { opacity:1; visibility:visible; transform:translateY(0); }
+  .macro-check { display:flex; justify-content:space-between; gap:14px; white-space:nowrap; }
+  .cbox { background:#1a1a22; border:1px solid #2a2a35; border-radius:10px; padding:13px; margin-bottom:8px; }
+  .cl { font-size:11px; color:#6b6b7a; margin-bottom:6px; }
+  .scroll-wrap { overflow-x:auto; overflow-y:hidden; cursor:grab; -webkit-overflow-scrolling:touch; }
+  .scroll-wrap:active { cursor:grabbing; }
+  .scroll-inner { min-width:1800px; position:relative; }
+  .scroll-wrap::-webkit-scrollbar { height:6px; }
+  .scroll-wrap::-webkit-scrollbar-track { background:#1a1a22; border-radius:3px; }
+  .scroll-wrap::-webkit-scrollbar-thumb { background:#3a3a4a; border-radius:3px; }
+  .scroll-wrap::-webkit-scrollbar-thumb:hover { background:#4a4a5a; }
+  #globalTable tbody tr:nth-child(3),
+  #globalTable tbody tr:nth-child(6) { display:none; }
+  .sig-tip{
+    position:absolute; top:130%; left:0; min-width:220px;
+    background:#1a1a22; border:1px solid #3a3a4a; border-radius:8px;
+    padding:10px 12px; font-size:11px; line-height:1.7; color:#c7c7d1;
+    opacity:0; visibility:hidden; transform:translateY(-4px);
+    transition:opacity .15s,transform .15s; z-index:20;
+  }
+  .sig-wrap:hover .sig-tip{opacity:1;visibility:visible;transform:translateY(0);}
+</style>
+</head>
+<body>
+<h1>나스닥 합성 선행지수 — 행동 지침<span class="ver" id="verLabel">전체 v2 · 18~26</span></h1>
+<p class="sub">강한매수:HY≥4.5%+이격&gt;+20% · 매수:HY 3.5~4.5%+이격&gt;+20% · 관망:HY≥3%+이격0%전환 · 경고:HY&lt;3%+이격0~-20% · 매도:HY&lt;3%+이격&lt;-20%</p>
 
-    if addon_known_weights:
-        # 4단계(RSI존, 구 3단계)는 이산값 대신 연속값(rsi_zone_quality)을 그대로 써서
-        # "RSI가 60에 가까울수록 더 좋다"를 세밀하게 반영. 나머지는 기존 방식 유지.
-        def _addon_stage_score(k):
-            if k == "4_rsi_zone":
-                return rsi_zone_quality
-            return STATUS_SCORE[stages_addon[k]["status"]]
-        addon_raw = sum(addon_known_weights[k] * _addon_stage_score(k) for k in addon_known_weights)
-        addon_score = round(addon_raw / sum(addon_known_weights.values()) * 100)
-    else:
-        addon_score = 0
+<div class="top-row">
+  <div class="tog-row">
+    <div class="tog" data-key="sbuy" style="border-color:#a855f7;color:#a855f7;">
+      <span class="tm-sq" style="background:#a855f7;transform:rotate(45deg);"></span>강한매수
+      <div class="tog-tooltip" id="sbuyTip"></div>
+    </div>
+    <div class="tog" data-key="buy" style="border-color:#10b981;color:#10b981;">
+      <span class="tm" style="background:#10b981;"></span>매수
+      <div class="tog-tooltip" id="buyTip"></div>
+    </div>
+    <div class="tog" data-key="wb" style="border-color:#f59e0b;color:#b45309;">
+      <span class="tm-sq" style="background:#f59e0b;"></span>관망
+      <div class="tog-tooltip" id="wbTip"></div>
+    </div>
+    <div class="tog" data-key="warn" style="border-color:#f43f5e;color:#be123c;">
+      <span class="tm-sq" style="background:#f43f5e;transform:rotate(45deg);"></span>경고
+      <div class="tog-tooltip" id="warnTip"></div>
+    </div>
+    <div class="tog" data-key="sell" style="border-color:#c026d3;color:#e879f9;">
+      <span class="tm-tri" style="border-bottom:10px solid #c026d3;transform:rotate(180deg);margin-top:3px;"></span>매도
+      <div class="tog-tooltip" id="sellTip"></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:stretch;">
+    <div class="badge" id="macroBadge"></div>
+    <div class="badge" id="nowBadge"></div>
+    <div class="badge" id="semiBadge"></div>
+    <div class="badge" id="capexBadge" style="display:none"></div>
+    <div class="badge" id="creditBadge" style="display:none"></div>
+  </div>
+</div>
 
-    stages = {
-        "1_market_health": {"status": volume_health["status"], "index_name": index_name, "index_symbol": index_symbol,
-                             "etf": volume_health["etf"], "volume_diff_pct_3m": volume_health["diff_pct"],
-                             "volume_trend_pct_3d": volume_health["trend_pct"], "volume_trend_up": volume_health["trend_up"],
-                             "daily_change_pct": volume_health["daily_change_pct"], "volatility_label": volume_health["volatility_label"],
-                             "index_trigger_candle": volume_health["index_trigger_candle"],
-                             "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
-        "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
-        "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
-        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
+<div class="cbox">
+  <div class="cl">⑤ 관심종목 매수 우위 순위 · 2~8단계 가중점수 기준</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+    <span style="font-size:11px;color:#6b6b7a;" id="rankUpdated"></span>
+    <a href="https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=add-ticker%3A" target="_blank"
+       style="font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;">
+      + 종목 추가
+    </a>
+  </div>
+  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">추세신호</span><span></span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">손절신호</span><span></span>
+  </div>
+  <div id="rankList"></div>
+  <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
+    <button id="rankMoreBtn" style="width:100%;background:none;border:none;color:#6b6b7a;font-size:11px;cursor:pointer;padding:6px 0;">
+      나머지 보기 ▾
+    </button>
+    <div id="rankRest" style="display:none;flex-wrap:wrap;gap:6px;padding-top:8px;"></div>
+  </div>
+</div>
+
+<div class="cbox">
+  <div class="cl">① 나스닥 vs HY 기준선(점선) · 점선위=저평가 · 점선아래=고평가 · <span style="color:#e879a0">─ ─ HY 기준선</span></div>
+  <div class="scroll-wrap" id="mainScroll">
+    <div class="scroll-inner" style="height:360px;"><canvas id="cMain"></canvas></div>
+  </div>
+</div>
+<div class="cbox">
+  <div class="cl">② HY OAS · 보라≥6% · 진초록≥4% · 연초록≥3.5% · 노랑≥3% · 빨강&lt;3%</div>
+  <div style="position:relative;height:110px;overflow:hidden;"><canvas id="cHY"></canvas></div>
+</div>
+<div class="cbox">
+  <div class="cl">③ 이격도 (점선-나스닥)/나스닥×100% · 양수=저평가(매수) · 음수=고평가(매도)</div>
+  <div style="position:relative;height:100px;overflow:hidden;"><canvas id="cGap"></canvas></div>
+</div>
+
+<div class="cbox">
+  <div class="cl">④ 글로벌 주요 지수 수익률 (%) · 양수=상승 · 음수=하락 · 매일 갱신</div>
+  <div id="globalTable"><!--GTABLE_START--><div style="overflow-x:auto;"><table style="border-collapse:collapse;width:100%;min-width:980px;font-size:12px;color:#e2e2e8;"><thead><tr><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">기간</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">인니</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">태국</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">호주</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">브라질</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">멕시코</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">FTSE</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">인도</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">항셍</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">상하이</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">다우</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">DAX</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">CAC 40</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">닛케이</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">S&P</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">유로</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">코스피</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">나스닥</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">대만</th></tr></thead><tbody><tr><th style="padding:9px 9px;text-align:center;color:#a78bfa;background:#211f2e;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">이번달<br><span style='font-size:8px;color:#6b6b7a;'>MTD·매일</span></th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-11.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.7</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-1개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-3.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.5</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-2개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-14.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-8.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-4.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.0</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-3개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-20.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-9.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+20.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+11.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+27.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+14.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+30.1</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-6개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-33.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+29.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-3.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+32.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+63.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+11.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+49.7</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-12개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-15.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+44.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+30.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+13.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+72.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+20.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+15.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+134.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+27.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+101.3</td></tr></tbody></table></div><div style="margin-top:8px;font-size:10px;color:#8b8b9a;display:flex;gap:14px;flex-wrap:wrap;align-items:center;"><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f4d3a;vertical-align:middle;margin-right:4px;"></span>핵심 (반도체 비중 높음)</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f3a4d;vertical-align:middle;margin-right:4px;"></span>중간</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#26262e;border:1px solid #3a3a45;vertical-align:middle;margin-right:4px;"></span>무관</span><span style="color:#6b6b7a;">· 이번달=이달 1일 대비(참고) · 집중도는 -1~-12로 계산</span></div><div style="margin-top:4px;font-size:10px;color:#52525b;text-align:right;">자료: Yahoo Finance · 기준 2026-07-13 (KST)</div><!--GTABLE_END--></div>
+</div>
+  
+<script>
+  var sbuy_pts=SIGNALS.sbuy;
+  var buy_pts=SIGNALS.buy;
+  var watch_pts=SIGNALS.watch;
+  var warn_pts=SIGNALS.warn;
+  var sell_pts=SIGNALS.sell;
+  var xsell_pts=SIGNALS.xsell||[];
+
+  function calcRSI(prices, period) {
+    period = period || 14;
+    var rsi = [];
+    for(var i=0;i<period;i++) rsi.push(null);
+    var gains=[], losses=[];
+    for(var i=1;i<prices.length;i++){
+      var d=prices[i]-prices[i-1];
+      gains.push(d>0?d:0);
+      losses.push(d<0?-d:0);
+    }
+    var ag=0, al=0;
+    for(var i=0;i<period;i++){ ag+=gains[i]; al+=losses[i]; }
+    ag/=period; al/=period;
+    for(var i=period;i<prices.length;i++){
+      var rs=al===0?100:ag/al;
+      rsi.push(100-100/(1+rs));
+      ag=(ag*(period-1)+gains[i-1])/period;
+      al=(al*(period-1)+losses[i-1])/period;
+    }
+    return rsi;
+  }
+  var rsiValues=calcRSI(nasdaq);
+
+  function detectDivergence(rsiArr, prices, labels) {
+    var n = prices.length - 1;
+    var cur_p = prices[n], cur_r = rsiArr[n];
+    if(cur_r === null) return {type:'없음', col:'#6b6b7a'};
+
+    function parseLabel(l) {
+      var yy = parseInt(l.substring(0,2));
+      var mm = parseInt(l.substring(3,5));
+      return yy * 12 + mm;
+    }
+    var cur_m = parseLabel(labels[n]);
+
+    var idx_3m = n, idx_6m = n;
+    for(var i = n-1; i >= 0; i--) {
+      var m = parseLabel(labels[i]);
+      var diff = cur_m - m;
+      if(diff >= 3 && idx_3m === n) idx_3m = i;
+      if(diff >= 6 && idx_6m === n) idx_6m = i;
+      if(diff > 6) break;
+    }
+    var lookStart = idx_6m;
+
+    var low_i = -1, low_p = cur_p;
+    var high_i = -1, high_p = cur_p;
+    for(var i = lookStart; i < n; i++) {
+      if(prices[i] < low_p && rsiArr[i] !== null) { low_p = prices[i]; low_i = i; }
+      if(prices[i] > high_p && rsiArr[i] !== null) { high_p = prices[i]; high_i = i; }
     }
 
-    known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
-    if known_weights:
-        # 4단계(Z-score)는 이산값(1.0/0.5/0.0) 대신, min~max 사이 연속값(zscore_quality)을
-        # 그대로 써서 "낮을수록 더 좋다"를 세밀하게 반영한다. 나머지 단계는 기존 방식 유지.
-        def _stage_score(k):
-            if k == "4_zscore" and zscore_quality is not None:
-                return zscore_quality
-            return STATUS_SCORE[stages[k]["status"]]
-        raw_score = sum(known_weights[k] * _stage_score(k) for k in known_weights)
-        score = round(raw_score / sum(known_weights.values()) * 100)
-    else:
-        score = 0
-
-    # 다이버전스 상태에 따른 점수 상한 캡: 위반(fail)은 30점, 애매(warn)는 60점, 충족(pass)은 캡 없음
-    if stage_divergence == "fail":
-        score = min(score, 30)
-    elif stage_divergence == "warn":
-        score = min(score, 60)
-
-    result = {
-        "ticker": ticker.upper(),
-        "price": round(last_close, 2),
-        "updated": pd.Timestamp.now("UTC").isoformat(),
-        "as_of_date": str(hist.index[-1].date()),
-        "score": score,
-        "stages": stages,
-        "entry_atr_stop_pct": stop_pct,
-        "score_addon": addon_score,
-        "stages_addon": stages_addon,
-        "sector": sector,
-        "sector_relative_strength_up": sector_rs,
-        "uptrend_entry_signal": uptrend_entry_signal,
-        "divergence_invalidated_signal": divergence_invalidated_signal,
-        "pullback_stop_signal": pullback_stop_signal,
-        "divergence_stop_signal": divergence_stop_signal,
+    if(low_i >= 0 && cur_p <= low_p * 1.03 && cur_r > rsiArr[low_i] + 3) {
+      return {type:'불리시↑', col:'#10b981'};
     }
-    if write_file:
-        with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
-            json.dump(result, f, ensure_ascii=False, indent=2)
-    return result
-
-
-def load_recent_history(ticker, days=4):
-    """score_history.jsonl에서 해당 티커의 최근 기록(날짜 오름차순)을 최대 days개 반환."""
-    if not os.path.exists(HISTORY_PATH):
-        return []
-    rows = []
-    with open(HISTORY_PATH) as f:
-        for line in f:
-            try:
-                rec = json.loads(line)
-            except Exception:
-                continue
-            if rec.get("ticker") == ticker:
-                rows.append(rec)
-    rows.sort(key=lambda r: r["date"])
-    # 같은 날짜 중복 시 마지막 값만 유지
-    dedup = {}
-    for r in rows:
-        dedup[r["date"]] = r
-    rows = list(dedup.values())
-    return rows[-days:]
-
-
-def compute_signal(ticker, today_score, score_key="score"):
-    """상승신호/하락신호/신호없음 판정. score_key: 'score' 또는 'score_addon'."""
-    hist = load_recent_history(ticker, days=4)
-    if not hist:
-        return {"signal": "none", "reasons": []}
-
-    prev = hist[-1][score_key]
-    change = today_score - prev
-
-    def zone(s):
-        if s >= 65: return 2
-        if s >= 40: return 1
-        return 0
-
-    crossed_up = zone(today_score) > zone(prev)
-    crossed_down = zone(today_score) < zone(prev)
-    spike_up = change >= 25
-    spike_down = change <= -25
-
-    streak_up = len(hist) >= 2 and all(
-        hist[i][score_key] < hist[i+1][score_key] for i in range(len(hist)-1)
-    ) and today_score > hist[-1][score_key]
-    streak_down = len(hist) >= 2 and all(
-        hist[i][score_key] > hist[i+1][score_key] for i in range(len(hist)-1)
-    ) and today_score < hist[-1][score_key]
-
-    reasons = []
-    change_str = f"전일 {prev} → 오늘 {today_score} (전일 대비 {'+' if change>=0 else ''}{change})"
-    if spike_up:
-        reasons.append({"label": "급등 기준 (+25 이상)", "detail": change_str})
-    if crossed_up:
-        reasons.append({"label": "구간 상향 돌파", "detail": None})
-    if streak_up:
-        reasons.append({"label": "3일 연속 상승", "detail": None})
-
-    if reasons:
-        return {"signal": "up", "reasons": reasons}
-
-    if spike_down:
-        reasons.append({"label": "급락 기준 (-25 이상)", "detail": change_str})
-    if crossed_down:
-        reasons.append({"label": "구간 하향 이탈", "detail": None})
-    if streak_down:
-        reasons.append({"label": "3일 연속 하락", "detail": None})
-
-    if reasons:
-        return {"signal": "down", "reasons": reasons}
-
-    return {"signal": "none", "reasons": []}
-
-
-def log_snapshot(r):
-    """나중 승률 재보정용 원본 데이터. 날짜별로 한 줄씩 누적(jsonl), 덮어쓰지 않음.
-    r에 as_of_date가 있으면 그 날짜로 기록(백필용), 없으면 오늘(UTC) 날짜로 기록."""
-    snap = {
-        "date": r.get("as_of_date") or pd.Timestamp.now("UTC").strftime("%Y-%m-%d"),
-        "ticker": r["ticker"],
-        "price": r["price"],
-        "score": r["score"],
-        "score_addon": r["score_addon"],
-        "stage_status": {k: v["status"] for k, v in r["stages"].items() if "status" in v},
-        "stage_status_addon": {k: v["status"] for k, v in r["stages_addon"].items() if "status" in v},
+    if(high_i >= 0 && cur_p >= high_p * 0.97 && cur_r < rsiArr[high_i] - 3) {
+      return {type:'베어리시↓', col:'#f43f5e'};
     }
-    with open(HISTORY_PATH, "a") as f:
-        f.write(json.dumps(snap, ensure_ascii=False) + "\n")
+    return {type:'없음', col:'#6b6b7a'};
+  }
+  var divResult = detectDivergence(rsiValues, nasdaq, labels);
 
+  (function(){
+    var cur=nasdaq[NOW], h=hyOas[NOW], g=gap[NOW];
+    var pos=(cur-W52_LOW)/(W52_HIGH-W52_LOW)*100;
 
-def get_usd_krw_rate():
-    """USD/KRW 환율을 가져와서 data/exchange_rate.json에 저장한다.
-    매수가를 원화로 입력받아 매일 환율로 환산 표시하는 기능에 사용."""
-    try:
-        hist = get_confirmed_history("USDKRW=X", period="5d")
-        if hist.empty:
-            return None
-        rate = float(hist["Close"].iloc[-1])
-        result = {"rate": round(rate, 2), "updated": pd.Timestamp.now("UTC").isoformat(),
-                  "as_of_date": str(hist.index[-1].date())}
-        with open(f"{OUT_DIR}/exchange_rate.json", "w") as f:
-            json.dump(result, f, ensure_ascii=False, indent=2)
-        return result
-    except Exception as e:
-        print(f"환율 조회 실패: {e}", file=sys.stderr)
-        return None
+    var sig='경고', col='#f43f5e';
+    if(g<=-30){ sig='이격극단'; col='#dc2626'; }
+    else if(h<3.0 && g<-20){ sig='매도'; col='#c026d3'; }
+    else if(h<3.0 && g>=-20 && g<0){ sig='경고'; col='#f43f5e'; }
+    else if(g>20 && h>=4.5){ sig='강한매수'; col='#a855f7'; }
+    else if(g>20 && h>=3.5){ sig='매수'; col='#10b981'; }
 
+    function hexToRgb(hex){
+      var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+      return r+','+g+','+b;
+    }
 
-def main():
-    if not os.path.exists(WATCHLIST_PATH):
-        print(f"watchlist not found: {WATCHLIST_PATH}", file=sys.stderr)
-        sys.exit(1)
+    var el=document.getElementById('nowBadge');
+    el.style.background='rgba('+hexToRgb(col)+',0.12)';
+    el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
+    function renderNowBadge(hVal, gVal, sigVal, colVal, isEstimated){
+      el.style.background='rgba('+hexToRgb(colVal)+',0.12)';
+      el.style.borderColor='rgba('+hexToRgb(colVal)+',0.45)';
+      el.innerHTML='<div class="badge-label" style="color:'+colVal+'">HY OAS 이격도 · '+labels[NOW]+'</div>'
+        +'<div class="badge-value" style="color:'+colVal+'">'+Math.round(cur).toLocaleString()+' / HY '+hVal.toFixed(2)+'%</div>'
+        +'<div class="badge-sub" style="color:'+colVal+'">'+(isEstimated?'추정 ':'')+'이격 '+(gVal>=0?'+':'')+gVal+'% · '+sigVal+'</div>';
+    }
 
-    with open(WATCHLIST_PATH) as f:
-        tickers = json.load(f)
+    renderNowBadge(h, g, sig, col, false);
 
-    os.makedirs(OUT_DIR, exist_ok=True)
+    fetch('./data/hy_oas_nowcast.json?_='+Date.now())
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(nc){
+        if(!nc) return;
+        window.HY_NOWCAST = nc;
 
-    exchange_rate = get_usd_krw_rate()
-    if exchange_rate:
-        print(f"환율 갱신: 1USD = {exchange_rate['rate']}KRW ({exchange_rate['as_of_date']})")
+        var scaleFactor = hyLine[NOW] / hyOas[NOW];
+        var hyLineEst = nc.nowcast_oas * scaleFactor;
+        var gEst = parseFloat(((hyLineEst - cur) / cur * 100).toFixed(1));
 
-    results = []
-    for t in tickers:
-        try:
-            r = analyze(t)
-            r["signal"] = compute_signal(t, r["score"], "score")
-            r["signal_addon"] = compute_signal(t, r["score_addon"], "score_addon")
-            results.append(r)
-            log_snapshot(r)
-            print(f"  {t}: score={r['score']} signal={r['signal']['signal']}")
-        except Exception as e:
-            print(f"  {t}: FAILED ({e})", file=sys.stderr)
-        time.sleep(0.6)
+        var sigEst='경고', colEst='#f43f5e';
+        if(gEst<=-30){ sigEst='이격극단'; colEst='#dc2626'; }
+        else if(nc.nowcast_oas<3.0 && gEst<-20){ sigEst='매도'; colEst='#c026d3'; }
+        else if(nc.nowcast_oas<3.0 && gEst>=-20 && gEst<0){ sigEst='경고'; colEst='#f43f5e'; }
+        else if(gEst>20 && nc.nowcast_oas>=4.5){ sigEst='강한매수'; colEst='#a855f7'; }
+        else if(gEst>20 && nc.nowcast_oas>=3.5){ sigEst='매수'; colEst='#10b981'; }
 
-    rankings = sorted(
-        [{"ticker": r["ticker"], "score": r["score"], "score_addon": r["score_addon"], "price": r["price"],
-          "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
-          "rsi": r["stages"]["4_zscore"]["rsi"],
-          "divergence": r["stages"]["3_divergence_gate"]["status"],
-          "trigger": r["stages"]["5_trigger_candle"]["status"],
-          "signal": r["signal"], "signal_addon": r["signal_addon"],
-          "uptrend_entry_signal": r["uptrend_entry_signal"],
-          "divergence_invalidated_signal": r["divergence_invalidated_signal"],
-          "divergence_stop_signal": r["divergence_stop_signal"]}
-         for r in results],
-        key=lambda x: x["score"], reverse=True
-    )
-    with open(f"{OUT_DIR}/rankings.json", "w") as f:
-        json.dump({"updated": pd.Timestamp.now("UTC").isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
+        renderNowBadge(nc.nowcast_oas, gEst, sigEst, colEst, true);
+      })
+      .catch(function(e){ console.error('nowcast',e); });
 
-    print(f"\n완료: {len(results)}/{len(tickers)}개 성공, rankings.json 저장")
+    document.getElementById('sbuyTip').innerHTML=sbuy_pts.length+'회 · 3M 67% · +9.5%<br>HY≥4.5%+RSI불리시격상';
+    document.getElementById('buyTip').innerHTML=buy_pts.length+'회 · 3M 83% · +9.0%<br>HY 3.5~4.5%+RSI불리시격상';
+    document.getElementById('wbTip').innerHTML=watch_pts.length+'회<br>HY≥3%+이격0%전환 · 매수·매도준비';
+    document.getElementById('warnTip').innerHTML=warn_pts.length+'회 · 현재 '+(g>=0?'+':'')+g+'%<br>HY&lt;3%+이격0~-20% · 분할매도';
+    document.getElementById('sellTip').innerHTML=sell_pts.length+'회 · 3M 0% · -7.8%<br>HY&lt;3%+이격&lt;-20%';
 
+    document.getElementById('verLabel').textContent='전체 v2 · 18~'+labels[NOW];
 
-if __name__ == "__main__":
-    main()
+    var vixNow=typeof vix_recent!=='undefined'?vix_recent:(vix_monthly.length>0?vix_monthly[vix_monthly.length-1]:20);
+    var vixCol, vixZone;
+    if(vixNow>=40){ vixCol='#ef4444'; vixZone='극공포'; }
+    else if(vixNow>=30){ vixCol='#f97316'; vixZone='공포'; }
+    else if(vixNow>=20){ vixCol='#eab308'; vixZone='주의'; }
+    else{ vixCol='#10b981'; vixZone='안정'; }
+
+    function hexToRgb3(hex){
+      var r=parseInt(hex.slice(1,3),16), gg=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+      return r+','+gg+','+b;
+    }
+
+    var macroEl=document.getElementById('macroBadge');
+    var macroLevel='주의', macroCol='#f59e0b';
+    var isDanger = (sig==='매도'||sig==='이격극단') || vixZone==='공포' || vixZone==='극공포' || pos>=90;
+    var isWarn   = pos>=75 && pos<90;
+    var isGood   = (sig==='강한매수'||sig==='매수') && vixZone==='안정' && pos<75;
+    if(isDanger){ macroLevel='위험'; macroCol='#f43f5e'; }
+    else if(isWarn){ macroLevel='주의'; macroCol='#f59e0b'; }
+    else if(isGood){ macroLevel='양호'; macroCol='#10b981'; }
+
+    var checks=[
+      {label:'HY/이격 신호', ok:(sig!=='매도'&&sig!=='경고'&&sig!=='이격극단'), val:sig},
+      {label:'VIX', ok:(vixZone==='안정'), val:vixNow.toFixed(1)+' · '+vixZone},
+      {label:'RSI 다이버전스', ok:(divResult.type!=='베어리시↓'), val:divResult.type},
+      {label:'52주 밴드 위치', ok:(pos<75), val:Math.round(pos)+'%'}
+    ];
+    var tooltipRows=checks.map(function(c){
+      var mark = c.ok===null ? '<span style="color:#6b6b7a">-</span>'
+        : c.ok ? '<span style="color:#10b981">✓</span>'
+        : '<span style="color:#f43f5e">✗</span>';
+      return '<div class="macro-check"><span>'+mark+' '+c.label+'</span><span style="color:#9999aa">'+c.val+'</span></div>';
+    }).join('');
+
+    macroEl.style.background='rgba('+hexToRgb3(macroCol)+',0.12)';
+    macroEl.style.borderColor='rgba('+hexToRgb3(macroCol)+',0.45)';
+    macroEl.innerHTML='<div class="badge-label" style="color:'+macroCol+'">매크로 · '+labels[NOW]+'</div>'
+      +'<div class="badge-value" style="color:'+macroCol+'">'+macroLevel+'</div>'
+      +'<div class="badge-sub" style="color:'+macroCol+'">마우스 오버하여 세부 확인</div>'
+      +'<div class="macro-tooltip">'+tooltipRows+'</div>';
+  })();
+
+  var sigState={sbuy:true, buy:true, wb:true, warn:true, sell:true, xsell:true, now:true};
+  var C={
+    sbuy:'#a855f7', sbuyd:'#581c87',
+    buy:'#10b981', buyd:'#064e3b',
+    wb:'#f59e0b', wbd:'#78350f',
+    warn:'#f43f5e', warnd:'#881337',
+    sell:'#c026d3', selld:'#701a75'
+  };
+  var SZ=10;
+
+  function buildBg(){
+    return bgColors.map(function(c,i){
+      var g=gap[i], h=hyOas[i];
+      if(g>20 && h>=4.5 && !sigState.sbuy) return 'rgba(0,0,0,0)';
+      if(g>20 && h>=3.5 && h<4.5 && !sigState.buy) return 'rgba(0,0,0,0)';
+      if(h<3.0 && g<-20 && !sigState.sell) return 'rgba(0,0,0,0)';
+      if(h<3.0 && g>=-20 && !sigState.warn) return 'rgba(0,0,0,0)';
+      return c;
+    });
+  }
+
+  function buildPts(){
+    var pR=[], pS=[], pBg=[], pBd=[], pBW=[];
+    for(var i=0;i<N;i++){ pR.push(0); pS.push('circle'); pBg.push('transparent'); pBd.push('transparent'); pBW.push(0); }
+    if(sigState.sbuy) sbuy_pts.forEach(function(i){ pR[i]=SZ; pBg[i]=C.sbuy; pBd[i]=C.sbuyd; pBW[i]=1.5; pS[i]='rectRot'; });
+    if(sigState.buy)  buy_pts.forEach(function(i){ if(!pR[i]){ pR[i]=SZ; pBg[i]=C.buy; pBd[i]=C.buyd; pBW[i]=1.5; } });
+    if(sigState.wb)   watch_pts.forEach(function(i){ if(!pR[i]){ pR[i]=SZ; pBg[i]=C.wb; pBd[i]=C.wbd; pBW[i]=1.5; pS[i]='rect'; } });
+    if(sigState.warn) warn_pts.forEach(function(i){ if(!pR[i]){ pR[i]=SZ; pBg[i]=C.warn; pBd[i]=C.warnd; pBW[i]=1.5; pS[i]='rectRot'; } });
+    return {pR:pR, pS:pS, pBg:pBg, pBd:pBd, pBW:pBW};
+  }
+
+  var gc='rgba(255,255,255,0.06)', tc='#6b6b7a';
+  var yMax=Math.ceil(Math.max.apply(null,nasdaq)*1.2/1000)*1000;
+  var tt={backgroundColor:'#1e1e2a', borderColor:'#3a3a4a', borderWidth:1, titleColor:'#e2e2e8', bodyColor:'#9999aa', padding:9};
+
+  var chart;
+  function initChart(){
+    var p=buildPts(), bg=buildBg();
+    chart=new Chart(document.getElementById('cMain'),{
+      data:{
+        labels:labels,
+        datasets:[
+          {type:'bar', label:'_bg', data:nasdaq.map(function(){ return yMax; }), backgroundColor:bg, borderWidth:0, barPercentage:1, categoryPercentage:1, order:10},
+          {type:'line', label:'나스닥', data:nasdaq, borderColor:'#9ca3af', borderWidth:2.5,
+            pointRadius:p.pR, pointStyle:p.pS, pointBackgroundColor:p.pBg, pointBorderColor:p.pBd, pointBorderWidth:p.pBW, tension:0.3, order:1},
+          {type:'line', label:'HY기준선', data:hyLine.map(function(v){ return Math.max(0,Math.round(v)); }),
+            borderColor:'#e879a0', borderWidth:1.8, borderDash:[5,3], pointRadius:0, tension:0.3, order:2}
+        ]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        layout:{ padding:{ top:40 } },
+        interaction:{ intersect:false, mode:'index' },
+        plugins:{
+          legend:{ display:false },
+          tooltip:Object.assign({}, tt, {
+            filter:function(i){ return i.dataset.label!=='_bg'; },
+            callbacks:{
+              label:function(ctx){
+                if(ctx.dataset.label==='나스닥'){
+                  return '나스닥: '+Math.round(ctx.parsed.y).toLocaleString()+' | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%';
+                }
+                if(ctx.dataset.label==='HY기준선'){
+                  var hyVal = hyOas[ctx.dataIndex];
+                  var tag = '확정';
+                  if(ctx.dataIndex===NOW && window.HY_NOWCAST){
+                    hyVal = window.HY_NOWCAST.nowcast_oas;
+                    tag = '추정';
+                  }
+                  return 'HY 기준선: '+Math.round(ctx.parsed.y).toLocaleString()+' ('+tag+' HY '+hyVal.toFixed(2)+'%)';
+                }
+                return '';
+              }
+            }
+          })
+        },
+        scales:{
+          x:{ ticks:{ font:{ size:9 }, color:tc, maxRotation:45, autoSkip:true, maxTicksLimit:28 }, grid:{ color:gc }, border:{ display:false } },
+          y:{ ticks:{ font:{ size:10 }, color:tc, callback:function(v){ return Math.round(v/1000)+'K'; } }, grid:{ color:gc }, border:{ display:false }, min:0, max:yMax }
+        }
+      },
+      plugins:[
+        {
+          id:'dividers',
+          afterDraw:function(c){
+            var ctx=c.ctx, x=c.scales.x, y=c.scales.y;
+            var xw=x.getPixelForValue(MONTHLY_END+0.5);
+            ctx.save();
+            ctx.setLineDash([4,3]);
+            ctx.strokeStyle='rgba(251,191,36,0.5)';
+            ctx.lineWidth=1.5;
+            ctx.beginPath(); ctx.moveTo(xw,y.top); ctx.lineTo(xw,y.bottom); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle='rgba(251,191,36,0.7)';
+            ctx.font='bold 9px sans-serif';
+            ctx.textAlign='center';
+            ctx.fillText('주간',xw+12,y.top+10);
+            var xd=x.getPixelForValue(WEEKLY_END+0.5);
+            ctx.setLineDash([4,3]);
+            ctx.strokeStyle='rgba(16,185,129,0.6)';
+            ctx.lineWidth=1.5;
+            ctx.beginPath(); ctx.moveTo(xd,y.top); ctx.lineTo(xd,y.bottom); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle='rgba(16,185,129,0.8)';
+            ctx.font='bold 9px sans-serif';
+            ctx.textAlign='center';
+            ctx.fillText('일일',xd+12,y.top+10);
+            ctx.restore();
+          }
+        },
+        {
+          id:'sellTri',
+          afterDatasetsDraw:function(c){
+            if(!sigState.sell||!sell_pts.length) return;
+            var ctx=c.ctx, meta=c.getDatasetMeta(1);
+            sell_pts.forEach(function(idx){
+              if(idx>=N) return;
+              var pt=meta.data[idx]; if(!pt) return;
+              var x=pt.x, y=pt.y, s=SZ;
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x-s,y-s); ctx.lineTo(x+s,y-s); ctx.lineTo(x,y+s);
+              ctx.closePath();
+              ctx.fillStyle=C.sell; ctx.strokeStyle=C.selld; ctx.lineWidth=1.5;
+              ctx.fill(); ctx.stroke(); ctx.restore();
+            });
+          }
+        },
+        {
+          id:'xsellMark',
+          afterDatasetsDraw:function(c){
+            if(!sigState.xsell||!xsell_pts.length) return;
+            var ctx=c.ctx, meta=c.getDatasetMeta(1);
+            xsell_pts.forEach(function(idx){
+              if(idx>=N) return;
+              var pt=meta.data[idx]; if(!pt) return;
+              var x=pt.x, y=pt.y, s=SZ;
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x-s,y-s); ctx.lineTo(x+s,y-s); ctx.lineTo(x,y+s);
+              ctx.closePath();
+              ctx.fillStyle=C.sell; ctx.strokeStyle=C.selld; ctx.lineWidth=1.5;
+              ctx.fill(); ctx.stroke(); ctx.restore();
+            });
+          }
+        },
+        {
+          id:'ann',
+          afterDraw:function(c){
+            var ctx=c.ctx, x=c.scales.x, y=c.scales.y;
+            [
+              {arr:sbuy_pts, t:'강한매수', col:C.sbuy, dy:-26, show:sigState.sbuy},
+              {arr:buy_pts, t:'매수', col:C.buy, dy:-24, show:sigState.buy},
+              {arr:watch_pts, t:'관망', col:C.wb, dy:-22, show:sigState.wb},
+              {arr:warn_pts, t:'경고', col:C.warn, dy:24, show:sigState.warn},
+              {arr:sell_pts, t:'매도', col:C.sell, dy:26, show:sigState.sell}
+            ].forEach(function(sm){
+              if(!sm.show) return;
+              sm.arr.forEach(function(i){
+                var xp=x.getPixelForValue(i), yp=y.getPixelForValue(nasdaq[i]);
+                ctx.save();
+                ctx.font='bold 9px sans-serif';
+                ctx.fillStyle=sm.col;
+                ctx.textAlign='center';
+                ctx.fillText(sm.t,xp,yp+sm.dy);
+                ctx.restore();
+              });
+            });
+            if(sigState.now){
+              var xn=x.getPixelForValue(NOW);
+              ctx.save();
+              var nowY=y.top-20;
+              ctx.beginPath(); ctx.arc(xn,nowY,6,0,Math.PI*2);
+              ctx.fillStyle='#7c3aed'; ctx.fill();
+              ctx.strokeStyle='#4c1d95'; ctx.lineWidth=1.5; ctx.stroke();
+              ctx.fillStyle='rgba(124,58,237,0.9)';
+              ctx.font='bold 10px sans-serif';
+              ctx.textAlign='center';
+              ctx.fillText('현재',xn,nowY-10);
+              ctx.setLineDash([4,3]);
+              ctx.strokeStyle='rgba(124,58,237,0.5)';
+              ctx.lineWidth=1.5;
+              ctx.beginPath(); ctx.moveTo(xn,nowY+6); ctx.lineTo(xn,y.bottom); ctx.stroke();
+              ctx.setLineDash([]);
+              ctx.restore();
+            }
+          }
+        }
+      ]
+    });
+  }
+
+  function update(){
+    var p=buildPts(), bg=buildBg();
+    chart.data.datasets[0].backgroundColor=bg;
+    var ds=chart.data.datasets[1];
+    ds.pointRadius=p.pR; ds.pointStyle=p.pS;
+    ds.pointBackgroundColor=p.pBg; ds.pointBorderColor=p.pBd; ds.pointBorderWidth=p.pBW;
+    chart.update('none');
+  }
+
+  initChart();
+
+  document.querySelectorAll('.tog').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var k=btn.getAttribute('data-key');
+      sigState[k]=!sigState[k];
+      btn.classList.toggle('off',!sigState[k]);
+      update();
+    });
+  });
+
+  setTimeout(function(){
+    var ms=document.getElementById('mainScroll');
+    ms.scrollLeft=ms.scrollWidth;
+    var vis=Math.round(N*(ms.clientWidth/1800));
+    var ei=N-1, si=Math.max(0,ei-vis);
+    if(window.chartHY){ window.chartHY.options.scales.x.min=labels[si]; window.chartHY.options.scales.x.max=labels[ei]; window.chartHY.update('none'); }
+    if(window.chartGap){ window.chartGap.options.scales.x.min=labels[si]; window.chartGap.options.scales.x.max=labels[ei]; window.chartGap.update('none'); }
+  },100);
+
+  var mainScroll=document.getElementById('mainScroll'), isSyncing=false;
+  mainScroll.addEventListener('scroll',function(){
+    if(isSyncing) return;
+    isSyncing=true;
+    requestAnimationFrame(function(){
+      var sl=mainScroll.scrollLeft, total=mainScroll.scrollWidth-mainScroll.clientWidth;
+      var ratio=total>0?sl/total:0;
+      var vis=Math.round(N*(mainScroll.clientWidth/1800));
+      var si=Math.round(ratio*Math.max(0,N-vis)), ei=Math.min(N-1,si+vis);
+      if(window.chartHY){ window.chartHY.options.scales.x.min=labels[si]; window.chartHY.options.scales.x.max=labels[ei]; window.chartHY.update('none'); }
+      if(window.chartGap){ window.chartGap.options.scales.x.min=labels[si]; window.chartGap.options.scales.x.max=labels[ei]; window.chartGap.update('none'); }
+      isSyncing=false;
+    });
+  });
+
+  var hyCol=hyOas.map(function(v){
+    if(v>=6.0) return 'rgba(168,85,247,0.90)';
+    if(v>=4.0) return 'rgba(16,185,129,0.85)';
+    if(v>=3.5) return 'rgba(16,185,129,0.50)';
+    if(v>=3.0) return 'rgba(251,191,36,0.70)';
+    return 'rgba(244,63,94,0.82)';
+  });
+
+  window.chartHY=new Chart(document.getElementById('cHY'),{
+    data:{
+      labels:labels,
+      datasets:[
+        {type:'bar', label:'_bg', data:hyOas.map(function(){ return 11; }),
+          backgroundColor:bgColors.map(function(c){ return c.replace(/[\d.]+\)$/,'0.08)'); }),
+          borderWidth:0, barPercentage:1, categoryPercentage:1, order:10},
+        {type:'bar', label:'HY OAS', data:hyOas, backgroundColor:hyCol, borderWidth:0, borderRadius:2, borderSkipped:false, order:1}
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{ display:false },
+        tooltip:Object.assign({}, tt, {
+          filter:function(i){ return i.dataset.label!=='_bg'; },
+          callbacks:{ label:function(ctx){ return 'HY: '+hyOas[ctx.dataIndex].toFixed(2)+'% | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%'; } }
+        })
+      },
+      scales:{
+        x:{ ticks:{ font:{ size:9 }, color:tc, maxRotation:45, autoSkip:true, maxTicksLimit:28 }, grid:{ display:false }, border:{ display:false } },
+        y:{ ticks:{ font:{ size:9 }, color:tc, callback:function(v){ return v.toFixed(1)+'%'; } }, grid:{ color:gc }, border:{ display:false }, min:2.0, max:10.0 }
+      }
+    },
+    plugins:[
+      {
+        id:'hl',
+        afterDraw:function(c){
+          var ctx=c.ctx, x=c.scales.x, y=c.scales.y;
+          [[6.0,'rgba(168,85,247,0.8)'],[4.0,'rgba(16,185,129,0.7)'],[3.0,'rgba(244,63,94,0.7)']].forEach(function(l){
+            var yp=y.getPixelForValue(l[0]);
+            ctx.save();
+            ctx.setLineDash([5,3]);
+            ctx.strokeStyle=l[1];
+            ctx.lineWidth=1;
+            ctx.beginPath(); ctx.moveTo(x.left,yp); ctx.lineTo(x.right,yp); ctx.stroke();
+            ctx.restore();
+          });
+        }
+      }
+    ]
+  });
+
+  var gapClamped=gap.map(function(v){ return Math.max(-100,Math.min(100,v)); });
+  var gCol=gap.map(function(v){
+    if(v>20) return 'rgba(16,185,129,0.85)';
+    if(v>=0) return 'rgba(16,185,129,0.40)';
+    if(v>-20) return 'rgba(244,63,94,0.55)';
+    return 'rgba(192,38,211,0.85)';
+  });
+
+  window.chartGap=new Chart(document.getElementById('cGap'),{
+    type:'bar',
+    data:{ labels:labels, datasets:[{ label:'이격도', data:gapClamped, backgroundColor:gCol, borderWidth:0, borderRadius:2, borderSkipped:false }] },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{ display:false },
+        tooltip:Object.assign({}, tt, {
+          callbacks:{
+            label:function(ctx){
+              var g=gap[ctx.dataIndex];
+              var base = '이격: '+(g>=0?'+':'')+g+'% → '+(g>20?'매수':g>0?'저평가':g>-20?'경고':'매도');
+              if(ctx.dataIndex===NOW && window.HY_NOWCAST){
+                base += ' | HY 확정'+window.HY_NOWCAST.confirmed_oas.toFixed(2)+'%→추정'+window.HY_NOWCAST.nowcast_oas.toFixed(2)+'%';
+              }
+              return base;
+            }
+          }
+        })
+      },
+      scales:{
+        x:{ ticks:{ font:{ size:9 }, color:tc, maxRotation:45, autoSkip:true, maxTicksLimit:28 }, grid:{ display:false }, border:{ display:false } },
+        y:{ ticks:{ font:{ size:9 }, color:tc, callback:function(v){ return v+'%'; } }, grid:{ color:gc }, border:{ display:false }, min:-100, max:100 }
+      }
+    },
+    plugins:[
+      {
+        id:'zl',
+        afterDraw:function(c){
+          var ctx=c.ctx, x=c.scales.x, y=c.scales.y;
+          [[20,'rgba(16,185,129,0.7)','+20%'],[0,'rgba(255,255,255,0.35)','0%'],[-20,'rgba(192,38,211,0.7)','-20%']].forEach(function(l){
+            var yp=y.getPixelForValue(l[0]);
+            ctx.save();
+            ctx.setLineDash([4,3]);
+            ctx.strokeStyle=l[1];
+            ctx.lineWidth=1;
+            ctx.beginPath(); ctx.moveTo(x.left,yp); ctx.lineTo(x.right,yp); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle=l[1];
+            ctx.font='9px sans-serif';
+            ctx.fillText(l[2],x.right-24,yp-3);
+            ctx.restore();
+          });
+        }
+      }
+    ]
+  });
+</script>
+
+<script>
+  (function(){
+    function hexToRgb(hex){
+      var r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+      return r+','+g+','+b;
+    }
+    function thirdFriday(year, month0){
+      var d=new Date(year, month0, 1), fridays=0;
+      while(true){
+        if(d.getMonth()!==month0) return null;
+        if(d.getDay()===5){ fridays++; if(fridays===3) return new Date(d); }
+        d.setDate(d.getDate()+1);
+      }
+    }
+    fetch('./data/finra_credit_balance.json?_='+Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if(!d) return;
+        var el = document.getElementById('creditBadge');
+        if(!el) return;
+        var col = d.color || '#7f8c8d';
+        var pctTxt = d.percentile<=0 ? '사상 최저'
+          : d.percentile>=100 ? '사상 최고'
+          : d.percentile<=50 ? ('하위 ' + d.percentile + '%')
+          : ('상위 ' + (100 - d.percentile) + '%');
+        var parts = d.as_of.split('-'), y = +parts[0], m0 = +parts[1] - 1;
+        var dueMonth = (m0 + 2) % 12;
+        var dueYear = y + Math.floor((m0 + 2) / 12);
+        var due = thirdFriday(dueYear, dueMonth);
+        var needUpdate = due && (new Date() >= due);
+        el.style.background = 'rgba(' + hexToRgb(col) + ',0.12)';
+        el.style.borderColor = 'rgba(' + hexToRgb(col) + ',0.45)';
+        el.innerHTML = '<div class="badge-label" style="color:' + col + '">현금여력 · ' + d.as_of + '</div>'
+          + '<div class="badge-value" style="color:' + col + '">' + d.cash_cover_ratio.toFixed(2) + '</div>'
+          + '<div class="badge-sub" style="color:' + col + '">' + pctTxt + (needUpdate ? ' · <span style="color:#fbbf24;font-weight:800;">⚠ 갱신 필요</span>' : '') + '</div>';
+        el.style.display = 'flex';
+      })
+      .catch(function(e){ console.error('credit badge', e); });
+  })();
+</script>
+
+<script>
+  (function(){
+    function hexToRgb(h){ return parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16); }
+    fetch('./data/capex_qoq.json?_='+Date.now())
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(d){
+        if(!d||d.status!=='ok') return;
+        var el=document.getElementById('capexBadge'); if(!el) return;
+        var col=d.color||'#7f8c8d';
+        var arrow = d.yoy_change_pp>0?'▲':(d.yoy_change_pp<0?'▼':'–');
+        el.style.background='rgba('+hexToRgb(col)+',0.12)';
+        el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
+        el.innerHTML='<div class="badge-label" style="color:'+col+'">빅테크 capex · '+d.phase+'</div>'
+          +'<div class="badge-value" style="color:'+col+'">YoY '+(d.yoy_pct>=0?'+':'')+Math.round(d.yoy_pct)+'%</div>'
+          +'<div class="badge-sub" style="color:'+col+'">'+d.last_quarter+' $'+Math.round(d.last_sum_usd_b)+'B · '+arrow+' '+(d.yoy_change_pp>=0?'+':'')+d.yoy_change_pp+'%p</div>';
+        el.style.display='flex';
+      })
+      .catch(function(e){ console.error('capex badge',e); });
+  })();
+</script>
+
+<script>
+  (function(){
+    var SEMI=['닛케이','S&P','유로','코스피','나스닥','대만'];
+    function median(a){
+      a=a.slice().sort(function(x,y){ return x-y; });
+      var m=Math.floor(a.length/2);
+      return a.length%2?a[m]:(a[m-1]+a[m])/2;
+    }
+    function hexToRgb(h){ return parseInt(h.slice(1,3),16)+','+parseInt(h.slice(3,5),16)+','+parseInt(h.slice(5,7),16); }
+
+    function rowMap(tbl, heads, labelRe){
+      var rows=[].slice.call(tbl.querySelectorAll('tbody tr'));
+      var row=rows.filter(function(r){ return labelRe.test(r.querySelector('th').textContent); })[0];
+      if(!row) return null;
+      var cells=[].slice.call(row.querySelectorAll('td'))
+        .map(function(td){ var v=parseFloat(td.textContent.replace('+','')); return isNaN(v)?null:v; });
+      var map={};
+      heads.forEach(function(n,i){ if(cells[i]!==null) map[n]=cells[i]; });
+      return map;
+    }
+
+    function concShare(map){
+      var risers = Object.keys(map).filter(function(n){ return map[n] > 0; });
+      if(risers.length < 5) return null;
+      var semiRisers = SEMI.filter(function(n){ return risers.indexOf(n) >= 0; });
+      return { pct: semiRisers.length/risers.length*100, riserCount:risers.length, semiCount:semiRisers.length };
+    }
+
+    function run(){
+      var el=document.getElementById('semiBadge'); if(!el) return;
+      var tbl=document.querySelector('#globalTable table'); if(!tbl) return;
+      var heads=[].slice.call(tbl.querySelectorAll('thead th')).slice(1).map(function(th){ return th.textContent.trim(); });
+
+      var m1=rowMap(tbl,heads,/-\s*1개월/);
+      var m2=rowMap(tbl,heads,/-\s*2개월/);
+      if(!m1) return;
+
+      var rest=Object.keys(m1).filter(function(n){ return SEMI.indexOf(n)<0; });
+      var semiVals=SEMI.filter(function(n){ return n in m1; }).map(function(n){ return m1[n]; });
+      var restVals=rest.map(function(n){ return m1[n]; });
+      if(semiVals.length<3||restVals.length<3) return;
+
+      var r1=concShare(m1), r2=(m2?concShare(m2):r1);
+      if(!r1) return;
+      var c1=r1.pct, c2=r2?r2.pct:c1;
+      var semiMed=median(semiVals), restMed=median(restVals);
+
+      var st, col, sub;
+      if(semiMed<0 && restMed<0){ st='매도'; col='#c026d3'; sub='독주 붕괴'; }
+      else if(c1>=70){ st='경고'; col='#f43f5e'; sub='상승분 반도체 편중'; }
+      else if(c1<c2 && restMed>0){ st='주의'; col='#f59e0b'; sub='확산·관찰'; }
+      else{ st='중립'; col='#7f8c8d'; sub='—'; }
+
+      el.style.background='rgba('+hexToRgb(col)+',0.12)';
+      el.style.borderColor='rgba('+hexToRgb(col)+',0.45)';
+      el.innerHTML='<div class="badge-label" style="color:'+col+'">반도체 버블 신호 · '+st+'</div>'
+        +'<div class="badge-value" style="color:'+col+'">'+c1.toFixed(0)+'%</div>'
+        +'<div class="badge-sub" style="color:'+col+'">'+sub+' · 상승'+r1.riserCount+'개 중 반도체'+r1.semiCount+'개</div>';
+    }
+
+    if(document.readyState!=='loading') run();
+    else document.addEventListener('DOMContentLoaded', run);
+  })();
+</script>
+
+<script>
+(function(){
+  var STATUS_LABEL = {pass:'충족', warn:'애매', fail:'위반', unknown:'중립', neutral:'중립'};
+  var STATUS_BG = {pass:'rgba(16,185,129,0.15)', warn:'rgba(245,158,11,0.15)', fail:'rgba(244,63,94,0.15)', unknown:'rgba(107,107,122,0.15)', neutral:'rgba(107,107,122,0.15)'};
+  var STATUS_FG = {pass:'#10b981', warn:'#f59e0b', fail:'#f43f5e', unknown:'#9999aa', neutral:'#9999aa'};
+  var TOP_N = 5;
+
+ function pill(status){
+    var s = status || 'unknown';
+    return '<span style="height:20px;padding:0 10px;border-radius:999px;background:'+STATUS_BG[s]+';border:1px solid '+STATUS_FG[s]+';color:'+STATUS_FG[s]+';font-size:11px;font-weight:700;display:inline-flex;align-items:center;white-space:nowrap;">'+STATUS_LABEL[s]+'</span>';
+  }
+  
+  function getPositionData(ticker){
+    try {
+      var data = JSON.parse(localStorage.getItem('position_' + ticker) || 'null');
+      if (data && data.priceKRW) return data;
+      return null;
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function getPurchasedStatus(ticker){
+    return !!getPositionData(ticker);
+  }
+
+  // 매수 상태 + 환율 + 종목데이터(item)로 손절 배지 상태를 계산.
+  // 우선순위: 손절신호(다이버전스) > 즉시손절(ATR손절가 이탈) > 손절대기(ATR손절가 근접, 5%이내)
+  function getStopBadgeInfo(item, exchangeRate){
+    var pos = getPositionData(item.ticker);
+    if (!pos || !exchangeRate) return null;
+
+    var reasons = [];
+    var level = null; // 'signal' | 'executed' | 'pending'
+
+    if (item.divergence_stop_signal && item.divergence_stop_signal.active) {
+      level = 'signal';
+      reasons.push('다이버전스 손절신호: ' + item.divergence_stop_signal.reason);
+    }
+
+    // ATR 손절가(원화 환산) 계산 - 매수가 입력 시와 동일한 로직
+    if (item.entry_atr_stop_pct != null && item.price != null) {
+      var atrDollar = (item.entry_atr_stop_pct / 100) * item.price / 1.5;
+      var atrKRW = atrDollar * exchangeRate;
+      var stopPriceKRW = pos.priceKRW - 1.5 * atrKRW;
+      var currentPriceKRW = item.price * exchangeRate;
+
+      if (currentPriceKRW <= stopPriceKRW) {
+        if (!level) level = 'executed';
+        reasons.push('ATR 손절가 ' + Math.round(stopPriceKRW).toLocaleString() + '원 이탈 (현재가 ' + Math.round(currentPriceKRW).toLocaleString() + '원)');
+      } else if (currentPriceKRW <= stopPriceKRW * 1.05) {
+        if (!level) level = 'pending';
+        reasons.push('ATR 손절가 ' + Math.round(stopPriceKRW).toLocaleString() + '원에 근접 중 (현재가 ' + Math.round(currentPriceKRW).toLocaleString() + '원)');
+      }
+    }
+
+    if (!level) return null;
+    return { level: level, reasons: reasons };
+  }
+
+  function overallTag(score){
+    if(score >= 65) return 'pass';
+    if(score >= 40) return 'warn';
+    return 'fail';
+  }
+
+  function buildEntryRows(full){
+    var s = full.stages;
+    var mh = s['1_market_health'];
+    var mhDetail;
+    if (mh.etf == null) {
+      mhDetail = '소속 지수 확인 안 됨';
+    } else {
+      var volTxt = mh.volume_diff_pct_3m != null ? (mh.volume_diff_pct_3m >= 0 ? '+' : '') + mh.volume_diff_pct_3m + '%' : '-';
+      var trendTxt = mh.volume_trend_pct_3d != null ? (mh.volume_trend_pct_3d >= 0 ? '+' : '') + mh.volume_trend_pct_3d + '%' : '-';
+      var trendDirTxt = mh.volume_trend_up == null ? '' : (mh.volume_trend_up ? '(상승중)' : '(하락중)');
+      var changeTxt = mh.daily_change_pct != null ? (mh.daily_change_pct >= 0 ? '+' : '') + mh.daily_change_pct + '%' : '-';
+      var parts = [];
+      parts.push(mh.index_name + '(' + mh.etf + ') 거래량 3개월평균대비 ' + volTxt);
+      parts.push('최근3일추세 ' + trendTxt + ' ' + trendDirTxt);
+      parts.push('오늘변동폭 ' + changeTxt + '(' + (mh.volatility_label || '-') + ')');
+      if (mh.index_trigger_candle) parts.push('지수 반전캔들 확인(격상)');
+      if (mh.golden_cross_recent) parts.push('20/40일선 골든크로스 최근10일내(격상)');
+      if (mh.dead_cross_recent) parts.push('20/60일선 데드크로스 최근10일내(격하)');
+      mhDetail = parts.join(', ');
+    }
+    return [
+      ['1단계 시장건전성(참고)', mh, mhDetail],
+      ['2단계 펀더멘털', s['2_fundamentals'], '업사이드 '+(s['2_fundamentals'].upside_pct??'-')+'%, PEG '+(s['2_fundamentals'].peg??'-')],
+      ['3단계 다이버전스', s['3_divergence_gate'], (function(){
+        var g = s['3_divergence_gate'];
+        var base;
+        if (g.divergence_present) {
+          base = (g.bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)') + ', 간격 ' + g.gap_days + '일' + (g.signal_fresh === false ? ' (저점 근처 유지중)' : ' (신규)');
+        } else if (g.status === 'neutral') {
+          var daysAgo = (full.uptrend_entry_signal && full.uptrend_entry_signal.days_since_divergence != null) ? full.uptrend_entry_signal.days_since_divergence : null;
+          base = (daysAgo != null ? (daysAgo + '일전 ') : '') + '다이버전스 발생후 초과반등';
+        } else {
+          base = '다이버전스 없음';
+        }
+        if (full.divergence_invalidated_signal && full.divergence_invalidated_signal.active) {
+          base += ' · ' + full.divergence_invalidated_signal.days_since_prior_divergence + '일 전 다이버전스 발생했으나 무효화됨(-' + full.divergence_invalidated_signal.price_drop_since_pct + '%)';
+        }
+        return base;
+      })()],
+      ['4단계 Z-score', s['4_zscore'], 'RSI '+s['4_zscore'].rsi+' (Z-score '+(s['4_zscore'].rsi_zscore_1y??'-')+')'],
+      ['5단계 트리거캔들', s['5_trigger_candle'],
+        s['5_trigger_candle'].breakout_confirmed
+          ? (s['5_trigger_candle'].pattern+' 확정('+s['5_trigger_candle'].days_ago+'일 전) + 돌파 완료 · 참고ADX '+s['5_trigger_candle'].adx_reference)
+          : (s['5_trigger_candle'].long_lower_wick
+              ? ('긴 아래꼬리('+(s['5_trigger_candle'].volume_confirmed && s['5_trigger_candle'].avg_volume_divergence_window
+                  ? ('거래량 실림·강한신호, 구간평균 '+(s['5_trigger_candle'].trigger_day_volume/s['5_trigger_candle'].avg_volume_divergence_window).toFixed(1)+'배')
+                  : '약한신호')+', '+s['5_trigger_candle'].wick_days_ago+'일 전) · 참고ADX '+s['5_trigger_candle'].adx_reference)
+              : ('반전캔들+돌파 없음 · 참고ADX '+s['5_trigger_candle'].adx_reference))],
+      ['손절신호(참고)',
+        {status: full.divergence_stop_signal && full.divergence_stop_signal.active ? 'fail' : 'neutral'},
+        full.divergence_stop_signal && full.divergence_stop_signal.active
+          ? full.divergence_stop_signal.reason
+          : '해당 없음']
+    ];
+  }
+
+ function signalBadge(item){
+    var sig = item.signal;
+    var dv = item.divergence_invalidated_signal;
+    var ut = item.uptrend_entry_signal;
+
+    // 우선순위 1: 다이버전스 무효화 (위험 신호 - 단, 반등 시도가 확인되면 중립으로 완화)
+    if (dv && dv.active) {
+      var rescued = !!dv.rescue_attempted;
+      var col1 = rescued ? '#9999aa' : '#fb7185';
+      var bg1 = rescued ? 'rgba(107,107,122,0.15)' : 'rgba(244,63,94,0.18)';
+      var label1 = rescued ? '다이버전스 무효화(반등시도)' : '다이버전스 무효화';
+      var detail1 = dv.days_since_prior_divergence+'일 전 다이버전스 이후 -'+dv.price_drop_since_pct+'% 추가하락(저점+RSI 붕괴)'
+        + (rescued ? ' · 이후 반전캔들 확인됨(반등 시도 중, 완전한 실패는 아님)' : '');
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg1+';border:1px solid '+col1+';color:'+col1+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+label1+'</span>'
+        + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detail1+'</div></div>'
+        + '</span>';
+    }
+
+    // 우선순위 2: 기존 점수기반 상승/하락신호
+    if (sig && sig.signal !== 'none') {
+      var up = sig.signal === 'up';
+      var col = up ? '#34d399' : '#fb7185';
+      var bg = up ? 'rgba(16,185,129,0.18)' : 'rgba(244,63,94,0.18)';
+      var label = up ? '상승신호' : '하락신호';
+
+      var reasonsHtml = (sig.reasons || []).map(function(r){
+        var line = '<div style="display:flex;align-items:center;gap:6px;">'
+          + '<span style="color:'+col+';font-size:12px;">✓</span>'
+          + '<span style="font-size:11px;color:#c7c7d1;">'+r.label+'</span>'
+          + '</div>';
+        if(r.detail){
+          line += '<div style="font-size:10px;color:#6b6b7a;margin-left:18px;margin-top:2px;">'+r.detail+'</div>';
+        }
+        return line;
+      }).join('');
+
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg+';border:1px solid '+col+';color:'+col+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+label+'</span>'
+        + '<div class="sig-tip"><div style="display:flex;flex-direction:column;gap:8px;">'+reasonsHtml+'</div></div>'
+        + '</span>';
+    }
+
+    // 우선순위 3: 상승추세 진입 (참고)
+    if (ut && ut.active) {
+      var col3 = '#34d399', bg3 = 'rgba(16,185,129,0.18)';
+      var detail3 = '다이버전스 이후 '+ut.days_since_divergence+'일, 저점대비 +'+ut.gain_since_low_pct+'% 반등 중';
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg3+';border:1px solid '+col3+';color:'+col3+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">상승추세 진입</span>'
+        + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detail3+'</div></div>'
+        + '</span>';
+    }
+
+    // 우선순위 4: 신호 없음
+    return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
+  }
+
+  function rsiColorStyle(rsi){
+    if(rsi == null) return 'color:#9999aa;';
+    if(rsi <= 35) return 'color:#34d399;font-weight:700;';   // 과매도 - 녹색
+    if(rsi >= 80) return 'color:#fb7185;font-weight:700;';   // 과열 심함 - 빨강
+    if(rsi >= 70) return 'color:#fbbf24;font-weight:700;';   // 과열 - 주황
+    return 'color:#9999aa;';
+  }
+
+  function renderRowsHtml(rows, extraRow){
+    var html = '<div style="display:flex;flex-direction:column;">';
+    rows.forEach(function(r, i){
+      var stageParts = r[0].split(' ');
+      var stageNum = stageParts[0];
+      var stageName = stageParts.slice(1).join(' ');
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #1f1f27;">'
+        + pill(r[1].status)
+        + '<span style="font-size:12px;color:#c7c7d1;"><b style="color:#e2e2e8;">'+stageNum+'</b> '+stageName+' · '+r[2]+'</span>'
+        + '</div>';
+    });
+    if(extraRow){
+      html += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;">'
+        + '<span style="height:20px;padding:0 9px;border-radius:5px;background:rgba(107,107,122,0.18);color:#9999aa;font-size:11px;font-weight:700;display:flex;align-items:center;">참고</span>'
+        + '<span style="font-size:12px;color:#c7c7d1;"><b style="color:#e2e2e8;">9단계</b> '+extraRow+'</span>'
+        + '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function buildAddonRows(full){
+    var sa = full.stages_addon;
+    var g = sa['2_pullback_gate'];
+    var gateDetail;
+    if (g.near_sma20 && g.near_sma40) {
+      gateDetail = '20일선+40일선 둘다 근접(최근 이평선 위 이력 확인됨)';
+    } else if (g.near_sma20) {
+      gateDetail = '20일선 근접(얕은 눌림, 가중치 0.5배)';
+    } else if (g.near_sma40) {
+      gateDetail = '40일선 근접(깊은 눌림, 가중치 0.75배)';
+    } else if (g.ma_converged_ignored) {
+      gateDetail = '이평선 근접했으나 60일선 수렴으로 무시됨';
+    } else {
+      gateDetail = '이평선 근접 안됨 (또는 최근에 위에 있었던 이력 없음)';
+    }
+
+    var t = sa['4_trigger_confirmed'];
+    var triggerDetail;
+    if (t.trigger_weight_tier === 'reversal_volume') {
+      triggerDetail = '반전캔들(해머/엔걸핑) + 거래량 실림 (가장 강한 신호)';
+    } else if (t.trigger_weight_tier === 'reversal_only') {
+      triggerDetail = '반전캔들(해머/엔걸핑) 확인, 거래량은 평범';
+    } else if (t.trigger_weight_tier === 'wick_volume') {
+      triggerDetail = '긴 아래꼬리 + 거래량 실림';
+    } else if (t.wick_present) {
+      triggerDetail = '긴 아래꼬리만 있음 (거래량 확인 안됨, 약한신호)';
+    } else {
+      triggerDetail = '트리거캔들 없음';
+    }
+
+    var stopDetail = full.pullback_stop_signal
+      ? ('직전저점 '+full.pullback_stop_signal.stop_reference_price+' 대비 ' + (full.pullback_stop_signal.stopped_out ? '이탈됨(손절)' : '유지중'))
+      : '판단불가';
+    return [
+      ['1단계 펀더멘털', sa['1_fundamentals'], '업사이드 '+(sa['1_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['1_fundamentals'].peg??'-')],
+      ['2단계 눌림목게이트', g, gateDetail],
+      ['3단계 RSI존', sa['3_rsi_zone'], 'RSI '+sa['3_rsi_zone'].rsi+' ('+(sa['3_rsi_zone'].rsi>=60?'60이상 강신호':sa['3_rsi_zone'].rsi>=50?'50~60 약신호':'50미만')+')'],
+      ['4단계 트리거캔들', t, triggerDetail],
+      ['손절신호(참고)', {status: full.pullback_stop_signal && full.pullback_stop_signal.stopped_out ? 'fail' : 'neutral'}, stopDetail]
+    ];
+  }
+
+  function renderChecklistWithToggle(full, container){
+    var wrap = document.createElement('div');
+
+    // 매수 여부 확인 + 매수가 입력(원화 기준, 매일 환율로 환산) - 브라우저별 localStorage 저장
+    var posKey = 'position_' + full.ticker;
+    var posData = null;
+    try { posData = JSON.parse(localStorage.getItem(posKey) || 'null'); } catch(e) { posData = null; }
+
+    var posWrap = document.createElement('div');
+    posWrap.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;max-width:680px;';
+
+    if (window.EXCHANGE_RATE != null) {
+      renderPosBlock(window.EXCHANGE_RATE, null);
+    } else {
+      posWrap.innerHTML = '<span style="font-size:11px;color:#6b6b7a;">환율 정보 불러오는 중...</span>';
+      fetch('./data/exchange_rate.json?_='+Date.now())
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(fx){
+          var rate = (fx && fx.rate) ? fx.rate : null;
+          window.EXCHANGE_RATE = rate;
+          renderPosBlock(rate, fx);
+        })
+        .catch(function(){ renderPosBlock(null, null); });
+    }
+
+    function renderPosBlock(rate, fx){
+      posWrap.innerHTML = '';
+      if (rate == null) {
+        posWrap.innerHTML = '<span style="font-size:11px;color:#f43f5e;">환율 정보를 불러오지 못했습니다.</span>';
+        return;
+      }
+
+      if (posData && posData.priceKRW) {
+        var atrPct = full.entry_atr_stop_pct;   // 계산 당시 종가(full.price, USD) 기준 ATR손절%
+        var calcPrice = full.price;             // USD
+        var atrDollar = (atrPct / 100) * calcPrice / 1.5;
+        var atrKRW = atrDollar * rate;           // 오늘 환율로 환산한 ATR(원화)
+        var stopPriceKRW = posData.priceKRW - 1.5 * atrKRW;
+        var stopPctFromBuy = (1.5 * atrKRW / posData.priceKRW) * 100;
+
+        var currentPriceKRW = full.price * rate;  // 오늘 종가를 오늘 환율로 환산
+        var pnlPct = (currentPriceKRW / posData.priceKRW - 1) * 100;
+        var pnlColor = pnlPct >= 0 ? '#34d399' : '#fb7185';
+
+        posWrap.innerHTML =
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<span style="font-size:11px;color:#9999aa;">내 매수가 '+Math.round(posData.priceKRW).toLocaleString()+'원'+(posData.date ? (' · '+posData.date) : '')+'</span>' +
+            '<span data-clear-pos style="font-size:11px;color:#6b6b7a;cursor:pointer;text-decoration:underline;">매수 취소</span>' +
+          '</div>' +
+          '<div style="font-size:13px;margin-top:6px;color:'+pnlColor+';font-weight:700;">'+(pnlPct>=0?'+':'')+pnlPct.toFixed(1)+'% <span style="font-size:11px;color:#6b6b7a;font-weight:400;">(현재가 '+Math.round(currentPriceKRW).toLocaleString()+'원 · $'+full.price.toFixed(2)+' · 환율 '+rate.toLocaleString()+'원)</span></div>' +
+          '<div style="font-size:11px;margin-top:4px;color:#c7c7d1;">ATR기준 손절가: '+Math.round(stopPriceKRW).toLocaleString()+'원 (매수가 대비 -'+stopPctFromBuy.toFixed(1)+'%)</div>';
+
+        posWrap.querySelector('[data-clear-pos]').addEventListener('click', function(){
+          localStorage.removeItem(posKey);
+          posData = null;
+          renderPosBlock(rate, fx);
+        });
+      } else {
+        posWrap.innerHTML =
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<span style="font-size:11px;color:#9999aa;">매수여부: <span style="color:#6b6b7a;">매수안함</span></span>' +
+            '<button data-confirm-buy style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid #3a3a4a;background:transparent;color:#a78bfa;cursor:pointer;">매수확인</button>' +
+          '</div>';
+
+        posWrap.querySelector('[data-confirm-buy]').addEventListener('click', function(){
+          var estimatedKRW = Math.round(full.price * rate);
+          posWrap.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+              '<span style="display:flex;align-items:center;gap:6px;">' +
+                '<span style="font-size:11px;color:#9999aa;">매수가(원):</span>' +
+                '<input type="number" step="1" placeholder="예: '+estimatedKRW.toLocaleString()+'" style="width:110px;padding:5px 8px;border-radius:6px;border:1px solid #3a3a4a;background:#1a1a22;color:#e2e2e8;font-size:12px;" data-price-input>' +
+              '</span>' +
+              '<span style="display:flex;align-items:center;gap:10px;">' +
+                '<button data-save-price style="font-size:11px;padding:5px 10px;border-radius:6px;border:none;background:#7c3aed;color:#fff;cursor:pointer;">저장</button>' +
+                '<span data-cancel-input style="font-size:11px;color:#6b6b7a;cursor:pointer;">취소</span>' +
+              '</span>' +
+            '</div>';
+
+          posWrap.querySelector('[data-save-price]').addEventListener('click', function(){
+            var val = parseFloat(posWrap.querySelector('[data-price-input]').value);
+            if (!val || val <= 0) { alert('올바른 매수가(원화)를 입력해주세요.'); return; }
+            posData = {priceKRW: val, date: new Date().toISOString().slice(0,10)};
+            localStorage.setItem(posKey, JSON.stringify(posData));
+            renderPosBlock(rate, fx);
+          });
+          posWrap.querySelector('[data-cancel-input]').addEventListener('click', function(){
+            renderPosBlock(rate, fx);
+          });
+        });
+      }
+    }
+
+    var toggleRow = document.createElement('div');
+    toggleRow.style.cssText = 'display:flex;justify-content:flex-start;margin-bottom:14px;';
+    toggleRow.innerHTML =
+      '<div style="display:inline-flex;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;padding:2px;">' +
+      '<button data-mode="entry" style="padding:5px 14px;font-size:11px;font-weight:700;border:none;border-radius:6px;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 '+full.score+'</button>' +
+      '<button data-mode="addon" style="padding:5px 14px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:transparent;color:#6b6b7a;cursor:pointer;">눌림목점수 '+full.score_addon+'</button>' +
+      '</div>';
+
+    var body = document.createElement('div');
+    var entryHtml = renderRowsHtml(buildEntryRows(full));
+    var addonHtml = renderRowsHtml(buildAddonRows(full));
+    body.innerHTML = entryHtml;
+
+    var btnEntry = toggleRow.querySelector('[data-mode="entry"]');
+    var btnAddon = toggleRow.querySelector('[data-mode="addon"]');
+    btnEntry.addEventListener('click', function(){
+      body.innerHTML = entryHtml;
+      btnEntry.style.background = '#7c3aed'; btnEntry.style.color = '#fff'; btnEntry.style.fontWeight = '700';
+      btnAddon.style.background = 'transparent'; btnAddon.style.color = '#6b6b7a'; btnAddon.style.fontWeight = '500';
+    });
+    btnAddon.addEventListener('click', function(){
+      body.innerHTML = addonHtml;
+      btnAddon.style.background = '#7c3aed'; btnAddon.style.color = '#fff'; btnAddon.style.fontWeight = '700';
+      btnEntry.style.background = 'transparent'; btnEntry.style.color = '#6b6b7a'; btnEntry.style.fontWeight = '500';
+    });
+
+    wrap.appendChild(posWrap);
+    wrap.appendChild(toggleRow);
+    wrap.appendChild(body);
+    container.innerHTML = '<span></span><span></span>';
+    var col3 = document.createElement('div');
+    col3.style.paddingTop = '8px';
+    col3.appendChild(wrap);
+    container.appendChild(col3);
+  }
+
+  function renderRow(item, container, isLast){
+    var tag = overallTag(item.score);
+    var row = document.createElement('div');
+    row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
+
+    var head = document.createElement('div');
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;align-items:center;cursor:pointer;';
+
+    var addonScore = item.score_addon;
+    var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
+
+    var purchased = getPurchasedStatus(item.ticker);
+    var purchasedBadge = purchased
+      ? '<span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(16,185,129,0.15);color:#10b981;font-weight:700;white-space:nowrap;">매수함</span>'
+      : '<span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(107,107,122,0.15);color:#6b6b7a;">매수안함</span>';
+
+    var stopInfo = getStopBadgeInfo(item, window.EXCHANGE_RATE);
+    var stopBadge;
+    if (stopInfo) {
+      var stopLabelMap = { signal: '손절신호', executed: '즉시손절', pending: '손절대기' };
+      var stopColorMap = { signal: '#ef4444', executed: '#f43f5e', pending: '#f59e0b' };
+      var stopBgMap = { signal: 'rgba(239,68,68,0.18)', executed: 'rgba(244,63,94,0.18)', pending: 'rgba(245,158,11,0.15)' };
+      var stopTooltip = stopInfo.reasons.join(' / ');
+      stopBadge = '<span title="'+stopTooltip.replace(/"/g,'&quot;')+'" style="font-size:10px;padding:2px 8px;border-radius:999px;background:'+stopBgMap[stopInfo.level]+';border:1px solid '+stopColorMap[stopInfo.level]+';color:'+stopColorMap[stopInfo.level]+';font-weight:700;white-space:nowrap;cursor:help;">'+stopLabelMap[stopInfo.level]+'</span>';
+    } else {
+      stopBadge = '<span style="font-size:10px;color:#6b6b7a;">신호없음</span>';
+    }
+
+    head.innerHTML =
+      '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;transform-origin:50% 45%;width:11px;text-align:center;">▾</span>' +
+      '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
+      '<span style="font-size:13px;font-weight:700;color:#e2e2e8;text-align:left;">'+item.ticker+'</span>' +
+      '<span style="font-size:11px;color:#9999aa;text-align:center;">$'+item.price.toFixed(2)+'</span>' +
+      '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;">'+item.score+'</span>' +
+      '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
+      '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
+      '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
+      '<span style="font-size:11px;text-align:center;'+rsiColorStyle(item.rsi)+'">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
+      '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonScore+'</span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+signalBadge(item)+'</span>' +
+      '<span></span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+purchasedBadge+'</span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+stopBadge+'</span>' +
+      '<span style="display:flex;justify-content:flex-end;">' +
+      '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
+      '</span>';
+
+    var detail = document.createElement('div');
+    detail.style.cssText = 'display:none;grid-template-columns:20px 8px 1fr;gap:18px;padding:8px 0 4px 0;';
+    detail.innerHTML = '<span></span><span></span><div style="padding-top:8px;"><span style="font-size:11px;color:#6b6b7a;">세부 체크리스트 불러오는 중...</span></div>';
+
+    head.addEventListener('click', function(e){
+      if(e.target.closest('[data-remove]')) return;
+      var chev = head.querySelector('.rankChev');
+      var open = detail.style.display === 'grid';
+      if(open){
+        detail.style.display = 'none';
+        chev.style.transform = 'rotate(0deg)';
+        return;
+      }
+      chev.style.transform = 'rotate(180deg)';
+      detail.style.display = 'grid';
+      fetch('./data/'+item.ticker+'.json?_='+Date.now())
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(full){
+          if(!full){ detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">데이터 없음</span>'; return; }
+          renderChecklistWithToggle(full, detail);
+        })
+        .catch(function(e){ console.error('detail load failed for', item.ticker, e); detail.innerHTML = '<span style="font-size:11px;color:#f43f5e;">불러오기 실패</span>'; });
+    });
+
+    head.querySelector('[data-remove]').addEventListener('click', function(){
+      if(!confirm(item.ticker + '을(를) 관심종목에서 제거하시겠습니까?')) return;
+      row.style.opacity = '0.3';
+      row.style.pointerEvents = 'none';
+      window.open('https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=remove-ticker%3A'+item.ticker, '_blank');
+    });
+
+    row.appendChild(head);
+    row.appendChild(detail);
+    container.appendChild(row);
+  }
+
+  window.EXCHANGE_RATE = null;
+  fetch('./data/exchange_rate.json?_='+Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(fx){ window.EXCHANGE_RATE = (fx && fx.rate) ? fx.rate : null; })
+    .catch(function(){ window.EXCHANGE_RATE = null; })
+    .then(function(){
+      return fetch('./data/rankings.json?_='+Date.now());
+    })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if(!d || !d.rankings || !d.rankings.length) return;
+      var listEl = document.getElementById('rankList');
+      var restEl = document.getElementById('rankRest');
+      var moreBtn = document.getElementById('rankMoreBtn');
+      var updEl = document.getElementById('rankUpdated');
+      var scoreHeader = document.getElementById('sortScoreHeader');
+      var addonHeader = document.getElementById('sortAddonHeader');
+      var purchasedHeader = document.getElementById('sortPurchasedHeader');
+      var scoreArrow = document.getElementById('sortScoreArrow');
+      var addonArrow = document.getElementById('sortAddonArrow');
+      var purchasedArrow = document.getElementById('sortPurchasedArrow');
+
+      updEl.textContent = '갱신 ' + d.updated.slice(0,16).replace('T',' ');
+
+      var currentSortKey = 'score';
+      var currentSortDir = 'desc';
+      var allRankings = d.rankings.slice();
+      var restOpen = false;
+
+      function renderAll(){
+        var sorted = allRankings.slice().sort(function(a,b){
+          var av, bv;
+          if(currentSortKey === 'purchased'){
+            av = getPurchasedStatus(a.ticker) ? 1 : 0;
+            bv = getPurchasedStatus(b.ticker) ? 1 : 0;
+          } else {
+            av = a[currentSortKey]; bv = b[currentSortKey];
+          }
+          if(av == null) av = -Infinity;
+          if(bv == null) bv = -Infinity;
+          return currentSortDir === 'desc' ? (bv - av) : (av - bv);
+        });
+
+        listEl.innerHTML = '';
+        restEl.innerHTML = '';
+
+        var top5 = sorted.slice(0, TOP_N);
+        var top5Tickers = {};
+        top5.forEach(function(item){ top5Tickers[item.ticker] = true; });
+
+        // 정렬 순서는 그대로 유지하되, 상위5개 밖에 있는 매수 종목을 그 뒤에 추가로 노출
+        var purchasedExtra = sorted.slice(TOP_N).filter(function(item){
+          return getPurchasedStatus(item.ticker);
+        });
+        var top = top5.concat(purchasedExtra);
+        var rest = sorted.slice(TOP_N).filter(function(item){
+          return !getPurchasedStatus(item.ticker);
+        });
+
+        top.forEach(function(item, i){
+          renderRow(item, listEl, i === top.length - 1);
+        });
+
+        if(rest.length){
+          moreBtn.textContent = '나머지 ' + rest.length + '개 보기 ▾';
+          moreBtn.style.display = '';
+          moreBtn.onclick = function(){
+            var open = restEl.style.display === 'block';
+            restEl.style.display = open ? 'none' : 'block';
+            if(!open){
+              restEl.innerHTML = '';
+              rest.forEach(function(item, i){
+                renderRow(item, restEl, i === rest.length - 1);
+              });
+            }
+          };
+        } else {
+          moreBtn.style.display = 'none';
+        }
+      }
+
+      function setSort(key){
+        if(currentSortKey === key){
+          currentSortDir = currentSortDir === 'desc' ? 'asc' : 'desc';
+        } else {
+          currentSortKey = key;
+          currentSortDir = 'desc';
+        }
+        scoreArrow.textContent = currentSortKey === 'score' ? (currentSortDir === 'desc' ? '▾' : '▴') : '▾';
+        scoreArrow.style.color = currentSortKey === 'score' ? '#e2e2e8' : '#6b6b7a';
+        addonArrow.textContent = currentSortKey === 'score_addon' ? (currentSortDir === 'desc' ? '▾' : '▴') : '▾';
+        addonArrow.style.color = currentSortKey === 'score_addon' ? '#e2e2e8' : '#3a3a45';
+        purchasedArrow.textContent = currentSortKey === 'purchased' ? (currentSortDir === 'desc' ? '▾' : '▴') : '▾';
+        purchasedArrow.style.color = currentSortKey === 'purchased' ? '#e2e2e8' : '#3a3a45';
+        renderAll();
+      }
+
+      scoreHeader.addEventListener('click', function(){ setSort('score'); });
+      addonHeader.addEventListener('click', function(){ setSort('score_addon'); });
+      purchasedHeader.addEventListener('click', function(){ setSort('purchased'); });
+
+      renderAll();
+    })
+    .catch(function(e){ console.error('rankings load failed', e); });
+})();
+</script>
+
+</body>
+</html>
