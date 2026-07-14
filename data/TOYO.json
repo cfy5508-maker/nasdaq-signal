@@ -1,7 +1,7 @@
 {
   "ticker": "TOYO",
   "price": 5.75,
-  "updated": "2026-07-13T23:33:43.465242+00:00",
+  "updated": "2026-07-14T01:15:10.410087+00:00",
   "as_of_date": "2026-07-13",
   "score": 30,
   "stages": {
@@ -57,13 +57,27 @@
   "entry_atr_stop_pct": 27.3,
   "score_addon": 21,
   "stages_addon": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "pass",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 187.0,
       "forward_pe": 1.4162562,
       "peg": null
     },
-    "2_pullback_gate": {
+    "3_pullback_gate": {
       "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
@@ -72,11 +86,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false
     },
-    "3_rsi_zone": {
+    "4_rsi_zone": {
       "status": "fail",
-      "rsi": 26.5
+      "rsi": 26.5,
+      "rsi_zone_quality": 0.0
     },
-    "4_trigger_confirmed": {
+    "5_trigger_confirmed": {
       "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
@@ -95,7 +110,8 @@
     "active": true,
     "prior_divergence_date_index": 249,
     "days_since_prior_divergence": 1,
-    "price_drop_since_pct": 5.0
+    "price_drop_since_pct": 5.0,
+    "rescue_attempted": false
   },
   "pullback_stop_signal": {
     "stop_reference_price": 5.75,

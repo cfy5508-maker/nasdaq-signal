@@ -1,15 +1,15 @@
 {
-  "updated": "2026-07-13T23:34:03.820262+00:00",
+  "updated": "2026-07-14T01:15:30.413696+00:00",
   "rankings": [
     {
       "ticker": "RKLB",
-      "score": 81,
-      "score_addon": 36,
+      "score": 74,
+      "score_addon": 21,
       "price": 76.73,
       "upside_pct": 51.8,
       "rsi": 35.0,
       "divergence": "pass",
-      "trigger": "warn",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": []
@@ -24,25 +24,16 @@
     },
     {
       "ticker": "FSLR",
-      "score": 80,
-      "score_addon": 36,
+      "score": 73,
+      "score_addon": 21,
       "price": 221.03,
       "upside_pct": 14.0,
       "rsi": 37.4,
       "divergence": "pass",
-      "trigger": "warn",
+      "trigger": "fail",
       "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "급등 기준 (+25 이상)",
-            "detail": "전일 30 → 오늘 80 (전일 대비 +50)"
-          },
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -54,64 +45,13 @@
     },
     {
       "ticker": "AMSC",
-      "score": 79,
-      "score_addon": 36,
+      "score": 72,
+      "score_addon": 21,
       "price": 34.18,
       "upside_pct": 91.1,
       "rsi": 34.9,
       "divergence": "pass",
-      "trigger": "warn",
-      "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "급등 기준 (+25 이상)",
-            "detail": "전일 30 → 오늘 79 (전일 대비 +49)"
-          },
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          }
-        ]
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "AVEX",
-      "score": 60,
-      "score_addon": 36,
-      "price": 15.91,
-      "upside_pct": 124.7,
-      "rsi": 37.5,
-      "divergence": "warn",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": []
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "PEP",
-      "score": 60,
-      "score_addon": 42,
-      "price": 138.49,
-      "upside_pct": 12.9,
-      "rsi": 43.2,
-      "divergence": "warn",
-      "trigger": "pass",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": []
@@ -134,13 +74,8 @@
       "divergence": "warn",
       "trigger": "fail",
       "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "3일 연속 상승",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -153,7 +88,7 @@
     {
       "ticker": "STZ",
       "score": 59,
-      "score_addon": 36,
+      "score_addon": 37,
       "price": 134.51,
       "upside_pct": 27.1,
       "rsi": 42.0,
@@ -164,8 +99,13 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "none",
-        "reasons": []
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "3일 연속 상승",
+            "detail": null
+          }
+        ]
       },
       "uptrend_entry_signal": {
         "active": true,
@@ -174,6 +114,27 @@
         "divergence_date_index": 247,
         "was_pass_type": true
       },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "AVEX",
+      "score": 55,
+      "score_addon": 21,
+      "price": 15.91,
+      "upside_pct": 124.7,
+      "rsi": 37.5,
+      "divergence": "warn",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": []
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": []
+      },
+      "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
@@ -199,9 +160,67 @@
       "divergence_stop_signal": null
     },
     {
+      "ticker": "PEP",
+      "score": 54,
+      "score_addon": 23,
+      "price": 138.49,
+      "upside_pct": 12.9,
+      "rsi": 43.2,
+      "divergence": "warn",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": []
+      },
+      "signal_addon": {
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "SMCI",
+      "score": 52,
+      "score_addon": 37,
+      "price": 27.66,
+      "upside_pct": 34.7,
+      "rsi": 41.9,
+      "divergence": "neutral",
+      "trigger": "warn",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "3일 연속 상승",
+            "detail": null
+          }
+        ]
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": []
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 4,
+        "gain_since_low_pct": 5.4,
+        "divergence_date_index": 246,
+        "was_pass_type": true
+      },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
       "ticker": "LMT",
       "score": 50,
-      "score_addon": 57,
+      "score_addon": 62,
       "price": 520.68,
       "upside_pct": 18.3,
       "rsi": 49.1,
@@ -222,24 +241,15 @@
     {
       "ticker": "LASR",
       "score": 48,
-      "score_addon": 61,
+      "score_addon": 60,
       "price": 68.79,
       "upside_pct": 31.9,
       "rsi": 51.6,
       "divergence": "neutral",
       "trigger": "fail",
       "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          },
-          {
-            "label": "3일 연속 상승",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -258,20 +268,15 @@
     {
       "ticker": "PFE",
       "score": 46,
-      "score_addon": 21,
+      "score_addon": 25,
       "price": 24.48,
       "upside_pct": 18.2,
       "rsi": 46.3,
       "divergence": "neutral",
       "trigger": "fail",
       "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -288,41 +293,9 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "SMCI",
-      "score": 45,
-      "score_addon": 21,
-      "price": 27.66,
-      "upside_pct": 34.7,
-      "rsi": 41.9,
-      "divergence": "neutral",
-      "trigger": "fail",
-      "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "구간 상향 돌파",
-            "detail": null
-          }
-        ]
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 4,
-        "gain_since_low_pct": 5.4,
-        "divergence_date_index": 246,
-        "was_pass_type": true
-      },
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
       "ticker": "TTWO",
       "score": 45,
-      "score_addon": 57,
+      "score_addon": 59,
       "price": 244.1,
       "upside_pct": 16.4,
       "rsi": 55.6,
@@ -362,19 +335,20 @@
         "active": true,
         "prior_divergence_date_index": 249,
         "days_since_prior_divergence": 1,
-        "price_drop_since_pct": 5.0
+        "price_drop_since_pct": 5.0,
+        "rescue_attempted": false
       },
       "divergence_stop_signal": null
     },
     {
       "ticker": "NXT",
       "score": 30,
-      "score_addon": 36,
+      "score_addon": 21,
       "price": 99.67,
       "upside_pct": 51.3,
       "rsi": 35.9,
       "divergence": "fail",
-      "trigger": "warn",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": []
@@ -411,12 +385,12 @@
     {
       "ticker": "INFQ",
       "score": 30,
-      "score_addon": 36,
+      "score_addon": 21,
       "price": 10.13,
       "upside_pct": 107.3,
       "rsi": 35.2,
       "divergence": "fail",
-      "trigger": "warn",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": []

@@ -1,9 +1,9 @@
 {
   "ticker": "SMCI",
   "price": 27.66,
-  "updated": "2026-07-13T23:33:53.979563+00:00",
+  "updated": "2026-07-14T01:15:20.547714+00:00",
   "as_of_date": "2026-07-13",
-  "score": 45,
+  "score": 52,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -39,31 +39,45 @@
       "zscore_quality": 0.35
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 4,
       "adx_reference": 22.0,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null
+      "trigger_day_volume": 38985400,
+      "avg_volume_divergence_window": 59209915
     }
   },
   "entry_atr_stop_pct": 13.2,
-  "score_addon": 21,
+  "score_addon": 37,
   "stages_addon": {
-    "1_fundamentals": {
+    "1_market_health": {
+      "status": "pass",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -19.3,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
+      "golden_cross_recent": true,
+      "dead_cross_recent": false
+    },
+    "2_fundamentals": {
       "status": "pass",
       "upside_pct": 34.7,
       "forward_pe": 8.7202425,
       "peg": 0.91
     },
-    "2_pullback_gate": {
+    "3_pullback_gate": {
       "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
@@ -72,15 +86,16 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false
     },
-    "3_rsi_zone": {
+    "4_rsi_zone": {
       "status": "fail",
-      "rsi": 41.9
+      "rsi": 41.9,
+      "rsi_zone_quality": 0.077
     },
-    "4_trigger_confirmed": {
-      "status": "fail",
+    "5_trigger_confirmed": {
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
