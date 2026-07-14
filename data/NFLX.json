@@ -1,9 +1,9 @@
 {
-  "ticker": "TTWO",
-  "price": 244.1,
-  "updated": "2026-07-14T19:12:50.943095+00:00",
+  "ticker": "NFLX",
+  "price": 73.83,
+  "updated": "2026-07-14T19:12:59.533447+00:00",
   "as_of_date": "2026-07-13",
-  "score": 59,
+  "score": 64,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -21,24 +21,24 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 16.4,
-      "forward_pe": 23.797976,
-      "peg": 3.4
+      "upside_pct": 51.9,
+      "forward_pe": 19.224558,
+      "peg": 1.44
     },
     "3_divergence_gate": {
       "status": "pass",
       "bullish_divergence": false,
       "divergence_present": true,
-      "gap_days": 20,
+      "gap_days": 10,
       "signal_fresh": false,
       "divergence_quality": 1.0,
-      "rsi_improvement": 16.6
+      "rsi_improvement": 19.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.6,
-      "rsi_zscore_1y": 0.37,
-      "zscore_quality": 0.158
+      "rsi": 39.6,
+      "rsi_zscore_1y": -0.23,
+      "zscore_quality": 0.307
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -50,14 +50,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 26.2,
+      "adx_reference": 31.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 5.1,
-  "score_addon": 59,
+  "entry_atr_stop_pct": 5.0,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -75,23 +75,23 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 16.4,
-      "forward_pe": 23.797976,
-      "peg": 3.4
+      "upside_pct": 51.9,
+      "forward_pe": 19.224558,
+      "peg": 1.44
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
-      "was_above_40_recently": true
+      "was_above_20_recently": false,
+      "was_above_40_recently": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 55.6,
-      "rsi_zone_quality": 0.624
+      "status": "fail",
+      "rsi": 39.6,
+      "rsi_zone_quality": 0.0
     },
     "5_trigger_confirmed": {
       "status": "fail",
@@ -102,15 +102,15 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.2
+      "stop_pct_from_20sma": 1.9
     }
   },
   "sector": "Communication Services",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 243.2,
+    "stop_reference_price": 73.37,
     "stopped_out": false
   },
   "divergence_stop_signal": null
