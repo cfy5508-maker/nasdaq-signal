@@ -961,10 +961,18 @@ def load_recent_history(ticker, days=4):
 
 
 def compute_signal(ticker, today_score, score_key="score"):
-    """상승신호/하락신호/신호없음 판정. score_key: 'score' 또는 'score_addon'."""
+    """매수신호/신호없음 판정. score_key: 'score' 또는 'score_addon'.
+    반환값에 change(전일대비 변화량), prev_score(어제 점수)도 항상 포함한다.
+
+    핵심: 구간을 하나 넘었다는 사실만으로는 부족하다(예: 빨강21→주황48은 구간은 넘었지만
+    여전히 warn일 뿐 진짜 매수신호가 아님). 반드시 "오늘 실제로 초록(pass,65+)에
+    도달했는지"를 게이트로 걸어서, 그걸 통과했을 때만 매수신호 하위조건(급등/구간돌파/연속상승)을 본다.
+
+    매도(하락) 신호는 별도로 계산하지 않는다 - divergence_stop_signal(손절신호)이
+    이미 그 역할(위험 경고)을 담당하고 있어 중복이기 때문."""
     hist = load_recent_history(ticker, days=4)
     if not hist:
-        return {"signal": "none", "reasons": []}
+        return {"signal": "none", "reasons": [], "change": None, "prev_score": None}
 
     prev = hist[-1][score_key]
     change = today_score - prev
@@ -974,41 +982,32 @@ def compute_signal(ticker, today_score, score_key="score"):
         if s >= 40: return 1
         return 0
 
-    crossed_up = zone(today_score) > zone(prev)
-    crossed_down = zone(today_score) < zone(prev)
+    today_zone = zone(today_score)
+    prev_zone = zone(prev)
+
+    crossed_up = today_zone > prev_zone
     spike_up = change >= 25
-    spike_down = change <= -25
 
     streak_up = len(hist) >= 2 and all(
         hist[i][score_key] < hist[i+1][score_key] for i in range(len(hist)-1)
     ) and today_score > hist[-1][score_key]
-    streak_down = len(hist) >= 2 and all(
-        hist[i][score_key] > hist[i+1][score_key] for i in range(len(hist)-1)
-    ) and today_score < hist[-1][score_key]
 
     reasons = []
     change_str = f"전일 {prev} → 오늘 {today_score} (전일 대비 {'+' if change>=0 else ''}{change})"
-    if spike_up:
-        reasons.append({"label": "급등 기준 (+25 이상)", "detail": change_str})
-    if crossed_up:
-        reasons.append({"label": "구간 상향 돌파", "detail": None})
-    if streak_up:
-        reasons.append({"label": "3일 연속 상승", "detail": None})
+
+    # 매수신호 게이트: 오늘 실제로 초록(pass) 구간이어야만 아래 하위조건들을 인정한다.
+    if today_zone == 2:
+        if spike_up:
+            reasons.append({"label": "급등 기준 (+25 이상)", "detail": change_str})
+        if crossed_up:
+            reasons.append({"label": "구간 상향 돌파(초록 진입)", "detail": None})
+        if streak_up:
+            reasons.append({"label": "3일 연속 상승", "detail": None})
 
     if reasons:
-        return {"signal": "up", "reasons": reasons}
+        return {"signal": "up", "reasons": reasons, "change": change, "prev_score": prev}
 
-    if spike_down:
-        reasons.append({"label": "급락 기준 (-25 이상)", "detail": change_str})
-    if crossed_down:
-        reasons.append({"label": "구간 하향 이탈", "detail": None})
-    if streak_down:
-        reasons.append({"label": "3일 연속 하락", "detail": None})
-
-    if reasons:
-        return {"signal": "down", "reasons": reasons}
-
-    return {"signal": "none", "reasons": []}
+    return {"signal": "none", "reasons": [], "change": change, "prev_score": prev}
 
 
 def log_snapshot(r):
