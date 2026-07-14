@@ -966,6 +966,12 @@
     }
   }
 
+  function scoreChangeTooltip(sig){
+    if (!sig || sig.change == null) return '전일 데이터 없음';
+    var sign = sig.change >= 0 ? '+' : '';
+    return '전일 ' + sig.prev_score + ' → 오늘 ' + (sig.prev_score + sig.change) + ' (전일대비 ' + sign + sig.change + ')';
+  }
+
   function getPurchasedStatus(ticker){
     return !!getPositionData(ticker);
   }
@@ -1085,12 +1091,11 @@
         + '</span>';
     }
 
-    // 우선순위 2: 기존 점수기반 상승/하락신호
-    if (sig && sig.signal !== 'none') {
-      var up = sig.signal === 'up';
-      var col = up ? '#34d399' : '#fb7185';
-      var bg = up ? 'rgba(16,185,129,0.18)' : 'rgba(244,63,94,0.18)';
-      var label = up ? '상승신호' : '하락신호';
+    // 우선순위 2: 점수기반 매수신호 (매도신호는 손절신호가 대신 담당하므로 없음)
+    if (sig && sig.signal === 'up') {
+      var col = '#34d399';
+      var bg = 'rgba(16,185,129,0.18)';
+      var label = '매수신호';
 
       var reasonsHtml = (sig.reasons || []).map(function(r){
         var line = '<div style="display:flex;align-items:center;gap:6px;">'
@@ -1382,12 +1387,12 @@
       '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
       '<span style="font-size:13px;font-weight:700;color:#e2e2e8;text-align:left;">'+item.ticker+'</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">$'+item.price.toFixed(2)+'</span>' +
-      '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;">'+item.score+'</span>' +
+      '<span title="'+scoreChangeTooltip(item.signal)+'" style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;cursor:help;">'+item.score+'</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
       '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
       '<span style="font-size:11px;text-align:center;'+rsiColorStyle(item.rsi)+'">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-      '<span style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;">'+addonScore+'</span>' +
+      '<span title="'+scoreChangeTooltip(item.signal_addon)+'" style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;cursor:help;">'+addonScore+'</span>' +
       '<span style="display:flex;justify-content:center;align-items:center;">'+signalBadge(item)+'</span>' +
       '<span></span>' +
       '<span style="display:flex;justify-content:center;align-items:center;">'+purchasedBadge+'</span>' +
