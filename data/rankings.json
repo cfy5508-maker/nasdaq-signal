@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T01:23:26.321942+00:00",
+  "updated": "2026-07-14T08:01:05.952010+00:00",
   "rankings": [
     {
       "ticker": "RKLB",
@@ -117,7 +117,7 @@
       "score": 55,
       "score_addon": 21,
       "price": 15.91,
-      "upside_pct": 124.7,
+      "upside_pct": 122.3,
       "rsi": 37.5,
       "divergence": "warn",
       "trigger": "fail",
@@ -159,7 +159,7 @@
       "score": 54,
       "score_addon": 23,
       "price": 138.49,
-      "upside_pct": 12.9,
+      "upside_pct": 12.4,
       "rsi": 43.2,
       "divergence": "warn",
       "trigger": "fail",
@@ -207,7 +207,7 @@
       "score": 50,
       "score_addon": 62,
       "price": 520.68,
-      "upside_pct": 18.3,
+      "upside_pct": 16.9,
       "rsi": 49.1,
       "divergence": "warn",
       "trigger": "fail",
@@ -224,11 +224,56 @@
       "divergence_stop_signal": null
     },
     {
+      "ticker": "LASR",
+      "score": 48,
+      "score_addon": 60,
+      "price": 68.79,
+      "upside_pct": 31.9,
+      "rsi": 51.6,
+      "divergence": "neutral",
+      "trigger": "fail",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "급등 기준 (+25 이상)",
+            "detail": "전일 21 → 오늘 48 (전일 대비 +27)"
+          },
+          {
+            "label": "구간 상향 돌파",
+            "detail": null
+          }
+        ]
+      },
+      "signal_addon": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "구간 상향 돌파",
+            "detail": null
+          },
+          {
+            "label": "3일 연속 상승",
+            "detail": null
+          }
+        ]
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 3,
+        "gain_since_low_pct": 17.2,
+        "divergence_date_index": 247,
+        "was_pass_type": true
+      },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
       "ticker": "PFE",
       "score": 46,
       "score_addon": 25,
       "price": 24.48,
-      "upside_pct": 18.2,
+      "upside_pct": 17.6,
       "rsi": 46.3,
       "divergence": "neutral",
       "trigger": "fail",
@@ -303,7 +348,7 @@
       "score": 30,
       "score_addon": 21,
       "price": 99.67,
-      "upside_pct": 51.3,
+      "upside_pct": 50.9,
       "rsi": 35.9,
       "divergence": "fail",
       "trigger": "fail",
@@ -362,20 +407,24 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "LASR",
-      "score": 21,
-      "score_addon": 37,
-      "price": 68.79,
-      "upside_pct": null,
-      "rsi": 51.6,
-      "divergence": "neutral",
+      "ticker": "UUUU",
+      "score": 30,
+      "score_addon": 21,
+      "price": 13.05,
+      "upside_pct": 100.2,
+      "rsi": 35.1,
+      "divergence": "fail",
       "trigger": "fail",
       "signal": {
+        "signal": "none",
+        "reasons": []
+      },
+      "signal_addon": {
         "signal": "down",
         "reasons": [
           {
             "label": "급락 기준 (-25 이상)",
-            "detail": "전일 48 → 오늘 21 (전일 대비 -27)"
+            "detail": "전일 82 → 오늘 21 (전일 대비 -61)"
           },
           {
             "label": "구간 하향 이탈",
@@ -383,23 +432,14 @@
           }
         ]
       },
-      "signal_addon": {
-        "signal": "down",
-        "reasons": [
-          {
-            "label": "구간 하향 이탈",
-            "detail": null
-          }
-        ]
-      },
-      "uptrend_entry_signal": {
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": {
         "active": true,
-        "days_since_divergence": 3,
-        "gain_since_low_pct": 17.2,
-        "divergence_date_index": 247,
-        "was_pass_type": true
+        "prior_divergence_date_index": 226,
+        "days_since_prior_divergence": 20,
+        "price_drop_since_pct": 14.4,
+        "rescue_attempted": false
       },
-      "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     }
   ]
