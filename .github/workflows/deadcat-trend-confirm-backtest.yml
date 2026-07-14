@@ -1,10 +1,10 @@
-name: Divergence Since High Backtest
+name: Deadcat Trend Confirm Backtest
 
 on:
   workflow_dispatch:
     inputs:
       forward_days:
-        description: "신호 후 며칠 뒤 수익률을 볼지"
+        description: "며칠간 저점 유지 여부를 볼지"
         required: false
         default: "10"
 
@@ -22,4 +22,4 @@ jobs:
         run: pip install --quiet yfinance pandas numpy
 
       - name: Run backtest
-        run: python divergence_since_high_backtest.py "${{ github.event.inputs.forward_days }}"
+        run: python deadcat_trend_confirm_backtest.py "${{ github.event.inputs.forward_days }}"
