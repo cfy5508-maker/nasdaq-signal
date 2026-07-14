@@ -452,22 +452,31 @@ def analyze(ticker, trim_days=0, write_file=True):
         price_today = float(c.iloc[-1])
         within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
 
+        DIVERGENCE_RSI_MIN = 0    # 이 이하 개선폭이면 최저점(0.0)
+        DIVERGENCE_RSI_MAX = 15   # 이 이상 개선폭이면 만점(1.0)
+        DIVERGENCE_WARN_CAP = 0.6  # 이중바닥(warn)은 아무리 개선폭이 커도 이 배수까지만 (가격확인 없는 구조적 약점)
+        divergence_quality = None
+
         if pos1 is not None:
             price1, price2 = float(c.iloc[pos1]), price2_raw
             rsi1, rsi2 = float(rsi.iloc[pos1]), float(rsi.iloc[pos2])
             if not (pd.isna(rsi1) or pd.isna(rsi2)):
                 price_lower_low_gate = price2 < price1
                 rsi_improved = rsi2 > rsi1
+                rsi_improvement = rsi2 - rsi1
+                base_quality = max(0.0, min(1.0, (rsi_improvement - DIVERGENCE_RSI_MIN) / (DIVERGENCE_RSI_MAX - DIVERGENCE_RSI_MIN)))
                 if is_today_new_low or within_tolerance:
                     if price_lower_low_gate and rsi_improved:
                         stage_divergence = "pass"      # 정석 다이버전스
                         bullish_divergence = True
                         divergence_present = True
                         signal_fresh = is_today_new_low
+                        divergence_quality = base_quality  # 정석은 그대로 (신뢰도 최고)
                     elif rsi_improved:
                         stage_divergence = "warn"      # 가격은 안 낮아졌지만 RSI는 개선(이중바닥 성격)
                         divergence_present = True
                         signal_fresh = is_today_new_low
+                        divergence_quality = base_quality * DIVERGENCE_WARN_CAP  # 이중바닥은 상한선 적용
                     else:
                         stage_divergence = "fail"      # RSI도 개선 안 됨
                 else:
@@ -891,18 +900,20 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
     if known_weights:
-        # 4단계(Z-score)는 이산값(1.0/0.5/0.0) 대신, min~max 사이 연속값(zscore_quality)을
-        # 그대로 써서 "낮을수록 더 좋다"를 세밀하게 반영한다. 나머지 단계는 기존 방식 유지.
+        # 4단계(Z-score), 3단계(다이버전스)는 이산값(1.0/0.5/0.0) 대신 연속값을 써서
+        # "얼마나 강한 신호인지"를 세밀하게 반영한다. 나머지 단계는 기존 방식 유지.
         def _stage_score(k):
             if k == "4_zscore" and zscore_quality is not None:
                 return zscore_quality
+            if k == "3_divergence_gate" and divergence_quality is not None:
+                return divergence_quality
             return STATUS_SCORE[stages[k]["status"]]
         raw_score = sum(known_weights[k] * _stage_score(k) for k in known_weights)
         score = round(raw_score / sum(known_weights.values()) * 100)
