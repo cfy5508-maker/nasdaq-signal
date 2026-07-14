@@ -256,10 +256,11 @@ STATUS_SCORE = {"pass": 1.0, "warn": 0.5, "fail": 0.0, "unknown": 0.25, "neutral
 MAX_SCORE = sum(WEIGHTS.values())
 
 ADDON_WEIGHTS = {
-    "1_fundamentals": 1.5,          # 3.0에서 하향 - 펀더멘털 혼자 점수를 과하게 끌어올리던 문제 수정
-    "2_pullback_gate": 2.5,         # 20/40일선 근접 - 가장 강한 근거(대규모 검증)
-    "3_rsi_zone": 1.0,              # RSI 50~60구간 - 약한 보조 신호
-    "4_trigger_confirmed": 2.0,     # 트리거캔들(해머/엔걸핑/긴아래꼬리)+거래량 - 가중치는 조합별 차등
+    # 1_market_health(시장건전성)는 참고용이라 여기 없음 - 점수 계산에 반영 안 됨 (신규진입과 동일)
+    "2_fundamentals": 1.5,          # 3.0에서 하향 - 펀더멘털 혼자 점수를 과하게 끌어올리던 문제 수정
+    "3_pullback_gate": 2.5,         # 20/40일선 근접 - 가장 강한 근거(대규모 검증)
+    "4_rsi_zone": 1.0,              # RSI 50~60구간 - 약한 보조 신호
+    "5_trigger_confirmed": 2.0,     # 트리거캔들(해머/엔걸핑/긴아래꼬리)+거래량 - 가중치는 조합별 차등
 }
 
 
@@ -837,38 +838,44 @@ def analyze(ticker, trim_days=0, write_file=True):
     addon_stop_pct = round(abs(last_close - sma20.iloc[-1]) / last_close * 100, 1)
 
     stages_addon = {
-        "1_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "2_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
-        "3_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3)},
-        "4_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
+        "1_market_health": {"status": volume_health["status"], "index_name": index_name, "index_symbol": index_symbol,
+                             "etf": volume_health["etf"], "volume_diff_pct_3m": volume_health["diff_pct"],
+                             "volume_trend_pct_3d": volume_health["trend_pct"], "volume_trend_up": volume_health["trend_up"],
+                             "daily_change_pct": volume_health["daily_change_pct"], "volatility_label": volume_health["volatility_label"],
+                             "index_trigger_candle": volume_health["index_trigger_candle"],
+                             "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
+        "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
+        "3_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
+        "4_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3)},
+        "5_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
                                  "reversal_volume_confirmed": reversal_volume_confirmed,
                                  "wick_present": wick_present, "wick_volume_confirmed": wick_volume_confirmed,
                                  "trigger_weight_tier": trigger_weight_tier},
         "9_position_sizing": {"stop_pct_from_20sma": addon_stop_pct},
     }
     addon_known_weights = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if stages_addon[k]["status"] != "unknown"}
-    # 2단계(눌림목게이트): pass는 그대로 두되, 근접한 이평선 종류에 따라 가중치를 차등 적용.
+    # 3단계(눌림목게이트, 구 2단계): pass는 그대로 두되, 근접한 이평선 종류에 따라 가중치를 차등 적용.
     # 20일선만 근접(얕은 눌림) < 40일선만 근접(더 깊은 눌림, 신뢰도 더 높음) < 둘 다 근접(원래 가중치)
-    if "2_pullback_gate" in addon_known_weights and stages_addon["2_pullback_gate"]["status"] == "pass":
+    if "3_pullback_gate" in addon_known_weights and stages_addon["3_pullback_gate"]["status"] == "pass":
         if near_ma_count == 2:
             gate_multiplier = 1.0
         elif near_sma40:  # 40일선만 근접
             gate_multiplier = 0.75
         else:  # 20일선만 근접
             gate_multiplier = 0.5
-        addon_known_weights["2_pullback_gate"] = addon_known_weights["2_pullback_gate"] * gate_multiplier
+        addon_known_weights["3_pullback_gate"] = addon_known_weights["3_pullback_gate"] * gate_multiplier
 
-    # 4단계(트리거): pass 안에서도 어떤 조합인지에 따라 가중치 차등
+    # 5단계(트리거, 구 4단계): pass 안에서도 어떤 조합인지에 따라 가중치 차등
     # 긴아래꼬리+거래량(가장낮음) < 반전캔들만(중간) < 반전캔들+거래량(가장높음)
     TRIGGER_WEIGHT_MULTIPLIER = {"wick_volume": 0.5, "reversal_only": 0.75, "reversal_volume": 1.0}
-    if "4_trigger_confirmed" in addon_known_weights and stages_addon["4_trigger_confirmed"]["status"] == "pass" and trigger_weight_tier:
-        addon_known_weights["4_trigger_confirmed"] = addon_known_weights["4_trigger_confirmed"] * TRIGGER_WEIGHT_MULTIPLIER[trigger_weight_tier]
+    if "5_trigger_confirmed" in addon_known_weights and stages_addon["5_trigger_confirmed"]["status"] == "pass" and trigger_weight_tier:
+        addon_known_weights["5_trigger_confirmed"] = addon_known_weights["5_trigger_confirmed"] * TRIGGER_WEIGHT_MULTIPLIER[trigger_weight_tier]
 
     if addon_known_weights:
-        # 3단계(RSI존)는 이산값 대신 연속값(rsi_zone_quality)을 그대로 써서
+        # 4단계(RSI존, 구 3단계)는 이산값 대신 연속값(rsi_zone_quality)을 그대로 써서
         # "RSI가 60에 가까울수록 더 좋다"를 세밀하게 반영. 나머지는 기존 방식 유지.
         def _addon_stage_score(k):
-            if k == "3_rsi_zone":
+            if k == "4_rsi_zone":
                 return rsi_zone_quality
             return STATUS_SCORE[stages_addon[k]["status"]]
         addon_raw = sum(addon_known_weights[k] * _addon_stage_score(k) for k in addon_known_weights)
