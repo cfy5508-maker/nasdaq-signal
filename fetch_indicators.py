@@ -960,7 +960,7 @@ def load_recent_history(ticker, days=4):
     return rows[-days:]
 
 
-def compute_signal(ticker, today_score, score_key="score"):
+def compute_signal(ticker, today_score, score_key="score", today_date=None):
     """매수신호/신호없음 판정. score_key: 'score' 또는 'score_addon'.
     반환값에 change(전일대비 변화량), prev_score(어제 점수)도 항상 포함한다.
 
@@ -969,8 +969,14 @@ def compute_signal(ticker, today_score, score_key="score"):
     도달했는지"를 게이트로 걸어서, 그걸 통과했을 때만 매수신호 하위조건(급등/구간돌파/연속상승)을 본다.
 
     매도(하락) 신호는 별도로 계산하지 않는다 - divergence_stop_signal(손절신호)이
-    이미 그 역할(위험 경고)을 담당하고 있어 중복이기 때문."""
-    hist = load_recent_history(ticker, days=4)
+    이미 그 역할(위험 경고)을 담당하고 있어 중복이기 때문.
+
+    today_date: 오늘(as_of_date). 이 날짜와 정확히 같은 히스토리 기록은 "어제"로 쓰지
+    않는다 - 같은 거래일에 워크플로우를 여러 번 재실행하면 history에 오늘자 기록이
+    먼저 쌓여있을 수 있는데, 그걸 자기 자신과 비교해버리는 버그(change=0)를 방지한다."""
+    hist = load_recent_history(ticker, days=5)
+    if today_date is not None:
+        hist = [h for h in hist if h["date"] != today_date]
     if not hist:
         return {"signal": "none", "reasons": [], "change": None, "prev_score": None}
 
@@ -1062,8 +1068,8 @@ def main():
     for t in tickers:
         try:
             r = analyze(t)
-            r["signal"] = compute_signal(t, r["score"], "score")
-            r["signal_addon"] = compute_signal(t, r["score_addon"], "score_addon")
+            r["signal"] = compute_signal(t, r["score"], "score", today_date=r["as_of_date"])
+            r["signal_addon"] = compute_signal(t, r["score_addon"], "score_addon", today_date=r["as_of_date"])
             results.append(r)
             log_snapshot(r)
             print(f"  {t}: score={r['score']} signal={r['signal']['signal']}")
