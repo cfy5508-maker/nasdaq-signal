@@ -452,8 +452,9 @@ def analyze(ticker, trim_days=0, write_file=True):
         price_today = float(c.iloc[-1])
         within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
 
-        DIVERGENCE_RSI_MIN = 0    # 이 이하 개선폭이면 최저점(0.0)
-        DIVERGENCE_RSI_MAX = 10   # 이 이상 개선폭이면 만점(1.0)
+        DIVERGENCE_RSI_MIN = 0    # 이 이하 개선폭이면 보너스 없음(기본점만)
+        DIVERGENCE_RSI_MAX = 10   # 이 이상 개선폭이면 보너스 만점
+        DIVERGENCE_BASE_SCORE = 0.5  # 구조(가격↓+RSI↑) 자체를 충족한 것만으로 보장되는 기본점
         DIVERGENCE_WARN_CAP = 0.6  # 이중바닥(warn)은 아무리 개선폭이 커도 이 배수까지만 (가격확인 없는 구조적 약점)
         DIVERGENCE_WARN_UPGRADE_THRESHOLD = 10  # 이중바닥이어도 RSI개선폭이 이 이상이면 pass로 격상
         divergence_quality = None
@@ -466,7 +467,11 @@ def analyze(ticker, trim_days=0, write_file=True):
                 price_lower_low_gate = price2 < price1
                 rsi_improved = rsi2 > rsi1
                 rsi_improvement = rsi2 - rsi1
-                base_quality = max(0.0, min(1.0, (rsi_improvement - DIVERGENCE_RSI_MIN) / (DIVERGENCE_RSI_MAX - DIVERGENCE_RSI_MIN)))
+                # 구조(가격↓+RSI↑) 충족만으로 기본 0.5점을 보장하고, RSI개선폭에 따라
+                # 나머지 0.5점을 보너스로 얹는다. (RKLB 사례: 개선폭 0.7p여도 구조는 맞으므로
+                # 0.07점처럼 극단적으로 낮게 나오던 문제 수정)
+                bonus = 0.5 * max(0.0, min(1.0, (rsi_improvement - DIVERGENCE_RSI_MIN) / (DIVERGENCE_RSI_MAX - DIVERGENCE_RSI_MIN)))
+                base_quality = DIVERGENCE_BASE_SCORE + bonus
                 if is_today_new_low or within_tolerance:
                     if price_lower_low_gate and rsi_improved:
                         stage_divergence = "pass"      # 정석 다이버전스
@@ -475,7 +480,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                         signal_fresh = is_today_new_low
                         divergence_quality = base_quality  # 정석은 그대로 (신뢰도 최고)
                     elif rsi_improved and rsi_improvement >= DIVERGENCE_WARN_UPGRADE_THRESHOLD:
-                        # 이중바닥이지만 RSI 개선폭이 매우 커서(15포인트 이상) 정석급으로 격상.
+                        # 이중바닥이지만 RSI 개선폭이 매우 커서(10포인트 이상) 정석급으로 격상.
                         # bullish_divergence는 False로 유지(가격은 실제로 안 낮아졌으므로 사실 그대로
                         # 표시하되), 판정(status)과 점수는 정석과 동일하게 취급한다.
                         stage_divergence = "pass"
