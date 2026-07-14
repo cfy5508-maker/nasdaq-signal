@@ -453,8 +453,9 @@ def analyze(ticker, trim_days=0, write_file=True):
         within_tolerance = bool(price_today >= price2_raw and (price_today - price2_raw) / price2_raw <= TOLERANCE_PCT)
 
         DIVERGENCE_RSI_MIN = 0    # 이 이하 개선폭이면 최저점(0.0)
-        DIVERGENCE_RSI_MAX = 15   # 이 이상 개선폭이면 만점(1.0)
+        DIVERGENCE_RSI_MAX = 10   # 이 이상 개선폭이면 만점(1.0)
         DIVERGENCE_WARN_CAP = 0.6  # 이중바닥(warn)은 아무리 개선폭이 커도 이 배수까지만 (가격확인 없는 구조적 약점)
+        DIVERGENCE_WARN_UPGRADE_THRESHOLD = 10  # 이중바닥이어도 RSI개선폭이 이 이상이면 pass로 격상
         divergence_quality = None
 
         if pos1 is not None:
@@ -472,6 +473,14 @@ def analyze(ticker, trim_days=0, write_file=True):
                         divergence_present = True
                         signal_fresh = is_today_new_low
                         divergence_quality = base_quality  # 정석은 그대로 (신뢰도 최고)
+                    elif rsi_improved and rsi_improvement >= DIVERGENCE_WARN_UPGRADE_THRESHOLD:
+                        # 이중바닥이지만 RSI 개선폭이 매우 커서(15포인트 이상) 정석급으로 격상.
+                        # bullish_divergence는 False로 유지(가격은 실제로 안 낮아졌으므로 사실 그대로
+                        # 표시하되), 판정(status)과 점수는 정석과 동일하게 취급한다.
+                        stage_divergence = "pass"
+                        divergence_present = True
+                        signal_fresh = is_today_new_low
+                        divergence_quality = base_quality  # 상한선 없이 그대로
                     elif rsi_improved:
                         stage_divergence = "warn"      # 가격은 안 낮아졌지만 RSI는 개선(이중바닥 성격)
                         divergence_present = True
