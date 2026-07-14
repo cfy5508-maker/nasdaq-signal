@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T01:15:30.413696+00:00",
+  "updated": "2026-07-14T01:23:26.321942+00:00",
   "rankings": [
     {
       "ticker": "RKLB",
@@ -99,13 +99,8 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "3일 연속 상승",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "uptrend_entry_signal": {
         "active": true,
@@ -173,13 +168,8 @@
         "reasons": []
       },
       "signal_addon": {
-        "signal": "down",
-        "reasons": [
-          {
-            "label": "구간 하향 이탈",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -195,13 +185,8 @@
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "3일 연속 상승",
-            "detail": null
-          }
-        ]
+        "signal": "none",
+        "reasons": []
       },
       "signal_addon": {
         "signal": "none",
@@ -235,33 +220,6 @@
         "reasons": []
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "LASR",
-      "score": 48,
-      "score_addon": 60,
-      "price": 68.79,
-      "upside_pct": 31.9,
-      "rsi": 51.6,
-      "divergence": "neutral",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": []
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": []
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 3,
-        "gain_since_low_pct": 17.2,
-        "divergence_date_index": 247,
-        "was_pass_type": true
-      },
       "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
@@ -400,6 +358,47 @@
         "reasons": []
       },
       "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "LASR",
+      "score": 21,
+      "score_addon": 37,
+      "price": 68.79,
+      "upside_pct": null,
+      "rsi": 51.6,
+      "divergence": "neutral",
+      "trigger": "fail",
+      "signal": {
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "급락 기준 (-25 이상)",
+            "detail": "전일 48 → 오늘 21 (전일 대비 -27)"
+          },
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
+      },
+      "signal_addon": {
+        "signal": "down",
+        "reasons": [
+          {
+            "label": "구간 하향 이탈",
+            "detail": null
+          }
+        ]
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 3,
+        "gain_since_low_pct": 17.2,
+        "divergence_date_index": 247,
+        "was_pass_type": true
+      },
       "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     }

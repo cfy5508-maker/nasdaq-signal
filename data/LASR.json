@@ -1,29 +1,29 @@
 {
   "ticker": "LASR",
   "price": 68.79,
-  "updated": "2026-07-14T01:15:22.822249+00:00",
+  "updated": "2026-07-14T01:23:17.340171+00:00",
   "as_of_date": "2026-07-13",
-  "score": 48,
+  "score": 21,
   "stages": {
     "1_market_health": {
       "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": -19.3,
-      "volume_trend_pct_3d": -11.9,
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -18.8,
+      "volume_trend_pct_3d": -8.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.77,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 31.9,
-      "forward_pe": 101.82664,
-      "peg": 1.78
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -55,27 +55,27 @@
     }
   },
   "entry_atr_stop_pct": 13.9,
-  "score_addon": 60,
+  "score_addon": 37,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": -19.3,
-      "volume_trend_pct_3d": -11.9,
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -18.8,
+      "volume_trend_pct_3d": -8.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.77,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 31.9,
-      "forward_pe": 101.82664,
-      "peg": 1.78
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -103,8 +103,8 @@
       "stop_pct_from_20sma": 4.2
     }
   },
-  "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector": null,
+  "sector_relative_strength_up": null,
   "uptrend_entry_signal": {
     "active": true,
     "days_since_divergence": 3,
