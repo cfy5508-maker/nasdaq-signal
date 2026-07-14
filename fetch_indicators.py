@@ -457,6 +457,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         DIVERGENCE_WARN_CAP = 0.6  # 이중바닥(warn)은 아무리 개선폭이 커도 이 배수까지만 (가격확인 없는 구조적 약점)
         DIVERGENCE_WARN_UPGRADE_THRESHOLD = 10  # 이중바닥이어도 RSI개선폭이 이 이상이면 pass로 격상
         divergence_quality = None
+        rsi_improvement = None
 
         if pos1 is not None:
             price1, price2 = float(c.iloc[pos1]), price2_raw
@@ -909,7 +910,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
