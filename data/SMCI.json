@@ -1,19 +1,19 @@
 {
   "ticker": "SMCI",
-  "price": 27.66,
-  "updated": "2026-07-14T19:17:38.618282+00:00",
-  "as_of_date": "2026-07-13",
-  "score": 52,
+  "price": 27.65,
+  "updated": "2026-07-14T22:10:53.006906+00:00",
+  "as_of_date": "2026-07-14",
+  "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.0,
-      "volume_trend_pct_3d": -11.0,
+      "volume_diff_pct_3m": -36.6,
+      "volume_trend_pct_3d": -18.8,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.1,
-      "forward_pe": 8.704479,
+      "upside_pct": 35.2,
+      "forward_pe": 8.71709,
       "peg": 0.91
     },
     "3_divergence_gate": {
@@ -37,8 +37,8 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 41.9,
-      "rsi_zscore_1y": -0.4,
-      "zscore_quality": 0.35
+      "rsi_zscore_1y": -0.37,
+      "zscore_quality": 0.343
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -49,25 +49,25 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 4,
-      "adx_reference": 22.0,
+      "wick_days_ago": 5,
+      "adx_reference": 21.9,
       "volume_confirmed": false,
       "trigger_day_volume": 38985400,
       "avg_volume_divergence_window": 59209915
     }
   },
-  "entry_atr_stop_pct": 13.2,
+  "entry_atr_stop_pct": 12.5,
   "score_addon": 37,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.0,
-      "volume_trend_pct_3d": -11.0,
+      "volume_diff_pct_3m": -36.6,
+      "volume_trend_pct_3d": -18.8,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -75,8 +75,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.1,
-      "forward_pe": 8.704479,
+      "upside_pct": 35.2,
+      "forward_pe": 8.71709,
       "peg": 0.91
     },
     "3_pullback_gate": {
@@ -102,16 +102,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.8
+      "stop_pct_from_20sma": 6.3
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "days_since_divergence": 4,
-    "gain_since_low_pct": 5.4,
-    "divergence_date_index": 246,
+    "days_since_divergence": 5,
+    "gain_since_low_pct": 5.3,
+    "divergence_date_index": 245,
     "was_pass_type": true
   },
   "divergence_invalidated_signal": null,

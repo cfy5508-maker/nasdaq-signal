@@ -1,108 +1,108 @@
 {
   "ticker": "BIIB",
-  "price": 209.03,
-  "updated": "2026-07-14T19:17:51.927888+00:00",
-  "as_of_date": "2026-07-13",
-  "score": 21,
+  "price": 191.95,
+  "updated": "2026-07-14T22:11:07.585805+00:00",
+  "as_of_date": "2026-07-14",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.0,
-      "volume_trend_pct_3d": -11.0,
+      "volume_diff_pct_3m": -36.6,
+      "volume_trend_pct_3d": -18.8,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 7.4,
-      "forward_pe": 11.613248,
+      "status": "pass",
+      "upside_pct": 16.9,
+      "forward_pe": 11.523795,
       "peg": 4.2
     },
     "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
       "divergence_present": false,
-      "gap_days": 25,
+      "gap_days": 28,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -0.1
+      "rsi_improvement": -4.4
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 56.4,
-      "rsi_zscore_1y": 0.05,
-      "zscore_quality": 0.238
+      "status": "pass",
+      "rsi": 42.4,
+      "rsi_zscore_1y": -1.6,
+      "zscore_quality": 0.65
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "불리시엔걸핑",
-      "days_ago": 1,
+      "status": "fail",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 17.3,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 16.4,
       "volume_confirmed": false,
-      "trigger_day_volume": 1133100,
-      "avg_volume_divergence_window": 1217988
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 5.1,
-  "score_addon": 61,
+  "entry_atr_stop_pct": 6.2,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.0,
-      "volume_trend_pct_3d": -11.0,
+      "volume_diff_pct_3m": -36.6,
+      "volume_trend_pct_3d": -18.8,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 7.4,
-      "forward_pe": 11.613248,
+      "status": "pass",
+      "upside_pct": 16.9,
+      "forward_pe": 11.523795,
       "peg": 4.2
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 56.4,
-      "rsi_zone_quality": 0.654
+      "status": "fail",
+      "rsi": 42.4,
+      "rsi_zone_quality": 0.097
     },
     "5_trigger_confirmed": {
-      "status": "pass",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
-      "wick_volume_confirmed": true,
-      "trigger_weight_tier": "wick_volume"
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Healthcare",
@@ -110,7 +110,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 198.91,
+    "stop_reference_price": 191.95,
     "stopped_out": false
   },
   "divergence_stop_signal": null

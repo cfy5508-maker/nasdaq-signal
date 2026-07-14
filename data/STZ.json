@@ -1,19 +1,19 @@
 {
   "ticker": "STZ",
-  "price": 134.51,
-  "updated": "2026-07-14T19:17:31.956042+00:00",
-  "as_of_date": "2026-07-13",
-  "score": 59,
+  "price": 131.34,
+  "updated": "2026-07-14T22:10:45.102330+00:00",
+  "as_of_date": "2026-07-14",
+  "score": 63,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": -7.7,
+      "volume_diff_pct_3m": -35.5,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.77,
+      "daily_change_pct": 0.36,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,53 +21,53 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 27.1,
-      "forward_pe": 10.618495,
+      "upside_pct": 30.2,
+      "forward_pe": 10.613719,
       "peg": 2.56
     },
     "3_divergence_gate": {
-      "status": "neutral",
-      "bullish_divergence": false,
-      "divergence_present": false,
+      "status": "pass",
+      "bullish_divergence": true,
+      "divergence_present": true,
       "gap_days": 23,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.559,
       "rsi_improvement": 1.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.0,
-      "rsi_zscore_1y": -0.44,
-      "zscore_quality": 0.36
+      "rsi": 37.7,
+      "rsi_zscore_1y": -0.79,
+      "zscore_quality": 0.448
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "해머",
-      "days_ago": 2,
+      "status": "warn",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 14.9,
+      "wick_days_ago": 3,
+      "adx_reference": 14.7,
       "volume_confirmed": false,
       "trigger_day_volume": 2323800,
       "avg_volume_divergence_window": 2556525
     }
   },
-  "entry_atr_stop_pct": 5.2,
-  "score_addon": 37,
+  "entry_atr_stop_pct": 5.3,
+  "score_addon": 36,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": -7.7,
+      "volume_diff_pct_3m": -35.5,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.77,
+      "daily_change_pct": 0.36,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -75,8 +75,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 27.1,
-      "forward_pe": 10.618495,
+      "upside_pct": 30.2,
+      "forward_pe": 10.613719,
       "peg": 2.56
     },
     "3_pullback_gate": {
@@ -85,13 +85,13 @@
       "near_sma40": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.0,
-      "rsi_zone_quality": 0.081
+      "rsi": 37.7,
+      "rsi_zone_quality": 0.0
     },
     "5_trigger_confirmed": {
       "status": "warn",
@@ -102,18 +102,12 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.6
+      "stop_pct_from_20sma": 5.4
     }
   },
   "sector": "Consumer Defensive",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "days_since_divergence": 3,
-    "gain_since_low_pct": 3.2,
-    "divergence_date_index": 247,
-    "was_pass_type": true
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 130.34,

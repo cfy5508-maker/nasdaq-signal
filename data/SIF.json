@@ -1,19 +1,19 @@
 {
   "ticker": "SIF",
-  "price": 22.3,
-  "updated": "2026-07-14T19:17:40.867281+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 22.86,
+  "updated": "2026-07-14T22:10:54.151081+00:00",
+  "as_of_date": "2026-07-14",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": -7.7,
+      "volume_diff_pct_3m": -35.5,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.77,
+      "daily_change_pct": 0.36,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -36,9 +36,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.2,
-      "rsi_zscore_1y": -0.4,
-      "zscore_quality": 0.35
+      "rsi": 54.6,
+      "rsi_zscore_1y": -0.19,
+      "zscore_quality": 0.298
     },
     "5_trigger_candle": {
       "status": "warn",
@@ -49,25 +49,25 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 28.1,
+      "wick_days_ago": 2,
+      "adx_reference": 27.3,
       "volume_confirmed": false,
       "trigger_day_volume": 104800,
       "avg_volume_divergence_window": 117384
     }
   },
-  "entry_atr_stop_pct": 12.7,
-  "score_addon": 61,
+  "entry_atr_stop_pct": 12.1,
+  "score_addon": 62,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": -7.7,
+      "volume_diff_pct_3m": -35.5,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.77,
+      "daily_change_pct": 0.36,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -90,8 +90,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 52.2,
-      "rsi_zone_quality": 0.487
+      "rsi": 54.6,
+      "rsi_zone_quality": 0.582
     },
     "5_trigger_confirmed": {
       "status": "warn",
@@ -102,7 +102,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.0
+      "stop_pct_from_20sma": 2.0
     }
   },
   "sector": "Industrials",
