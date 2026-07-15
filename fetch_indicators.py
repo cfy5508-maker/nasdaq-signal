@@ -429,6 +429,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     realtime_lows = find_realtime_lows(close_values, order=5)
     bullish_divergence = False     # pass인 경우만 True (점수 캡 판정용)
     divergence_present = False     # pass 또는 warn (약한 신호 포함) - 캡 완화용
+    hidden_bullish_divergence = False  # 히든 다이버전스: 가격 higher low + RSI lower low (추세지속 신호)
     stage_divergence = "fail"
     gap_days = None
     signal_fresh = None  # True=오늘 신규 확정, False=오차범위 내 유지, None=신호없음
@@ -493,7 +494,20 @@ def analyze(ticker, trim_days=0, write_file=True):
                         signal_fresh = is_today_new_low
                         divergence_quality = base_quality * DIVERGENCE_WARN_CAP  # 이중바닥은 상한선 적용
                     else:
-                        stage_divergence = "fail"      # RSI도 개선 안 됨
+                        # 히든 다이버전스: 가격은 higher low(상승추세 구조 유지), RSI는 lower low(모멘텀 눌림).
+                        # 정석과는 반대 성격(반전이 아니라 추세지속) - 신규진입 게이트에서는 warn 등급으로만 인정.
+                        rsi_decline = rsi1 - rsi2
+                        price_higher_low = price2 > price1
+                        HIDDEN_RSI_MIN_DECLINE = 3  # 노이즈 배제용 최소 하락폭 (정석 쪽 임계값과 동일)
+                        if price_higher_low and rsi_decline >= HIDDEN_RSI_MIN_DECLINE:
+                            stage_divergence = "warn"
+                            hidden_bullish_divergence = True
+                            divergence_present = True
+                            signal_fresh = is_today_new_low
+                            hidden_bonus = 0.5 * max(0.0, min(1.0, (rsi_decline - HIDDEN_RSI_MIN_DECLINE) / (DIVERGENCE_RSI_MAX - HIDDEN_RSI_MIN_DECLINE)))
+                            divergence_quality = (DIVERGENCE_BASE_SCORE + hidden_bonus) * DIVERGENCE_WARN_CAP
+                        else:
+                            stage_divergence = "fail"      # RSI도 개선 안 됨
                 else:
                     # 오차범위(3%)를 이미 넘어선 상태(가격이 그만큼 반등함).
                     # RSI가 개선됐던 저점쌍이었다면, 이건 "다이버전스 실패"가 아니라
@@ -813,6 +827,13 @@ def analyze(ticker, trim_days=0, write_file=True):
     rsi_zone_clamped = max(RSI_ZONE_SCALE_MIN, min(RSI_ZONE_SCALE_MAX, rsi_last))
     rsi_zone_quality = (rsi_zone_clamped - RSI_ZONE_SCALE_MIN) / (RSI_ZONE_SCALE_MAX - RSI_ZONE_SCALE_MIN)
 
+    # 히든 다이버전스(가격 higher low + RSI lower low)는 RSI 절대구간과 무관하게 모멘텀이
+    # 살아있다는 독립적 증거이므로, 4단계를 충족(만점)으로 끌어올린다.
+    # (3단계 눌림목게이트/ma_converged_ignore와는 완전히 분리되어 있어 그쪽 무효화 로직의 영향을 안 받음)
+    if hidden_bullish_divergence:
+        addon_stage_rsi = "pass"
+        rsi_zone_quality = 1.0
+
     # 4단계: 트리거캔들 + 거래량 (2/3단계와 완전히 독립 - 이평선/RSI 조건 없음, 순수 캔들+거래량만 봄)
     # hammer, engulfing, long_lower_wick, wick_days_ago는 신규진입 5단계에서 이미 계산된 값을 재사용.
     VOL_LOOKBACK_20 = 20
@@ -870,7 +891,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
-        "4_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3)},
+        "4_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3), "hidden_bullish_divergence": hidden_bullish_divergence},
         "5_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
                                  "reversal_volume_confirmed": reversal_volume_confirmed,
                                  "wick_present": wick_present, "wick_volume_confirmed": wick_volume_confirmed,
@@ -915,7 +936,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
