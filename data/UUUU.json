@@ -1,19 +1,19 @@
 {
   "ticker": "UUUU",
-  "price": 13.23,
-  "updated": "2026-07-14T22:36:16.284730+00:00",
-  "as_of_date": "2026-07-14",
+  "price": 13.05,
+  "updated": "2026-07-15T15:20:00.428117+00:00",
+  "as_of_date": "2026-07-13",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -35.5,
-      "volume_trend_pct_3d": -6.5,
+      "volume_diff_pct_3m": -17.7,
+      "volume_trend_pct_3d": -7.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
+      "daily_change_pct": -0.77,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,13 +21,14 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.5,
-      "forward_pe": 40.090904,
+      "upside_pct": 100.2,
+      "forward_pe": 38.60606,
       "peg": null
     },
     "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
+      "hidden_bullish_divergence": false,
       "divergence_present": false,
       "gap_days": 17,
       "signal_fresh": null,
@@ -36,9 +37,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 36.9,
-      "rsi_zscore_1y": -1.31,
-      "zscore_quality": 0.579
+      "rsi": 35.1,
+      "rsi_zscore_1y": -1.47,
+      "zscore_quality": 0.618
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -50,24 +51,24 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.9,
+      "adx_reference": 15.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 11.2,
+  "entry_atr_stop_pct": 11.8,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -35.5,
-      "volume_trend_pct_3d": -6.5,
+      "volume_diff_pct_3m": -17.7,
+      "volume_trend_pct_3d": -7.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
+      "daily_change_pct": -0.77,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -75,8 +76,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.5,
-      "forward_pe": 40.090904,
+      "upside_pct": 100.2,
+      "forward_pe": 38.60606,
       "peg": null
     },
     "3_pullback_gate": {
@@ -90,8 +91,9 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.9,
-      "rsi_zone_quality": 0.0
+      "rsi": 35.1,
+      "rsi_zone_quality": 0.0,
+      "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
       "status": "fail",
@@ -102,7 +104,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.1
+      "stop_pct_from_20sma": 11.3
     }
   },
   "sector": "Energy",
@@ -119,9 +121,5 @@
     "stop_reference_price": 12.86,
     "stopped_out": false
   },
-  "divergence_stop_signal": {
-    "active": true,
-    "days_since_break": 5,
-    "reason": "무효화 이후 5일간 반전캔들 없음"
-  }
+  "divergence_stop_signal": null
 }

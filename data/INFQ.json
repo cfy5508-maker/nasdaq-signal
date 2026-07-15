@@ -1,19 +1,19 @@
 {
   "ticker": "INFQ",
   "price": 10.45,
-  "updated": "2026-07-14T22:36:12.320926+00:00",
+  "updated": "2026-07-15T15:19:56.039032+00:00",
   "as_of_date": "2026-07-14",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -35.5,
-      "volume_trend_pct_3d": -6.5,
+      "volume_diff_pct_3m": -17.7,
+      "volume_trend_pct_3d": -7.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
+      "daily_change_pct": -0.77,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -22,12 +22,13 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 101.0,
-      "forward_pe": -37.292126,
+      "forward_pe": -35.668404,
       "peg": null
     },
     "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
+      "hidden_bullish_divergence": false,
       "divergence_present": false,
       "gap_days": 6,
       "signal_fresh": null,
@@ -52,7 +53,7 @@
       "wick_days_ago": 0,
       "adx_reference": 11.2,
       "volume_confirmed": false,
-      "trigger_day_volume": 7249870,
+      "trigger_day_volume": 7969200,
       "avg_volume_divergence_window": 10955171
     }
   },
@@ -60,14 +61,14 @@
   "score_addon": 36,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -35.5,
-      "volume_trend_pct_3d": -6.5,
+      "volume_diff_pct_3m": -17.7,
+      "volume_trend_pct_3d": -7.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
+      "daily_change_pct": -0.77,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -76,7 +77,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 101.0,
-      "forward_pe": -37.292126,
+      "forward_pe": -35.668404,
       "peg": null
     },
     "3_pullback_gate": {
@@ -91,7 +92,8 @@
     "4_rsi_zone": {
       "status": "fail",
       "rsi": 37.3,
-      "rsi_zone_quality": 0.0
+      "rsi_zone_quality": 0.0,
+      "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
       "status": "warn",

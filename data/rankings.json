@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T22:36:22.500173+00:00",
+  "updated": "2026-07-15T15:20:07.971522+00:00",
   "rankings": [
     {
       "ticker": "IREN",
@@ -61,25 +61,55 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "TTWO",
+      "ticker": "AMSC",
+      "score": 65,
+      "score_addon": 21,
+      "price": 34.18,
+      "upside_pct": 91.1,
+      "rsi": 34.9,
+      "divergence": "pass",
+      "trigger": "fail",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "구간 상향 돌파(초록 진입)",
+            "detail": null
+          }
+        ],
+        "change": 9,
+        "prev_score": 56
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -15,
+        "prev_score": 36
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "LMT",
       "score": 64,
       "score_addon": 62,
-      "price": 237.04,
-      "upside_pct": 19.9,
-      "rsi": 48.2,
+      "price": 520.68,
+      "upside_pct": 16.9,
+      "rsi": 49.1,
       "divergence": "pass",
       "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 5,
-        "prev_score": 59
+        "change": 10,
+        "prev_score": 54
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 3,
-        "prev_score": 59
+        "change": 1,
+        "prev_score": 61
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -89,9 +119,9 @@
       "ticker": "NFLX",
       "score": 64,
       "score_addon": 21,
-      "price": 73.53,
-      "upside_pct": 52.5,
-      "rsi": 38.9,
+      "price": 73.83,
+      "upside_pct": 51.9,
+      "rsi": 39.6,
       "divergence": "pass",
       "trigger": "fail",
       "signal": {
@@ -111,37 +141,12 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "STZ",
-      "score": 63,
-      "score_addon": 36,
-      "price": 131.34,
-      "upside_pct": 30.2,
-      "rsi": 37.7,
-      "divergence": "pass",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 4,
-        "prev_score": 59
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 37
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
       "ticker": "FSLR",
       "score": 61,
       "score_addon": 21,
-      "price": 220.58,
-      "upside_pct": 14.2,
-      "rsi": 37.2,
+      "price": 221.03,
+      "upside_pct": 14.0,
+      "rsi": 37.4,
       "divergence": "pass",
       "trigger": "fail",
       "signal": {
@@ -186,25 +191,56 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "PFE",
-      "score": 58,
-      "score_addon": 23,
-      "price": 24.25,
-      "upside_pct": 18.7,
-      "rsi": 43.5,
-      "divergence": "warn",
-      "trigger": "fail",
+      "ticker": "STZ",
+      "score": 59,
+      "score_addon": 37,
+      "price": 134.51,
+      "upside_pct": 27.1,
+      "rsi": 42.0,
+      "divergence": "neutral",
+      "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 12,
-        "prev_score": 46
+        "change": -4,
+        "prev_score": 63
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -2,
-        "prev_score": 25
+        "change": 1,
+        "prev_score": 36
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 3,
+        "gain_since_low_pct": 3.2,
+        "divergence_date_index": 246,
+        "was_pass_type": true
+      },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "TTWO",
+      "score": 59,
+      "score_addon": 59,
+      "price": 244.1,
+      "upside_pct": 16.4,
+      "rsi": 55.6,
+      "divergence": "pass",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -5,
+        "prev_score": 64
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -3,
+        "prev_score": 62
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -212,80 +248,24 @@
     },
     {
       "ticker": "PEP",
-      "score": 57,
-      "score_addon": 21,
-      "price": 135.45,
-      "upside_pct": 15.0,
-      "rsi": 38.7,
+      "score": 55,
+      "score_addon": 23,
+      "price": 138.49,
+      "upside_pct": 12.4,
+      "rsi": 43.2,
       "divergence": "warn",
       "trigger": "fail",
       "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 2,
-        "prev_score": 55
-      },
-      "signal_addon": {
         "signal": "none",
         "reasons": [],
         "change": -2,
-        "prev_score": 23
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "AMSC",
-      "score": 56,
-      "score_addon": 36,
-      "price": 35.46,
-      "upside_pct": 84.2,
-      "rsi": 38.7,
-      "divergence": "neutral",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -9,
-        "prev_score": 65
+        "prev_score": 57
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 15,
+        "change": 2,
         "prev_score": 21
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 1,
-        "gain_since_low_pct": 3.7,
-        "divergence_date_index": 249,
-        "was_pass_type": true
-      },
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "LMT",
-      "score": 54,
-      "score_addon": 61,
-      "price": 514.99,
-      "upside_pct": 18.1,
-      "rsi": 46.7,
-      "divergence": "warn",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -10,
-        "prev_score": 64
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 62
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -320,16 +300,16 @@
       "ticker": "SMCI",
       "score": 51,
       "score_addon": 37,
-      "price": 27.65,
-      "upside_pct": 35.2,
+      "price": 27.66,
+      "upside_pct": 35.1,
       "rsi": 41.9,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 52
+        "change": 0,
+        "prev_score": 51
       },
       "signal_addon": {
         "signal": "none",
@@ -339,10 +319,41 @@
       },
       "uptrend_entry_signal": {
         "active": true,
-        "days_since_divergence": 5,
-        "gain_since_low_pct": 5.3,
+        "days_since_divergence": 4,
+        "gain_since_low_pct": 5.4,
         "divergence_date_index": 245,
         "was_pass_type": true
+      },
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "PFE",
+      "score": 46,
+      "score_addon": 25,
+      "price": 24.48,
+      "upside_pct": 17.6,
+      "rsi": 46.3,
+      "divergence": "neutral",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -12,
+        "prev_score": 58
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 2,
+        "prev_score": 23
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 5,
+        "gain_since_low_pct": 3.2,
+        "divergence_date_index": 244,
+        "was_pass_type": false
       },
       "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
@@ -468,10 +479,10 @@
     {
       "ticker": "SIF",
       "score": 30,
-      "score_addon": 62,
-      "price": 22.86,
+      "score_addon": 61,
+      "price": 22.3,
       "upside_pct": null,
-      "rsi": 54.6,
+      "rsi": 52.2,
       "divergence": "fail",
       "trigger": "warn",
       "signal": {
@@ -483,8 +494,8 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 1,
-        "prev_score": 61
+        "change": -1,
+        "prev_score": 62
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -519,9 +530,9 @@
       "ticker": "UUUU",
       "score": 30,
       "score_addon": 21,
-      "price": 13.23,
-      "upside_pct": 97.5,
-      "rsi": 36.9,
+      "price": 13.05,
+      "upside_pct": 100.2,
+      "rsi": 35.1,
       "divergence": "fail",
       "trigger": "fail",
       "signal": {
@@ -544,35 +555,6 @@
         "price_drop_since_pct": 14.4,
         "rescue_attempted": false
       },
-      "divergence_stop_signal": {
-        "active": true,
-        "days_since_break": 5,
-        "reason": "무효화 이후 5일간 반전캔들 없음"
-      }
-    },
-    {
-      "ticker": "BIIB",
-      "score": 30,
-      "score_addon": 23,
-      "price": 191.95,
-      "upside_pct": 16.9,
-      "rsi": 42.4,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 9,
-        "prev_score": 21
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -38,
-        "prev_score": 61
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -601,25 +583,50 @@
       "divergence_stop_signal": null
     },
     {
-      "ticker": "PGR",
-      "score": 27,
-      "score_addon": 35,
-      "price": 226.58,
-      "upside_pct": 3.6,
-      "rsi": 58.4,
-      "divergence": "pass",
-      "trigger": "fail",
+      "ticker": "BIIB",
+      "score": 22,
+      "score_addon": 61,
+      "price": 209.03,
+      "upside_pct": 7.4,
+      "rsi": 56.4,
+      "divergence": "fail",
+      "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 27,
-        "prev_score": 0
+        "change": -8,
+        "prev_score": 30
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 21,
-        "prev_score": 14
+        "change": 38,
+        "prev_score": 23
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "PGR",
+      "score": 0,
+      "score_addon": 14,
+      "price": 234.48,
+      "upside_pct": 0.1,
+      "rsi": 69.4,
+      "divergence": "fail",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -27,
+        "prev_score": 27
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -21,
+        "prev_score": 35
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
