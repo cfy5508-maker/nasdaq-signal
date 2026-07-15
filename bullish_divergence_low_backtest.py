@@ -3,7 +3,9 @@ bullish_divergence_low_backtest.py
 사용법: python bullish_divergence_low_backtest.py [FORWARD_DAYS]
 기본값: FORWARD_DAYS=60
 
-동작: 관심종목(watchlist.json) 전체에서, fetch_indicators.py 3단계 게이트가
+동작: 대형주 50 + 소형주 50 = 100종목(bearish_divergence_high_backtest.py와
+동일 유니버스, 관심종목 28개로는 표본이 너무 작아 확대)에서, fetch_indicators.py
+3단계 게이트가
 쓰는 "정석 볼리시 다이버전스"(가격 lower low + RSI higher low)가 몇 번
 연속으로 무효화됐는지(=그 이후 가격도 RSI도 더 무너진 신저점이 나왔는지)를
 세고, 그 연속횟수(1회/2회/3회+)에 따라 다음 번 다이버전스가 다시 무효화될
@@ -30,7 +32,6 @@ bullish_divergence_low_backtest.py
 검증된 적 없는 새로운 질문이다.
 """
 import sys
-import json
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -40,19 +41,23 @@ FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 ORDER = 5
 MIN_GAP_DAYS = 5           # fetch_indicators.py 운영값과 동일
 MAX_GAP_DAYS = 30          # fetch_indicators.py 운영값과 동일
-HISTORY_PERIOD = "3y"
+HISTORY_PERIOD = "15y"     # max로 하면 장기 무중단 상승장 하나가 표본을 독식하는 문제가 있어 제한
 
-WATCHLIST_PATH = "data/watchlist.json"
-
-
-def load_watchlist():
-    try:
-        with open(WATCHLIST_PATH) as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return ["TOYO", "PFE", "STZ", "AMSC", "RKLB", "AVEX", "NXT", "SPCX", "LMT",
-                "SMCI", "SIF", "LASR", "PEP", "TTWO", "VOYG", "INFQ", "FSLR", "IREN",
-                "UUUU", "PL", "NFLX", "BIIB", "PGR", "WATT", "GOOGL", "IBM", "TER", "QNT"]
+LARGECAP_TICKERS = [
+    "NVDA", "INTC", "PYPL", "AAPL", "KO", "XOM", "META", "WMT", "BA", "AMD",
+    "TSLA", "JPM", "DIS", "PFE", "CVX", "MCD", "NFLX", "GE", "CSCO", "UNH",
+    "MSFT", "GOOGL", "AMZN", "JNJ", "PG", "V", "MA", "HD", "ORCL", "ABBV",
+    "MRK", "ADBE", "CRM", "TXN", "LIN", "NEE", "LOW", "SBUX", "TMO", "ACN",
+    "COST", "AVGO", "QCOM", "IBM", "GS", "BAC", "C", "T", "VZ", "UPS",
+]
+SMALLCAP_TICKERS = [
+    "RKLB", "SMCI", "PLTR", "SOFI", "RIVN", "LCID", "CHPT", "U", "RBLX", "DKNG",
+    "AFRM", "UPST", "COIN", "MARA", "RIOT", "CVNA", "ROOT", "OPEN", "CLSK", "IONQ",
+    "FUBO", "PATH", "ASAN", "BBAI", "SOUN", "RUN", "ENVX", "JOBY", "ACHR", "LAZR",
+    "QS", "FSLY", "PLUG", "NIO", "XPEV", "BYND", "WOLF", "GPRO", "DNA", "HOOD",
+    "AI", "PTON", "SNAP", "LYFT", "DASH", "PINS", "ETSY", "BILL", "TTD", "ROKU",
+]
+TICKERS = LARGECAP_TICKERS + SMALLCAP_TICKERS
 
 
 def find_realtime_lows(values, order=5):
@@ -68,7 +73,7 @@ def find_realtime_lows(values, order=5):
 
 def analyze_ticker(ticker):
     hist = yf.Ticker(ticker).history(period=HISTORY_PERIOD)
-    if hist.empty or len(hist) < 100:
+    if hist.empty or len(hist) < 40:   # RSI(14)+스윙쌍 1개 나올 최소치로 완화(기존 100)
         return []
     close = hist["Close"].values
     rsi = RSIIndicator(pd.Series(close), window=14).rsi().values
@@ -114,7 +119,7 @@ def analyze_ticker(ticker):
 
 
 def main():
-    tickers = load_watchlist()
+    tickers = TICKERS
     all_records = []
     for t in tickers:
         try:
@@ -129,7 +134,7 @@ def main():
         return
 
     df = pd.DataFrame(all_records)
-    df["streak_bucket"] = df["streak"].apply(lambda s: s if s <= 3 else 4)
+    df["streak_bucket"] = df["streak"].apply(lambda s: s if s <= 5 else 6)
 
     print("\n=== 연속 다이버전스 횟수별 이후 무효화(신저점 달성)율 (FORWARD_DAYS =", FORWARD_DAYS, ") ===")
     summary = df.groupby("streak_bucket").agg(
@@ -139,7 +144,7 @@ def main():
     summary["무효화율"] = (summary["무효화율"] * 100).round(1)
     achieved_days = df[df["achieved"]].groupby("streak_bucket")["days_to"].mean().round(1)
     summary["평균무효화도달일수"] = achieved_days
-    summary.index = summary.index.map(lambda x: f"{x}회" if x < 4 else "4회+")
+    summary.index = summary.index.map(lambda x: f"{x}회" if x < 6 else "6회+")
     print(summary.to_string())
 
     print(f"\n전체 표본: {len(df)}건 / 전체 무효화율: {df['achieved'].mean()*100:.1f}%")
