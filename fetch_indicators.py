@@ -385,6 +385,39 @@ def find_realtime_lows(close_values, order=5):
     return positions
 
 
+RECENT_BEARISH_LOOKBACK_DAYS = 126     # 6개월 - nasdaq_chart.html detectDivergence와 동일
+RECENT_BEARISH_NEAR_HIGH_RATIO = 0.97
+RECENT_BEARISH_RSI_MIN_DECLINE = 3
+RECENT_BEARISH_WINDOW_DAYS = 10        # "최근"으로 볼 범위 - 백테스트에서 이 범위일 때만 효과 확인됨
+RECENT_BEARISH_QUALITY_BONUS = 0.15    # 백테스트: 있음 62.1%(348건) vs 없음 51.1%(3632건) 승률차 반영
+
+
+def recent_bearish_divergence(pos, close_values, rsi_values):
+    """pos(정석 볼리시 다이버전스 확정 저점) 기준 직전 RECENT_BEARISH_WINDOW_DAYS
+    거래일 안에, 6개월 최고점 대비 베어리시 다이버전스(nasdaq_chart.html의
+    detectDivergence 베어리시 판정과 동일 기준)가 한 번이라도 있었는지 확인한다.
+    백테스트(232종목, 15년) 검증: 있으면 이후 10일 단기 승률이 51.1%->62.1%로
+    상승(있음 표본 348건). 30일/60일로 넓히면 효과가 2~3%p로 줄어드는 단기 효과라,
+    이 함수도 RECENT_BEARISH_WINDOW_DAYS=10 범위 안에서만 체크한다."""
+    start = max(RECENT_BEARISH_LOOKBACK_DAYS, pos - RECENT_BEARISH_WINDOW_DAYS + 1)
+    for t in range(start, pos + 1):
+        rsi_t = rsi_values[t]
+        if pd.isna(rsi_t):
+            continue
+        window_close = close_values[t - RECENT_BEARISH_LOOKBACK_DAYS:t]
+        window_rsi = rsi_values[t - RECENT_BEARISH_LOOKBACK_DAYS:t]
+        if np.all(pd.isna(window_rsi)):
+            continue
+        high_idx = int(np.nanargmax(window_close))
+        high_p = window_close[high_idx]
+        high_rsi = window_rsi[high_idx]
+        if pd.isna(high_rsi):
+            continue
+        if close_values[t] >= high_p * RECENT_BEARISH_NEAR_HIGH_RATIO and rsi_t < high_rsi - RECENT_BEARISH_RSI_MIN_DECLINE:
+            return True
+    return False
+
+
 def analyze(ticker, trim_days=0, write_file=True):
     """trim_days: 0이면 '가장 최근 확정 거래일' 기준. 1이면 그 하루 전(소급 계산용,
     score_history 백필에 사용). write_file: False면 data/<TICKER>.json을 덮어쓰지 않는다."""
@@ -424,6 +457,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     bullish_divergence = False     # pass인 경우만 True (점수 캡 판정용)
     divergence_present = False     # pass 또는 warn (약한 신호 포함) - 캡 완화용
     hidden_bullish_divergence = False  # 히든 다이버전스: 가격 higher low + RSI lower low (추세지속 신호)
+    recent_bearish_bonus_applied = False  # 정석 다이버전스 직전 10거래일 내 베어리시(6개월최고점) 있었는지
     stage_divergence = "fail"
     gap_days = None
     signal_fresh = None  # True=오늘 신규 확정, False=오차범위 내 유지, None=신호없음
@@ -474,6 +508,11 @@ def analyze(ticker, trim_days=0, write_file=True):
                         divergence_present = True
                         signal_fresh = is_today_new_low
                         divergence_quality = base_quality  # 정석은 그대로 (신뢰도 최고)
+                        # 직전 10거래일 내 베어리시(6개월 최고점) 다이버전스가 있었다면
+                        # 단기 승률이 유의미하게 높았던 게 백테스트로 확인돼서 가산점 적용.
+                        if recent_bearish_divergence(pos2, close_values, rsi.values):
+                            divergence_quality = min(1.0, divergence_quality + RECENT_BEARISH_QUALITY_BONUS)
+                            recent_bearish_bonus_applied = True
                     elif rsi_improved and rsi_improvement >= DIVERGENCE_WARN_UPGRADE_THRESHOLD:
                         # 이중바닥이지만 RSI 개선폭이 매우 커서(10포인트 이상) 정석급으로 격상.
                         # bullish_divergence는 False로 유지(가격은 실제로 안 낮아졌으므로 사실 그대로
@@ -930,7 +969,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
