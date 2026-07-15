@@ -1,45 +1,45 @@
 {
-  "ticker": "PGR",
-  "price": 226.58,
-  "updated": "2026-07-15T16:00:45.265517+00:00",
+  "ticker": "TER",
+  "price": 353.23,
+  "updated": "2026-07-15T16:00:51.314938+00:00",
   "as_of_date": "2026-07-14",
-  "score": 27,
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -34.2,
-      "volume_trend_pct_3d": -5.9,
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.12,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 3.6,
-      "forward_pe": 12.738937,
-      "peg": 34.56
+      "status": "pass",
+      "upside_pct": 19.9,
+      "forward_pe": 34.035713,
+      "peg": 1.42
     },
     "3_divergence_gate": {
-      "status": "pass",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "divergence_present": true,
-      "gap_days": 30,
-      "signal_fresh": true,
-      "divergence_quality": 1.0,
-      "rsi_improvement": 23.6
+      "divergence_present": false,
+      "gap_days": 21,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -3.9
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 58.4,
-      "rsi_zscore_1y": 0.99,
-      "zscore_quality": 0.002
+      "status": "pass",
+      "rsi": 43.9,
+      "rsi_zscore_1y": -1.8,
+      "zscore_quality": 0.7
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -51,48 +51,48 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 44.8,
+      "adx_reference": 18.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 3.8,
-  "score_addon": 35,
+  "entry_atr_stop_pct": 14.1,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -34.2,
-      "volume_trend_pct_3d": -5.9,
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.12,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 3.6,
-      "forward_pe": 12.738937,
-      "peg": 34.56
+      "status": "pass",
+      "upside_pct": 19.9,
+      "forward_pe": 34.035713,
+      "peg": 1.42
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 58.4,
-      "rsi_zone_quality": 0.735,
+      "status": "fail",
+      "rsi": 43.9,
+      "rsi_zone_quality": 0.154,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -104,15 +104,15 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.6
+      "stop_pct_from_20sma": 15.2
     }
   },
-  "sector": "Financial Services",
-  "sector_relative_strength_up": true,
+  "sector": "Technology",
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 226.58,
+    "stop_reference_price": 341.11,
     "stopped_out": false
   },
   "divergence_stop_signal": null
