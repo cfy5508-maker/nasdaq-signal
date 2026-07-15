@@ -412,12 +412,6 @@ def analyze(ticker, trim_days=0, write_file=True):
     rsi_last = float(rsi.iloc[-1])
     sma40 = c.rolling(40).mean()  # 눌림목 게이트에서 사용 (20/40일선 근접 판정)
 
-    recent = c.iloc[-90:]
-    low1_idx, low2_idx = recent.iloc[:45].idxmin(), recent.iloc[45:].idxmin()
-    price_lower_low = c[low2_idx] < c[low1_idx]
-    rsi_higher_low = rsi[low2_idx] > rsi[low1_idx]
-    bullish_divergence_legacy = bool(price_lower_low and rsi_higher_low)  # 참고용(구방식), 점수 미반영
-
     # ── 검증된 새 다이버전스 게이트: 진짜 스윙저점(전후 5일보다 낮은 지점) 기반 ──
     # 백테스트 검증: 68건 표본에서 Z-score 낮을수록 승률 66.7%→52.4%→26.1% 단조감소 확인
     # 추가: 오늘이 정확히 새 저점을 찍은 날이 아니어도, 마지막 저점가 대비 +3% 이내면
