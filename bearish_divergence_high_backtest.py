@@ -14,8 +14,11 @@ bearish_divergence_high_backtest.py
   - 오늘 종가가 그 최고가의 97% 이상(cur_p >= high_p*0.97)이고,
     오늘 RSI가 그 최고가 시점 RSI보다 3포인트 이상 낮으면(cur_r < high_rsi-3)
     베어리시 다이버전스로 판정 (원본 JS 로직과 동일한 3포인트/97% 기준).
-  - 디바운스: 어제도 다이버전스 상태였으면 새 발생으로 안 세고, "조건이
-    꺼졌다가 다시 켜진 시점"만 새 발생(streak+1)으로 카운트한다.
+  - 디바운스: 롤링 6개월 창이 하루씩 이동하면서 "최고가 시점" 기준 자체가
+    자주 바뀌어(어제 최고가였던 날이 창에서 빠지고 다른 날이 최고가가 되는
+    식) 조건이 며칠 단위로 켜졌다 꺼졌다 하는 노이즈가 있다. 그래서 단순
+    온오프 전환이 아니라, 한 번 발생을 세면 MIN_EVENT_GAP_DAYS(21거래일,
+    약 1개월) 동안은 같은 상황으로 보고 재카운트하지 않는 쿨다운 방식을 쓴다.
   - 신저점 달성: 다이버전스 발생일 이후 FORWARD_DAYS 거래일 이내에,
     그 시점 6개월 구간의 최저가(바닥)를 종가가 하회하면 '달성'으로 판정.
   - 연속횟수(streak): 달성되면(신저점 나와서 사이클 종료) 다음 발생부터
@@ -35,7 +38,9 @@ FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 LOOKBACK_DAYS = 126          # 6개월 ≈ 21거래일 * 6
 NEAR_HIGH_RATIO = 0.97       # nasdaq_chart.html detectDivergence와 동일
 RSI_MIN_DECLINE = 3          # nasdaq_chart.html detectDivergence와 동일
-HISTORY_PERIOD = "max"
+MIN_EVENT_GAP_DAYS = 21      # 같은 발생으로 볼 쿨다운 기간(약 1개월)
+HISTORY_PERIOD = "15y"       # max로 하면 KO/XOM/PG 등 수십년 종목의 무중단 상승장 하나가
+                              # streak를 수백까지 누적시켜 통계를 독식하는 문제가 있어 제한
 MIN_HISTORY_DAYS = LOOKBACK_DAYS + 20   # 최소 6개월+여유
 
 LARGECAP_TICKERS = [
@@ -64,17 +69,15 @@ def analyze_ticker(ticker):
     n = len(close)
 
     streak = 0
-    was_firing = False
+    last_event_idx = -10 ** 9
     records = []
 
     for t in range(LOOKBACK_DAYS, n):
         if np.isnan(rsi[t]):
-            was_firing = False
             continue
         window_close = close[t - LOOKBACK_DAYS:t]
         window_rsi = rsi[t - LOOKBACK_DAYS:t]
         if np.all(np.isnan(window_rsi)):
-            was_firing = False
             continue
 
         high_rel = int(np.nanargmax(window_close))
@@ -88,7 +91,7 @@ def analyze_ticker(ticker):
             and rsi[t] < high_rsi - RSI_MIN_DECLINE
         )
 
-        if is_firing and not was_firing:
+        if is_firing and (t - last_event_idx) >= MIN_EVENT_GAP_DAYS:
             streak += 1
             future = close[t + 1: t + 1 + FORWARD_DAYS]
             achieved = bool((future < low_p).any())
@@ -97,10 +100,9 @@ def analyze_ticker(ticker):
                 "ticker": ticker, "day_idx": t, "streak": streak,
                 "achieved": achieved, "days_to": days_to,
             })
+            last_event_idx = t
             if achieved:
                 streak = 0   # 신저점으로 사이클 종료 -> 다음 발생은 다시 1회부터
-
-        was_firing = is_firing
 
     return records
 
