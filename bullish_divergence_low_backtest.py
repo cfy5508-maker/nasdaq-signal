@@ -18,8 +18,12 @@ bullish_divergence_low_backtest.py
     개선) - 운영 코드처럼 RSI 개선폭에 최소 임계값을 두지 않는다(그냥
     rsi2>rsi1이면 인정).
   - 신저점 달성: 다이버전스 확정일(low2) 이후 FORWARD_DAYS 거래일 이내에,
-    종가가 low2의 가격보다 낮아지는 날이 있으면 '달성'으로 판정.
-    (가격만 본다 - RSI 조건은 안 걸었다)
+    종가가 price2보다 낮은 저점을 찍고, 그 저점 이후 그 저점가 대비
+    REBOUND_CONFIRM_PCT(3%) 이상 반등하는 지점까지 나오면 '달성'으로
+    판정한다. 그냥 살짝 밀린 것(작은 눌림)이나, 저점을 찍었어도 아직
+    반등 없이 계속 흘러내리는 중인 것("웅덩이"가 아직 안 파인 상태)은
+    카운트하지 않는다 - 저점이 찍히고 반등까지 확인돼야 "웅덩이가
+    파였다(=신저점이 확정됐다)"고 본다.
   - 연속횟수(streak): 신저점이 달성되면 다음 다이버전스는 streak+1로
     이어짐(=같은 하락 사이클 안에서 몇 번째 시도인지). 신저점 없이
     반등이 유지되면(=성공) streak는 다음 사이클을 위해 0으로 리셋.
@@ -38,6 +42,8 @@ FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 ORDER = 5
 MIN_GAP_DAYS = 5           # fetch_indicators.py 운영값과 동일
 MAX_GAP_DAYS = 30          # fetch_indicators.py 운영값과 동일
+REBOUND_CONFIRM_PCT = 0.03  # 저점 확정에 필요한 최소 반등폭(3%) - 운영 코드의
+                             # TOLERANCE_PCT("이미 확실히 반등했다" 판정 기준)와 동일
 HISTORY_PERIOD = "15y"     # max로 하면 장기 무중단 상승장 하나가 표본을 독식하는 문제가 있어 제한
 
 LARGECAP_TICKERS = [
@@ -95,12 +101,26 @@ def analyze_ticker(ticker):
             is_classic_divergence = (price2 <= price1) and (rsi2 > rsi1)
             if is_classic_divergence:
                 streak += 1
-                # 신저점 달성 판정: FORWARD_DAYS 이내에 종가가 이 저점(price2)보다
-                # 더 낮아지는 날이 있는지 (가격만 본다)
+                # 신저점 달성 판정: 그냥 price2보다 더 빠지기만 하면 되는 게 아니라,
+                # "저점을 찍고 그 이후 유의미하게(3%, 운영 코드 TOLERANCE_PCT와 동일
+                # 기준) 반등"까지 나와야 진짜 웅덩이(=확정된 신저점)로 본다.
+                # 계속 흘러내리기만 하고 반등이 안 나온 구간은 아직 "저점 확정"이
+                # 아니라서 카운트하지 않는다.
                 future_close = close[idx + 1: idx + 1 + FORWARD_DAYS]
-                broke = future_close < price2
-                achieved = bool(broke.any())
-                days_to = int(np.argmax(broke)) + 1 if achieved else None
+                achieved = False
+                days_to = None
+                if len(future_close) > 0:
+                    below = future_close < price2
+                    if below.any():
+                        trough_rel = int(np.argmin(future_close))
+                        trough_price = future_close[trough_rel]
+                        if trough_price < price2:
+                            after_trough = future_close[trough_rel + 1:]
+                            if len(after_trough) > 0:
+                                rebound_pct = (after_trough.max() - trough_price) / trough_price
+                                if rebound_pct >= REBOUND_CONFIRM_PCT:
+                                    achieved = True
+                                    days_to = trough_rel + 1
                 records.append({
                     "ticker": ticker, "low_idx": idx, "streak": streak,
                     "achieved": achieved, "days_to": days_to,
