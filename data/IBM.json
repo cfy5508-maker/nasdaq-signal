@@ -1,45 +1,45 @@
 {
-  "ticker": "UUUU",
-  "price": 13.23,
-  "updated": "2026-07-15T15:49:36.998365+00:00",
+  "ticker": "IBM",
+  "price": 217.07,
+  "updated": "2026-07-15T15:49:45.625323+00:00",
   "as_of_date": "2026-07-14",
   "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -34.2,
-      "volume_trend_pct_3d": -5.9,
+      "index_name": "다우30",
+      "index_symbol": "^DJI",
+      "etf": "DIA",
+      "volume_diff_pct_3m": -23.0,
+      "volume_trend_pct_3d": -11.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
+      "daily_change_pct": 0.04,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.5,
-      "forward_pe": 38.439392,
-      "peg": null
+      "upside_pct": 36.4,
+      "forward_pe": 16.123497,
+      "peg": 2.71
     },
     "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "divergence_present": false,
-      "gap_days": 17,
+      "gap_days": 16,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -0.1
+      "rsi_improvement": -11.5
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 36.9,
-      "rsi_zscore_1y": -1.31,
-      "zscore_quality": 0.579
+      "rsi": 30.4,
+      "rsi_zscore_1y": -1.44,
+      "zscore_quality": 0.61
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -51,34 +51,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.9,
+      "adx_reference": 25.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 11.2,
+  "entry_atr_stop_pct": 11.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -34.2,
-      "volume_trend_pct_3d": -5.9,
+      "index_name": "다우30",
+      "index_symbol": "^DJI",
+      "etf": "DIA",
+      "volume_diff_pct_3m": -23.0,
+      "volume_trend_pct_3d": -11.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.36,
+      "daily_change_pct": 0.04,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.5,
-      "forward_pe": 38.439392,
-      "peg": null
+      "upside_pct": 36.4,
+      "forward_pe": 16.123497,
+      "peg": 2.71
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -86,12 +86,12 @@
       "near_sma40": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
-      "was_above_40_recently": false
+      "was_above_20_recently": true,
+      "was_above_40_recently": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.9,
+      "rsi": 30.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -104,26 +104,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.1
+      "stop_pct_from_20sma": 26.5
     }
   },
-  "sector": "Energy",
+  "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
-    "active": true,
-    "prior_divergence_date_index": 225,
-    "days_since_prior_divergence": 20,
-    "price_drop_since_pct": 14.4,
-    "rescue_attempted": false
-  },
+  "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 12.86,
+    "stop_reference_price": 217.07,
     "stopped_out": false
   },
-  "divergence_stop_signal": {
-    "active": true,
-    "days_since_break": 5,
-    "reason": "무효화 이후 5일간 반전캔들 없음"
-  }
+  "divergence_stop_signal": null
 }
