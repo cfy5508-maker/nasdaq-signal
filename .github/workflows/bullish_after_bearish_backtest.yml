@@ -1,0 +1,29 @@
+name: Bullish After Bearish Backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      forward_days:
+        description: "다이버전스 발생 후 며칠 이내 신저점(실패) 여부를 볼지"
+        required: false
+        default: "60"
+      recent_days:
+        description: "베어리시 다이버전스를 '최근'으로 볼 거래일 범위"
+        required: false
+        default: "30"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas numpy ta
+
+      - name: Run backtest
+        run: python bullish_after_bearish_backtest.py "${{ github.event.inputs.forward_days }}" "${{ github.event.inputs.recent_days }}"
