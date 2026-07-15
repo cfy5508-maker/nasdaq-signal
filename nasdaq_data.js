@@ -58,7 +58,7 @@
     17.9,19.6,22.3,29.5,24.8,17.5,16.4,15.8,17.2,18.1,15.8,16.3,
     18.2,19.8,22.5,24.1
   ];
-  var vix_recent=20.0;
+  var vix_recent=16.5;
   var ND_2016_END=5383;
   var nd_now=nd_daily[nd_daily.length-1];
   var cagr_2026=Math.pow(nd_now/ND_2016_END,0.1)-1;

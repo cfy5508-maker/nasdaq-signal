@@ -1,19 +1,19 @@
 {
   "ticker": "NFLX",
-  "price": 73.83,
-  "updated": "2026-07-15T15:20:03.157548+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 73.53,
+  "updated": "2026-07-15T15:47:14.909241+00:00",
+  "as_of_date": "2026-07-14",
   "score": 64,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -10.8,
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.9,
-      "forward_pe": 19.37677,
+      "upside_pct": 52.5,
+      "forward_pe": 19.431559,
       "peg": 1.44
     },
     "3_divergence_gate": {
@@ -37,9 +37,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.6,
-      "rsi_zscore_1y": -0.23,
-      "zscore_quality": 0.309
+      "rsi": 38.9,
+      "rsi_zscore_1y": -0.29,
+      "zscore_quality": 0.321
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -51,24 +51,24 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 31.4,
+      "adx_reference": 31.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 5.0,
+  "entry_atr_stop_pct": 4.9,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -10.8,
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -76,8 +76,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.9,
-      "forward_pe": 19.37677,
+      "upside_pct": 52.5,
+      "forward_pe": 19.431559,
       "peg": 1.44
     },
     "3_pullback_gate": {
@@ -91,7 +91,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.6,
+      "rsi": 38.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },

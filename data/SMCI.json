@@ -1,19 +1,19 @@
 {
   "ticker": "SMCI",
-  "price": 27.66,
-  "updated": "2026-07-15T15:19:47.292964+00:00",
-  "as_of_date": "2026-07-13",
+  "price": 27.65,
+  "updated": "2026-07-15T15:47:00.837384+00:00",
+  "as_of_date": "2026-07-14",
   "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -10.8,
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.1,
-      "forward_pe": 8.493252,
+      "upside_pct": 35.2,
+      "forward_pe": 8.450691,
       "peg": 0.91
     },
     "3_divergence_gate": {
@@ -50,25 +50,25 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 4,
-      "adx_reference": 22.0,
+      "wick_days_ago": 5,
+      "adx_reference": 21.9,
       "volume_confirmed": false,
       "trigger_day_volume": 38985400,
       "avg_volume_divergence_window": 59209915
     }
   },
-  "entry_atr_stop_pct": 13.2,
+  "entry_atr_stop_pct": 12.5,
   "score_addon": 37,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -10.8,
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": 1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -76,8 +76,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.1,
-      "forward_pe": 8.493252,
+      "upside_pct": 35.2,
+      "forward_pe": 8.450691,
       "peg": 0.91
     },
     "3_pullback_gate": {
@@ -104,15 +104,15 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.8
+      "stop_pct_from_20sma": 6.3
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "days_since_divergence": 4,
-    "gain_since_low_pct": 5.4,
+    "days_since_divergence": 5,
+    "gain_since_low_pct": 5.3,
     "divergence_date_index": 245,
     "was_pass_type": true
   },
