@@ -1031,7 +1031,8 @@ def compute_signal(ticker, today_score, score_key="score", today_date=None):
     change = today_score - prev
 
     def zone(s):
-        if s >= 65: return 2
+        cutoff = 70 if score_key == "score" else 65  # 신규진입은 70으로 상향, 눌림목(addon)은 기존 65 유지
+        if s >= cutoff: return 2
         if s >= 40: return 1
         return 0
 
