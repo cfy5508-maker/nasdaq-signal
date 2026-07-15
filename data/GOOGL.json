@@ -1,9 +1,9 @@
 {
-  "ticker": "LASR",
-  "price": 71.48,
-  "updated": "2026-07-15T15:48:27.683134+00:00",
+  "ticker": "GOOGL",
+  "price": 359.51,
+  "updated": "2026-07-15T15:48:40.933342+00:00",
   "as_of_date": "2026-07-14",
-  "score": 45,
+  "score": 68,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,25 +21,25 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.9,
-      "forward_pe": 97.85956,
-      "peg": 1.78
+      "upside_pct": 20.1,
+      "forward_pe": 25.489616,
+      "peg": 1.41
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "pass",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "divergence_present": false,
-      "gap_days": 7,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": 0.4
+      "divergence_present": true,
+      "gap_days": 10,
+      "signal_fresh": false,
+      "divergence_quality": 1.0,
+      "rsi_improvement": 10.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.2,
-      "rsi_zscore_1y": -0.41,
-      "zscore_quality": 0.353
+      "rsi": 49.4,
+      "rsi_zscore_1y": -0.76,
+      "zscore_quality": 0.439
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -47,7 +47,7 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
@@ -57,8 +57,8 @@
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 13.0,
-  "score_addon": 30,
+  "entry_atr_stop_pct": 4.3,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -76,9 +76,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.9,
-      "forward_pe": 97.85956,
-      "peg": 1.78
+      "upside_pct": 20.1,
+      "forward_pe": 25.489616,
+      "peg": 1.41
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -86,39 +86,33 @@
       "near_sma40": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
-      "was_above_40_recently": true
+      "was_above_20_recently": false,
+      "was_above_40_recently": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 54.2,
-      "rsi_zone_quality": 0.569,
+      "status": "fail",
+      "rsi": 49.4,
+      "rsi_zone_quality": 0.375,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.7
+      "stop_pct_from_20sma": 0.5
     }
   },
-  "sector": "Technology",
-  "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "days_since_divergence": 4,
-    "gain_since_low_pct": 21.8,
-    "divergence_date_index": 246,
-    "was_pass_type": true
-  },
+  "sector": "Communication Services",
+  "sector_relative_strength_up": true,
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 58.68,
+    "stop_reference_price": 352.51,
     "stopped_out": false
   },
   "divergence_stop_signal": null
