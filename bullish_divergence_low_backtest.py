@@ -5,30 +5,27 @@ bullish_divergence_low_backtest.py
 
 동작: 대형주 50 + 소형주 50 = 100종목(bearish_divergence_high_backtest.py와
 동일 유니버스, 관심종목 28개로는 표본이 너무 작아 확대)에서, fetch_indicators.py
-3단계 게이트가
-쓰는 "정석 볼리시 다이버전스"(가격 lower low + RSI higher low)가 몇 번
-연속으로 무효화됐는지(=그 이후 가격도 RSI도 더 무너진 신저점이 나왔는지)를
-세고, 그 연속횟수(1회/2회/3회+)에 따라 다음 번 다이버전스가 다시 무효화될
-확률이 어떻게 달라지는지 확인한다.
+3단계 게이트가 쓰는 "정석 볼리시 다이버전스"(가격 lower low + RSI higher low)가
+몇 번 연속으로(그 사이 신저점 없이) 발생했는지 세고, 그 연속횟수(1~5회+)에
+따라 다음 FORWARD_DAYS 안에 신저점(가격이 이번 다이버전스 저점보다 더
+낮아지는 것)을 달성했는지 확인한다.
 
-정의 (fetch_indicators.py 3단계 게이트/divergence_invalidated_signal과 동일):
+정의 (fetch_indicators.py 3단계 게이트와 동일):
   - 스윙저점: "오늘 종가가 직전 order일 종가의 최솟값보다 낮다"
     (find_realtime_lows와 동일, 미래 미참조)
   - 정석 다이버전스: 연속된 두 스윙저점 사이 간격 MIN_GAP~MAX_GAP일(5~30일,
     운영 코드와 동일), price2 <= price1(저점 갱신) AND rsi2 > rsi1(RSI는
     개선) - 운영 코드처럼 RSI 개선폭에 최소 임계값을 두지 않는다(그냥
     rsi2>rsi1이면 인정).
-  - 무효화(= 신저점 달성): 다이버전스 확정일(low2) 이후 FORWARD_DAYS
-    거래일 이내에, close가 low2의 가격보다 낮아지고 "동시에" RSI도 low2의
-    RSI보다 낮아지는 날이 있으면 '무효화(신저점 달성)'로 판정.
-    (운영 코드의 divergence_invalidated_signal과 동일하게 가격만이 아니라
-    RSI도 같이 무너져야 무효화로 본다 - 가격만 살짝 밀린 건 카운트 안 함)
-  - 연속횟수(streak): 이번 다이버전스가 무효화되면 다음 다이버전스는
-    streak+1로 이어짐(=같은 하락 사이클 안에서 몇 번째 시도인지). 무효화
-    안 되고 반등이 유지되면(=성공) streak는 다음 사이클을 위해 0으로 리셋.
+  - 신저점 달성: 다이버전스 확정일(low2) 이후 FORWARD_DAYS 거래일 이내에,
+    종가가 low2의 가격보다 낮아지는 날이 있으면 '달성'으로 판정.
+    (가격만 본다 - RSI 조건은 안 걸었다)
+  - 연속횟수(streak): 신저점이 달성되면 다음 다이버전스는 streak+1로
+    이어짐(=같은 하락 사이클 안에서 몇 번째 시도인지). 신저점 없이
+    반등이 유지되면(=성공) streak는 다음 사이클을 위해 0으로 리셋.
 
 주의: 탐색적 백테스트다. MIN_GAP/MAX_GAP/FORWARD_DAYS는 운영 코드값을
-그대로 썼지만, "무효화율이 연속횟수에 따라 어떻게 변하는지"는 아직
+그대로 썼지만, "신저점 달성률이 연속횟수에 따라 어떻게 변하는지"는 아직
 검증된 적 없는 새로운 질문이다.
 """
 import sys
@@ -98,11 +95,10 @@ def analyze_ticker(ticker):
             is_classic_divergence = (price2 <= price1) and (rsi2 > rsi1)
             if is_classic_divergence:
                 streak += 1
-                # 무효화(신저점 달성) 판정: FORWARD_DAYS 이내에 가격도 RSI도
-                # 이 저점(price2, rsi2)보다 더 나빠지는 날이 있는지
+                # 신저점 달성 판정: FORWARD_DAYS 이내에 종가가 이 저점(price2)보다
+                # 더 낮아지는 날이 있는지 (가격만 본다)
                 future_close = close[idx + 1: idx + 1 + FORWARD_DAYS]
-                future_rsi = rsi[idx + 1: idx + 1 + FORWARD_DAYS]
-                broke = (future_close < price2) & (future_rsi < rsi2)
+                broke = future_close < price2
                 achieved = bool(broke.any())
                 days_to = int(np.argmax(broke)) + 1 if achieved else None
                 records.append({
@@ -110,7 +106,7 @@ def analyze_ticker(ticker):
                     "achieved": achieved, "days_to": days_to,
                 })
                 if not achieved:
-                    streak = 0   # 반등 유지(무효화 안 됨) -> 다음 사이클을 위해 리셋
+                    streak = 0   # 신저점 없이 반등 유지(성공) -> 다음 사이클을 위해 리셋
             else:
                 streak = 0
         last_low_idx, last_low_price, last_low_rsi = idx, price2, rsi2
@@ -136,18 +132,18 @@ def main():
     df = pd.DataFrame(all_records)
     df["streak_bucket"] = df["streak"].apply(lambda s: s if s <= 5 else 6)
 
-    print("\n=== 연속 다이버전스 횟수별 이후 무효화(신저점 달성)율 (FORWARD_DAYS =", FORWARD_DAYS, ") ===")
+    print("\n=== 연속 다이버전스 횟수별 이후 신저점 달성률 (FORWARD_DAYS =", FORWARD_DAYS, ") ===")
     summary = df.groupby("streak_bucket").agg(
         표본수=("achieved", "count"),
-        무효화율=("achieved", "mean"),
+        신저점달성률=("achieved", "mean"),
     )
-    summary["무효화율"] = (summary["무효화율"] * 100).round(1)
+    summary["신저점달성률"] = (summary["신저점달성률"] * 100).round(1)
     achieved_days = df[df["achieved"]].groupby("streak_bucket")["days_to"].mean().round(1)
-    summary["평균무효화도달일수"] = achieved_days
+    summary["평균도달일수"] = achieved_days
     summary.index = summary.index.map(lambda x: f"{x}회" if x < 6 else "6회+")
     print(summary.to_string())
 
-    print(f"\n전체 표본: {len(df)}건 / 전체 무효화율: {df['achieved'].mean()*100:.1f}%")
+    print(f"\n전체 표본: {len(df)}건 / 전체 신저점달성률: {df['achieved'].mean()*100:.1f}%")
 
 
 if __name__ == "__main__":
