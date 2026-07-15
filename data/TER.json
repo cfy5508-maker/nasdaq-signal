@@ -1,8 +1,8 @@
 {
   "ticker": "TER",
-  "price": 353.23,
-  "updated": "2026-07-15T17:25:01.908525+00:00",
-  "as_of_date": "2026-07-14",
+  "price": 342.12,
+  "updated": "2026-07-15T22:34:43.627215+00:00",
+  "as_of_date": "2026-07-15",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -10,25 +10,26 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -33.2,
-      "volume_trend_pct_3d": -17.4,
-      "volume_trend_up": false,
-      "daily_change_pct": 1.12,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -29.9,
+      "volume_trend_pct_3d": 0.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.27,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.9,
-      "forward_pe": 34.13839,
+      "upside_pct": 23.8,
+      "forward_pe": 34.778824,
       "peg": 1.42
     },
     "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "recent_bearish_bonus_applied": false,
       "divergence_present": false,
       "gap_days": 21,
       "signal_fresh": null,
@@ -37,47 +38,47 @@
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 43.9,
-      "rsi_zscore_1y": -1.8,
-      "zscore_quality": 0.7
+      "rsi": 42.2,
+      "rsi_zscore_1y": -1.95,
+      "zscore_quality": 0.736
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 18.3,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 18.5,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null
+      "trigger_day_volume": 3142356,
+      "avg_volume_divergence_window": 5401700
     }
   },
-  "entry_atr_stop_pct": 14.1,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 14.6,
+  "score_addon": 37,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -33.2,
-      "volume_trend_pct_3d": -17.4,
-      "volume_trend_up": false,
-      "daily_change_pct": 1.12,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -29.9,
+      "volume_trend_pct_3d": 0.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.27,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.9,
-      "forward_pe": 34.13839,
+      "upside_pct": 23.8,
+      "forward_pe": 34.778824,
       "peg": 1.42
     },
     "3_pullback_gate": {
@@ -91,20 +92,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.9,
-      "rsi_zone_quality": 0.154,
+      "rsi": 42.2,
+      "rsi_zone_quality": 0.087,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.2
+      "stop_pct_from_20sma": 17.6
     }
   },
   "sector": "Technology",

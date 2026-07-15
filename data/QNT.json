@@ -1,9 +1,9 @@
 {
-  "ticker": "FSLR",
-  "price": 223.82,
-  "updated": "2026-07-15T22:34:33.239694+00:00",
+  "ticker": "QNT",
+  "price": 60.51,
+  "updated": "2026-07-15T22:34:44.496449+00:00",
   "as_of_date": "2026-07-15",
-  "score": 59,
+  "score": 27,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,26 +21,26 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.5,
-      "forward_pe": 9.548387,
-      "peg": 0.6
+      "upside_pct": 63.2,
+      "forward_pe": -38.660583,
+      "peg": null
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 7,
-      "signal_fresh": false,
-      "divergence_quality": 0.539,
-      "rsi_improvement": 0.8
+      "divergence_present": false,
+      "gap_days": null,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": null
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 39.7,
-      "rsi_zscore_1y": -1.16,
-      "zscore_quality": 0.539
+      "status": "fail",
+      "rsi": 42.0,
+      "rsi_zscore_1y": null,
+      "zscore_quality": null
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -52,14 +52,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.4,
+      "adx_reference": 22.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 8.5,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 19.7,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -77,9 +77,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.5,
-      "forward_pe": 9.548387,
-      "peg": 0.6
+      "upside_pct": 63.2,
+      "forward_pe": -38.660583,
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -87,13 +87,13 @@
       "near_sma40": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
+      "was_above_20_recently": true,
       "was_above_40_recently": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.7,
-      "rsi_zone_quality": 0.0,
+      "rsi": 42.0,
+      "rsi_zone_quality": 0.079,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -105,15 +105,15 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.3
+      "stop_pct_from_20sma": 18.3
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": null,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 220.58,
+    "stop_reference_price": 60.51,
     "stopped_out": false
   },
   "divergence_stop_signal": null
