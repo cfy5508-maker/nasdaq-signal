@@ -1,0 +1,25 @@
+name: Bullish Divergence Low Backtest
+
+on:
+  workflow_dispatch:
+    inputs:
+      forward_days:
+        description: "다이버전스 확정 후 며칠 이내 무효화(신저점) 여부를 볼지"
+        required: false
+        default: "60"
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet yfinance pandas numpy ta
+
+      - name: Run backtest
+        run: python bullish_divergence_low_backtest.py "${{ github.event.inputs.forward_days }}"
