@@ -1,28 +1,28 @@
 {
   "ticker": "PFE",
-  "price": 24.82,
-  "updated": "2026-07-16T18:35:19.728502+00:00",
-  "as_of_date": "2026-07-15",
-  "score": 41,
+  "price": 25.14,
+  "updated": "2026-07-16T22:33:16.838834+00:00",
+  "as_of_date": "2026-07-16",
+  "score": 11,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 16.0,
-      "forward_pe": 8.856381,
+      "status": "fail",
+      "upside_pct": 14.5,
+      "forward_pe": 8.872263,
       "peg": 2.83
     },
     "3_divergence_gate": {
@@ -38,9 +38,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.3,
-      "rsi_zscore_1y": 0.04,
-      "zscore_quality": 0.241
+      "rsi": 55.1,
+      "rsi_zscore_1y": 0.46,
+      "zscore_quality": 0.135
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -52,33 +52,33 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 25.1,
+      "adx_reference": 24.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
   "entry_atr_stop_pct": 3.2,
-  "score_addon": 28,
+  "score_addon": 9,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 16.0,
-      "forward_pe": 8.856381,
+      "status": "fail",
+      "upside_pct": 14.5,
+      "forward_pe": 8.872263,
       "peg": 2.83
     },
     "3_pullback_gate": {
@@ -97,8 +97,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.3,
-      "rsi_zone_quality": 0.453,
+      "rsi": 55.1,
+      "rsi_zone_quality": 0.603,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -110,7 +110,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.4
+      "stop_pct_from_20sma": 2.8
     }
   },
   "sector": "Healthcare",
@@ -118,10 +118,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 4.6,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 6.0,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

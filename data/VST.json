@@ -1,19 +1,19 @@
 {
   "ticker": "VST",
-  "price": 160.23,
-  "updated": "2026-07-16T18:35:56.139175+00:00",
-  "as_of_date": "2026-07-15",
-  "score": 42,
+  "price": 152.56,
+  "updated": "2026-07-16T22:33:55.514308+00:00",
+  "as_of_date": "2026-07-16",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,55 +21,55 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.3,
-      "forward_pe": 14.045699,
+      "upside_pct": 46.3,
+      "forward_pe": 14.116959,
       "peg": 0.47
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 30,
+      "gap_days": 24,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 12.8
+      "rsi_improvement": 8.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.4,
-      "rsi_zscore_1y": 0.79,
-      "zscore_quality": 0.053
+      "rsi": 44.9,
+      "rsi_zscore_1y": -0.49,
+      "zscore_quality": 0.372
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 5,
-      "adx_reference": 13.3,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 12.6,
       "volume_confirmed": false,
-      "trigger_day_volume": 3605700,
-      "avg_volume_divergence_window": 4799600
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 6.3,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 7.0,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -77,40 +77,40 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.3,
-      "forward_pe": 14.045699,
+      "upside_pct": 46.3,
+      "forward_pe": 14.116959,
       "peg": 0.47
     },
     "3_pullback_gate": {
       "status": "fail",
       "near_sma20": false,
-      "near_sma40": false,
-      "near_sma60": false,
+      "near_sma40": true,
+      "near_sma60": true,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
-      "ma_converged_ignored": false,
+      "near_ma_count": 1,
+      "ma_converged_ignored": true,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 54.4,
-      "rsi_zone_quality": 0.576,
+      "status": "fail",
+      "rsi": 44.9,
+      "rsi_zone_quality": 0.196,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.4
+      "stop_pct_from_20sma": 4.4
     }
   },
   "sector": "Utilities",
@@ -118,15 +118,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 23,
-    "days_since_trend_start": 22,
-    "gain_since_low_pct": 15.8,
-    "divergence_date_index": 227
+    "days_since_divergence": 24,
+    "days_since_trend_start": 23,
+    "gain_since_low_pct": 10.3,
+    "divergence_date_index": 226
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 151.05,
+    "stop_reference_price": 152.56,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

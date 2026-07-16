@@ -1,8 +1,8 @@
 {
   "ticker": "AMT",
-  "price": 168.63,
-  "updated": "2026-07-16T18:35:51.968273+00:00",
-  "as_of_date": "2026-07-15",
+  "price": 168.92,
+  "updated": "2026-07-16T22:33:50.717986+00:00",
+  "as_of_date": "2026-07-16",
   "score": 43,
   "stages": {
     "1_market_health": {
@@ -10,10 +10,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 27.6,
-      "forward_pe": 24.694311,
+      "upside_pct": 27.4,
+      "forward_pe": 24.571396,
       "peg": 1.77
     },
     "3_divergence_gate": {
@@ -38,9 +38,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.0,
-      "rsi_zscore_1y": -0.15,
-      "zscore_quality": 0.289
+      "rsi": 44.5,
+      "rsi_zscore_1y": -0.11,
+      "zscore_quality": 0.277
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -52,13 +52,13 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 35.6,
+      "adx_reference": 35.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 4.0,
+  "entry_atr_stop_pct": 3.9,
   "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
@@ -66,10 +66,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -77,8 +77,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 27.6,
-      "forward_pe": 24.694311,
+      "upside_pct": 27.4,
+      "forward_pe": 24.571396,
       "peg": 1.77
     },
     "3_pullback_gate": {
@@ -97,8 +97,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.0,
-      "rsi_zone_quality": 0.159,
+      "rsi": 44.5,
+      "rsi_zone_quality": 0.18,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -110,7 +110,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.2
+      "stop_pct_from_20sma": 0.6
     }
   },
   "sector": "Real Estate",
@@ -118,10 +118,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 3,
-    "gain_since_low_pct": 4.0,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 4,
+    "gain_since_low_pct": 4.2,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

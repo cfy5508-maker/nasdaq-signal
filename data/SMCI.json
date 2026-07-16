@@ -1,46 +1,46 @@
 {
   "ticker": "SMCI",
-  "price": 26.89,
-  "updated": "2026-07-16T18:35:27.761816+00:00",
-  "as_of_date": "2026-07-15",
-  "score": 49,
+  "price": 24.68,
+  "updated": "2026-07-16T22:33:25.425471+00:00",
+  "as_of_date": "2026-07-16",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -25.3,
-      "volume_trend_pct_3d": 3.0,
+      "volume_diff_pct_3m": -17.1,
+      "volume_trend_pct_3d": 1.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.27,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.64,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.0,
-      "forward_pe": 7.8327703,
+      "upside_pct": 51.4,
+      "forward_pe": 7.897827,
       "peg": 0.91
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": true,
-      "divergence_quality": 0.36,
-      "rsi_improvement": 2.0
+      "divergence_present": false,
+      "gap_days": 7,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -2.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.2,
-      "rsi_zscore_1y": -0.5,
-      "zscore_quality": 0.375
+      "rsi": 35.7,
+      "rsi_zscore_1y": -0.86,
+      "zscore_quality": 0.464
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -52,33 +52,33 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 22.2,
+      "adx_reference": 23.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 12.8,
-  "score_addon": 22,
+  "entry_atr_stop_pct": 14.0,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -25.3,
-      "volume_trend_pct_3d": 3.0,
+      "volume_diff_pct_3m": -17.1,
+      "volume_trend_pct_3d": 1.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.27,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.64,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.0,
-      "forward_pe": 7.8327703,
+      "upside_pct": 51.4,
+      "forward_pe": 7.897827,
       "peg": 0.91
     },
     "3_pullback_gate": {
@@ -97,8 +97,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.2,
-      "rsi_zone_quality": 0.009,
+      "rsi": 35.7,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -110,16 +110,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.6
+      "stop_pct_from_20sma": 17.4
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 249,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 8.2,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 26.89,
+    "stop_reference_price": 24.68,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

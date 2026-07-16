@@ -1,8 +1,8 @@
 {
   "ticker": "PGR",
-  "price": 205.22,
-  "updated": "2026-07-16T18:35:36.648153+00:00",
-  "as_of_date": "2026-07-15",
+  "price": 205.8,
+  "updated": "2026-07-16T22:33:35.077420+00:00",
+  "as_of_date": "2026-07-16",
   "score": 16,
   "stages": {
     "1_market_health": {
@@ -10,10 +10,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 14.0,
-      "forward_pe": 12.413219,
+      "upside_pct": 13.6,
+      "forward_pe": 12.649872,
       "peg": 34.56
     },
     "3_divergence_gate": {
@@ -38,9 +38,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.9,
-      "rsi_zscore_1y": -0.94,
-      "zscore_quality": 0.485
+      "rsi": 40.4,
+      "rsi_zscore_1y": -0.88,
+      "zscore_quality": 0.47
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -52,13 +52,13 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 42.9,
+      "adx_reference": 41.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 5.1,
+  "entry_atr_stop_pct": 5.0,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -66,10 +66,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -3.5,
+      "volume_diff_pct_3m": -22.3,
+      "volume_trend_pct_3d": -6.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.4,
+      "daily_change_pct": -0.54,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -77,8 +77,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 14.0,
-      "forward_pe": 12.413219,
+      "upside_pct": 13.6,
+      "forward_pe": 12.649872,
       "peg": 34.56
     },
     "3_pullback_gate": {
@@ -97,8 +97,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.9,
-      "rsi_zone_quality": 0.0,
+      "rsi": 40.4,
+      "rsi_zone_quality": 0.017,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -110,7 +110,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.6
+      "stop_pct_from_20sma": 7.4
     }
   },
   "sector": "Financial Services",

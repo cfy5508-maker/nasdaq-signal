@@ -1,19 +1,19 @@
 {
   "ticker": "MRK",
-  "price": 123.61,
-  "updated": "2026-07-16T18:35:53.071160+00:00",
-  "as_of_date": "2026-07-15",
-  "score": 22,
+  "price": 127.63,
+  "updated": "2026-07-16T22:33:51.924595+00:00",
+  "as_of_date": "2026-07-16",
+  "score": 14,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -31.5,
-      "volume_trend_pct_3d": -4.7,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.24,
+      "volume_diff_pct_3m": -36.7,
+      "volume_trend_pct_3d": 7.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -21,26 +21,26 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.4,
-      "forward_pe": 13.298516,
+      "upside_pct": 4.0,
+      "forward_pe": 13.238047,
       "peg": 5.97
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
+      "divergence_present": false,
       "gap_days": 16,
-      "signal_fresh": false,
-      "divergence_quality": 0.384,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 2.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.3,
-      "rsi_zscore_1y": -0.41,
-      "zscore_quality": 0.353
+      "rsi": 58.5,
+      "rsi_zscore_1y": 0.16,
+      "zscore_quality": 0.211
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -49,27 +49,27 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.5,
+      "adx_reference": 17.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
   "entry_atr_stop_pct": 4.2,
-  "score_addon": 27,
+  "score_addon": 11,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -31.5,
-      "volume_trend_pct_3d": -4.7,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.24,
+      "volume_diff_pct_3m": -36.7,
+      "volume_trend_pct_3d": 7.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -77,18 +77,18 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.4,
-      "forward_pe": 13.298516,
+      "upside_pct": 4.0,
+      "forward_pe": 13.238047,
       "peg": 5.97
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
-      "near_sma40": true,
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 2,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -97,8 +97,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 52.3,
-      "rsi_zone_quality": 0.492,
+      "rsi": 58.5,
+      "rsi_zone_quality": 0.739,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -110,12 +110,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.3
+      "stop_pct_from_20sma": 2.9
     }
   },
   "sector": "Healthcare",
-  "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "sector_relative_strength_up": true,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 2,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 5.7,
+    "divergence_date_index": 248
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
