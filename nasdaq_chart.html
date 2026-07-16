@@ -1195,16 +1195,24 @@
 
     var g = sa['3_pullback_gate'];
     var gateDetail;
-    if (g.near_sma20 && g.near_sma40) {
-      gateDetail = '20일선+40일선 둘다 근접(최근 이평선 위 이력 확인됨)';
-    } else if (g.near_sma20) {
-      gateDetail = '20일선 근접(얕은 눌림, 가중치 0.5배)';
-    } else if (g.near_sma40) {
-      gateDetail = '40일선 근접(깊은 눌림, 가중치 0.75배)';
+    if (g.near_sma200) {
+      gateDetail = '200일선 근접(이례적으로 깊은 눌림, 가중치 1.0배)';
+    } else if (g.near_sma120) {
+      gateDetail = '120일선 근접(매우 깊은 눌림, 가중치 1.0배)';
+    } else if (g.near_sma60) {
+      gateDetail = '60일선 근접(깊은 눌림, 가중치 1.0배)';
+    } else if (g.near_sma40 || g.near_sma20) {
+      if (!g.is_jeong_baeyeol) {
+        gateDetail = (g.near_sma40 ? '40일선' : '20일선') + ' 근접 · 역배열(20>40>60 구조 아님, 가중치 0.5배)';
+      } else if (g.near_sma40) {
+        gateDetail = '40일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.8배)' : '이평선 간격 좁아지는 중(가중치 0.75배)');
+      } else {
+        gateDetail = '20일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.75배)' : '이평선 간격 좁아지는 중(가중치 0.5배)');
+      }
     } else if (g.ma_converged_ignored) {
       gateDetail = '이평선 근접했으나 60일선 수렴으로 무시됨';
     } else {
-      gateDetail = '이평선 근접 안됨 (또는 최근에 위에 있었던 이력 없음)';
+      gateDetail = '이평선 근접 안됨 (또는 위에 있다가 최근 무너진 뒤 반등 중이라 눌림목 아님)';
     }
 
     var t = sa['5_trigger_confirmed'];
