@@ -896,11 +896,28 @@ def analyze(ticker, trim_days=0, write_file=True):
     was_above_120_recently = bool(((recent_close > recent_sma120 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
     was_above_200_recently = bool(((recent_close > recent_sma200 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
 
-    near_sma20 = near_sma20_raw and was_above_20_recently
-    near_sma40 = near_sma40_raw and was_above_40_recently
-    near_sma60 = near_sma60_raw and was_above_60_recently
-    near_sma120 = near_sma120_raw and was_above_120_recently
-    near_sma200 = near_sma200_raw and was_above_200_recently
+    # "위에 있다가 살짝 눌린 것"과 "위에 있다가 확실히 무너져서 아래로 갔다가 반등하며
+    # 다시 그 선에 닿은 것"은 다르다 - 후자는 눌림목이 아니라 V자 반등이므로 제외한다.
+    # 최근 5일 안에 종가가 그 선보다 3% 이상 아래로 떨어진 적이 있으면 무효화.
+    RECENT_BREAK_LOOKBACK = 5
+    RECENT_BREAK_MARGIN = 0.03
+    recent_close_5 = c.iloc[-RECENT_BREAK_LOOKBACK - 1:-1]
+    recent_sma20_5 = sma20.iloc[-RECENT_BREAK_LOOKBACK - 1:-1]
+    recent_sma40_5 = sma40_addon.iloc[-RECENT_BREAK_LOOKBACK - 1:-1]
+    recent_sma60_5 = sma60.iloc[-RECENT_BREAK_LOOKBACK - 1:-1]
+    recent_sma120_5 = sma120.iloc[-RECENT_BREAK_LOOKBACK - 1:-1]
+    recent_sma200_5 = sma200.iloc[-RECENT_BREAK_LOOKBACK - 1:-1]
+    broke_below_20_recently = bool(((recent_close_5 < recent_sma20_5 * (1 - RECENT_BREAK_MARGIN)).any())) if len(recent_close_5) > 0 else False
+    broke_below_40_recently = bool(((recent_close_5 < recent_sma40_5 * (1 - RECENT_BREAK_MARGIN)).any())) if len(recent_close_5) > 0 else False
+    broke_below_60_recently = bool(((recent_close_5 < recent_sma60_5 * (1 - RECENT_BREAK_MARGIN)).any())) if len(recent_close_5) > 0 else False
+    broke_below_120_recently = bool(((recent_close_5 < recent_sma120_5 * (1 - RECENT_BREAK_MARGIN)).any())) if len(recent_close_5) > 0 else False
+    broke_below_200_recently = bool(((recent_close_5 < recent_sma200_5 * (1 - RECENT_BREAK_MARGIN)).any())) if len(recent_close_5) > 0 else False
+
+    near_sma20 = near_sma20_raw and was_above_20_recently and not broke_below_20_recently
+    near_sma40 = near_sma40_raw and was_above_40_recently and not broke_below_40_recently
+    near_sma60 = near_sma60_raw and was_above_60_recently and not broke_below_60_recently
+    near_sma120 = near_sma120_raw and was_above_120_recently and not broke_below_120_recently
+    near_sma200 = near_sma200_raw and was_above_200_recently and not broke_below_200_recently
 
     # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선과 40일선 "둘 다" 함께
     # 60일선에 근접(수렴)해오면 추세 힘빠짐으로 보고 무시한다.
