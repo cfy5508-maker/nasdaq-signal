@@ -1084,8 +1084,8 @@
     // 우선순위 1: 다이버전스 무효화 (위험 신호 - 단, 반등 시도가 확인되면 중립으로 완화)
     if (dv && dv.active) {
       var rescued = !!dv.rescue_attempted;
-      var col1 = rescued ? '#9999aa' : '#fb7185';
-      var bg1 = rescued ? 'rgba(107,107,122,0.15)' : 'rgba(244,63,94,0.18)';
+      var col1 = rescued ? '#a855f7' : '#f59e0b';
+      var bg1 = rescued ? 'rgba(168,85,247,0.15)' : 'rgba(245,158,11,0.15)';
       var label1 = rescued ? '반등시도' : '다이버전스 무효화';
       var detail1 = dv.days_since_prior_divergence+'일 전 다이버전스 이후 -'+dv.price_drop_since_pct+'% 추가하락(저점+RSI 붕괴)'
         + (rescued ? ' · 이후 반전캔들 확인됨(반등 시도 중, 완전한 실패는 아님)' : '');
