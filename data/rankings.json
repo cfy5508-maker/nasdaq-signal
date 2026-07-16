@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-16T07:58:38.710835+00:00",
+  "updated": "2026-07-16T08:11:39.914871+00:00",
   "rankings": [
     {
       "ticker": "IREN",
@@ -24,6 +24,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -49,6 +50,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -74,6 +76,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -98,8 +101,19 @@
         "prev_score": 21
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 229,
+        "days_since_prior_divergence": 21,
+        "price_drop_since_pct": 8.3,
+        "rescue_attempted": false
+      },
+      "downtrend_signal": null,
+      "divergence_stop_signal": {
+        "active": true,
+        "days_since_break": 18,
+        "reason": "무효화 이후 18일간 반등시도(음봉고가 돌파) 없음"
+      }
     },
     {
       "ticker": "STZ",
@@ -122,8 +136,14 @@
         "change": 0,
         "prev_score": 36
       },
-      "uptrend_entry_signal": null,
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 5,
+        "gain_since_low_pct": 1.0,
+        "divergence_date_index": 245
+      },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -149,6 +169,38 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null
+    },
+    {
+      "ticker": "UBER",
+      "score": 60,
+      "score_addon": 54,
+      "price": 72.67,
+      "upside_pct": 43.7,
+      "rsi": 49.0,
+      "divergence": "pass",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": null,
+        "prev_score": null
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": null,
+        "prev_score": null
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 23,
+        "gain_since_low_pct": 5.9,
+        "divergence_date_index": 227
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -174,6 +226,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -197,14 +250,13 @@
         "change": -21,
         "prev_score": 52
       },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 2,
-        "gain_since_low_pct": 5.2,
-        "divergence_date_index": 248,
-        "was_pass_type": false
-      },
+      "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": {
+        "active": true,
+        "divergence_date_index": 227,
+        "price_vs_low_pct": 4.1
+      },
       "divergence_stop_signal": null
     },
     {
@@ -232,10 +284,10 @@
         "active": true,
         "days_since_divergence": 2,
         "gain_since_low_pct": 3.3,
-        "divergence_date_index": 248,
-        "was_pass_type": true
+        "divergence_date_index": 248
       },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -259,8 +311,14 @@
         "change": 0,
         "prev_score": 21
       },
-      "uptrend_entry_signal": null,
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 10,
+        "gain_since_low_pct": 0.0,
+        "divergence_date_index": 240
+      },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -284,8 +342,14 @@
         "change": 0,
         "prev_score": 61
       },
-      "uptrend_entry_signal": null,
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 16,
+        "gain_since_low_pct": 4.2,
+        "divergence_date_index": 234
+      },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -309,8 +373,14 @@
         "change": -15,
         "prev_score": 37
       },
-      "uptrend_entry_signal": null,
+      "uptrend_entry_signal": {
+        "active": true,
+        "days_since_divergence": 6,
+        "gain_since_low_pct": 2.4,
+        "divergence_date_index": 244
+      },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -338,10 +408,10 @@
         "active": true,
         "days_since_divergence": 5,
         "gain_since_low_pct": 15.6,
-        "divergence_date_index": 245,
-        "was_pass_type": true
+        "divergence_date_index": 245
       },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -374,14 +444,13 @@
         "change": 61,
         "prev_score": 21
       },
-      "uptrend_entry_signal": {
-        "active": true,
-        "days_since_divergence": 2,
-        "gain_since_low_pct": 11.8,
-        "divergence_date_index": 58,
-        "was_pass_type": false
-      },
+      "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": {
+        "active": true,
+        "divergence_date_index": 42,
+        "price_vs_low_pct": -10.2
+      },
       "divergence_stop_signal": null
     },
     {
@@ -407,12 +476,12 @@
       },
       "uptrend_entry_signal": {
         "active": true,
-        "days_since_divergence": 2,
-        "gain_since_low_pct": 6.3,
-        "divergence_date_index": 248,
-        "was_pass_type": false
+        "days_since_divergence": 14,
+        "gain_since_low_pct": 11.4,
+        "divergence_date_index": 236
       },
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -436,15 +505,20 @@
         "change": 5,
         "prev_score": 23
       },
-      "uptrend_entry_signal": {
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": {
         "active": true,
-        "days_since_divergence": 7,
-        "gain_since_low_pct": 4.6,
-        "divergence_date_index": 243,
-        "was_pass_type": false
+        "prior_divergence_date_index": 234,
+        "days_since_prior_divergence": 16,
+        "price_drop_since_pct": 1.0,
+        "rescue_attempted": false
       },
-      "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
+      "downtrend_signal": null,
+      "divergence_stop_signal": {
+        "active": true,
+        "days_since_break": 14,
+        "reason": "무효화 이후 14일간 반등시도(음봉고가 돌파) 없음"
+      }
     },
     {
       "ticker": "TOYO",
@@ -468,7 +542,14 @@
         "prev_score": 21
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 247,
+        "days_since_prior_divergence": 3,
+        "price_drop_since_pct": 5.3,
+        "rescue_attempted": true
+      },
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -494,6 +575,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -519,6 +601,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -544,6 +627,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -569,6 +653,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -594,6 +679,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -619,6 +705,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -644,31 +731,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
-      "divergence_stop_signal": null
-    },
-    {
-      "ticker": "UBER",
-      "score": 30,
-      "score_addon": 54,
-      "price": 72.67,
-      "upside_pct": 43.7,
-      "rsi": 49.0,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": null,
-        "prev_score": null
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": null,
-        "prev_score": null
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -694,6 +757,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -719,6 +783,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -744,6 +809,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -769,6 +835,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -794,6 +861,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -819,6 +887,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -844,6 +913,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -867,14 +937,14 @@
         "change": null,
         "prev_score": null
       },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": {
+      "uptrend_entry_signal": {
         "active": true,
-        "prior_divergence_date_index": 237,
-        "days_since_prior_divergence": 2,
-        "price_drop_since_pct": 2.2,
-        "rescue_attempted": true
+        "days_since_divergence": 13,
+        "gain_since_low_pct": 12.5,
+        "divergence_date_index": 237
       },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -900,6 +970,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     },
     {
@@ -925,6 +996,7 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null
     }
   ]

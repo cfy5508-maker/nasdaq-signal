@@ -1,9 +1,9 @@
 {
   "ticker": "UBER",
   "price": 72.67,
-  "updated": "2026-07-16T07:58:32.810125+00:00",
+  "updated": "2026-07-16T08:11:34.596042+00:00",
   "as_of_date": "2026-07-15",
-  "score": 30,
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -26,14 +26,14 @@
       "peg": 5.85
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "pass",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 22,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 1.0,
       "rsi_improvement": 10.6
     },
     "4_zscore": {
@@ -110,8 +110,14 @@
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "days_since_divergence": 23,
+    "gain_since_low_pct": 5.9,
+    "divergence_date_index": 227
+  },
   "divergence_invalidated_signal": null,
+  "downtrend_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 72.08,
     "stopped_out": false
