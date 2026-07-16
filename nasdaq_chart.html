@@ -1196,18 +1196,18 @@
     var g = sa['3_pullback_gate'];
     var gateDetail;
     if (g.near_sma200) {
-      gateDetail = '200일선 근접(이례적으로 깊은 눌림, 가중치 1.0배)';
+      gateDetail = '200일선 근접(이례적으로 깊은 눌림, 가중치 1.00배)';
     } else if (g.near_sma120) {
-      gateDetail = '120일선 근접(매우 깊은 눌림, 가중치 1.0배)';
+      gateDetail = '120일선 근접(매우 깊은 눌림, 가중치 0.86배)';
     } else if (g.near_sma60) {
-      gateDetail = '60일선 근접(깊은 눌림, 가중치 1.0배)';
+      gateDetail = '60일선 근접(깊은 눌림, 가중치 0.71배)';
     } else if (g.near_sma40 || g.near_sma20) {
       if (!g.is_jeong_baeyeol) {
-        gateDetail = (g.near_sma40 ? '40일선' : '20일선') + ' 근접 · 역배열(20>40>60 구조 아님, 가중치 0.5배)';
+        gateDetail = (g.near_sma40 ? '40일선' : '20일선') + ' 근접 · 역배열(20>40>60 구조 아님, 가중치 0.36배)';
       } else if (g.near_sma40) {
-        gateDetail = '40일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.8배)' : '이평선 간격 좁아지는 중(가중치 0.75배)');
+        gateDetail = '40일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.57배)' : '이평선 간격 좁아지는 중(가중치 0.54배)');
       } else {
-        gateDetail = '20일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.75배)' : '이평선 간격 좁아지는 중(가중치 0.5배)');
+        gateDetail = '20일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.54배)' : '이평선 간격 좁아지는 중(가중치 0.36배)');
       }
     } else if (g.ma_converged_ignored) {
       gateDetail = '이평선 근접했으나 60일선 수렴으로 무시됨';
