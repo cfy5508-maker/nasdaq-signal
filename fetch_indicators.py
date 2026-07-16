@@ -863,12 +863,20 @@ def analyze(ticker, trim_days=0, write_file=True):
     sma20 = c.rolling(20).mean()
     sma40_addon = sma40  # 신규진입에서 이미 계산된 40일선 재사용
     sma60 = c.rolling(60).mean()
+    sma120 = c.rolling(120).mean()
+    sma200 = c.rolling(200).mean()
 
     PULLBACK_MA_TOLERANCE = 0.03
     dist_sma20 = abs(last_close - sma20.iloc[-1]) / sma20.iloc[-1] if not pd.isna(sma20.iloc[-1]) else None
     dist_sma40 = abs(last_close - sma40_addon.iloc[-1]) / sma40_addon.iloc[-1] if not pd.isna(sma40_addon.iloc[-1]) else None
+    dist_sma120 = abs(last_close - sma120.iloc[-1]) / sma120.iloc[-1] if not pd.isna(sma120.iloc[-1]) else None
+    dist_sma200 = abs(last_close - sma200.iloc[-1]) / sma200.iloc[-1] if not pd.isna(sma200.iloc[-1]) else None
+    dist_sma60_val = abs(last_close - sma60.iloc[-1]) / sma60.iloc[-1] if not pd.isna(sma60.iloc[-1]) else None
     near_sma20_raw = bool(dist_sma20 is not None and dist_sma20 <= PULLBACK_MA_TOLERANCE)
     near_sma40_raw = bool(dist_sma40 is not None and dist_sma40 <= PULLBACK_MA_TOLERANCE)
+    near_sma60_raw = bool(dist_sma60_val is not None and dist_sma60_val <= PULLBACK_MA_TOLERANCE)
+    near_sma120_raw = bool(dist_sma120 is not None and dist_sma120 <= PULLBACK_MA_TOLERANCE)
+    near_sma200_raw = bool(dist_sma200 is not None and dist_sma200 <= PULLBACK_MA_TOLERANCE)
 
     # "근접"만으로는 위에서 내려와 닿은 건지, 아래에서 올라와 닿은 건지 구분이 안 된다.
     # 진짜 눌림목은 "최근에 이평선 위에 있다가 지금 눌린 것"이어야 하므로,
@@ -879,11 +887,20 @@ def analyze(ticker, trim_days=0, write_file=True):
     recent_close = c.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
     recent_sma20 = sma20.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
     recent_sma40 = sma40_addon.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
+    recent_sma120 = sma120.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
+    recent_sma200 = sma200.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
+    recent_sma60 = sma60.iloc[-RECENT_ABOVE_LOOKBACK - 1:-1]
     was_above_20_recently = bool(((recent_close > recent_sma20 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
     was_above_40_recently = bool(((recent_close > recent_sma40 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
+    was_above_60_recently = bool(((recent_close > recent_sma60 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
+    was_above_120_recently = bool(((recent_close > recent_sma120 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
+    was_above_200_recently = bool(((recent_close > recent_sma200 * (1 + RECENT_ABOVE_MARGIN)).any())) if len(recent_close) > 0 else False
 
     near_sma20 = near_sma20_raw and was_above_20_recently
     near_sma40 = near_sma40_raw and was_above_40_recently
+    near_sma60 = near_sma60_raw and was_above_60_recently
+    near_sma120 = near_sma120_raw and was_above_120_recently
+    near_sma200 = near_sma200_raw and was_above_200_recently
 
     # 60일선이 20/40일선보다 가장 아래에 있는 상태에서, 20일선과 40일선 "둘 다" 함께
     # 60일선에 근접(수렴)해오면 추세 힘빠짐으로 보고 무시한다.
@@ -891,6 +908,8 @@ def analyze(ticker, trim_days=0, write_file=True):
     sma20_now_v = float(sma20.iloc[-1]) if not pd.isna(sma20.iloc[-1]) else None
     sma40_now_v = float(sma40_addon.iloc[-1]) if not pd.isna(sma40_addon.iloc[-1]) else None
     sma60_now_v = float(sma60.iloc[-1]) if not pd.isna(sma60.iloc[-1]) else None
+    sma120_now_v = float(sma120.iloc[-1]) if not pd.isna(sma120.iloc[-1]) else None
+    sma200_now_v = float(sma200.iloc[-1]) if not pd.isna(sma200.iloc[-1]) else None
     sma60_is_lowest = bool(sma60_now_v is not None and sma20_now_v is not None and sma40_now_v is not None
                            and sma60_now_v < sma20_now_v and sma60_now_v < sma40_now_v)
 
@@ -900,8 +919,27 @@ def analyze(ticker, trim_days=0, write_file=True):
                                   and abs(sma40_now_v - sma60_now_v) / sma60_now_v <= PULLBACK_MA_TOLERANCE)
     ma_converged_ignore = sma60_is_lowest and (sma20_converged_to_60 and sma40_converged_to_60)
 
-    near_ma_signal = near_sma20 or near_sma40
-    near_ma_count = int(near_sma20) + int(near_sma40)  # 1개 또는 2개 근접 (가중치 조정용)
+    # 최근 며칠 사이 이평선 간격(20일선-60일선)이 넓어지고 있는지 좁아지고 있는지 확인.
+    # 정배열 여부와 무관하게 계산한다 - 간격(20-60)이 음수(역배열)여도 "나아지는 중인지
+    # 나빠지는 중인지" 비교 자체는 그대로 의미가 있다(예: 역배열이어도 간격이 좁혀지는
+    # 중이면 정배열 쪽으로 회복 중이라는 뜻).
+    # 참고: 60/120/200일선 터치는 그 자체로 이미 20-60일선 간격이 좁혀진 상태를 내포하므로
+    # (깊은 하락 없이는 물리적으로 그 선까지 안 내려옴), 이 넓어짐/좁아짐 로직은 20/40일선
+    # 근접 케이스에만 적용하고 60/120/200일선은 별도 고정 등급을 쓴다.
+    MA_SPREAD_LOOKBACK = 10
+    is_jeong_baeyeol = bool(sma20_now_v is not None and sma40_now_v is not None and sma60_now_v is not None
+                             and sma20_now_v > sma40_now_v > sma60_now_v)
+    ma_spread_widening = False
+    if sma20_now_v is not None and sma60_now_v is not None and len(sma20) > MA_SPREAD_LOOKBACK:
+        sma20_past_v = sma20.iloc[-1 - MA_SPREAD_LOOKBACK]
+        sma60_past_v = sma60.iloc[-1 - MA_SPREAD_LOOKBACK]
+        if not (pd.isna(sma20_past_v) or pd.isna(sma60_past_v)):
+            spread_now = sma20_now_v - sma60_now_v
+            spread_past = float(sma20_past_v) - float(sma60_past_v)
+            ma_spread_widening = bool(spread_now > spread_past)
+
+    near_ma_signal = near_sma20 or near_sma40 or near_sma60 or near_sma120 or near_sma200
+    near_ma_count = int(near_sma20) + int(near_sma40)  # 1개 또는 2개 근접 (20/40일선 가중치 조정용)
 
     if ma_converged_ignore and near_ma_signal:
         addon_stage_gate = "fail"  # 60일선이 가장 아래인데 20/40일선이 그쪽으로 수렴 -> 신호 무시
@@ -985,7 +1023,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently},
+        "3_pullback_gate": {"status": addon_stage_gate, "near_sma20": near_sma20, "near_sma40": near_sma40, "near_sma60": near_sma60, "near_sma120": near_sma120, "near_sma200": near_sma200, "near_ma_count": near_ma_count, "ma_converged_ignored": bool(ma_converged_ignore and near_ma_signal), "was_above_20_recently": was_above_20_recently, "was_above_40_recently": was_above_40_recently, "is_jeong_baeyeol": is_jeong_baeyeol, "ma_spread_widening": ma_spread_widening},
         "4_rsi_zone": {"status": addon_stage_rsi, "rsi": round(rsi_last, 1), "rsi_zone_quality": round(rsi_zone_quality, 3), "hidden_bullish_divergence": hidden_bullish_divergence},
         "5_trigger_confirmed": {"status": addon_stage_trigger, "has_reversal_candle": has_reversal_candle,
                                  "reversal_volume_confirmed": reversal_volume_confirmed,
@@ -995,14 +1033,23 @@ def analyze(ticker, trim_days=0, write_file=True):
     }
     addon_known_weights = {k: ADDON_WEIGHTS[k] for k in ADDON_WEIGHTS if stages_addon[k]["status"] != "unknown"}
     # 3단계(눌림목게이트, 구 2단계): pass는 그대로 두되, 근접한 이평선 종류에 따라 가중치를 차등 적용.
-    # 20일선만 근접(얕은 눌림) < 40일선만 근접(더 깊은 눌림, 신뢰도 더 높음) < 둘 다 근접(원래 가중치)
+    # 60/120/200일선 터치는 그 자체로 이례적으로 깊은 눌림이라(정상적인 조정으로는 잘 안 옴,
+    # 물리적으로 20-60일선 간격이 이미 좁혀진 상태를 내포) 넓어짐/좁아짐 로직 없이 고정 등급.
+    # 20/40일선만 기존처럼 간격 넓어짐/좁아짐으로 세분화(정배열 여부 우선 체크).
+    # 우선순위(가장 깊은 눌림 우선): 200일선 > 120일선 > 60일선 > 40일선 > 20일선
     if "3_pullback_gate" in addon_known_weights and stages_addon["3_pullback_gate"]["status"] == "pass":
-        if near_ma_count == 2:
-            gate_multiplier = 1.0
-        elif near_sma40:  # 40일선만 근접
-            gate_multiplier = 0.75
+        if near_sma200:
+            gate_multiplier = 1.0       # 200일선 - 일단 최대배수 1로 캡(비율은 나중에 직접 조정 예정)
+        elif near_sma120:
+            gate_multiplier = 1.0       # 120일선 - 일단 최대배수 1로 캡
+        elif near_sma60:
+            gate_multiplier = 1.0       # 60일선 - 고정
+        elif not is_jeong_baeyeol:
+            gate_multiplier = 0.5       # 20/40일선만 근접 + 역배열 - 간격 해석이 안 맞으므로 낮음
+        elif near_sma40:  # 40일선 근접(둘 다 근접이어도 40일선 쪽 값 우선)
+            gate_multiplier = 0.8 if ma_spread_widening else 0.75
         else:  # 20일선만 근접
-            gate_multiplier = 0.5
+            gate_multiplier = 0.75 if ma_spread_widening else 0.5
         addon_known_weights["3_pullback_gate"] = addon_known_weights["3_pullback_gate"] * gate_multiplier
 
     # 5단계(트리거, 구 4단계): pass 안에서도 어떤 조합인지에 따라 가중치 차등
