@@ -1,9 +1,9 @@
 {
-  "ticker": "UBER",
-  "price": 72.67,
-  "updated": "2026-07-16T15:56:31.255264+00:00",
+  "ticker": "VST",
+  "price": 160.23,
+  "updated": "2026-07-16T15:56:51.009042+00:00",
   "as_of_date": "2026-07-15",
-  "score": 60,
+  "score": 42,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -21,45 +21,45 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 43.7,
-      "forward_pe": 16.585443,
-      "peg": 5.85
+      "upside_pct": 39.3,
+      "forward_pe": 13.972143,
+      "peg": 0.47
     },
     "3_divergence_gate": {
-      "status": "pass",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 22,
-      "signal_fresh": false,
-      "divergence_quality": 1.0,
-      "rsi_improvement": 10.6
+      "divergence_present": false,
+      "gap_days": 30,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 12.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.0,
-      "rsi_zscore_1y": 0.2,
-      "zscore_quality": 0.2
+      "rsi": 54.4,
+      "rsi_zscore_1y": 0.79,
+      "zscore_quality": 0.053
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 12.5,
+      "long_lower_wick": true,
+      "wick_days_ago": 5,
+      "adx_reference": 13.3,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null
+      "trigger_day_volume": 3605700,
+      "avg_volume_divergence_window": 4799600
     }
   },
-  "entry_atr_stop_pct": 5.2,
-  "score_addon": 45,
+  "entry_atr_stop_pct": 6.3,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -77,49 +77,56 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 43.7,
-      "forward_pe": 16.585443,
-      "peg": 5.85
+      "upside_pct": 39.3,
+      "forward_pe": 13.972143,
+      "peg": 0.47
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
-      "was_above_40_recently": false,
-      "is_jeong_baeyeol": false,
+      "was_above_20_recently": false,
+      "was_above_40_recently": true,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.0,
-      "rsi_zone_quality": 0.362,
+      "status": "warn",
+      "rsi": 54.4,
+      "rsi_zone_quality": 0.576,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.6
+      "stop_pct_from_20sma": 0.4
     }
   },
-  "sector": "Technology",
+  "sector": "Utilities",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "ongoing",
+    "days_since_divergence": 23,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": 15.8,
+    "divergence_date_index": 227
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 72.08,
+    "stop_reference_price": 151.05,
     "stopped_out": false
   },
   "divergence_stop_signal": null
