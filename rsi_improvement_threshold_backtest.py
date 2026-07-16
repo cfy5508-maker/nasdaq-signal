@@ -3,22 +3,14 @@ rsi_improvement_threshold_backtest.py
 사용법: python rsi_improvement_threshold_backtest.py [FORWARD_DAYS]
 기본값: FORWARD_DAYS=60
 
-동작: fetch_indicators.py 3단계 게이트의 "이중바닥"(가격은 저점1의 +10% 이내,
-RSI는 개선) 다이버전스가 발생할 때마다, RSI 개선폭을 두 가지 방식으로 측정해서
-각각 구간별 빈도수와 신저점(=실패) 달성률을 비교한다.
-
-  1. 절대값 기준: rsi2 - rsi1 (지금 DIVERGENCE_WARN_UPGRADE_THRESHOLD=10이 쓰는 방식)
-  2. 상대값 기준: (rsi2 - rsi1) / rsi1 * 100 (저점1의 RSI가 낮을수록 같은 절대
-     개선폭이라도 상대적으로 더 큰 개선으로 본다 - 종목/시점마다 저점1 RSI 수준이
-     다르므로 "몇 포인트"보다 "몇 % 개선"이 더 공정한 비교일 수 있다는 가설 검증용)
-
-두 기준 다 구간별로 표본수(빈도)와 신저점 달성률(=실패율, 낮을수록 좋음)을 뽑아서
-어느 기준이 더 깔끔하게(단조적으로) 승률과 상관관계를 보이는지 비교한다.
+동작: fetch_indicators.py 3단계 게이트의 다이버전스(정석: 가격 lower low + RSI 개선,
+이중바닥: 가격은 저점1의 +10% 이내 + RSI 개선) 발생 시마다, RSI 개선폭(포인트)
+구간별로 신저점(=실패) 달성률을 정석/이중바닥 각각 따로 뽑아서 비교한다.
+(상대값(%) 기준은 이미 검증 결과 변별력이 없어 절대값만 본다)
 
 신저점(실패) 판정: 다이버전스 확정일(low2) 이후 FORWARD_DAYS 거래일 이내에,
 가격이 price2보다 낮은 저점을 찍고 그 저점 대비 3% 이상 반등까지 확인되면 '달성'
-(bullish_divergence_low_backtest.py와 동일 기준 - 저점 확정 없이 그냥 살짝
-밀린 것과 진짜 웅덩이가 파인 것을 구분).
+(bullish_divergence_low_backtest.py와 동일 기준).
 
 종목 범위: 대형주 134 + 소형주 98 = 232종목(기존 백테스트들과 동일 유니버스).
 """
@@ -101,11 +93,10 @@ def analyze_ticker(ticker):
                 and MIN_GAP_DAYS <= (idx - last_low_idx) <= MAX_GAP_DAYS
                 and not np.isnan(last_low_rsi)):
             price1, rsi1 = last_low_price, last_low_rsi
-            # 이중바닥 조건만 대상으로 함: 가격은 저점1의 +10% 이내(재테스트 성격), RSI는 개선
-            is_double_bottom = (rsi2 > rsi1) and (price2 <= price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT))
-            if is_double_bottom:
+            is_classic = (rsi2 > rsi1) and (price2 < price1)
+            is_double_bottom = (rsi2 > rsi1) and (price2 >= price1) and (price2 <= price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT))
+            if is_classic or is_double_bottom:
                 rsi_improve_abs = rsi2 - rsi1
-                rsi_improve_pct = (rsi2 - rsi1) / rsi1 * 100 if rsi1 > 0 else None
 
                 future_close = close[idx + 1: idx + 1 + FORWARD_DAYS]
                 achieved = False
@@ -123,8 +114,8 @@ def analyze_ticker(ticker):
 
                 records.append({
                     "ticker": ticker, "low_idx": idx,
+                    "type": "classic" if is_classic else "double_bottom",
                     "rsi_improve_abs": rsi_improve_abs,
-                    "rsi_improve_pct": rsi_improve_pct,
                     "achieved": achieved,
                 })
         last_low_idx, last_low_price, last_low_rsi = idx, price2, rsi2
@@ -140,18 +131,8 @@ def bucket_abs(v):
     return "20p+"
 
 
-def bucket_pct(v):
-    if v is None:
-        return None
-    if v < 15: return "0~15%"
-    if v < 30: return "15~30%"
-    if v < 45: return "30~45%"
-    if v < 60: return "45~60%"
-    return "60%+"
-
-
-def print_bucket_table(df, bucket_col, order):
-    summary = df.groupby(bucket_col).agg(
+def print_bucket_table(df, order):
+    summary = df.groupby("bucket_abs").agg(
         표본수=("achieved", "count"),
         신저점달성률=("achieved", "mean"),
     )
@@ -166,7 +147,9 @@ def main():
         try:
             recs = analyze_ticker(t)
             all_records.extend(recs)
-            print(f"{t}: 이중바닥 다이버전스 {len(recs)}건")
+            n_classic = sum(1 for r in recs if r["type"] == "classic")
+            n_db = len(recs) - n_classic
+            print(f"{t}: 정석 {n_classic}건 / 이중바닥 {n_db}건")
         except Exception as e:
             print(f"{t}: 실패 ({e})")
 
@@ -176,15 +159,18 @@ def main():
 
     df = pd.DataFrame(all_records)
     df["bucket_abs"] = df["rsi_improve_abs"].apply(bucket_abs)
-    df["bucket_pct"] = df["rsi_improve_pct"].apply(bucket_pct)
+    order = ["0~5p", "5~10p", "10~15p", "15~20p", "20p+"]
 
-    print(f"\n=== [절대값 기준] RSI 개선폭(포인트)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
-    print_bucket_table(df, "bucket_abs", ["0~5p", "5~10p", "10~15p", "15~20p", "20p+"])
+    df_classic = df[df["type"] == "classic"]
+    df_db = df[df["type"] == "double_bottom"]
 
-    print(f"\n=== [상대값 기준] RSI 개선폭(저점1 대비 %)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
-    print_bucket_table(df, "bucket_pct", ["0~15%", "15~30%", "30~45%", "45~60%", "60%+"])
+    print(f"\n=== [정석 다이버전스] RSI 개선폭(포인트)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
+    print_bucket_table(df_classic, order)
+    print(f"전체 표본: {len(df_classic)}건 / 전체 신저점달성률: {df_classic['achieved'].mean()*100:.1f}%")
 
-    print(f"\n전체 표본: {len(df)}건 / 전체 신저점달성률: {df['achieved'].mean()*100:.1f}%")
+    print(f"\n=== [이중바닥 다이버전스] RSI 개선폭(포인트)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
+    print_bucket_table(df_db, order)
+    print(f"전체 표본: {len(df_db)}건 / 전체 신저점달성률: {df_db['achieved'].mean()*100:.1f}%")
 
 
 if __name__ == "__main__":
