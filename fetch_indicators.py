@@ -673,7 +673,13 @@ def analyze(ticker, trim_days=0, write_file=True):
     macd_hist = macd.macd_diff()
     macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min()) if len(macd_hist) > 90 else False
 
-    adx_last = float(adx_ind.adx().iloc[-1])
+    # ADX: ta 라이브러리 내부 구현이 데이터가 너무 짧으면(최근 상장 등) 인덱스 범위를
+    # 벗어나면서 크래시한다(예: SPCX, "index 14 out of bounds for axis 0 with size 9").
+    # ADX는 참고 표시용일 뿐 점수 계산엔 반영 안 하므로, 실패하면 None으로 두고 넘어간다.
+    try:
+        adx_last = float(adx_ind.adx().iloc[-1])
+    except Exception:
+        adx_last = None
 
     weekly = hist.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
     weekly_rsi = RSIIndicator(weekly["Close"], window=14).rsi()
@@ -971,7 +977,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
-        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1), "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
+        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
