@@ -639,11 +639,16 @@ def analyze(ticker, trim_days=0, write_file=True):
         if pos1_u is not None:
             price1_u, price2_u = float(c.iloc[pos1_u]), float(c.iloc[pos2_u])
             rsi1_u, rsi2_u = float(rsi.iloc[pos1_u]), float(rsi.iloc[pos2_u])
-            if not (pd.isna(rsi1_u) or pd.isna(rsi2_u)) and price2_u < price1_u and rsi2_u > rsi1_u:
-                anchor_pos2 = pos2_u  # 가장 최근 저점쌍 자체가 정석 다이버전스
+            # "정석"(price2<price1)이든 "이중바닥"(price2가 price1보다 살짝 높지만
+            # DOUBLE_BOTTOM_MAX_PREMIUM_PCT 이내)이든, RSI가 개선됐으면 둘 다 유효한
+            # 다이버전스 앵커로 인정한다 (3단계 게이트와 동일 기준 - PFE 사례에서
+            # "정석"만 체크해서 진짜 최근 다이버전스를 놓치던 버그 수정).
+            if (not (pd.isna(rsi1_u) or pd.isna(rsi2_u)) and rsi2_u > rsi1_u
+                    and price2_u <= price1_u * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT)):
+                anchor_pos2 = pos2_u  # 가장 최근 저점쌍 자체가 다이버전스(정석 또는 이중바닥)
 
-        # 가장 최근 저점쌍이 정석 다이버전스가 아니었다면, 그 이전 것들 중 가장 가까운
-        # 정석 다이버전스를 30일 이내 범위에서 역순으로 찾는다.
+        # 가장 최근 저점쌍이 다이버전스가 아니었다면, 그 이전 것들 중 가장 가까운
+        # 다이버전스(정석 또는 이중바닥)를 30일 이내 범위에서 역순으로 찾는다.
         if anchor_pos2 is None:
             for idx in range(len(realtime_lows) - 2, -1, -1):
                 candidate_pos2 = realtime_lows[idx]
@@ -658,7 +663,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                 own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
                 if pd.isna(own_rsi1) or pd.isna(own_rsi2):
                     continue
-                if own_price2 < own_price1 and own_rsi2 > own_rsi1:
+                if own_rsi2 > own_rsi1 and own_price2 <= own_price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT):
                     anchor_pos2 = candidate_pos2
                     break
 
