@@ -1516,16 +1516,6 @@
 
         var top = sorted.slice(0, TOP_N);
         var rest = sorted.slice(TOP_N);
-        top5.forEach(function(item){ top5Tickers[item.ticker] = true; });
-        
-        // 정렬 순서는 그대로 유지하되, 상위5개 밖에 있는 매수 종목을 그 뒤에 추가로 노출
-        var purchasedExtra = sorted.slice(TOP_N).filter(function(item){
-          return getPurchasedStatus(item.ticker);
-        });
-        var top = top5.concat(purchasedExtra);
-        var rest = sorted.slice(TOP_N).filter(function(item){
-          return !getPurchasedStatus(item.ticker);
-        });
 
         top.forEach(function(item, i){
           renderRow(item, listEl, i === top.length - 1);
