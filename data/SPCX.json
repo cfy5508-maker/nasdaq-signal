@@ -1,9 +1,9 @@
 {
-  "ticker": "WATT",
-  "price": 16.88,
-  "updated": "2026-07-16T01:18:03.524043+00:00",
+  "ticker": "SPCX",
+  "price": 135.27,
+  "updated": "2026-07-16T01:17:45.656968+00:00",
   "as_of_date": "2026-07-15",
-  "score": 30,
+  "score": 27,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 67.4,
-      "forward_pe": 20.839504,
+      "upside_pct": 79.1,
+      "forward_pe": 149.7874,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,13 +34,13 @@
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -3.3
+      "rsi_improvement": -5.7
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 32.8,
-      "rsi_zscore_1y": -1.27,
-      "zscore_quality": 0.567
+      "status": "fail",
+      "rsi": 35.1,
+      "rsi_zscore_1y": null,
+      "zscore_quality": null
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -52,13 +52,13 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.2,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null
     }
   },
-  "entry_atr_stop_pct": 19.9,
+  "entry_atr_stop_pct": 15.8,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -77,8 +77,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 67.4,
-      "forward_pe": 20.839504,
+      "upside_pct": 79.1,
+      "forward_pe": 149.7874,
       "peg": null
     },
     "3_pullback_gate": {
@@ -92,7 +92,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.8,
+      "rsi": 35.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -105,15 +105,15 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 30.3
+      "stop_pct_from_20sma": 17.6
     }
   },
-  "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector": "Industrials",
+  "sector_relative_strength_up": null,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 16.88,
+    "stop_reference_price": 135.27,
     "stopped_out": false
   },
   "divergence_stop_signal": null
