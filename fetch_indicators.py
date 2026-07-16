@@ -486,6 +486,8 @@ def analyze(ticker, trim_days=0, write_file=True):
         DIVERGENCE_BASE_SCORE = 0.5  # 구조(가격↓+RSI↑) 자체를 충족한 것만으로 보장되는 기본점
         DIVERGENCE_WARN_CAP = 0.6  # 이중바닥(warn)은 아무리 개선폭이 커도 이 배수까지만 (가격확인 없는 구조적 약점)
         DIVERGENCE_WARN_UPGRADE_THRESHOLD = 10  # 이중바닥이어도 RSI개선폭이 이 이상이면 pass로 격상
+        DOUBLE_BOTTOM_MAX_PREMIUM_PCT = 0.05  # 저점2가 저점1보다 이 이상(10%) 높으면 재테스트가 아니라
+                                                # 그냥 상승추세 중 눌림목이므로 이중바닥으로 안 봄
         divergence_quality = None
         rsi_improvement = None
 
@@ -513,7 +515,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                         if recent_bearish_divergence(pos2, close_values, rsi.values):
                             divergence_quality = min(1.0, divergence_quality + RECENT_BEARISH_QUALITY_BONUS)
                             recent_bearish_bonus_applied = True
-                    elif rsi_improved and rsi_improvement >= DIVERGENCE_WARN_UPGRADE_THRESHOLD:
+                    elif rsi_improved and rsi_improvement >= DIVERGENCE_WARN_UPGRADE_THRESHOLD and price2 <= price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT):
                         # 이중바닥이지만 RSI 개선폭이 매우 커서(10포인트 이상) 정석급으로 격상.
                         # bullish_divergence는 False로 유지(가격은 실제로 안 낮아졌으므로 사실 그대로
                         # 표시하되), 판정(status)과 점수는 정석과 동일하게 취급한다.
@@ -521,11 +523,16 @@ def analyze(ticker, trim_days=0, write_file=True):
                         divergence_present = True
                         signal_fresh = is_today_new_low
                         divergence_quality = base_quality  # 상한선 없이 그대로
-                    elif rsi_improved:
+                    elif rsi_improved and price2 <= price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT):
                         stage_divergence = "warn"      # 가격은 안 낮아졌지만 RSI는 개선(이중바닥 성격)
                         divergence_present = True
                         signal_fresh = is_today_new_low
                         divergence_quality = base_quality * DIVERGENCE_WARN_CAP  # 이중바닥은 상한선 적용
+                    elif rsi_improved:
+                        # 저점2가 저점1보다 DOUBLE_BOTTOM_MAX_PREMIUM_PCT 넘게 높으면, 이건 저점을
+                        # 재테스트한 게 아니라 이미 강하게 반등한 상태에서의 눌림목일 뿐이라 다이버전스로
+                        # 보지 않는다(예: GEV - 저점1 866 -> 저점2 1042, +20%인데 이중바닥으로 잘못 잡히던 사례).
+                        stage_divergence = "fail"
                     else:
                         # 히든 다이버전스: 가격은 higher low(상승추세 구조 유지), RSI는 lower low(모멘텀 눌림).
                         # 정석과는 반대 성격(반전이 아니라 추세지속) - 신규진입 게이트에서는 warn 등급으로만 인정.
