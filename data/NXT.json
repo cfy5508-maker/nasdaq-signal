@@ -1,7 +1,7 @@
 {
   "ticker": "NXT",
   "price": 109.13,
-  "updated": "2026-07-16T08:29:14.030660+00:00",
+  "updated": "2026-07-16T09:50:04.786656+00:00",
   "as_of_date": "2026-07-15",
   "score": 30,
   "stages": {
@@ -59,7 +59,7 @@
     }
   },
   "entry_atr_stop_pct": 12.2,
-  "score_addon": 24,
+  "score_addon": 60,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -82,13 +82,18 @@
       "peg": 3.67
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
+      "near_sma60": false,
+      "near_sma120": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
-      "was_above_40_recently": false
+      "was_above_40_recently": false,
+      "is_jeong_baeyeol": false,
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",

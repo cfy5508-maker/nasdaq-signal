@@ -1,7 +1,7 @@
 {
   "ticker": "TER",
   "price": 342.12,
-  "updated": "2026-07-16T08:29:33.618624+00:00",
+  "updated": "2026-07-16T09:50:29.090626+00:00",
   "as_of_date": "2026-07-15",
   "score": 30,
   "stages": {
@@ -59,7 +59,7 @@
     }
   },
   "entry_atr_stop_pct": 14.6,
-  "score_addon": 37,
+  "score_addon": 73,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -82,13 +82,18 @@
       "peg": 1.4
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
+      "near_sma60": false,
+      "near_sma120": true,
+      "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
-      "was_above_40_recently": true
+      "was_above_40_recently": true,
+      "is_jeong_baeyeol": true,
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",

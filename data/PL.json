@@ -1,7 +1,7 @@
 {
   "ticker": "PL",
   "price": 24.9,
-  "updated": "2026-07-16T08:29:26.730833+00:00",
+  "updated": "2026-07-16T09:50:20.472924+00:00",
   "as_of_date": "2026-07-15",
   "score": 65,
   "stages": {
@@ -59,7 +59,7 @@
     }
   },
   "entry_atr_stop_pct": 16.2,
-  "score_addon": 21,
+  "score_addon": 57,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -82,13 +82,18 @@
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
+      "near_sma60": false,
+      "near_sma120": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
-      "was_above_40_recently": false
+      "was_above_40_recently": false,
+      "is_jeong_baeyeol": false,
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
