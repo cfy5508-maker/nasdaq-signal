@@ -370,6 +370,61 @@ def rs_line(ticker_close, bench_close):
     return bool(ratio.iloc[-1] > ratio.iloc[-63])
 
 
+def compute_divergence_cycle_state(pos2, price2, o_vals, h_vals, l_vals, c_vals):
+    """저점2(다이버전스 확정 시점) 이후 오늘까지를 하루씩 시뮬레이션해서 현재
+    사이클 상태를 판정한다.
+
+    상태 흐름:
+      divergence(±3% 이내, 아직 승패 미결)
+        -> +3% 초과 상승: uptrend
+        -> -3% 초과 하락: invalidated (그 이후 얼마나 더 빠지든 유지)
+      invalidated
+        -> 하락구간 마지막 음봉의 고가를 (그날이든 나중이든) 종가가 돌파: rescue_attempt
+      rescue_attempt
+        -> 저점2 가격 자체를 재돌파: uptrend (무효화 깊이와 무관)
+      uptrend
+        -> 저점2를 다시 깨고 내려가면: downtrend
+    """
+    state = "divergence"
+    rescue_ref_high = None
+    invalidation_day = None
+    rescue_day = None
+    n = len(c_vals)
+    for t in range(pos2 + 1, n):
+        price_t = c_vals[t]
+        pct_vs_low = (price_t - price2) / price2 * 100 if price2 > 0 else 0
+
+        if state == "divergence":
+            if pct_vs_low > 3:
+                state = "uptrend"
+            elif pct_vs_low < -3:
+                state = "invalidated"
+                invalidation_day = t
+                rescue_ref_high = h_vals[t]  # 폴백: 음봉을 못 찾으면 이 날 고가
+                for k in range(t, pos2, -1):
+                    if c_vals[k] < o_vals[k]:  # 음봉(종가<시가)
+                        rescue_ref_high = h_vals[k]
+                        break
+        elif state == "invalidated":
+            if price_t > rescue_ref_high:
+                state = "rescue_attempt"
+                rescue_day = t
+        elif state == "rescue_attempt":
+            if price_t > price2:
+                state = "uptrend"
+        elif state == "uptrend":
+            if price_t < price2:
+                state = "downtrend"
+        # downtrend는 그대로 유지 (새 다이버전스가 생기면 pos2 자체가 갱신되어 재시작됨)
+
+    return {
+        "state": state,
+        "invalidation_day": invalidation_day,
+        "rescue_day": rescue_day,
+        "rescue_ref_high": rescue_ref_high,
+    }
+
+
 def find_realtime_lows(close_values, order=5):
     """미래 데이터를 보지 않고, '오늘 종가가 최근 order일 종가보다 낮은지'만으로
     저점 후보를 표시한다. 이 방식으로 찾은 마지막 저점이 오늘(n-1)과 일치하면
@@ -486,7 +541,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         DIVERGENCE_BASE_SCORE = 0.5  # 구조(가격↓+RSI↑) 자체를 충족한 것만으로 보장되는 기본점
         DIVERGENCE_WARN_CAP = 0.6  # 이중바닥(warn)은 아무리 개선폭이 커도 이 배수까지만 (가격확인 없는 구조적 약점)
         DIVERGENCE_WARN_UPGRADE_THRESHOLD = 10  # 이중바닥이어도 RSI개선폭이 이 이상이면 pass로 격상
-        DOUBLE_BOTTOM_MAX_PREMIUM_PCT = 0.05  # 저점2가 저점1보다 이 이상(10%) 높으면 재테스트가 아니라
+        DOUBLE_BOTTOM_MAX_PREMIUM_PCT = 0.10  # 저점2가 저점1보다 이 이상(10%) 높으면 재테스트가 아니라
                                                 # 그냥 상승추세 중 눌림목이므로 이중바닥으로 안 봄
         divergence_quality = None
         rsi_improvement = None
@@ -555,12 +610,17 @@ def analyze(ticker, trim_days=0, write_file=True):
                     # (실제 방향 확인은 uptrend_entry_signal이 담당)
                     stage_divergence = "neutral" if rsi_improved else "fail"
 
-    # 상승추세 진입 신호: 30일 이내에 정석 다이버전스가 있었지만, 그 이후 가격이
-    # 오차범위(3%)를 넘어서 확실히 반등한 경우. 신규진입 점수(캡 30/60점)와는 별개로,
-    # "이미 반등이 확인된 상태"를 알려주는 참고용 신호. 점수 계산에는 반영하지 않는다.
+    # 다이버전스 사이클 상태머신: 저점2(다이버전스) -> ±3% 유지 -> 상승추세/무효화 ->
+    # (무효화중 마지막음봉 고가 돌파)반등시도 -> (저점2 재돌파)상승추세 -> (저점2 재붕괴)하락추세.
+    # uptrend_entry_signal / divergence_invalidated_signal / divergence_stop_signal /
+    # downtrend_signal은 전부 이 상태머신 하나의 결과에서 파생된다.
     uptrend_entry_signal = None
-    was_real_divergence = False  # 정석(pass)류 판정 - 상승추세진입 신호 전용
-    pair_rsi_improved = False    # RSI개선 여부(pass+warn 공통조건) - 무효화탐색 게이트 전용
+    divergence_invalidated_signal = None
+    downtrend_signal = None
+    DIVERGENCE_STOP_WINDOW_DAYS = 5
+    divergence_stop_signal = None
+
+    anchor_pos2 = None
     if len(realtime_lows) >= 2:
         pos2_u = realtime_lows[-1]
         candidates_u = [p for p in realtime_lows
@@ -569,102 +629,67 @@ def analyze(ticker, trim_days=0, write_file=True):
         if pos1_u is not None:
             price1_u, price2_u = float(c.iloc[pos1_u]), float(c.iloc[pos2_u])
             rsi1_u, rsi2_u = float(rsi.iloc[pos1_u]), float(rsi.iloc[pos2_u])
-            price_today_u = float(c.iloc[-1])
-            if not (pd.isna(rsi1_u) or pd.isna(rsi2_u)):
-                pair_rsi_improved = bool(rsi2_u > rsi1_u)
-            was_real_divergence = bool(price2_u < price1_u and rsi2_u > rsi1_u and
-                                        not pd.isna(rsi1_u) and not pd.isna(rsi2_u))
-            gain_since_low = (price_today_u - price2_u) / price2_u if price2_u > 0 else 0
-            already_broke_tolerance = gain_since_low > TOLERANCE_PCT
-            # pass(정석)든 warn(이중바닥)이든, RSI가 개선된 저점쌍이었다면 "다이버전스 성립"으로 보고
-            # 상승추세 진입 신호를 켠다 (was_real_divergence만 쓰면 이중바닥 케이스를 놓침 - PFE에서 확인된 버그)
-            if pair_rsi_improved and already_broke_tolerance:
-                uptrend_entry_signal = {
-                    "active": True,
-                    "days_since_divergence": (len(close_values) - 1) - pos2_u,
-                    "gain_since_low_pct": round(gain_since_low * 100, 1),
-                    "divergence_date_index": pos2_u,
-                    "was_pass_type": was_real_divergence,
-                }
+            if not (pd.isna(rsi1_u) or pd.isna(rsi2_u)) and price2_u < price1_u and rsi2_u > rsi1_u:
+                anchor_pos2 = pos2_u  # 가장 최근 저점쌍 자체가 정석 다이버전스
 
-    # 다이버전스 무효화 신호: 과거(최근 30일 내)에 정석 다이버전스(pass)가 있었는데,
-    # 그 이후 가격이 그 저점보다 더 뚫렸고(신저점 갱신) + RSI도 같이 더 낮아진 경우.
-    # "반등 기대가 깨지고 계속 하락 중"이라는 뜻. 점수 계산에는 반영하지 않는 참고용.
-    # 단, 현재 가장 최근 저점쌍 자체가 이미 다이버전스(정석 pass 또는 이중바닥 warn -
-    # 즉 RSI가 개선된 상태)를 구조적으로 형성했다면, 그건 무효화가 아니라 "이미 성립된
-    # 다이버전스가 진행 중(또는 상승추세로 전환)인 것"이므로 무효화 탐색을 건너뛴다.
-    divergence_invalidated_signal = None
-    if len(realtime_lows) >= 3 and not pair_rsi_improved:
-        pos_latest = realtime_lows[-1]  # 가장 최근 저점(=현재 진행 중인 하락의 끝)
-        price_latest = float(c.iloc[pos_latest])
-        rsi_latest_low = float(rsi.iloc[pos_latest])
-        # 가장 최근 저점보다 이전에, "정석 다이버전스가 확정됐었던 저점"이 있었는지
-        # 최근 것부터 역순으로, 30일 이내 범위에서 탐색
-        for idx in range(len(realtime_lows) - 2, -1, -1):
-            candidate_pos2 = realtime_lows[idx]
-            if candidate_pos2 >= pos_latest:
-                continue
-            if pos_latest - candidate_pos2 > MAX_GAP_DAYS:
-                break  # 30일 넘게 과거로 가면 더 볼 필요 없음
-            # 이 candidate_pos2 시점에 정석 다이버전스가 있었는지, 그 자신의 pos1을 구해 확인
-            own_candidates = [p for p in realtime_lows
-                               if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
-            own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
-            if own_pos1 is None:
-                continue
-            own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
-            own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
-            if pd.isna(own_rsi1) or pd.isna(own_rsi2):
-                continue
-            had_pass_divergence = bool(own_price2 < own_price1 and own_rsi2 > own_rsi1)
-            if not had_pass_divergence:
-                continue
-            # 정석 다이버전스가 있었던 저점을 찾음 -> 이후 가격/RSI가 더 무너졌는지 확인
-            price_broke_down = price_latest < own_price2
-            rsi_broke_down = rsi_latest_low < own_rsi2
-            if price_broke_down and rsi_broke_down:
-                # 무효화된 이후(pos_latest부터 오늘까지) 반전캔들(해머/엔걸핑/긴아래꼬리)이
-                # 한 번이라도 있었는지 확인. 있었다면 "완전한 실패"가 아니라 "반등 시도 중"이므로
-                # 화면에서 위험(fail)이 아니라 중립으로 낮춰서 보여준다.
-                rescue_attempted = False
-                for chk_idx in range(pos_latest, len(close_values)):
-                    sub_o3, sub_h3, sub_l3, sub_c3 = o.iloc[:chk_idx+1], h.iloc[:chk_idx+1], l.iloc[:chk_idx+1], c.iloc[:chk_idx+1]
-                    if (detect_hammer(sub_o3, sub_h3, sub_l3, sub_c3) or
-                        detect_bullish_engulfing(sub_o3, sub_h3, sub_l3, sub_c3) or
-                        detect_long_lower_wick(sub_o3, sub_h3, sub_l3, sub_c3)):
-                        rescue_attempted = True
-                        break
-                divergence_invalidated_signal = {
-                    "active": True,
-                    "prior_divergence_date_index": candidate_pos2,
-                    "days_since_prior_divergence": pos_latest - candidate_pos2,
-                    "price_drop_since_pct": round((own_price2 - price_latest) / own_price2 * 100, 1),
-                    "rescue_attempted": rescue_attempted,
-                }
-            break  # 가장 가까운 과거 다이버전스 하나만 확인하고 종료
-
-    # 다이버전스 무효화 이후 손절신호: 무효화가 확정된 저점(pos_latest) 이후 오늘까지
-    # 반전캔들(해머/엔걸핑/긴아래꼬리)이 한 번도 안 나왔고, N일(기본 5일) 이상 지났으면
-    # "반등 기회 자체가 없다"고 보고 손절신호를 켠다. 점수 계산에는 반영하지 않는 참고용.
-    DIVERGENCE_STOP_WINDOW_DAYS = 5
-    divergence_stop_signal = None
-    if divergence_invalidated_signal is not None and divergence_invalidated_signal.get("active"):
-        days_since_break = (len(close_values) - 1) - pos_latest
-        if days_since_break >= DIVERGENCE_STOP_WINDOW_DAYS:
-            had_rescue_trigger = False
-            for chk_idx in range(pos_latest, len(close_values)):
-                sub_o2, sub_h2, sub_l2, sub_c2 = o.iloc[:chk_idx+1], h.iloc[:chk_idx+1], l.iloc[:chk_idx+1], c.iloc[:chk_idx+1]
-                if (detect_hammer(sub_o2, sub_h2, sub_l2, sub_c2) or
-                    detect_bullish_engulfing(sub_o2, sub_h2, sub_l2, sub_c2) or
-                    detect_long_lower_wick(sub_o2, sub_h2, sub_l2, sub_c2)):
-                    had_rescue_trigger = True
+        # 가장 최근 저점쌍이 정석 다이버전스가 아니었다면, 그 이전 것들 중 가장 가까운
+        # 정석 다이버전스를 30일 이내 범위에서 역순으로 찾는다.
+        if anchor_pos2 is None:
+            for idx in range(len(realtime_lows) - 2, -1, -1):
+                candidate_pos2 = realtime_lows[idx]
+                if pos2_u - candidate_pos2 > MAX_GAP_DAYS:
                     break
-            if not had_rescue_trigger:
-                divergence_stop_signal = {
-                    "active": True,
-                    "days_since_break": days_since_break,
-                    "reason": f"무효화 이후 {days_since_break}일간 반전캔들 없음",
-                }
+                own_candidates = [p for p in realtime_lows
+                                   if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
+                own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
+                if own_pos1 is None:
+                    continue
+                own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
+                own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
+                if pd.isna(own_rsi1) or pd.isna(own_rsi2):
+                    continue
+                if own_price2 < own_price1 and own_rsi2 > own_rsi1:
+                    anchor_pos2 = candidate_pos2
+                    break
+
+    if anchor_pos2 is not None:
+        anchor_price2 = float(c.iloc[anchor_pos2])
+        cycle = compute_divergence_cycle_state(anchor_pos2, anchor_price2, o.values, h.values, l.values, close_values)
+        today_idx = len(close_values) - 1
+        price_today = float(c.iloc[-1])
+        gain_since_low = (price_today - anchor_price2) / anchor_price2 if anchor_price2 > 0 else 0
+
+        if cycle["state"] == "uptrend":
+            uptrend_entry_signal = {
+                "active": True,
+                "days_since_divergence": today_idx - anchor_pos2,
+                "gain_since_low_pct": round(gain_since_low * 100, 1),
+                "divergence_date_index": anchor_pos2,
+            }
+        elif cycle["state"] == "downtrend":
+            downtrend_signal = {
+                "active": True,
+                "divergence_date_index": anchor_pos2,
+                "price_vs_low_pct": round(gain_since_low * 100, 1),
+            }
+        elif cycle["state"] in ("invalidated", "rescue_attempt"):
+            drop_pct = (anchor_price2 - price_today) / anchor_price2 * 100 if anchor_price2 > 0 else 0
+            divergence_invalidated_signal = {
+                "active": True,
+                "prior_divergence_date_index": anchor_pos2,
+                "days_since_prior_divergence": today_idx - anchor_pos2,
+                "price_drop_since_pct": round(drop_pct, 1),
+                "rescue_attempted": cycle["state"] == "rescue_attempt",
+            }
+            # 손절신호: 무효화 상태(반등시도 전)로 DIVERGENCE_STOP_WINDOW_DAYS일 이상 지속되면
+            if cycle["state"] == "invalidated" and cycle["invalidation_day"] is not None:
+                days_since_break = today_idx - cycle["invalidation_day"]
+                if days_since_break >= DIVERGENCE_STOP_WINDOW_DAYS:
+                    divergence_stop_signal = {
+                        "active": True,
+                        "days_since_break": days_since_break,
+                        "reason": f"무효화 이후 {days_since_break}일간 반등시도(음봉고가 돌파) 없음",
+                    }
 
     # Z-score: 다이버전스 유무와 무관하게, "지금 이 순간" RSI가 이 종목 평균 대비
     # 얼마나 이례적인 위치인지를 항상 계산한다 (종목별 개별 계산).
@@ -1022,6 +1047,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "sector_relative_strength_up": sector_rs,
         "uptrend_entry_signal": uptrend_entry_signal,
         "divergence_invalidated_signal": divergence_invalidated_signal,
+        "downtrend_signal": downtrend_signal,
         "pullback_stop_signal": pullback_stop_signal,
         "divergence_stop_signal": divergence_stop_signal,
     }
@@ -1180,6 +1206,7 @@ def main():
           "signal": r["signal"], "signal_addon": r["signal_addon"],
           "uptrend_entry_signal": r["uptrend_entry_signal"],
           "divergence_invalidated_signal": r["divergence_invalidated_signal"],
+          "downtrend_signal": r["downtrend_signal"],
           "divergence_stop_signal": r["divergence_stop_signal"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
