@@ -384,11 +384,16 @@ def compute_divergence_cycle_state(pos2, price2, o_vals, h_vals, l_vals, c_vals)
         -> 저점2 가격 자체를 재돌파: uptrend (무효화 깊이와 무관)
       uptrend
         -> 저점2를 다시 깨고 내려가면: downtrend
+
+    참고: uptrend_start_day는 uptrend 상태로 "처음" 전환된 날짜 인덱스로,
+    호출부에서 이 시점 이후 며칠이 지났는지로 신호 신선도(freshness)를 판단한다.
     """
     state = "divergence"
     rescue_ref_high = None
     invalidation_day = None
     rescue_day = None
+    uptrend_start_day = None
+    downtrend_start_day = None
     n = len(c_vals)
     for t in range(pos2 + 1, n):
         price_t = c_vals[t]
@@ -397,6 +402,7 @@ def compute_divergence_cycle_state(pos2, price2, o_vals, h_vals, l_vals, c_vals)
         if state == "divergence":
             if pct_vs_low > 3:
                 state = "uptrend"
+                uptrend_start_day = t
             elif pct_vs_low < -3:
                 state = "invalidated"
                 invalidation_day = t
@@ -412,9 +418,11 @@ def compute_divergence_cycle_state(pos2, price2, o_vals, h_vals, l_vals, c_vals)
         elif state == "rescue_attempt":
             if price_t > price2:
                 state = "uptrend"
+                uptrend_start_day = t
         elif state == "uptrend":
             if price_t < price2:
                 state = "downtrend"
+                downtrend_start_day = t
         # downtrend는 그대로 유지 (새 다이버전스가 생기면 pos2 자체가 갱신되어 재시작됨)
 
     return {
@@ -422,6 +430,8 @@ def compute_divergence_cycle_state(pos2, price2, o_vals, h_vals, l_vals, c_vals)
         "invalidation_day": invalidation_day,
         "rescue_day": rescue_day,
         "rescue_ref_high": rescue_ref_high,
+        "uptrend_start_day": uptrend_start_day,
+        "downtrend_start_day": downtrend_start_day,
     }
 
 
@@ -658,17 +668,26 @@ def analyze(ticker, trim_days=0, write_file=True):
         today_idx = len(close_values) - 1
         price_today = float(c.iloc[-1])
         gain_since_low = (price_today - anchor_price2) / anchor_price2 if anchor_price2 > 0 else 0
+        TREND_PHASE_FRESH_DAYS = 5  # 이 안이면 "진입", 넘으면 "유지중"으로 라벨만 바뀜(상태 자체는 동일)
 
         if cycle["state"] == "uptrend":
+            days_since_uptrend = today_idx - cycle["uptrend_start_day"] if cycle["uptrend_start_day"] is not None else None
+            phase = "entry" if (days_since_uptrend is not None and days_since_uptrend <= TREND_PHASE_FRESH_DAYS) else "ongoing"
             uptrend_entry_signal = {
                 "active": True,
+                "phase": phase,  # "entry"=상승추세 진입(5일 이내), "ongoing"=상승추세 유지중
                 "days_since_divergence": today_idx - anchor_pos2,
+                "days_since_trend_start": days_since_uptrend,
                 "gain_since_low_pct": round(gain_since_low * 100, 1),
                 "divergence_date_index": anchor_pos2,
             }
         elif cycle["state"] == "downtrend":
+            days_since_downtrend = today_idx - cycle["downtrend_start_day"] if cycle["downtrend_start_day"] is not None else None
+            phase = "entry" if (days_since_downtrend is not None and days_since_downtrend <= TREND_PHASE_FRESH_DAYS) else "ongoing"
             downtrend_signal = {
                 "active": True,
+                "phase": phase,  # "entry"=하락추세 진입(5일 이내), "ongoing"=하락추세 유지중
+                "days_since_trend_start": days_since_downtrend,
                 "divergence_date_index": anchor_pos2,
                 "price_vs_low_pct": round(gain_since_low * 100, 1),
             }
