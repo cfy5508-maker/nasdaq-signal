@@ -976,14 +976,27 @@
     return !!getPositionData(ticker);
   }
 
+  // 손절선 이탈 상태(분할손절/반등시도/즉시손절)를 브라우저에 저장해서, 이탈 날짜·가격
+  // 기준으로 시간이 지나며 상태가 어떻게 바뀌는지 추적한다. 종목당 하나씩 저장.
+  function getStopBreachState(ticker){
+    try { return JSON.parse(localStorage.getItem('stopBreach_' + ticker) || 'null'); }
+    catch(e) { return null; }
+  }
+  function setStopBreachState(ticker, state){
+    localStorage.setItem('stopBreach_' + ticker, JSON.stringify(state));
+  }
+  function clearStopBreachState(ticker){
+    localStorage.removeItem('stopBreach_' + ticker);
+  }
+
   // 매수 상태 + 환율 + 종목데이터(item)로 손절 배지 상태를 계산.
-  // 우선순위: 손절신호(다이버전스) > 즉시손절(ATR손절가 이탈) > 손절대기(ATR손절가 근접, 5%이내)
+  // 우선순위: 손절신호(다이버전스) > 손절권 반등시도(트리거캔들 확인) > 즉시손절(이탈+5%추가하락 또는 5일경과) > 분할손절(이탈 직후) > 손절대기(근접 중, 이탈 전)
   function getStopBadgeInfo(item, exchangeRate){
     var pos = getPositionData(item.ticker);
     if (!pos || !exchangeRate) return null;
 
     var reasons = [];
-    var level = null; // 'signal' | 'executed' | 'pending'
+    var level = null; // 'signal' | 'rescue' | 'executed' | 'partial' | 'pending'
 
     if (item.divergence_stop_signal && item.divergence_stop_signal.active) {
       level = 'signal';
@@ -996,13 +1009,40 @@
       var atrKRW = atrDollar * exchangeRate;
       var stopPriceKRW = pos.priceKRW - 1.5 * atrKRW;
       var currentPriceKRW = item.price * exchangeRate;
+      var todayStr = new Date().toISOString().slice(0, 10);
 
       if (currentPriceKRW <= stopPriceKRW) {
-        if (!level) level = 'executed';
-        reasons.push('ATR 손절가 ' + Math.round(stopPriceKRW).toLocaleString() + '원 이탈 (현재가 ' + Math.round(currentPriceKRW).toLocaleString() + '원)');
-      } else if (currentPriceKRW <= stopPriceKRW * 1.05) {
-        if (!level) level = 'pending';
-        reasons.push('ATR 손절가 ' + Math.round(stopPriceKRW).toLocaleString() + '원에 근접 중 (현재가 ' + Math.round(currentPriceKRW).toLocaleString() + '원)');
+        // 손절선 이탈 상태 - 이탈 기록이 없으면 오늘을 이탈일로 새로 기록
+        var breach = getStopBreachState(item.ticker);
+        if (!breach) {
+          breach = { breachDate: todayStr, breachPriceUSD: item.price, rescueSeen: false };
+        }
+        // 트리거캔들(해머/엔걸핑+거래량)이 이탈 이후 한 번이라도 확인되면 영구적으로 기록
+        if (item.today_reversal_candle && item.today_reversal_volume_confirmed) {
+          breach.rescueSeen = true;
+        }
+        setStopBreachState(item.ticker, breach);
+
+        var daysSinceBreach = Math.max(0, Math.round((new Date(todayStr) - new Date(breach.breachDate)) / 86400000));
+        var dropSinceBreachPct = breach.breachPriceUSD > 0 ? (breach.breachPriceUSD - item.price) / breach.breachPriceUSD * 100 : 0;
+
+        if (breach.rescueSeen) {
+          if (!level) level = 'rescue';
+          reasons.push('손절선 이탈(' + daysSinceBreach + '일째) 중이지만 반전캔들(트리거) 확인됨 - 반등시도로 보류');
+        } else if (dropSinceBreachPct >= 5 || daysSinceBreach >= 5) {
+          if (!level) level = 'executed';
+          reasons.push('이탈 후 ' + daysSinceBreach + '일 경과, 이탈시점 대비 -' + dropSinceBreachPct.toFixed(1) + '% (반등/재돌파 없음)');
+        } else {
+          if (!level) level = 'partial';
+          reasons.push('손절선 이탈 ' + daysSinceBreach + '일째 (5일/5%추가하락 기준 전, 우선 분할손절 권장)');
+        }
+      } else {
+        // 손절선 위로 재돌파 - 이전 이탈 기록이 있었다면 해제
+        clearStopBreachState(item.ticker);
+        if (currentPriceKRW <= stopPriceKRW * 1.05) {
+          if (!level) level = 'pending';
+          reasons.push('ATR 손절가 ' + Math.round(stopPriceKRW).toLocaleString() + '원에 근접 중 (현재가 ' + Math.round(currentPriceKRW).toLocaleString() + '원)');
+        }
       }
     }
 
@@ -1424,9 +1464,9 @@
     var stopInfo = getStopBadgeInfo(item, window.EXCHANGE_RATE);
     var stopBadge;
     if (stopInfo) {
-      var stopLabelMap = { signal: '손절신호', executed: '즉시손절', pending: '손절대기' };
-      var stopColorMap = { signal: '#ef4444', executed: '#f43f5e', pending: '#f59e0b' };
-      var stopBgMap = { signal: 'rgba(239,68,68,0.18)', executed: 'rgba(244,63,94,0.18)', pending: 'rgba(245,158,11,0.15)' };
+      var stopLabelMap = { signal: '손절신호', executed: '즉시손절', partial: '분할손절', rescue: '손절권 반등시도', pending: '손절대기' };
+      var stopColorMap = { signal: '#ef4444', executed: '#f43f5e', partial: '#f97316', rescue: '#a855f7', pending: '#f59e0b' };
+      var stopBgMap = { signal: 'rgba(239,68,68,0.18)', executed: 'rgba(244,63,94,0.18)', partial: 'rgba(249,115,22,0.15)', rescue: 'rgba(168,85,247,0.15)', pending: 'rgba(245,158,11,0.15)' };
       var stopTooltip = stopInfo.reasons.join(' / ');
       stopBadge = '<span title="'+stopTooltip.replace(/"/g,'&quot;')+'" style="font-size:10px;padding:2px 8px;border-radius:999px;background:'+stopBgMap[stopInfo.level]+';border:1px solid '+stopColorMap[stopInfo.level]+';color:'+stopColorMap[stopInfo.level]+';font-weight:700;white-space:nowrap;cursor:help;">'+stopLabelMap[stopInfo.level]+'</span>';
     } else {
