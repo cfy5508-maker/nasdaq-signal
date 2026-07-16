@@ -1138,6 +1138,8 @@ def analyze(ticker, trim_days=0, write_file=True):
         "downtrend_signal": downtrend_signal,
         "pullback_stop_signal": pullback_stop_signal,
         "divergence_stop_signal": divergence_stop_signal,
+        "today_reversal_candle": has_reversal_candle,          # 오늘 해머/엔걸핑 여부 (손절 완화 판정용)
+        "today_reversal_volume_confirmed": reversal_volume_confirmed,
     }
     if write_file:
         with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
@@ -1295,7 +1297,9 @@ def main():
           "uptrend_entry_signal": r["uptrend_entry_signal"],
           "divergence_invalidated_signal": r["divergence_invalidated_signal"],
           "downtrend_signal": r["downtrend_signal"],
-          "divergence_stop_signal": r["divergence_stop_signal"]}
+          "divergence_stop_signal": r["divergence_stop_signal"],
+          "today_reversal_candle": r["today_reversal_candle"],
+          "today_reversal_volume_confirmed": r["today_reversal_volume_confirmed"]}
          for r in results],
         key=lambda x: x["score"], reverse=True
     )
