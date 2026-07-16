@@ -1056,17 +1056,17 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 우선순위(가장 깊은 눌림 우선): 200일선 > 120일선 > 60일선 > 40일선 > 20일선
     if "3_pullback_gate" in addon_known_weights and stages_addon["3_pullback_gate"]["status"] == "pass":
         if near_sma200:
-            gate_multiplier = 1.0       # 200일선 - 일단 최대배수 1로 캡(비율은 나중에 직접 조정 예정)
+            gate_multiplier = 1.00      # 200일선 (원래 1.4 -> 1.0 기준 비례축소)
         elif near_sma120:
-            gate_multiplier = 1.0       # 120일선 - 일단 최대배수 1로 캡
+            gate_multiplier = 0.86      # 120일선 (원래 1.2)
         elif near_sma60:
-            gate_multiplier = 1.0       # 60일선 - 고정
+            gate_multiplier = 0.71      # 60일선 (원래 1.0)
         elif not is_jeong_baeyeol:
-            gate_multiplier = 0.5       # 20/40일선만 근접 + 역배열 - 간격 해석이 안 맞으므로 낮음
+            gate_multiplier = 0.36      # 20/40일선만 근접 + 역배열 (원래 0.5)
         elif near_sma40:  # 40일선 근접(둘 다 근접이어도 40일선 쪽 값 우선)
-            gate_multiplier = 0.8 if ma_spread_widening else 0.75
+            gate_multiplier = 0.57 if ma_spread_widening else 0.54  # 원래 0.8 / 0.75
         else:  # 20일선만 근접
-            gate_multiplier = 0.75 if ma_spread_widening else 0.5
+            gate_multiplier = 0.54 if ma_spread_widening else 0.36  # 원래 0.75 / 0.5
         addon_known_weights["3_pullback_gate"] = addon_known_weights["3_pullback_gate"] * gate_multiplier
 
     # 5단계(트리거, 구 4단계): pass 안에서도 어떤 조합인지에 따라 가중치 차등
