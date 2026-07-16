@@ -1079,6 +1079,7 @@
     var sig = item.signal;
     var dv = item.divergence_invalidated_signal;
     var ut = item.uptrend_entry_signal;
+    var dt = item.downtrend_signal;
 
     // 우선순위 1: 다이버전스 무효화 (위험 신호 - 단, 반등 시도가 확인되면 중립으로 완화)
     if (dv && dv.active) {
@@ -1091,6 +1092,16 @@
       return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
         + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg1+';border:1px solid '+col1+';color:'+col1+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+label1+'</span>'
         + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detail1+'</div></div>'
+        + '</span>';
+    }
+
+    // 우선순위 1.5: 하락추세 (위험 신호 - 상승추세였다가 저점2를 다시 깨고 내려간 경우)
+    if (dt && dt.active) {
+      var dtLabel = dt.phase === 'entry' ? '하락추세 진입' : '하락추세 유지중';
+      var detailDt = '저점 대비 '+dt.price_vs_low_pct+'% · 새 볼리시 다이버전스가 뜨기 전까지 유지';
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:rgba(244,63,94,0.18);border:1px solid #fb7185;color:#fb7185;font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+dtLabel+'</span>'
+        + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detailDt+'</div></div>'
         + '</span>';
     }
 
@@ -1117,12 +1128,13 @@
         + '</span>';
     }
 
-    // 우선순위 3: 상승추세 진입 (참고)
+    // 우선순위 3: 상승추세 (참고) - 5일 이내면 "진입", 넘으면 "유지중"
     if (ut && ut.active) {
       var col3 = '#34d399', bg3 = 'rgba(16,185,129,0.18)';
+      var utLabel = ut.phase === 'entry' ? '상승추세 진입' : '상승추세 유지중';
       var detail3 = '다이버전스 이후 '+ut.days_since_divergence+'일, 저점대비 +'+ut.gain_since_low_pct+'% 반등 중';
       return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
-        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg3+';border:1px solid '+col3+';color:'+col3+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">상승추세 진입</span>'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg3+';border:1px solid '+col3+';color:'+col3+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+utLabel+'</span>'
         + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detail3+'</div></div>'
         + '</span>';
     }
