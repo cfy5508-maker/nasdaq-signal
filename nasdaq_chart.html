@@ -263,20 +263,24 @@
   <div class="cl">⑤ 관심종목 매수 우위 순위 · 2~8단계 가중점수 기준</div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
     <span style="font-size:11px;color:#6b6b7a;" id="rankUpdated"></span>
-    <a href="https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=add-ticker%3A" target="_blank"
-       style="font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;">
-      + 종목 추가
-    </a>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button id="rankExpandBtn" style="font-size:11px;color:#a78bfa;background:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;cursor:pointer;display:none;">
+        전체보기 ▾
+      </button>
+      <a href="https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=add-ticker%3A" target="_blank"
+         style="font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;">
+        + 종목 추가
+      </a>
+    </div>
   </div>
   <div id="rankHeaderRow" style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
   <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">추세신호</span><span></span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">손절신호</span><span></span>
   </div>
   <div id="rankList"></div>
-  <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
-    <button id="rankMoreBtn" style="width:100%;background:none;border:none;color:#6b6b7a;font-size:11px;cursor:pointer;padding:6px 0;">
-      나머지 보기 ▾
+  <div id="rankCollapseWrap" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
+    <button id="rankCollapseBtn" style="width:100%;background:none;border:none;color:#6b6b7a;font-size:11px;cursor:pointer;padding:6px 0;">
+      목록 접기 ▴
     </button>
-    <div id="rankRest" style="display:none;flex-wrap:wrap;gap:6px;padding-top:8px;"></div>
   </div>
 </div>
 
@@ -949,7 +953,7 @@
   var STATUS_LABEL = {pass:'충족', warn:'애매', fail:'위반', unknown:'중립', neutral:'중립'};
   var STATUS_BG = {pass:'rgba(16,185,129,0.15)', warn:'rgba(245,158,11,0.15)', fail:'rgba(244,63,94,0.15)', unknown:'rgba(107,107,122,0.15)', neutral:'rgba(107,107,122,0.15)'};
   var STATUS_FG = {pass:'#10b981', warn:'#f59e0b', fail:'#f43f5e', unknown:'#9999aa', neutral:'#9999aa'};
-  var TOP_N = 15;
+  var DEFAULT_N = 5;
 
  function pill(status){
     var s = status || 'unknown';
@@ -1559,8 +1563,9 @@
     .then(function(d){
       if(!d || !d.rankings || !d.rankings.length) return;
       var listEl = document.getElementById('rankList');
-      var restEl = document.getElementById('rankRest');
-      var moreBtn = document.getElementById('rankMoreBtn');
+      var expandBtn = document.getElementById('rankExpandBtn');
+      var collapseWrap = document.getElementById('rankCollapseWrap');
+      var collapseBtn = document.getElementById('rankCollapseBtn');
       var updEl = document.getElementById('rankUpdated');
       var scoreHeader = document.getElementById('sortScoreHeader');
       var addonHeader = document.getElementById('sortAddonHeader');
@@ -1574,7 +1579,7 @@
       var currentSortKey = 'score';
       var currentSortDir = 'desc';
       var allRankings = d.rankings.slice();
-      var restOpen = false;
+      var expanded = false;
 
       function renderAll(){
         var sorted = allRankings.slice().sort(function(a,b){
@@ -1591,32 +1596,24 @@
         });
 
         listEl.innerHTML = '';
-        restEl.innerHTML = '';
 
-        var top = sorted.slice(0, TOP_N);
-        var rest = sorted.slice(TOP_N);
-
-        top.forEach(function(item, i){
-          renderRow(item, listEl, i === top.length - 1);
+        var visible = expanded ? sorted : sorted.slice(0, DEFAULT_N);
+        visible.forEach(function(item, i){
+          renderRow(item, listEl, i === visible.length - 1);
         });
 
-        if(rest.length){
-          moreBtn.textContent = '나머지 ' + rest.length + '개 보기 ▾';
-          moreBtn.style.display = '';
-          moreBtn.onclick = function(){
-            var open = restEl.style.display === 'block';
-            restEl.style.display = open ? 'none' : 'block';
-            if(!open){
-              restEl.innerHTML = '';
-              rest.forEach(function(item, i){
-                renderRow(item, restEl, i === rest.length - 1);
-              });
-            }
-          };
+        if(sorted.length > DEFAULT_N){
+          expandBtn.style.display = '';
+          expandBtn.textContent = expanded ? '접기 ▴' : '전체보기 ▾ (' + sorted.length + ')';
+          collapseWrap.style.display = expanded ? '' : 'none';
         } else {
-          moreBtn.style.display = 'none';
+          expandBtn.style.display = 'none';
+          collapseWrap.style.display = 'none';
         }
       }
+
+      expandBtn.onclick = function(){ expanded = !expanded; renderAll(); };
+      collapseBtn.onclick = function(){ expanded = false; renderAll(); };
 
       function setSort(key){
         if(currentSortKey === key){
