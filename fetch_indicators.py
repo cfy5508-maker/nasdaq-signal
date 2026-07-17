@@ -800,20 +800,28 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     # 오더블럭: 저점2 캔들의 몸통(시가~종가)을 그 이후 며칠(최대 3일) 안에 완전히
     # 뒤덮는(engulf) 캔들이 나오면, 두 캔들 몸통의 교집합 구간을 오더블럭으로 잡는다.
+    # "뒤덮는다"는 두 가지 방식으로 인정한다: ①몸통이 저점2 몸통을 완전히 포함하거나,
+    # ②갭업으로 저점2 저가를 아예 안 건드리고(재테스트 없이) 저점2 고가까지 종가로
+    # 돌파한 경우(MCD 사례) - 몸통이 안 겹쳐도 저점을 다시 테스트할 필요조차 없이
+    # 그대로 치고 올라간 거라 더 강한 확인으로 본다. 두 경우 다 오더블럭 자체는
+    # 저점2의 몸통으로 잡는다(포함일 땐 그게 곧 교집합, 갭업일 땐 그 자체가 원본 지지구간).
     # 뒤덮는 캔들의 몸통이 저점2 몸통의 2배 이상이면 "강한" 오더블럭(돌파 확정 없이도
     # pass 인정), 아니면 "약한" 오더블럭(warn)으로 구분한다. 오더블럭이 확정된 이후
     # 오늘까지 종가가 그 하단 아래로 내려간 적이 있으면 "이탈중"으로 판정한다.
     order_block = None
     if pos2 is not None:
         o2, c2v = float(o.iloc[pos2]), float(c.iloc[pos2])
+        l2, h2v = float(l.iloc[pos2]), float(h.iloc[pos2])
         body2_low, body2_high = min(o2, c2v), max(o2, c2v)
         body2_size = body2_high - body2_low
         for idx in range(pos2 + 1, min(pos2 + 4, len(c))):
             o_t, c_t = float(o.iloc[idx]), float(c.iloc[idx])
+            l_t = float(l.iloc[idx])
             bodyT_low, bodyT_high = min(o_t, c_t), max(o_t, c_t)
-            covers = bodyT_low <= body2_low and bodyT_high >= body2_high
-            if covers:
-                ob_low, ob_high = body2_low, body2_high  # 완전 포함이므로 교집합 = 저점2 몸통
+            covers_by_body = bodyT_low <= body2_low and bodyT_high >= body2_high
+            covers_by_gap = (l_t > l2) and (c_t > h2v)  # 저점2 저가 위에서 시작해 고가까지 돌파
+            if covers_by_body or covers_by_gap:
+                ob_low, ob_high = body2_low, body2_high  # 완전 포함/갭돌파 둘 다 저점2 몸통을 그대로 씀
                 bodyT_size = bodyT_high - bodyT_low
                 strong = bool(body2_size > 0 and bodyT_size >= 2 * body2_size)
                 future_close = c.iloc[idx + 1:]
@@ -821,7 +829,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                 order_block = {
                     "low": round(ob_low, 2), "high": round(ob_high, 2),
                     "strong": strong, "breach": breached,
-                    "trigger_day_idx": idx,
+                    "trigger_day_idx": idx, "gap_confirmed": bool(covers_by_gap and not covers_by_body),
                 }
                 break
 
