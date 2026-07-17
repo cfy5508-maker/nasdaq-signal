@@ -798,6 +798,33 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 4단계(ADX)는 백테스트 재검증 결과 두 독립 표본에서 방향이 계속 뒤집혀 폐기함.
     # adx_last 값 자체는 참고용으로 남겨두되, 점수 계산에는 반영하지 않음 (나중에 재검토).
 
+    # 오더블럭: 저점2 캔들의 몸통(시가~종가)을 그 이후 며칠(최대 3일) 안에 완전히
+    # 뒤덮는(engulf) 캔들이 나오면, 두 캔들 몸통의 교집합 구간을 오더블럭으로 잡는다.
+    # 뒤덮는 캔들의 몸통이 저점2 몸통의 2배 이상이면 "강한" 오더블럭(돌파 확정 없이도
+    # pass 인정), 아니면 "약한" 오더블럭(warn)으로 구분한다. 오더블럭이 확정된 이후
+    # 오늘까지 종가가 그 하단 아래로 내려간 적이 있으면 "이탈중"으로 판정한다.
+    order_block = None
+    if pos2 is not None:
+        o2, c2v = float(o.iloc[pos2]), float(c.iloc[pos2])
+        body2_low, body2_high = min(o2, c2v), max(o2, c2v)
+        body2_size = body2_high - body2_low
+        for idx in range(pos2 + 1, min(pos2 + 4, len(c))):
+            o_t, c_t = float(o.iloc[idx]), float(c.iloc[idx])
+            bodyT_low, bodyT_high = min(o_t, c_t), max(o_t, c_t)
+            covers = bodyT_low <= body2_low and bodyT_high >= body2_high
+            if covers:
+                ob_low, ob_high = body2_low, body2_high  # 완전 포함이므로 교집합 = 저점2 몸통
+                bodyT_size = bodyT_high - bodyT_low
+                strong = bool(body2_size > 0 and bodyT_size >= 2 * body2_size)
+                future_close = c.iloc[idx + 1:]
+                breached = bool((future_close < ob_low).any()) if len(future_close) > 0 else False
+                order_block = {
+                    "low": round(ob_low, 2), "high": round(ob_high, 2),
+                    "strong": strong, "breach": breached,
+                    "trigger_day_idx": idx,
+                }
+                break
+
     # 트리거캔들 거래량 확인: 트리거캔들 당일 거래량이, 그 다이버전스 구간(저점1~저점2)의
     # 평균 거래량보다 높으면 "거래량 실린 트리거"로 보고 warn을 pass로 승격시킨다.
     trigger_day_idx = None
@@ -822,6 +849,10 @@ def analyze(ticker, trim_days=0, write_file=True):
         stage_trigger = "pass"
     elif long_lower_wick and trigger_volume_confirmed:
         stage_trigger = "pass"
+    elif order_block is not None and order_block["strong"] and not order_block["breach"]:
+        stage_trigger = "pass"   # 뒤덮는 캔들 몸통이 저점2의 2배 이상 - 돌파 확정 없이도 강한 신호로 인정
+    elif order_block is not None and not order_block["breach"]:
+        stage_trigger = "warn"   # 뒤덮는 캔들은 있지만 몸통이 약함(2배 미만) - 긴아래꼬리와 동급
     elif long_lower_wick:
         stage_trigger = "warn"
     else:
@@ -1097,7 +1128,7 @@ def analyze(ticker, trim_days=0, write_file=True):
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
-        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None},
+        "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None, "order_block": order_block},
     }
 
     known_weights = {k: WEIGHTS[k] for k in WEIGHTS if stages[k]["status"] != "unknown"}
