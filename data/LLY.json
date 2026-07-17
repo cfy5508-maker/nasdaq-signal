@@ -1,9 +1,9 @@
 {
   "ticker": "LLY",
   "price": 1169.17,
-  "updated": "2026-07-17T01:58:18.563204+00:00",
+  "updated": "2026-07-17T02:21:20.336993+00:00",
   "as_of_date": "2026-07-16",
-  "score": 26,
+  "score": 32,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -43,7 +43,7 @@
       "zscore_quality": 0.299
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,7 +56,14 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 1152.54,
+        "high": 1166.01,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 4.9,

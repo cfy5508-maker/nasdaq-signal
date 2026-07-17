@@ -1,9 +1,9 @@
 {
   "ticker": "MCD",
   "price": 273.46,
-  "updated": "2026-07-17T01:58:30.149116+00:00",
+  "updated": "2026-07-17T02:21:29.574916+00:00",
   "as_of_date": "2026-07-16",
-  "score": 43,
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -43,7 +43,7 @@
       "zscore_quality": 0.276
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,7 +56,14 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 264.95,
+        "high": 268.0,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 3.3,
