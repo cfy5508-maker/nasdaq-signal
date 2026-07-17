@@ -1,0 +1,77 @@
+name: Monthly Calibration Report
+
+on:
+  schedule:
+    # 매월 1일 UTC 22:00 (KST 다음날 07:00)
+    - cron: '0 22 1 * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install yfinance pandas numpy ta
+
+      - name: Run calibration backtest
+        run: python backtest_calibrate.py
+
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/score_history_labeled.jsonl data/calibration_report.json data/adaptive_weights.json docs/calibration_report.md 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "chore: monthly calibration report $(date +'%Y-%m-%d')"
+          git pull --rebase origin main
+          git push origin main || echo "커밋할 변경사항 없음"
+
+      - name: Upsert calibration issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('docs/calibration_report.md')) {
+              console.log('리포트 파일 없음 - 이슈 생성 스킵 (스냅샷 표본 부족)');
+              return;
+            }
+            const body = fs.readFileSync('docs/calibration_report.md', 'utf8');
+            const title = '📊 매매 계산식 캘리브레이션 리포트';
+            const list = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'calibration',
+            });
+            const existing = list.data.find(i => i.title === title);
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['calibration'],
+              });
+            }
