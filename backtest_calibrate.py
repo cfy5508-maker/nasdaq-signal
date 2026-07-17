@@ -36,6 +36,9 @@ LABELED_PATH = "data/score_history_labeled.jsonl"
 REPORT_JSON_PATH = "data/calibration_report.json"
 REPORT_MD_PATH = "docs/calibration_report.md"
 ADAPTIVE_WEIGHTS_PATH = "data/adaptive_weights.json"
+NOTIFICATIONS_PATH = "data/notifications.json"
+REPORT_URL = "https://github.com/cfy5508-maker/nasdaq-signal/blob/main/docs/calibration_report.md"
+MAX_NOTIFICATIONS_KEPT = 200
 
 FORWARD_HORIZONS = {"fwd_5d": 5, "fwd_10d": 10, "fwd_20d": 20}
 PRIMARY_HORIZON = "fwd_5d"          # 단기 승률을 우선 기준으로 삼는다 (대응하기 쉬우니까)
@@ -247,6 +250,46 @@ def adjust_weights(regime, group_label, default_weights, breakdown_by_stage, pre
     return updated, changes
 
 
+def load_notifications():
+    if not os.path.exists(NOTIFICATIONS_PATH):
+        return []
+    try:
+        with open(NOTIFICATIONS_PATH) as f:
+            return json.load(f).get("notifications", [])
+    except Exception:
+        return []
+
+
+def collect_change_notifications(report_by_regime, generated_at):
+    """이전 값과 실제로 달라진(=0.001 이상 차이) 가중치 변경만 알림으로 남긴다."""
+    regime_kr = {"bull": "상승장", "bear": "하락장", "sideways": "보합장"}
+    notifs = []
+    for regime, info in report_by_regime.items():
+        for group_label, changes in [("신규진입", info["main_changes"]), ("추가매수", info["addon_changes"])]:
+            for c in changes:
+                if abs(c["after"] - c["before"]) < 0.001:
+                    continue
+                notifs.append({
+                    "id": f"{generated_at}-{regime}-{group_label}-{c['stage']}",
+                    "date": generated_at[:10],
+                    "regime": regime, "regime_kr": regime_kr[regime],
+                    "group": group_label, "stage": c["stage"],
+                    "before": c["before"], "after": c["after"], "reason": c["reason"],
+                })
+    return notifs
+
+
+def write_notifications(report_by_regime, generated_at):
+    new_notifs = collect_change_notifications(report_by_regime, generated_at)
+    existing = load_notifications()
+    all_notifs = (existing + new_notifs)[-MAX_NOTIFICATIONS_KEPT:]
+    os.makedirs(os.path.dirname(NOTIFICATIONS_PATH) or ".", exist_ok=True)
+    with open(NOTIFICATIONS_PATH, "w") as f:
+        json.dump({"updated_at": generated_at, "report_url": REPORT_URL, "notifications": all_notifs},
+                   f, ensure_ascii=False, indent=2)
+    print(f"알림 {len(new_notifs)}건 추가 (누적 {len(all_notifs)}건, 실제 변경 없으면 0건)")
+
+
 def main():
     print("1) score_history.jsonl 로딩...")
     snapshots = load_snapshots(HISTORY_PATH)
@@ -318,6 +361,8 @@ def main():
 
     with open(ADAPTIVE_WEIGHTS_PATH, "w") as f:
         json.dump(adaptive_out, f, ensure_ascii=False, indent=2)
+
+    write_notifications(report_by_regime, adaptive_out["generated_at"])
 
     overall_win_rate = {h: float((df[h].dropna() >= WIN_THRESHOLD[h]).mean()) if df[h].notna().any() else None
                          for h in FORWARD_HORIZONS}
