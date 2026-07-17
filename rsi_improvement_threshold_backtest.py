@@ -1,26 +1,24 @@
 """
 rsi_improvement_threshold_backtest.py
-사용법: python rsi_improvement_threshold_backtest.py [FORWARD_DAYS] [MODE]
-기본값: FORWARD_DAYS=60, MODE=confirmed
+사용법: python rsi_improvement_threshold_backtest.py [FORWARD_DAYS]
+기본값: FORWARD_DAYS=60
 
-MODE:
-  - confirmed(기본): 저점2가 "확정된 바닥"인지 확인한다(앞으로 order일 안에도 더
-    낮은 종가가 없어야 함) - 백테스트라 미래를 볼 수 있어서 가능한 방식.
-    이게 없으면(realtime 모드), 아직 하락이 안 끝난 도중의 스냅샷이 저점으로
-    잘못 잡혀서, "그 다음날 저점이 더 깨진 것"을 "정석 다이버전스의 실패"로
-    잘못 카운트하게 된다(실제로는 애초에 바닥 시도가 아니었던 것).
-  - realtime: fetch_indicators.py 운영 코드와 동일한 방식(미래 미참조, 저점
-    확정을 기다리지 않음) - 운영 코드가 실시간 신호라 원래부터 이 한계가 있고,
-    대신 "다이버전스 무효화" 신호로 사후 대응하는 구조.
+동작: fetch_indicators.py 3단계 게이트의 "이중바닥"(가격은 저점1의 +10% 이내,
+RSI는 개선) 다이버전스가 발생할 때마다, RSI 개선폭을 두 가지 방식으로 측정해서
+각각 구간별 빈도수와 신저점(=실패) 달성률을 비교한다.
 
-동작: fetch_indicators.py 3단계 게이트의 다이버전스(정석: 가격 lower low + RSI 개선,
-이중바닥: 가격은 저점1의 +10% 이내 + RSI 개선) 발생 시마다, RSI 개선폭(포인트)
-구간별로 신저점(=실패) 달성률을 정석/이중바닥 각각 따로 뽑아서 비교한다.
-(상대값(%) 기준은 이미 검증 결과 변별력이 없어 절대값만 본다)
+  1. 절대값 기준: rsi2 - rsi1 (지금 DIVERGENCE_WARN_UPGRADE_THRESHOLD=10이 쓰는 방식)
+  2. 상대값 기준: (rsi2 - rsi1) / rsi1 * 100 (저점1의 RSI가 낮을수록 같은 절대
+     개선폭이라도 상대적으로 더 큰 개선으로 본다 - 종목/시점마다 저점1 RSI 수준이
+     다르므로 "몇 포인트"보다 "몇 % 개선"이 더 공정한 비교일 수 있다는 가설 검증용)
+
+두 기준 다 구간별로 표본수(빈도)와 신저점 달성률(=실패율, 낮을수록 좋음)을 뽑아서
+어느 기준이 더 깔끔하게(단조적으로) 승률과 상관관계를 보이는지 비교한다.
 
 신저점(실패) 판정: 다이버전스 확정일(low2) 이후 FORWARD_DAYS 거래일 이내에,
 가격이 price2보다 낮은 저점을 찍고 그 저점 대비 3% 이상 반등까지 확인되면 '달성'
-(bullish_divergence_low_backtest.py와 동일 기준).
+(bullish_divergence_low_backtest.py와 동일 기준 - 저점 확정 없이 그냥 살짝
+밀린 것과 진짜 웅덩이가 파인 것을 구분).
 
 종목 범위: 대형주 134 + 소형주 98 = 232종목(기존 백테스트들과 동일 유니버스).
 """
@@ -31,7 +29,6 @@ import yfinance as yf
 from ta.momentum import RSIIndicator
 
 FORWARD_DAYS = int(sys.argv[1]) if len(sys.argv) > 1 else 60
-MODE = sys.argv[2] if len(sys.argv) > 2 else "confirmed"  # "confirmed"(기본, 저점 확정 필터) 또는 "realtime"(기존 방식)
 
 ORDER = 5
 MIN_GAP_DAYS = 5           # fetch_indicators.py 운영값과 동일
@@ -81,28 +78,14 @@ def find_realtime_lows(values, order=5):
     return positions
 
 
-def find_confirmed_lows(values, order=5):
-    """find_realtime_lows와 달리 '앞으로 order일 안에도 더 낮은 종가가 없는지'까지
-    확인한다(양방향 확정) - 백테스트라 미래를 볼 수 있으니 가능한 방식.
-    이러면 '아직 안 끝난 하락 중간의 스냅샷'이 저점으로 잘못 잡히는 걸 막는다."""
-    positions = []
-    n = len(values)
-    for i in range(order, n - order):
-        past_window = values[i - order:i]
-        future_window = values[i + 1:i + 1 + order]
-        if values[i] < past_window.min() and values[i] < future_window.min():
-            positions.append(i)
-    return positions
-
-
-def analyze_ticker(ticker, cap, mode="realtime"):
+def analyze_ticker(ticker):
     hist = yf.Ticker(ticker).history(period=HISTORY_PERIOD)
     if hist.empty or len(hist) < 60:
         return []
     close = hist["Close"].values
     rsi = RSIIndicator(pd.Series(close), window=14).rsi().values
 
-    swing_lows = find_confirmed_lows(close, ORDER) if mode == "confirmed" else find_realtime_lows(close, ORDER)
+    swing_lows = find_realtime_lows(close, ORDER)
 
     last_low_idx = None
     last_low_price = None
@@ -118,10 +101,11 @@ def analyze_ticker(ticker, cap, mode="realtime"):
                 and MIN_GAP_DAYS <= (idx - last_low_idx) <= MAX_GAP_DAYS
                 and not np.isnan(last_low_rsi)):
             price1, rsi1 = last_low_price, last_low_rsi
-            is_classic = (rsi2 > rsi1) and (price2 < price1)
-            is_double_bottom = (rsi2 > rsi1) and (price2 >= price1) and (price2 <= price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT))
-            if is_classic or is_double_bottom:
+            # 이중바닥 조건만 대상으로 함: 가격은 저점1의 +10% 이내(재테스트 성격), RSI는 개선
+            is_double_bottom = (rsi2 > rsi1) and (price2 <= price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT))
+            if is_double_bottom:
                 rsi_improve_abs = rsi2 - rsi1
+                rsi_improve_pct = (rsi2 - rsi1) / rsi1 * 100 if rsi1 > 0 else None
 
                 future_close = close[idx + 1: idx + 1 + FORWARD_DAYS]
                 achieved = False
@@ -138,9 +122,9 @@ def analyze_ticker(ticker, cap, mode="realtime"):
                                     achieved = True
 
                 records.append({
-                    "ticker": ticker, "low_idx": idx, "cap": cap,
-                    "type": "classic" if is_classic else "double_bottom",
+                    "ticker": ticker, "low_idx": idx,
                     "rsi_improve_abs": rsi_improve_abs,
+                    "rsi_improve_pct": rsi_improve_pct,
                     "achieved": achieved,
                 })
         last_low_idx, last_low_price, last_low_rsi = idx, price2, rsi2
@@ -156,8 +140,18 @@ def bucket_abs(v):
     return "20p+"
 
 
-def print_bucket_table(df, order):
-    summary = df.groupby("bucket_abs").agg(
+def bucket_pct(v):
+    if v is None:
+        return None
+    if v < 15: return "0~15%"
+    if v < 30: return "15~30%"
+    if v < 45: return "30~45%"
+    if v < 60: return "45~60%"
+    return "60%+"
+
+
+def print_bucket_table(df, bucket_col, order):
+    summary = df.groupby(bucket_col).agg(
         표본수=("achieved", "count"),
         신저점달성률=("achieved", "mean"),
     )
@@ -167,22 +161,12 @@ def print_bucket_table(df, order):
 
 
 def main():
-    print(f"저점 탐지 방식: {MODE} ({'저점 확정 필터 적용' if MODE=='confirmed' else '기존 실시간 방식'})")
     all_records = []
-    for t in LARGECAP_TICKERS:
+    for t in TICKERS:
         try:
-            recs = analyze_ticker(t, "large", MODE)
+            recs = analyze_ticker(t)
             all_records.extend(recs)
-            n_classic = sum(1 for r in recs if r["type"] == "classic")
-            print(f"{t}(대형): 정석 {n_classic}건 / 이중바닥 {len(recs)-n_classic}건")
-        except Exception as e:
-            print(f"{t}: 실패 ({e})")
-    for t in SMALLCAP_TICKERS:
-        try:
-            recs = analyze_ticker(t, "small", MODE)
-            all_records.extend(recs)
-            n_classic = sum(1 for r in recs if r["type"] == "classic")
-            print(f"{t}(소형): 정석 {n_classic}건 / 이중바닥 {len(recs)-n_classic}건")
+            print(f"{t}: 이중바닥 다이버전스 {len(recs)}건")
         except Exception as e:
             print(f"{t}: 실패 ({e})")
 
@@ -192,18 +176,15 @@ def main():
 
     df = pd.DataFrame(all_records)
     df["bucket_abs"] = df["rsi_improve_abs"].apply(bucket_abs)
-    order = ["0~5p", "5~10p", "10~15p", "15~20p", "20p+"]
+    df["bucket_pct"] = df["rsi_improve_pct"].apply(bucket_pct)
 
-    for cap_label, cap_key in [("대형주", "large"), ("소형주", "small")]:
-        df_cap = df[df["cap"] == cap_key]
-        for type_label, type_key in [("정석", "classic"), ("이중바닥", "double_bottom")]:
-            df_sub = df_cap[df_cap["type"] == type_key]
-            print(f"\n=== [{cap_label} · {type_label}] RSI 개선폭(포인트)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
-            if len(df_sub) == 0:
-                print("표본 없음")
-                continue
-            print_bucket_table(df_sub, order)
-            print(f"전체 표본: {len(df_sub)}건 / 전체 신저점달성률: {df_sub['achieved'].mean()*100:.1f}%")
+    print(f"\n=== [절대값 기준] RSI 개선폭(포인트)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
+    print_bucket_table(df, "bucket_abs", ["0~5p", "5~10p", "10~15p", "15~20p", "20p+"])
+
+    print(f"\n=== [상대값 기준] RSI 개선폭(저점1 대비 %)별 신저점 달성률 (FORWARD_DAYS={FORWARD_DAYS}) ===")
+    print_bucket_table(df, "bucket_pct", ["0~15%", "15~30%", "30~45%", "45~60%", "60%+"])
+
+    print(f"\n전체 표본: {len(df)}건 / 전체 신저점달성률: {df['achieved'].mean()*100:.1f}%")
 
 
 if __name__ == "__main__":
