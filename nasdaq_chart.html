@@ -279,7 +279,7 @@
   <div id="rankList"></div>
   <div id="rankCollapseWrap" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
     <button id="rankCollapseBtn" style="width:100%;background:none;border:none;color:#6b6b7a;font-size:11px;cursor:pointer;padding:6px 0;">
-      목록 접기 ▴
+      전체보기 ▾
     </button>
   </div>
 </div>
@@ -1603,9 +1603,11 @@
         });
 
         if(sorted.length > DEFAULT_N){
+          var label = expanded ? '목록 접기 ▴' : '전체보기 ▾ (' + sorted.length + ')';
           expandBtn.style.display = '';
-          expandBtn.textContent = expanded ? '접기 ▴' : '전체보기 ▾ (' + sorted.length + ')';
-          collapseWrap.style.display = expanded ? '' : 'none';
+          expandBtn.textContent = label;
+          collapseWrap.style.display = '';
+          collapseBtn.textContent = label;
         } else {
           expandBtn.style.display = 'none';
           collapseWrap.style.display = 'none';
@@ -1613,7 +1615,7 @@
       }
 
       expandBtn.onclick = function(){ expanded = !expanded; renderAll(); };
-      collapseBtn.onclick = function(){ expanded = false; renderAll(); };
+      collapseBtn.onclick = function(){ expanded = !expanded; renderAll(); };
 
       function setSort(key){
         if(currentSortKey === key){
