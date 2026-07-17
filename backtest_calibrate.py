@@ -42,8 +42,14 @@ REPORT_URL = "https://github.com/cfy5508-maker/nasdaq-signal/blob/main/docs/cali
 MAX_NOTIFICATIONS_KEPT = 200
 
 FORWARD_HORIZONS = {"fwd_5d": 5, "fwd_10d": 10, "fwd_20d": 20}
-PRIMARY_HORIZON = "fwd_5d"          # 단기 승률을 우선 기준으로 삼는다 (대응하기 쉬우니까)
-WIN_THRESHOLD = {"fwd_5d": 0.02, "fwd_10d": 0.025, "fwd_20d": 0.03}
+PRIMARY_HORIZON = "fwd_5d"          # 1순위: 5일 승률
+SECONDARY_HORIZON = "fwd_10d"       # 2순위: 5일 표본 부족할 때 10일로 폴백
+WIN_THRESHOLD = {"fwd_20d": 0.03}   # 20일은 기존처럼 '고정일 종가 수익률' 기준 그대로 유지(참고용)
+
+# 5일/10일 승리 기준: 저점(진입가) 대비 +3% 이상을 "한 번이라도" 터치(고가 기준)하면 승리.
+# 그 이후 관리는 손절(로스컷)로 하는 거라, 반드시 그 날 종가까지 유지될 필요는 없음.
+TOUCH_WIN_THRESHOLD = 0.03
+TOUCH_WIN_HORIZONS = {"fwd_5d": 5, "fwd_10d": 10}
 
 MIN_SAMPLE_FOR_VERDICT = 15         # 국면별로 쪼개다 보니 표본이 줄어서 기존 20 -> 15로 완화
 DISCRIMINATION_GAP = 0.10           # pass vs fail 승률 차이가 이 값보다 작으면 "변별력 낮음"
@@ -88,7 +94,8 @@ def load_snapshots(path):
 
 
 def build_ticker_price_index(tickers):
-    """티커별로 (날짜 -> 종가, 정렬된 거래일 리스트)를 한 번씩만 조회해서 캐싱."""
+    """티커별로 (날짜 -> 종가/고가, 정렬된 거래일 리스트)를 한 번씩만 조회해서 캐싱.
+    고가(High)는 5/10일 터치 기준 승리 판정에 쓰인다."""
     index = {}
     for i, ticker in enumerate(sorted(tickers)):
         try:
@@ -100,7 +107,8 @@ def build_ticker_price_index(tickers):
             continue
         dates = [d.strftime("%Y-%m-%d") for d in hist.index]
         closes = hist["Close"].tolist()
-        index[ticker] = {"dates": dates, "closes": closes}
+        highs = hist["High"].tolist()
+        index[ticker] = {"dates": dates, "closes": closes, "highs": highs}
         if (i + 1) % 10 == 0:
             print(f"  가격 데이터 조회 중... ({i + 1}/{len(tickers)})")
     return index
@@ -124,6 +132,33 @@ def forward_return(price_map, snap_date, horizon_days):
     if not base_price:
         return None
     return (fwd_price - base_price) / base_price
+
+
+def forward_touch_win(price_map, snap_date, entry_price, max_days):
+    """진입가(entry_price, = 신호 당일 종가 = '저점2' 근사치) 대비 +TOUCH_WIN_THRESHOLD 이상을
+    max_days 거래일 안에 고가(High) 기준으로 한 번이라도 터치하면 True.
+    터치는 창이 다 안 지나도 확정(그 순간 이미 승리 조건 충족) - 안 터치했으면 창이 다 지나야 False로 확정,
+    아직 창이 안 지났으면 None(미확정)."""
+    dates = price_map["dates"]
+    highs = price_map["highs"]
+    if not entry_price:
+        return None
+    pos = None
+    for i, d in enumerate(dates):
+        if d >= snap_date:
+            pos = i
+            break
+    if pos is None:
+        return None
+    target = entry_price * (1 + TOUCH_WIN_THRESHOLD)
+    last_available = len(dates) - 1
+    window_end = min(pos + max_days, last_available)
+    window_highs = highs[pos + 1:window_end + 1]
+    if any(h >= target for h in window_highs):
+        return True
+    if window_end < pos + max_days:
+        return None
+    return False
 
 
 def build_sector_map(tickers, known_sectors):
@@ -184,55 +219,75 @@ def label_snapshots(snapshots, price_index, regimes):
     for snap in snapshots:
         ticker = snap.get("ticker")
         pmap = price_index.get(ticker)
+        entry_price = snap.get("price")
         row = dict(snap)
         if pmap is None:
             for key in FORWARD_HORIZONS:
                 row[key] = None
+            for key in TOUCH_WIN_HORIZONS:
+                row[f"win_touch_{key}"] = None
         else:
             for key, horizon in FORWARD_HORIZONS.items():
                 row[key] = forward_return(pmap, snap["date"], horizon)
+            for key, max_days in TOUCH_WIN_HORIZONS.items():
+                row[f"win_touch_{key}"] = forward_touch_win(pmap, snap["date"], entry_price, max_days)
         row["regime"] = regime_on(sorted_regime_dates, regimes, snap["date"])
         labeled.append(row)
     return labeled
 
 
 def summarize_stage(sub_df, status_col, label):
-    """특정 스테이지 상태(pass/warn/fail)별 5/10/20일 승률·평균수익률 집계."""
+    """특정 스테이지 상태(pass/warn/fail)별 5/10일(터치 기준 승률)·20일(기존 방식) 집계.
+    호라이즌마다 확정된 표본 수가 다를 수 있어 n도 호라이즌별로 따로 기록한다."""
     out = []
-    if status_col not in sub_df.columns:
+    if status_col not in sub_df.columns or sub_df.empty:
         return out
-    sub = sub_df.dropna(subset=[PRIMARY_HORIZON])
-    if sub.empty:
-        return out
-    for status, grp in sub.groupby(status_col):
-        n = len(grp)
-        row = {"stage": label, "status": status, "n": n}
+    for status, grp in sub_df.groupby(status_col):
+        row = {"stage": label, "status": status, "n": len(grp)}
         for hkey in FORWARD_HORIZONS:
-            valid = grp[hkey].dropna()
-            if len(valid) == 0:
-                row[f"win_rate_{hkey}"] = None
-                row[f"avg_return_{hkey}"] = None
+            valid_ret = grp[hkey].dropna()
+            row[f"avg_return_{hkey}"] = round(float(valid_ret.mean()), 4) if len(valid_ret) else None
+            if hkey in TOUCH_WIN_HORIZONS:
+                valid_touch = grp[f"win_touch_{hkey}"].dropna()
+                row[f"win_rate_{hkey}"] = round(float(valid_touch.mean()), 4) if len(valid_touch) else None
+                row[f"n_{hkey}"] = int(len(valid_touch))
             else:
-                row[f"win_rate_{hkey}"] = round(float((valid >= WIN_THRESHOLD[hkey]).mean()), 4)
-                row[f"avg_return_{hkey}"] = round(float(valid.mean()), 4)
+                if len(valid_ret) == 0:
+                    row[f"win_rate_{hkey}"] = None
+                else:
+                    row[f"win_rate_{hkey}"] = round(float((valid_ret >= WIN_THRESHOLD[hkey]).mean()), 4)
+                row[f"n_{hkey}"] = int(len(valid_ret))
         out.append(row)
     out.sort(key=lambda r: r["status"])
     return out
 
 
-def build_verdict(stage_rows, current_weight):
+def stage_gap(stage_rows, horizon_key):
+    """pass/fail 그룹의 해당 호라이즌 승률 gap. 표본 부족하면 (None, n_pass, n_fail)."""
     by_status = {r["status"]: r for r in stage_rows}
     pass_r, fail_r = by_status.get("pass"), by_status.get("fail")
     if pass_r is None or fail_r is None:
-        return "표본 부족 (pass/fail 둘 다 없음) - 판단 보류", None
-    if pass_r["n"] < MIN_SAMPLE_FOR_VERDICT or fail_r["n"] < MIN_SAMPLE_FOR_VERDICT:
-        return f"표본 부족 (pass n={pass_r['n']}, fail n={fail_r['n']}) - 판단 보류", None
-    pw = pass_r[f"win_rate_{PRIMARY_HORIZON}"]
-    fw = fail_r[f"win_rate_{PRIMARY_HORIZON}"]
+        return None, 0, 0
+    n_pass, n_fail = pass_r.get(f"n_{horizon_key}", 0), fail_r.get(f"n_{horizon_key}", 0)
+    if n_pass < MIN_SAMPLE_FOR_VERDICT or n_fail < MIN_SAMPLE_FOR_VERDICT:
+        return None, n_pass, n_fail
+    pw, fw = pass_r.get(f"win_rate_{horizon_key}"), fail_r.get(f"win_rate_{horizon_key}")
     if pw is None or fw is None:
-        return "표본 부족 - 판단 보류", None
-    gap = pw - fw
-    text = f"5일 승률 pass {pw:.0%} vs fail {fw:.0%} (차이 {gap:.0%})"
+        return None, n_pass, n_fail
+    return pw - fw, n_pass, n_fail
+
+
+def build_verdict(stage_rows, current_weight):
+    gap, n_pass, n_fail = stage_gap(stage_rows, PRIMARY_HORIZON)
+    horizon_label = "5일(1순위)"
+    if gap is None:
+        gap2, n_pass2, n_fail2 = stage_gap(stage_rows, SECONDARY_HORIZON)
+        if gap2 is not None:
+            gap, horizon_label = gap2, "10일(2순위, 5일 표본부족)"
+        else:
+            return (f"표본 부족 (5일 pass n={n_pass}/fail n={n_fail}, "
+                    f"10일 pass n={n_pass2}/fail n={n_fail2}) - 판단 보류"), None
+    text = f"{horizon_label} 승률 gap {gap:.0%}"
     if gap < DISCRIMINATION_GAP:
         return f"{text} - 변별력 낮음, 가중치 하향", gap
     if gap >= 0.30:
@@ -404,10 +459,10 @@ def analyze_missed_wins(df, main_stage_status, addon_stage_status):
     대시보드 상위권에 안 떴을 법한 케이스들을 찾는다 - 스코어링 공식의 '놓친 기회(false negative)'.
     어떤 스테이지의 fail/warn이 이런 '숨은 승자'들에 유독 많이 끼어있는지도 같이 본다
     (그 스테이지가 승자를 과하게 깎아내리고 있을 가능성)."""
-    base = df.dropna(subset=[PRIMARY_HORIZON, "score"])
+    base = df.dropna(subset=[f"win_touch_{PRIMARY_HORIZON}", "score"])
     if base.empty:
         return None
-    is_win = base[PRIMARY_HORIZON] >= WIN_THRESHOLD[PRIMARY_HORIZON]
+    is_win = base[f"win_touch_{PRIMARY_HORIZON}"] == True  # noqa: E712
     win_df = base[is_win]
     if win_df.empty:
         return {"low_score_threshold": LOW_SCORE_THRESHOLD, "n_wins": 0, "n_missed": 0,
@@ -484,7 +539,7 @@ def main():
     sector_map = build_sector_map(tickers, known_sectors)
     df["sector"] = df["ticker"].map(sector_map)
 
-    labeled_n = int(df[PRIMARY_HORIZON].notna().sum()) if PRIMARY_HORIZON in df.columns else 0
+    labeled_n = int(df[f"win_touch_{PRIMARY_HORIZON}"].notna().sum()) if f"win_touch_{PRIMARY_HORIZON}" in df.columns else 0
     print(f"   5일 후 결과가 확정된 스냅샷: {labeled_n}건 (나머지는 아직 진행 중)")
     if labeled_n == 0:
         print("확정된 스냅샷이 아직 없어 리포트를 만들 수 없습니다. 다음 실행에서 다시 시도하세요.")
@@ -507,16 +562,18 @@ def main():
         sub_df = df[regime_mask]
         n_regime = int(regime_mask.sum())
 
+        touch_cols = [f"win_touch_{k}" for k in TOUCH_WIN_HORIZONS]
+        base_cols = list(FORWARD_HORIZONS) + touch_cols
         main_breakdown, addon_breakdown = {}, {}
         for stage_key in WEIGHTS:
             if stage_key not in main_stage_status.columns:
                 continue
-            merged = pd.concat([sub_df[list(FORWARD_HORIZONS)], main_stage_status.loc[sub_df.index, [stage_key]]], axis=1)
+            merged = pd.concat([sub_df[base_cols], main_stage_status.loc[sub_df.index, [stage_key]]], axis=1)
             main_breakdown[stage_key] = summarize_stage(merged, stage_key, stage_key)
         for stage_key in ADDON_WEIGHTS:
             if stage_key not in addon_stage_status.columns:
                 continue
-            merged = pd.concat([sub_df[list(FORWARD_HORIZONS)], addon_stage_status.loc[sub_df.index, [stage_key]]], axis=1)
+            merged = pd.concat([sub_df[base_cols], addon_stage_status.loc[sub_df.index, [stage_key]]], axis=1)
             addon_breakdown[stage_key] = summarize_stage(merged, stage_key, stage_key)
 
         main_updated, main_changes = adjust_weights(regime, "main", WEIGHTS, main_breakdown, prev_regimes)
@@ -540,8 +597,16 @@ def main():
     print("4-2) 놓친 기회(false negative) 자동 분석...")
     missed_wins = analyze_missed_wins(df, main_stage_status, addon_stage_status)
 
-    overall_win_rate = {h: float((df[h].dropna() >= WIN_THRESHOLD[h]).mean()) if df[h].notna().any() else None
-                         for h in FORWARD_HORIZONS}
+    def _overall_win_rate(h):
+        if h in TOUCH_WIN_HORIZONS:
+            col = df[f"win_touch_{h}"].dropna()
+            return round(float(col.mean()), 4) if len(col) else None
+        valid = df[h].dropna()
+        if len(valid) == 0:
+            return None
+        return round(float((valid >= WIN_THRESHOLD[h]).mean()), 4)
+
+    overall_win_rate = {h: _overall_win_rate(h) for h in FORWARD_HORIZONS}
     report = {
         "generated_at": adaptive_out["generated_at"],
         "labeled_snapshots": labeled_n,
@@ -560,8 +625,10 @@ def main():
     md = [
         "# 📊 매매 계산식 캘리브레이션 리포트\n",
         f"_생성: {report['generated_at']} · 확정 스냅샷 {labeled_n}건 / 전체 {len(snapshots)}건 "
-        f"· 판단 기준: 5일 승률(단기 우선) · 승 기준: 5일 +{WIN_THRESHOLD['fwd_5d']:.0%} / "
-        f"10일 +{WIN_THRESHOLD['fwd_10d']:.0%} / 20일 +{WIN_THRESHOLD['fwd_20d']:.0%}_\n",
+        f"· 판단 기준: 5일 승률 1순위 · 10일 승률 2순위(5일 표본부족시) · 20일은 참고용_\n",
+        f"_승리 정의: 5일/10일 = 진입가(신호 당일 종가) 대비 +{TOUCH_WIN_THRESHOLD:.0%} 이상을 "
+        f"고가 기준으로 한 번이라도 터치하면 승리(그 이후는 로스컷으로 관리) · "
+        f"20일 = 기존처럼 20거래일 뒤 종가가 +{WIN_THRESHOLD['fwd_20d']:.0%} 이상인지로 판단(참고용)_\n",
     ]
     for h in FORWARD_HORIZONS:
         wr = overall_win_rate[h]
@@ -640,7 +707,7 @@ def main():
             for c in changes:
                 md.append(f"| {group} | {c['stage']} | {c['before']} | {c['after']} | {c['reason']} |")
 
-        md.append("\n### 상세 breakdown (5일 / 10일 / 20일 승률)\n")
+        md.append("\n### 상세 breakdown (5일/10일=터치승률, 20일=참고용 종가기준)\n")
         for group, breakdown in [("신규진입", info["main_breakdown"]), ("추가매수", info["addon_breakdown"])]:
             for stage, rows in breakdown.items():
                 if not rows:
