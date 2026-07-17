@@ -1366,6 +1366,7 @@ def log_snapshot(r):
         "price": r["price"],
         "score": r["score"],
         "score_addon": r["score_addon"],
+        "sector": r.get("sector"),
         "stage_status": {k: v["status"] for k, v in r["stages"].items() if "status" in v},
         "stage_status_addon": {k: v["status"] for k, v in r["stages_addon"].items() if "status" in v},
     }
