@@ -65,6 +65,10 @@ TICKER_LOSS_GAP_FLAG = 0.15 # 전체 평균보다 이 이상 실패율 높으면
 MIN_N_FOR_SECTOR = 8        # 섹터별 약화 판정 최소 표본
 SECTOR_LOSS_GAP_FLAG = 0.15 # 전체 평균보다 이 이상 실패율 높으면 "약한 섹터"로 표시
 
+# ── 놓친 기회(false negative) 자동 분석: 점수는 낮았는데 실제로는 오른 경우 ──
+LOW_SCORE_THRESHOLD = 50    # 이 점수 미만이면 "눈에 잘 안 띄었을 점수"로 간주
+MIN_N_FOR_MISSED_LIFT = 10
+
 
 def load_snapshots(path):
     if not os.path.exists(path):
@@ -395,6 +399,57 @@ def analyze_failure_patterns(df, main_stage_status, addon_stage_status):
     }
 
 
+def analyze_missed_wins(df, main_stage_status, addon_stage_status):
+    """실제로는 이겼는데(5일 승리 기준 충족) 매수 시점 점수가 낮아서(50점 미만)
+    대시보드 상위권에 안 떴을 법한 케이스들을 찾는다 - 스코어링 공식의 '놓친 기회(false negative)'.
+    어떤 스테이지의 fail/warn이 이런 '숨은 승자'들에 유독 많이 끼어있는지도 같이 본다
+    (그 스테이지가 승자를 과하게 깎아내리고 있을 가능성)."""
+    base = df.dropna(subset=[PRIMARY_HORIZON, "score"])
+    if base.empty:
+        return None
+    is_win = base[PRIMARY_HORIZON] >= WIN_THRESHOLD[PRIMARY_HORIZON]
+    win_df = base[is_win]
+    if win_df.empty:
+        return {"low_score_threshold": LOW_SCORE_THRESHOLD, "n_wins": 0, "n_missed": 0,
+                "missed_rate_among_wins": None, "stage_status_overrepresented_in_missed": []}
+
+    is_missed = win_df["score"] < LOW_SCORE_THRESHOLD
+    missed_df = win_df[is_missed]
+    n_wins = int(len(win_df))
+    n_missed = int(is_missed.sum())
+
+    overrep = []
+    for status_df, stages in [(main_stage_status, WEIGHTS.keys()), (addon_stage_status, ADDON_WEIGHTS.keys())]:
+        for stage in stages:
+            if stage not in status_df.columns:
+                continue
+            baseline_counts = status_df.loc[win_df.index, stage].value_counts(normalize=True)  # '승리' 그룹 전체 내 비중
+            missed_counts_raw = status_df.loc[missed_df.index, stage].value_counts()
+            missed_counts = status_df.loc[missed_df.index, stage].value_counts(normalize=True)
+            for status, missed_pct in missed_counts.items():
+                n = int(missed_counts_raw.get(status, 0))
+                baseline_pct = float(baseline_counts.get(status, 0))
+                if n < MIN_N_FOR_MISSED_LIFT or baseline_pct <= 0:
+                    continue
+                lift = missed_pct / baseline_pct
+                if lift >= LIFT_FLAG:
+                    overrep.append({
+                        "stage": stage, "status": status, "n_missed": n,
+                        "missed_group_pct": round(float(missed_pct), 3),
+                        "win_group_baseline_pct": round(baseline_pct, 3),
+                        "lift": round(float(lift), 2),
+                    })
+    overrep.sort(key=lambda r: -r["lift"])
+
+    return {
+        "low_score_threshold": LOW_SCORE_THRESHOLD,
+        "n_wins": n_wins,
+        "n_missed": n_missed,
+        "missed_rate_among_wins": round(n_missed / n_wins, 3) if n_wins else None,
+        "stage_status_overrepresented_in_missed": overrep[:15],
+    }
+
+
 def main():
     print("1) score_history.jsonl 로딩...")
     snapshots = load_snapshots(HISTORY_PATH)
@@ -482,6 +537,9 @@ def main():
     print("4-1) 실패 패턴 공통점 자동 분석...")
     failure_patterns = analyze_failure_patterns(df, main_stage_status, addon_stage_status)
 
+    print("4-2) 놓친 기회(false negative) 자동 분석...")
+    missed_wins = analyze_missed_wins(df, main_stage_status, addon_stage_status)
+
     overall_win_rate = {h: float((df[h].dropna() >= WIN_THRESHOLD[h]).mean()) if df[h].notna().any() else None
                          for h in FORWARD_HORIZONS}
     report = {
@@ -492,6 +550,7 @@ def main():
         "overall_win_rate": overall_win_rate,
         "by_regime": report_by_regime,
         "failure_patterns": failure_patterns,
+        "missed_wins": missed_wins,
     }
     with open(REPORT_JSON_PATH, "w") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
@@ -551,6 +610,24 @@ def main():
             md.append("|---|---|---|")
             for regime, r in fp["regime_loss_rate"].items():
                 md.append(f"| {regime_kr.get(regime, regime)} | {r['n']} | {r['loss_rate']:.0%} |")
+        md.append("")
+
+    if missed_wins and missed_wins["n_wins"] > 0:
+        mw = missed_wins
+        md.append(f"## 🙈 놓친 기회 (점수는 낮았는데 실제로는 오른 경우)\n")
+        md.append(f"_5일 승리 기준 충족 종목 {mw['n_wins']}건 중, 매수 시점 점수가 {mw['low_score_threshold']}점 미만이라 "
+                   f"눈에 잘 안 띄었을 법한 건: {mw['n_missed']}건 "
+                   f"({mw['missed_rate_among_wins']:.0%})_\n")
+        if mw["stage_status_overrepresented_in_missed"]:
+            md.append("### 놓친 승자들에게 유독 많이 나타나는 스테이지 상태\n")
+            md.append("_이 스테이지가 실제 승자를 과하게 깎아내리고 있을 가능성 - lift는 '승리 그룹 전체' 대비 비중_\n")
+            md.append("| 스테이지 | 상태 | 놓친승자 내 비중 | 승리그룹 전체 비중 | lift | n |")
+            md.append("|---|---|---|---|---|---|")
+            for r in mw["stage_status_overrepresented_in_missed"]:
+                md.append(f"| {r['stage']} | {r['status']} | {r['missed_group_pct']:.0%} | "
+                          f"{r['win_group_baseline_pct']:.0%} | {r['lift']}x | {r['n_missed']} |")
+        else:
+            md.append("_표본 부족으로 뚜렷한 패턴 없음._")
         md.append("")
 
     for regime in REGIMES:
