@@ -1114,7 +1114,8 @@
         if (tg.order_block) {
           var obStatus = tg.order_block.breach ? '오더블럭 이탈중' : '오더블럭 진입';
           var obStrength = tg.order_block.strong ? '(강함, 몸통 2배+)' : '(약함)';
-          base += ' · ' + obStatus + obStrength + ' [' + tg.order_block.low + '~' + tg.order_block.high + ']';
+          var obGap = tg.order_block.gap_confirmed ? ' · 갭업 돌파' : '';
+          base += ' · ' + obStatus + obStrength + obGap + ' [' + tg.order_block.low + '~' + tg.order_block.high + ']';
         }
         return base;
       })()],
