@@ -1,19 +1,19 @@
 {
   "ticker": "FLNC",
-  "price": 14.42,
-  "updated": "2026-07-17T15:35:28.366926+00:00",
-  "as_of_date": "2026-07-16",
-  "score": 59,
+  "price": 14.07,
+  "updated": "2026-07-17T21:48:57.235684+00:00",
+  "as_of_date": "2026-07-17",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -9.6,
-      "volume_trend_pct_3d": 4.7,
+      "volume_diff_pct_3m": 24.3,
+      "volume_trend_pct_3d": 36.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.64,
+      "daily_change_pct": -1.5,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -21,26 +21,26 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.2,
-      "forward_pe": 71.428566,
+      "upside_pct": 33.5,
+      "forward_pe": 72.0172,
       "peg": 3.18
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": true,
-      "divergence_quality": 0.507,
-      "rsi_improvement": 0.1
+      "divergence_present": false,
+      "gap_days": 7,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -0.7
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 35.6,
-      "rsi_zscore_1y": -1.23,
-      "zscore_quality": 0.556,
+      "rsi": 34.7,
+      "rsi_zscore_1y": -1.26,
+      "zscore_quality": 0.565,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -53,7 +53,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.4,
+      "adx_reference": 24.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,10 +68,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -9.6,
-      "volume_trend_pct_3d": 4.7,
+      "volume_diff_pct_3m": 24.3,
+      "volume_trend_pct_3d": 36.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.64,
+      "daily_change_pct": -1.5,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -79,8 +79,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.2,
-      "forward_pe": 71.428566,
+      "upside_pct": 33.5,
+      "forward_pe": 72.0172,
       "peg": 3.18
     },
     "3_pullback_gate": {
@@ -99,7 +99,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.6,
+      "rsi": 34.7,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -112,16 +112,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 28.4
+      "stop_pct_from_20sma": 28.2
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 14.42,
+    "stop_reference_price": 14.07,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

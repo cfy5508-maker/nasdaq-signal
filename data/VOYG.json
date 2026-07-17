@@ -1,8 +1,8 @@
 {
   "ticker": "VOYG",
-  "price": 25.03,
-  "updated": "2026-07-17T15:34:48.013571+00:00",
-  "as_of_date": "2026-07-16",
+  "price": 25.9,
+  "updated": "2026-07-17T21:48:10.940612+00:00",
+  "as_of_date": "2026-07-17",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -10,10 +10,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.99,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 73.6,
-      "forward_pe": -18.25566,
+      "upside_pct": 67.8,
+      "forward_pe": -18.766483,
       "peg": null
     },
     "3_divergence_gate": {
@@ -38,9 +38,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 32.4,
-      "rsi_zscore_1y": -1.29,
-      "zscore_quality": 0.573,
+      "rsi": 34.9,
+      "rsi_zscore_1y": -1.13,
+      "zscore_quality": 0.532,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -53,14 +53,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.4,
+      "adx_reference": 19.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 18.9,
+  "entry_atr_stop_pct": 17.9,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -68,10 +68,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.99,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -79,8 +79,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 73.6,
-      "forward_pe": -18.25566,
+      "upside_pct": 67.8,
+      "forward_pe": -18.766483,
       "peg": null
     },
     "3_pullback_gate": {
@@ -99,7 +99,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.4,
+      "rsi": 34.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -112,7 +112,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 27.5
+      "stop_pct_from_20sma": 20.8
     }
   },
   "sector": "Industrials",
@@ -120,9 +120,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 15.6,
+    "prior_divergence_date_index": 246,
+    "days_since_prior_divergence": 4,
+    "price_drop_since_pct": 12.7,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

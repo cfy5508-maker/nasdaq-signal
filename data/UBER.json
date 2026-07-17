@@ -1,19 +1,19 @@
 {
   "ticker": "UBER",
-  "price": 74.04,
-  "updated": "2026-07-17T15:35:01.683734+00:00",
-  "as_of_date": "2026-07-16",
-  "score": 58,
+  "price": 72.46,
+  "updated": "2026-07-17T21:48:27.627738+00:00",
+  "as_of_date": "2026-07-17",
+  "score": 62,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.99,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.0,
-      "forward_pe": 16.203016,
+      "upside_pct": 44.1,
+      "forward_pe": 16.277147,
       "peg": 5.85
     },
     "3_divergence_gate": {
@@ -38,9 +38,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.7,
-      "rsi_zscore_1y": 0.62,
-      "zscore_quality": 0.146,
+      "rsi": 48.4,
+      "rsi_zscore_1y": 0.12,
+      "zscore_quality": 0.271,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -50,28 +50,28 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.0,
+      "adx_reference": 11.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.1,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 5.2,
+  "score_addon": 45,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.99,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -79,8 +79,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.0,
-      "forward_pe": 16.203016,
+      "upside_pct": 44.1,
+      "forward_pe": 16.277147,
       "peg": 5.85
     },
     "3_pullback_gate": {
@@ -98,9 +98,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 52.7,
-      "rsi_zone_quality": 0.509,
+      "status": "fail",
+      "rsi": 48.4,
+      "rsi_zone_quality": 0.335,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -112,7 +112,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.2
+      "stop_pct_from_20sma": 1.1
     }
   },
   "sector": "Technology",

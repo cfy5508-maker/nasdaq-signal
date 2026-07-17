@@ -1,8 +1,8 @@
 {
   "ticker": "NET",
-  "price": 272.46,
-  "updated": "2026-07-17T15:35:24.290002+00:00",
-  "as_of_date": "2026-07-16",
+  "price": 277.66,
+  "updated": "2026-07-17T21:48:52.168128+00:00",
+  "as_of_date": "2026-07-17",
   "score": 22,
   "stages": {
     "1_market_health": {
@@ -10,10 +10,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.99,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -21,8 +21,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -7.2,
-      "forward_pe": 174.84781,
+      "upside_pct": -8.9,
+      "forward_pe": 175.88669,
       "peg": 2.38
     },
     "3_divergence_gate": {
@@ -38,8 +38,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.7,
-      "rsi_zscore_1y": 1.14,
+      "rsi": 64.9,
+      "rsi_zscore_1y": 1.39,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -47,13 +47,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 16,
+      "days_ago": 17,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.3,
+      "adx_reference": 23.5,
       "volume_confirmed": false,
       "trigger_day_volume": 2890600,
       "avg_volume_divergence_window": 3966686,
@@ -62,23 +62,23 @@
         "high": 222.07,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 234,
+        "trigger_day_idx": 233,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 7.6,
-  "score_addon": 13,
+  "entry_atr_stop_pct": 7.7,
+  "score_addon": 45,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.99,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -86,8 +86,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -7.2,
-      "forward_pe": 174.84781,
+      "upside_pct": -8.9,
+      "forward_pe": 175.88669,
       "peg": 2.38
     },
     "3_pullback_gate": {
@@ -106,20 +106,20 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.7,
-      "rsi_zone_quality": 0.909,
+      "rsi": 64.9,
+      "rsi_zone_quality": 0.997,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.4
+      "stop_pct_from_20sma": 9.2
     }
   },
   "sector": "Technology",
@@ -132,6 +132,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }
