@@ -1099,14 +1099,25 @@
         return base;
       })()],
       ['4단계 Z-score', s['4_zscore'], 'RSI '+s['4_zscore'].rsi+' (Z-score '+(s['4_zscore'].rsi_zscore_1y??'-')+')'],
-      ['5단계 트리거캔들', s['5_trigger_candle'],
-        s['5_trigger_candle'].breakout_confirmed
-          ? (s['5_trigger_candle'].pattern+' 확정('+s['5_trigger_candle'].days_ago+'일 전) + 돌파 완료 · 참고ADX '+s['5_trigger_candle'].adx_reference)
-          : (s['5_trigger_candle'].long_lower_wick
-              ? ('긴 아래꼬리('+(s['5_trigger_candle'].volume_confirmed && s['5_trigger_candle'].avg_volume_divergence_window
-                  ? ('거래량 실림·강한신호, 구간평균 '+(s['5_trigger_candle'].trigger_day_volume/s['5_trigger_candle'].avg_volume_divergence_window).toFixed(1)+'배')
-                  : '약한신호')+', '+s['5_trigger_candle'].wick_days_ago+'일 전) · 참고ADX '+s['5_trigger_candle'].adx_reference)
-              : ('반전캔들+돌파 없음 · 참고ADX '+s['5_trigger_candle'].adx_reference))],
+      ['5단계 트리거캔들', s['5_trigger_candle'], (function(){
+        var tg = s['5_trigger_candle'];
+        var base;
+        if (tg.breakout_confirmed) {
+          base = tg.pattern+' 확정('+tg.days_ago+'일 전) + 돌파 완료 · 참고ADX '+tg.adx_reference;
+        } else if (tg.long_lower_wick) {
+          base = '긴 아래꼬리('+(tg.volume_confirmed && tg.avg_volume_divergence_window
+              ? ('거래량 실림·강한신호, 구간평균 '+(tg.trigger_day_volume/tg.avg_volume_divergence_window).toFixed(1)+'배')
+              : '약한신호')+', '+tg.wick_days_ago+'일 전) · 참고ADX '+tg.adx_reference;
+        } else {
+          base = '반전캔들+돌파 없음 · 참고ADX '+tg.adx_reference;
+        }
+        if (tg.order_block) {
+          var obStatus = tg.order_block.breach ? '오더블럭 이탈중' : '오더블럭 진입';
+          var obStrength = tg.order_block.strong ? '(강함, 몸통 2배+)' : '(약함)';
+          base += ' · ' + obStatus + obStrength + ' [' + tg.order_block.low + '~' + tg.order_block.high + ']';
+        }
+        return base;
+      })()],
       ['손절신호(참고)',
         {status: full.divergence_stop_signal && full.divergence_stop_signal.active ? 'fail' : 'neutral'},
         full.divergence_stop_signal && full.divergence_stop_signal.active
