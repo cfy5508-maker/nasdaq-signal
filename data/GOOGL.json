@@ -1,29 +1,29 @@
 {
   "ticker": "GOOGL",
   "price": 354.46,
-  "updated": "2026-07-17T07:33:33.471813+00:00",
+  "updated": "2026-07-17T07:36:23.369162+00:00",
   "as_of_date": "2026-07-16",
-  "score": 85,
+  "score": 58,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": -9.6,
-      "volume_trend_pct_3d": 4.7,
-      "volume_trend_up": true,
-      "daily_change_pct": -1.64,
-      "volatility_label": "다소변동",
+      "status": "pass",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -12.0,
+      "volume_trend_pct_3d": -1.8,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.54,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.8,
-      "forward_pe": 24.237309,
-      "peg": 1.42
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -68,27 +68,27 @@
     }
   },
   "entry_atr_stop_pct": 4.9,
-  "score_addon": 43,
+  "score_addon": 17,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": -9.6,
-      "volume_trend_pct_3d": 4.7,
-      "volume_trend_up": true,
-      "daily_change_pct": -1.64,
-      "volatility_label": "다소변동",
+      "status": "pass",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": -12.0,
+      "volume_trend_pct_3d": -1.8,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.54,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.8,
-      "forward_pe": 24.237309,
-      "peg": 1.42
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -122,8 +122,8 @@
       "stop_pct_from_20sma": 0.6
     }
   },
-  "sector": "Communication Services",
-  "sector_relative_strength_up": true,
+  "sector": null,
+  "sector_relative_strength_up": null,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
