@@ -263,6 +263,57 @@ ADDON_WEIGHTS = {
     "5_trigger_confirmed": 2.5,     # 트리거캔들(해머/엔걸핑/긴아래꼬리)+거래량 - 실제 반전 확인된 사실이라 더 높게
 }
 
+ADAPTIVE_WEIGHTS_PATH = "data/adaptive_weights.json"
+REGIME_PROXY = "QQQ"
+REGIME_UP = 0.02
+REGIME_DOWN = -0.02
+
+
+def detect_current_regime():
+    """오늘 기준 시장 국면(bull/bear/sideways)을 QQQ 200일선 대비 이격도로 판정.
+    backtest_calibrate.py가 과거 데이터에 라벨링할 때 쓰는 것과 동일한 기준."""
+    try:
+        hist = get_confirmed_history(REGIME_PROXY, period="1y")
+        close = hist["Close"]
+        sma200 = close.rolling(200).mean()
+        dev = float((close.iloc[-1] - sma200.iloc[-1]) / sma200.iloc[-1])
+    except Exception:
+        return "sideways"
+    if dev >= REGIME_UP:
+        return "bull"
+    if dev <= REGIME_DOWN:
+        return "bear"
+    return "sideways"
+
+
+def apply_adaptive_weights():
+    """data/adaptive_weights.json(backtest_calibrate.py가 매달 생성)이 있으면
+    오늘의 시장 국면에 맞는 가중치로 WEIGHTS/ADDON_WEIGHTS를 덮어쓴다.
+    파일이 없거나 해당 국면 데이터가 없으면 위에서 정의한 기본값을 그대로 쓴다."""
+    global MAX_SCORE
+    if not os.path.exists(ADAPTIVE_WEIGHTS_PATH):
+        print("adaptive_weights.json 없음 - 기본 가중치 사용")
+        return
+    try:
+        with open(ADAPTIVE_WEIGHTS_PATH) as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"adaptive_weights.json 읽기 실패({e}) - 기본 가중치 사용")
+        return
+
+    regime = detect_current_regime()
+    regime_data = data.get("regimes", {}).get(regime)
+    if not regime_data:
+        print(f"국면 '{regime}'에 대한 자동조정 데이터 없음 - 기본 가중치 사용")
+        return
+
+    WEIGHTS.update({k: v for k, v in regime_data.get("main", {}).items() if k in WEIGHTS})
+    ADDON_WEIGHTS.update({k: v for k, v in regime_data.get("addon", {}).items() if k in ADDON_WEIGHTS})
+    MAX_SCORE = sum(WEIGHTS.values())
+    print(f"시장 국면: {regime} - 자동조정 가중치 적용 (생성: {data.get('generated_at')})")
+    print(f"  WEIGHTS = {WEIGHTS}")
+    print(f"  ADDON_WEIGHTS = {ADDON_WEIGHTS}")
+
 
 def detect_bullish_engulfing(o, h, l, c):
     return c.iloc[-1] > o.iloc[-2] and o.iloc[-1] < c.iloc[-2] and c.iloc[-1] > c.iloc[-2] and o.iloc[-2] > c.iloc[-2]
@@ -1344,6 +1395,8 @@ def main():
     if not os.path.exists(WATCHLIST_PATH):
         print(f"watchlist not found: {WATCHLIST_PATH}", file=sys.stderr)
         sys.exit(1)
+
+    apply_adaptive_weights()
 
     with open(WATCHLIST_PATH) as f:
         tickers = json.load(f)
