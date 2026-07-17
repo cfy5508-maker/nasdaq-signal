@@ -1,0 +1,383 @@
+"""
+backtest_calibrate.py
+사용법: python backtest_calibrate.py
+
+동작:
+  1) data/score_history.jsonl 에 쌓인 과거 스냅샷(날짜별 티커 점수/스테이지 상태)을 읽는다.
+  2) 각 스냅샷 시점 이후 실제 주가(5/10/20거래일 후)를 yfinance로 조회해 수익률을 라벨링한다.
+     (해당 거래일 수가 아직 안 지난 최근 스냅샷은 해당 horizon만 "미확정"으로 남김)
+  3) 스냅샷 시점의 시장 국면(QQQ 200일선 대비 +-2%로 상승장/하락장/보합장 판정)을 함께 라벨링한다.
+  4) 국면별 + 스테이지별로 pass/fail 그룹의 승률·평균수익률을 집계한다.
+     판단 기준은 5일 승률(단기)을 우선한다 - 단기 신호일수록 대응하기 쉽기 때문.
+  5) 국면별 가중치(WEIGHTS/ADDON_WEIGHTS)를 자동으로 조정해 data/adaptive_weights.json에 저장한다.
+     - 매번 목표치로 한번에 점프하지 않고, 이전 값에서 30%만 이동(damping)해 급변동 방지.
+     - 조정폭은 기본 가중치의 0.4~1.8배로 하드 클립.
+     - 표본이 부족한(국면당 15건 미만) 스테이지는 조정하지 않고 이전 값을 유지.
+     - fetch_indicators.py는 이 파일을 읽어서 "오늘의 시장 국면"에 맞는 가중치를 자동 적용한다.
+
+출력:
+  - data/score_history_labeled.jsonl   : 라벨링된 원본 데이터 (재계산 시 매번 덮어씀)
+  - data/calibration_report.json       : 집계 결과 (다른 스크립트/대시보드에서 재사용 가능)
+  - data/adaptive_weights.json         : 국면별 자동조정 가중치 (fetch_indicators.py가 읽어감)
+  - docs/calibration_report.md         : 사람이 읽는 리포트 (GitHub Issue 본문으로도 사용)
+"""
+import json
+import os
+import sys
+from datetime import datetime
+
+import pandas as pd
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from fetch_indicators import get_confirmed_history, WEIGHTS, ADDON_WEIGHTS  # noqa: E402
+
+HISTORY_PATH = "data/score_history.jsonl"
+LABELED_PATH = "data/score_history_labeled.jsonl"
+REPORT_JSON_PATH = "data/calibration_report.json"
+REPORT_MD_PATH = "docs/calibration_report.md"
+ADAPTIVE_WEIGHTS_PATH = "data/adaptive_weights.json"
+
+FORWARD_HORIZONS = {"fwd_5d": 5, "fwd_10d": 10, "fwd_20d": 20}
+PRIMARY_HORIZON = "fwd_5d"          # 단기 승률을 우선 기준으로 삼는다 (대응하기 쉬우니까)
+WIN_THRESHOLD = {"fwd_5d": 0.02, "fwd_10d": 0.025, "fwd_20d": 0.03}
+
+MIN_SAMPLE_FOR_VERDICT = 15         # 국면별로 쪼개다 보니 표본이 줄어서 기존 20 -> 15로 완화
+DISCRIMINATION_GAP = 0.10           # pass vs fail 승률 차이가 이 값보다 작으면 "변별력 낮음"
+
+REGIME_PROXY = "QQQ"
+REGIME_UP = 0.02       # 200일선 대비 +2% 이상 -> 상승장
+REGIME_DOWN = -0.02    # 200일선 대비 -2% 이하 -> 하락장
+REGIMES = ["bull", "bear", "sideways"]
+
+ALPHA = 0.3            # damping: 목표 가중치 방향으로 이번에 30%만 이동
+MULT_MIN, MULT_MAX = 0.4, 1.8   # 기본 가중치 대비 허용 배율 (안전장치)
+
+
+def load_snapshots(path):
+    if not os.path.exists(path):
+        print(f"{path} 없음 - 아직 쌓인 스냅샷이 없습니다.")
+        return []
+    rows = []
+    with open(path) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    return rows
+
+
+def build_ticker_price_index(tickers):
+    """티커별로 (날짜 -> 종가, 정렬된 거래일 리스트)를 한 번씩만 조회해서 캐싱."""
+    index = {}
+    for i, ticker in enumerate(sorted(tickers)):
+        try:
+            hist = get_confirmed_history(ticker, period="2y")
+        except Exception as e:
+            print(f"  [{ticker}] 가격 조회 실패: {e}")
+            continue
+        if hist is None or hist.empty:
+            continue
+        dates = [d.strftime("%Y-%m-%d") for d in hist.index]
+        closes = hist["Close"].tolist()
+        index[ticker] = {"dates": dates, "closes": closes}
+        if (i + 1) % 10 == 0:
+            print(f"  가격 데이터 조회 중... ({i + 1}/{len(tickers)})")
+    return index
+
+
+def forward_return(price_map, snap_date, horizon_days):
+    dates = price_map["dates"]
+    closes = price_map["closes"]
+    pos = None
+    for i, d in enumerate(dates):
+        if d >= snap_date:
+            pos = i
+            break
+    if pos is None:
+        return None
+    target = pos + horizon_days
+    if target >= len(dates):
+        return None
+    base_price = closes[pos]
+    fwd_price = closes[target]
+    if not base_price:
+        return None
+    return (fwd_price - base_price) / base_price
+
+
+def build_regime_series():
+    """QQQ 200일선 대비 이격도로 날짜별 시장 국면(bull/bear/sideways)을 계산."""
+    hist = get_confirmed_history(REGIME_PROXY, period="5y")
+    if hist is None or hist.empty:
+        return {}
+    close = hist["Close"]
+    sma200 = close.rolling(200).mean()
+    dev = (close - sma200) / sma200
+    regimes = {}
+    for i in range(len(hist)):
+        d = dev.iloc[i]
+        if pd.isna(d):
+            continue
+        date_str = hist.index[i].strftime("%Y-%m-%d")
+        if d >= REGIME_UP:
+            regimes[date_str] = "bull"
+        elif d <= REGIME_DOWN:
+            regimes[date_str] = "bear"
+        else:
+            regimes[date_str] = "sideways"
+    return regimes
+
+
+def regime_on(sorted_regime_dates, regimes, snap_date):
+    """snap_date 이전(포함) 가장 최근에 알려진 국면. 없으면 None."""
+    lo, hi = 0, len(sorted_regime_dates)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if sorted_regime_dates[mid] <= snap_date:
+            lo = mid + 1
+        else:
+            hi = mid
+    if lo == 0:
+        return None
+    return regimes[sorted_regime_dates[lo - 1]]
+
+
+def label_snapshots(snapshots, price_index, regimes):
+    sorted_regime_dates = sorted(regimes.keys())
+    labeled = []
+    for snap in snapshots:
+        ticker = snap.get("ticker")
+        pmap = price_index.get(ticker)
+        row = dict(snap)
+        if pmap is None:
+            for key in FORWARD_HORIZONS:
+                row[key] = None
+        else:
+            for key, horizon in FORWARD_HORIZONS.items():
+                row[key] = forward_return(pmap, snap["date"], horizon)
+        row["regime"] = regime_on(sorted_regime_dates, regimes, snap["date"])
+        labeled.append(row)
+    return labeled
+
+
+def summarize_stage(sub_df, status_col, label):
+    """특정 스테이지 상태(pass/warn/fail)별 5/10/20일 승률·평균수익률 집계."""
+    out = []
+    if status_col not in sub_df.columns:
+        return out
+    sub = sub_df.dropna(subset=[PRIMARY_HORIZON])
+    if sub.empty:
+        return out
+    for status, grp in sub.groupby(status_col):
+        n = len(grp)
+        row = {"stage": label, "status": status, "n": n}
+        for hkey in FORWARD_HORIZONS:
+            valid = grp[hkey].dropna()
+            if len(valid) == 0:
+                row[f"win_rate_{hkey}"] = None
+                row[f"avg_return_{hkey}"] = None
+            else:
+                row[f"win_rate_{hkey}"] = round(float((valid >= WIN_THRESHOLD[hkey]).mean()), 4)
+                row[f"avg_return_{hkey}"] = round(float(valid.mean()), 4)
+        out.append(row)
+    out.sort(key=lambda r: r["status"])
+    return out
+
+
+def build_verdict(stage_rows, current_weight):
+    by_status = {r["status"]: r for r in stage_rows}
+    pass_r, fail_r = by_status.get("pass"), by_status.get("fail")
+    if pass_r is None or fail_r is None:
+        return "표본 부족 (pass/fail 둘 다 없음) - 판단 보류", None
+    if pass_r["n"] < MIN_SAMPLE_FOR_VERDICT or fail_r["n"] < MIN_SAMPLE_FOR_VERDICT:
+        return f"표본 부족 (pass n={pass_r['n']}, fail n={fail_r['n']}) - 판단 보류", None
+    pw = pass_r[f"win_rate_{PRIMARY_HORIZON}"]
+    fw = fail_r[f"win_rate_{PRIMARY_HORIZON}"]
+    if pw is None or fw is None:
+        return "표본 부족 - 판단 보류", None
+    gap = pw - fw
+    text = f"5일 승률 pass {pw:.0%} vs fail {fw:.0%} (차이 {gap:.0%})"
+    if gap < DISCRIMINATION_GAP:
+        return f"{text} - 변별력 낮음, 가중치 하향", gap
+    if gap >= 0.30:
+        return f"{text} - 변별력 높음, 가중치 상향", gap
+    return f"{text} - 적정 유지", gap
+
+
+def target_multiplier(gap):
+    """5일 승률 gap을 가중치 배율로 변환 (gap=0.10을 기준선 1.0으로)."""
+    mult = 1.0 + 2.0 * (gap - DISCRIMINATION_GAP)
+    return max(MULT_MIN, min(MULT_MAX, mult))
+
+
+def load_prev_adaptive_weights():
+    if not os.path.exists(ADAPTIVE_WEIGHTS_PATH):
+        return {}
+    try:
+        with open(ADAPTIVE_WEIGHTS_PATH) as f:
+            return json.load(f).get("regimes", {})
+    except Exception:
+        return {}
+
+
+def adjust_weights(regime, group_label, default_weights, breakdown_by_stage, prev_regimes):
+    """국면별로 기본 가중치를 스테이지별 5일 gap 기준으로 자동 조정 (damping+클립 적용)."""
+    prev_weights = (prev_regimes.get(regime, {}) or {}).get(group_label, {})
+    updated, changes = {}, []
+    for stage, default_w in default_weights.items():
+        rows = breakdown_by_stage.get(stage, [])
+        verdict_text, gap = build_verdict(rows, default_w)
+        prev_w = prev_weights.get(stage, default_w)
+        if gap is None:
+            updated[stage] = round(prev_w, 3)
+            changes.append({"stage": stage, "before": round(prev_w, 3), "after": round(prev_w, 3),
+                             "reason": verdict_text})
+            continue
+        mult = target_multiplier(gap)
+        target_w = default_w * mult
+        new_w = prev_w * (1 - ALPHA) + target_w * ALPHA
+        new_w = max(default_w * MULT_MIN, min(default_w * MULT_MAX, new_w))
+        updated[stage] = round(new_w, 3)
+        changes.append({"stage": stage, "before": round(prev_w, 3), "after": round(new_w, 3),
+                         "reason": verdict_text})
+    return updated, changes
+
+
+def main():
+    print("1) score_history.jsonl 로딩...")
+    snapshots = load_snapshots(HISTORY_PATH)
+    if not snapshots:
+        print("스냅샷이 없어 종료합니다. (fetch_indicators.py가 매일 쌓는 걸 기다려주세요)")
+        return
+
+    tickers = {s["ticker"] for s in snapshots if s.get("ticker")}
+    print(f"   스냅샷 {len(snapshots)}건, 티커 {len(tickers)}개")
+
+    print("2) 가격 데이터 조회 및 5/10/20일 forward return 라벨링...")
+    price_index = build_ticker_price_index(tickers)
+
+    print("3) 시장 국면(QQQ 200일선 기준) 라벨링...")
+    regimes = build_regime_series()
+
+    labeled = label_snapshots(snapshots, price_index, regimes)
+
+    os.makedirs(os.path.dirname(LABELED_PATH) or ".", exist_ok=True)
+    with open(LABELED_PATH, "w") as f:
+        for row in labeled:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+    df = pd.DataFrame(labeled)
+    labeled_n = int(df[PRIMARY_HORIZON].notna().sum()) if PRIMARY_HORIZON in df.columns else 0
+    print(f"   5일 후 결과가 확정된 스냅샷: {labeled_n}건 (나머지는 아직 진행 중)")
+    if labeled_n == 0:
+        print("확정된 스냅샷이 아직 없어 리포트를 만들 수 없습니다. 다음 실행에서 다시 시도하세요.")
+        return
+
+    main_stage_status = pd.json_normalize(df["stage_status"]) if "stage_status" in df.columns else pd.DataFrame()
+    addon_stage_status = pd.json_normalize(df["stage_status_addon"]) if "stage_status_addon" in df.columns else pd.DataFrame()
+
+    prev_regimes = load_prev_adaptive_weights()
+
+    print("4) 국면별·스테이지별 집계 및 가중치 자동조정...")
+    report_by_regime = {}
+    adaptive_out = {"generated_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
+                    "primary_horizon": PRIMARY_HORIZON, "regimes": {}}
+
+    regime_counts = df["regime"].value_counts(dropna=True).to_dict()
+
+    for regime in REGIMES:
+        regime_mask = df["regime"] == regime
+        sub_df = df[regime_mask]
+        n_regime = int(regime_mask.sum())
+
+        main_breakdown, addon_breakdown = {}, {}
+        for stage_key in WEIGHTS:
+            if stage_key not in main_stage_status.columns:
+                continue
+            merged = pd.concat([sub_df[list(FORWARD_HORIZONS)], main_stage_status.loc[sub_df.index, [stage_key]]], axis=1)
+            main_breakdown[stage_key] = summarize_stage(merged, stage_key, stage_key)
+        for stage_key in ADDON_WEIGHTS:
+            if stage_key not in addon_stage_status.columns:
+                continue
+            merged = pd.concat([sub_df[list(FORWARD_HORIZONS)], addon_stage_status.loc[sub_df.index, [stage_key]]], axis=1)
+            addon_breakdown[stage_key] = summarize_stage(merged, stage_key, stage_key)
+
+        main_updated, main_changes = adjust_weights(regime, "main", WEIGHTS, main_breakdown, prev_regimes)
+        addon_updated, addon_changes = adjust_weights(regime, "addon", ADDON_WEIGHTS, addon_breakdown, prev_regimes)
+
+        adaptive_out["regimes"][regime] = {"main": main_updated, "addon": addon_updated, "n_snapshots": n_regime}
+        report_by_regime[regime] = {
+            "n_snapshots": n_regime,
+            "main_breakdown": main_breakdown, "addon_breakdown": addon_breakdown,
+            "main_changes": main_changes, "addon_changes": addon_changes,
+        }
+
+    with open(ADAPTIVE_WEIGHTS_PATH, "w") as f:
+        json.dump(adaptive_out, f, ensure_ascii=False, indent=2)
+
+    overall_win_rate = {h: float((df[h].dropna() >= WIN_THRESHOLD[h]).mean()) if df[h].notna().any() else None
+                         for h in FORWARD_HORIZONS}
+    report = {
+        "generated_at": adaptive_out["generated_at"],
+        "labeled_snapshots": labeled_n,
+        "total_snapshots": len(snapshots),
+        "regime_counts": regime_counts,
+        "overall_win_rate": overall_win_rate,
+        "by_regime": report_by_regime,
+    }
+    with open(REPORT_JSON_PATH, "w") as f:
+        json.dump(report, f, ensure_ascii=False, indent=2)
+
+    print("5) 마크다운 리포트 작성...")
+    os.makedirs(os.path.dirname(REPORT_MD_PATH) or ".", exist_ok=True)
+    md = [
+        "# 📊 매매 계산식 캘리브레이션 리포트\n",
+        f"_생성: {report['generated_at']} · 확정 스냅샷 {labeled_n}건 / 전체 {len(snapshots)}건 "
+        f"· 판단 기준: 5일 승률(단기 우선) · 승 기준: 5일 +{WIN_THRESHOLD['fwd_5d']:.0%} / "
+        f"10일 +{WIN_THRESHOLD['fwd_10d']:.0%} / 20일 +{WIN_THRESHOLD['fwd_20d']:.0%}_\n",
+    ]
+    for h in FORWARD_HORIZONS:
+        wr = overall_win_rate[h]
+        md.append(f"- 전체 승률({h}): {wr:.1%}" if wr is not None else f"- 전체 승률({h}): 데이터 없음")
+    md.append("\n**가중치는 이번 실행에서 자동으로 조정되어 `data/adaptive_weights.json`에 반영되었습니다** "
+               "(국면당 표본 15건 미만인 스테이지는 이전 값을 그대로 유지, 급변동 방지를 위해 매번 목표치의 30%만 이동).\n")
+
+    regime_kr = {"bull": "상승장", "bear": "하락장", "sideways": "보합장"}
+    for regime in REGIMES:
+        info = report_by_regime[regime]
+        md.append(f"## {regime_kr[regime]} ({regime}) - 표본 {info['n_snapshots']}건\n")
+        md.append("### 가중치 자동조정 내역\n")
+        md.append("| 그룹 | 스테이지 | 이전 | 이후 | 근거 |")
+        md.append("|---|---|---|---|---|")
+        for group, changes in [("신규진입", info["main_changes"]), ("추가매수", info["addon_changes"])]:
+            for c in changes:
+                md.append(f"| {group} | {c['stage']} | {c['before']} | {c['after']} | {c['reason']} |")
+
+        md.append("\n### 상세 breakdown (5일 / 10일 / 20일 승률)\n")
+        for group, breakdown in [("신규진입", info["main_breakdown"]), ("추가매수", info["addon_breakdown"])]:
+            for stage, rows in breakdown.items():
+                if not rows:
+                    continue
+                md.append(f"**{group} · {stage}**\n")
+                md.append("| 상태 | n | 5일 승률 | 10일 승률 | 20일 승률 |")
+                md.append("|---|---|---|---|---|")
+                for r in rows:
+                    def fmt(k):
+                        v = r.get(k)
+                        return f"{v:.1%}" if v is not None else "-"
+                    md.append(f"| {r['status']} | {r['n']} | {fmt('win_rate_fwd_5d')} | "
+                              f"{fmt('win_rate_fwd_10d')} | {fmt('win_rate_fwd_20d')} |")
+                md.append("")
+
+    with open(REPORT_MD_PATH, "w") as f:
+        f.write("\n".join(md) + "\n")
+
+    print(f"완료: {REPORT_MD_PATH}, {REPORT_JSON_PATH}, {ADAPTIVE_WEIGHTS_PATH}, {LABELED_PATH}")
+
+
+if __name__ == "__main__":
+    main()
