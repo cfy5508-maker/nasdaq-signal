@@ -224,7 +224,36 @@
 </style>
 </head>
 <body>
-<h1>나스닥 합성 선행지수 — 행동 지침<span class="ver" id="verLabel">전체 v2 · 18~26</span></h1>
+<h1 style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+  <span>나스닥 합성 선행지수 — 행동 지침<span class="ver" id="verLabel">전체 v2 · 18~26</span></span>
+  <button id="calibBellBtn" aria-label="캘리브레이션 알림" title="매매 계산식 자동조정 알림"
+    style="position:relative;background:none;border:1px solid #3a3a4a;border-radius:8px;
+           width:34px;height:34px;flex:0 0 auto;cursor:pointer;font-size:16px;
+           display:flex;align-items:center;justify-content:center;color:#c7c7d1;">
+    🔔
+    <span id="calibBellBadge" style="display:none;position:absolute;top:-6px;right:-6px;
+      background:#f43f5e;color:#fff;font-size:10px;font-weight:700;line-height:1;
+      border-radius:999px;padding:3px 5px;min-width:16px;text-align:center;"></span>
+  </button>
+</h1>
+<div id="calibModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);
+     z-index:100;align-items:flex-start;justify-content:center;">
+  <div style="background:#1a1a22;border:1px solid #3a3a4a;border-radius:12px;max-width:640px;
+       width:92%;margin-top:6vh;max-height:82vh;overflow-y:auto;padding:18px 20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <h2 style="font-size:15px;margin:0;color:#e2e2e8;">📊 매매 계산식 자동조정 알림</h2>
+      <button id="calibModalClose" style="background:none;border:none;color:#8b8b9a;font-size:18px;cursor:pointer;">✕</button>
+    </div>
+    <div id="calibNotifList" style="font-size:12px;color:#c7c7d1;"></div>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid #2a2a35;">
+      <a id="calibReportLink" href="#" target="_blank" rel="noopener"
+         style="font-size:12px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;
+                border-radius:6px;padding:6px 12px;display:inline-block;">
+        전체 리포트 보기 (GitHub) ↗
+      </a>
+    </div>
+  </div>
+</div>
 <p class="sub">강한매수:HY≥4.5%+이격&gt;+20% · 매수:HY 3.5~4.5%+이격&gt;+20% · 관망:HY≥3%+이격0%전환 · 경고:HY&lt;3%+이격0~-20% · 매도:HY&lt;3%+이격&lt;-20%</p>
 
 <div class="top-row">
@@ -1640,6 +1669,84 @@
       renderAll();
     })
     .catch(function(e){ console.error('rankings load failed', e); });
+})();
+</script>
+
+<script>
+(function(){
+  var LAST_SEEN_KEY = 'calibNotifLastSeenId';
+  var listEl = document.getElementById('calibNotifList');
+  var badgeEl = document.getElementById('calibBellBadge');
+  var overlayEl = document.getElementById('calibModalOverlay');
+  var bellBtn = document.getElementById('calibBellBtn');
+  var closeBtn = document.getElementById('calibModalClose');
+  var reportLink = document.getElementById('calibReportLink');
+  var notifications = [];
+
+  function lastSeenId(){
+    try { return localStorage.getItem(LAST_SEEN_KEY); } catch(e){ return null; }
+  }
+  function setLastSeenId(id){
+    try { localStorage.setItem(LAST_SEEN_KEY, id); } catch(e){}
+  }
+
+  function renderList(){
+    if(!notifications.length){
+      listEl.innerHTML = '<div style="color:#6b6b7a;padding:8px 0;">아직 가중치 변경 알림이 없습니다.</div>';
+      return;
+    }
+    var rows = notifications.slice().reverse().map(function(n){
+      var dir = n.after > n.before ? '▲' : '▼';
+      var color = n.after > n.before ? '#34d399' : '#fb7185';
+      return '<div style="padding:8px 0;border-bottom:1px solid #2a2a35;">'
+        + '<div style="color:#8b8b9a;font-size:11px;">' + n.date + ' · ' + (n.regime_kr || n.regime) + ' · ' + n.group + '</div>'
+        + '<div style="margin-top:2px;"><b>' + n.stage + '</b> &nbsp; '
+        + n.before + ' → <span style="color:' + color + ';font-weight:700;">' + n.after + ' ' + dir + '</span></div>'
+        + '<div style="margin-top:2px;color:#9ca3af;font-size:11px;">' + n.reason + '</div>'
+        + '</div>';
+    }).join('');
+    listEl.innerHTML = rows;
+  }
+
+  function updateBadge(){
+    var seen = lastSeenId();
+    var unread = notifications;
+    if(seen){
+      var idx = notifications.findIndex(function(n){ return n.id === seen; });
+      unread = idx >= 0 ? notifications.slice(idx + 1) : notifications;
+    }
+    if(unread.length > 0){
+      badgeEl.textContent = unread.length > 9 ? '9+' : String(unread.length);
+      badgeEl.style.display = 'block';
+    } else {
+      badgeEl.style.display = 'none';
+    }
+  }
+
+  function openModal(){
+    renderList();
+    overlayEl.style.display = 'flex';
+    if(notifications.length){
+      setLastSeenId(notifications[notifications.length - 1].id);
+    }
+    updateBadge();
+  }
+  function closeModal(){
+    overlayEl.style.display = 'none';
+  }
+
+  bellBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlayEl.addEventListener('click', function(e){ if(e.target === overlayEl) closeModal(); });
+
+  fetch('data/notifications.json').then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(data){
+      if(!data) return;
+      notifications = data.notifications || [];
+      if(data.report_url) reportLink.href = data.report_url;
+      updateBadge();
+    })
+    .catch(function(){ /* 알림 파일이 아직 없으면 조용히 무시 */ });
 })();
 </script>
 
