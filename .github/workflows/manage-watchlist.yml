@@ -56,7 +56,7 @@ jobs:
               if action == "add-ticker":
                   if ticker in watchlist:
                       result = "already_exists"
-                  elif len(watchlist) >= 40:
+                  elif len(watchlist) >= 50:
                       result = "limit_reached"
                   else:
                       watchlist.append(ticker)
@@ -116,7 +116,7 @@ jobs:
             removed)        MSG="✅ $TICKER 관심종목에서 제거했습니다." ;;
             already_exists) MSG="ℹ️ $TICKER 는 이미 관심종목에 있습니다." ;;
             not_found)      MSG="ℹ️ $TICKER 는 관심종목에 없어서 제거할 게 없습니다." ;;
-            limit_reached)  MSG="⚠️ 관심종목이 40개로 가득 차서 $TICKER 를 추가할 수 없습니다. 먼저 몇 개를 제거해주세요." ;;
+            limit_reached)  MSG="⚠️ 관심종목이 50개로 가득 차서 $TICKER 를 추가할 수 없습니다. 먼저 몇 개를 제거해주세요." ;;
             *)               MSG="⚠️ 이슈 제목 형식을 인식하지 못했습니다. add-ticker:GILD 또는 remove-ticker:GILD 형식으로 다시 작성해주세요." ;;
           esac
           gh issue comment "$ISSUE_NUM" --body "$MSG"
