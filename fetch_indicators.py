@@ -793,6 +793,47 @@ def analyze(ticker, trim_days=0, write_file=True):
     else:
         stage3 = "fail"
 
+    # 직전 다이버전스 대비 Z-score가 상승했으면 약한 가산점. 백테스트(confirmed 저점,
+    # 232종목, 10/20/30일) 검증: 방향성 신호가 뚜렷하진 않지만(구간별로 들쭉날쭉)
+    # 대체로 "상승" 쪽이 조금 더 낫고, 특히 -1.5~-1 구간은 세 기간 모두 일관되게
+    # 상승 쪽이 나았음. 근거가 약해서 가산점도 작게(0.05) 잡는다.
+    ZSCORE_DIRECTION_BONUS = 0.05
+    zscore_direction_bonus_applied = False
+    if pos1 is not None and pos2 is not None and rsi_zscore is not None and zscore_quality is not None:
+        def _zscore_at(point_idx):
+            window = rsi.iloc[:point_idx + 1].dropna()
+            if len(window) < 30:
+                return None
+            mean_v, std_v = float(window.mean()), float(window.std())
+            if std_v <= 0:
+                return None
+            return (float(rsi.iloc[point_idx]) - mean_v) / std_v
+
+        current_div_zscore = _zscore_at(pos2)
+        prev_div_zscore = None
+        for idx in range(len(realtime_lows) - 2, -1, -1):
+            candidate_pos2 = realtime_lows[idx]
+            if candidate_pos2 >= pos2 - MIN_GAP_DAYS:
+                continue
+            if pos2 - candidate_pos2 > MAX_GAP_DAYS * 3:  # 너무 먼 과거는 배제
+                break
+            own_candidates = [p for p in realtime_lows
+                               if p != candidate_pos2 and MIN_GAP_DAYS <= (candidate_pos2 - p) <= MAX_GAP_DAYS]
+            own_pos1 = min(own_candidates, key=lambda p: close_values[p]) if own_candidates else None
+            if own_pos1 is None:
+                continue
+            own_price1, own_price2 = float(c.iloc[own_pos1]), float(c.iloc[candidate_pos2])
+            own_rsi1, own_rsi2 = float(rsi.iloc[own_pos1]), float(rsi.iloc[candidate_pos2])
+            if pd.isna(own_rsi1) or pd.isna(own_rsi2):
+                continue
+            if own_rsi2 > own_rsi1 and own_price2 <= own_price1 * (1 + DOUBLE_BOTTOM_MAX_PREMIUM_PCT):
+                prev_div_zscore = _zscore_at(candidate_pos2)
+                break
+
+        if current_div_zscore is not None and prev_div_zscore is not None and current_div_zscore > prev_div_zscore:
+            zscore_quality = min(1.0, zscore_quality + ZSCORE_DIRECTION_BONUS)
+            zscore_direction_bonus_applied = True
+
     # 2단계: 다이버전스 게이트 - stage_divergence는 위에서 이미 pass/warn/fail로 계산됨
 
     # 4단계(ADX)는 백테스트 재검증 결과 두 독립 표본에서 방향이 계속 뒤집혀 폐기함.
@@ -1135,7 +1176,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
         "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
-        "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None},
+        "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None, "zscore_direction_bonus_applied": zscore_direction_bonus_applied},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None, "order_block": order_block},
     }
 
