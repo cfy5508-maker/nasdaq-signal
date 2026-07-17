@@ -1098,7 +1098,14 @@
         }
         return base;
       })()],
-      ['4단계 Z-score', s['4_zscore'], 'RSI '+s['4_zscore'].rsi+' (Z-score '+(s['4_zscore'].rsi_zscore_1y??'-')+')'],
+      ['4단계 Z-score', s['4_zscore'], (function(){
+        var z4 = s['4_zscore'];
+        var base = 'RSI '+z4.rsi+' (Z-score '+(z4.rsi_zscore_1y??'-')+', 가중치 '+(z4.zscore_quality!=null?z4.zscore_quality:'-')+')';
+        if (z4.zscore_direction_bonus_applied) {
+          base += ' · 직전 다이버전스 대비 Z-score 개선(+0.05 가산)';
+        }
+        return base;
+      })()],
       ['5단계 트리거캔들', s['5_trigger_candle'], (function(){
         var tg = s['5_trigger_candle'];
         var base;
