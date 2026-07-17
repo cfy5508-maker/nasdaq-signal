@@ -1,9 +1,9 @@
 {
-  "ticker": "UUUU",
-  "price": 11.67,
-  "updated": "2026-07-17T07:37:37.746948+00:00",
+  "ticker": "S",
+  "price": 19.63,
+  "updated": "2026-07-17T07:38:08.347398+00:00",
   "as_of_date": "2026-07-16",
-  "score": 30,
+  "score": 20,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -20,48 +20,55 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 123.9,
-      "forward_pe": 35.363636,
+      "status": "fail",
+      "upside_pct": -0.9,
+      "forward_pe": 39.77468,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 7,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -2.4
+      "rsi_improvement": 1.6
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 29.0,
-      "rsi_zscore_1y": -1.92,
-      "zscore_quality": 0.73,
+      "status": "fail",
+      "rsi": 67.3,
+      "rsi_zscore_1y": 1.88,
+      "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "status": "pass",
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 16,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.7,
+      "adx_reference": 36.9,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
-      "order_block": null
+      "trigger_day_volume": 5712400,
+      "avg_volume_divergence_window": 6099443,
+      "order_block": {
+        "low": 14.74,
+        "high": 14.79,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 234,
+        "gap_confirmed": false
+      }
     }
   },
-  "entry_atr_stop_pct": 12.9,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 7.8,
+  "score_addon": 14,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -78,9 +85,9 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 123.9,
-      "forward_pe": 35.363636,
+      "status": "fail",
+      "upside_pct": -0.9,
+      "forward_pe": 39.77468,
       "peg": null
     },
     "3_pullback_gate": {
@@ -92,15 +99,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
-      "was_above_40_recently": false,
-      "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "was_above_20_recently": true,
+      "was_above_40_recently": true,
+      "is_jeong_baeyeol": true,
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 29.0,
-      "rsi_zone_quality": 0.0,
+      "status": "pass",
+      "rsi": 67.3,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -112,22 +119,23 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 20.9
+      "stop_pct_from_20sma": 12.6
     }
   },
-  "sector": "Energy",
-  "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
+  "sector": "Technology",
+  "sector_relative_strength_up": true,
+  "uptrend_entry_signal": {
     "active": true,
-    "prior_divergence_date_index": 249,
-    "days_since_prior_divergence": 1,
-    "price_drop_since_pct": 7.9,
-    "rescue_attempted": false
+    "phase": "ongoing",
+    "days_since_divergence": 17,
+    "days_since_trend_start": 13,
+    "gain_since_low_pct": 33.2,
+    "divergence_date_index": 233
   },
+  "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 11.67,
+    "stop_reference_price": 14.74,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
