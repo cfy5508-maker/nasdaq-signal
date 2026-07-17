@@ -1,9 +1,9 @@
 {
-  "ticker": "PFE",
-  "price": 25.14,
-  "updated": "2026-07-17T05:55:43.548341+00:00",
+  "ticker": "MA",
+  "price": 551.54,
+  "updated": "2026-07-17T05:56:38.966915+00:00",
   "as_of_date": "2026-07-16",
-  "score": 18,
+  "score": 47,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -20,10 +20,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.5,
-      "forward_pe": 8.872263,
-      "peg": 2.83
+      "status": "pass",
+      "upside_pct": 16.7,
+      "forward_pe": 24.198776,
+      "peg": 1.65
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -31,44 +31,37 @@
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 12,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 9.5
+      "rsi_improvement": 11.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.1,
-      "rsi_zscore_1y": 0.46,
-      "zscore_quality": 0.135,
+      "rsi": 69.8,
+      "rsi_zscore_1y": 2.07,
+      "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "status": "pass",
+      "breakout_confirmed": true,
+      "pattern": "모닝스타",
+      "days_ago": 15,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 24.1,
+      "long_lower_wick": true,
+      "wick_days_ago": 16,
+      "adx_reference": 27.0,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 23.72,
-        "high": 24.16,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 245,
-        "gap_confirmed": true
-      }
+      "trigger_day_volume": 3609700,
+      "avg_volume_divergence_window": 4027462,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.2,
-  "score_addon": 9,
+  "entry_atr_stop_pct": 3.4,
+  "score_addon": 65,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -85,10 +78,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.5,
-      "forward_pe": 8.872263,
-      "peg": 2.83
+      "status": "pass",
+      "upside_pct": 16.7,
+      "forward_pe": 24.198776,
+      "peg": 1.65
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -99,43 +92,43 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
-      "was_above_40_recently": false,
-      "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "was_above_20_recently": true,
+      "was_above_40_recently": true,
+      "is_jeong_baeyeol": true,
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 55.1,
-      "rsi_zone_quality": 0.603,
+      "status": "pass",
+      "rsi": 69.8,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 6.6
     }
   },
-  "sector": "Healthcare",
+  "sector": "Financial Services",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "phase": "entry",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 3,
-    "gain_since_low_pct": 6.0,
-    "divergence_date_index": 242
+    "phase": "ongoing",
+    "days_since_divergence": 17,
+    "days_since_trend_start": 13,
+    "gain_since_low_pct": 14.1,
+    "divergence_date_index": 233
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.72,
+    "stop_reference_price": 483.28,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

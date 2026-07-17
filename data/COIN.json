@@ -1,29 +1,29 @@
 {
   "ticker": "COIN",
   "price": 160.49,
-  "updated": "2026-07-17T05:54:47.155319+00:00",
+  "updated": "2026-07-17T05:56:13.250078+00:00",
   "as_of_date": "2026-07-16",
-  "score": 20,
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
-      "volatility_label": "정상",
+      "status": "neutral",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -9.6,
+      "volume_trend_pct_3d": 4.7,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.64,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
-      "peg": null
+      "status": "pass",
+      "upside_pct": 38.7,
+      "forward_pe": 33.81941,
+      "peg": 1.6
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -68,27 +68,27 @@
     }
   },
   "entry_atr_stop_pct": 9.0,
-  "score_addon": 40,
+  "score_addon": 66,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": -12.0,
-      "volume_trend_pct_3d": -1.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.54,
-      "volatility_label": "정상",
+      "status": "neutral",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": -9.6,
+      "volume_trend_pct_3d": 4.7,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.64,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
-      "peg": null
+      "status": "pass",
+      "upside_pct": 38.7,
+      "forward_pe": 33.81941,
+      "peg": 1.6
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -122,8 +122,8 @@
       "stop_pct_from_20sma": 1.2
     }
   },
-  "sector": null,
-  "sector_relative_strength_up": null,
+  "sector": "Financial Services",
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
