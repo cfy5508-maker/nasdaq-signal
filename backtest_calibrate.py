@@ -55,6 +55,13 @@ REGIMES = ["bull", "bear", "sideways"]
 ALPHA = 0.3            # damping: 목표 가중치 방향으로 이번에 30%만 이동
 MULT_MIN, MULT_MAX = 0.4, 1.8   # 기본 가중치 대비 허용 배율 (안전장치)
 
+# ── 실패 패턴 공통점 자동 분석 ──────────────────────────────
+LOSS_THRESHOLD = -0.02      # 5일 후 -2% 이하면 "실패"로 간주
+MIN_N_FOR_LIFT = 10         # 이 이하 표본이면 lift 계산 안 함 (우연일 가능성)
+LIFT_FLAG = 1.3             # 실패군 비중이 전체 대비 이 배수 이상이면 "과대표됨"으로 표시
+MIN_N_FOR_TICKER = 5        # 티커별 반복실패 판정 최소 표본
+TICKER_LOSS_GAP_FLAG = 0.15 # 전체 평균보다 이 이상 실패율 높으면 "반복실패 티커"로 표시
+
 
 def load_snapshots(path):
     if not os.path.exists(path):
@@ -290,6 +297,73 @@ def write_notifications(report_by_regime, generated_at):
     print(f"알림 {len(new_notifs)}건 추가 (누적 {len(all_notifs)}건, 실제 변경 없으면 0건)")
 
 
+def analyze_failure_patterns(df, main_stage_status, addon_stage_status):
+    """5일 후 -2% 이하로 실패한 스냅샷들의 공통점을 자동으로 찾는다:
+       1) 어떤 스테이지 상태가 실패군에 유독 많이 나타나는지 (lift)
+       2) 어떤 티커가 반복적으로 실패하는지
+       3) 어떤 시장 국면에서 실패율이 높은지
+    사람이 미리 지정한 규칙이 아니라, 데이터에서 나온 패턴만 표시한다."""
+    base = df.dropna(subset=[PRIMARY_HORIZON])
+    if base.empty:
+        return None
+    is_loss = base[PRIMARY_HORIZON] <= LOSS_THRESHOLD
+    loss_df = base[is_loss]
+    overall_loss_rate = float(is_loss.mean())
+    n_loss = int(is_loss.sum())
+
+    overrep = []
+    for status_df, stages in [(main_stage_status, WEIGHTS.keys()), (addon_stage_status, ADDON_WEIGHTS.keys())]:
+        for stage in stages:
+            if stage not in status_df.columns:
+                continue
+            col = status_df.loc[base.index, stage]
+            baseline_counts = col.value_counts(normalize=True)
+            loss_counts_raw = status_df.loc[loss_df.index, stage].value_counts()
+            loss_counts = status_df.loc[loss_df.index, stage].value_counts(normalize=True)
+            for status, loss_pct in loss_counts.items():
+                n_loss_status = int(loss_counts_raw.get(status, 0))
+                baseline_pct = float(baseline_counts.get(status, 0))
+                if n_loss_status < MIN_N_FOR_LIFT or baseline_pct <= 0:
+                    continue
+                lift = loss_pct / baseline_pct
+                if lift >= LIFT_FLAG:
+                    overrep.append({
+                        "stage": stage, "status": status, "n_loss": n_loss_status,
+                        "loss_group_pct": round(float(loss_pct), 3),
+                        "baseline_pct": round(baseline_pct, 3),
+                        "lift": round(float(lift), 2),
+                    })
+    overrep.sort(key=lambda r: -r["lift"])
+
+    ticker_stats = base.groupby("ticker")[PRIMARY_HORIZON].apply(
+        lambda s: pd.Series({"n": len(s), "loss_rate": float((s <= LOSS_THRESHOLD).mean())})
+    ).unstack()
+    repeat_offenders = []
+    if not ticker_stats.empty:
+        flagged = ticker_stats[(ticker_stats["n"] >= MIN_N_FOR_TICKER) &
+                                (ticker_stats["loss_rate"] >= overall_loss_rate + TICKER_LOSS_GAP_FLAG)]
+        for ticker, row in flagged.sort_values("loss_rate", ascending=False).iterrows():
+            repeat_offenders.append({"ticker": ticker, "n": int(row["n"]), "loss_rate": round(float(row["loss_rate"]), 3)})
+
+    regime_loss_rate = {}
+    if "regime" in base.columns:
+        for regime in REGIMES:
+            sub = base[base["regime"] == regime]
+            if len(sub) >= MIN_N_FOR_LIFT:
+                regime_loss_rate[regime] = {"n": int(len(sub)),
+                                             "loss_rate": round(float((sub[PRIMARY_HORIZON] <= LOSS_THRESHOLD).mean()), 3)}
+
+    return {
+        "loss_threshold": LOSS_THRESHOLD,
+        "overall_loss_rate": round(overall_loss_rate, 3),
+        "n_loss_samples": n_loss,
+        "n_total_samples": int(len(base)),
+        "stage_status_overrepresented": overrep[:15],
+        "repeat_offender_tickers": repeat_offenders[:10],
+        "regime_loss_rate": regime_loss_rate,
+    }
+
+
 def main():
     print("1) score_history.jsonl 로딩...")
     snapshots = load_snapshots(HISTORY_PATH)
@@ -364,6 +438,9 @@ def main():
 
     write_notifications(report_by_regime, adaptive_out["generated_at"])
 
+    print("4-1) 실패 패턴 공통점 자동 분석...")
+    failure_patterns = analyze_failure_patterns(df, main_stage_status, addon_stage_status)
+
     overall_win_rate = {h: float((df[h].dropna() >= WIN_THRESHOLD[h]).mean()) if df[h].notna().any() else None
                          for h in FORWARD_HORIZONS}
     report = {
@@ -373,6 +450,7 @@ def main():
         "regime_counts": regime_counts,
         "overall_win_rate": overall_win_rate,
         "by_regime": report_by_regime,
+        "failure_patterns": failure_patterns,
     }
     with open(REPORT_JSON_PATH, "w") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
@@ -392,6 +470,40 @@ def main():
                "(국면당 표본 15건 미만인 스테이지는 이전 값을 그대로 유지, 급변동 방지를 위해 매번 목표치의 30%만 이동).\n")
 
     regime_kr = {"bull": "상승장", "bear": "하락장", "sideways": "보합장"}
+
+    if failure_patterns:
+        fp = failure_patterns
+        md.append(f"## 🔍 실패 패턴 공통점 (자동 분석, 사람 규칙 아님)\n")
+        md.append(f"_5일 후 {fp['loss_threshold']:.0%} 이하를 '실패'로 정의 · 실패 {fp['n_loss_samples']}건 / "
+                   f"전체 {fp['n_total_samples']}건 (전체 실패율 {fp['overall_loss_rate']:.1%})_\n")
+
+        if fp["stage_status_overrepresented"]:
+            md.append("### 실패군에 유독 많이 나타나는 스테이지 상태\n")
+            md.append("_lift = (실패군 내 비중) / (전체 내 비중). 1.3배 이상이면 표시_\n")
+            md.append("| 스테이지 | 상태 | 실패군 내 비중 | 전체 비중 | lift | n(실패) |")
+            md.append("|---|---|---|---|---|---|")
+            for r in fp["stage_status_overrepresented"]:
+                md.append(f"| {r['stage']} | {r['status']} | {r['loss_group_pct']:.0%} | "
+                          f"{r['baseline_pct']:.0%} | {r['lift']}x | {r['n_loss']} |")
+        else:
+            md.append("_표본 부족으로 뚜렷한 스테이지 패턴 없음._\n")
+
+        if fp["repeat_offender_tickers"]:
+            md.append("\n### 반복적으로 실패하는 티커\n")
+            md.append(f"_전체 평균 실패율보다 {TICKER_LOSS_GAP_FLAG:.0%}p 이상 높고, 표본 {MIN_N_FOR_TICKER}건 이상인 티커_\n")
+            md.append("| 티커 | n | 실패율 |")
+            md.append("|---|---|---|")
+            for r in fp["repeat_offender_tickers"]:
+                md.append(f"| {r['ticker']} | {r['n']} | {r['loss_rate']:.0%} |")
+
+        if fp["regime_loss_rate"]:
+            md.append("\n### 국면별 실패율\n")
+            md.append("| 국면 | n | 실패율 |")
+            md.append("|---|---|---|")
+            for regime, r in fp["regime_loss_rate"].items():
+                md.append(f"| {regime_kr.get(regime, regime)} | {r['n']} | {r['loss_rate']:.0%} |")
+        md.append("")
+
     for regime in REGIMES:
         info = report_by_regime[regime]
         md.append(f"## {regime_kr[regime]} ({regime}) - 표본 {info['n_snapshots']}건\n")
