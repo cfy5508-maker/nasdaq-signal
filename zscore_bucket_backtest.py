@@ -12,7 +12,10 @@ zscore_bucket_backtest.py
 동작: 3단계 다이버전스(정석+이중바닥 통합) 발생 시점(저점2)마다, 그 시점 기준
 "직전 252거래일(운영 코드의 1년 근사) RSI 평균/표준편차"로 Z-score를 계산하고,
 구간별(< -2 / -2~-1.5 / -1.5~-1 / -1~-0.5 / -0.5~0 / 0+)로 신저점(=실패)
-달성률을 비교한다.
+달성률을 비교한다. 추가로, 같은 종목의 "직전 다이버전스" 시점 Z-score 대비
+이번 Z-score가 상승했는지 하락했는지 태그를 붙여서, 같은 구간(특히 0+) 안에서도
+방향에 따라 결과가 다른지 나눠서 본다(예: 0+인데 계속 올라온 건지, 예전엔
+더 좋았다가 지금 막 0+로 떨어진 건지는 다른 의미일 수 있다는 가설 검증).
 
   - 단조감소(왼쪽 갈수록 계속 좋아짐) → 지금 방식(낮을수록 좋다)이 맞음
   - U자형(중간이 제일 좋고 양 끝이 나쁨) → "적당한 Z-score가 진짜 바닥" 가설 지지
@@ -106,6 +109,7 @@ def analyze_ticker(ticker):
     last_low_idx = None
     last_low_price = None
     last_low_rsi = None
+    prev_div_zscore = None  # 이 종목의 직전 다이버전스 시점 Z-score (방향 비교용)
     records = []
 
     for idx in swing_lows:
@@ -135,6 +139,11 @@ def analyze_ticker(ticker):
                     last_low_idx, last_low_price, last_low_rsi = idx, price2, rsi2
                     continue
 
+                # 이 종목의 직전 다이버전스 Z-score 대비 상승/하락 방향 (첫 발생이면 None)
+                z_direction = None
+                if prev_div_zscore is not None:
+                    z_direction = "up" if zscore > prev_div_zscore else "down"
+
                 future_close = close[idx + 1: idx + 1 + FORWARD_DAYS]
                 achieved = False
                 if len(future_close) > 0:
@@ -153,8 +162,10 @@ def analyze_ticker(ticker):
                     "ticker": ticker, "low_idx": idx,
                     "type": "classic" if is_classic else "double_bottom",
                     "zscore": zscore,
+                    "z_direction": z_direction,
                     "achieved": achieved,
                 })
+                prev_div_zscore = zscore
         last_low_idx, last_low_price, last_low_rsi = idx, price2, rsi2
 
     return records
@@ -187,6 +198,17 @@ def main():
     summary = summary.reindex(order).dropna(how="all")
     print(summary.to_string())
     print(f"\n전체 표본: {len(df)}건 / 전체 신저점달성률: {df['achieved'].mean()*100:.1f}%")
+
+    print(f"\n=== 구간별 x 직전 다이버전스 대비 방향(상승/하락)별 신저점 달성률 ===")
+    df_dir = df[df["z_direction"].notna()]
+    summary_dir = df_dir.groupby(["bucket", "z_direction"]).agg(
+        표본수=("achieved", "count"),
+        신저점달성률=("achieved", "mean"),
+    )
+    summary_dir["신저점달성률"] = (summary_dir["신저점달성률"] * 100).round(1)
+    summary_dir = summary_dir.reindex(pd.MultiIndex.from_product([order, ["up", "down"]], names=["bucket", "z_direction"])).dropna(how="all")
+    print(summary_dir.to_string())
+    print(f"\n(방향 비교 가능 표본: {len(df_dir)}건 - 첫 다이버전스라 직전 비교 대상이 없는 건 제외됨)")
 
 
 if __name__ == "__main__":
