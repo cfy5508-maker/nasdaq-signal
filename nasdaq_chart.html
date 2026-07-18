@@ -1497,6 +1497,18 @@
     container.appendChild(col3);
   }
 
+  function tickerDisplayName(item){
+    // "American Tower Corporation (REIT)" 같이 회사명 자체에 이미 괄호가 있으면
+    // 뒤에 "(AMT)"를 또 붙였을 때 괄호가 중첩되므로, 이름의 끝 괄호는 미리 떼어낸다.
+    if(!item.name) return null;
+    return item.name.replace(/\s*\([^)]*\)\s*$/, '').trim() || item.name;
+  }
+
+  function tickerLabel(item){
+    var name = tickerDisplayName(item);
+    return name ? (name + ' (' + item.ticker + ')') : item.ticker;
+  }
+
   function renderRow(item, container, isLast){
     var tag = overallTag(item.score);
     var row = document.createElement('div');
@@ -1528,8 +1540,8 @@
     head.innerHTML =
       '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;transform-origin:50% 45%;width:11px;text-align:center;">▾</span>' +
       '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
-      '<span style="min-width:0;overflow:hidden;text-align:left;white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:700;color:#e2e2e8;" title="'+(item.name ? item.name.replace(/"/g,'&quot;')+' (' : '')+item.ticker+(item.name ? ')' : '')+'">' +
-        (item.name ? '<span style="color:#9999aa;font-weight:600;">'+item.name+'</span> <span>('+item.ticker+')</span>' : item.ticker) +
+      '<span style="min-width:0;overflow:hidden;text-align:left;white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:700;color:#e2e2e8;" title="'+tickerLabel(item).replace(/"/g,'&quot;')+'">' +
+        (tickerDisplayName(item) ? '<span style="color:#9999aa;font-weight:600;">'+tickerDisplayName(item)+'</span> <span>('+item.ticker+')</span>' : item.ticker) +
       '</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">$'+item.price.toFixed(2)+'</span>' +
       '<span title="'+scoreChangeTooltip(item.signal)+'" style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;cursor:help;">'+item.score+'</span>' +
@@ -1618,7 +1630,7 @@
         ctx.font = "700 13px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
         var maxW = 0;
         allRankings.forEach(function(item){
-          var label = item.name ? (item.name + ' (' + item.ticker + ')') : item.ticker;
+          var label = tickerLabel(item);
           var w = ctx.measureText(label).width;
           if(w > maxW) maxW = w;
         });
