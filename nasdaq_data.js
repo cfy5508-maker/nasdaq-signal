@@ -42,9 +42,9 @@
   var nd_weekly=[24200,26247,26225,26343.97,26972.62];
   var hy_weekly=[3.10,3.00,2.92,2.88,2.85];
   var labels_weekly=['26.05 W1','26.05 W2','26.05 W3','26.05 W4','26.05 W5'];
-  var nd_daily=[25967.86,26047.92,25553.54,25838.97,25768.96,25345.3,24964.37];
-  var hy_daily=[2.7,2.69,2.69,2.72,2.71,2.71,2.71];
-  var labels_daily=['26.07.09','26.07.10','26.07.13','26.07.14','26.07.15','26.07.16','26.07.17'];
+  var nd_daily=[25542.77,25967.86,26047.92,25553.54,25838.97,25768.96,25345.3];
+  var hy_daily=[2.7,2.7,2.69,2.69,2.72,2.71,2.71];
+  var labels_daily=['26.07.08','26.07.09','26.07.10','26.07.13','26.07.14','26.07.15','26.07.16'];
   var W52_HIGH=27190.21;
   var W52_LOW=19226.22;
   var vix_monthly=[
@@ -58,7 +58,7 @@
     17.9,19.6,22.3,29.5,24.8,17.5,16.4,15.8,17.2,18.1,15.8,16.3,
     18.2,19.8,22.5,24.1
   ];
-  var vix_recent=16.73;
+  var vix_recent=15.67;
   var ND_2016_END=5383;
   var nd_now=nd_daily[nd_daily.length-1];
   var cagr_2026=Math.pow(nd_now/ND_2016_END,0.1)-1;
@@ -224,7 +224,36 @@
 </style>
 </head>
 <body>
-<h1>나스닥 합성 선행지수 — 행동 지침<span class="ver" id="verLabel">전체 v2 · 18~26</span></h1>
+<h1 style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+  <span>나스닥 합성 선행지수 — 행동 지침<span class="ver" id="verLabel">전체 v2 · 18~26</span></span>
+  <button id="calibBellBtn" aria-label="캘리브레이션 알림" title="매매 계산식 자동조정 알림"
+    style="position:relative;background:none;border:1px solid #3a3a4a;border-radius:8px;
+           width:34px;height:34px;flex:0 0 auto;cursor:pointer;font-size:16px;
+           display:flex;align-items:center;justify-content:center;color:#c7c7d1;">
+    🔔
+    <span id="calibBellBadge" style="display:none;position:absolute;top:-6px;right:-6px;
+      background:#f43f5e;color:#fff;font-size:10px;font-weight:700;line-height:1;
+      border-radius:999px;padding:3px 5px;min-width:16px;text-align:center;"></span>
+  </button>
+</h1>
+<div id="calibModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);
+     z-index:100;align-items:flex-start;justify-content:center;">
+  <div style="background:#1a1a22;border:1px solid #3a3a4a;border-radius:12px;max-width:640px;
+       width:92%;margin-top:6vh;max-height:82vh;overflow-y:auto;padding:18px 20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <h2 style="font-size:15px;margin:0;color:#e2e2e8;">📊 매매 계산식 자동조정 알림</h2>
+      <button id="calibModalClose" style="background:none;border:none;color:#8b8b9a;font-size:18px;cursor:pointer;">✕</button>
+    </div>
+    <div id="calibNotifList" style="font-size:12px;color:#c7c7d1;"></div>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid #2a2a35;">
+      <a id="calibReportLink" href="#" target="_blank" rel="noopener"
+         style="font-size:12px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;
+                border-radius:6px;padding:6px 12px;display:inline-block;">
+        전체 리포트 보기 (GitHub) ↗
+      </a>
+    </div>
+  </div>
+</div>
 <p class="sub">강한매수:HY≥4.5%+이격&gt;+20% · 매수:HY 3.5~4.5%+이격&gt;+20% · 관망:HY≥3%+이격0%전환 · 경고:HY&lt;3%+이격0~-20% · 매도:HY&lt;3%+이격&lt;-20%</p>
 
 <div class="top-row">
@@ -263,20 +292,24 @@
   <div class="cl">⑤ 관심종목 매수 우위 순위 · 2~8단계 가중점수 기준</div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
     <span style="font-size:11px;color:#6b6b7a;" id="rankUpdated"></span>
-    <a href="https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=add-ticker%3A" target="_blank"
-       style="font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;">
-      + 종목 추가
-    </a>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button id="rankExpandBtn" style="font-size:11px;color:#a78bfa;background:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;cursor:pointer;display:none;">
+        전체보기 ▾
+      </button>
+      <a href="https://github.com/cfy5508-maker/nasdaq-signal/issues/new?title=add-ticker%3A" target="_blank"
+         style="font-size:11px;color:#a78bfa;text-decoration:none;border:1px solid #3a3a4a;border-radius:6px;padding:4px 10px;">
+        + 종목 추가
+      </a>
+    </div>
   </div>
-  <div style="display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) minmax(0,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
-  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span style="text-align:center;">점수</span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span style="text-align:center;">신호</span><span></span>
+  <div id="rankHeaderRow" style="display:grid;grid-template-columns:20px 8px 160px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">추세신호</span><span></span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">손절신호</span><span></span>
   </div>
   <div id="rankList"></div>
-  <div style="margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
-    <button id="rankMoreBtn" style="width:100%;background:none;border:none;color:#6b6b7a;font-size:11px;cursor:pointer;padding:6px 0;">
-      나머지 보기 ▾
+  <div id="rankCollapseWrap" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid #2a2a35;">
+    <button id="rankCollapseBtn" style="width:100%;background:none;border:none;color:#6b6b7a;font-size:11px;cursor:pointer;padding:6px 0;">
+      전체보기 ▾
     </button>
-    <div id="rankRest" style="display:none;flex-wrap:wrap;gap:6px;padding-top:8px;"></div>
   </div>
 </div>
 
@@ -297,7 +330,7 @@
 
 <div class="cbox">
   <div class="cl">④ 글로벌 주요 지수 수익률 (%) · 양수=상승 · 음수=하락 · 매일 갱신</div>
-  <div id="globalTable"><!--GTABLE_START--><div style="overflow-x:auto;"><table style="border-collapse:collapse;width:100%;min-width:980px;font-size:12px;color:#e2e2e8;"><thead><tr><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">기간</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">인니</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">태국</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">호주</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">브라질</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">멕시코</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">FTSE</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">인도</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">항셍</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">상하이</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">다우</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">DAX</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">CAC 40</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">닛케이</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">S&P</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">유로</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">코스피</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">나스닥</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">대만</th></tr></thead><tbody><tr><th style="padding:9px 9px;text-align:center;color:#a78bfa;background:#211f2e;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">이번달<br><span style='font-size:8px;color:#6b6b7a;'>MTD·매일</span></th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-11.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.7</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-1개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-3.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.5</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-2개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-14.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-8.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-4.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.0</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-3개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-20.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-9.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+20.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+11.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+27.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+14.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+30.1</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-6개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-33.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+29.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-3.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+32.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+63.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+11.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+49.7</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-12개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-15.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+44.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+30.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+13.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+72.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+20.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+15.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+134.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+27.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+101.3</td></tr></tbody></table></div><div style="margin-top:8px;font-size:10px;color:#8b8b9a;display:flex;gap:14px;flex-wrap:wrap;align-items:center;"><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f4d3a;vertical-align:middle;margin-right:4px;"></span>핵심 (반도체 비중 높음)</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f3a4d;vertical-align:middle;margin-right:4px;"></span>중간</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#26262e;border:1px solid #3a3a45;vertical-align:middle;margin-right:4px;"></span>무관</span><span style="color:#6b6b7a;">· 이번달=이달 1일 대비(참고) · 집중도는 -1~-12로 계산</span></div><div style="margin-top:4px;font-size:10px;color:#52525b;text-align:right;">자료: Yahoo Finance · 기준 2026-07-13 (KST)</div><!--GTABLE_END--></div>
+  <div id="globalTable"><!--GTABLE_START--><div style="overflow-x:auto;"><table style="border-collapse:collapse;width:100%;min-width:980px;font-size:12px;color:#e2e2e8;"><thead><tr><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">기간</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">인니</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">태국</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">호주</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">브라질</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">멕시코</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">FTSE</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#26262e;color:#8b8b9a;border-right:1px solid #1f1f27;">인도</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">항셍</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">상하이</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">다우</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">DAX</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f3a4d;color:#bae6fd;border-right:1px solid #163040;">CAC 40</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">닛케이</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">S&P</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">유로</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">코스피</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">나스닥</th><th style="padding:9px 7px;text-align:center;font-weight:700;white-space:nowrap;background:#1f4d3a;color:#d1fae5;border-right:1px solid #163a2c;">대만</th></tr></thead><tbody><tr><th style="padding:9px 9px;text-align:center;color:#a78bfa;background:#211f2e;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">이번달<br><span style='font-size:8px;color:#6b6b7a;'>MTD·매일</span></th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-8.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-19.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.5</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-1개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-3.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#9ca3af;">0.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-8.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-21.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-4.9</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-2개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-2.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+2.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-4.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-9.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.6</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-3개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-19.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+10.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-11.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-4.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-0.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-5.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+7.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+18.5</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-6개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-33.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+28.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+5.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-7.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-8.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+6.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-1.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+18.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+4.2</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+40.9</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+10.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+38.8</td></tr><tr><th style="padding:9px 9px;text-align:center;color:#9ca3af;background:#202028;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;white-space:nowrap;font-weight:700;">-12개월</th><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-16.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+36.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+1.7</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+28.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+17.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+18.4</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#fb7185;background:rgba(244,63,94,0.10);font-weight:600;">-6.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+0.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+9.0</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+18.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+3.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+8.5</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+60.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+20.3</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+18.6</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+114.1</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+24.8</td><td style="padding:9px 7px;text-align:center;border-right:1px solid #2a2a35;border-top:1px solid #2a2a35;font-variant-numeric:tabular-nums;color:#34d399;">+88.7</td></tr></tbody></table></div><div style="margin-top:8px;font-size:10px;color:#8b8b9a;display:flex;gap:14px;flex-wrap:wrap;align-items:center;"><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f4d3a;vertical-align:middle;margin-right:4px;"></span>핵심 (반도체 비중 높음)</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#1f3a4d;vertical-align:middle;margin-right:4px;"></span>중간</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#26262e;border:1px solid #3a3a45;vertical-align:middle;margin-right:4px;"></span>무관</span><span style="color:#6b6b7a;">· 이번달=이달 1일 대비(참고) · 집중도는 -1~-12로 계산</span></div><div style="margin-top:4px;font-size:10px;color:#52525b;text-align:right;">자료: Yahoo Finance · 기준 2026-07-17 (KST)</div><!--GTABLE_END--></div>
 </div>
   
 <script>
@@ -949,15 +982,109 @@
   var STATUS_LABEL = {pass:'충족', warn:'애매', fail:'위반', unknown:'중립', neutral:'중립'};
   var STATUS_BG = {pass:'rgba(16,185,129,0.15)', warn:'rgba(245,158,11,0.15)', fail:'rgba(244,63,94,0.15)', unknown:'rgba(107,107,122,0.15)', neutral:'rgba(107,107,122,0.15)'};
   var STATUS_FG = {pass:'#10b981', warn:'#f59e0b', fail:'#f43f5e', unknown:'#9999aa', neutral:'#9999aa'};
-  var TOP_N = 5;
+  var DEFAULT_N = 5;
 
  function pill(status){
     var s = status || 'unknown';
     return '<span style="height:20px;padding:0 10px;border-radius:999px;background:'+STATUS_BG[s]+';border:1px solid '+STATUS_FG[s]+';color:'+STATUS_FG[s]+';font-size:11px;font-weight:700;display:inline-flex;align-items:center;white-space:nowrap;">'+STATUS_LABEL[s]+'</span>';
   }
   
+  function getPositionData(ticker){
+    try {
+      var data = JSON.parse(localStorage.getItem('position_' + ticker) || 'null');
+      if (data && data.priceKRW) return data;
+      return null;
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function scoreChangeTooltip(sig){
+    if (!sig || sig.change == null) return '전일 데이터 없음';
+    var sign = sig.change >= 0 ? '+' : '';
+    return '전일 ' + sig.prev_score + ' -> 오늘 ' + (sig.prev_score + sig.change) + ' (전일대비 ' + sign + sig.change + ')';
+  }
+
+  function getPurchasedStatus(ticker){
+    return !!getPositionData(ticker);
+  }
+
+  // 손절선 이탈 상태(분할손절/반등시도/즉시손절)를 브라우저에 저장해서, 이탈 날짜·가격
+  // 기준으로 시간이 지나며 상태가 어떻게 바뀌는지 추적한다. 종목당 하나씩 저장.
+  function getStopBreachState(ticker){
+    try { return JSON.parse(localStorage.getItem('stopBreach_' + ticker) || 'null'); }
+    catch(e) { return null; }
+  }
+  function setStopBreachState(ticker, state){
+    localStorage.setItem('stopBreach_' + ticker, JSON.stringify(state));
+  }
+  function clearStopBreachState(ticker){
+    localStorage.removeItem('stopBreach_' + ticker);
+  }
+
+  // 매수 상태 + 환율 + 종목데이터(item)로 손절 배지 상태를 계산.
+  // 우선순위: 손절신호(다이버전스) > 손절권 반등시도(트리거캔들 확인) > 즉시손절(이탈+5%추가하락 또는 5일경과) > 분할손절(이탈 직후) > 손절대기(근접 중, 이탈 전)
+  function getStopBadgeInfo(item, exchangeRate){
+    var pos = getPositionData(item.ticker);
+    if (!pos || !exchangeRate) return null;
+
+    var reasons = [];
+    var level = null; // 'signal' | 'rescue' | 'executed' | 'partial' | 'pending'
+
+    if (item.divergence_stop_signal && item.divergence_stop_signal.active) {
+      level = 'signal';
+      reasons.push('다이버전스 손절신호: ' + item.divergence_stop_signal.reason);
+    }
+
+    // ATR 손절가(원화 환산) 계산 - 매수가 입력 시와 동일한 로직
+    if (item.entry_atr_stop_pct != null && item.price != null) {
+      var atrDollar = (item.entry_atr_stop_pct / 100) * item.price / 1.5;
+      var atrKRW = atrDollar * exchangeRate;
+      var stopPriceKRW = pos.priceKRW - 1.5 * atrKRW;
+      var currentPriceKRW = item.price * exchangeRate;
+      var todayStr = new Date().toISOString().slice(0, 10);
+
+      if (currentPriceKRW <= stopPriceKRW) {
+        // 손절선 이탈 상태 - 이탈 기록이 없으면 오늘을 이탈일로 새로 기록
+        var breach = getStopBreachState(item.ticker);
+        if (!breach) {
+          breach = { breachDate: todayStr, breachPriceUSD: item.price, rescueSeen: false };
+        }
+        // 트리거캔들(해머/엔걸핑+거래량)이 이탈 이후 한 번이라도 확인되면 영구적으로 기록
+        if (item.today_reversal_candle && item.today_reversal_volume_confirmed) {
+          breach.rescueSeen = true;
+        }
+        setStopBreachState(item.ticker, breach);
+
+        var daysSinceBreach = Math.max(0, Math.round((new Date(todayStr) - new Date(breach.breachDate)) / 86400000));
+        var dropSinceBreachPct = breach.breachPriceUSD > 0 ? (breach.breachPriceUSD - item.price) / breach.breachPriceUSD * 100 : 0;
+
+        if (breach.rescueSeen) {
+          if (!level) level = 'rescue';
+          reasons.push('손절선 이탈(' + daysSinceBreach + '일째) 중이지만 반전캔들(트리거) 확인됨 - 반등시도로 보류');
+        } else if (dropSinceBreachPct >= 5 || daysSinceBreach >= 5) {
+          if (!level) level = 'executed';
+          reasons.push('이탈 후 ' + daysSinceBreach + '일 경과, 이탈시점 대비 -' + dropSinceBreachPct.toFixed(1) + '% (반등/재돌파 없음)');
+        } else {
+          if (!level) level = 'partial';
+          reasons.push('손절선 이탈 ' + daysSinceBreach + '일째 (5일/5%추가하락 기준 전, 우선 분할손절 권장)');
+        }
+      } else {
+        // 손절선 위로 재돌파 - 이전 이탈 기록이 있었다면 해제
+        clearStopBreachState(item.ticker);
+        if (currentPriceKRW <= stopPriceKRW * 1.05) {
+          if (!level) level = 'pending';
+          reasons.push('ATR 손절가 ' + Math.round(stopPriceKRW).toLocaleString() + '원에 근접 중 (현재가 ' + Math.round(currentPriceKRW).toLocaleString() + '원)');
+        }
+      }
+    }
+
+    if (!level) return null;
+    return { level: level, reasons: reasons };
+  }
+
   function overallTag(score){
-    if(score >= 65) return 'pass';
+    if(score >= 70) return 'pass';
     if(score >= 40) return 'warn';
     return 'fail';
   }
@@ -970,47 +1097,142 @@
       mhDetail = '소속 지수 확인 안 됨';
     } else {
       var volTxt = mh.volume_diff_pct_3m != null ? (mh.volume_diff_pct_3m >= 0 ? '+' : '') + mh.volume_diff_pct_3m + '%' : '-';
-      var priceTxt = mh.price_up_latest == null ? '-' : (mh.price_up_latest ? '상승' : '하락');
-      mhDetail = mh.index_name + '(' + mh.etf + ') 거래량 3개월평균대비 ' + volTxt + ', 오늘 지수 ' + priceTxt;
+      var trendTxt = mh.volume_trend_pct_3d != null ? (mh.volume_trend_pct_3d >= 0 ? '+' : '') + mh.volume_trend_pct_3d + '%' : '-';
+      var trendDirTxt = mh.volume_trend_up == null ? '' : (mh.volume_trend_up ? '(상승중)' : '(하락중)');
+      var changeTxt = mh.daily_change_pct != null ? (mh.daily_change_pct >= 0 ? '+' : '') + mh.daily_change_pct + '%' : '-';
+      var parts = [];
+      parts.push(mh.index_name + '(' + mh.etf + ') 거래량 3개월평균대비 ' + volTxt);
+      parts.push('최근3일추세 ' + trendTxt + ' ' + trendDirTxt);
+      parts.push('오늘변동폭 ' + changeTxt + '(' + (mh.volatility_label || '-') + ')');
+      if (mh.index_trigger_candle) parts.push('지수 반전캔들 확인(격상)');
+      if (mh.golden_cross_recent) parts.push('20/40일선 골든크로스 최근10일내(격상)');
+      if (mh.dead_cross_recent) parts.push('20/60일선 데드크로스 최근10일내(격하)');
+      mhDetail = parts.join(', ');
     }
     return [
       ['1단계 시장건전성(참고)', mh, mhDetail],
       ['2단계 펀더멘털', s['2_fundamentals'], '업사이드 '+(s['2_fundamentals'].upside_pct??'-')+'%, PEG '+(s['2_fundamentals'].peg??'-')],
-      ['3단계 다이버전스', s['3_divergence_gate'], s['3_divergence_gate'].divergence_present ? ((s['3_divergence_gate'].bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)')+', 간격 '+s['3_divergence_gate'].gap_days+'일' + (s['3_divergence_gate'].signal_fresh===false ? ' (저점 근처 유지중)' : ' (신규)')) : '다이버전스 없음'],
-      ['4단계 Z-score', s['4_zscore'], 'RSI '+s['4_zscore'].rsi+' (Z-score '+(s['4_zscore'].rsi_zscore_1y??'-')+')'],
-      ['5단계 트리거캔들', s['5_trigger_candle'],
-        s['5_trigger_candle'].breakout_confirmed
-          ? (s['5_trigger_candle'].pattern+' 확정('+s['5_trigger_candle'].days_ago+'일 전) + 돌파 완료 · 참고ADX '+s['5_trigger_candle'].adx_reference)
-          : (s['5_trigger_candle'].long_lower_wick
-              ? ('긴 아래꼬리(약한신호, '+s['5_trigger_candle'].wick_days_ago+'일 전) · 참고ADX '+s['5_trigger_candle'].adx_reference)
-              : ('반전캔들+돌파 없음 · 참고ADX '+s['5_trigger_candle'].adx_reference))]
+      ['3단계 다이버전스', s['3_divergence_gate'], (function(){
+        var g = s['3_divergence_gate'];
+        var rsiTxt = g.rsi_improvement != null ? ('RSI ' + (g.rsi_improvement >= 0 ? '+' : '') + g.rsi_improvement + 'p') : null;
+        var base;
+        if (g.divergence_present) {
+          base = (g.bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)') + ', 간격 ' + g.gap_days + '일' + (g.signal_fresh === false ? ' (저점 근처 유지중)' : ' (신규)');
+          if (rsiTxt) base += ', ' + rsiTxt;
+        } else if (g.status === 'neutral') {
+          var daysAgo = (full.uptrend_entry_signal && full.uptrend_entry_signal.days_since_divergence != null) ? full.uptrend_entry_signal.days_since_divergence : null;
+          base = (daysAgo != null ? (daysAgo + '일전 ') : '') + '다이버전스 발생후 초과반등';
+          if (rsiTxt) base += ', ' + rsiTxt;
+        } else {
+          base = '다이버전스 없음';
+        }
+        if (full.divergence_invalidated_signal && full.divergence_invalidated_signal.active) {
+          base += ' · ' + full.divergence_invalidated_signal.days_since_prior_divergence + '일 전 다이버전스 발생했으나 무효화됨(-' + full.divergence_invalidated_signal.price_drop_since_pct + '%)';
+        }
+        return base;
+      })()],
+      ['4단계 Z-score', s['4_zscore'], (function(){
+        var z4 = s['4_zscore'];
+        var base = 'RSI '+z4.rsi+' (Z-score '+(z4.rsi_zscore_1y??'-')+', 가중치 '+(z4.zscore_quality!=null?z4.zscore_quality:'-')+')';
+        if (z4.zscore_direction_bonus_applied) {
+          base += ' · 직전 다이버전스 대비 Z-score 개선(+0.05 가산)';
+        }
+        return base;
+      })()],
+      ['5단계 트리거캔들', s['5_trigger_candle'], (function(){
+        var tg = s['5_trigger_candle'];
+        var base;
+        if (tg.breakout_confirmed) {
+          base = tg.pattern+' 확정('+tg.days_ago+'일 전) + 돌파 완료 · 참고ADX '+tg.adx_reference;
+        } else if (tg.long_lower_wick) {
+          base = '긴 아래꼬리('+(tg.volume_confirmed && tg.avg_volume_divergence_window
+              ? ('거래량 실림·강한신호, 구간평균 '+(tg.trigger_day_volume/tg.avg_volume_divergence_window).toFixed(1)+'배')
+              : '약한신호')+', '+tg.wick_days_ago+'일 전) · 참고ADX '+tg.adx_reference;
+        } else {
+          base = '반전캔들+돌파 없음 · 참고ADX '+tg.adx_reference;
+        }
+        if (tg.order_block) {
+          var obStatus = tg.order_block.breach ? '오더블럭 이탈중' : '오더블럭 진입';
+          var obStrength = tg.order_block.strong ? '(강함, 몸통 2배+)' : '(약함)';
+          var obGap = tg.order_block.gap_confirmed ? ' · 갭업 돌파' : '';
+          base += ' · ' + obStatus + obStrength + obGap + ' [' + tg.order_block.low + '~' + tg.order_block.high + ']';
+        }
+        return base;
+      })()],
+      ['손절신호(참고)',
+        {status: full.divergence_stop_signal && full.divergence_stop_signal.active ? 'fail' : 'neutral'},
+        full.divergence_stop_signal && full.divergence_stop_signal.active
+          ? full.divergence_stop_signal.reason
+          : '해당 없음']
     ];
   }
 
- function signalBadge(sig){
-    if(!sig || sig.signal === 'none'){
-      return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
+ function signalBadge(item){
+    var sig = item.signal;
+    var dv = item.divergence_invalidated_signal;
+    var ut = item.uptrend_entry_signal;
+    var dt = item.downtrend_signal;
+
+    // 우선순위 1: 다이버전스 무효화 (위험 신호 - 단, 반등 시도가 확인되면 중립으로 완화)
+    if (dv && dv.active) {
+      var rescued = !!dv.rescue_attempted;
+      var col1 = rescued ? '#a855f7' : '#f59e0b';
+      var bg1 = rescued ? 'rgba(168,85,247,0.15)' : 'rgba(245,158,11,0.15)';
+      var label1 = rescued ? '반등시도' : '다이버전스 무효화';
+      var detail1 = dv.days_since_prior_divergence+'일 전 다이버전스 이후 -'+dv.price_drop_since_pct+'% 추가하락(저점+RSI 붕괴)'
+        + (rescued ? ' · 이후 반전캔들 확인됨(반등 시도 중, 완전한 실패는 아님)' : '');
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg1+';border:1px solid '+col1+';color:'+col1+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+label1+'</span>'
+        + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detail1+'</div></div>'
+        + '</span>';
     }
-    var up = sig.signal === 'up';
-    var col = up ? '#34d399' : '#fb7185';
-    var bg = up ? 'rgba(16,185,129,0.18)' : 'rgba(244,63,94,0.18)';
-    var label = up ? '상승신호' : '하락신호';
 
-    var reasonsHtml = (sig.reasons || []).map(function(r){
-      var line = '<div style="display:flex;align-items:center;gap:6px;">'
-        + '<span style="color:'+col+';font-size:12px;">✓</span>'
-        + '<span style="font-size:11px;color:#c7c7d1;">'+r.label+'</span>'
-        + '</div>';
-      if(r.detail){
-        line += '<div style="font-size:10px;color:#6b6b7a;margin-left:18px;margin-top:2px;">'+r.detail+'</div>';
-      }
-      return line;
-    }).join('');
+    // 우선순위 1.5: 하락추세 (위험 신호 - 상승추세였다가 저점2를 다시 깨고 내려간 경우)
+    if (dt && dt.active) {
+      var dtLabel = dt.phase === 'entry' ? '하락추세 진입' : '하락추세 유지중';
+      var detailDt = '저점 대비 '+dt.price_vs_low_pct+'% · 새 볼리시 다이버전스가 뜨기 전까지 유지';
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:rgba(244,63,94,0.18);border:1px solid #fb7185;color:#fb7185;font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+dtLabel+'</span>'
+        + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detailDt+'</div></div>'
+        + '</span>';
+    }
 
-    return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
-      + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg+';border:1px solid '+col+';color:'+col+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;">'+label+'</span>'
-      + '<div class="sig-tip"><div style="display:flex;flex-direction:column;gap:8px;">'+reasonsHtml+'</div></div>'
-      + '</span>';
+    // 우선순위 2: 점수기반 매수신호 (매도신호는 손절신호가 대신 담당하므로 없음)
+    if (sig && sig.signal === 'up') {
+      var col = '#34d399';
+      var bg = 'rgba(16,185,129,0.18)';
+      var label = '매수신호';
+
+      var reasonsHtml = (sig.reasons || []).map(function(r){
+        var line = '<div style="display:flex;align-items:center;gap:6px;">'
+          + '<span style="color:'+col+';font-size:12px;">✓</span>'
+          + '<span style="font-size:11px;color:#c7c7d1;">'+r.label+'</span>'
+          + '</div>';
+        if(r.detail){
+          line += '<div style="font-size:10px;color:#6b6b7a;margin-left:18px;margin-top:2px;">'+r.detail+'</div>';
+        }
+        return line;
+      }).join('');
+
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg+';border:1px solid '+col+';color:'+col+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+label+'</span>'
+        + '<div class="sig-tip"><div style="display:flex;flex-direction:column;gap:8px;">'+reasonsHtml+'</div></div>'
+        + '</span>';
+    }
+
+    // 우선순위 3: 상승추세 (참고) - 5일 이내면 "진입", 넘으면 "유지중"
+    if (ut && ut.active) {
+      var col3 = '#34d399', bg3 = 'rgba(16,185,129,0.18)';
+      var utLabel = ut.phase === 'entry' ? '상승추세 진입' : '상승추세 유지중';
+      var detail3 = '다이버전스 이후 '+ut.days_since_divergence+'일, 저점대비 +'+ut.gain_since_low_pct+'% 반등 중';
+      return '<span style="position:relative;display:inline-block;" class="sig-wrap">'
+        + '<span style="height:19px;padding:0 8px;border-radius:999px;background:'+bg3+';border:1px solid '+col3+';color:'+col3+';font-size:10px;font-weight:700;display:inline-flex;align-items:center;cursor:help;white-space:nowrap;">'+utLabel+'</span>'
+        + '<div class="sig-tip"><div style="font-size:11px;color:#c7c7d1;">'+detail3+'</div></div>'
+        + '</span>';
+    }
+
+    // 우선순위 4: 신호 없음
+    return '<span style="font-size:10px;color:#6b6b7a;">신호 없음</span>';
   }
 
   function rsiColorStyle(rsi){
@@ -1042,11 +1264,231 @@
     return html;
   }
 
+  function buildAddonRows(full){
+    var sa = full.stages_addon;
+    var mh = sa['1_market_health'];
+    var mhDetail;
+    if (!mh || mh.etf == null) {
+      mhDetail = '소속 지수 확인 안 됨';
+    } else {
+      var volTxt = mh.volume_diff_pct_3m != null ? (mh.volume_diff_pct_3m >= 0 ? '+' : '') + mh.volume_diff_pct_3m + '%' : '-';
+      var trendTxt = mh.volume_trend_pct_3d != null ? (mh.volume_trend_pct_3d >= 0 ? '+' : '') + mh.volume_trend_pct_3d + '%' : '-';
+      var trendDirTxt = mh.volume_trend_up == null ? '' : (mh.volume_trend_up ? '(상승중)' : '(하락중)');
+      var changeTxt = mh.daily_change_pct != null ? (mh.daily_change_pct >= 0 ? '+' : '') + mh.daily_change_pct + '%' : '-';
+      var parts = [];
+      parts.push(mh.index_name + '(' + mh.etf + ') 거래량 3개월평균대비 ' + volTxt);
+      parts.push('최근3일추세 ' + trendTxt + ' ' + trendDirTxt);
+      parts.push('오늘변동폭 ' + changeTxt + '(' + (mh.volatility_label || '-') + ')');
+      if (mh.index_trigger_candle) parts.push('지수 반전캔들 확인(격상)');
+      if (mh.golden_cross_recent) parts.push('20/40일선 골든크로스 최근10일내(격상)');
+      if (mh.dead_cross_recent) parts.push('20/60일선 데드크로스 최근10일내(격하)');
+      mhDetail = parts.join(', ');
+    }
+
+    var g = sa['3_pullback_gate'];
+    var gateDetail;
+    if (g.near_sma200) {
+      gateDetail = '200일선 근접(이례적으로 깊은 눌림, 가중치 1.00배)';
+    } else if (g.near_sma120) {
+      gateDetail = '120일선 근접(매우 깊은 눌림, 가중치 0.86배)';
+    } else if (g.near_sma60) {
+      gateDetail = '60일선 근접(깊은 눌림, 가중치 0.71배)';
+    } else if (g.near_sma40 || g.near_sma20) {
+      if (!g.is_jeong_baeyeol) {
+        gateDetail = (g.near_sma40 ? '40일선' : '20일선') + ' 근접 · 역배열(20>40>60 구조 아님, 가중치 0.36배)';
+      } else if (g.near_sma40) {
+        gateDetail = '40일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.57배)' : '이평선 간격 좁아지는 중(가중치 0.54배)');
+      } else {
+        gateDetail = '20일선 근접 · 정배열 · ' + (g.ma_spread_widening ? '이평선 간격 넓어지는 중(가중치 0.54배)' : '이평선 간격 좁아지는 중(가중치 0.36배)');
+      }
+    } else if (g.ma_converged_ignored) {
+      gateDetail = '이평선 근접했으나 60일선 수렴으로 무시됨';
+    } else {
+      gateDetail = '이평선 근접 안됨 (또는 위에 있다가 최근 무너진 뒤 반등 중이라 눌림목 아님)';
+    }
+
+    var t = sa['5_trigger_confirmed'];
+    var triggerDetail;
+    if (t.trigger_weight_tier === 'reversal_volume') {
+      triggerDetail = '반전캔들(해머/엔걸핑) + 거래량 실림 (가장 강한 신호)';
+    } else if (t.trigger_weight_tier === 'reversal_only') {
+      triggerDetail = '반전캔들(해머/엔걸핑) 확인, 거래량은 평범';
+    } else if (t.trigger_weight_tier === 'wick_volume') {
+      triggerDetail = '긴 아래꼬리 + 거래량 실림';
+    } else if (t.wick_present) {
+      triggerDetail = '긴 아래꼬리만 있음 (거래량 확인 안됨, 약한신호)';
+    } else {
+      triggerDetail = '트리거캔들 없음';
+    }
+
+    var stopDetail = full.pullback_stop_signal
+      ? ('직전저점 '+full.pullback_stop_signal.stop_reference_price+' 대비 ' + (full.pullback_stop_signal.stopped_out ? '이탈됨(손절)' : '유지중'))
+      : '판단불가';
+    return [
+      ['1단계 시장건전성(참고)', mh || {status:'neutral'}, mhDetail],
+      ['2단계 펀더멘털', sa['2_fundamentals'], '업사이드 '+(sa['2_fundamentals'].upside_pct??'-')+'%, PEG '+(sa['2_fundamentals'].peg??'-')],
+      ['3단계 눌림목게이트', g, gateDetail],
+      ['4단계 RSI존', sa['4_rsi_zone'], 'RSI '+sa['4_rsi_zone'].rsi+' ('+(sa['4_rsi_zone'].rsi>=60?'60이상 강신호':sa['4_rsi_zone'].rsi>=50?'50~60 약신호':'50미만')+')'],
+      ['5단계 트리거캔들', t, triggerDetail],
+      ['손절신호(참고)', {status: full.pullback_stop_signal && full.pullback_stop_signal.stopped_out ? 'fail' : 'neutral'}, stopDetail]
+    ];
+  }
+
   function renderChecklistWithToggle(full, container){
     var wrap = document.createElement('div');
+
+    // 매수 여부 확인 + 매수가 입력(원화 기준, 매일 환율로 환산) - 브라우저별 localStorage 저장
+    var posKey = 'position_' + full.ticker;
+    var posData = null;
+    try { posData = JSON.parse(localStorage.getItem(posKey) || 'null'); } catch(e) { posData = null; }
+
+    var posWrap = document.createElement('div');
+    posWrap.style.cssText = 'margin-bottom:12px;padding:10px 12px;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;width:100%;max-width:881px;box-sizing:border-box;';
+    var headerRowEl = document.getElementById('rankHeaderRow');
+    if (headerRowEl) {
+      posWrap.style.width = headerRowEl.getBoundingClientRect().width + 'px';
+      posWrap.style.boxSizing = 'border-box';
+    } else {
+      posWrap.style.maxWidth = '680px';
+    }
+
+    if (window.EXCHANGE_RATE != null) {
+      renderPosBlock(window.EXCHANGE_RATE, null);
+    } else {
+      posWrap.innerHTML = '<span style="font-size:11px;color:#6b6b7a;">환율 정보 불러오는 중...</span>';
+      fetch('./data/exchange_rate.json?_='+Date.now())
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(fx){
+          var rate = (fx && fx.rate) ? fx.rate : null;
+          window.EXCHANGE_RATE = rate;
+          renderPosBlock(rate, fx);
+        })
+        .catch(function(){ renderPosBlock(null, null); });
+    }
+
+    function renderPosBlock(rate, fx){
+      posWrap.innerHTML = '';
+      if (rate == null) {
+        posWrap.innerHTML = '<span style="font-size:11px;color:#f43f5e;">환율 정보를 불러오지 못했습니다.</span>';
+        return;
+      }
+
+      if (posData && posData.priceKRW) {
+        var atrPct = full.entry_atr_stop_pct;   // 계산 당시 종가(full.price, USD) 기준 ATR손절%
+        var calcPrice = full.price;             // USD
+        var atrDollar = (atrPct / 100) * calcPrice / 1.5;
+        var atrKRW = atrDollar * rate;           // 오늘 환율로 환산한 ATR(원화)
+        var stopPriceKRW = posData.priceKRW - 1.5 * atrKRW;
+        var stopPctFromBuy = (1.5 * atrKRW / posData.priceKRW) * 100;
+
+        var currentPriceKRW = full.price * rate;  // 오늘 종가를 오늘 환율로 환산
+        var pnlPct = (currentPriceKRW / posData.priceKRW - 1) * 100;
+        var pnlColor = pnlPct >= 0 ? '#34d399' : '#fb7185';
+
+        posWrap.innerHTML =
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<span style="font-size:11px;color:#9999aa;">내 매수가 '+Math.round(posData.priceKRW).toLocaleString()+'원'+(posData.date ? (' · '+posData.date) : '')+'</span>' +
+            '<span style="display:flex;align-items:center;gap:10px;">' +
+              '<span data-edit-pos style="font-size:11px;color:#a78bfa;cursor:pointer;text-decoration:underline;">매수가 수정</span>' +
+              '<span data-clear-pos style="font-size:11px;color:#6b6b7a;cursor:pointer;text-decoration:underline;">매수 취소</span>' +
+            '</span>' +
+          '</div>' +
+          '<div style="font-size:13px;margin-top:6px;color:'+pnlColor+';font-weight:700;">'+(pnlPct>=0?'+':'')+pnlPct.toFixed(1)+'% <span style="font-size:11px;color:#6b6b7a;font-weight:400;">(현재가 '+Math.round(currentPriceKRW).toLocaleString()+'원 · $'+full.price.toFixed(2)+' · 환율 '+rate.toLocaleString()+'원)</span></div>' +
+          '<div style="font-size:11px;margin-top:4px;color:#c7c7d1;">ATR기준 손절가: '+Math.round(stopPriceKRW).toLocaleString()+'원 (매수가 대비 -'+stopPctFromBuy.toFixed(1)+'%)</div>';
+
+        posWrap.querySelector('[data-clear-pos]').addEventListener('click', function(){
+          localStorage.removeItem(posKey);
+          posData = null;
+          renderPosBlock(rate, fx);
+        });
+
+        posWrap.querySelector('[data-edit-pos]').addEventListener('click', function(){
+          posWrap.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+              '<span style="display:flex;align-items:center;gap:6px;">' +
+                '<span style="font-size:11px;color:#9999aa;">매수가(원):</span>' +
+                '<input type="number" step="1" value="'+Math.round(posData.priceKRW)+'" style="width:110px;padding:5px 8px;border-radius:6px;border:1px solid #3a3a4a;background:#1a1a22;color:#e2e2e8;font-size:12px;" data-price-input>' +
+              '</span>' +
+              '<span style="display:flex;align-items:center;gap:10px;">' +
+                '<button data-save-price style="font-size:11px;padding:5px 10px;border-radius:6px;border:none;background:#7c3aed;color:#fff;cursor:pointer;">저장</button>' +
+                '<span data-cancel-input style="font-size:11px;color:#6b6b7a;cursor:pointer;">취소</span>' +
+              '</span>' +
+            '</div>';
+
+          posWrap.querySelector('[data-save-price]').addEventListener('click', function(){
+            var val = parseFloat(posWrap.querySelector('[data-price-input]').value);
+            if (!val || val <= 0) { alert('올바른 매수가(원화)를 입력해주세요.'); return; }
+            posData = {priceKRW: val, date: posData.date || new Date().toISOString().slice(0,10)};
+            localStorage.setItem(posKey, JSON.stringify(posData));
+            renderPosBlock(rate, fx);
+          });
+          posWrap.querySelector('[data-cancel-input]').addEventListener('click', function(){
+            renderPosBlock(rate, fx);
+          });
+        });
+      } else {
+        posWrap.innerHTML =
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<span style="font-size:11px;color:#9999aa;">매수여부: <span style="color:#6b6b7a;">매수안함</span></span>' +
+            '<button data-confirm-buy style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid #3a3a4a;background:transparent;color:#a78bfa;cursor:pointer;">매수확인</button>' +
+          '</div>';
+
+        posWrap.querySelector('[data-confirm-buy]').addEventListener('click', function(){
+          var estimatedKRW = Math.round(full.price * rate);
+          posWrap.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+              '<span style="display:flex;align-items:center;gap:6px;">' +
+                '<span style="font-size:11px;color:#9999aa;">매수가(원):</span>' +
+                '<input type="number" step="1" placeholder="예: '+estimatedKRW.toLocaleString()+'" style="width:110px;padding:5px 8px;border-radius:6px;border:1px solid #3a3a4a;background:#1a1a22;color:#e2e2e8;font-size:12px;" data-price-input>' +
+              '</span>' +
+              '<span style="display:flex;align-items:center;gap:10px;">' +
+                '<button data-save-price style="font-size:11px;padding:5px 10px;border-radius:6px;border:none;background:#7c3aed;color:#fff;cursor:pointer;">저장</button>' +
+                '<span data-cancel-input style="font-size:11px;color:#6b6b7a;cursor:pointer;">취소</span>' +
+              '</span>' +
+            '</div>';
+
+          posWrap.querySelector('[data-save-price]').addEventListener('click', function(){
+            var val = parseFloat(posWrap.querySelector('[data-price-input]').value);
+            if (!val || val <= 0) { alert('올바른 매수가(원화)를 입력해주세요.'); return; }
+            posData = {priceKRW: val, date: new Date().toISOString().slice(0,10)};
+            localStorage.setItem(posKey, JSON.stringify(posData));
+            renderPosBlock(rate, fx);
+          });
+          posWrap.querySelector('[data-cancel-input]').addEventListener('click', function(){
+            renderPosBlock(rate, fx);
+          });
+        });
+      }
+    }
+
+    var toggleRow = document.createElement('div');
+    toggleRow.style.cssText = 'display:flex;justify-content:flex-start;margin-bottom:14px;';
+    toggleRow.innerHTML =
+      '<div style="display:inline-flex;background:#0f0f12;border-radius:8px;border:1px solid #2a2a35;padding:2px;">' +
+      '<button data-mode="entry" style="padding:5px 14px;font-size:11px;font-weight:700;border:none;border-radius:6px;background:#7c3aed;color:#fff;cursor:pointer;">신규진입 '+full.score+'</button>' +
+      '<button data-mode="addon" style="padding:5px 14px;font-size:11px;font-weight:500;border:none;border-radius:6px;background:transparent;color:#6b6b7a;cursor:pointer;">눌림목점수 '+full.score_addon+'</button>' +
+      '</div>';
+
     var body = document.createElement('div');
-    var entryHtml = renderRowsHtml(buildEntryRows(full), '손절폭 ATR기준 '+full.entry_atr_stop_pct+'%');
+    var entryHtml = renderRowsHtml(buildEntryRows(full));
+    var addonHtml = renderRowsHtml(buildAddonRows(full));
     body.innerHTML = entryHtml;
+
+    var btnEntry = toggleRow.querySelector('[data-mode="entry"]');
+    var btnAddon = toggleRow.querySelector('[data-mode="addon"]');
+    btnEntry.addEventListener('click', function(){
+      body.innerHTML = entryHtml;
+      btnEntry.style.background = '#7c3aed'; btnEntry.style.color = '#fff'; btnEntry.style.fontWeight = '700';
+      btnAddon.style.background = 'transparent'; btnAddon.style.color = '#6b6b7a'; btnAddon.style.fontWeight = '500';
+    });
+    btnAddon.addEventListener('click', function(){
+      body.innerHTML = addonHtml;
+      btnAddon.style.background = '#7c3aed'; btnAddon.style.color = '#fff'; btnAddon.style.fontWeight = '700';
+      btnEntry.style.background = 'transparent'; btnEntry.style.color = '#6b6b7a'; btnEntry.style.fontWeight = '500';
+    });
+
+    wrap.appendChild(posWrap);
+    wrap.appendChild(toggleRow);
     wrap.appendChild(body);
     container.innerHTML = '<span></span><span></span>';
     var col3 = document.createElement('div');
@@ -1061,19 +1503,45 @@
     row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
 
     var head = document.createElement('div');
-    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 55px repeat(7, 60px) minmax(0,1fr);gap:18px;align-items:center;cursor:pointer;';
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 160px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;align-items:center;cursor:pointer;';
+
+    var addonScore = item.score_addon;
+    var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
+
+    var purchased = getPurchasedStatus(item.ticker);
+    var purchasedBadge = purchased
+      ? '<span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(16,185,129,0.15);color:#10b981;font-weight:700;white-space:nowrap;">매수함</span>'
+      : '<span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(107,107,122,0.15);color:#6b6b7a;">매수안함</span>';
+
+    var stopInfo = getStopBadgeInfo(item, window.EXCHANGE_RATE);
+    var stopBadge;
+    if (stopInfo) {
+      var stopLabelMap = { signal: '손절신호', executed: '즉시손절', partial: '분할손절', rescue: '손절권 반등시도', pending: '손절대기' };
+      var stopColorMap = { signal: '#ef4444', executed: '#f43f5e', partial: '#f97316', rescue: '#a855f7', pending: '#f59e0b' };
+      var stopBgMap = { signal: 'rgba(239,68,68,0.18)', executed: 'rgba(244,63,94,0.18)', partial: 'rgba(249,115,22,0.15)', rescue: 'rgba(168,85,247,0.15)', pending: 'rgba(245,158,11,0.15)' };
+      var stopTooltip = stopInfo.reasons.join(' / ');
+      stopBadge = '<span title="'+stopTooltip.replace(/"/g,'&quot;')+'" style="font-size:10px;padding:2px 8px;border-radius:999px;background:'+stopBgMap[stopInfo.level]+';border:1px solid '+stopColorMap[stopInfo.level]+';color:'+stopColorMap[stopInfo.level]+';font-weight:700;white-space:nowrap;cursor:help;">'+stopLabelMap[stopInfo.level]+'</span>';
+    } else {
+      stopBadge = '<span style="font-size:10px;color:#6b6b7a;">신호없음</span>';
+    }
 
     head.innerHTML =
       '<span class="rankChev" style="font-size:11px;color:#6b6b7a;transition:transform .15s;display:inline-block;transform-origin:50% 45%;width:11px;text-align:center;">▾</span>' +
       '<span style="width:8px;height:8px;border-radius:50%;background:'+STATUS_FG[tag]+';"></span>' +
-      '<span style="font-size:13px;font-weight:700;color:#e2e2e8;text-align:left;">'+item.ticker+'</span>' +
+      '<span style="min-width:0;overflow:hidden;text-align:left;white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:700;color:#e2e2e8;" title="'+(item.name ? item.name.replace(/"/g,'&quot;')+' (' : '')+item.ticker+(item.name ? ')' : '')+'">' +
+        (item.name ? '<span style="color:#9999aa;font-weight:600;">'+item.name+'</span> <span>('+item.ticker+')</span>' : item.ticker) +
+      '</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">$'+item.price.toFixed(2)+'</span>' +
-      '<span style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;">'+item.score+'</span>' +
+      '<span title="'+scoreChangeTooltip(item.signal)+'" style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;cursor:help;">'+item.score+'</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
       '<span style="text-align:center;">'+pill(item.trigger)+'</span>' +
       '<span style="font-size:11px;text-align:center;'+rsiColorStyle(item.rsi)+'">'+(item.rsi!=null?item.rsi:'-')+'</span>' +
-      '<span style="text-align:center;">'+signalBadge(item.signal)+'</span>' +
+      '<span title="'+scoreChangeTooltip(item.signal_addon)+'" style="font-size:11px;color:'+addonColor+';text-align:center;font-weight:700;cursor:help;">'+addonScore+'</span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+signalBadge(item)+'</span>' +
+      '<span></span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+purchasedBadge+'</span>' +
+      '<span style="display:flex;justify-content:center;align-items:center;">'+stopBadge+'</span>' +
       '<span style="display:flex;justify-content:flex-end;">' +
       '<span data-remove data-ticker="'+item.ticker+'" style="color:#6b6b7a;cursor:pointer;font-size:14px;padding:4px 8px;">×</span>' +
       '</span>';
@@ -1114,40 +1582,173 @@
     container.appendChild(row);
   }
 
-  fetch('./data/rankings.json?_='+Date.now())
+  window.EXCHANGE_RATE = null;
+  fetch('./data/exchange_rate.json?_='+Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(fx){ window.EXCHANGE_RATE = (fx && fx.rate) ? fx.rate : null; })
+    .catch(function(){ window.EXCHANGE_RATE = null; })
+    .then(function(){
+      return fetch('./data/rankings.json?_='+Date.now());
+    })
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){
       if(!d || !d.rankings || !d.rankings.length) return;
       var listEl = document.getElementById('rankList');
-      var restEl = document.getElementById('rankRest');
-      var moreBtn = document.getElementById('rankMoreBtn');
+      var expandBtn = document.getElementById('rankExpandBtn');
+      var collapseWrap = document.getElementById('rankCollapseWrap');
+      var collapseBtn = document.getElementById('rankCollapseBtn');
       var updEl = document.getElementById('rankUpdated');
+      var scoreHeader = document.getElementById('sortScoreHeader');
+      var addonHeader = document.getElementById('sortAddonHeader');
+      var purchasedHeader = document.getElementById('sortPurchasedHeader');
+      var scoreArrow = document.getElementById('sortScoreArrow');
+      var addonArrow = document.getElementById('sortAddonArrow');
+      var purchasedArrow = document.getElementById('sortPurchasedArrow');
 
       updEl.textContent = '갱신 ' + d.updated.slice(0,16).replace('T',' ');
 
-      var top = d.rankings.slice(0, TOP_N);
-      var rest = d.rankings.slice(TOP_N);
+      var currentSortKey = 'score';
+      var currentSortDir = 'desc';
+      var allRankings = d.rankings.slice();
+      var expanded = false;
 
-      top.forEach(function(item, i){
-        renderRow(item, listEl, i === top.length - 1);
-      });
-
-      if(rest.length){
-        moreBtn.textContent = '나머지 ' + rest.length + '개 보기 ▾';
-        moreBtn.addEventListener('click', function(){
-          var open = restEl.style.display === 'block';
-          restEl.style.display = open ? 'none' : 'block';
-          if(!open && restEl.children.length===0){
-            rest.forEach(function(item, i){
-              renderRow(item, restEl, i === rest.length - 1);
-            });
+      function renderAll(){
+        var sorted = allRankings.slice().sort(function(a,b){
+          var av, bv;
+          if(currentSortKey === 'purchased'){
+            av = getPurchasedStatus(a.ticker) ? 1 : 0;
+            bv = getPurchasedStatus(b.ticker) ? 1 : 0;
+          } else {
+            av = a[currentSortKey]; bv = b[currentSortKey];
           }
+          if(av == null) av = -Infinity;
+          if(bv == null) bv = -Infinity;
+          return currentSortDir === 'desc' ? (bv - av) : (av - bv);
         });
-      } else {
-        moreBtn.style.display = 'none';
+
+        listEl.innerHTML = '';
+
+        var visible = expanded ? sorted : sorted.slice(0, DEFAULT_N);
+        visible.forEach(function(item, i){
+          renderRow(item, listEl, i === visible.length - 1);
+        });
+
+        if(sorted.length > DEFAULT_N){
+          var label = expanded ? '목록 접기 ▴' : '전체보기 ▾ (' + sorted.length + ')';
+          expandBtn.style.display = '';
+          expandBtn.textContent = label;
+          collapseWrap.style.display = '';
+          collapseBtn.textContent = label;
+        } else {
+          expandBtn.style.display = 'none';
+          collapseWrap.style.display = 'none';
+        }
       }
+
+      expandBtn.onclick = function(){ expanded = !expanded; renderAll(); };
+      collapseBtn.onclick = function(){ expanded = !expanded; renderAll(); };
+
+      function setSort(key){
+        if(currentSortKey === key){
+          currentSortDir = currentSortDir === 'desc' ? 'asc' : 'desc';
+        } else {
+          currentSortKey = key;
+          currentSortDir = 'desc';
+        }
+        scoreArrow.textContent = currentSortKey === 'score' ? (currentSortDir === 'desc' ? '▾' : '▴') : '▾';
+        scoreArrow.style.color = currentSortKey === 'score' ? '#e2e2e8' : '#6b6b7a';
+        addonArrow.textContent = currentSortKey === 'score_addon' ? (currentSortDir === 'desc' ? '▾' : '▴') : '▾';
+        addonArrow.style.color = currentSortKey === 'score_addon' ? '#e2e2e8' : '#3a3a45';
+        purchasedArrow.textContent = currentSortKey === 'purchased' ? (currentSortDir === 'desc' ? '▾' : '▴') : '▾';
+        purchasedArrow.style.color = currentSortKey === 'purchased' ? '#e2e2e8' : '#3a3a45';
+        renderAll();
+      }
+
+      scoreHeader.addEventListener('click', function(){ setSort('score'); });
+      addonHeader.addEventListener('click', function(){ setSort('score_addon'); });
+      purchasedHeader.addEventListener('click', function(){ setSort('purchased'); });
+
+      renderAll();
     })
     .catch(function(e){ console.error('rankings load failed', e); });
+})();
+</script>
+
+<script>
+(function(){
+  var LAST_SEEN_KEY = 'calibNotifLastSeenId';
+  var listEl = document.getElementById('calibNotifList');
+  var badgeEl = document.getElementById('calibBellBadge');
+  var overlayEl = document.getElementById('calibModalOverlay');
+  var bellBtn = document.getElementById('calibBellBtn');
+  var closeBtn = document.getElementById('calibModalClose');
+  var reportLink = document.getElementById('calibReportLink');
+  var notifications = [];
+
+  function lastSeenId(){
+    try { return localStorage.getItem(LAST_SEEN_KEY); } catch(e){ return null; }
+  }
+  function setLastSeenId(id){
+    try { localStorage.setItem(LAST_SEEN_KEY, id); } catch(e){}
+  }
+
+  function renderList(){
+    if(!notifications.length){
+      listEl.innerHTML = '<div style="color:#6b6b7a;padding:8px 0;">아직 가중치 변경 알림이 없습니다.</div>';
+      return;
+    }
+    var rows = notifications.slice().reverse().map(function(n){
+      var dir = n.after > n.before ? '▲' : '▼';
+      var color = n.after > n.before ? '#34d399' : '#fb7185';
+      return '<div style="padding:8px 0;border-bottom:1px solid #2a2a35;">'
+        + '<div style="color:#8b8b9a;font-size:11px;">' + n.date + ' · ' + (n.regime_kr || n.regime) + ' · ' + n.group + '</div>'
+        + '<div style="margin-top:2px;"><b>' + n.stage + '</b> &nbsp; '
+        + n.before + ' → <span style="color:' + color + ';font-weight:700;">' + n.after + ' ' + dir + '</span></div>'
+        + '<div style="margin-top:2px;color:#9ca3af;font-size:11px;">' + n.reason + '</div>'
+        + '</div>';
+    }).join('');
+    listEl.innerHTML = rows;
+  }
+
+  function updateBadge(){
+    var seen = lastSeenId();
+    var unread = notifications;
+    if(seen){
+      var idx = notifications.findIndex(function(n){ return n.id === seen; });
+      unread = idx >= 0 ? notifications.slice(idx + 1) : notifications;
+    }
+    if(unread.length > 0){
+      badgeEl.textContent = unread.length > 9 ? '9+' : String(unread.length);
+      badgeEl.style.display = 'block';
+    } else {
+      badgeEl.style.display = 'none';
+    }
+  }
+
+  function openModal(){
+    renderList();
+    overlayEl.style.display = 'flex';
+    if(notifications.length){
+      setLastSeenId(notifications[notifications.length - 1].id);
+    }
+    updateBadge();
+  }
+  function closeModal(){
+    overlayEl.style.display = 'none';
+  }
+
+  bellBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlayEl.addEventListener('click', function(e){ if(e.target === overlayEl) closeModal(); });
+
+  fetch('data/notifications.json').then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(data){
+      if(!data) return;
+      notifications = data.notifications || [];
+      if(data.report_url) reportLink.href = data.report_url;
+      updateBadge();
+    })
+    .catch(function(){ /* 알림 파일이 아직 없으면 조용히 무시 */ });
 })();
 </script>
 
