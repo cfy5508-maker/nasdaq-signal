@@ -1,15 +1,15 @@
 {
-  "updated": "2026-07-18T01:20:48.205698+00:00",
+  "updated": "2026-07-18T04:26:22.198795+00:00",
   "rankings": [
     {
       "ticker": "IREN",
-      "score": 70,
+      "score": 77,
       "score_addon": 48,
       "price": 33.62,
       "upside_pct": 140.7,
       "rsi": 30.7,
       "divergence": "pass",
-      "trigger": "warn",
+      "trigger": "pass",
       "signal": {
         "signal": "up",
         "reasons": [
@@ -18,7 +18,7 @@
             "detail": null
           }
         ],
-        "change": 5,
+        "change": 12,
         "prev_score": 65
       },
       "signal_addon": {
@@ -193,6 +193,34 @@
       "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": true,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "UBER",
+      "score": 62,
+      "score_addon": 45,
+      "price": 72.46,
+      "upside_pct": 44.1,
+      "rsi": 48.4,
+      "divergence": "pass",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 4,
+        "prev_score": 58
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -3,
+        "prev_score": 48
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
     },
     {
@@ -485,34 +513,6 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "UBER",
-      "score": 36,
-      "score_addon": 18,
-      "price": 72.46,
-      "upside_pct": null,
-      "rsi": 48.4,
-      "divergence": "pass",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -22,
-        "prev_score": 58
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -30,
-        "prev_score": 48
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "LLY",
       "score": 33,
       "score_addon": 30,
@@ -535,6 +535,40 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "TOYO",
+      "score": 30,
+      "score_addon": 21,
+      "price": 5.22,
+      "upside_pct": 216.1,
+      "rsi": 26.4,
+      "divergence": "fail",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 21
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 245,
+        "days_since_prior_divergence": 5,
+        "price_drop_since_pct": 13.7,
+        "rescue_attempted": true
+      },
       "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
@@ -570,6 +604,40 @@
         "divergence_date_index": 246,
         "price_vs_low_pct": -3.4
       },
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "RKLB",
+      "score": 30,
+      "score_addon": 21,
+      "price": 67.62,
+      "upside_pct": 72.4,
+      "rsi": 31.2,
+      "divergence": "fail",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 21
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 248,
+        "days_since_prior_divergence": 2,
+        "price_drop_since_pct": 11.3,
+        "rescue_attempted": false
+      },
+      "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
@@ -970,14 +1038,14 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "MU",
+      "ticker": "BLK",
       "score": 30,
-      "score_addon": 46,
-      "price": 848.95,
-      "upside_pct": 75.5,
-      "rsi": 41.0,
+      "score_addon": 62,
+      "price": 1072.2,
+      "upside_pct": 21.5,
+      "rsi": 60.3,
       "divergence": "fail",
-      "trigger": "fail",
+      "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": [],
@@ -987,10 +1055,17 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 0,
-        "prev_score": 46
+        "change": 27,
+        "prev_score": 35
       },
-      "uptrend_entry_signal": null,
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "ongoing",
+        "days_since_divergence": 15,
+        "days_since_trend_start": 9,
+        "gain_since_low_pct": 10.3,
+        "divergence_date_index": 235
+      },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -1158,40 +1233,6 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "TOYO",
-      "score": 27,
-      "score_addon": 0,
-      "price": 5.22,
-      "upside_pct": null,
-      "rsi": 26.4,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -3,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -21,
-        "prev_score": 21
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": {
-        "active": true,
-        "prior_divergence_date_index": 245,
-        "days_since_prior_divergence": 5,
-        "price_drop_since_pct": 13.7,
-        "rescue_attempted": true
-      },
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "SPCX",
       "score": 27,
       "score_addon": 21,
@@ -1248,34 +1289,28 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "RKLB",
-      "score": 22,
-      "score_addon": 0,
-      "price": 67.62,
+      "ticker": "MU",
+      "score": 25,
+      "score_addon": 23,
+      "price": 848.95,
       "upside_pct": null,
-      "rsi": 31.2,
+      "rsi": 41.0,
       "divergence": "fail",
       "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -8,
+        "change": -5,
         "prev_score": 30
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -21,
-        "prev_score": 21
+        "change": -23,
+        "prev_score": 46
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": {
-        "active": true,
-        "prior_divergence_date_index": 248,
-        "days_since_prior_divergence": 2,
-        "price_drop_since_pct": 11.3,
-        "rescue_attempted": false
-      },
+      "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
@@ -1505,41 +1540,6 @@
         "prev_score": 29
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "BLK",
-      "score": 7,
-      "score_addon": 40,
-      "price": 1072.2,
-      "upside_pct": null,
-      "rsi": 60.3,
-      "divergence": "fail",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -23,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 5,
-        "prev_score": 35
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "ongoing",
-        "days_since_divergence": 15,
-        "days_since_trend_start": 9,
-        "gain_since_low_pct": 10.3,
-        "divergence_date_index": 235
-      },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,

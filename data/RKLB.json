@@ -1,28 +1,28 @@
 {
   "ticker": "RKLB",
   "price": 67.62,
-  "updated": "2026-07-18T01:20:03.832513+00:00",
+  "updated": "2026-07-18T04:25:39.131478+00:00",
   "as_of_date": "2026-07-17",
-  "score": 22,
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": 16.7,
-      "volume_trend_pct_3d": 24.9,
+      "status": "neutral",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": 25.0,
+      "volume_trend_pct_3d": 36.4,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.5,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
+      "status": "pass",
+      "upside_pct": 72.4,
+      "forward_pe": 2254.0002,
       "peg": null
     },
     "3_divergence_gate": {
@@ -61,26 +61,26 @@
     }
   },
   "entry_atr_stop_pct": 18.1,
-  "score_addon": 0,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": 16.7,
-      "volume_trend_pct_3d": 24.9,
+      "status": "neutral",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": 25.0,
+      "volume_trend_pct_3d": 36.4,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.5,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": null,
+      "status": "pass",
+      "upside_pct": 72.4,
+      "forward_pe": 2254.0002,
       "peg": null
     },
     "3_pullback_gate": {
@@ -115,8 +115,8 @@
       "stop_pct_from_20sma": 28.9
     }
   },
-  "sector": null,
-  "sector_relative_strength_up": null,
+  "sector": "Industrials",
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
