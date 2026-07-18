@@ -56,7 +56,7 @@ jobs:
               if action == "add-ticker":
                   if ticker in watchlist:
                       result = "already_exists"
-                  elif len(watchlist) >= 50:
+                  elif len(watchlist) >= 80:
                       result = "limit_reached"
                   else:
                       watchlist.append(ticker)
