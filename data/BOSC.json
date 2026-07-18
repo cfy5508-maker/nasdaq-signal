@@ -1,51 +1,51 @@
 {
-  "ticker": "PFE",
-  "name": null,
-  "price": 25.05,
-  "updated": "2026-07-18T20:52:26.808822+00:00",
+  "ticker": "BOSC",
+  "name": "B.O.S. Better Online Solutions",
+  "price": 4.24,
+  "updated": "2026-07-18T20:53:54.519492+00:00",
   "as_of_date": "2026-07-17",
-  "score": 19,
+  "score": 53,
   "stages": {
     "1_market_health": {
-      "status": "pass",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "status": "neutral",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": 25.0,
+      "volume_trend_pct_3d": 36.4,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.5,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.9,
-      "forward_pe": 8.8405,
-      "peg": 2.96
+      "status": "pass",
+      "upside_pct": 88.7,
+      "forward_pe": 7.70909,
+      "peg": null
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
-      "gap_days": 6,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": 9.5
+      "divergence_present": true,
+      "gap_days": 30,
+      "signal_fresh": false,
+      "divergence_quality": 0.498,
+      "rsi_improvement": 6.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.8,
-      "rsi_zscore_1y": 0.31,
-      "zscore_quality": 0.171,
+      "rsi": 43.3,
+      "rsi_zscore_1y": -0.52,
+      "zscore_quality": 0.38,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -54,42 +54,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.7,
+      "adx_reference": 15.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 23.72,
-        "high": 24.16,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 244,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.2,
-  "score_addon": 8,
+  "entry_atr_stop_pct": 4.6,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
-      "index_name": "S&P500",
-      "index_symbol": "^GSPC",
-      "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "status": "neutral",
+      "index_name": "나스닥",
+      "index_symbol": "^IXIC",
+      "etf": "QQQ",
+      "volume_diff_pct_3m": 25.0,
+      "volume_trend_pct_3d": 36.4,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.5,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.9,
-      "forward_pe": 8.8405,
-      "peg": 2.96
+      "status": "pass",
+      "upside_pct": 88.7,
+      "forward_pe": 7.70909,
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -103,12 +96,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 53.8,
-      "rsi_zone_quality": 0.553,
+      "status": "fail",
+      "rsi": 43.3,
+      "rsi_zone_quality": 0.133,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -120,23 +113,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 2.6
     }
   },
-  "sector": "Healthcare",
+  "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "entry",
-    "days_since_divergence": 9,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 5.6,
-    "divergence_date_index": 241
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.72,
+    "stop_reference_price": 4.21,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
