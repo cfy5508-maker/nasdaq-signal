@@ -817,10 +817,15 @@ def analyze(ticker, trim_days=0, write_file=True):
     morning_star = detect_morning_star(o, h, l, c) if len(c) >= 3 else False
 
     info = {}
-    try:
-        info = tk.info
-    except Exception:
-        pass
+    for attempt in range(2):
+        try:
+            info = tk.info
+        except Exception:
+            info = {}
+        if info.get("shortName") or info.get("longName"):
+            break
+        if attempt == 0:
+            time.sleep(1.5)   # 야후 info 조회가 가끔 일시적으로 비거나 부실하게 돌아올 때가 있어 한 번 더 시도
 
     exchange = info.get("exchange")
     index_name, index_symbol = determine_index(ticker.upper(), exchange)
