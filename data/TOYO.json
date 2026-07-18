@@ -1,28 +1,28 @@
 {
   "ticker": "TOYO",
   "price": 5.22,
-  "updated": "2026-07-18T01:18:38.386217+00:00",
+  "updated": "2026-07-18T01:19:59.628595+00:00",
   "as_of_date": "2026-07-17",
-  "score": 30,
+  "score": 27,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": 24.3,
-      "volume_trend_pct_3d": 36.0,
+      "status": "pass",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.99,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 216.1,
-      "forward_pe": 1.2857143,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
       "peg": null
     },
     "3_divergence_gate": {
@@ -61,26 +61,26 @@
     }
   },
   "entry_atr_stop_pct": 26.3,
-  "score_addon": 21,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": 24.3,
-      "volume_trend_pct_3d": 36.0,
+      "status": "pass",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": 16.7,
+      "volume_trend_pct_3d": 24.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.99,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 216.1,
-      "forward_pe": 1.2857143,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": null,
       "peg": null
     },
     "3_pullback_gate": {
@@ -115,8 +115,8 @@
       "stop_pct_from_20sma": 40.5
     }
   },
-  "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector": null,
+  "sector_relative_strength_up": null,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
