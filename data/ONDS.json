@@ -1,10 +1,10 @@
 {
-  "ticker": "SPCX",
-  "name": "Space Exploration Technologies ",
-  "price": 123.99,
-  "updated": "2026-07-18T05:05:17.766297+00:00",
+  "ticker": "ONDS",
+  "name": "Ondas Inc",
+  "price": 6.53,
+  "updated": "2026-07-18T05:06:17.817904+00:00",
   "as_of_date": "2026-07-17",
-  "score": 27,
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.2,
-      "forward_pe": 137.30898,
+      "upside_pct": 203.6,
+      "forward_pe": -217.50002,
       "peg": null
     },
     "3_divergence_gate": {
@@ -35,34 +35,34 @@
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -10.1
+      "rsi_improvement": -3.1
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 29.9,
-      "rsi_zscore_1y": null,
-      "zscore_quality": null,
+      "status": "pass",
+      "rsi": 33.5,
+      "rsi_zscore_1y": -1.68,
+      "zscore_quality": 0.67,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": null,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 25.9,
+      "volume_confirmed": true,
+      "trigger_day_volume": 214247200,
+      "avg_volume_divergence_window": 123081950,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.2,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 15.2,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -80,8 +80,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.2,
-      "forward_pe": 137.30898,
+      "upside_pct": 203.6,
+      "forward_pe": -217.50002,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,29 +100,35 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.9,
+      "rsi": 33.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 22.3
+      "stop_pct_from_20sma": 17.7
     }
   },
-  "sector": "Industrials",
-  "sector_relative_strength_up": null,
+  "sector": "Technology",
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 245,
+    "days_since_prior_divergence": 5,
+    "price_drop_since_pct": 10.1,
+    "rescue_attempted": true
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 123.99,
+    "stop_reference_price": 6.53,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
