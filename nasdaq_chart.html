@@ -302,7 +302,7 @@
       </a>
     </div>
   </div>
-  <div id="rankHeaderRow" style="display:grid;grid-template-columns:20px 8px 160px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
+  <div id="rankHeaderRow" style="display:grid;grid-template-columns:20px 8px var(--rank-ticker-col-w,160px) repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;padding:0 0 8px;font-size:10px;color:#6b6b7a;border-bottom:1px solid #2a2a35;">
   <span></span><span></span><span style="text-align:left;">종목</span><span style="text-align:center;">현재가</span><span id="sortScoreHeader" style="text-align:center;cursor:pointer;user-select:none;">점수 <span id="sortScoreArrow" style="color:#6b6b7a;">▾</span></span><span style="text-align:center;">업사이드</span><span style="text-align:center;">다이버전스</span><span style="text-align:center;">트리거</span><span style="text-align:center;">RSI</span><span id="sortAddonHeader" style="text-align:center;cursor:pointer;user-select:none;">눌림목점수 <span id="sortAddonArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">추세신호</span><span></span><span id="sortPurchasedHeader" style="text-align:center;cursor:pointer;user-select:none;">매수여부 <span id="sortPurchasedArrow" style="color:#3a3a45;">▾</span></span><span style="text-align:center;">손절신호</span><span></span>
   </div>
   <div id="rankList"></div>
@@ -1503,7 +1503,7 @@
     row.style.cssText = 'padding:8px 0;' + (isLast ? '' : 'border-bottom:1px solid #2a2a35;');
 
     var head = document.createElement('div');
-    head.style.cssText = 'display:grid;grid-template-columns:20px 8px 160px repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;align-items:center;cursor:pointer;';
+    head.style.cssText = 'display:grid;grid-template-columns:20px 8px var(--rank-ticker-col-w,160px) repeat(7, 60px) 60px 14px 60px 74px minmax(110px,1fr);gap:18px;align-items:center;cursor:pointer;';
 
     var addonScore = item.score_addon;
     var addonColor = addonScore >= 65 ? STATUS_FG.pass : addonScore >= 40 ? STATUS_FG.warn : STATUS_FG.fail;
@@ -1611,6 +1611,20 @@
       var currentSortDir = 'desc';
       var allRankings = d.rankings.slice();
       var expanded = false;
+
+      (function setTickerColWidth(){
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        ctx.font = "700 13px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif";
+        var maxW = 0;
+        allRankings.forEach(function(item){
+          var label = item.name ? (item.name + ' (' + item.ticker + ')') : item.ticker;
+          var w = ctx.measureText(label).width;
+          if(w > maxW) maxW = w;
+        });
+        var px = Math.max(60, Math.min(280, Math.ceil(maxW) + 4));
+        document.documentElement.style.setProperty('--rank-ticker-col-w', px + 'px');
+      })();
 
       function renderAll(){
         var sorted = allRankings.slice().sort(function(a,b){
