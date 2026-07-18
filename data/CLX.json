@@ -1,10 +1,10 @@
 {
-  "ticker": "MA",
-  "name": "Mastercard Incorporated",
-  "price": 543.6,
-  "updated": "2026-07-18T20:21:30.553781+00:00",
+  "ticker": "CLX",
+  "name": "Clorox Company (The)",
+  "price": 96.32,
+  "updated": "2026-07-18T20:21:51.553798+00:00",
   "as_of_date": "2026-07-17",
-  "score": 47,
+  "score": 27,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -21,10 +21,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 18.4,
-      "forward_pe": 23.850138,
-      "peg": 1.67
+      "status": "fail",
+      "upside_pct": 8.5,
+      "forward_pe": 15.994844,
+      "peg": 2.27
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -32,37 +32,44 @@
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 12,
+      "gap_days": 24,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 11.9
+      "rsi_improvement": 6.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 64.1,
-      "rsi_zscore_1y": 1.47,
-      "zscore_quality": 0.0,
-      "zscore_direction_bonus_applied": false
+      "rsi": 51.4,
+      "rsi_zscore_1y": 0.37,
+      "zscore_quality": 0.207,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "모닝스타",
-      "days_ago": 16,
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 17,
-      "adx_reference": 28.2,
-      "volume_confirmed": false,
-      "trigger_day_volume": 3609700,
-      "avg_volume_divergence_window": 4027462,
-      "order_block": null
+      "wick_days_ago": 3,
+      "adx_reference": 11.2,
+      "volume_confirmed": true,
+      "trigger_day_volume": 3202800,
+      "avg_volume_divergence_window": 2467052,
+      "order_block": {
+        "low": 93.07,
+        "high": 93.12,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 245,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 65,
+  "entry_atr_stop_pct": 5.0,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -79,29 +86,29 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 18.4,
-      "forward_pe": 23.850138,
-      "peg": 1.67
+      "status": "fail",
+      "upside_pct": 8.5,
+      "forward_pe": 15.994844,
+      "peg": 2.27
     },
     "3_pullback_gate": {
       "status": "fail",
-      "near_sma20": false,
-      "near_sma40": false,
-      "near_sma60": false,
+      "near_sma20": true,
+      "near_sma40": true,
+      "near_sma60": true,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
-      "ma_converged_ignored": false,
+      "near_ma_count": 2,
+      "ma_converged_ignored": true,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 64.1,
-      "rsi_zone_quality": 0.965,
+      "status": "warn",
+      "rsi": 51.4,
+      "rsi_zone_quality": 0.456,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -113,23 +120,23 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.7
+      "stop_pct_from_20sma": 0.7
     }
   },
-  "sector": "Financial Services",
+  "sector": "Consumer Defensive",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "phase": "ongoing",
-    "days_since_divergence": 18,
-    "days_since_trend_start": 14,
-    "gain_since_low_pct": 12.5,
-    "divergence_date_index": 232
+    "phase": "entry",
+    "days_since_divergence": 6,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 3.5,
+    "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 483.28,
+    "stop_reference_price": 93.07,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
