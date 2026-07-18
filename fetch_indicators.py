@@ -818,6 +818,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     forward_pe = info.get("forwardPE")
     peg = info.get("pegRatio")
     sector = info.get("sector")
+    company_name = info.get("shortName") or info.get("longName")
     upside_pct = round((target_mean / last_close - 1) * 100, 1) if target_mean else None
 
     sector_rs = None
@@ -1254,6 +1255,7 @@ def analyze(ticker, trim_days=0, write_file=True):
 
     result = {
         "ticker": ticker.upper(),
+        "name": company_name,
         "price": round(last_close, 2),
         "updated": pd.Timestamp.now("UTC").isoformat(),
         "as_of_date": str(hist.index[-1].date()),
@@ -1422,7 +1424,7 @@ def main():
         time.sleep(0.6)
 
     rankings = sorted(
-        [{"ticker": r["ticker"], "score": r["score"], "score_addon": r["score_addon"], "price": r["price"],
+        [{"ticker": r["ticker"], "name": r.get("name"), "score": r["score"], "score_addon": r["score_addon"], "price": r["price"],
           "upside_pct": r["stages"]["2_fundamentals"]["upside_pct"],
           "rsi": r["stages"]["4_zscore"]["rsi"],
           "divergence": r["stages"]["3_divergence_gate"]["status"],
