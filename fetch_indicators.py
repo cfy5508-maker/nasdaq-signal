@@ -30,20 +30,32 @@ def _market_already_closed_today():
     return now_et >= market_close_today
 
 
+_HISTORY_CACHE = {}
+
+
 def get_confirmed_history(ticker_or_obj, period="1y"):
     """yfinance로 일봉 데이터를 가져오되, 오늘 미국 정규장이 아직 안 끝났다면
     마지막 행(장중 미확정 데이터)을 잘라내서 항상 '가장 최근에 완결된 거래일'까지만
     반환한다. 워크플로우를 언제(장중이든 장마감후든) 돌리든 같은 결과가 나오게 하기 위함.
-    ticker_or_obj: 티커 문자열 또는 이미 만든 yf.Ticker 객체."""
+    ticker_or_obj: 티커 문자열 또는 이미 만든 yf.Ticker 객체.
+
+    같은 (티커, period) 조합은 이 프로세스 실행 중(=하루 한 번의 워크플로우 실행 동안)엔
+    한 번만 야후에서 받아오고 재사용한다. 여러 종목이 같은 섹터ETF/지수ETF를 참조하거나
+    (예: XLK, QQQ), 시장국면 판정처럼 별도 함수가 같은 심볼을 또 조회하는 경우의
+    중복 호출을 막기 위함 - 실행이 끝나면 캐시는 사라지고, 다음 날 실행에선 새로 받아온다."""
+    cache_key = (ticker_or_obj, period) if isinstance(ticker_or_obj, str) else None
+    if cache_key is not None and cache_key in _HISTORY_CACHE:
+        return _HISTORY_CACHE[cache_key]
+
     tk = ticker_or_obj if hasattr(ticker_or_obj, "history") else yf.Ticker(ticker_or_obj)
     hist = tk.history(period=period)
-    if hist.empty:
-        return hist
-    if not _market_already_closed_today():
+    if not hist.empty and not _market_already_closed_today():
         today_et_date = pd.Timestamp.now(tz="US/Eastern").date()
         last_row_date = hist.index[-1].date()
         if last_row_date == today_et_date:
             hist = hist.iloc[:-1]
+    if cache_key is not None:
+        _HISTORY_CACHE[cache_key] = hist
     return hist
 
 WATCHLIST_PATH = "data/watchlist.json"
