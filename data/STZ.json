@@ -1,60 +1,60 @@
 {
   "ticker": "STZ",
   "name": "Constellation Brands, Inc.",
-  "price": 132.87,
-  "updated": "2026-07-20T13:48:31.708189+00:00",
-  "as_of_date": "2026-07-17",
-  "score": 66,
+  "price": 134.36,
+  "updated": "2026-07-20T22:33:03.190937+00:00",
+  "as_of_date": "2026-07-20",
+  "score": 56,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 28.7,
-      "forward_pe": 10.728875,
+      "upside_pct": 27.3,
+      "forward_pe": 10.857769,
       "peg": 2.53
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "neutral",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
+      "divergence_present": false,
       "gap_days": 23,
-      "signal_fresh": false,
-      "divergence_quality": 0.559,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 1.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.3,
-      "rsi_zscore_1y": -0.38,
-      "zscore_quality": 0.346,
+      "rsi": 45.1,
+      "rsi_zscore_1y": -0.15,
+      "zscore_quality": 0.288,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
-      "days_ago": 6,
+      "days_ago": 7,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 6,
-      "adx_reference": 12.9,
+      "wick_days_ago": 7,
+      "adx_reference": 12.2,
       "volume_confirmed": false,
       "trigger_day_volume": 2323800,
       "avg_volume_divergence_window": 2556525,
@@ -68,27 +68,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 5.2,
-  "score_addon": 41,
+  "entry_atr_stop_pct": 5.0,
+  "score_addon": 42,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 28.7,
-      "forward_pe": 10.728875,
+      "upside_pct": 27.3,
+      "forward_pe": 10.857769,
       "peg": 2.53
     },
     "3_pullback_gate": {
@@ -107,8 +107,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.3,
-      "rsi_zone_quality": 0.092,
+      "rsi": 45.1,
+      "rsi_zone_quality": 0.204,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -120,7 +120,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.0
+      "stop_pct_from_20sma": 1.6
     }
   },
   "sector": "Consumer Defensive",
@@ -128,9 +128,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 1.9,
+    "days_since_divergence": 8,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 3.1,
     "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,

@@ -1,29 +1,29 @@
 {
   "ticker": "MA",
   "name": "Mastercard Incorporated",
-  "price": 543.6,
-  "updated": "2026-07-20T13:49:36.394990+00:00",
-  "as_of_date": "2026-07-17",
+  "price": 547.44,
+  "updated": "2026-07-20T22:33:41.996015+00:00",
+  "as_of_date": "2026-07-20",
   "score": 47,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 18.4,
-      "forward_pe": 23.729483,
+      "upside_pct": 17.6,
+      "forward_pe": 24.006693,
       "peg": 1.67
     },
     "3_divergence_gate": {
@@ -39,8 +39,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 64.1,
-      "rsi_zscore_1y": 1.49,
+      "rsi": 65.6,
+      "rsi_zscore_1y": 1.62,
       "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
@@ -48,13 +48,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 16,
+      "days_ago": 17,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 17,
-      "adx_reference": 28.2,
+      "wick_days_ago": 18,
+      "adx_reference": 28.9,
       "volume_confirmed": false,
       "trigger_day_volume": 3609700,
       "avg_volume_divergence_window": 4027462,
@@ -65,23 +65,23 @@
   "score_addon": 65,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 18.4,
-      "forward_pe": 23.729483,
+      "upside_pct": 17.6,
+      "forward_pe": 24.006693,
       "peg": 1.67
     },
     "3_pullback_gate": {
@@ -100,8 +100,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 64.1,
-      "rsi_zone_quality": 0.965,
+      "rsi": 65.6,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -113,7 +113,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.7
+      "stop_pct_from_20sma": 4.9
     }
   },
   "sector": "Financial Services",
@@ -121,9 +121,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 18,
-    "days_since_trend_start": 14,
-    "gain_since_low_pct": 12.5,
+    "days_since_divergence": 19,
+    "days_since_trend_start": 15,
+    "gain_since_low_pct": 13.3,
     "divergence_date_index": 231
   },
   "divergence_invalidated_signal": null,

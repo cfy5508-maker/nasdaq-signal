@@ -1,33 +1,33 @@
 {
   "ticker": "VST",
   "name": "Vistra Corp.",
-  "price": 155.44,
-  "updated": "2026-07-20T13:49:26.494358+00:00",
-  "as_of_date": "2026-07-17",
-  "score": 30,
+  "price": 157.99,
+  "updated": "2026-07-20T22:33:36.070890+00:00",
+  "as_of_date": "2026-07-20",
+  "score": 46,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 43.6,
-      "forward_pe": 14.510227,
+      "upside_pct": 41.3,
+      "forward_pe": 14.619418,
       "peg": 0.46
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
@@ -39,49 +39,49 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.5,
-      "rsi_zscore_1y": 0.05,
-      "zscore_quality": 0.288,
+      "rsi": 51.6,
+      "rsi_zscore_1y": 0.48,
+      "zscore_quality": 0.181,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 12.0,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 11.3,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 2302239,
+      "avg_volume_divergence_window": 4492288,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.0,
-  "score_addon": 26,
+  "entry_atr_stop_pct": 6.6,
+  "score_addon": 46,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 43.6,
-      "forward_pe": 14.510227,
+      "upside_pct": 41.3,
+      "forward_pe": 14.619418,
       "peg": 0.46
     },
     "3_pullback_gate": {
@@ -99,31 +99,31 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 48.5,
-      "rsi_zone_quality": 0.342,
+      "status": "warn",
+      "rsi": 51.6,
+      "rsi_zone_quality": 0.463,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.4
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 25,
-    "days_since_trend_start": 24,
-    "gain_since_low_pct": 12.4,
+    "days_since_divergence": 26,
+    "days_since_trend_start": 25,
+    "gain_since_low_pct": 14.2,
     "divergence_date_index": 224
   },
   "divergence_invalidated_signal": null,

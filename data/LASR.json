@@ -1,29 +1,29 @@
 {
   "ticker": "LASR",
   "name": "nLIGHT, Inc.",
-  "price": 69.25,
-  "updated": "2026-07-20T13:48:46.822580+00:00",
-  "as_of_date": "2026-07-17",
-  "score": 62,
+  "price": 68.31,
+  "updated": "2026-07-20T22:33:10.952420+00:00",
+  "as_of_date": "2026-07-20",
+  "score": 63,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.0,
-      "volume_trend_pct_3d": 36.4,
+      "volume_diff_pct_3m": -32.9,
+      "volume_trend_pct_3d": 24.1,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 31.0,
-      "forward_pe": 104.19504,
+      "upside_pct": 32.8,
+      "forward_pe": 101.116104,
       "peg": 1.78
     },
     "3_divergence_gate": {
@@ -39,9 +39,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.8,
-      "rsi_zscore_1y": -0.66,
-      "zscore_quality": 0.465,
+      "rsi": 50.7,
+      "rsi_zscore_1y": -0.77,
+      "zscore_quality": 0.493,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -50,11 +50,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.1,
+      "adx_reference": 11.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,27 +68,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 14.1,
-  "score_addon": 60,
+  "entry_atr_stop_pct": 13.9,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.0,
-      "volume_trend_pct_3d": 36.4,
+      "volume_diff_pct_3m": -32.9,
+      "volume_trend_pct_3d": 24.1,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 31.0,
-      "forward_pe": 104.19504,
+      "upside_pct": 32.8,
+      "forward_pe": 101.116104,
       "peg": 1.78
     },
     "3_pullback_gate": {
@@ -103,24 +103,24 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.8,
-      "rsi_zone_quality": 0.472,
+      "rsi": 50.7,
+      "rsi_zone_quality": 0.429,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "fail",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.6
+      "stop_pct_from_20sma": 3.0
     }
   },
   "sector": "Technology",
@@ -128,9 +128,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": 18.0,
+    "days_since_divergence": 8,
+    "days_since_trend_start": 7,
+    "gain_since_low_pct": 16.4,
     "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
@@ -140,6 +140,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

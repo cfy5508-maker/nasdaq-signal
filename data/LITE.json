@@ -1,29 +1,29 @@
 {
   "ticker": "LITE",
   "name": "Lumentum Holdings Inc.",
-  "price": 732.82,
-  "updated": "2026-07-20T13:49:45.962611+00:00",
-  "as_of_date": "2026-07-17",
-  "score": 68,
+  "price": 765.55,
+  "updated": "2026-07-20T22:33:48.264074+00:00",
+  "as_of_date": "2026-07-20",
+  "score": 66,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.0,
-      "volume_trend_pct_3d": 36.4,
+      "volume_diff_pct_3m": -32.9,
+      "volume_trend_pct_3d": 24.1,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.8,
-      "forward_pe": 43.08597,
+      "upside_pct": 44.3,
+      "forward_pe": 41.775486,
       "peg": 0.63
     },
     "3_divergence_gate": {
@@ -38,26 +38,26 @@
       "rsi_improvement": 4.4
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 43.1,
-      "rsi_zscore_1y": -1.59,
-      "zscore_quality": 0.648,
+      "status": "warn",
+      "rsi": 46.5,
+      "rsi_zscore_1y": -1.28,
+      "zscore_quality": 0.569,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 1,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 10.5,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "adx_reference": 10.4,
+      "volume_confirmed": true,
+      "trigger_day_volume": 4934300,
+      "avg_volume_divergence_window": 3898300,
       "order_block": {
         "low": 706.23,
         "high": 731.39,
@@ -68,27 +68,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 15.0,
-  "score_addon": 59,
+  "entry_atr_stop_pct": 14.3,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.0,
-      "volume_trend_pct_3d": 36.4,
+      "volume_diff_pct_3m": -32.9,
+      "volume_trend_pct_3d": 24.1,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.8,
-      "forward_pe": 43.08597,
+      "upside_pct": 44.3,
+      "forward_pe": 41.775486,
       "peg": 0.63
     },
     "3_pullback_gate": {
@@ -107,20 +107,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.1,
-      "rsi_zone_quality": 0.123,
+      "rsi": 46.5,
+      "rsi_zone_quality": 0.26,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "status": "fail",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.0
+      "stop_pct_from_20sma": 2.8
     }
   },
   "sector": "Technology",
@@ -128,9 +128,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 3.8,
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 8.4,
     "divergence_date_index": 248
   },
   "divergence_invalidated_signal": null,
@@ -140,6 +140,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }

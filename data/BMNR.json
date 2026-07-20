@@ -1,29 +1,29 @@
 {
   "ticker": "BMNR",
   "name": "BitMine Immersion Technologies,",
-  "price": 15.69,
-  "updated": "2026-07-20T13:49:47.332097+00:00",
-  "as_of_date": "2026-07-17",
-  "score": 53,
+  "price": 16.63,
+  "updated": "2026-07-20T22:33:49.117274+00:00",
+  "as_of_date": "2026-07-20",
+  "score": 49,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 103.1,
-      "forward_pe": 17.388298,
+      "upside_pct": 91.6,
+      "forward_pe": 17.691488,
       "peg": null
     },
     "3_divergence_gate": {
@@ -39,9 +39,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.1,
-      "rsi_zscore_1y": 0.4,
-      "zscore_quality": 0.201,
+      "rsi": 55.6,
+      "rsi_zscore_1y": 0.97,
+      "zscore_quality": 0.057,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -50,11 +50,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 4,
-      "adx_reference": 16.9,
+      "wick_days_ago": 5,
+      "adx_reference": 16.8,
       "volume_confirmed": false,
       "trigger_day_volume": 26297000,
       "avg_volume_divergence_window": 33713078,
@@ -68,27 +68,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 10.6,
-  "score_addon": 59,
+  "entry_atr_stop_pct": 10.0,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 19.1,
-      "volume_trend_pct_3d": 25.9,
+      "volume_diff_pct_3m": -4.9,
+      "volume_trend_pct_3d": 29.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.99,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 103.1,
-      "forward_pe": 17.388298,
+      "upside_pct": 91.6,
+      "forward_pe": 17.691488,
       "peg": null
     },
     "3_pullback_gate": {
@@ -107,20 +107,20 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 50.1,
-      "rsi_zone_quality": 0.403,
+      "rsi": 55.6,
+      "rsi_zone_quality": 0.623,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "warn",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.6
+      "stop_pct_from_20sma": 10.8
     }
   },
   "sector": "Financial Services",
@@ -128,9 +128,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 4,
-    "days_since_trend_start": 3,
-    "gain_since_low_pct": 7.4,
+    "days_since_divergence": 5,
+    "days_since_trend_start": 4,
+    "gain_since_low_pct": 13.8,
     "divergence_date_index": 245
   },
   "divergence_invalidated_signal": null,
@@ -140,6 +140,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
