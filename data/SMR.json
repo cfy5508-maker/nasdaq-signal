@@ -1,30 +1,30 @@
 {
-  "ticker": "FLNC",
-  "name": "Fluence Energy, Inc.",
-  "price": 14.07,
-  "updated": "2026-07-20T13:49:44.709754+00:00",
+  "ticker": "SMR",
+  "name": "NuScale Power Corporation",
+  "price": 7.72,
+  "updated": "2026-07-20T13:50:21.924223+00:00",
   "as_of_date": "2026-07-17",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": 25.0,
-      "volume_trend_pct_3d": 36.4,
+      "status": "pass",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": 19.1,
+      "volume_trend_pct_3d": 25.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.99,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 33.5,
-      "forward_pe": 72.98971,
-      "peg": 3.18
+      "upside_pct": 91.7,
+      "forward_pe": -10.803115,
+      "peg": null
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -32,16 +32,16 @@
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 7,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -0.7
+      "rsi_improvement": -4.7
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 34.7,
-      "rsi_zscore_1y": -1.24,
-      "zscore_quality": 0.559,
+      "rsi": 32.4,
+      "rsi_zscore_1y": -1.13,
+      "zscore_quality": 0.533,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -54,35 +54,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.3,
+      "adx_reference": 21.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 21.6,
+  "entry_atr_stop_pct": 15.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
-      "index_name": "나스닥",
-      "index_symbol": "^IXIC",
-      "etf": "QQQ",
-      "volume_diff_pct_3m": 25.0,
-      "volume_trend_pct_3d": 36.4,
+      "status": "pass",
+      "index_name": "S&P500",
+      "index_symbol": "^GSPC",
+      "etf": "SPY",
+      "volume_diff_pct_3m": 19.1,
+      "volume_trend_pct_3d": 25.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.5,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.99,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 33.5,
-      "forward_pe": 72.98971,
-      "peg": 3.18
+      "upside_pct": 91.7,
+      "forward_pe": -10.803115,
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -100,7 +100,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.7,
+      "rsi": 32.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -113,16 +113,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 28.2
+      "stop_pct_from_20sma": 23.4
     }
   },
-  "sector": "Utilities",
-  "sector_relative_strength_up": true,
+  "sector": "Industrials",
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 241,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 13.8,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 14.07,
+    "stop_reference_price": 7.64,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
