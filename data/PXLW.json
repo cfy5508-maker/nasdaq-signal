@@ -2,17 +2,17 @@
   "ticker": "PXLW",
   "name": "Pixelworks, Inc.",
   "price": 5.6,
-  "updated": "2026-07-20T22:34:51.559757+00:00",
+  "updated": "2026-07-21T13:59:40.042701+00:00",
   "as_of_date": "2026-07-20",
-  "score": 70,
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.9,
-      "volume_trend_pct_3d": 24.1,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": 24.8,
       "volume_trend_up": true,
       "daily_change_pct": 0.1,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 78.6,
-      "forward_pe": -5.045045,
+      "forward_pe": -5.279279,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -45,7 +45,7 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -58,14 +58,7 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 5.6,
-        "high": 5.62,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": false
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": 9.2,
@@ -76,8 +69,8 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.9,
-      "volume_trend_pct_3d": 24.1,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": 24.8,
       "volume_trend_up": true,
       "daily_change_pct": 0.1,
       "volatility_label": "정상",
@@ -88,7 +81,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 78.6,
-      "forward_pe": -5.045045,
+      "forward_pe": -5.279279,
       "peg": 2.41
     },
     "3_pullback_gate": {

@@ -2,7 +2,7 @@
   "ticker": "NVDA",
   "name": "NVIDIA Corporation",
   "price": 203.28,
-  "updated": "2026-07-20T22:35:00.669201+00:00",
+  "updated": "2026-07-21T14:00:19.490428+00:00",
   "as_of_date": "2026-07-20",
   "score": 80,
   "stages": {
@@ -11,8 +11,8 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.9,
-      "volume_trend_pct_3d": 24.1,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": 24.8,
       "volume_trend_up": true,
       "daily_change_pct": 0.1,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 48.7,
-      "forward_pe": 15.827301,
+      "forward_pe": 16.014944,
       "peg": 0.56
     },
     "3_divergence_gate": {
@@ -56,21 +56,21 @@
       "wick_days_ago": 1,
       "adx_reference": 14.3,
       "volume_confirmed": true,
-      "trigger_day_volume": 144033900,
-      "avg_volume_divergence_window": 138764780,
+      "trigger_day_volume": 144281900,
+      "avg_volume_divergence_window": 138781313,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 5.4,
-  "score_addon": 67,
+  "score_addon": 85,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.9,
-      "volume_trend_pct_3d": 24.1,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": 24.8,
       "volume_trend_up": true,
       "daily_change_pct": 0.1,
       "volatility_label": "정상",
@@ -81,7 +81,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 48.7,
-      "forward_pe": 15.827301,
+      "forward_pe": 16.014944,
       "peg": 0.56
     },
     "3_pullback_gate": {
@@ -105,12 +105,12 @@
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 0.8
