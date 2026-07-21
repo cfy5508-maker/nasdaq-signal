@@ -1,10 +1,10 @@
 {
-  "ticker": "UUUU",
-  "name": "Energy Fuels Inc",
-  "price": 11.74,
-  "updated": "2026-07-21T14:03:06.356804+00:00",
+  "ticker": "EIX",
+  "name": "Edison International",
+  "price": 77.25,
+  "updated": "2026-07-21T14:04:17.360872+00:00",
   "as_of_date": "2026-07-20",
-  "score": 30,
+  "score": 23,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,55 +21,55 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 122.5,
-      "forward_pe": 36.681816,
-      "peg": null
+      "status": "fail",
+      "upside_pct": -1.7,
+      "forward_pe": 11.827595,
+      "peg": 3.67
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 8,
+      "gap_days": 30,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -3.1
+      "rsi_improvement": 12.7
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 31.0,
-      "rsi_zscore_1y": -1.71,
-      "zscore_quality": 0.679,
-      "zscore_direction_bonus_applied": false
+      "status": "fail",
+      "rsi": 64.4,
+      "rsi_zscore_1y": 0.85,
+      "zscore_quality": 0.087,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 9,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.1,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "adx_reference": 29.7,
+      "volume_confirmed": true,
+      "trigger_day_volume": 3089200,
+      "avg_volume_divergence_window": 2606710,
       "order_block": {
-        "low": 11.48,
-        "high": 11.49,
+        "low": 72.64,
+        "high": 73.23,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": false
+        "trigger_day_idx": 239,
+        "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 12.0,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 3.1,
+  "score_addon": 14,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -86,10 +86,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 122.5,
-      "forward_pe": 36.681816,
-      "peg": null
+      "status": "fail",
+      "upside_pct": -1.7,
+      "forward_pe": 11.827595,
+      "peg": 3.67
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -100,15 +100,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
-      "was_above_40_recently": false,
-      "is_jeong_baeyeol": false,
+      "was_above_20_recently": true,
+      "was_above_40_recently": true,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 31.0,
-      "rsi_zone_quality": 0.0,
+      "status": "pass",
+      "rsi": 64.4,
+      "rsi_zone_quality": 0.977,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -120,22 +120,23 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 16.5
+      "stop_pct_from_20sma": 3.1
     }
   },
-  "sector": "Energy",
-  "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
+  "sector": "Utilities",
+  "sector_relative_strength_up": true,
+  "uptrend_entry_signal": {
     "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 7.3,
-    "rescue_attempted": false
+    "phase": "ongoing",
+    "days_since_divergence": 12,
+    "days_since_trend_start": 9,
+    "gain_since_low_pct": 6.3,
+    "divergence_date_index": 238
   },
+  "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 11.49,
+    "stop_reference_price": 72.64,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
