@@ -1,20 +1,20 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 24.96,
-  "updated": "2026-07-21T19:37:49.537123+00:00",
-  "as_of_date": "2026-07-20",
+  "price": 26.94,
+  "updated": "2026-07-21T21:40:10.737930+00:00",
+  "as_of_date": "2026-07-21",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 74.1,
-      "forward_pe": -19.462076,
+      "upside_pct": 61.3,
+      "forward_pe": -19.520042,
       "peg": null
     },
     "3_divergence_gate": {
@@ -38,14 +38,14 @@
       "rsi_improvement": -2.6
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 33.4,
-      "rsi_zscore_1y": -1.26,
-      "zscore_quality": 0.564,
+      "status": "fail",
+      "rsi": 39.0,
+      "rsi_zscore_1y": -0.79,
+      "zscore_quality": 0.448,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -54,25 +54,32 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.4,
+      "adx_reference": 20.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 24.96,
+        "high": 26.0,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 18.0,
+  "entry_atr_stop_pct": 16.4,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -80,8 +87,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 74.1,
-      "forward_pe": -19.462076,
+      "upside_pct": 61.3,
+      "forward_pe": -19.520042,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,7 +107,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 33.4,
+      "rsi": 39.0,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -113,7 +120,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 22.8
+      "stop_pct_from_20sma": 12.4
     }
   },
   "sector": "Industrials",
@@ -121,9 +128,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 15.8,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 9.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

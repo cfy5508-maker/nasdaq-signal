@@ -1,20 +1,20 @@
 {
   "ticker": "SMR",
   "name": "NuScale Power Corporation",
-  "price": 7.96,
-  "updated": "2026-07-21T19:38:54.987638+00:00",
-  "as_of_date": "2026-07-20",
+  "price": 8.71,
+  "updated": "2026-07-21T21:41:34.425147+00:00",
+  "as_of_date": "2026-07-21",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 85.9,
-      "forward_pe": -11.968568,
+      "upside_pct": 69.9,
+      "forward_pe": -12.156994,
       "peg": null
     },
     "3_divergence_gate": {
@@ -39,13 +39,13 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 35.4,
-      "rsi_zscore_1y": -0.81,
-      "zscore_quality": 0.452,
+      "rsi": 43.8,
+      "rsi_zscore_1y": 0.09,
+      "zscore_quality": 0.228,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -54,25 +54,32 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.1,
+      "adx_reference": 23.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 7.64,
+        "high": 8.12,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 14.9,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 13.6,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -80,8 +87,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 85.9,
-      "forward_pe": -11.968568,
+      "upside_pct": 69.9,
+      "forward_pe": -12.156994,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,8 +107,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.4,
-      "rsi_zone_quality": 0.0,
+      "rsi": 43.8,
+      "rsi_zone_quality": 0.151,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -113,7 +120,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 17.3
+      "stop_pct_from_20sma": 5.7
     }
   },
   "sector": "Industrials",
@@ -121,9 +128,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 241,
-    "days_since_prior_divergence": 9,
-    "price_drop_since_pct": 11.2,
+    "prior_divergence_date_index": 240,
+    "days_since_prior_divergence": 10,
+    "price_drop_since_pct": 2.8,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -133,8 +140,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 5,
-    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 6,
+    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

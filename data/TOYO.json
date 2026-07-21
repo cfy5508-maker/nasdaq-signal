@@ -1,29 +1,29 @@
 {
   "ticker": "TOYO",
   "name": "TOYO Co., Ltd",
-  "price": 5.15,
-  "updated": "2026-07-21T19:37:36.696715+00:00",
-  "as_of_date": "2026-07-20",
+  "price": 5.06,
+  "updated": "2026-07-21T21:39:54.495825+00:00",
+  "as_of_date": "2026-07-21",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 220.4,
-      "forward_pe": 1.2487686,
+      "upside_pct": 226.1,
+      "forward_pe": 1.2463055,
       "peg": null
     },
     "3_divergence_gate": {
@@ -32,16 +32,16 @@
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 5,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -0.4
+      "rsi_improvement": -0.8
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 26.1,
-      "rsi_zscore_1y": -2.24,
-      "zscore_quality": 0.859,
+      "rsi": 25.7,
+      "rsi_zscore_1y": -2.23,
+      "zscore_quality": 0.858,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -54,34 +54,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 36.9,
+      "adx_reference": 37.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 25.2,
+  "entry_atr_stop_pct": 24.5,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 220.4,
-      "forward_pe": 1.2487686,
+      "upside_pct": 226.1,
+      "forward_pe": 1.2463055,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,7 +100,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 26.1,
+      "rsi": 25.7,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -113,7 +113,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 35.7
+      "stop_pct_from_20sma": 31.5
     }
   },
   "sector": "Technology",
@@ -121,14 +121,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 14.9,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 7,
+    "price_drop_since_pct": 16.4,
     "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 5.15,
+    "stop_reference_price": 5.06,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

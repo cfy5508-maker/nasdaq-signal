@@ -1,29 +1,29 @@
 {
   "ticker": "GOOGL",
   "name": "Alphabet Inc.",
-  "price": 351.99,
-  "updated": "2026-07-21T19:37:58.693892+00:00",
-  "as_of_date": "2026-07-20",
+  "price": 347.15,
+  "updated": "2026-07-21T21:40:22.537209+00:00",
+  "as_of_date": "2026-07-21",
   "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 23.841316,
+      "upside_pct": 24.9,
+      "forward_pe": 23.69796,
       "peg": 1.37
     },
     "3_divergence_gate": {
@@ -38,10 +38,10 @@
       "rsi_improvement": 8.9
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 45.7,
-      "rsi_zscore_1y": -0.99,
-      "zscore_quality": 0.497,
+      "status": "warn",
+      "rsi": 43.1,
+      "rsi_zscore_1y": -1.16,
+      "zscore_quality": 0.539,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -53,8 +53,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 12.3,
+      "wick_days_ago": 2,
+      "adx_reference": 11.6,
       "volume_confirmed": false,
       "trigger_day_volume": 29959300,
       "avg_volume_divergence_window": 32424233,
@@ -63,32 +63,32 @@
         "high": 346.77,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 5.0,
-  "score_addon": 65,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 68,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 23.841316,
+      "upside_pct": 24.9,
+      "forward_pe": 23.69796,
       "peg": 1.37
     },
     "3_pullback_gate": {
@@ -96,7 +96,7 @@
       "near_sma20": true,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
+      "near_sma120": true,
       "near_sma200": false,
       "near_ma_count": 1,
       "ma_converged_ignored": false,
@@ -107,8 +107,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.7,
-      "rsi_zone_quality": 0.227,
+      "rsi": 43.1,
+      "rsi_zone_quality": 0.125,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -120,7 +120,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.9
+      "stop_pct_from_20sma": 2.3
     }
   },
   "sector": "Communication Services",

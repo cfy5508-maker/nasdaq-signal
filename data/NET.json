@@ -1,20 +1,20 @@
 {
   "ticker": "NET",
   "name": "Cloudflare, Inc.",
-  "price": 272.42,
-  "updated": "2026-07-21T19:38:25.855267+00:00",
-  "as_of_date": "2026-07-20",
-  "score": 22,
+  "price": 272.31,
+  "updated": "2026-07-21T21:40:56.906743+00:00",
+  "as_of_date": "2026-07-21",
+  "score": 0,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -23,63 +23,56 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": -6.6,
-      "forward_pe": 172.61803,
+      "forward_pe": 172.49768,
       "peg": 2.38
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 27,
+      "gap_days": 20,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 3.6
+      "rsi_improvement": 16.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 61.0,
-      "rsi_zscore_1y": 0.99,
-      "zscore_quality": 0.053,
-      "zscore_direction_bonus_applied": true
+      "rsi": 60.9,
+      "rsi_zscore_1y": 0.96,
+      "zscore_quality": 0.011,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "불리시엔걸핑",
-      "days_ago": 18,
+      "status": "fail",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.6,
+      "adx_reference": 23.4,
       "volume_confirmed": false,
-      "trigger_day_volume": 2890600,
-      "avg_volume_divergence_window": 3966686,
-      "order_block": {
-        "low": 218.38,
-        "high": 222.07,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 232,
-        "gap_confirmed": false
-      }
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.7,
+  "entry_atr_stop_pct": 7.4,
   "score_addon": 12,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -88,7 +81,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": -6.6,
-      "forward_pe": 172.61803,
+      "forward_pe": 172.49768,
       "peg": 2.38
     },
     "3_pullback_gate": {
@@ -107,8 +100,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 61.0,
-      "rsi_zone_quality": 0.841,
+      "rsi": 60.9,
+      "rsi_zone_quality": 0.837,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -120,7 +113,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.6
+      "stop_pct_from_20sma": 5.6
     }
   },
   "sector": "Technology",
@@ -129,7 +122,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 218.38,
+    "stop_reference_price": 272.31,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,29 +1,29 @@
 {
   "ticker": "IREN",
   "name": "IREN LIMITED",
-  "price": 40.2,
-  "updated": "2026-07-21T19:37:52.932147+00:00",
-  "as_of_date": "2026-07-20",
-  "score": 62,
+  "price": 41.29,
+  "updated": "2026-07-21T21:40:15.113361+00:00",
+  "as_of_date": "2026-07-21",
+  "score": 61,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 101.3,
-      "forward_pe": -43.468086,
+      "upside_pct": 96.0,
+      "forward_pe": -43.925533,
       "peg": 3.11
     },
     "3_divergence_gate": {
@@ -39,56 +39,56 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.1,
-      "rsi_zscore_1y": -0.85,
-      "zscore_quality": 0.462,
+      "rsi": 44.9,
+      "rsi_zscore_1y": -0.7,
+      "zscore_quality": 0.426,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "모닝스타",
+      "days_ago": 1,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 33.1,
+      "wick_days_ago": 2,
+      "adx_reference": 32.0,
       "volume_confirmed": true,
-      "trigger_day_volume": 47227400,
+      "trigger_day_volume": 93338200,
       "avg_volume_divergence_window": 41494400,
       "order_block": {
         "low": 33.62,
         "high": 33.79,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 16.6,
-  "score_addon": 50,
+  "entry_atr_stop_pct": 15.7,
+  "score_addon": 51,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 101.3,
-      "forward_pe": -43.468086,
+      "upside_pct": 96.0,
+      "forward_pe": -43.925533,
       "peg": 3.11
     },
     "3_pullback_gate": {
@@ -107,8 +107,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.1,
-      "rsi_zone_quality": 0.126,
+      "rsi": 44.9,
+      "rsi_zone_quality": 0.196,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -120,7 +120,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.6
+      "stop_pct_from_20sma": 2.8
     }
   },
   "sector": "Financial Services",
@@ -128,10 +128,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 19.6,
-    "divergence_date_index": 249
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 22.8,
+    "divergence_date_index": 248
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

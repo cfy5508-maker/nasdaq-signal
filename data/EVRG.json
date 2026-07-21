@@ -1,29 +1,29 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 85.16,
-  "updated": "2026-07-21T19:38:43.122689+00:00",
-  "as_of_date": "2026-07-20",
-  "score": 14,
+  "price": 84.92,
+  "updated": "2026-07-21T21:41:18.842375+00:00",
+  "as_of_date": "2026-07-21",
+  "score": 28,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.2,
-      "forward_pe": 18.64339,
+      "upside_pct": 7.5,
+      "forward_pe": 18.628035,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -32,56 +32,56 @@
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 20,
+      "gap_days": 21,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -0.6
+      "rsi_improvement": -1.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.6,
-      "rsi_zscore_1y": -0.65,
-      "zscore_quality": 0.413,
+      "rsi": 48.5,
+      "rsi_zscore_1y": -0.75,
+      "zscore_quality": 0.437,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 16.6,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 16.3,
+      "volume_confirmed": true,
+      "trigger_day_volume": 2819179,
+      "avg_volume_divergence_window": 2240376,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.8,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 2.7,
+  "score_addon": 58,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.3,
-      "volume_trend_pct_3d": 24.9,
+      "volume_diff_pct_3m": -23.2,
+      "volume_trend_pct_3d": 15.2,
       "volume_trend_up": true,
-      "daily_change_pct": 0.1,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.85,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.2,
-      "forward_pe": 18.64339,
+      "upside_pct": 7.5,
+      "forward_pe": 18.628035,
       "peg": 2.41
     },
     "3_pullback_gate": {
@@ -100,20 +100,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 49.6,
-      "rsi_zone_quality": 0.385,
+      "rsi": 48.5,
+      "rsi_zone_quality": 0.341,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.1
+      "stop_pct_from_20sma": 1.5
     }
   },
   "sector": "Utilities",
@@ -122,7 +122,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 85.16,
+    "stop_reference_price": 84.92,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

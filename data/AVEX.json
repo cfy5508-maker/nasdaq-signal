@@ -1,20 +1,20 @@
 {
   "ticker": "AVEX",
   "name": "AEVEX Corp.",
-  "price": 13.32,
-  "updated": "2026-07-21T19:37:43.261434+00:00",
-  "as_of_date": "2026-07-20",
-  "score": 61,
+  "price": 14.75,
+  "updated": "2026-07-21T21:40:02.734766+00:00",
+  "as_of_date": "2026-07-21",
+  "score": 53,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,30 +22,30 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 165.6,
-      "forward_pe": 29.933815,
+      "upside_pct": 139.8,
+      "forward_pe": 29.582832,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "neutral",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
+      "divergence_present": false,
       "gap_days": 17,
-      "signal_fresh": true,
-      "divergence_quality": 0.61,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 2.2
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 34.0,
-      "rsi_zscore_1y": -1.14,
-      "zscore_quality": 0.535,
+      "status": "fail",
+      "rsi": 39.2,
+      "rsi_zscore_1y": -0.52,
+      "zscore_quality": 0.381,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -54,25 +54,32 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.3,
+      "adx_reference": 14.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 13.32,
+        "high": 14.5,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 64,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 23.2,
+  "entry_atr_stop_pct": 20.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.8,
-      "volume_trend_pct_3d": 29.7,
+      "volume_diff_pct_3m": -47.8,
+      "volume_trend_pct_3d": 12.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.83,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -80,8 +87,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 165.6,
-      "forward_pe": 29.933815,
+      "upside_pct": 139.8,
+      "forward_pe": 29.582832,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,7 +107,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.0,
+      "rsi": 39.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -113,12 +120,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.1
+      "stop_pct_from_20sma": 15.6
     }
   },
   "sector": "Industrials",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 1,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 10.7,
+    "divergence_date_index": 63
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
