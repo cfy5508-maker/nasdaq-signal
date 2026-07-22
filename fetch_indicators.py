@@ -597,9 +597,26 @@ def analyze(ticker, trim_days=0, write_file=True):
         # 실제로 가장 낮았던(가장 의미있는) 저점을 찾는다. 이래야 PEP처럼 저점이
         # 매일 조금씩 갱신되는 종목에서, 진짜 깊었던 저점(예: 10일 전 최저가)을
         # 놓치지 않고 비교할 수 있다.
+        # 단, "가장 깊은 저점" 하나만 고정으로 쓰면, 그 저점이 RSI 개선을 못 만드는데도
+        # (예: AMSC - 가장 깊은 후보와는 RSI가 악화, 그보다 얕은 후보와는 RSI가 개선)
+        # 뒤쪽의 실제 다이버전스 성립 후보를 시도조차 안 하고 fail 처리되는 사각지대가 있었다.
+        # 그래서 가격이 낮은 순서대로 하나씩 시도해서, RSI가 실제로 개선되는(저점2가 더 낮음)
+        # 첫 후보를 채택한다. 그런 후보가 하나도 없으면(원래도 다이버전스가 아닌 케이스)
+        # 기존처럼 가장 깊은 저점을 pos1으로 써서 fail/히든다이버전스 판정을 그대로 따른다.
         candidates = [p for p in realtime_lows
                       if p != pos2 and MIN_GAP_DAYS <= (pos2 - p) <= MAX_GAP_DAYS]
-        pos1 = min(candidates, key=lambda p: close_values[p]) if candidates else None
+        pos1 = None
+        if candidates:
+            sorted_candidates = sorted(candidates, key=lambda p: close_values[p])
+            rsi2_for_selection = float(rsi.iloc[pos2]) if not pd.isna(rsi.iloc[pos2]) else None
+            chosen = None
+            if rsi2_for_selection is not None:
+                for p in sorted_candidates:
+                    rsi_p = float(rsi.iloc[p])
+                    if not pd.isna(rsi_p) and rsi2_for_selection > rsi_p:
+                        chosen = p
+                        break
+            pos1 = chosen if chosen is not None else sorted_candidates[0]
 
         gap_days = (pos2 - pos1) if pos1 is not None else None
         is_today_new_low = (pos2 == len(close_values) - 1)
