@@ -1,30 +1,30 @@
 {
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
-  "price": 87.93,
-  "updated": "2026-07-22T01:30:27.015119+00:00",
-  "as_of_date": "2026-07-21",
-  "score": 24,
+  "price": 89.41,
+  "updated": "2026-07-22T22:04:43.068552+00:00",
+  "as_of_date": "2026-07-22",
+  "score": 34,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.8,
-      "forward_pe": 19.971472,
-      "peg": 1.95
+      "upside_pct": 10.5,
+      "forward_pe": 20.307625,
+      "peg": 1.93
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -35,64 +35,71 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 13,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.424,
       "rsi_improvement": 4.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.8,
-      "rsi_zscore_1y": -0.38,
-      "zscore_quality": 0.394,
+      "rsi": 56.5,
+      "rsi_zscore_1y": 0.12,
+      "zscore_quality": 0.27,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.6,
+      "adx_reference": 13.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 87.68,
+        "high": 87.93,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 2.6,
-  "score_addon": 34,
+  "score_addon": 9,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.8,
-      "forward_pe": 19.971472,
-      "peg": 1.95
+      "upside_pct": 10.5,
+      "forward_pe": 20.307625,
+      "peg": 1.93
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": true,
+      "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
@@ -101,9 +108,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.8,
-      "rsi_zone_quality": 0.392,
+      "status": "warn",
+      "rsi": 56.5,
+      "rsi_zone_quality": 0.659,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.1
+      "stop_pct_from_20sma": 1.4
     }
   },
   "sector": "Utilities",

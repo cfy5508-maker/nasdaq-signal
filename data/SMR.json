@@ -1,29 +1,29 @@
 {
   "ticker": "SMR",
   "name": "NuScale Power Corporation",
-  "price": 8.71,
-  "updated": "2026-07-22T01:30:33.198814+00:00",
-  "as_of_date": "2026-07-21",
+  "price": 8.68,
+  "updated": "2026-07-22T22:04:47.958453+00:00",
+  "as_of_date": "2026-07-22",
   "score": 58,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 69.9,
-      "forward_pe": -12.156994,
+      "upside_pct": 70.5,
+      "forward_pe": -12.115122,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,7 +31,7 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 6,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.8,
-      "rsi_zscore_1y": 0.09,
-      "zscore_quality": 0.228,
+      "rsi": 43.5,
+      "rsi_zscore_1y": 0.08,
+      "zscore_quality": 0.229,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.0,
+      "adx_reference": 22.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,32 +65,32 @@
         "high": 7.96,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 13.6,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 13.2,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 69.9,
-      "forward_pe": -12.156994,
+      "upside_pct": 70.5,
+      "forward_pe": -12.115122,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.8,
-      "rsi_zone_quality": 0.151,
+      "rsi": 43.5,
+      "rsi_zone_quality": 0.141,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.7
+      "stop_pct_from_20sma": 4.8
     }
   },
   "sector": "Industrials",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 240,
-    "days_since_prior_divergence": 10,
-    "price_drop_since_pct": 2.8,
+    "prior_divergence_date_index": 239,
+    "days_since_prior_divergence": 11,
+    "price_drop_since_pct": 3.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -142,8 +142,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

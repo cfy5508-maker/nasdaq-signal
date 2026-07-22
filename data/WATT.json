@@ -1,96 +1,89 @@
 {
   "ticker": "WATT",
   "name": "Energous Corporation",
-  "price": 16.54,
-  "updated": "2026-07-22T01:29:24.884288+00:00",
-  "as_of_date": "2026-07-21",
-  "score": 30,
+  "price": 15.41,
+  "updated": "2026-07-22T22:03:19.684160+00:00",
+  "as_of_date": "2026-07-22",
+  "score": 55,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -23.2,
-      "volume_trend_pct_3d": 15.2,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.85,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -46.6,
+      "volume_trend_pct_3d": -31.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.51,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 70.8,
-      "forward_pe": 20.419754,
+      "upside_pct": 83.3,
+      "forward_pe": 19.02469,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 7,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.409,
       "rsi_improvement": -3.4
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 36.3,
-      "rsi_zscore_1y": -0.89,
-      "zscore_quality": 0.472,
+      "status": "warn",
+      "rsi": 33.4,
+      "rsi_zscore_1y": -1.07,
+      "zscore_quality": 0.518,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 24.7,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 25.0,
       "volume_confirmed": false,
-      "trigger_day_volume": 117200,
-      "avg_volume_divergence_window": 212975,
-      "order_block": {
-        "low": 14.66,
-        "high": 15.1,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": true
-      }
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 18.7,
-  "score_addon": 39,
+  "entry_atr_stop_pct": 19.4,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -23.2,
-      "volume_trend_pct_3d": 15.2,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.85,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -46.6,
+      "volume_trend_pct_3d": -31.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.51,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 70.8,
-      "forward_pe": 20.419754,
+      "upside_pct": 83.3,
+      "forward_pe": 19.02469,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.3,
+      "rsi": 33.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 19.8
+      "stop_pct_from_20sma": 25.6
     }
   },
   "sector": "Technology",

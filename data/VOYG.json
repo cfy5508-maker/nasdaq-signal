@@ -1,29 +1,29 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 26.94,
-  "updated": "2026-07-22T01:29:15.043724+00:00",
-  "as_of_date": "2026-07-21",
+  "price": 26.39,
+  "updated": "2026-07-22T22:03:12.783343+00:00",
+  "as_of_date": "2026-07-22",
   "score": 54,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 61.3,
-      "forward_pe": -19.520042,
+      "upside_pct": 64.7,
+      "forward_pe": -19.121525,
       "peg": null
     },
     "3_divergence_gate": {
@@ -36,14 +36,14 @@
       "divergence_present": true,
       "gap_days": 15,
       "signal_fresh": true,
-      "divergence_quality": 0.453,
+      "divergence_quality": 0.421,
       "rsi_improvement": -2.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.0,
-      "rsi_zscore_1y": -0.79,
-      "zscore_quality": 0.448,
+      "rsi": 38.1,
+      "rsi_zscore_1y": -0.9,
+      "zscore_quality": 0.474,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.9,
+      "adx_reference": 21.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.4,
+  "entry_atr_stop_pct": 16.0,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 61.3,
-      "forward_pe": -19.520042,
+      "upside_pct": 64.7,
+      "forward_pe": -19.121525,
       "peg": null
     },
     "3_pullback_gate": {
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.0,
+      "rsi": 38.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.4
+      "stop_pct_from_20sma": 13.4
     }
   },
   "sector": "Industrials",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 9.2,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 7,
+    "price_drop_since_pct": 11.0,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -133,7 +133,11 @@
     "stop_reference_price": 24.96,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

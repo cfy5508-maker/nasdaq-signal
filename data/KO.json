@@ -1,20 +1,20 @@
 {
   "ticker": "KO",
   "name": "Coca-Cola Company (The)",
-  "price": 81.97,
-  "updated": "2026-07-22T01:30:13.996092+00:00",
-  "as_of_date": "2026-07-21",
-  "score": 45,
+  "price": 82.2,
+  "updated": "2026-07-22T22:04:32.558473+00:00",
+  "as_of_date": "2026-07-22",
+  "score": 44,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -33.6,
-      "volume_trend_pct_3d": 0.5,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.69,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -22.4,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.8,
-      "forward_pe": 23.53154,
-      "peg": 3.99
+      "upside_pct": 7.4,
+      "forward_pe": 23.597567,
+      "peg": 4.01
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.9,
-      "rsi_zscore_1y": -0.4,
-      "zscore_quality": 0.35,
+      "rsi": 50.7,
+      "rsi_zscore_1y": -0.33,
+      "zscore_quality": 0.332,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -55,26 +55,26 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 16.0,
+      "wick_days_ago": 1,
+      "adx_reference": 15.4,
       "volume_confirmed": false,
-      "trigger_day_volume": 9636950,
+      "trigger_day_volume": 12949400,
       "avg_volume_divergence_window": 19966060,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.2,
+  "entry_atr_stop_pct": 3.1,
   "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -33.6,
-      "volume_trend_pct_3d": 0.5,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.69,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -22.4,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,9 +82,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.8,
-      "forward_pe": 23.53154,
-      "peg": 3.99
+      "upside_pct": 7.4,
+      "forward_pe": 23.597567,
+      "peg": 4.01
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -101,9 +101,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.9,
-      "rsi_zone_quality": 0.396,
+      "status": "warn",
+      "rsi": 50.7,
+      "rsi_zone_quality": 0.429,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.7
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Consumer Defensive",

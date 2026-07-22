@@ -1,20 +1,20 @@
 {
   "ticker": "MCD",
   "name": "McDonald's Corporation",
-  "price": 263.91,
-  "updated": "2026-07-22T01:29:52.942938+00:00",
-  "as_of_date": "2026-07-21",
-  "score": 64,
+  "price": 263.57,
+  "updated": "2026-07-22T22:03:44.196588+00:00",
+  "as_of_date": "2026-07-22",
+  "score": 63,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -33.6,
-      "volume_trend_pct_3d": 0.5,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.69,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -22.4,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 23.8,
-      "forward_pe": 18.648762,
-      "peg": 2.57
+      "forward_pe": 18.62912,
+      "peg": 2.53
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 17,
+      "gap_days": 18,
       "signal_fresh": true,
-      "divergence_quality": 0.813,
-      "rsi_improvement": 6.3
+      "divergence_quality": 0.799,
+      "rsi_improvement": 6.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.7,
-      "rsi_zscore_1y": -0.83,
-      "zscore_quality": 0.457,
+      "rsi": 39.4,
+      "rsi_zscore_1y": -0.85,
+      "zscore_quality": 0.462,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.3,
+      "adx_reference": 13.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.4,
+  "entry_atr_stop_pct": 3.3,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -33.6,
-      "volume_trend_pct_3d": 0.5,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.69,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -22.4,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -83,8 +83,8 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 23.8,
-      "forward_pe": 18.648762,
-      "peg": 2.57
+      "forward_pe": 18.62912,
+      "peg": 2.53
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.7,
+      "rsi": 39.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 263.91,
+    "stop_reference_price": 263.57,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

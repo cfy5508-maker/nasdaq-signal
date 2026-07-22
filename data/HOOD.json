@@ -1,49 +1,49 @@
 {
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
-  "price": 106.36,
-  "updated": "2026-07-22T01:30:07.461606+00:00",
-  "as_of_date": "2026-07-21",
-  "score": 15,
+  "price": 104.48,
+  "updated": "2026-07-22T22:04:27.156165+00:00",
+  "as_of_date": "2026-07-22",
+  "score": 53,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -23.2,
-      "volume_trend_pct_3d": 15.2,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.85,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -46.6,
+      "volume_trend_pct_3d": -31.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.51,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 12.3,
-      "forward_pe": 34.586254,
-      "peg": 2.71
+      "status": "pass",
+      "upside_pct": 16.2,
+      "forward_pe": 33.974915,
+      "peg": 2.88
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
-      "hidden_bullish_divergence": false,
+      "hidden_bullish_divergence": true,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 29,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.405,
       "rsi_improvement": -5.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.8,
-      "rsi_zscore_1y": 0.22,
-      "zscore_quality": 0.245,
+      "rsi": 51.0,
+      "rsi_zscore_1y": 0.08,
+      "zscore_quality": 0.281,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.9,
+      "adx_reference": 22.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,33 +65,33 @@
         "high": 102.49,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 9.7,
-  "score_addon": 7,
+  "entry_atr_stop_pct": 9.4,
+  "score_addon": 36,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -23.2,
-      "volume_trend_pct_3d": 15.2,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.85,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -46.6,
+      "volume_trend_pct_3d": -31.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.51,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 12.3,
-      "forward_pe": 34.586254,
-      "peg": 2.71
+      "status": "pass",
+      "upside_pct": 16.2,
+      "forward_pe": 33.974915,
+      "peg": 2.88
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -108,10 +108,10 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 52.8,
-      "rsi_zone_quality": 0.514,
-      "hidden_bullish_divergence": false
+      "status": "pass",
+      "rsi": 51.0,
+      "rsi_zone_quality": 1.0,
+      "hidden_bullish_divergence": true
     },
     "5_trigger_confirmed": {
       "status": "fail",
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.5
+      "stop_pct_from_20sma": 2.4
     }
   },
   "sector": "Financial Services",

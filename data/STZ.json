@@ -1,30 +1,30 @@
 {
   "ticker": "STZ",
   "name": "Constellation Brands, Inc.",
-  "price": 130.66,
-  "updated": "2026-07-22T01:29:03.266333+00:00",
-  "as_of_date": "2026-07-21",
-  "score": 54,
+  "price": 132.08,
+  "updated": "2026-07-22T22:03:03.793328+00:00",
+  "as_of_date": "2026-07-22",
+  "score": 59,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.9,
-      "forward_pe": 10.558768,
-      "peg": 2.53
+      "upside_pct": 29.2,
+      "forward_pe": 10.67352,
+      "peg": 2.48
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -35,56 +35,56 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 9,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.492,
       "rsi_improvement": 6.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.9,
-      "rsi_zscore_1y": -0.53,
-      "zscore_quality": 0.432,
+      "rsi": 42.6,
+      "rsi_zscore_1y": -0.3,
+      "zscore_quality": 0.375,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 11.5,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 11.0,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 1018198,
+      "avg_volume_divergence_window": 2116150,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.1,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 41,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.8,
-      "volume_trend_pct_3d": 12.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.83,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -23.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.9,
-      "forward_pe": 10.558768,
-      "peg": 2.53
+      "upside_pct": 29.2,
+      "forward_pe": 10.67352,
+      "peg": 2.48
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.9,
-      "rsi_zone_quality": 0.0,
+      "rsi": 42.6,
+      "rsi_zone_quality": 0.105,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.1
+      "stop_pct_from_20sma": 2.6
     }
   },
   "sector": "Consumer Defensive",

@@ -1,37 +1,37 @@
 {
   "ticker": "MU",
   "name": "Micron Technology, Inc.",
-  "price": 970.82,
-  "updated": "2026-07-22T01:29:41.061391+00:00",
-  "as_of_date": "2026-07-21",
+  "price": 959.48,
+  "updated": "2026-07-22T22:03:31.724455+00:00",
+  "as_of_date": "2026-07-22",
   "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -23.2,
-      "volume_trend_pct_3d": 15.2,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.85,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -46.6,
+      "volume_trend_pct_3d": -31.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.51,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 53.7,
-      "forward_pe": 6.3147063,
-      "peg": 0.12
+      "upside_pct": 57.1,
+      "forward_pe": 6.240945,
+      "peg": 0.14
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 28,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 51.0,
-      "rsi_zscore_1y": -1.07,
-      "zscore_quality": 0.518,
+      "rsi": 50.2,
+      "rsi_zscore_1y": -1.14,
+      "zscore_quality": 0.534,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.0,
+      "adx_reference": 19.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,33 +65,33 @@
         "high": 885.57,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 13.2,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 12.9,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -23.2,
-      "volume_trend_pct_3d": 15.2,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.85,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -46.6,
+      "volume_trend_pct_3d": -31.5,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.51,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 53.7,
-      "forward_pe": 6.3147063,
-      "peg": 0.12
+      "upside_pct": 57.1,
+      "forward_pe": 6.240945,
+      "peg": 0.14
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -104,13 +104,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.0,
-      "rsi_zone_quality": 0.442,
+      "rsi": 50.2,
+      "rsi_zone_quality": 0.407,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 3.5
     }
   },
   "sector": "Technology",
