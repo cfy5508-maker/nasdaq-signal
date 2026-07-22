@@ -683,6 +683,45 @@ def analyze(ticker, trim_days=0, write_file=True):
                     # (실제 방향 확인은 uptrend_entry_signal이 담당)
                     stage_divergence = "neutral" if rsi_improved else "fail"
 
+    # 리테스트 다이버전스: 저점1↔저점2 쌍 자체는 RSI 개선이 없어서 실패했지만(fail),
+    # 저점2 이후 며칠 안에 "저점2 근처(오차범위 이내)로 되돌아왔는데 그때 RSI는
+    # 저점2보다 개선된" 날이 있으면, (저점2 -> 그날)을 새로운 다이버전스 쌍으로 인정한다.
+    # 예: NXT 7/13 저점(RSI 35.9) 이후 7/20에 저점 근처(+0.56%)로 돌아왔는데 RSI가 개선된 경우.
+    # 노이즈(RSI가 하루이틀 미세하게 오르내리는 것) 방지를 위해 최소 개선폭 문턱을 둔다.
+    # 정석/히든 다이버전스가 이미 잡힌 경우는 덮어쓰지 않는다 - fail일 때만 보조로 작동.
+    retest_divergence = False
+    retest_quality = None
+    retest_days_ago = None
+    RETEST_MAX_DAYS = 5
+    RETEST_MIN_RSI_IMPROVEMENT = 1.0  # 이 이상 개선돼야 노이즈로 안 보고 인정
+
+    if stage_divergence == "fail" and pos2 is not None:
+        price2_ref = float(c.iloc[pos2])
+        rsi2_ref = float(rsi.iloc[pos2]) if not pd.isna(rsi.iloc[pos2]) else None
+        n_total = len(close_values)
+        if price2_ref > 0 and rsi2_ref is not None:
+            for t in range(pos2 + 1, min(pos2 + RETEST_MAX_DAYS + 1, n_total)):
+                price_t = float(c.iloc[t])
+                rsi_t = float(rsi.iloc[t])
+                if pd.isna(rsi_t):
+                    continue
+                within_retest_tolerance = bool(price_t >= price2_ref and (price_t - price2_ref) / price2_ref <= TOLERANCE_PCT)
+                if not within_retest_tolerance:
+                    continue
+                rsi_gain = rsi_t - rsi2_ref
+                if rsi_gain >= RETEST_MIN_RSI_IMPROVEMENT:
+                    retest_divergence = True
+                    retest_days_ago = (n_total - 1) - t
+                    bonus = 0.5 * max(0.0, min(1.0, (rsi_gain - RETEST_MIN_RSI_IMPROVEMENT) / (DIVERGENCE_RSI_MAX - RETEST_MIN_RSI_IMPROVEMENT)))
+                    retest_quality = (DIVERGENCE_BASE_SCORE + bonus) * DIVERGENCE_WARN_CAP  # 이중바닥(warn)과 동급 상한
+                    # 가장 최근 날짜를 채택하기 위해 break 없이 계속 갱신
+
+        if retest_divergence:
+            stage_divergence = "warn"
+            divergence_present = True
+            signal_fresh = bool(retest_days_ago == 0)
+            divergence_quality = retest_quality
+
     # 다이버전스 사이클 상태머신: 저점2(다이버전스) -> ±3% 유지 -> 상승추세/무효화 ->
     # (무효화중 마지막음봉 고가 돌파)반등시도 -> (저점2 재돌파)상승추세 -> (저점2 재붕괴)하락추세.
     # uptrend_entry_signal / divergence_invalidated_signal / divergence_stop_signal /
@@ -1244,7 +1283,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "retest_divergence": retest_divergence, "retest_days_ago": retest_days_ago, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None, "zscore_direction_bonus_applied": zscore_direction_bonus_applied},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None, "order_block": order_block},
     }
