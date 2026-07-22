@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-22T01:13:56.118466+00:00",
+  "updated": "2026-07-22T01:30:36.838462+00:00",
   "rankings": [
     {
       "ticker": "NVDA",
@@ -416,7 +416,7 @@
       "upside_pct": 19.6,
       "rsi": 43.0,
       "divergence": "warn",
-      "trigger": "warn",
+      "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
@@ -614,6 +614,44 @@
       "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "ABSI",
+      "name": "Absci Corporation",
+      "score": 60,
+      "score_addon": 84,
+      "price": 8.32,
+      "upside_pct": 65.6,
+      "rsi": 43.4,
+      "divergence": "warn",
+      "trigger": "pass",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 30,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "급등 기준 (+25 이상)",
+            "detail": "전일 44 → 오늘 84 (전일 대비 +40)"
+          },
+          {
+            "label": "구간 상향 돌파(초록 진입)",
+            "detail": null
+          }
+        ],
+        "change": 40,
+        "prev_score": 44
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": true,
       "today_reversal_volume_confirmed": false
     },
     {
@@ -1235,44 +1273,6 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "ABSI",
-      "name": "Absci Corporation",
-      "score": 51,
-      "score_addon": 84,
-      "price": 8.32,
-      "upside_pct": 65.6,
-      "rsi": 43.4,
-      "divergence": "warn",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 21,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "급등 기준 (+25 이상)",
-            "detail": "전일 44 → 오늘 84 (전일 대비 +40)"
-          },
-          {
-            "label": "구간 상향 돌파(초록 진입)",
-            "detail": null
-          }
-        ],
-        "change": 40,
-        "prev_score": 44
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": true,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "COIN",
       "name": "Coinbase Global, Inc.",
       "score": 48,
@@ -1581,6 +1581,35 @@
         "gain_since_low_pct": 17.3,
         "divergence_date_index": 223
       },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "SIF",
+      "name": "SIFCO Industries, Inc.",
+      "score": 39,
+      "score_addon": 40,
+      "price": 24.31,
+      "upside_pct": null,
+      "rsi": 60.0,
+      "divergence": "warn",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 9,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -18,
+        "prev_score": 58
+      },
+      "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -1966,35 +1995,6 @@
         "reasons": [],
         "change": 30,
         "prev_score": 28
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "SIF",
-      "name": "SIFCO Industries, Inc.",
-      "score": 26,
-      "score_addon": 29,
-      "price": 24.31,
-      "upside_pct": null,
-      "rsi": 60.0,
-      "divergence": "warn",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -4,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -29,
-        "prev_score": 58
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
