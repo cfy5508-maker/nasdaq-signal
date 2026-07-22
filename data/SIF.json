@@ -2,7 +2,7 @@
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
   "price": 24.31,
-  "updated": "2026-07-22T00:59:05.506929+00:00",
+  "updated": "2026-07-22T01:12:52.250382+00:00",
   "as_of_date": "2026-07-21",
   "score": 26,
   "stages": {
@@ -21,22 +21,22 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 24,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.493,
       "rsi_improvement": -10.2
     },
     "4_zscore": {
@@ -55,16 +55,23 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 7,
+      "wick_days_ago": 5,
       "adx_reference": 22.2,
       "volume_confirmed": false,
-      "trigger_day_volume": 104800,
+      "trigger_day_volume": 58100,
       "avg_volume_divergence_window": 117384,
-      "order_block": null
+      "order_block": {
+        "low": 22.86,
+        "high": 22.91,
+        "strong": true,
+        "breach": true,
+        "trigger_day_idx": 247,
+        "gap_confirmed": false
+      }
     }
   },
   "entry_atr_stop_pct": 10.4,
-  "score_addon": 40,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -81,10 +88,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",

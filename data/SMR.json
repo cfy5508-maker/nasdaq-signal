@@ -2,9 +2,9 @@
   "ticker": "SMR",
   "name": "NuScale Power Corporation",
   "price": 8.71,
-  "updated": "2026-07-22T01:00:18.854237+00:00",
+  "updated": "2026-07-22T01:13:53.202720+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 58,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -27,16 +27,16 @@
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 6,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.399,
       "rsi_improvement": -4.7
     },
     "4_zscore": {
@@ -47,7 +47,7 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -61,9 +61,9 @@
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": {
-        "low": 7.64,
-        "high": 8.12,
-        "strong": false,
+        "low": 7.77,
+        "high": 7.96,
+        "strong": true,
         "breach": false,
         "trigger_day_idx": 250,
         "gap_confirmed": true

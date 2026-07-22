@@ -2,9 +2,9 @@
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
   "price": 26.94,
-  "updated": "2026-07-22T00:59:07.805245+00:00",
+  "updated": "2026-07-22T01:12:54.214146+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 54,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -27,16 +27,16 @@
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 15,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.453,
       "rsi_improvement": -2.6
     },
     "4_zscore": {
@@ -47,7 +47,7 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -60,14 +60,7 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 24.96,
-        "high": 26.0,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": 16.4,

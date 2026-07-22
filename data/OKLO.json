@@ -2,9 +2,9 @@
   "ticker": "OKLO",
   "name": "Oklo Inc.",
   "price": 44.13,
-  "updated": "2026-07-22T01:00:04.366704+00:00",
+  "updated": "2026-07-22T01:13:41.088616+00:00",
   "as_of_date": "2026-07-21",
-  "score": 60,
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -31,12 +31,12 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 7,
-      "signal_fresh": false,
-      "divergence_quality": 0.305,
+      "signal_fresh": true,
+      "divergence_quality": 0.541,
       "rsi_improvement": -5.4
     },
     "4_zscore": {
@@ -47,7 +47,7 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -60,14 +60,7 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 41.25,
-        "high": 41.51,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": 12.8,

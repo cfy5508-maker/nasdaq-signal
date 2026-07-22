@@ -2,9 +2,9 @@
   "ticker": "GEV",
   "name": "GE Vernova Inc.",
   "price": 1078.81,
-  "updated": "2026-07-22T00:59:25.348896+00:00",
+  "updated": "2026-07-22T01:13:08.343480+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -27,16 +27,16 @@
       "peg": 1.82
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 24,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.44,
       "rsi_improvement": 18.1
     },
     "4_zscore": {
@@ -47,31 +47,24 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 3,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
       "adx_reference": 13.6,
       "volume_confirmed": false,
-      "trigger_day_volume": 2829500,
-      "avg_volume_divergence_window": 3143892,
-      "order_block": {
-        "low": 1034.99,
-        "high": 1036.22,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 249,
-        "gap_confirmed": false
-      }
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": 8.4,
-  "score_addon": 25,
+  "score_addon": 7,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -114,10 +107,10 @@
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },

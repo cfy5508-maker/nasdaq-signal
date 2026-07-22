@@ -2,9 +2,9 @@
   "ticker": "MRVL",
   "name": "Marvell Technology, Inc.",
   "price": 207.96,
-  "updated": "2026-07-22T00:59:26.582112+00:00",
+  "updated": "2026-07-22T01:13:09.333634+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -27,16 +27,16 @@
       "peg": 1.07
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 7,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.346,
       "rsi_improvement": -7.9
     },
     "4_zscore": {
@@ -61,8 +61,8 @@
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": {
-        "low": 188.3,
-        "high": 200.12,
+        "low": 193.01,
+        "high": 194.94,
         "strong": false,
         "breach": false,
         "trigger_day_idx": 250,
