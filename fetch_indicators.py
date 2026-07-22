@@ -709,6 +709,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     retest_divergence = False
     retest_quality = None
     retest_days_ago = None
+    retest_pos2_idx = None
     RETEST_MAX_DAYS = 5
     RETEST_MIN_RSI_IMPROVEMENT = 1.0  # 이 이상 개선돼야 노이즈로 안 보고 인정
 
@@ -729,6 +730,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                 if rsi_gain >= RETEST_MIN_RSI_IMPROVEMENT:
                     retest_divergence = True
                     retest_days_ago = (n_total - 1) - t
+                    retest_pos2_idx = t
                     bonus = 0.5 * max(0.0, min(1.0, (rsi_gain - RETEST_MIN_RSI_IMPROVEMENT) / (DIVERGENCE_RSI_MAX - RETEST_MIN_RSI_IMPROVEMENT)))
                     retest_quality = (DIVERGENCE_BASE_SCORE + bonus) * DIVERGENCE_WARN_CAP  # 이중바닥(warn)과 동급 상한
                     # 가장 최근 날짜를 채택하기 위해 break 없이 계속 갱신
@@ -738,6 +740,12 @@ def analyze(ticker, trim_days=0, write_file=True):
             divergence_present = True
             signal_fresh = bool(retest_days_ago == 0)
             divergence_quality = retest_quality
+
+    # 리테스트 다이버전스가 잡혔으면, 트리거캔들/오더블럭 탐색도 "이중바닥의 마지막 캔들"
+    # (=리테스트 시점) 기준으로 다시 앵커링한다. 안 그러면 트리거/오더블럭은 여전히
+    # 옛날 저점2(pos2) 근처 3일만 보게 되어 "다이버전스는 리테스트로 잡혔는데 트리거는
+    # 그 시점을 아예 못 본다"는 불일치가 생긴다.
+    trigger_anchor_pos2 = retest_pos2_idx if retest_divergence else pos2
 
     # 다이버전스 사이클 상태머신: 저점2(다이버전스) -> ±3% 유지 -> 상승추세/무효화 ->
     # (무효화중 마지막음봉 고가 돌파)반등시도 -> (저점2 재돌파)상승추세 -> (저점2 재붕괴)하락추세.
@@ -862,9 +870,11 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 트리거캔들은 "오늘 기준 최근 며칠"이 아니라, 반드시 pos2(가장 최근 저점) 시점부터
     # 그 이후에 발생한 것만 인정한다. AMSC 사례에서 확인됨: 저점(pos2) 확정 전에
     # 나왔던 캔들(가격이 아직 더 빠지기 전의 "가짜 반전 시도")을 트리거로 착각하면 안 됨.
-    if pos2 is not None:
-        breakout_ok, breakout_pattern, breakout_days_ago = breakout_near_low(o, h, l, c, pos2)
-        long_lower_wick, wick_days_ago = wick_near_low(o, h, l, c, pos2)
+    # 리테스트 다이버전스(이중바닥)로 잡힌 경우엔 trigger_anchor_pos2가 그 리테스트 시점을
+    # 가리키므로, 트리거 탐색도 "이중바닥의 마지막 캔들" 근처로 자동으로 옮겨간다.
+    if trigger_anchor_pos2 is not None:
+        breakout_ok, breakout_pattern, breakout_days_ago = breakout_near_low(o, h, l, c, trigger_anchor_pos2)
+        long_lower_wick, wick_days_ago = wick_near_low(o, h, l, c, trigger_anchor_pos2)
     else:
         breakout_ok, breakout_pattern, breakout_days_ago = trigger_with_breakout(o, h, l, c)
         long_lower_wick, wick_days_ago = long_lower_wick_recent(o, h, l, c, lookback_days=3)
@@ -975,12 +985,13 @@ def analyze(ticker, trim_days=0, write_file=True):
     # pass 인정), 아니면 "약한" 오더블럭(warn)으로 구분한다. 오더블럭이 확정된 이후
     # 오늘까지 종가가 그 하단 아래로 내려간 적이 있으면 "이탈중"으로 판정한다.
     order_block = None
-    if pos2 is not None:
-        o2, c2v = float(o.iloc[pos2]), float(c.iloc[pos2])
-        l2, h2v = float(l.iloc[pos2]), float(h.iloc[pos2])
+    if trigger_anchor_pos2 is not None:
+        ob_pos2 = trigger_anchor_pos2
+        o2, c2v = float(o.iloc[ob_pos2]), float(c.iloc[ob_pos2])
+        l2, h2v = float(l.iloc[ob_pos2]), float(h.iloc[ob_pos2])
         body2_low, body2_high = min(o2, c2v), max(o2, c2v)
         body2_size = body2_high - body2_low
-        for idx in range(pos2 + 1, min(pos2 + 4, len(c))):
+        for idx in range(ob_pos2 + 1, min(ob_pos2 + 4, len(c))):
             o_t, c_t = float(o.iloc[idx]), float(c.iloc[idx])
             l_t = float(l.iloc[idx])
             bodyT_low, bodyT_high = min(o_t, c_t), max(o_t, c_t)
