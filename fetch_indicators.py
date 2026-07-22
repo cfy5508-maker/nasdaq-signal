@@ -1047,6 +1047,15 @@ def analyze(ticker, trim_days=0, write_file=True):
         stage_trigger = "pass"
     elif long_lower_wick and trigger_volume_confirmed:
         stage_trigger = "pass"
+    elif hammer or engulfing:
+        # 해머/불리시엔걸핑은 "긴아래꼬리"(detect_long_lower_wick)보다 엄격한 기준이다
+        # (해머: 아래꼬리가 몸통의 2배 이상 + 위꼬리 제한까지 있음. 긴아래꼬리는 위꼬리 제한이 없는
+        # 완화된 기준). 그래서 오늘 이 엄격한 기준을 충족했으면, 아직 거래량/돌파 확인이 없어도
+        # 그냥 "긴아래꼬리"(warn)보다는 신뢰도가 높다고 보고 pass로 인정한다.
+        # (addon 단계의 "reversal_only" 티어와 같은 논리 - 지금까진 신규진입 단계에 이 경로가
+        # 없어서 LMT처럼 해머가 확정됐는데도 그냥 warn(긴아래꼬리)에 같이 묻혀 있었음.
+        # 아직 백테스트로 승률 검증 전이라 추후 확인 필요.)
+        stage_trigger = "pass"
     elif order_block is not None and order_block["strong"] and not order_block["breach"]:
         stage_trigger = "pass"   # 뒤덮는 캔들 몸통이 저점2의 2배 이상 - 돌파 확정 없이도 강한 신호로 인정
     elif order_block is not None and not order_block["breach"]:
