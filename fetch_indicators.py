@@ -577,7 +577,10 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 백테스트 검증: 68건 표본에서 Z-score 낮을수록 승률 66.7%→52.4%→26.1% 단조감소 확인
     # 추가: 오늘이 정확히 새 저점을 찍은 날이 아니어도, 마지막 저점가 대비 +3% 이내면
     # 신호가 아직 유효(저점 근처에서 다지는 중)한 것으로 간주한다.
-    TOLERANCE_PCT = 0.03
+    TOLERANCE_PCT = 0.03  # 저점2를 못 구하는 예외적 상황의 폴백값 (아래에서 종목별로 재계산됨)
+    TOLERANCE_ATR_MULTIPLIER = 1.0   # 오차범위 = ATR(변동성) x 이 배수
+    TOLERANCE_MIN_PCT = 0.02         # 너무 좁아지지 않게 하한 (저변동성 종목도 최소 이만큼은 허용)
+    TOLERANCE_MAX_PCT = 0.08         # 너무 넓어지지 않게 상한 (고변동성 종목이라도 이 이상은 "이미 늦음"으로 간주)
     MIN_GAP_DAYS = 5  # 3일에서 상향(SMCI 사례: 3일 간격은 "같은 되돌림 안의 노이즈"를 다이버전스로 착각할 위험 확인)
     MAX_GAP_DAYS = 30  # 30일(약 1.5개월) 넘게 떨어진 저점은 다른 하락 사이클로 간주해 배제
     close_values = c.values
@@ -592,6 +595,16 @@ def analyze(ticker, trim_days=0, write_file=True):
     pos1, pos2 = None, None  # 다이버전스 구간(저점1~저점2) - 거래량 비교에도 재사용
     if len(realtime_lows) >= 2:
         pos2 = realtime_lows[-1]
+
+        # 오차범위를 모든 종목에 고정 3%로 적용하지 않고, 그 종목의 변동성(ATR)에 맞춰
+        # 자동으로 넓히거나 좁힌다. AVEX/AMSC 사례: 반등폭이 그 종목 변동성 기준으로는
+        # 자연스러운 수준인데도 고정 3% 기준을 넘겨버려서 다이버전스를 "이미 늦음"으로
+        # 잘못 처리하던 문제를 완화한다. (2%~8% 범위로 하한/상한을 둬서 극단값 방지)
+        atr_at_pos2 = float(atr.iloc[pos2]) if not pd.isna(atr.iloc[pos2]) else None
+        price_at_pos2_for_tol = float(c.iloc[pos2])
+        if atr_at_pos2 is not None and price_at_pos2_for_tol > 0:
+            atr_pct = atr_at_pos2 / price_at_pos2_for_tol
+            TOLERANCE_PCT = max(TOLERANCE_MIN_PCT, min(TOLERANCE_MAX_PCT, atr_pct * TOLERANCE_ATR_MULTIPLIER))
 
         # 저점1: "그냥 직전 저점"이 아니라, 저점2 이전 MIN~MAX_GAP일 구간 안에서
         # 실제로 가장 낮았던(가장 의미있는) 저점을 찾는다. 이래야 PEP처럼 저점이
