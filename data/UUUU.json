@@ -2,9 +2,9 @@
   "ticker": "UUUU",
   "name": "Energy Fuels Inc",
   "price": 12.35,
-  "updated": "2026-07-21T22:31:12.623145+00:00",
+  "updated": "2026-07-22T00:50:13.615859+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -27,14 +27,16 @@
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 8,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.358,
       "rsi_improvement": -3.1
     },
     "4_zscore": {

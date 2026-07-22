@@ -2,9 +2,9 @@
   "ticker": "PGR",
   "name": "Progressive Corporation (The)",
   "price": 205.9,
-  "updated": "2026-07-21T22:31:14.596352+00:00",
+  "updated": "2026-07-22T00:50:15.988630+00:00",
   "as_of_date": "2026-07-21",
-  "score": 21,
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -27,14 +27,16 @@
       "peg": 31.72
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": null,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.334,
       "rsi_improvement": null
     },
     "4_zscore": {

@@ -2,9 +2,9 @@
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
   "price": 24.31,
-  "updated": "2026-07-21T22:31:06.580352+00:00",
+  "updated": "2026-07-22T00:50:06.436657+00:00",
   "as_of_date": "2026-07-21",
-  "score": 12,
+  "score": 26,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -21,15 +21,17 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
+      "status": "warn",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": null
+      "peg": 1.64
     },
     "3_divergence_gate": {
       "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
       "gap_days": 24,
@@ -62,7 +64,7 @@
     }
   },
   "entry_atr_stop_pct": 10.4,
-  "score_addon": 29,
+  "score_addon": 40,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -79,10 +81,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
+      "status": "warn",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": null
+      "peg": 1.64
     },
     "3_pullback_gate": {
       "status": "fail",

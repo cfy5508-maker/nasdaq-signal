@@ -2,9 +2,9 @@
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
   "price": 15.28,
-  "updated": "2026-07-21T22:31:45.498514+00:00",
+  "updated": "2026-07-22T00:50:53.795588+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -27,14 +27,16 @@
       "peg": 3.18
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 7,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.301,
       "rsi_improvement": -0.7
     },
     "4_zscore": {

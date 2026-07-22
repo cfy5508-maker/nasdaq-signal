@@ -2,9 +2,9 @@
   "ticker": "BIIB",
   "name": "Biogen Inc.",
   "price": 203.16,
-  "updated": "2026-07-21T22:31:13.579955+00:00",
+  "updated": "2026-07-22T00:50:14.747991+00:00",
   "as_of_date": "2026-07-21",
-  "score": 20,
+  "score": 31,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -23,18 +23,20 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 11.4,
-      "forward_pe": 12.328344,
+      "forward_pe": 12.345109,
       "peg": 4.34
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": true,
+      "retest_days_ago": 4,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 28,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.413,
       "rsi_improvement": -4.4
     },
     "4_zscore": {
@@ -88,7 +90,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 11.4,
-      "forward_pe": 12.328344,
+      "forward_pe": 12.345109,
       "peg": 4.34
     },
     "3_pullback_gate": {

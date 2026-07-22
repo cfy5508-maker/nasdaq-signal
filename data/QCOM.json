@@ -2,9 +2,9 @@
   "ticker": "QCOM",
   "name": "QUALCOMM Incorporated",
   "price": 173.5,
-  "updated": "2026-07-21T22:32:01.172035+00:00",
+  "updated": "2026-07-22T00:51:11.847246+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -27,14 +27,16 @@
       "peg": 0.54
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 11,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.35,
       "rsi_improvement": -0.8
     },
     "4_zscore": {

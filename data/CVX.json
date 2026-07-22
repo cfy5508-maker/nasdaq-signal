@@ -2,9 +2,9 @@
   "ticker": "CVX",
   "name": "Chevron Corporation",
   "price": 191.07,
-  "updated": "2026-07-21T22:31:50.558053+00:00",
+  "updated": "2026-07-22T00:50:59.572900+00:00",
   "as_of_date": "2026-07-21",
-  "score": 30,
+  "score": 53,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -23,18 +23,20 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 12.1,
-      "forward_pe": 15.236685,
+      "forward_pe": 15.316331,
       "peg": 0.77
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
+      "retest_divergence": true,
+      "retest_days_ago": 11,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.485,
       "rsi_improvement": -4.8
     },
     "4_zscore": {
@@ -88,7 +90,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 12.1,
-      "forward_pe": 15.236685,
+      "forward_pe": 15.316331,
       "peg": 0.77
     },
     "3_pullback_gate": {
