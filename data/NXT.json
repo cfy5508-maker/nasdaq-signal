@@ -2,9 +2,9 @@
   "ticker": "NXT",
   "name": "Nextpower Inc.",
   "price": 105.67,
-  "updated": "2026-07-22T00:50:02.944698+00:00",
+  "updated": "2026-07-22T00:59:02.096502+00:00",
   "as_of_date": "2026-07-21",
-  "score": 53,
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -47,7 +47,7 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -60,7 +60,14 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 100.23,
+        "high": 103.36,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 11.6,
