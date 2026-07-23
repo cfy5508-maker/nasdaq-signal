@@ -1,29 +1,29 @@
 {
   "ticker": "AMT",
   "name": "American Tower Corporation (REI",
-  "price": 166.06,
-  "updated": "2026-07-22T22:38:48.193293+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 50,
+  "price": 164.65,
+  "updated": "2026-07-23T22:34:35.492585+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 29.6,
-      "forward_pe": 24.216246,
+      "upside_pct": 30.7,
+      "forward_pe": 24.010628,
       "peg": 1.71
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.4,
-      "rsi_zscore_1y": -0.28,
-      "zscore_quality": 0.371,
+      "rsi": 40.6,
+      "rsi_zscore_1y": -0.47,
+      "zscore_quality": 0.418,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 32.4,
+      "adx_reference": 31.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.8,
-  "score_addon": 23,
+  "entry_atr_stop_pct": 3.9,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 29.6,
-      "forward_pe": 24.216246,
+      "upside_pct": 30.7,
+      "forward_pe": 24.010628,
       "peg": 1.71
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.4,
-      "rsi_zone_quality": 0.097,
+      "rsi": 40.6,
+      "rsi_zone_quality": 0.023,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.9
+      "stop_pct_from_20sma": 1.5
     }
   },
   "sector": "Real Estate",

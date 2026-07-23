@@ -1,49 +1,49 @@
 {
   "ticker": "NOC",
   "name": "Northrop Grumman Corporation",
-  "price": 525.28,
-  "updated": "2026-07-22T22:38:55.901148+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 71,
+  "price": 533.48,
+  "updated": "2026-07-23T22:34:43.143959+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 49,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.7,
-      "forward_pe": 17.299423,
+      "upside_pct": 21.8,
+      "forward_pe": 17.573883,
       "peg": 3.82
     },
     "3_divergence_gate": {
-      "status": "pass",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
+      "divergence_present": false,
       "gap_days": 15,
-      "signal_fresh": false,
-      "divergence_quality": 1.0,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 10.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.4,
-      "rsi_zscore_1y": -0.1,
-      "zscore_quality": 0.325,
+      "rsi": 51.3,
+      "rsi_zscore_1y": 0.17,
+      "zscore_quality": 0.258,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.2,
+      "adx_reference": 19.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,32 +65,32 @@
         "high": 512.29,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.7,
-  "score_addon": 26,
+  "entry_atr_stop_pct": 4.8,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.7,
-      "forward_pe": 17.299423,
+      "upside_pct": 21.8,
+      "forward_pe": 17.573883,
       "peg": 3.82
     },
     "3_pullback_gate": {
@@ -108,9 +108,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 47.4,
-      "rsi_zone_quality": 0.295,
+      "status": "warn",
+      "rsi": 51.3,
+      "rsi_zone_quality": 0.452,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,12 +122,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.2
+      "stop_pct_from_20sma": 1.4
     }
   },
   "sector": "Industrials",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 2,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 4.1,
+    "divergence_date_index": 248
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {

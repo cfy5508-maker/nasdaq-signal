@@ -1,89 +1,89 @@
 {
   "ticker": "KO",
   "name": "Coca-Cola Company (The)",
-  "price": 82.2,
-  "updated": "2026-07-22T22:39:17.083105+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 44,
+  "price": 81.17,
+  "updated": "2026-07-23T22:35:03.462228+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 14,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -22.4,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.01,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -6.1,
+      "volume_trend_pct_3d": 4.7,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.0,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.4,
-      "forward_pe": 23.597567,
+      "upside_pct": 8.8,
+      "forward_pe": 23.30188,
       "peg": 4.01
     },
     "3_divergence_gate": {
-      "status": "pass",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 29,
-      "signal_fresh": false,
-      "divergence_quality": 1.0,
-      "rsi_improvement": 10.8
+      "divergence_present": false,
+      "gap_days": 23,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -1.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.7,
-      "rsi_zscore_1y": -0.33,
-      "zscore_quality": 0.332,
+      "rsi": 47.0,
+      "rsi_zscore_1y": -0.68,
+      "zscore_quality": 0.419,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 15.4,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 14.5,
       "volume_confirmed": false,
-      "trigger_day_volume": 12949400,
-      "avg_volume_divergence_window": 19966060,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 3.1,
-  "score_addon": 24,
+  "score_addon": 4,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -22.4,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.01,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -6.1,
+      "volume_trend_pct_3d": 4.7,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.0,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.4,
-      "forward_pe": 23.597567,
+      "upside_pct": 8.8,
+      "forward_pe": 23.30188,
       "peg": 4.01
     },
     "3_pullback_gate": {
@@ -101,21 +101,21 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 50.7,
-      "rsi_zone_quality": 0.429,
+      "status": "fail",
+      "rsi": 47.0,
+      "rsi_zone_quality": 0.28,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.5
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Consumer Defensive",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 81.56,
+    "stop_reference_price": 81.17,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

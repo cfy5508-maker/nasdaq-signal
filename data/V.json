@@ -1,29 +1,29 @@
 {
   "ticker": "V",
   "name": "Visa Inc.",
-  "price": 353.42,
-  "updated": "2026-07-22T22:38:59.818126+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 5,
+  "price": 351.6,
+  "updated": "2026-07-23T22:34:47.019270+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 20,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -22.4,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.01,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -6.1,
+      "volume_trend_pct_3d": 4.7,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.0,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 13.9,
-      "forward_pe": 23.766214,
+      "upside_pct": 14.5,
+      "forward_pe": 23.641808,
       "peg": 1.56
     },
     "3_divergence_gate": {
@@ -34,56 +34,56 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 27,
+      "gap_days": 28,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 9.1
+      "rsi_improvement": 7.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.2,
-      "rsi_zscore_1y": 0.65,
-      "zscore_quality": 0.138,
+      "rsi": 54.4,
+      "rsi_zscore_1y": 0.45,
+      "zscore_quality": 0.186,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": false,
+      "hammer": true,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 32.9,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 31.6,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 4181265,
+      "avg_volume_divergence_window": 8783940,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 3.3,
-  "score_addon": 28,
+  "score_addon": 65,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -22.4,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.01,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -6.1,
+      "volume_trend_pct_3d": 4.7,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.0,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 13.9,
-      "forward_pe": 23.766214,
+      "upside_pct": 14.5,
+      "forward_pe": 23.641808,
       "peg": 1.56
     },
     "3_pullback_gate": {
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 56.2,
-      "rsi_zone_quality": 0.647,
+      "rsi": 54.4,
+      "rsi_zone_quality": 0.574,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 0.0
     }
   },
   "sector": "Financial Services",
@@ -123,18 +123,18 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 27,
-    "days_since_trend_start": 24,
-    "gain_since_low_pct": 10.8,
-    "divergence_date_index": 223
+    "days_since_divergence": 28,
+    "days_since_trend_start": 25,
+    "gain_since_low_pct": 10.2,
+    "divergence_date_index": 222
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 353.42,
+    "stop_reference_price": 351.6,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }

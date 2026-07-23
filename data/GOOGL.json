@@ -1,49 +1,49 @@
 {
   "ticker": "GOOGL",
   "name": "Alphabet Inc.",
-  "price": 342.09,
-  "updated": "2026-07-22T22:38:33.751150+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 60,
+  "price": 317.69,
+  "updated": "2026-07-23T22:34:20.963206+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -46.6,
-      "volume_trend_pct_3d": -31.5,
+      "volume_diff_pct_3m": 1.5,
+      "volume_trend_pct_3d": -18.2,
       "volume_trend_up": false,
-      "daily_change_pct": -0.51,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.7,
-      "forward_pe": 23.312311,
+      "upside_pct": 36.5,
+      "forward_pe": 21.533838,
       "peg": 1.37
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 17,
-      "signal_fresh": true,
-      "divergence_quality": 0.518,
-      "rsi_improvement": 7.3
+      "divergence_present": false,
+      "gap_days": 18,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -2.3
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 40.6,
-      "rsi_zscore_1y": -1.32,
-      "zscore_quality": 0.58,
+      "status": "pass",
+      "rsi": 31.0,
+      "rsi_zscore_1y": -1.96,
+      "zscore_quality": 0.74,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 11.4,
+      "adx_reference": 12.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.9,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 5.8,
+  "score_addon": 50,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -46.6,
-      "volume_trend_pct_3d": -31.5,
+      "volume_diff_pct_3m": 1.5,
+      "volume_trend_pct_3d": -18.2,
       "volume_trend_up": false,
-      "daily_change_pct": -0.51,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.7,
-      "forward_pe": 23.312311,
+      "upside_pct": 36.5,
+      "forward_pe": 21.533838,
       "peg": 1.37
     },
     "3_pullback_gate": {
@@ -91,8 +91,8 @@
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": true,
-      "near_sma200": false,
+      "near_sma120": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.6,
-      "rsi_zone_quality": 0.023,
+      "rsi": 31.0,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,16 +115,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.7
+      "stop_pct_from_20sma": 11.2
     }
   },
   "sector": "Communication Services",
   "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 249,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 7.1,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 342.09,
+    "stop_reference_price": 317.69,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

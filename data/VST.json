@@ -1,29 +1,29 @@
 {
   "ticker": "VST",
   "name": "Vistra Corp.",
-  "price": 166.74,
-  "updated": "2026-07-22T22:38:53.389773+00:00",
-  "as_of_date": "2026-07-22",
+  "price": 168.98,
+  "updated": "2026-07-23T22:34:40.640992+00:00",
+  "as_of_date": "2026-07-23",
   "score": 42,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 33.8,
-      "forward_pe": 15.42909,
+      "upside_pct": 32.0,
+      "forward_pe": 15.636364,
       "peg": 0.48
     },
     "3_divergence_gate": {
@@ -41,8 +41,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.5,
-      "rsi_zscore_1y": 1.77,
+      "rsi": 62.5,
+      "rsi_zscore_1y": 2.0,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -55,8 +55,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 11.7,
+      "wick_days_ago": 3,
+      "adx_reference": 12.3,
       "volume_confirmed": false,
       "trigger_day_volume": 3256700,
       "avg_volume_divergence_window": 4492288,
@@ -65,32 +65,32 @@
         "high": 157.87,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 6.3,
-  "score_addon": 51,
+  "entry_atr_stop_pct": 6.0,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 33.8,
-      "forward_pe": 15.42909,
+      "upside_pct": 32.0,
+      "forward_pe": 15.636364,
       "peg": 0.48
     },
     "3_pullback_gate": {
@@ -102,15 +102,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
+      "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.5,
-      "rsi_zone_quality": 0.822,
+      "rsi": 62.5,
+      "rsi_zone_quality": 0.901,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.8
+      "stop_pct_from_20sma": 5.8
     }
   },
   "sector": "Utilities",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 28,
-    "days_since_trend_start": 27,
-    "gain_since_low_pct": 20.5,
-    "divergence_date_index": 222
+    "days_since_divergence": 29,
+    "days_since_trend_start": 28,
+    "gain_since_low_pct": 22.1,
+    "divergence_date_index": 221
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

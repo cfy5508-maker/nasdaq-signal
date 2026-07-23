@@ -1,21 +1,21 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 26.39,
-  "updated": "2026-07-22T22:38:23.937455+00:00",
-  "as_of_date": "2026-07-22",
+  "price": 26.38,
+  "updated": "2026-07-23T22:34:11.225594+00:00",
+  "as_of_date": "2026-07-23",
   "score": 54,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 64.7,
-      "forward_pe": -19.121525,
+      "forward_pe": -19.114279,
       "peg": null
     },
     "3_divergence_gate": {
@@ -42,8 +42,8 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 38.1,
-      "rsi_zscore_1y": -0.9,
-      "zscore_quality": 0.474,
+      "rsi_zscore_1y": -0.92,
+      "zscore_quality": 0.479,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,26 +56,26 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.2,
+      "adx_reference": 21.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.0,
+  "entry_atr_stop_pct": 15.5,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
@@ -83,7 +83,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 64.7,
-      "forward_pe": -19.121525,
+      "forward_pe": -19.114279,
       "peg": null
     },
     "3_pullback_gate": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 13.4
+      "stop_pct_from_20sma": 12.7
     }
   },
   "sector": "Industrials",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 243,
-    "days_since_prior_divergence": 7,
-    "price_drop_since_pct": 11.0,
+    "prior_divergence_date_index": 242,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 11.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -135,8 +135,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 5,
-    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 6,
+    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

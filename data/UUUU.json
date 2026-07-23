@@ -1,29 +1,29 @@
 {
   "ticker": "UUUU",
   "name": "Energy Fuels Inc",
-  "price": 12.31,
-  "updated": "2026-07-22T22:38:29.006877+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 60,
+  "price": 12.01,
+  "updated": "2026-07-23T22:34:16.089782+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 59,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 112.2,
-      "forward_pe": 37.303032,
+      "upside_pct": 117.5,
+      "forward_pe": 36.39394,
       "peg": null
     },
     "3_divergence_gate": {
@@ -36,14 +36,14 @@
       "divergence_present": true,
       "gap_days": 8,
       "signal_fresh": true,
-      "divergence_quality": 0.559,
+      "divergence_quality": 0.498,
       "rsi_improvement": -3.1
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 37.0,
-      "rsi_zscore_1y": -1.2,
-      "zscore_quality": 0.549,
+      "rsi": 35.2,
+      "rsi_zscore_1y": -1.32,
+      "zscore_quality": 0.581,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.3,
+      "adx_reference": 19.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.8,
+  "entry_atr_stop_pct": 10.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -23.5,
+      "volume_diff_pct_3m": 6.2,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.12,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.23,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 112.2,
-      "forward_pe": 37.303032,
+      "upside_pct": 117.5,
+      "forward_pe": 36.39394,
       "peg": null
     },
     "3_pullback_gate": {
@@ -98,11 +98,11 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.0,
+      "rsi": 35.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.3
+      "stop_pct_from_20sma": 9.7
     }
   },
   "sector": "Energy",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 2.8,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 5.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -133,7 +133,11 @@
     "stop_reference_price": 11.49,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

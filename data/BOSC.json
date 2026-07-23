@@ -1,49 +1,49 @@
 {
   "ticker": "BOSC",
   "name": "B.O.S. Better Online Solutions",
-  "price": 4.23,
-  "updated": "2026-07-22T22:39:30.110560+00:00",
-  "as_of_date": "2026-07-22",
-  "score": 54,
+  "price": 4.48,
+  "updated": "2026-07-23T22:35:16.462249+00:00",
+  "as_of_date": "2026-07-23",
+  "score": 33,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -46.6,
-      "volume_trend_pct_3d": -31.5,
+      "volume_diff_pct_3m": 1.5,
+      "volume_trend_pct_3d": -18.2,
       "volume_trend_up": false,
-      "daily_change_pct": -0.51,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 89.1,
-      "forward_pe": 7.690909,
+      "upside_pct": 78.6,
+      "forward_pe": 8.145454,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
+      "divergence_present": false,
       "gap_days": 30,
-      "signal_fresh": false,
-      "divergence_quality": 0.498,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 6.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.6,
-      "rsi_zscore_1y": -0.65,
-      "zscore_quality": 0.412,
+      "rsi": 60.8,
+      "rsi_zscore_1y": 1.36,
+      "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.4,
+      "adx_reference": 16.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 23,
+  "entry_atr_stop_pct": 4.2,
+  "score_addon": 33,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -46.6,
-      "volume_trend_pct_3d": -31.5,
+      "volume_diff_pct_3m": 1.5,
+      "volume_trend_pct_3d": -18.2,
       "volume_trend_up": false,
-      "daily_change_pct": -0.51,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.9,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 89.1,
-      "forward_pe": 7.690909,
+      "upside_pct": 78.6,
+      "forward_pe": 8.145454,
       "peg": null
     },
     "3_pullback_gate": {
@@ -101,9 +101,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 42.6,
-      "rsi_zone_quality": 0.103,
+      "status": "pass",
+      "rsi": 60.8,
+      "rsi_zone_quality": 0.831,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,12 +115,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 3.4
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 7,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 6.4,
+    "divergence_date_index": 243
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
