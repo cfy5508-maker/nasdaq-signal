@@ -1,49 +1,49 @@
 {
   "ticker": "UBER",
   "name": "Uber Technologies, Inc.",
-  "price": 68.91,
-  "updated": "2026-07-23T22:34:51.347798+00:00",
-  "as_of_date": "2026-07-23",
-  "score": 53,
+  "price": 65.94,
+  "updated": "2026-07-24T22:29:12.620171+00:00",
+  "as_of_date": "2026-07-24",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.9,
-      "forward_pe": 15.483968,
-      "peg": 5.8
+      "upside_pct": 57.9,
+      "forward_pe": 14.816613,
+      "peg": 5.58
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 29,
-      "signal_fresh": true,
-      "divergence_quality": 0.373,
-      "rsi_improvement": 2.4
+      "divergence_present": false,
+      "gap_days": 30,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -3.6
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 39.2,
-      "rsi_zscore_1y": -0.93,
-      "zscore_quality": 0.482,
+      "status": "pass",
+      "rsi": 33.2,
+      "rsi_zscore_1y": -1.61,
+      "zscore_quality": 0.653,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,14 +56,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 11.1,
+      "adx_reference": 12.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.2,
+  "entry_atr_stop_pct": 5.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -71,20 +71,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.9,
-      "forward_pe": 15.483968,
-      "peg": 5.8
+      "upside_pct": 57.9,
+      "forward_pe": 14.816613,
+      "peg": 5.58
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.2,
+      "rsi": 33.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,16 +115,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.0
+      "stop_pct_from_20sma": 10.3
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 249,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 4.3,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 68.91,
+    "stop_reference_price": 65.94,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

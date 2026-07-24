@@ -1,37 +1,37 @@
 {
   "ticker": "LLY",
   "name": "Eli Lilly and Company",
-  "price": 1185.87,
-  "updated": "2026-07-23T22:34:56.201400+00:00",
-  "as_of_date": "2026-07-23",
-  "score": 33,
+  "price": 1196.03,
+  "updated": "2026-07-24T22:29:18.130437+00:00",
+  "as_of_date": "2026-07-24",
+  "score": 32,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
-      "forward_pe": 26.430014,
-      "peg": 1.57
+      "upside_pct": 6.2,
+      "forward_pe": 26.658058,
+      "peg": 1.66
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 20,
@@ -41,88 +41,88 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.2,
-      "rsi_zscore_1y": -0.03,
-      "zscore_quality": 0.308,
+      "rsi": 57.0,
+      "rsi_zscore_1y": 0.1,
+      "zscore_quality": 0.275,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 1,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
       "adx_reference": 19.5,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 1909900,
+      "avg_volume_divergence_window": 3098471,
       "order_block": {
         "low": 1163.01,
         "high": 1173.91,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 4.8,
-  "score_addon": 63,
+  "entry_atr_stop_pct": 4.6,
+  "score_addon": 10,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
-      "forward_pe": 26.430014,
-      "peg": 1.57
+      "upside_pct": 6.2,
+      "forward_pe": 26.658058,
+      "peg": 1.66
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 55.2,
-      "rsi_zone_quality": 0.609,
+      "rsi": 57.0,
+      "rsi_zone_quality": 0.68,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "fail",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.1
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Healthcare",
@@ -135,6 +135,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

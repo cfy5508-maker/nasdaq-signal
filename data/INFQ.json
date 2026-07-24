@@ -1,49 +1,49 @@
 {
   "ticker": "INFQ",
   "name": "Infleqtion, Inc.",
-  "price": 9.69,
-  "updated": "2026-07-23T22:34:39.435042+00:00",
-  "as_of_date": "2026-07-23",
-  "score": 54,
+  "price": 8.97,
+  "updated": "2026-07-24T22:28:58.972971+00:00",
+  "as_of_date": "2026-07-24",
+  "score": 61,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 112.6,
-      "forward_pe": -36.202644,
+      "upside_pct": 129.7,
+      "forward_pe": -33.51267,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 5,
+      "gap_days": 6,
       "signal_fresh": true,
-      "divergence_quality": 0.474,
-      "rsi_improvement": -2.9
+      "divergence_quality": 0.654,
+      "rsi_improvement": 3.1
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 38.5,
-      "rsi_zscore_1y": -0.77,
-      "zscore_quality": 0.442,
+      "status": "warn",
+      "rsi": 35.3,
+      "rsi_zscore_1y": -1.05,
+      "zscore_quality": 0.512,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,14 +56,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.1,
+      "adx_reference": 15.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.9,
+  "entry_atr_stop_pct": 17.9,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -71,19 +71,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 112.6,
-      "forward_pe": -36.202644,
+      "upside_pct": 129.7,
+      "forward_pe": -33.51267,
       "peg": null
     },
     "3_pullback_gate": {
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.5,
+      "rsi": 35.3,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.9
+      "stop_pct_from_20sma": 23.1
     }
   },
   "sector": "Technology",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 9.05,
+    "stop_reference_price": 8.97,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

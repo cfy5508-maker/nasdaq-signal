@@ -1,29 +1,29 @@
 {
   "ticker": "GPOR",
   "name": "Gulfport Energy Corporation",
-  "price": 158.0,
-  "updated": "2026-07-23T22:35:17.715462+00:00",
-  "as_of_date": "2026-07-23",
-  "score": 58,
+  "price": 157.27,
+  "updated": "2026-07-24T22:29:42.915576+00:00",
+  "as_of_date": "2026-07-24",
+  "score": 59,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 48.0,
-      "forward_pe": 5.564093,
+      "upside_pct": 46.9,
+      "forward_pe": 5.5325413,
       "peg": null
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.7,
-      "rsi_zscore_1y": -0.18,
-      "zscore_quality": 0.346,
+      "rsi": 45.8,
+      "rsi_zscore_1y": -0.29,
+      "zscore_quality": 0.372,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 33.0,
+      "adx_reference": 31.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,12 +65,12 @@
         "high": 151.05,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.7,
+  "entry_atr_stop_pct": 4.6,
   "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
@@ -78,19 +78,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 6.2,
-      "volume_trend_pct_3d": -23.3,
+      "volume_diff_pct_3m": -20.2,
+      "volume_trend_pct_3d": -12.0,
       "volume_trend_up": false,
-      "daily_change_pct": -1.23,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 48.0,
-      "forward_pe": 5.564093,
+      "upside_pct": 46.9,
+      "forward_pe": 5.5325413,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.7,
-      "rsi_zone_quality": 0.27,
+      "rsi": 45.8,
+      "rsi_zone_quality": 0.232,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 1.2
     }
   },
   "sector": "Energy",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 3,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 5.2,
-    "divergence_date_index": 247
+    "days_since_divergence": 4,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 4.7,
+    "divergence_date_index": 246
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

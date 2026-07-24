@@ -1,29 +1,29 @@
 {
   "ticker": "PEP",
   "name": "Pepsico, Inc.",
-  "price": 134.95,
-  "updated": "2026-07-23T22:35:12.209891+00:00",
-  "as_of_date": "2026-07-23",
-  "score": 74,
+  "price": 136.64,
+  "updated": "2026-07-24T22:29:36.297775+00:00",
+  "as_of_date": "2026-07-24",
+  "score": 78,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 1.5,
-      "volume_trend_pct_3d": -18.2,
+      "volume_diff_pct_3m": -7.4,
+      "volume_trend_pct_3d": -8.7,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": -1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.5,
-      "forward_pe": 15.016635,
+      "upside_pct": 14.1,
+      "forward_pe": 15.204691,
       "peg": 1.46
     },
     "3_divergence_gate": {
@@ -35,55 +35,62 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 16,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.88,
       "rsi_improvement": 7.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.5,
-      "rsi_zscore_1y": -0.85,
-      "zscore_quality": 0.513,
+      "rsi": 44.6,
+      "rsi_zscore_1y": -0.49,
+      "zscore_quality": 0.422,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 15.9,
+      "wick_days_ago": 1,
+      "adx_reference": 15.0,
       "volume_confirmed": false,
-      "trigger_day_volume": 7737419,
-      "avg_volume_divergence_window": 9533083,
-      "order_block": null
+      "trigger_day_volume": 7755700,
+      "avg_volume_divergence_window": 9534159,
+      "order_block": {
+        "low": 134.7,
+        "high": 134.95,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 3.7,
-  "score_addon": 40,
+  "entry_atr_stop_pct": 3.6,
+  "score_addon": 42,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 1.5,
-      "volume_trend_pct_3d": -18.2,
+      "volume_diff_pct_3m": -7.4,
+      "volume_trend_pct_3d": -8.7,
       "volume_trend_up": false,
-      "daily_change_pct": -1.9,
+      "daily_change_pct": -1.12,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.5,
-      "forward_pe": 15.016635,
+      "upside_pct": 14.1,
+      "forward_pe": 15.204691,
       "peg": 1.46
     },
     "3_pullback_gate": {
@@ -102,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.5,
-      "rsi_zone_quality": 0.021,
+      "rsi": 44.6,
+      "rsi_zone_quality": 0.183,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 1.4
     }
   },
   "sector": "Consumer Defensive",
