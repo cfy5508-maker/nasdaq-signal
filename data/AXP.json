@@ -1,10 +1,10 @@
 {
-  "ticker": "V",
-  "name": "Visa Inc.",
-  "price": 355.74,
-  "updated": "2026-07-25T00:45:44.221242+00:00",
+  "ticker": "AXP",
+  "name": "American Express Company",
+  "price": 326.17,
+  "updated": "2026-07-25T00:46:13.106336+00:00",
   "as_of_date": "2026-07-24",
-  "score": 20,
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,50 +21,50 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 13.4,
-      "forward_pe": 23.920183,
-      "peg": 1.55
+      "status": "pass",
+      "upside_pct": 15.1,
+      "forward_pe": 16.171768,
+      "peg": 1.63
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 28,
-      "signal_fresh": true,
-      "divergence_quality": 0.379,
-      "rsi_improvement": 7.3
+      "divergence_present": false,
+      "gap_days": 12,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -14.6
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 57.7,
-      "rsi_zscore_1y": 0.79,
-      "zscore_quality": 0.101,
-      "zscore_direction_bonus_applied": true
+      "status": "warn",
+      "rsi": 37.5,
+      "rsi_zscore_1y": -1.34,
+      "zscore_quality": 0.585,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 30.9,
-      "volume_confirmed": false,
-      "trigger_day_volume": 4481339,
-      "avg_volume_divergence_window": 8784010,
+      "adx_reference": 23.1,
+      "volume_confirmed": true,
+      "trigger_day_volume": 5657154,
+      "avg_volume_divergence_window": 3138989,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.1,
-  "score_addon": 50,
+  "entry_atr_stop_pct": 4.2,
+  "score_addon": 82,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -81,17 +81,17 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 13.4,
-      "forward_pe": 23.920183,
-      "peg": 1.55
+      "status": "pass",
+      "upside_pct": 15.1,
+      "forward_pe": 16.171768,
+      "peg": 1.63
     },
     "3_pullback_gate": {
       "status": "pass",
-      "near_sma20": true,
-      "near_sma40": false,
-      "near_sma60": false,
-      "near_sma120": false,
+      "near_sma20": false,
+      "near_sma40": true,
+      "near_sma60": true,
+      "near_sma120": true,
       "near_sma200": false,
       "near_ma_count": 1,
       "ma_converged_ignored": false,
@@ -101,37 +101,36 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 57.7,
-      "rsi_zone_quality": 0.709,
+      "status": "fail",
+      "rsi": 37.5,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 6.7
     }
   },
   "sector": "Financial Services",
-  "sector_relative_strength_up": true,
-  "uptrend_entry_signal": {
+  "sector_relative_strength_up": false,
+  "uptrend_entry_signal": null,
+  "divergence_invalidated_signal": {
     "active": true,
-    "phase": "ongoing",
-    "days_since_divergence": 29,
-    "days_since_trend_start": 26,
-    "gain_since_low_pct": 11.5,
-    "divergence_date_index": 221
+    "prior_divergence_date_index": 248,
+    "days_since_prior_divergence": 2,
+    "price_drop_since_pct": 6.5,
+    "rescue_attempted": false
   },
-  "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 351.6,
+    "stop_reference_price": 326.17,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
