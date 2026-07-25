@@ -1,28 +1,28 @@
 {
   "ticker": "MRK",
   "name": "Merck & Company, Inc.",
-  "price": 131.07,
-  "updated": "2026-07-25T00:45:36.866751+00:00",
+  "price": NaN,
+  "updated": "2026-07-25T22:32:14.410969+00:00",
   "as_of_date": "2026-07-24",
-  "score": 26,
+  "score": 20,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
       "volume_diff_pct_3m": -28.5,
       "volume_trend_pct_3d": 4.5,
       "volume_trend_up": true,
-      "daily_change_pct": 0.48,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.7,
+      "upside_pct": NaN,
       "forward_pe": 13.572173,
       "peg": 12.08
     },
@@ -41,25 +41,25 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.2,
-      "rsi_zscore_1y": 0.5,
-      "zscore_quality": 0.174,
+      "rsi": 61.4,
+      "rsi_zscore_1y": 0.43,
+      "zscore_quality": 0.193,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "모닝스타",
-      "days_ago": 6,
+      "status": "warn",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.4,
-      "volume_confirmed": true,
-      "trigger_day_volume": 13038800,
-      "avg_volume_divergence_window": 11296906,
+      "adx_reference": NaN,
+      "volume_confirmed": false,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": {
         "low": 120.78,
         "high": 123.3,
@@ -70,26 +70,26 @@
       }
     }
   },
-  "entry_atr_stop_pct": 3.8,
-  "score_addon": 13,
+  "entry_atr_stop_pct": NaN,
+  "score_addon": 12,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
       "volume_diff_pct_3m": -28.5,
       "volume_trend_pct_3d": 4.5,
       "volume_trend_up": true,
-      "daily_change_pct": 0.48,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.7,
+      "upside_pct": NaN,
       "forward_pe": 13.572173,
       "peg": 12.08
     },
@@ -104,13 +104,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "is_jeong_baeyeol": false,
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.2,
-      "rsi_zone_quality": 0.889,
+      "rsi": 61.4,
+      "rsi_zone_quality": 0.856,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.3
+      "stop_pct_from_20sma": NaN
     }
   },
   "sector": "Healthcare",
@@ -132,7 +132,7 @@
     "phase": "ongoing",
     "days_since_divergence": 8,
     "days_since_trend_start": 6,
-    "gain_since_low_pct": 8.5,
+    "gain_since_low_pct": NaN,
     "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,

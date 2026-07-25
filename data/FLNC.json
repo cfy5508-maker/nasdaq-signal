@@ -1,10 +1,10 @@
 {
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
-  "price": 13.44,
-  "updated": "2026-07-25T00:45:50.028382+00:00",
+  "price": NaN,
+  "updated": "2026-07-25T22:32:28.982601+00:00",
   "as_of_date": "2026-07-24",
-  "score": 59,
+  "score": 26,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -14,36 +14,36 @@
       "volume_diff_pct_3m": -7.4,
       "volume_trend_pct_3d": -8.7,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
-      "volatility_label": "다소변동",
+      "daily_change_pct": NaN,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 38.9,
+      "status": "fail",
+      "upside_pct": NaN,
       "forward_pe": 68.79254,
       "peg": 3.18
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "warn",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 5,
-      "signal_fresh": true,
-      "divergence_quality": 0.509,
-      "rsi_improvement": 0.2
+      "gap_days": 7,
+      "signal_fresh": false,
+      "divergence_quality": 0.371,
+      "rsi_improvement": -0.7
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 34.9,
-      "rsi_zscore_1y": -1.2,
-      "zscore_quality": 0.549,
+      "status": "fail",
+      "rsi": 37.9,
+      "rsi_zscore_1y": -0.97,
+      "zscore_quality": 0.493,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,15 +56,15 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.6,
+      "adx_reference": NaN,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 19.2,
-  "score_addon": 21,
+  "entry_atr_stop_pct": NaN,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -74,15 +74,15 @@
       "volume_diff_pct_3m": -7.4,
       "volume_trend_pct_3d": -8.7,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
-      "volatility_label": "다소변동",
+      "daily_change_pct": NaN,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 38.9,
+      "status": "fail",
+      "upside_pct": NaN,
       "forward_pe": 68.79254,
       "peg": 3.18
     },
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.9,
+      "rsi": 37.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,16 +115,23 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 20.0
+      "stop_pct_from_20sma": NaN
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "sector_relative_strength_up": true,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 6,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": NaN,
+    "divergence_date_index": 244
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 13.44,
+    "stop_reference_price": 14.07,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
