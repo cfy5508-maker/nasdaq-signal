@@ -1,20 +1,20 @@
 {
   "ticker": "NXT",
   "name": "Nextpower Inc.",
-  "price": 100.03,
-  "updated": "2026-07-26T22:35:57.577425+00:00",
-  "as_of_date": "2026-07-24",
-  "score": 59,
+  "price": 103.73,
+  "updated": "2026-07-27T20:44:59.188322+00:00",
+  "as_of_date": "2026-07-27",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,32 +22,32 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 48.6,
-      "forward_pe": 16.892424,
+      "upside_pct": 43.3,
+      "forward_pe": 17.517256,
       "peg": 3.51
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 4,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 9,
-      "signal_fresh": true,
-      "divergence_quality": 0.41,
-      "rsi_improvement": 3.7
+      "gap_days": 10,
+      "signal_fresh": false,
+      "divergence_quality": 0.356,
+      "rsi_improvement": -1.2
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 39.6,
-      "rsi_zscore_1y": -1.55,
-      "zscore_quality": 0.636,
+      "status": "warn",
+      "rsi": 42.4,
+      "rsi_zscore_1y": -1.29,
+      "zscore_quality": 0.572,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -60,21 +60,28 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 100.23,
+        "high": 103.36,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 246,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 11.2,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 10.8,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 48.6,
-      "forward_pe": 16.892424,
+      "upside_pct": 43.3,
+      "forward_pe": 17.517256,
       "peg": 3.51
     },
     "3_pullback_gate": {
@@ -102,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.6,
-      "rsi_zone_quality": 0.0,
+      "rsi": 42.4,
+      "rsi_zone_quality": 0.094,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,16 +122,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.1
+      "stop_pct_from_20sma": 4.4
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
-  "downtrend_signal": null,
+  "downtrend_signal": {
+    "active": true,
+    "phase": "ongoing",
+    "days_since_trend_start": 9,
+    "divergence_date_index": 236,
+    "price_vs_low_pct": -4.7
+  },
   "pullback_stop_signal": {
-    "stop_reference_price": 100.03,
+    "stop_reference_price": 99.67,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

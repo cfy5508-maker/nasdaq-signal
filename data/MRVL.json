@@ -1,20 +1,20 @@
 {
   "ticker": "MRVL",
   "name": "Marvell Technology, Inc.",
-  "price": 194.23,
-  "updated": "2026-07-26T22:36:25.389011+00:00",
-  "as_of_date": "2026-07-24",
-  "score": 60,
+  "price": 189.17,
+  "updated": "2026-07-27T20:45:19.590364+00:00",
+  "as_of_date": "2026-07-27",
+  "score": 55,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 32.3,
-      "forward_pe": 31.121914,
+      "upside_pct": 35.8,
+      "forward_pe": 30.311138,
       "peg": 1.1
     },
     "3_divergence_gate": {
@@ -41,13 +41,13 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 39.1,
-      "rsi_zscore_1y": -1.26,
-      "zscore_quality": 0.566,
+      "rsi": 37.9,
+      "rsi_zscore_1y": -1.33,
+      "zscore_quality": 0.582,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.8,
+      "adx_reference": 25.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -64,13 +64,13 @@
         "low": 193.01,
         "high": 194.94,
         "strong": false,
-        "breach": false,
-        "trigger_day_idx": 247,
+        "breach": true,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 15.4,
+  "entry_atr_stop_pct": 16.3,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -78,10 +78,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 32.3,
-      "forward_pe": 31.121914,
+      "upside_pct": 35.8,
+      "forward_pe": 30.311138,
       "peg": 1.1
     },
     "3_pullback_gate": {
@@ -109,7 +109,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.1,
+      "rsi": 37.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 18.2
+      "stop_pct_from_20sma": 21.2
     }
   },
   "sector": "Technology",

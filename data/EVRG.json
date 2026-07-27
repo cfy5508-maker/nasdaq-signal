@@ -1,20 +1,20 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 87.18,
-  "updated": "2026-07-26T22:37:11.650416+00:00",
-  "as_of_date": "2026-07-24",
-  "score": 33,
+  "price": 85.84,
+  "updated": "2026-07-27T20:45:53.202294+00:00",
+  "as_of_date": "2026-07-27",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.4,
-      "forward_pe": 19.132938,
+      "upside_pct": 7.0,
+      "forward_pe": 18.838856,
       "peg": 2.45
     },
     "3_divergence_gate": {
@@ -31,57 +31,50 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 2,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 21,
-      "signal_fresh": false,
-      "divergence_quality": 0.51,
+      "signal_fresh": true,
+      "divergence_quality": 0.382,
       "rsi_improvement": -1.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 58.4,
-      "rsi_zscore_1y": 0.28,
-      "zscore_quality": 0.18,
+      "rsi": 52.0,
+      "rsi_zscore_1y": -0.4,
+      "zscore_quality": 0.351,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "모닝스타",
-      "days_ago": 2,
+      "status": "fail",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.4,
+      "adx_reference": 18.2,
       "volume_confirmed": false,
-      "trigger_day_volume": 1597500,
-      "avg_volume_divergence_window": 2240486,
-      "order_block": {
-        "low": 85.64,
-        "high": 86.56,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": true
-      }
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.5,
-  "score_addon": 31,
+  "entry_atr_stop_pct": 2.7,
+  "score_addon": 7,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,19 +82,19 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.4,
-      "forward_pe": 19.132938,
+      "upside_pct": 7.0,
+      "forward_pe": 18.838856,
       "peg": 2.45
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": true,
-      "near_sma60": false,
+      "near_sma60": true,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 1,
-      "ma_converged_ignored": false,
+      "ma_converged_ignored": true,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
@@ -109,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 58.4,
-      "rsi_zone_quality": 0.734,
+      "rsi": 52.0,
+      "rsi_zone_quality": 0.48,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Utilities",

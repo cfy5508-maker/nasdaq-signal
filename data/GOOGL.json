@@ -1,20 +1,20 @@
 {
   "ticker": "GOOGL",
   "name": "Alphabet Inc.",
-  "price": 319.74,
-  "updated": "2026-07-26T22:36:15.860434+00:00",
-  "as_of_date": "2026-07-24",
-  "score": 59,
+  "price": 326.56,
+  "updated": "2026-07-27T20:45:12.703158+00:00",
+  "as_of_date": "2026-07-27",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 33.9,
-      "forward_pe": 21.634838,
+      "upside_pct": 31.1,
+      "forward_pe": 22.16232,
       "peg": 1.26
     },
     "3_divergence_gate": {
@@ -36,14 +36,14 @@
       "divergence_present": true,
       "gap_days": 18,
       "signal_fresh": true,
-      "divergence_quality": 0.315,
+      "divergence_quality": 0.46,
       "rsi_improvement": -2.3
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 32.5,
-      "rsi_zscore_1y": -1.84,
-      "zscore_quality": 0.71,
+      "rsi": 36.8,
+      "rsi_zscore_1y": -1.54,
+      "zscore_quality": 0.634,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.3,
+      "adx_reference": 13.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -71,10 +71,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -6.0,
+      "volume_diff_pct_3m": -6.0,
+      "volume_trend_pct_3d": -8.1,
       "volume_trend_up": false,
-      "daily_change_pct": -1.12,
+      "daily_change_pct": -1.42,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 33.9,
-      "forward_pe": 21.634838,
+      "upside_pct": 31.1,
+      "forward_pe": 22.16232,
       "peg": 1.26
     },
     "3_pullback_gate": {
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.5,
+      "rsi": 36.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.1
+      "stop_pct_from_20sma": 8.0
     }
   },
   "sector": "Communication Services",
@@ -123,10 +123,10 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 248,
+    "prior_divergence_date_index": 247,
     "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 6.5,
-    "rescue_attempted": false
+    "price_drop_since_pct": 4.5,
+    "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {

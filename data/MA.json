@@ -1,20 +1,20 @@
 {
   "ticker": "MA",
   "name": "Mastercard Incorporated",
-  "price": 539.66,
-  "updated": "2026-07-26T22:36:47.318072+00:00",
-  "as_of_date": "2026-07-24",
-  "score": 58,
+  "price": 551.71,
+  "updated": "2026-07-27T20:45:36.022015+00:00",
+  "as_of_date": "2026-07-27",
+  "score": 48,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -13.9,
-      "volume_trend_pct_3d": -9.8,
+      "volume_diff_pct_3m": -26.6,
+      "volume_trend_pct_3d": -14.2,
       "volume_trend_up": false,
-      "daily_change_pct": 0.1,
+      "daily_change_pct": 0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -22,27 +22,27 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.3,
-      "forward_pe": 23.673212,
+      "upside_pct": 16.7,
+      "forward_pe": 24.200972,
       "peg": 1.66
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
+      "divergence_present": false,
       "gap_days": 22,
-      "signal_fresh": false,
-      "divergence_quality": 0.599,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 10.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 59.0,
-      "rsi_zscore_1y": 1.03,
+      "rsi": 63.7,
+      "rsi_zscore_1y": 1.5,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -56,7 +56,7 @@
       "morning_star": true,
       "long_lower_wick": true,
       "wick_days_ago": 1,
-      "adx_reference": 27.6,
+      "adx_reference": 28.4,
       "volume_confirmed": false,
       "trigger_day_volume": 2071700,
       "avg_volume_divergence_window": 3560383,
@@ -65,23 +65,23 @@
         "high": 530.29,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.2,
-  "score_addon": 79,
+  "entry_atr_stop_pct": 3.4,
+  "score_addon": 53,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -13.9,
-      "volume_trend_pct_3d": -9.8,
+      "volume_diff_pct_3m": -26.6,
+      "volume_trend_pct_3d": -14.2,
       "volume_trend_up": false,
-      "daily_change_pct": 0.1,
+      "daily_change_pct": 0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -89,18 +89,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.3,
-      "forward_pe": 23.673212,
+      "upside_pct": 16.7,
+      "forward_pe": 24.200972,
       "peg": 1.66
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": true,
-      "near_ma_count": 1,
+      "near_sma200": false,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -108,9 +108,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 59.0,
-      "rsi_zone_quality": 0.76,
+      "status": "pass",
+      "rsi": 63.7,
+      "rsi_zone_quality": 0.946,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,12 +122,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.7
+      "stop_pct_from_20sma": 3.8
     }
   },
   "sector": "Financial Services",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 1,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 4.0,
+    "divergence_date_index": 248
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
