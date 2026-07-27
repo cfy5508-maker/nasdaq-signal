@@ -2,19 +2,19 @@
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
   "price": 148.63,
-  "updated": "2026-07-27T20:46:01.282866+00:00",
+  "updated": "2026-07-27T22:39:02.803843+00:00",
   "as_of_date": "2026-07-27",
-  "score": 27,
+  "score": 23,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.1,
-      "volume_trend_pct_3d": 2.9,
+      "volume_diff_pct_3m": -32.0,
+      "volume_trend_pct_3d": 22.3,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
+      "daily_change_pct": 0.48,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.1,
-      "rsi_zscore_1y": -0.21,
-      "zscore_quality": 0.352,
+      "rsi": 52.8,
+      "rsi_zscore_1y": 0.34,
+      "zscore_quality": 0.216,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": NaN,
+      "adx_reference": 10.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,23 +65,23 @@
         "high": 145.88,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": NaN,
-  "score_addon": 4,
+  "entry_atr_stop_pct": 3.1,
+  "score_addon": 7,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.1,
-      "volume_trend_pct_3d": 2.9,
+      "volume_diff_pct_3m": -32.0,
+      "volume_trend_pct_3d": 22.3,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
+      "daily_change_pct": 0.48,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -97,20 +97,20 @@
       "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
-      "near_sma60": false,
+      "near_sma60": true,
       "near_sma120": false,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 0,
-      "ma_converged_ignored": false,
+      "ma_converged_ignored": true,
       "was_above_20_recently": false,
       "was_above_40_recently": false,
-      "is_jeong_baeyeol": false,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 47.1,
-      "rsi_zone_quality": 0.285,
+      "status": "warn",
+      "rsi": 52.8,
+      "rsi_zone_quality": 0.514,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": NaN
+      "stop_pct_from_20sma": 0.7
     }
   },
   "sector": "Consumer Defensive",
