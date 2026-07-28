@@ -1,30 +1,30 @@
 {
   "ticker": "V",
   "name": "Visa Inc.",
-  "price": 362.53,
-  "updated": "2026-07-28T00:31:24.255439+00:00",
-  "as_of_date": "2026-07-27",
+  "price": 366.59,
+  "updated": "2026-07-28T21:53:46.767577+00:00",
+  "as_of_date": "2026-07-28",
   "score": 22,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.1,
-      "volume_trend_pct_3d": 2.9,
+      "volume_diff_pct_3m": 0.0,
+      "volume_trend_pct_3d": 4.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.08,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.2,
-      "forward_pe": 24.379534,
-      "peg": 1.56
+      "upside_pct": 10.0,
+      "forward_pe": 24.646097,
+      "peg": 1.59
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -41,8 +41,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.3,
-      "rsi_zscore_1y": 1.24,
+      "rsi": 65.2,
+      "rsi_zscore_1y": 1.49,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -50,13 +50,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
-      "days_ago": 1,
+      "days_ago": 3,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 31.7,
+      "wick_days_ago": 3,
+      "adx_reference": 32.1,
       "volume_confirmed": false,
       "trigger_day_volume": 4183300,
       "avg_volume_divergence_window": 8784010,
@@ -65,42 +65,42 @@
         "high": 352.05,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.3,
-  "score_addon": 53,
+  "entry_atr_stop_pct": 3.1,
+  "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -32.1,
-      "volume_trend_pct_3d": 2.9,
+      "volume_diff_pct_3m": 0.0,
+      "volume_trend_pct_3d": 4.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.08,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.2,
-      "forward_pe": 24.379534,
-      "peg": 1.56
+      "upside_pct": 10.0,
+      "forward_pe": 24.646097,
+      "peg": 1.59
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.3,
-      "rsi_zone_quality": 0.891,
+      "rsi": 65.2,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.6
+      "stop_pct_from_20sma": 3.0
     }
   },
   "sector": "Financial Services",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 29,
-    "days_since_trend_start": 26,
-    "gain_since_low_pct": 13.6,
-    "divergence_date_index": 220
+    "days_since_divergence": 31,
+    "days_since_trend_start": 28,
+    "gain_since_low_pct": 14.9,
+    "divergence_date_index": 219
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

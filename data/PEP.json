@@ -1,30 +1,30 @@
 {
   "ticker": "PEP",
   "name": "Pepsico, Inc.",
-  "price": 139.79,
-  "updated": "2026-07-28T00:31:28.885255+00:00",
-  "as_of_date": "2026-07-27",
-  "score": 56,
+  "price": 142.86,
+  "updated": "2026-07-28T21:53:51.347206+00:00",
+  "as_of_date": "2026-07-28",
+  "score": 25,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -1.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.42,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.97,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 11.5,
-      "forward_pe": 15.569519,
-      "peg": 1.48
+      "status": "fail",
+      "upside_pct": 8.5,
+      "forward_pe": 15.911449,
+      "peg": 1.51
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -41,57 +41,57 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.8,
-      "rsi_zscore_1y": 0.06,
-      "zscore_quality": 0.284,
+      "rsi": 56.7,
+      "rsi_zscore_1y": 0.61,
+      "zscore_quality": 0.147,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "모닝스타",
+      "days_ago": 2,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
+      "wick_days_ago": 3,
       "adx_reference": 15.4,
       "volume_confirmed": false,
-      "trigger_day_volume": 7755700,
+      "trigger_day_volume": 7968300,
       "avg_volume_divergence_window": 9534159,
       "order_block": {
         "low": 134.7,
         "high": 134.95,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.7,
-  "score_addon": 45,
+  "entry_atr_stop_pct": 3.6,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -1.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.42,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.97,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 11.5,
-      "forward_pe": 15.569519,
-      "peg": 1.48
+      "status": "fail",
+      "upside_pct": 8.5,
+      "forward_pe": 15.911449,
+      "peg": 1.51
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,12 +105,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 50.8,
-      "rsi_zone_quality": 0.433,
+      "rsi": 56.7,
+      "rsi_zone_quality": 0.669,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 2.9
     }
   },
   "sector": "Consumer Defensive",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 3.6,
-    "divergence_date_index": 248
+    "days_since_divergence": 3,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 5.9,
+    "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

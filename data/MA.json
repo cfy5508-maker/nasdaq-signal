@@ -1,30 +1,30 @@
 {
   "ticker": "MA",
   "name": "Mastercard Incorporated",
-  "price": 551.71,
-  "updated": "2026-07-28T00:31:25.204131+00:00",
-  "as_of_date": "2026-07-27",
-  "score": 48,
+  "price": 562.75,
+  "updated": "2026-07-28T21:53:47.734972+00:00",
+  "as_of_date": "2026-07-28",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -20.9,
-      "volume_trend_pct_3d": -12.2,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.5,
+      "volume_trend_pct_3d": 3.7,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.24,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 16.7,
-      "forward_pe": 24.200972,
-      "peg": 1.66
+      "status": "fail",
+      "upside_pct": 14.4,
+      "forward_pe": 24.685244,
+      "peg": 1.7
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -41,57 +41,57 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 63.7,
-      "rsi_zscore_1y": 1.5,
+      "rsi": 67.3,
+      "rsi_zscore_1y": 1.81,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "모닝스타",
+      "days_ago": 1,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 28.4,
+      "wick_days_ago": 2,
+      "adx_reference": 29.4,
       "volume_confirmed": false,
-      "trigger_day_volume": 2071700,
+      "trigger_day_volume": 2365000,
       "avg_volume_divergence_window": 3560383,
       "order_block": {
         "low": 527.98,
         "high": 530.29,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 3.4,
-  "score_addon": 53,
+  "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -20.9,
-      "volume_trend_pct_3d": -12.2,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.5,
+      "volume_trend_pct_3d": 3.7,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.24,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 16.7,
-      "forward_pe": 24.200972,
-      "peg": 1.66
+      "status": "fail",
+      "upside_pct": 14.4,
+      "forward_pe": 24.685244,
+      "peg": 1.7
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 63.7,
-      "rsi_zone_quality": 0.946,
+      "rsi": 67.3,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.8
+      "stop_pct_from_20sma": 5.1
     }
   },
   "sector": "Financial Services",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 4.0,
-    "divergence_date_index": 248
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 6.1,
+    "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

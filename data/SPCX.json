@@ -1,47 +1,47 @@
 {
   "ticker": "SPCX",
   "name": "Space Exploration Technologies ",
-  "price": 113.5,
-  "updated": "2026-07-28T00:30:50.847367+00:00",
-  "as_of_date": "2026-07-27",
-  "score": 30,
+  "price": 116.41,
+  "updated": "2026-07-28T21:53:13.017929+00:00",
+  "as_of_date": "2026-07-28",
+  "score": 48,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -1.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.42,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.97,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 108.6,
-      "forward_pe": 125.69214,
+      "upside_pct": 103.3,
+      "forward_pe": 128.91473,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": -0.6
+      "signal_fresh": false,
+      "divergence_quality": 0.55,
+      "rsi_improvement": 1.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 29.3,
+      "rsi": 32.4,
       "rsi_zscore_1y": null,
       "zscore_quality": null,
       "zscore_direction_bonus_applied": false
@@ -53,17 +53,24 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 14.8,
+      "wick_days_ago": 1,
+      "adx_reference": 16.5,
       "volume_confirmed": false,
-      "trigger_day_volume": 63388545,
-      "avg_volume_divergence_window": 75354741,
-      "order_block": null
+      "trigger_day_volume": 64540700,
+      "avg_volume_divergence_window": 71060083,
+      "order_block": {
+        "low": 113.5,
+        "high": 113.5,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 30,
+        "gap_confirmed": false
+      }
     }
   },
-  "entry_atr_stop_pct": 15.8,
+  "entry_atr_stop_pct": 14.6,
   "score_addon": 39,
   "stages_addon": {
     "1_market_health": {
@@ -71,19 +78,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -1.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.42,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.97,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 108.6,
-      "forward_pe": 125.69214,
+      "upside_pct": 103.3,
+      "forward_pe": 128.91473,
       "peg": null
     },
     "3_pullback_gate": {
@@ -102,7 +109,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.3,
+      "rsi": 32.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 24.2
+      "stop_pct_from_20sma": 17.4
     }
   },
   "sector": "Industrials",

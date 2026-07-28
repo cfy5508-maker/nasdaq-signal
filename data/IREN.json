@@ -1,53 +1,53 @@
 {
   "ticker": "IREN",
   "name": "IREN LIMITED",
-  "price": 36.29,
-  "updated": "2026-07-28T00:30:57.764889+00:00",
-  "as_of_date": "2026-07-27",
-  "score": 72,
+  "price": 33.93,
+  "updated": "2026-07-28T21:53:19.828543+00:00",
+  "as_of_date": "2026-07-28",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -1.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.42,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.97,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 124.3,
-      "forward_pe": -38.606384,
+      "upside_pct": 140.9,
+      "forward_pe": -36.095745,
       "peg": 3.11
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "warn",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 10,
-      "signal_fresh": false,
-      "divergence_quality": 0.507,
-      "rsi_improvement": 0.1
+      "gap_days": 7,
+      "signal_fresh": true,
+      "divergence_quality": 0.435,
+      "rsi_improvement": 4.5
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 38.2,
-      "rsi_zscore_1y": -1.19,
-      "zscore_quality": 0.549,
-      "zscore_direction_bonus_applied": false
+      "rsi": 35.2,
+      "rsi_zscore_1y": -1.39,
+      "zscore_quality": 0.647,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -55,42 +55,35 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 5,
+      "wick_days_ago": 0,
       "adx_reference": 29.5,
-      "volume_confirmed": true,
-      "trigger_day_volume": 47227400,
-      "avg_volume_divergence_window": 41494400,
-      "order_block": {
-        "low": 33.62,
-        "high": 33.79,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 245,
-        "gap_confirmed": true
-      }
+      "volume_confirmed": false,
+      "trigger_day_volume": 41196545,
+      "avg_volume_divergence_window": 48234718,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 17.7,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 18.0,
+  "score_addon": 39,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -1.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.42,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.97,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 124.3,
-      "forward_pe": -38.606384,
+      "upside_pct": 140.9,
+      "forward_pe": -36.095745,
       "peg": 3.11
     },
     "3_pullback_gate": {
@@ -109,36 +102,29 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.2,
+      "rsi": 35.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": true,
-      "trigger_weight_tier": "wick_volume"
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.2
+      "stop_pct_from_20sma": 16.8
     }
   },
   "sector": "Financial Services",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 7.9,
-    "divergence_date_index": 244
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 33.62,
+    "stop_reference_price": 33.93,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,9 +1,9 @@
 {
   "ticker": "GLW",
   "name": "Corning Incorporated",
-  "price": 143.36,
-  "updated": "2026-07-28T00:31:19.990242+00:00",
-  "as_of_date": "2026-07-27",
+  "price": 126.01,
+  "updated": "2026-07-28T21:53:42.534754+00:00",
+  "as_of_date": "2026-07-28",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -20.9,
-      "volume_trend_pct_3d": -12.2,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.5,
+      "volume_trend_pct_3d": 3.7,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.24,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.3,
-      "forward_pe": 33.416,
-      "peg": 1.4
+      "upside_pct": 71.0,
+      "forward_pe": 29.371864,
+      "peg": 1.36
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 5,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -1.5
+      "rsi_improvement": -5.9
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 35.5,
-      "rsi_zscore_1y": -2.06,
-      "zscore_quality": 0.764,
+      "rsi": 30.7,
+      "rsi_zscore_1y": -2.44,
+      "zscore_quality": 0.86,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 16.6,
+      "adx_reference": 18.9,
       "volume_confirmed": true,
-      "trigger_day_volume": 12875213,
-      "avg_volume_divergence_window": 10676136,
+      "trigger_day_volume": 44125982,
+      "avg_volume_divergence_window": 14869855,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.2,
-  "score_addon": 39,
+  "entry_atr_stop_pct": 18.7,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -20.9,
-      "volume_trend_pct_3d": -12.2,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.5,
+      "volume_trend_pct_3d": 3.7,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.24,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -82,9 +82,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.3,
-      "forward_pe": 33.416,
-      "peg": 1.4
+      "upside_pct": 71.0,
+      "forward_pe": 29.371864,
+      "peg": 1.36
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.5,
+      "rsi": 30.7,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.9
+      "stop_pct_from_20sma": 39.7
     }
   },
   "sector": "Technology",
@@ -123,20 +123,20 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 240,
-    "days_since_prior_divergence": 9,
-    "price_drop_since_pct": 21.7,
+    "prior_divergence_date_index": 239,
+    "days_since_prior_divergence": 11,
+    "price_drop_since_pct": 31.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 143.36,
+    "stop_reference_price": 126.01,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 7,
-    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 9,
+    "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
