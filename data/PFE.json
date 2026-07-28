@@ -2,9 +2,9 @@
   "ticker": "PFE",
   "name": "Pfizer, Inc.",
   "price": 24.67,
-  "updated": "2026-07-27T22:37:58.143583+00:00",
+  "updated": "2026-07-28T00:30:44.835563+00:00",
   "as_of_date": "2026-07-27",
-  "score": 45,
+  "score": 46,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -12,9 +12,9 @@
       "index_symbol": "^GSPC",
       "etf": "SPY",
       "volume_diff_pct_3m": -20.9,
-      "volume_trend_pct_3d": 20.1,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.02,
+      "volume_trend_pct_3d": -12.2,
+      "volume_trend_up": false,
+      "daily_change_pct": 0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.4,
-      "rsi_zscore_1y": 0.38,
-      "zscore_quality": 0.155,
+      "rsi": 53.1,
+      "rsi_zscore_1y": 0.23,
+      "zscore_quality": 0.192,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.7,
+      "adx_reference": NaN,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -70,8 +70,8 @@
       }
     }
   },
-  "entry_atr_stop_pct": 2.9,
-  "score_addon": 30,
+  "entry_atr_stop_pct": NaN,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -79,9 +79,9 @@
       "index_symbol": "^GSPC",
       "etf": "SPY",
       "volume_diff_pct_3m": -20.9,
-      "volume_trend_pct_3d": 20.1,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.02,
+      "volume_trend_pct_3d": -12.2,
+      "volume_trend_up": false,
+      "daily_change_pct": 0.12,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -105,12 +105,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.4,
-      "rsi_zone_quality": 0.575,
+      "rsi": 53.1,
+      "rsi_zone_quality": 0.524,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": NaN
     }
   },
   "sector": "Healthcare",
