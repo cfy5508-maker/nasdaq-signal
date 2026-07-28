@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-28T21:54:23.446151+00:00",
+  "updated": "2026-07-28T22:39:52.501620+00:00",
   "rankings": [
     {
       "ticker": "TER",
@@ -7,7 +7,7 @@
       "score": 81,
       "score_addon": 48,
       "price": 320.65,
-      "upside_pct": 34.1,
+      "upside_pct": 34.8,
       "rsi": 40.5,
       "divergence": "pass",
       "trigger": "pass",
@@ -184,7 +184,7 @@
       "score": 77,
       "score_addon": 53,
       "price": 39.58,
-      "upside_pct": 117.8,
+      "upside_pct": 112.7,
       "rsi": 32.7,
       "divergence": "pass",
       "trigger": "pass",
@@ -240,42 +240,6 @@
         "prev_score": 21
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "GPOR",
-      "name": "Gulfport Energy Corporation",
-      "score": 70,
-      "score_addon": 22,
-      "price": 153.4,
-      "upside_pct": 50.6,
-      "rsi": 41.2,
-      "divergence": "pass",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 70
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 23
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 3,
-        "gain_since_low_pct": 2.1,
-        "divergence_date_index": 244
-      },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -447,7 +411,7 @@
       "score_addon": 39,
       "price": 25.65,
       "upside_pct": 69.4,
-      "rsi": 36.6,
+      "rsi": 38.0,
       "divergence": "warn",
       "trigger": "warn",
       "signal": {
@@ -466,15 +430,15 @@
       "divergence_invalidated_signal": {
         "active": true,
         "prior_divergence_date_index": 239,
-        "days_since_prior_divergence": 10,
+        "days_since_prior_divergence": 11,
         "price_drop_since_pct": 13.5,
         "rescue_attempted": false
       },
       "downtrend_signal": null,
       "divergence_stop_signal": {
         "active": true,
-        "days_since_break": 8,
-        "reason": "무효화 이후 8일간 반등시도(음봉고가 돌파) 없음"
+        "days_since_break": 9,
+        "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
       },
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
@@ -648,42 +612,6 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "AVEX",
-      "name": "AEVEX Corp.",
-      "score": 57,
-      "score_addon": 54,
-      "price": 15.21,
-      "upside_pct": 132.6,
-      "rsi": 41.0,
-      "divergence": "neutral",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 6,
-        "prev_score": 51
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 32,
-        "prev_score": 22
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 14.2,
-        "divergence_date_index": 63
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": true,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "AMBA",
       "name": "Ambarella, Inc.",
       "score": 57,
@@ -718,6 +646,71 @@
       "divergence_stop_signal": null,
       "today_reversal_candle": true,
       "today_reversal_volume_confirmed": true
+    },
+    {
+      "ticker": "AVEX",
+      "name": "AEVEX Corp.",
+      "score": 56,
+      "score_addon": 54,
+      "price": 15.21,
+      "upside_pct": 132.6,
+      "rsi": 42.2,
+      "divergence": "neutral",
+      "trigger": "pass",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 5,
+        "prev_score": 51
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 32,
+        "prev_score": 22
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 14.2,
+        "divergence_date_index": 63
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": true,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "GPOR",
+      "name": "Gulfport Energy Corporation",
+      "score": 56,
+      "score_addon": 22,
+      "price": 153.4,
+      "upside_pct": 50.6,
+      "rsi": 40.9,
+      "divergence": "warn",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -14,
+        "prev_score": 70
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -1,
+        "prev_score": 23
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
     },
     {
       "ticker": "UBER",
@@ -855,7 +848,7 @@
       "score_addon": 52,
       "price": 1097.55,
       "upside_pct": 19.7,
-      "rsi": 62.0,
+      "rsi": 62.4,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -873,7 +866,7 @@
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 2,
+        "days_since_divergence": 3,
         "days_since_trend_start": 0,
         "gain_since_low_pct": 5.8,
         "divergence_date_index": 247
@@ -957,49 +950,13 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "AMT",
-      "name": "American Tower Corporation (REI",
-      "score": 45,
-      "score_addon": 28,
-      "price": 171.5,
-      "upside_pct": 25.2,
-      "rsi": 52.2,
-      "divergence": "neutral",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -10,
-        "prev_score": 55
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 4,
-        "prev_score": 24
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 4,
-        "days_since_trend_start": 0,
-        "gain_since_low_pct": 5.0,
-        "divergence_date_index": 245
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "NOC",
       "name": "Northrop Grumman Corporation",
       "score": 45,
       "score_addon": 32,
       "price": 549.22,
       "upside_pct": 17.2,
-      "rsi": 57.9,
+      "rsi": 58.1,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
@@ -1017,9 +974,45 @@
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 4,
-        "days_since_trend_start": 2,
+        "days_since_divergence": 5,
+        "days_since_trend_start": 3,
         "gain_since_low_pct": 7.2,
+        "divergence_date_index": 245
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "AMT",
+      "name": "American Tower Corporation (REI",
+      "score": 44,
+      "score_addon": 29,
+      "price": 171.5,
+      "upside_pct": 25.2,
+      "rsi": 52.7,
+      "divergence": "neutral",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -11,
+        "prev_score": 55
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 5,
+        "prev_score": 24
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 5,
+        "days_since_trend_start": 0,
+        "gain_since_low_pct": 5.0,
         "divergence_date_index": 245
       },
       "divergence_invalidated_signal": null,
@@ -1035,7 +1028,7 @@
       "score_addon": 33,
       "price": 301.06,
       "upside_pct": 13.2,
-      "rsi": 59.8,
+      "rsi": 60.3,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
@@ -1053,8 +1046,8 @@
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 6,
-        "days_since_trend_start": 4,
+        "days_since_divergence": 7,
+        "days_since_trend_start": 5,
         "gain_since_low_pct": 7.0,
         "divergence_date_index": 243
       },
@@ -1094,26 +1087,26 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "SIF",
-      "name": "SIFCO Industries, Inc.",
+      "ticker": "AEP",
+      "name": "American Electric Power Company",
       "score": 35,
-      "score_addon": 43,
-      "price": 26.65,
-      "upside_pct": null,
-      "rsi": 65.0,
+      "score_addon": 32,
+      "price": 133.02,
+      "upside_pct": 9.5,
+      "rsi": 49.0,
       "divergence": "warn",
-      "trigger": "warn",
+      "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 36
+        "change": -3,
+        "prev_score": 38
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 1,
-        "prev_score": 42
+        "change": 26,
+        "prev_score": 6
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -1147,6 +1140,10 @@
           },
           {
             "label": "구간 상향 돌파(초록 진입)",
+            "detail": null
+          },
+          {
+            "label": "3일 연속 상승",
             "detail": null
           }
         ],
@@ -1197,28 +1194,35 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "AEP",
-      "name": "American Electric Power Company",
-      "score": 34,
-      "score_addon": 32,
-      "price": 133.02,
-      "upside_pct": 9.5,
-      "rsi": 49.4,
+      "ticker": "BAER",
+      "name": "Bridger Aerospace Group Holding",
+      "score": 33,
+      "score_addon": 35,
+      "price": 1.94,
+      "upside_pct": 112.2,
+      "rsi": 52.7,
       "divergence": "warn",
-      "trigger": "pass",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -4,
-        "prev_score": 38
+        "change": 8,
+        "prev_score": 25
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 26,
-        "prev_score": 6
+        "change": 4,
+        "prev_score": 31
       },
-      "uptrend_entry_signal": null,
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "ongoing",
+        "days_since_divergence": 8,
+        "days_since_trend_start": 7,
+        "gain_since_low_pct": 8.1,
+        "divergence_date_index": 242
+      },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -1232,7 +1236,7 @@
       "score_addon": 33,
       "price": 4.5,
       "upside_pct": 77.8,
-      "rsi": 60.1,
+      "rsi": 59.4,
       "divergence": "neutral",
       "trigger": "fail",
       "signal": {
@@ -1250,46 +1254,10 @@
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 9,
-        "days_since_trend_start": 2,
+        "days_since_divergence": 10,
+        "days_since_trend_start": 3,
         "gain_since_low_pct": 6.9,
         "divergence_date_index": 240
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "BAER",
-      "name": "Bridger Aerospace Group Holding",
-      "score": 32,
-      "score_addon": 34,
-      "price": 1.94,
-      "upside_pct": 112.2,
-      "rsi": 52.4,
-      "divergence": "warn",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 7,
-        "prev_score": 25
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 3,
-        "prev_score": 31
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "ongoing",
-        "days_since_divergence": 7,
-        "days_since_trend_start": 6,
-        "gain_since_low_pct": 8.1,
-        "divergence_date_index": 242
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -1854,7 +1822,7 @@
       "score_addon": 21,
       "price": 7.35,
       "upside_pct": 104.1,
-      "rsi": 36.1,
+      "rsi": 35.7,
       "divergence": "fail",
       "trigger": "fail",
       "signal": {
@@ -1872,7 +1840,7 @@
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": {
         "active": true,
-        "prior_divergence_date_index": 248,
+        "prior_divergence_date_index": 249,
         "days_since_prior_divergence": 1,
         "price_drop_since_pct": 3.3,
         "rescue_attempted": false
@@ -1956,10 +1924,10 @@
       "ticker": "BIIB",
       "name": "Biogen Inc.",
       "score": 29,
-      "score_addon": 26,
+      "score_addon": 7,
       "price": 205.61,
       "upside_pct": 11.3,
-      "rsi": 53.0,
+      "rsi": 53.1,
       "divergence": "warn",
       "trigger": "warn",
       "signal": {
@@ -1971,7 +1939,7 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -2,
+        "change": -21,
         "prev_score": 28
       },
       "uptrend_entry_signal": null,
@@ -1979,7 +1947,7 @@
       "downtrend_signal": {
         "active": true,
         "phase": "ongoing",
-        "days_since_trend_start": 9,
+        "days_since_trend_start": 10,
         "divergence_date_index": 236,
         "price_vs_low_pct": 2.6
       },
@@ -2008,35 +1976,6 @@
         "reasons": [],
         "change": 0,
         "prev_score": 21
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "PG",
-      "name": "Procter & Gamble Company (The)",
-      "score": 27,
-      "score_addon": 4,
-      "price": 148.88,
-      "upside_pct": 9.9,
-      "rsi": 47.8,
-      "divergence": "warn",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 27
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 4
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -2225,12 +2164,41 @@
       "today_reversal_volume_confirmed": false
     },
     {
+      "ticker": "SIF",
+      "name": "SIFCO Industries, Inc.",
+      "score": 22,
+      "score_addon": 32,
+      "price": 26.65,
+      "upside_pct": null,
+      "rsi": 65.1,
+      "divergence": "warn",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -14,
+        "prev_score": 36
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -10,
+        "prev_score": 42
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
       "ticker": "V",
       "name": "Visa Inc.",
       "score": 22,
       "score_addon": 32,
       "price": 366.59,
-      "upside_pct": 10.0,
+      "upside_pct": 9.7,
       "rsi": 65.2,
       "divergence": "neutral",
       "trigger": "pass",
@@ -2267,7 +2235,7 @@
       "score_addon": 32,
       "price": 562.75,
       "upside_pct": 14.4,
-      "rsi": 67.3,
+      "rsi": 67.8,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -2285,7 +2253,7 @@
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 2,
+        "days_since_divergence": 3,
         "days_since_trend_start": 1,
         "gain_since_low_pct": 6.1,
         "divergence_date_index": 247
@@ -2303,7 +2271,7 @@
       "score_addon": 6,
       "price": 85.66,
       "upside_pct": 7.3,
-      "rsi": 51.1,
+      "rsi": 50.5,
       "divergence": "warn",
       "trigger": "fail",
       "signal": {
@@ -2326,13 +2294,42 @@
       "today_reversal_volume_confirmed": false
     },
     {
+      "ticker": "PG",
+      "name": "Procter & Gamble Company (The)",
+      "score": 22,
+      "score_addon": 8,
+      "price": 148.88,
+      "upside_pct": 9.9,
+      "rsi": 53.4,
+      "divergence": "warn",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -5,
+        "prev_score": 27
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 4,
+        "prev_score": 4
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
       "ticker": "EIX",
       "name": "Edison International",
       "score": 22,
       "score_addon": 14,
       "price": 79.79,
       "upside_pct": -4.2,
-      "rsi": 66.6,
+      "rsi": 66.2,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -2350,8 +2347,8 @@
       "uptrend_entry_signal": {
         "active": true,
         "phase": "ongoing",
-        "days_since_divergence": 17,
-        "days_since_trend_start": 14,
+        "days_since_divergence": 18,
+        "days_since_trend_start": 15,
         "gain_since_low_pct": 9.8,
         "divergence_date_index": 232
       },
@@ -2466,10 +2463,10 @@
       "ticker": "CLX",
       "name": "Clorox Company (The)",
       "score": 15,
-      "score_addon": 11,
+      "score_addon": 12,
       "price": 100.32,
       "upside_pct": 2.0,
-      "rsi": 59.8,
+      "rsi": 60.4,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
@@ -2481,13 +2478,13 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 3,
+        "change": 4,
         "prev_score": 8
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 2,
+        "days_since_divergence": 3,
         "days_since_trend_start": 1,
         "gain_since_low_pct": 7.0,
         "divergence_date_index": 247
@@ -2505,7 +2502,7 @@
       "score_addon": 14,
       "price": 46.69,
       "upside_pct": 3.6,
-      "rsi": 66.8,
+      "rsi": 67.3,
       "divergence": "fail",
       "trigger": "pass",
       "signal": {
