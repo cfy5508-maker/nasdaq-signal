@@ -1,28 +1,28 @@
 {
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
-  "price": 307.44,
-  "updated": "2026-07-29T12:08:51.815825+00:00",
+  "price": null,
+  "updated": "2026-07-29T12:17:40.063250+00:00",
   "as_of_date": "2026-07-28",
-  "score": 30,
+  "score": 27,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 18.1,
-      "volume_trend_pct_3d": 34.3,
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 29.9,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": 138.26974,
       "peg": 4.4
     },
@@ -34,55 +34,55 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -12.2
+      "rsi_improvement": -11.9
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 27.0,
-      "rsi_zscore_1y": -2.24,
-      "zscore_quality": 0.809,
+      "rsi": 27.3,
+      "rsi_zscore_1y": -2.21,
+      "zscore_quality": 0.802,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 24.3,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": null,
       "volume_confirmed": false,
-      "trigger_day_volume": 39552100,
-      "avg_volume_divergence_window": 51445829,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 8.7,
-  "score_addon": 39,
+  "entry_atr_stop_pct": null,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 18.1,
-      "volume_trend_pct_3d": 34.3,
+      "volume_diff_pct_3m": 15.7,
+      "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 29.9,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": 138.26974,
       "peg": 4.4
     },
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 27.0,
+      "rsi": 27.3,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 23.6
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Consumer Cyclical",
@@ -125,12 +125,12 @@
     "active": true,
     "prior_divergence_date_index": 244,
     "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 16.8,
+    "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 307.44,
+    "stop_reference_price": 309.22,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
