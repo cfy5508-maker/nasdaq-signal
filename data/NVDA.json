@@ -1,49 +1,49 @@
 {
   "ticker": "NVDA",
   "name": "NVIDIA Corporation",
-  "price": null,
-  "updated": "2026-07-29T12:17:38.804041+00:00",
-  "as_of_date": "2026-07-28",
-  "score": 24,
+  "price": 190.01,
+  "updated": "2026-07-29T22:34:53.422359+00:00",
+  "as_of_date": "2026-07-29",
+  "score": 61,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 15.3088455,
+      "status": "pass",
+      "upside_pct": 59.4,
+      "forward_pe": 14.764904,
       "peg": 0.54
     },
     "3_divergence_gate": {
-      "status": "neutral",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
-      "gap_days": 20,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": 4.9
+      "divergence_present": true,
+      "gap_days": 22,
+      "signal_fresh": true,
+      "divergence_quality": 0.52,
+      "rsi_improvement": 0.4
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 42.5,
-      "rsi_zscore_1y": -1.05,
-      "zscore_quality": 0.512,
+      "rsi": 38.0,
+      "rsi_zscore_1y": -1.5,
+      "zscore_quality": 0.625,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,54 +56,54 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 14.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 1,
+  "entry_atr_stop_pct": 5.9,
+  "score_addon": 50,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 15.3088455,
+      "status": "pass",
+      "upside_pct": 59.4,
+      "forward_pe": 14.764904,
       "peg": 0.54
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.5,
-      "rsi_zone_quality": 0.099,
+      "rsi": 38.0,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 6.9
     }
   },
   "sector": "Technology",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 196.51,
+    "stop_reference_price": 190.01,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,9 +1,9 @@
 {
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
-  "price": 12.62,
-  "updated": "2026-07-29T12:17:12.226517+00:00",
-  "as_of_date": "2026-07-28",
+  "price": 11.89,
+  "updated": "2026-07-29T22:34:32.351758+00:00",
+  "as_of_date": "2026-07-29",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 47.9,
-      "forward_pe": 64.59538,
+      "upside_pct": 57.0,
+      "forward_pe": 60.858883,
       "peg": 3.18
     },
     "3_divergence_gate": {
@@ -34,56 +34,56 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 7,
+      "gap_days": 8,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -2.1
+      "rsi_improvement": -4.2
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 32.6,
-      "rsi_zscore_1y": -1.4,
-      "zscore_quality": 0.599,
+      "status": "pass",
+      "rsi": 30.6,
+      "rsi_zscore_1y": -1.55,
+      "zscore_quality": 0.637,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 25.7,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 26.1,
       "volume_confirmed": false,
-      "trigger_day_volume": 6394200,
-      "avg_volume_divergence_window": 6857900,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 19.7,
-  "score_addon": 39,
+  "entry_atr_stop_pct": 20.7,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 47.9,
-      "forward_pe": 64.59538,
+      "upside_pct": 57.0,
+      "forward_pe": 60.858883,
       "peg": 3.18
     },
     "3_pullback_gate": {
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.6,
+      "rsi": 30.6,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 23.0
+      "stop_pct_from_20sma": 27.1
     }
   },
   "sector": "Utilities",
@@ -123,14 +123,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 248,
-    "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 6.1,
+    "prior_divergence_date_index": 247,
+    "days_since_prior_divergence": 3,
+    "price_drop_since_pct": 11.5,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 12.62,
+    "stop_reference_price": 11.89,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

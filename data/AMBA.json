@@ -1,29 +1,29 @@
 {
   "ticker": "AMBA",
   "name": "Ambarella, Inc.",
-  "price": null,
-  "updated": "2026-07-29T12:17:32.277653+00:00",
-  "as_of_date": "2026-07-28",
-  "score": 31,
+  "price": 69.19,
+  "updated": "2026-07-29T22:34:48.202462+00:00",
+  "as_of_date": "2026-07-29",
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 60.115578,
+      "status": "pass",
+      "upside_pct": 37.3,
+      "forward_pe": 60.307335,
       "peg": 2.28
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.3,
-      "rsi_zscore_1y": -0.31,
-      "zscore_quality": 0.326,
+      "rsi": 48.5,
+      "rsi_zscore_1y": -0.22,
+      "zscore_quality": 0.305,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 13.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,32 +65,32 @@
         "high": 61.84,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 4,
+  "entry_atr_stop_pct": 13.8,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 60.115578,
+      "status": "pass",
+      "upside_pct": 37.3,
+      "forward_pe": 60.307335,
       "peg": 2.28
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.3,
-      "rsi_zone_quality": 0.294,
+      "rsi": 48.5,
+      "rsi_zone_quality": 0.339,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,18 +122,18 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 4.0
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": null,
-    "divergence_date_index": 242
+    "days_since_divergence": 9,
+    "days_since_trend_start": 7,
+    "gain_since_low_pct": 9.3,
+    "divergence_date_index": 241
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

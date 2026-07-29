@@ -1,29 +1,29 @@
 {
   "ticker": "TER",
   "name": "Teradyne, Inc.",
-  "price": 320.65,
-  "updated": "2026-07-29T12:16:39.207258+00:00",
-  "as_of_date": "2026-07-28",
-  "score": 81,
+  "price": 319.41,
+  "updated": "2026-07-29T22:34:06.269913+00:00",
+  "as_of_date": "2026-07-29",
+  "score": 67,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 34.8,
-      "forward_pe": 31.028913,
+      "upside_pct": 35.4,
+      "forward_pe": 30.90892,
       "peg": 1.32
     },
     "3_divergence_gate": {
@@ -34,56 +34,56 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 8,
+      "gap_days": 9,
       "signal_fresh": true,
-      "divergence_quality": 0.559,
-      "rsi_improvement": 1.2
+      "divergence_quality": 0.548,
+      "rsi_improvement": 1.0
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 40.5,
-      "rsi_zscore_1y": -1.94,
-      "zscore_quality": 0.786,
+      "rsi": 40.2,
+      "rsi_zscore_1y": -1.91,
+      "zscore_quality": 0.778,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 17.8,
-      "volume_confirmed": true,
-      "trigger_day_volume": 5734900,
-      "avg_volume_divergence_window": 3460200,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 16.9,
+      "volume_confirmed": false,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 14.6,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 15.4,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 31.2,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.04,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 34.8,
-      "forward_pe": 31.028913,
+      "upside_pct": 35.4,
+      "forward_pe": 30.90892,
       "peg": 1.32
     },
     "3_pullback_gate": {
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.5,
-      "rsi_zone_quality": 0.018,
+      "rsi": 40.2,
+      "rsi_zone_quality": 0.01,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
-      "wick_volume_confirmed": true,
-      "trigger_weight_tier": "wick_volume"
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.5
+      "stop_pct_from_20sma": 10.4
     }
   },
   "sector": "Technology",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 320.65,
+    "stop_reference_price": 319.41,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
