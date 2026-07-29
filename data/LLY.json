@@ -1,18 +1,18 @@
 {
   "ticker": "LLY",
   "name": "Eli Lilly and Company",
-  "price": 1220.66,
-  "updated": "2026-07-28T22:39:06.953158+00:00",
+  "price": NaN,
+  "updated": "2026-07-29T12:03:17.613402+00:00",
   "as_of_date": "2026-07-28",
-  "score": 30,
+  "score": 32,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -21.5,
-      "volume_trend_pct_3d": 3.7,
+      "volume_diff_pct_3m": -9.9,
+      "volume_trend_pct_3d": 8.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.24,
       "volatility_label": "정상",
@@ -22,7 +22,7 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 4.6,
+      "upside_pct": NaN,
       "forward_pe": 27.091007,
       "peg": 1.67
     },
@@ -41,24 +41,24 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 61.3,
-      "rsi_zscore_1y": 0.41,
-      "zscore_quality": 0.197,
+      "rsi": 57.3,
+      "rsi_zscore_1y": 0.08,
+      "zscore_quality": 0.281,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "불리시엔걸핑",
-      "days_ago": 3,
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 1,
-      "adx_reference": 19.8,
+      "adx_reference": NaN,
       "volume_confirmed": false,
-      "trigger_day_volume": 1909900,
+      "trigger_day_volume": 1592800,
       "avg_volume_divergence_window": 3098471,
       "order_block": {
         "low": 1163.01,
@@ -70,16 +70,16 @@
       }
     }
   },
-  "entry_atr_stop_pct": 4.4,
-  "score_addon": 30,
+  "entry_atr_stop_pct": NaN,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -21.5,
-      "volume_trend_pct_3d": 3.7,
+      "volume_diff_pct_3m": -9.9,
+      "volume_trend_pct_3d": 8.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.24,
       "volatility_label": "정상",
@@ -89,7 +89,7 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 4.6,
+      "upside_pct": NaN,
       "forward_pe": 27.091007,
       "peg": 1.67
     },
@@ -104,13 +104,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 61.3,
-      "rsi_zone_quality": 0.853,
+      "status": "warn",
+      "rsi": 57.3,
+      "rsi_zone_quality": 0.691,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.6
+      "stop_pct_from_20sma": NaN
     }
   },
   "sector": "Healthcare",

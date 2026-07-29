@@ -1,10 +1,10 @@
 {
   "ticker": "NXT",
   "name": "Nextpower Inc.",
-  "price": 95.35,
-  "updated": "2026-07-28T22:38:44.370718+00:00",
+  "price": NaN,
+  "updated": "2026-07-29T12:02:47.238857+00:00",
   "as_of_date": "2026-07-28",
-  "score": 66,
+  "score": 33,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -14,40 +14,40 @@
       "volume_diff_pct_3m": 15.7,
       "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 55.9,
+      "status": "fail",
+      "upside_pct": NaN,
       "forward_pe": 16.102095,
       "peg": 3.64
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "neutral",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 11,
-      "signal_fresh": true,
-      "divergence_quality": 0.58,
-      "rsi_improvement": 1.6
+      "divergence_present": false,
+      "gap_days": 9,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 3.7
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 37.5,
-      "rsi_zscore_1y": -1.81,
-      "zscore_quality": 0.703,
-      "zscore_direction_bonus_applied": false
+      "status": "warn",
+      "rsi": 43.6,
+      "rsi_zscore_1y": -1.19,
+      "zscore_quality": 0.597,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,15 +56,22 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.0,
+      "adx_reference": NaN,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 100.03,
+        "high": 103.23,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 249,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 11.8,
-  "score_addon": 21,
+  "entry_atr_stop_pct": NaN,
+  "score_addon": 2,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -74,15 +81,15 @@
       "volume_diff_pct_3m": 15.7,
       "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 55.9,
+      "status": "fail",
+      "upside_pct": NaN,
       "forward_pe": 16.102095,
       "peg": 3.64
     },
@@ -102,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.5,
-      "rsi_zone_quality": 0.0,
+      "rsi": 43.6,
+      "rsi_zone_quality": 0.143,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,16 +122,23 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.4
+      "stop_pct_from_20sma": NaN
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": NaN,
+    "divergence_date_index": 248
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 95.35,
+    "stop_reference_price": 100.03,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

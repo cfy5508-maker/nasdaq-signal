@@ -1,10 +1,10 @@
 {
   "ticker": "LASR",
   "name": "nLIGHT, Inc.",
-  "price": 63.3,
-  "updated": "2026-07-28T22:38:48.291658+00:00",
+  "price": NaN,
+  "updated": "2026-07-29T12:02:52.507191+00:00",
   "as_of_date": "2026-07-28",
-  "score": 60,
+  "score": 32,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -14,40 +14,40 @@
       "volume_diff_pct_3m": 15.7,
       "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 43.3,
+      "status": "fail",
+      "upside_pct": NaN,
       "forward_pe": 93.70004,
       "peg": 1.78
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 14,
-      "signal_fresh": true,
-      "divergence_quality": 0.443,
-      "rsi_improvement": 4.8
+      "divergence_present": false,
+      "gap_days": 13,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 9.6
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 43.9,
-      "rsi_zscore_1y": -1.54,
-      "zscore_quality": 0.686,
+      "status": "fail",
+      "rsi": 48.7,
+      "rsi_zscore_1y": -0.99,
+      "zscore_quality": 0.547,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -55,16 +55,16 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 11.9,
-      "volume_confirmed": true,
-      "trigger_day_volume": 1212067,
-      "avg_volume_divergence_window": 1175904,
+      "wick_days_ago": 1,
+      "adx_reference": NaN,
+      "volume_confirmed": false,
+      "trigger_day_volume": 756100,
+      "avg_volume_divergence_window": 1173321,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 14.7,
-  "score_addon": 51,
+  "entry_atr_stop_pct": NaN,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -74,15 +74,15 @@
       "volume_diff_pct_3m": 15.7,
       "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 43.3,
+      "status": "fail",
+      "upside_pct": NaN,
       "forward_pe": 93.70004,
       "peg": 1.78
     },
@@ -98,33 +98,40 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.9,
-      "rsi_zone_quality": 0.156,
+      "rsi": 48.7,
+      "rsi_zone_quality": 0.348,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": true,
-      "trigger_weight_tier": "wick_volume"
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.6
+      "stop_pct_from_20sma": NaN
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "ongoing",
+    "days_since_divergence": 14,
+    "days_since_trend_start": 13,
+    "gain_since_low_pct": NaN,
+    "divergence_date_index": 236
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 63.3,
+    "stop_reference_price": 67.78,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

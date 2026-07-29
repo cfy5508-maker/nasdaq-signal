@@ -2,7 +2,7 @@
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
   "price": 12.62,
-  "updated": "2026-07-28T22:39:24.356976+00:00",
+  "updated": "2026-07-29T12:03:45.836028+00:00",
   "as_of_date": "2026-07-28",
   "score": 30,
   "stages": {
@@ -14,7 +14,7 @@
       "volume_diff_pct_3m": 15.7,
       "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -47,24 +47,24 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": true,
+      "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
       "adx_reference": 25.7,
       "volume_confirmed": false,
-      "trigger_day_volume": 6308351,
-      "avg_volume_divergence_window": 6847169,
+      "trigger_day_volume": 6394200,
+      "avg_volume_divergence_window": 6857900,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 19.7,
-  "score_addon": 53,
+  "score_addon": 39,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -74,7 +74,7 @@
       "volume_diff_pct_3m": 15.7,
       "volume_trend_pct_3d": 33.3,
       "volume_trend_up": true,
-      "daily_change_pct": -0.97,
+      "daily_change_pct": NaN,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -107,12 +107,12 @@
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "warn",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 23.0
@@ -134,6 +134,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

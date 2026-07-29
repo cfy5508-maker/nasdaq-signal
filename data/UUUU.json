@@ -2,7 +2,7 @@
   "ticker": "UUUU",
   "name": "Energy Fuels Inc",
   "price": 11.33,
-  "updated": "2026-07-28T22:38:53.192509+00:00",
+  "updated": "2026-07-29T12:02:59.461936+00:00",
   "as_of_date": "2026-07-28",
   "score": 78,
   "stages": {
@@ -11,8 +11,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -21.5,
-      "volume_trend_pct_3d": 3.7,
+      "volume_diff_pct_3m": -9.9,
+      "volume_trend_pct_3d": 8.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.24,
       "volatility_label": "정상",
@@ -58,21 +58,21 @@
       "wick_days_ago": 0,
       "adx_reference": 22.0,
       "volume_confirmed": true,
-      "trigger_day_volume": 6533896,
+      "trigger_day_volume": 6820300,
       "avg_volume_divergence_window": 6487667,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 11.2,
-  "score_addon": 39,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -21.5,
-      "volume_trend_pct_3d": 3.7,
+      "volume_diff_pct_3m": -9.9,
+      "volume_trend_pct_3d": 8.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.24,
       "volatility_label": "정상",
@@ -107,12 +107,12 @@
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 12.2
