@@ -1,28 +1,28 @@
 {
   "ticker": "AMBA",
   "name": "Ambarella, Inc.",
-  "price": NaN,
-  "updated": "2026-07-29T12:04:09.170910+00:00",
+  "price": 68.97,
+  "updated": "2026-07-29T12:08:43.918655+00:00",
   "as_of_date": "2026-07-28",
-  "score": 31,
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 34.3,
       "volume_trend_up": true,
-      "daily_change_pct": NaN,
+      "daily_change_pct": -0.97,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": NaN,
+      "status": "pass",
+      "upside_pct": 37.7,
       "forward_pe": 60.115578,
       "peg": 2.28
     },
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.3,
-      "rsi_zscore_1y": -0.31,
-      "zscore_quality": 0.326,
+      "rsi": 48.2,
+      "rsi_zscore_1y": -0.24,
+      "zscore_quality": 0.309,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -52,11 +52,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": NaN,
+      "adx_reference": 13.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -70,26 +70,26 @@
       }
     }
   },
-  "entry_atr_stop_pct": NaN,
-  "score_addon": 4,
+  "entry_atr_stop_pct": 13.2,
+  "score_addon": 62,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": 33.3,
+      "volume_diff_pct_3m": 18.1,
+      "volume_trend_pct_3d": 34.3,
       "volume_trend_up": true,
-      "daily_change_pct": NaN,
+      "daily_change_pct": -0.97,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": NaN,
+      "status": "pass",
+      "upside_pct": 37.7,
       "forward_pe": 60.115578,
       "peg": 2.28
     },
@@ -109,20 +109,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.3,
-      "rsi_zone_quality": 0.294,
+      "rsi": 48.2,
+      "rsi_zone_quality": 0.328,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
-      "reversal_volume_confirmed": false,
+      "status": "pass",
+      "has_reversal_candle": true,
+      "reversal_volume_confirmed": true,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": NaN
+      "stop_pct_from_20sma": 5.5
     }
   },
   "sector": "Technology",
@@ -132,7 +132,7 @@
     "phase": "ongoing",
     "days_since_divergence": 8,
     "days_since_trend_start": 6,
-    "gain_since_low_pct": NaN,
+    "gain_since_low_pct": 9.0,
     "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
@@ -142,6 +142,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
-  "today_reversal_volume_confirmed": false
+  "today_reversal_candle": true,
+  "today_reversal_volume_confirmed": true
 }
