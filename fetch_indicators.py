@@ -7,7 +7,7 @@ fetch_indicators.py
 
 watchlist.json 형식: ["GILD", "JOBY", "AMSC", ...]
 """
-import sys, os, json, time
+import sys, os, json, time, math
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -31,6 +31,23 @@ def _market_already_closed_today():
 
 
 _HISTORY_CACHE = {}
+
+
+def sanitize_for_json(obj):
+    """JSON에 NaN/Infinity가 그대로 들어가면 파이썬 json.dump는 별 문제없이 써버리지만,
+    브라우저의 JSON.parse()는 이를 유효한 JSON으로 인정하지 않아 파싱 자체가 실패한다.
+    (IONQ 사례: price가 NaN으로 들어가서 rankings.json 전체가 깨졌고, 그 결과 IONQ뿐
+    아니라 전체 종목 목록이 안 보이는 문제가 있었음). dump 직전에 재귀적으로 NaN/Infinity를
+    null(None)로 치환해서, 값 하나가 이상해도 파일 전체가 깨지지 않도록 한다."""
+    if isinstance(obj, float):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return obj
+    if isinstance(obj, dict):
+        return {k: sanitize_for_json(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize_for_json(v) for v in obj]
+    return obj
 
 
 def get_confirmed_history(ticker_or_obj, period="1y"):
@@ -1382,7 +1399,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     }
     if write_file:
         with open(f"{OUT_DIR}/{ticker.upper()}.json", "w") as f:
-            json.dump(result, f, ensure_ascii=False, indent=2)
+            json.dump(sanitize_for_json(result), f, ensure_ascii=False, indent=2)
     return result
 
 
@@ -1479,7 +1496,7 @@ def log_snapshot(r):
         "stage_status_addon": {k: v["status"] for k, v in r["stages_addon"].items() if "status" in v},
     }
     with open(HISTORY_PATH, "a") as f:
-        f.write(json.dumps(snap, ensure_ascii=False) + "\n")
+        f.write(json.dumps(sanitize_for_json(snap), ensure_ascii=False) + "\n")
 
 
 def get_usd_krw_rate():
@@ -1493,7 +1510,7 @@ def get_usd_krw_rate():
         result = {"rate": round(rate, 2), "updated": pd.Timestamp.now("UTC").isoformat(),
                   "as_of_date": str(hist.index[-1].date())}
         with open(f"{OUT_DIR}/exchange_rate.json", "w") as f:
-            json.dump(result, f, ensure_ascii=False, indent=2)
+            json.dump(sanitize_for_json(result), f, ensure_ascii=False, indent=2)
         return result
     except Exception as e:
         print(f"환율 조회 실패: {e}", file=sys.stderr)
@@ -1546,7 +1563,7 @@ def main():
         key=lambda x: x["score"], reverse=True
     )
     with open(f"{OUT_DIR}/rankings.json", "w") as f:
-        json.dump({"updated": pd.Timestamp.now("UTC").isoformat(), "rankings": rankings}, f, ensure_ascii=False, indent=2)
+        json.dump(sanitize_for_json({"updated": pd.Timestamp.now("UTC").isoformat(), "rankings": rankings}), f, ensure_ascii=False, indent=2)
 
     print(f"\n완료: {len(results)}/{len(tickers)}개 성공, rankings.json 저장")
 
