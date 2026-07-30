@@ -1,9 +1,9 @@
 {
   "ticker": "RKLB",
   "name": "Rocket Lab Corporation",
-  "price": 58.6,
-  "updated": "2026-07-29T22:34:04.968616+00:00",
-  "as_of_date": "2026-07-29",
+  "price": 64.68,
+  "updated": "2026-07-30T21:36:22.947129+00:00",
+  "as_of_date": "2026-07-30",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 18.1,
-      "volume_trend_pct_3d": 31.2,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 34.0,
       "volume_trend_up": true,
-      "daily_change_pct": -2.04,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 3.3,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 95.3,
-      "forward_pe": 1126.923,
+      "upside_pct": 77.0,
+      "forward_pe": 1243.8462,
       "peg": null
     },
     "3_divergence_gate": {
@@ -40,14 +40,14 @@
       "rsi_improvement": -0.3
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 29.9,
-      "rsi_zscore_1y": -1.76,
-      "zscore_quality": 0.689,
+      "status": "warn",
+      "rsi": 37.4,
+      "rsi_zscore_1y": -1.17,
+      "zscore_quality": 0.542,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,14 +56,21 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 34.9,
+      "adx_reference": 35.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 58.6,
+        "high": 63.51,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 17.5,
+  "entry_atr_stop_pct": 15.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -71,19 +78,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 18.1,
-      "volume_trend_pct_3d": 31.2,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 34.0,
       "volume_trend_up": true,
-      "daily_change_pct": -2.04,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 3.3,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 95.3,
-      "forward_pe": 1126.923,
+      "upside_pct": 77.0,
+      "forward_pe": 1243.8462,
       "peg": null
     },
     "3_pullback_gate": {
@@ -102,7 +109,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.9,
+      "rsi": 37.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.6
+      "stop_pct_from_20sma": 14.7
     }
   },
   "sector": "Industrials",
@@ -123,10 +130,10 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 249,
-    "days_since_prior_divergence": 1,
-    "price_drop_since_pct": 8.3,
-    "rescue_attempted": false
+    "prior_divergence_date_index": 248,
+    "days_since_prior_divergence": 2,
+    "price_drop_since_pct": -1.2,
+    "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {

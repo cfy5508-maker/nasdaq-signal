@@ -1,29 +1,29 @@
 {
   "ticker": "NVDA",
   "name": "NVIDIA Corporation",
-  "price": 190.01,
-  "updated": "2026-07-29T22:35:08.611615+00:00",
-  "as_of_date": "2026-07-29",
-  "score": 61,
+  "price": 195.04,
+  "updated": "2026-07-30T21:37:36.864476+00:00",
+  "as_of_date": "2026-07-30",
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 18.1,
-      "volume_trend_pct_3d": 31.2,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 34.0,
       "volume_trend_up": true,
-      "daily_change_pct": -2.04,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 3.3,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 59.4,
-      "forward_pe": 14.764904,
+      "upside_pct": 55.3,
+      "forward_pe": 15.155765,
       "peg": 0.54
     },
     "3_divergence_gate": {
@@ -35,15 +35,15 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 22,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.52,
       "rsi_improvement": 0.4
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 38.0,
-      "rsi_zscore_1y": -1.5,
-      "zscore_quality": 0.625,
+      "status": "fail",
+      "rsi": 43.1,
+      "rsi_zscore_1y": -0.93,
+      "zscore_quality": 0.484,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.5,
+      "adx_reference": 15.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.9,
-  "score_addon": 50,
+  "entry_atr_stop_pct": 5.8,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 18.1,
-      "volume_trend_pct_3d": 31.2,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 34.0,
       "volume_trend_up": true,
-      "daily_change_pct": -2.04,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 3.3,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 59.4,
-      "forward_pe": 14.764904,
+      "upside_pct": 55.3,
+      "forward_pe": 15.155765,
       "peg": 0.54
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.0,
-      "rsi_zone_quality": 0.0,
+      "rsi": 43.1,
+      "rsi_zone_quality": 0.124,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.9
+      "stop_pct_from_20sma": 4.1
     }
   },
   "sector": "Technology",
