@@ -1,53 +1,53 @@
 {
   "ticker": "PGR",
   "name": "Progressive Corporation (The)",
-  "price": 213.28,
-  "updated": "2026-07-30T22:42:02.100870+00:00",
-  "as_of_date": "2026-07-30",
-  "score": 28,
+  "price": 211.42,
+  "updated": "2026-07-31T22:38:30.870906+00:00",
+  "as_of_date": "2026-07-31",
+  "score": 24,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 25.2,
-      "volume_trend_pct_3d": 29.8,
+      "volume_diff_pct_3m": 12.4,
+      "volume_trend_pct_3d": 47.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.68,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.72,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.0,
-      "forward_pe": 13.092445,
+      "upside_pct": 8.9,
+      "forward_pe": 12.978268,
       "peg": 63.05
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
-      "gap_days": 5,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": 1.1
+      "divergence_present": true,
+      "gap_days": 7,
+      "signal_fresh": true,
+      "divergence_quality": 0.479,
+      "rsi_improvement": 6.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.5,
-      "rsi_zscore_1y": -0.02,
-      "zscore_quality": 0.255,
-      "zscore_direction_bonus_applied": false
+      "rsi": 46.9,
+      "rsi_zscore_1y": -0.19,
+      "zscore_quality": 0.347,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,21 +56,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 25.4,
+      "adx_reference": 23.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 204.54,
-        "high": 205.49,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 246,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.6,
+  "entry_atr_stop_pct": 4.5,
   "score_addon": 33,
   "stages_addon": {
     "1_market_health": {
@@ -78,19 +71,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 25.2,
-      "volume_trend_pct_3d": 29.8,
+      "volume_diff_pct_3m": 12.4,
+      "volume_trend_pct_3d": 47.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.68,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.72,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.0,
-      "forward_pe": 13.092445,
+      "upside_pct": 8.9,
+      "forward_pe": 12.978268,
       "peg": 63.05
     },
     "3_pullback_gate": {
@@ -98,7 +91,7 @@
       "near_sma20": false,
       "near_sma40": true,
       "near_sma60": true,
-      "near_sma120": false,
+      "near_sma120": true,
       "near_sma200": true,
       "near_ma_count": 1,
       "ma_converged_ignored": false,
@@ -109,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 48.5,
-      "rsi_zone_quality": 0.342,
+      "rsi": 46.9,
+      "rsi_zone_quality": 0.276,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,23 +115,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 3.2
     }
   },
   "sector": "Financial Services",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "entry",
-    "days_since_divergence": 6,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 4.3,
-    "divergence_date_index": 244
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 204.54,
+    "stop_reference_price": 211.42,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
