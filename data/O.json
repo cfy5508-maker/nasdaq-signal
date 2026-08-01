@@ -2,7 +2,7 @@
   "ticker": "O",
   "name": "Realty Income Corporation",
   "price": 63.87,
-  "updated": "2026-07-31T22:39:39.208752+00:00",
+  "updated": "2026-08-01T07:42:25.060688+00:00",
   "as_of_date": "2026-07-31",
   "score": 39,
   "stages": {
@@ -11,8 +11,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 12.4,
-      "volume_trend_pct_3d": 47.2,
+      "volume_diff_pct_3m": 18.5,
+      "volume_trend_pct_3d": 49.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.72,
       "volatility_label": "정상",
@@ -36,14 +36,14 @@
       "divergence_present": true,
       "gap_days": 29,
       "signal_fresh": true,
-      "divergence_quality": 0.495,
-      "rsi_improvement": 6.5
+      "divergence_quality": 0.548,
+      "rsi_improvement": 8.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.9,
-      "rsi_zscore_1y": -0.48,
-      "zscore_quality": 0.37,
+      "rsi": 50.7,
+      "rsi_zscore_1y": -0.32,
+      "zscore_quality": 0.33,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,23 +56,23 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 27.6,
+      "adx_reference": 27.9,
       "volume_confirmed": true,
-      "trigger_day_volume": 5722634,
-      "avg_volume_divergence_window": 5704721,
+      "trigger_day_volume": 5730800,
+      "avg_volume_divergence_window": 5704993,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 2.7,
-  "score_addon": 61,
+  "score_addon": 62,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 12.4,
-      "volume_trend_pct_3d": 47.2,
+      "volume_diff_pct_3m": 18.5,
+      "volume_trend_pct_3d": 49.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.72,
       "volatility_label": "정상",
@@ -101,9 +101,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 48.9,
-      "rsi_zone_quality": 0.357,
+      "status": "warn",
+      "rsi": 50.7,
+      "rsi_zone_quality": 0.428,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 0.6
     }
   },
   "sector": "Real Estate",

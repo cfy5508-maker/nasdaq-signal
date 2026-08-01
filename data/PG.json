@@ -2,7 +2,7 @@
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
   "price": 144.49,
-  "updated": "2026-07-31T22:39:52.937564+00:00",
+  "updated": "2026-08-01T07:42:37.329399+00:00",
   "as_of_date": "2026-07-31",
   "score": 34,
   "stages": {
@@ -11,8 +11,8 @@
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -16.4,
-      "volume_trend_pct_3d": 22.4,
+      "volume_diff_pct_3m": -14.6,
+      "volume_trend_pct_3d": 23.0,
       "volume_trend_up": true,
       "daily_change_pct": 0.54,
       "volatility_label": "정상",
@@ -57,22 +57,22 @@
       "long_lower_wick": true,
       "wick_days_ago": 0,
       "adx_reference": 10.4,
-      "volume_confirmed": false,
-      "trigger_day_volume": 6781320,
+      "volume_confirmed": true,
+      "trigger_day_volume": 9145400,
       "avg_volume_divergence_window": 8068954,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 3.7,
-  "score_addon": 32,
+  "score_addon": 38,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -16.4,
-      "volume_trend_pct_3d": 22.4,
+      "volume_diff_pct_3m": -14.6,
+      "volume_trend_pct_3d": 23.0,
       "volume_trend_up": true,
       "daily_change_pct": 0.54,
       "volatility_label": "정상",
@@ -109,10 +109,10 @@
     "5_trigger_confirmed": {
       "status": "pass",
       "has_reversal_candle": true,
-      "reversal_volume_confirmed": false,
+      "reversal_volume_confirmed": true,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "reversal_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 1.9
@@ -129,5 +129,5 @@
   },
   "divergence_stop_signal": null,
   "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": false
+  "today_reversal_volume_confirmed": true
 }

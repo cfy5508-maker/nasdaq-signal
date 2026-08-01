@@ -2,17 +2,17 @@
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
   "price": 24.53,
-  "updated": "2026-07-31T22:38:42.683753+00:00",
+  "updated": "2026-08-01T07:41:34.880486+00:00",
   "as_of_date": "2026-07-31",
-  "score": 63,
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 12.4,
-      "volume_trend_pct_3d": 47.2,
+      "volume_diff_pct_3m": 18.5,
+      "volume_trend_pct_3d": 49.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.72,
       "volatility_label": "정상",
@@ -47,32 +47,32 @@
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": true,
+      "hammer": false,
       "bullish_engulfing": false,
       "morning_star": true,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 26.7,
+      "adx_reference": 26.6,
       "volume_confirmed": false,
-      "trigger_day_volume": 895422,
+      "trigger_day_volume": 895900,
       "avg_volume_divergence_window": 1260710,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 14.9,
-  "score_addon": 53,
+  "entry_atr_stop_pct": 15.0,
+  "score_addon": 39,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 12.4,
-      "volume_trend_pct_3d": 47.2,
+      "volume_diff_pct_3m": 18.5,
+      "volume_trend_pct_3d": 49.6,
       "volume_trend_up": true,
       "daily_change_pct": 0.72,
       "volatility_label": "정상",
@@ -107,12 +107,12 @@
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "warn",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 12.8
@@ -138,6 +138,6 @@
     "days_since_break": 12,
     "reason": "무효화 이후 12일간 반등시도(음봉고가 돌파) 없음"
   },
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
