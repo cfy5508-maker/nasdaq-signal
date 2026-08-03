@@ -1,9 +1,9 @@
 {
   "ticker": "AMSC",
   "name": "American Superconductor Corpora",
-  "price": 29.37,
-  "updated": "2026-08-02T22:32:35.812791+00:00",
-  "as_of_date": "2026-07-31",
+  "price": 30.99,
+  "updated": "2026-08-03T22:36:04.589020+00:00",
+  "as_of_date": "2026-08-03",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 14.5,
-      "volume_trend_pct_3d": 27.4,
+      "volume_diff_pct_3m": -3.5,
+      "volume_trend_pct_3d": 5.7,
       "volume_trend_up": true,
-      "daily_change_pct": 0.65,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.76,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 112.8,
-      "forward_pe": 20.903915,
+      "upside_pct": 101.7,
+      "forward_pe": 22.05694,
       "peg": 0.74
     },
     "3_divergence_gate": {
@@ -40,19 +40,19 @@
       "rsi_improvement": -7.3
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 35.9,
-      "rsi_zscore_1y": -1.01,
-      "zscore_quality": 0.502,
+      "status": "fail",
+      "rsi": 41.2,
+      "rsi_zscore_1y": -0.55,
+      "zscore_quality": 0.388,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
@@ -65,32 +65,32 @@
         "high": 28.35,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 12.9,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 12.1,
+  "score_addon": 56,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 14.5,
-      "volume_trend_pct_3d": 27.4,
+      "volume_diff_pct_3m": -3.5,
+      "volume_trend_pct_3d": 5.7,
       "volume_trend_up": true,
-      "daily_change_pct": 0.65,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.76,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 112.8,
-      "forward_pe": 20.903915,
+      "upside_pct": 101.7,
+      "forward_pe": 22.05694,
       "peg": 0.74
     },
     "3_pullback_gate": {
@@ -109,20 +109,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.9,
-      "rsi_zone_quality": 0.0,
+      "rsi": 41.2,
+      "rsi_zone_quality": 0.05,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.8
+      "stop_pct_from_20sma": 5.8
     }
   },
   "sector": "Industrials",
@@ -132,15 +132,15 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 11,
-    "divergence_date_index": 236,
-    "price_vs_low_pct": -14.1
+    "days_since_trend_start": 12,
+    "divergence_date_index": 235,
+    "price_vs_low_pct": -9.3
   },
   "pullback_stop_signal": {
     "stop_reference_price": 26.64,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }

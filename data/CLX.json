@@ -1,29 +1,29 @@
 {
   "ticker": "CLX",
   "name": "Clorox Company (The)",
-  "price": 95.53,
-  "updated": "2026-08-02T22:33:33.313373+00:00",
-  "as_of_date": "2026-07-31",
-  "score": 34,
+  "price": 98.26,
+  "updated": "2026-08-03T22:37:02.382446+00:00",
+  "as_of_date": "2026-08-03",
+  "score": 29,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 18.5,
-      "volume_trend_pct_3d": 49.6,
+      "volume_diff_pct_3m": -1.9,
+      "volume_trend_pct_3d": 13.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.72,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.42,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
-      "forward_pe": 16.04395,
+      "upside_pct": 4.2,
+      "forward_pe": 16.502443,
       "peg": 2.37
     },
     "3_divergence_gate": {
@@ -35,15 +35,15 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 28,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.497,
       "rsi_improvement": 6.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.2,
-      "rsi_zscore_1y": 0.06,
-      "zscore_quality": 0.285,
+      "rsi": 54.2,
+      "rsi_zscore_1y": 0.52,
+      "zscore_quality": 0.17,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -53,44 +53,51 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 12.3,
+      "wick_days_ago": 1,
+      "adx_reference": 12.9,
       "volume_confirmed": true,
       "trigger_day_volume": 3162700,
       "avg_volume_divergence_window": 2336128,
-      "order_block": null
+      "order_block": {
+        "low": 95.53,
+        "high": 95.65,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 4.7,
-  "score_addon": 26,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 18.5,
-      "volume_trend_pct_3d": 49.6,
+      "volume_diff_pct_3m": -1.9,
+      "volume_trend_pct_3d": 13.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.72,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.42,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
-      "forward_pe": 16.04395,
+      "upside_pct": 4.2,
+      "forward_pe": 16.502443,
       "peg": 2.37
     },
     "3_pullback_gate": {
       "status": "fail",
       "near_sma20": true,
       "near_sma40": true,
-      "near_sma60": true,
+      "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 2,
@@ -101,9 +108,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 48.2,
-      "rsi_zone_quality": 0.326,
+      "status": "warn",
+      "rsi": 54.2,
+      "rsi_zone_quality": 0.569,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +122,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 1.9
     }
   },
   "sector": "Consumer Defensive",

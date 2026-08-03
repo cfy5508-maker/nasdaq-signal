@@ -1,9 +1,9 @@
 {
   "ticker": "WATT",
   "name": "Energous Corporation",
-  "price": 14.11,
-  "updated": "2026-08-02T22:32:50.450321+00:00",
-  "as_of_date": "2026-07-31",
+  "price": 16.09,
+  "updated": "2026-08-03T22:36:19.516003+00:00",
+  "as_of_date": "2026-08-03",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 14.5,
-      "volume_trend_pct_3d": 27.4,
+      "volume_diff_pct_3m": -3.5,
+      "volume_trend_pct_3d": 5.7,
       "volume_trend_up": true,
-      "daily_change_pct": 0.65,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.76,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 100.2,
-      "forward_pe": 17.419752,
+      "upside_pct": 75.6,
+      "forward_pe": 19.864197,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,7 +31,7 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 8,
@@ -40,14 +40,14 @@
       "rsi_improvement": -1.5
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 34.0,
-      "rsi_zscore_1y": -1.13,
-      "zscore_quality": 0.532,
+      "status": "fail",
+      "rsi": 44.4,
+      "rsi_zscore_1y": -0.38,
+      "zscore_quality": 0.345,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -55,35 +55,42 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 30.5,
+      "wick_days_ago": 1,
+      "adx_reference": 29.3,
       "volume_confirmed": false,
       "trigger_day_volume": 117600,
       "avg_volume_divergence_window": 175689,
-      "order_block": null
+      "order_block": {
+        "low": 13.56,
+        "high": 14.03,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 17.7,
-  "score_addon": 41,
+  "entry_atr_stop_pct": 16.0,
+  "score_addon": 43,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 14.5,
-      "volume_trend_pct_3d": 27.4,
+      "volume_diff_pct_3m": -3.5,
+      "volume_trend_pct_3d": 5.7,
       "volume_trend_up": true,
-      "daily_change_pct": 0.65,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.76,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 100.2,
-      "forward_pe": 17.419752,
+      "upside_pct": 75.6,
+      "forward_pe": 19.864197,
       "peg": null
     },
     "3_pullback_gate": {
@@ -102,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.0,
-      "rsi_zone_quality": 0.0,
+      "rsi": 44.4,
+      "rsi_zone_quality": 0.178,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 13.3
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Technology",
@@ -123,10 +130,10 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 246,
-    "days_since_prior_divergence": 4,
-    "price_drop_since_pct": 1.3,
-    "rescue_attempted": false
+    "prior_divergence_date_index": 245,
+    "days_since_prior_divergence": 5,
+    "price_drop_since_pct": -12.5,
+    "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {

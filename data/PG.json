@@ -1,29 +1,29 @@
 {
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
-  "price": 144.49,
-  "updated": "2026-08-02T22:33:40.448160+00:00",
-  "as_of_date": "2026-07-31",
-  "score": 33,
+  "price": 144.97,
+  "updated": "2026-08-03T22:37:09.627175+00:00",
+  "as_of_date": "2026-08-03",
+  "score": 21,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -14.6,
-      "volume_trend_pct_3d": 23.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.54,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -11.8,
+      "volume_trend_pct_3d": -28.8,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.32,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.2,
-      "forward_pe": 19.499063,
+      "upside_pct": 10.8,
+      "forward_pe": 19.563839,
       "peg": 5.57
     },
     "3_divergence_gate": {
@@ -36,54 +36,54 @@
       "divergence_present": true,
       "gap_days": 12,
       "signal_fresh": true,
-      "divergence_quality": 0.31,
+      "divergence_quality": 0.35,
       "rsi_improvement": -3.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zscore_1y": -0.5,
-      "zscore_quality": 0.374,
+      "rsi": 45.6,
+      "rsi_zscore_1y": -0.38,
+      "zscore_quality": 0.345,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": true,
+      "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 10.4,
-      "volume_confirmed": true,
-      "trigger_day_volume": 9145400,
-      "avg_volume_divergence_window": 8068954,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 9.8,
+      "volume_confirmed": false,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 3.7,
-  "score_addon": 38,
+  "score_addon": 3,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -14.6,
-      "volume_trend_pct_3d": 23.0,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.54,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -11.8,
+      "volume_trend_pct_3d": -28.8,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.32,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.2,
-      "forward_pe": 19.499063,
+      "upside_pct": 10.8,
+      "forward_pe": 19.563839,
       "peg": 5.57
     },
     "3_pullback_gate": {
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zone_quality": 0.175,
+      "rsi": 45.6,
+      "rsi_zone_quality": 0.223,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
-      "wick_present": true,
-      "wick_volume_confirmed": true,
-      "trigger_weight_tier": "reversal_volume"
+      "status": "fail",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.9
+      "stop_pct_from_20sma": 1.5
     }
   },
   "sector": "Consumer Defensive",
@@ -128,6 +128,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }

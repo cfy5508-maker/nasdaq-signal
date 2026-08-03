@@ -1,9 +1,9 @@
 {
   "ticker": "GLW",
   "name": "Corning Incorporated",
-  "price": 138.25,
-  "updated": "2026-08-02T22:33:09.198197+00:00",
-  "as_of_date": "2026-07-31",
+  "price": 146.64,
+  "updated": "2026-08-03T22:36:38.003012+00:00",
+  "as_of_date": "2026-08-03",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 18.5,
-      "volume_trend_pct_3d": 49.6,
+      "volume_diff_pct_3m": -1.9,
+      "volume_trend_pct_3d": 13.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.72,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.42,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.9,
-      "forward_pe": 32.114864,
+      "upside_pct": 31.9,
+      "forward_pe": 34.039154,
       "peg": 1.07
     },
     "3_divergence_gate": {
@@ -40,10 +40,10 @@
       "rsi_improvement": -6.4
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 38.1,
-      "rsi_zscore_1y": -1.74,
-      "zscore_quality": 0.684,
+      "status": "warn",
+      "rsi": 42.5,
+      "rsi_zscore_1y": -1.37,
+      "zscore_quality": 0.593,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -52,11 +52,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.8,
+      "adx_reference": 21.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,32 +65,32 @@
         "high": 126.3,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 16.0,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 15.1,
+  "score_addon": 56,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 18.5,
-      "volume_trend_pct_3d": 49.6,
+      "volume_diff_pct_3m": -1.9,
+      "volume_trend_pct_3d": 13.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.72,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.42,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.9,
-      "forward_pe": 32.114864,
+      "upside_pct": 31.9,
+      "forward_pe": 34.039154,
       "peg": 1.07
     },
     "3_pullback_gate": {
@@ -109,20 +109,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.1,
-      "rsi_zone_quality": 0.0,
+      "rsi": 42.5,
+      "rsi_zone_quality": 0.099,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 17.4
+      "stop_pct_from_20sma": 9.0
     }
   },
   "sector": "Technology",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 236,
-    "days_since_prior_divergence": 14,
-    "price_drop_since_pct": 24.5,
+    "prior_divergence_date_index": 235,
+    "days_since_prior_divergence": 15,
+    "price_drop_since_pct": 19.9,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -142,9 +142,9 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 12,
-    "reason": "무효화 이후 12일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 13,
+    "reason": "무효화 이후 13일간 반등시도(음봉고가 돌파) 없음"
   },
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }
