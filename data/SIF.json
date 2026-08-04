@@ -1,37 +1,37 @@
 {
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
-  "price": 26.48,
-  "updated": "2026-08-03T22:36:17.426404+00:00",
-  "as_of_date": "2026-08-03",
-  "score": 41,
+  "price": 27.65,
+  "updated": "2026-08-04T22:39:42.166995+00:00",
+  "as_of_date": "2026-08-04",
+  "score": 18,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -1.9,
-      "volume_trend_pct_3d": 13.6,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.42,
+      "volume_diff_pct_3m": 10.5,
+      "volume_trend_pct_3d": -2.1,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.8,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 14,
+      "retest_days_ago": 15,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 24,
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.2,
-      "rsi_zscore_1y": 0.51,
-      "zscore_quality": 0.123,
+      "rsi": 66.2,
+      "rsi_zscore_1y": 0.91,
+      "zscore_quality": 0.023,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
-      "morning_star": true,
+      "bullish_engulfing": false,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 14,
-      "adx_reference": 24.8,
+      "wick_days_ago": 15,
+      "adx_reference": 25.0,
       "volume_confirmed": false,
       "trigger_day_volume": 58100,
       "avg_volume_divergence_window": 117384,
@@ -65,33 +65,33 @@
         "high": 22.91,
         "strong": true,
         "breach": true,
-        "trigger_day_idx": 238,
+        "trigger_day_idx": 237,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 10.9,
-  "score_addon": 54,
+  "entry_atr_stop_pct": 10.5,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -1.9,
-      "volume_trend_pct_3d": 13.6,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.42,
+      "volume_diff_pct_3m": 10.5,
+      "volume_trend_pct_3d": -2.1,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.8,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,24 +105,24 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.2,
-      "rsi_zone_quality": 0.886,
+      "rsi": 66.2,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "warn",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.3
+      "stop_pct_from_20sma": 11.8
     }
   },
   "sector": "Industrials",
@@ -135,6 +135,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

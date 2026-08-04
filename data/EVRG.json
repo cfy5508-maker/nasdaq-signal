@@ -1,29 +1,29 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 83.23,
-  "updated": "2026-08-03T22:37:08.526074+00:00",
-  "as_of_date": "2026-08-03",
-  "score": 48,
+  "price": 83.84,
+  "updated": "2026-08-04T22:40:32.014602+00:00",
+  "as_of_date": "2026-08-04",
+  "score": 44,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.5,
-      "volume_trend_pct_3d": 5.7,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.76,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 32.9,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": 3.4,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 10.4,
-      "forward_pe": 18.266054,
+      "upside_pct": 9.6,
+      "forward_pe": 18.399925,
       "peg": 2.34
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 40.8,
-      "rsi_zscore_1y": -1.38,
-      "zscore_quality": 0.596,
+      "rsi": 44.3,
+      "rsi_zscore_1y": -1.03,
+      "zscore_quality": 0.507,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -54,43 +54,43 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 16.0,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 15.6,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 1978844,
+      "avg_volume_divergence_window": 2133440,
       "order_block": {
         "low": 83.01,
         "high": 83.06,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 2.8,
-  "score_addon": 12,
+  "entry_atr_stop_pct": 2.9,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.5,
-      "volume_trend_pct_3d": 5.7,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.76,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 32.9,
+      "volume_trend_pct_3d": -11.9,
+      "volume_trend_up": false,
+      "daily_change_pct": 3.4,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 10.4,
-      "forward_pe": 18.266054,
+      "upside_pct": 9.6,
+      "forward_pe": 18.399925,
       "peg": 2.34
     },
     "3_pullback_gate": {
@@ -109,20 +109,20 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 40.8,
+      "rsi": 44.3,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Utilities",

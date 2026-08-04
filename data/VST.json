@@ -1,29 +1,29 @@
 {
   "ticker": "VST",
   "name": "Vistra Corp.",
-  "price": 155.94,
-  "updated": "2026-08-03T22:36:44.425849+00:00",
-  "as_of_date": "2026-08-03",
-  "score": 45,
+  "price": 143.23,
+  "updated": "2026-08-04T22:40:08.326486+00:00",
+  "as_of_date": "2026-08-04",
+  "score": 55,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -1.9,
-      "volume_trend_pct_3d": 13.6,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.42,
+      "volume_diff_pct_3m": 10.5,
+      "volume_trend_pct_3d": -2.1,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.8,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 42.3,
-      "forward_pe": 15.096408,
+      "upside_pct": 54.7,
+      "forward_pe": 13.852552,
       "peg": 0.44
     },
     "3_divergence_gate": {
@@ -31,19 +31,19 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 18,
-      "signal_fresh": false,
-      "divergence_quality": 0.466,
+      "signal_fresh": true,
+      "divergence_quality": 0.403,
       "rsi_improvement": -7.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.1,
-      "rsi_zscore_1y": 0.34,
-      "zscore_quality": 0.164,
+      "rsi": 40.6,
+      "rsi_zscore_1y": -0.93,
+      "zscore_quality": 0.483,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -63,27 +63,27 @@
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.4,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 8.5,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -1.9,
-      "volume_trend_pct_3d": 13.6,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.42,
+      "volume_diff_pct_3m": 10.5,
+      "volume_trend_pct_3d": -2.1,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.8,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 42.3,
-      "forward_pe": 15.096408,
+      "upside_pct": 54.7,
+      "forward_pe": 13.852552,
       "peg": 0.44
     },
     "3_pullback_gate": {
@@ -97,13 +97,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 50.1,
-      "rsi_zone_quality": 0.404,
+      "status": "fail",
+      "rsi": 40.6,
+      "rsi_zone_quality": 0.025,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,17 +115,17 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.5
+      "stop_pct_from_20sma": 8.9
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 0.7,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 8.8,
     "rescue_attempted": true
   },
   "downtrend_signal": null,
