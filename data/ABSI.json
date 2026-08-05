@@ -1,29 +1,29 @@
 {
   "ticker": "ABSI",
   "name": "Absci Corporation",
-  "price": 8.48,
-  "updated": "2026-08-04T22:40:23.736900+00:00",
-  "as_of_date": "2026-08-04",
+  "price": 8.4,
+  "updated": "2026-08-05T22:39:11.679603+00:00",
+  "as_of_date": "2026-08-05",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 32.9,
-      "volume_trend_pct_3d": -11.9,
+      "volume_diff_pct_3m": -27.0,
+      "volume_trend_pct_3d": -21.3,
       "volume_trend_up": false,
-      "daily_change_pct": 3.4,
-      "volatility_label": "급변",
+      "daily_change_pct": -0.9,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 62.5,
-      "forward_pe": -13.621833,
+      "upside_pct": 64.0,
+      "forward_pe": -13.493325,
       "peg": null
     },
     "3_divergence_gate": {
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.0,
-      "rsi_zscore_1y": -0.15,
-      "zscore_quality": 0.288,
+      "rsi": 50.2,
+      "rsi_zscore_1y": -0.23,
+      "zscore_quality": 0.306,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 1,
+      "days_ago": 2,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.7,
+      "adx_reference": 26.9,
       "volume_confirmed": false,
       "trigger_day_volume": 2219900,
       "avg_volume_divergence_window": 2731200,
@@ -65,32 +65,32 @@
         "high": 7.08,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 13.3,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 13.0,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 32.9,
-      "volume_trend_pct_3d": -11.9,
+      "volume_diff_pct_3m": -27.0,
+      "volume_trend_pct_3d": -21.3,
       "volume_trend_up": false,
-      "daily_change_pct": 3.4,
-      "volatility_label": "급변",
+      "daily_change_pct": -0.9,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 62.5,
-      "forward_pe": -13.621833,
+      "upside_pct": 64.0,
+      "forward_pe": -13.493325,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.0,
-      "rsi_zone_quality": 0.44,
+      "rsi": 50.2,
+      "rsi_zone_quality": 0.407,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.4
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Healthcare",

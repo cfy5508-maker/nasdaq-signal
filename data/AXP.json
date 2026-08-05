@@ -1,37 +1,37 @@
 {
   "ticker": "AXP",
   "name": "American Express Company",
-  "price": 346.71,
-  "updated": "2026-08-04T22:41:06.488314+00:00",
-  "as_of_date": "2026-08-04",
-  "score": 25,
+  "price": 348.99,
+  "updated": "2026-08-05T22:39:58.580524+00:00",
+  "as_of_date": "2026-08-05",
+  "score": 24,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 36.1,
-      "volume_trend_pct_3d": -6.9,
-      "volume_trend_up": false,
-      "daily_change_pct": 1.73,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 7.7,
+      "volume_trend_pct_3d": 10.6,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.44,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.0,
-      "forward_pe": 17.2371,
-      "peg": 1.57
+      "upside_pct": 7.3,
+      "forward_pe": 17.347866,
+      "peg": 1.61
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 12,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.4,
-      "rsi_zscore_1y": 0.05,
-      "zscore_quality": 0.239,
+      "rsi": 56.0,
+      "rsi_zscore_1y": 0.18,
+      "zscore_quality": 0.206,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.3,
+      "adx_reference": 18.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,33 +65,33 @@
         "high": 333.62,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.6,
-  "score_addon": 36,
+  "entry_atr_stop_pct": 3.5,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 36.1,
-      "volume_trend_pct_3d": -6.9,
-      "volume_trend_up": false,
-      "daily_change_pct": 1.73,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 7.7,
+      "volume_trend_pct_3d": 10.6,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.44,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.0,
-      "forward_pe": 17.2371,
-      "peg": 1.57
+      "upside_pct": 7.3,
+      "forward_pe": 17.347866,
+      "peg": 1.61
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -99,7 +99,7 @@
       "near_sma40": true,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": true,
+      "near_sma200": false,
       "near_ma_count": 1,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.4,
-      "rsi_zone_quality": 0.576,
+      "rsi": 56.0,
+      "rsi_zone_quality": 0.64,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,19 +122,20 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.4
+      "stop_pct_from_20sma": 0.9
     }
   },
   "sector": "Financial Services",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
+  "uptrend_entry_signal": {
     "active": true,
-    "prior_divergence_date_index": 241,
-    "days_since_prior_divergence": 9,
-    "price_drop_since_pct": 0.6,
-    "rescue_attempted": true
+    "phase": "entry",
+    "days_since_divergence": 10,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 0.1,
+    "divergence_date_index": 240
   },
+  "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 326.17,
