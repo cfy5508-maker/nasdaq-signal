@@ -1,37 +1,37 @@
 {
   "ticker": "QCOM",
   "name": "QUALCOMM Incorporated",
-  "price": 160.39,
-  "updated": "2026-08-07T01:05:53.336844+00:00",
-  "as_of_date": "2026-08-06",
-  "score": 58,
+  "price": 167.86,
+  "updated": "2026-08-07T22:10:04.148340+00:00",
+  "as_of_date": "2026-08-07",
+  "score": 54,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.6,
-      "volume_trend_pct_3d": -23.6,
+      "volume_diff_pct_3m": -34.3,
+      "volume_trend_pct_3d": -38.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.17,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.4,
-      "forward_pe": 15.576456,
-      "peg": 0.64
+      "upside_pct": 16.0,
+      "forward_pe": 16.316366,
+      "peg": 0.67
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 3,
+      "retest_days_ago": 4,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 5,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 41.9,
-      "rsi_zscore_1y": -0.59,
-      "zscore_quality": 0.397,
+      "rsi": 47.6,
+      "rsi_zscore_1y": -0.19,
+      "zscore_quality": 0.298,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.5,
+      "adx_reference": 19.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,33 +65,33 @@
         "high": 151.57,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.7,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 8.2,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.6,
-      "volume_trend_pct_3d": -23.6,
+      "volume_diff_pct_3m": -34.3,
+      "volume_trend_pct_3d": -38.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.17,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.4,
-      "forward_pe": 15.576456,
-      "peg": 0.64
+      "upside_pct": 16.0,
+      "forward_pe": 16.316366,
+      "peg": 0.67
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 41.9,
-      "rsi_zone_quality": 0.077,
+      "rsi": 47.6,
+      "rsi_zone_quality": 0.303,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.4
+      "stop_pct_from_20sma": 0.9
     }
   },
   "sector": "Technology",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 234,
-    "days_since_prior_divergence": 16,
-    "price_drop_since_pct": 9.9,
+    "prior_divergence_date_index": 233,
+    "days_since_prior_divergence": 17,
+    "price_drop_since_pct": 5.7,
     "rescue_attempted": true
   },
   "downtrend_signal": null,

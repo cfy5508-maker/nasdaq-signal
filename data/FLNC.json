@@ -1,9 +1,9 @@
 {
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
-  "price": 13.21,
-  "updated": "2026-08-07T01:05:37.827388+00:00",
-  "as_of_date": "2026-08-06",
+  "price": 13.19,
+  "updated": "2026-08-07T22:09:48.031885+00:00",
+  "as_of_date": "2026-08-07",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.6,
-      "volume_trend_pct_3d": -23.6,
+      "volume_diff_pct_3m": -34.3,
+      "volume_trend_pct_3d": -38.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.17,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.3,
-      "forward_pe": 67.615295,
+      "upside_pct": 32.6,
+      "forward_pe": 61.653114,
       "peg": 3.18
     },
     "3_divergence_gate": {
@@ -34,10 +34,10 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 7,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 10.2
+      "rsi_improvement": 10.1
     },
     "4_zscore": {
       "status": "fail",
@@ -47,43 +47,43 @@
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 21.2,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 21.1,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 8422401,
+      "avg_volume_divergence_window": 11430363,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 18.9,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 18.3,
+  "score_addon": 42,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.6,
-      "volume_trend_pct_3d": -23.6,
+      "volume_diff_pct_3m": -34.3,
+      "volume_trend_pct_3d": -38.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.17,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.3,
-      "forward_pe": 67.615295,
+      "upside_pct": 32.6,
+      "forward_pe": 61.653114,
       "peg": 3.18
     },
     "3_pullback_gate": {
@@ -103,19 +103,19 @@
     "4_rsi_zone": {
       "status": "fail",
       "rsi": 40.7,
-      "rsi_zone_quality": 0.028,
+      "rsi_zone_quality": 0.026,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.2
+      "stop_pct_from_20sma": 7.2
     }
   },
   "sector": "Utilities",
@@ -125,12 +125,12 @@
   "downtrend_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_trend_start": 0,
-    "divergence_date_index": 241,
-    "price_vs_low_pct": -1.7
+    "days_since_trend_start": 1,
+    "divergence_date_index": 240,
+    "price_vs_low_pct": -1.8
   },
   "pullback_stop_signal": {
-    "stop_reference_price": 13.21,
+    "stop_reference_price": 13.19,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

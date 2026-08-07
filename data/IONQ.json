@@ -1,20 +1,20 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 39.72,
-  "updated": "2026-08-07T01:06:08.625660+00:00",
-  "as_of_date": "2026-08-06",
+  "price": 44.43,
+  "updated": "2026-08-07T22:10:19.360446+00:00",
+  "as_of_date": "2026-08-07",
   "score": 50,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 72.3,
-      "forward_pe": -33.888184,
+      "upside_pct": 52.3,
+      "forward_pe": -37.906643,
       "peg": null
     },
     "3_divergence_gate": {
@@ -41,47 +41,47 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.3,
-      "rsi_zscore_1y": -0.12,
-      "zscore_quality": 0.279,
+      "rsi": 56.8,
+      "rsi_zscore_1y": 0.5,
+      "zscore_quality": 0.125,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "status": "pass",
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 4,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 30.1,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "adx_reference": 28.7,
+      "volume_confirmed": true,
+      "trigger_day_volume": 23340700,
+      "avg_volume_divergence_window": 19370538,
       "order_block": {
         "low": 31.99,
         "high": 33.72,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 245,
+        "trigger_day_idx": 244,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 12.1,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 11.2,
+  "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 72.3,
-      "forward_pe": -33.888184,
+      "upside_pct": 52.3,
+      "forward_pe": -37.906643,
       "peg": null
     },
     "3_pullback_gate": {
@@ -108,9 +108,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 48.3,
-      "rsi_zone_quality": 0.332,
+      "status": "warn",
+      "rsi": 56.8,
+      "rsi_zone_quality": 0.674,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,18 +122,18 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.6
+      "stop_pct_from_20sma": 17.2
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "phase": "entry",
-    "days_since_divergence": 6,
-    "days_since_trend_start": 5,
-    "gain_since_low_pct": 24.2,
-    "divergence_date_index": 244
+    "phase": "ongoing",
+    "days_since_divergence": 7,
+    "days_since_trend_start": 6,
+    "gain_since_low_pct": 38.9,
+    "divergence_date_index": 243
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

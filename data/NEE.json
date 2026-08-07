@@ -1,20 +1,20 @@
 {
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
-  "price": 84.6,
-  "updated": "2026-08-07T01:05:56.613896+00:00",
-  "as_of_date": "2026-08-06",
+  "price": 84.65,
+  "updated": "2026-08-07T22:10:07.353707+00:00",
+  "as_of_date": "2026-08-07",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 17.0,
-      "forward_pe": 19.142525,
-      "peg": 1.89
+      "forward_pe": 19.159473,
+      "peg": 1.85
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 34.7,
-      "rsi_zscore_1y": -1.63,
-      "zscore_quality": 0.658,
+      "rsi": 35.1,
+      "rsi_zscore_1y": -1.59,
+      "zscore_quality": 0.648,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.1,
+      "adx_reference": 17.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -64,17 +64,17 @@
     }
   },
   "entry_atr_stop_pct": 3.3,
-  "score_addon": 52,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -83,26 +83,26 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 17.0,
-      "forward_pe": 19.142525,
-      "peg": 1.89
+      "forward_pe": 19.159473,
+      "peg": 1.85
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": true,
       "near_ma_count": 0,
-      "ma_converged_ignored": false,
+      "ma_converged_ignored": true,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": false,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.7,
+      "rsi": 35.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.2
+      "stop_pct_from_20sma": 4.0
     }
   },
   "sector": "Utilities",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 3.8,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 3.7,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

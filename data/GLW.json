@@ -1,20 +1,20 @@
 {
   "ticker": "GLW",
   "name": "Corning Incorporated",
-  "price": 157.18,
-  "updated": "2026-08-07T01:05:26.244629+00:00",
-  "as_of_date": "2026-08-06",
+  "price": 165.68,
+  "updated": "2026-08-07T22:09:36.920261+00:00",
+  "as_of_date": "2026-08-07",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.8,
-      "forward_pe": 36.380215,
-      "peg": 1.13
+      "upside_pct": 15.5,
+      "forward_pe": 38.34759,
+      "peg": 1.2
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.6,
-      "rsi_zscore_1y": -0.94,
-      "zscore_quality": 0.486,
+      "rsi": 51.6,
+      "rsi_zscore_1y": -0.61,
+      "zscore_quality": 0.402,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 3,
+      "days_ago": 4,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.0,
+      "adx_reference": 18.1,
       "volume_confirmed": false,
       "trigger_day_volume": 12618600,
       "avg_volume_divergence_window": 16473700,
@@ -65,23 +65,23 @@
         "high": 126.3,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 245,
+        "trigger_day_idx": 244,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 13.6,
-  "score_addon": 27,
+  "entry_atr_stop_pct": 12.8,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,9 +89,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.8,
-      "forward_pe": 36.380215,
-      "peg": 1.13
+      "upside_pct": 15.5,
+      "forward_pe": 38.34759,
+      "peg": 1.2
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -108,9 +108,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 47.6,
-      "rsi_zone_quality": 0.303,
+      "status": "warn",
+      "rsi": 51.6,
+      "rsi_zone_quality": 0.464,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.1
+      "stop_pct_from_20sma": 6.9
     }
   },
   "sector": "Technology",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 232,
-    "days_since_prior_divergence": 18,
-    "price_drop_since_pct": 14.2,
+    "prior_divergence_date_index": 231,
+    "days_since_prior_divergence": 19,
+    "price_drop_since_pct": 9.5,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -142,8 +142,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 16,
-    "reason": "무효화 이후 16일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 17,
+    "reason": "무효화 이후 17일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

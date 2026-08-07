@@ -1,20 +1,20 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": 47.06,
-  "updated": "2026-08-07T01:06:06.483394+00:00",
-  "as_of_date": "2026-08-06",
+  "price": 47.86,
+  "updated": "2026-08-07T22:10:17.440163+00:00",
+  "as_of_date": "2026-08-07",
   "score": 13,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.8,
-      "forward_pe": 11.0000305,
-      "peg": 0.63
+      "upside_pct": 1.0,
+      "forward_pe": 11.187026,
+      "peg": 0.64
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -41,8 +41,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.9,
-      "rsi_zscore_1y": 1.08,
+      "rsi": 65.6,
+      "rsi_zscore_1y": 1.28,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.3,
+      "adx_reference": 28.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,23 +65,23 @@
         "high": 42.63,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 241,
+        "trigger_day_idx": 240,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 11,
+  "entry_atr_stop_pct": 3.9,
+  "score_addon": 12,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -38.2,
-      "volume_trend_pct_3d": -22.4,
+      "volume_diff_pct_3m": -19.8,
+      "volume_trend_pct_3d": -34.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.16,
+      "daily_change_pct": 0.61,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,9 +89,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.8,
-      "forward_pe": 11.0000305,
-      "peg": 0.63
+      "upside_pct": 1.0,
+      "forward_pe": 11.187026,
+      "peg": 0.64
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,12 +105,12 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.9,
-      "rsi_zone_quality": 0.915,
+      "rsi": 65.6,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.1
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Consumer Cyclical",
