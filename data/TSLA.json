@@ -1,9 +1,9 @@
 {
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
-  "price": 321.55,
-  "updated": "2026-08-05T22:40:21.718651+00:00",
-  "as_of_date": "2026-08-05",
+  "price": 319.53,
+  "updated": "2026-08-07T01:05:50.720728+00:00",
+  "as_of_date": "2026-08-06",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.7,
-      "forward_pe": 144.8926,
+      "upside_pct": 24.5,
+      "forward_pe": 143.98238,
       "peg": 4.72
     },
     "3_divergence_gate": {
@@ -31,7 +31,7 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 3,
+      "retest_days_ago": 4,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 7,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 37.5,
-      "rsi_zscore_1y": -1.18,
-      "zscore_quality": 0.545,
+      "rsi": 36.9,
+      "rsi_zscore_1y": -1.22,
+      "zscore_quality": 0.555,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -55,8 +55,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 3,
-      "adx_reference": 31.0,
+      "wick_days_ago": 4,
+      "adx_reference": 31.3,
       "volume_confirmed": false,
       "trigger_day_volume": 36630600,
       "avg_volume_divergence_window": 49981138,
@@ -65,12 +65,12 @@
         "high": 311.21,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.2,
+  "entry_atr_stop_pct": 7.0,
   "score_addon": 41,
   "stages_addon": {
     "1_market_health": {
@@ -78,19 +78,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.7,
-      "forward_pe": 144.8926,
+      "upside_pct": 24.5,
+      "forward_pe": 143.98238,
       "peg": 4.72
     },
     "3_pullback_gate": {
@@ -109,7 +109,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.5,
+      "rsi": 36.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.4
+      "stop_pct_from_20sma": 8.7
     }
   },
   "sector": "Consumer Cyclical",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 238,
-    "days_since_prior_divergence": 12,
-    "price_drop_since_pct": 13.0,
+    "prior_divergence_date_index": 237,
+    "days_since_prior_divergence": 13,
+    "price_drop_since_pct": 13.5,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -142,8 +142,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 9,
-    "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 10,
+    "reason": "무효화 이후 10일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

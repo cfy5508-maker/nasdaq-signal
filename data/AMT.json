@@ -1,20 +1,20 @@
 {
   "ticker": "AMT",
   "name": "American Tower Corporation (REI",
-  "price": 168.07,
-  "updated": "2026-08-05T22:39:34.482345+00:00",
-  "as_of_date": "2026-08-05",
-  "score": 63,
+  "price": 171.2,
+  "updated": "2026-08-07T01:05:12.470164+00:00",
+  "as_of_date": "2026-08-06",
+  "score": 58,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.4,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -22.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 28.2,
-      "forward_pe": 24.00647,
+      "upside_pct": 25.9,
+      "forward_pe": 24.453545,
       "peg": 1.62
     },
     "3_divergence_gate": {
@@ -35,15 +35,15 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 22,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 1.0,
       "rsi_improvement": 12.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.8,
-      "rsi_zscore_1y": -0.09,
-      "zscore_quality": 0.323,
+      "rsi": 50.0,
+      "rsi_zscore_1y": 0.38,
+      "zscore_quality": 0.204,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.9,
+      "adx_reference": 23.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.0,
-  "score_addon": 45,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 47,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.4,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -22.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 28.2,
-      "forward_pe": 24.00647,
+      "upside_pct": 25.9,
+      "forward_pe": 24.453545,
       "peg": 1.62
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.8,
-      "rsi_zone_quality": 0.231,
+      "rsi": 50.0,
+      "rsi_zone_quality": 0.399,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {

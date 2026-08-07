@@ -2,8 +2,8 @@
   "ticker": "PXLW",
   "name": "Pixelworks, Inc.",
   "price": 6.38,
-  "updated": "2026-08-05T22:40:11.893255+00:00",
-  "as_of_date": "2026-08-05",
+  "updated": "2026-08-07T01:05:42.598762+00:00",
+  "as_of_date": "2026-08-06",
   "score": 47,
   "stages": {
     "1_market_health": {
@@ -11,14 +11,14 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
@@ -42,7 +42,7 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 59.0,
-      "rsi_zscore_1y": 1.34,
+      "rsi_zscore_1y": 1.31,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -55,8 +55,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 6,
-      "adx_reference": 13.1,
+      "wick_days_ago": 7,
+      "adx_reference": 14.1,
       "volume_confirmed": true,
       "trigger_day_volume": 33200,
       "avg_volume_divergence_window": 31600,
@@ -65,12 +65,12 @@
         "high": 5.92,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.5,
+  "entry_atr_stop_pct": 7.4,
   "score_addon": 62,
   "stages_addon": {
     "1_market_health": {
@@ -78,14 +78,14 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
@@ -103,7 +103,7 @@
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
-      "was_above_40_recently": false,
+      "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
@@ -122,7 +122,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.3
+      "stop_pct_from_20sma": 6.1
     }
   },
   "sector": "Technology",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 6,
-    "days_since_trend_start": 2,
+    "days_since_divergence": 7,
+    "days_since_trend_start": 3,
     "gain_since_low_pct": 9.2,
-    "divergence_date_index": 244
+    "divergence_date_index": 243
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

@@ -1,20 +1,20 @@
 {
   "ticker": "INFQ",
   "name": "Infleqtion, Inc.",
-  "price": 10.85,
-  "updated": "2026-08-05T22:39:10.327879+00:00",
-  "as_of_date": "2026-08-05",
-  "score": 46,
+  "price": 11.11,
+  "updated": "2026-08-07T01:04:52.987748+00:00",
+  "as_of_date": "2026-08-06",
+  "score": 45,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.4,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -22.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 89.9,
-      "forward_pe": -41.69549,
+      "upside_pct": 85.4,
+      "forward_pe": -42.694645,
       "peg": null
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.0,
-      "rsi_zscore_1y": 0.3,
-      "zscore_quality": 0.174,
+      "rsi": 51.5,
+      "rsi_zscore_1y": 0.44,
+      "zscore_quality": 0.139,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.5,
+      "adx_reference": 12.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -70,18 +70,18 @@
       }
     }
   },
-  "entry_atr_stop_pct": 13.5,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 13.1,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.4,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -22.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 89.9,
-      "forward_pe": -41.69549,
+      "upside_pct": 85.4,
+      "forward_pe": -42.694645,
       "peg": null
     },
     "3_pullback_gate": {
@@ -108,9 +108,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 50.0,
-      "rsi_zone_quality": 0.398,
+      "status": "warn",
+      "rsi": 51.5,
+      "rsi_zone_quality": 0.459,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.6
+      "stop_pct_from_20sma": 10.0
     }
   },
   "sector": "Technology",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 22.9,
+    "days_since_divergence": 6,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 25.8,
     "divergence_date_index": 112
   },
   "divergence_invalidated_signal": null,

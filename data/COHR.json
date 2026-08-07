@@ -1,20 +1,20 @@
 {
   "ticker": "COHR",
   "name": "Coherent Corp.",
-  "price": 328.22,
-  "updated": "2026-08-05T22:39:29.222677+00:00",
-  "as_of_date": "2026-08-05",
+  "price": 334.22,
+  "updated": "2026-08-07T01:05:08.229207+00:00",
+  "as_of_date": "2026-08-06",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.4,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -22.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.3,
-      "forward_pe": 39.208378,
+      "upside_pct": 17.1,
+      "forward_pe": 39.925125,
       "peg": 0.92
     },
     "3_divergence_gate": {
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.9,
-      "rsi_zscore_1y": -0.21,
-      "zscore_quality": 0.302,
+      "rsi": 56.1,
+      "rsi_zscore_1y": -0.08,
+      "zscore_quality": 0.269,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 2,
+      "days_ago": 3,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.9,
+      "adx_reference": 22.5,
       "volume_confirmed": true,
       "trigger_day_volume": 5547900,
       "avg_volume_divergence_window": 4835980,
@@ -65,23 +65,23 @@
         "high": 243.93,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 246,
+        "trigger_day_idx": 245,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 14.4,
-  "score_addon": 66,
+  "entry_atr_stop_pct": 14.5,
+  "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.4,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -38.2,
+      "volume_trend_pct_3d": -22.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.16,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.3,
-      "forward_pe": 39.208378,
+      "upside_pct": 17.1,
+      "forward_pe": 39.925125,
       "peg": 0.92
     },
     "3_pullback_gate": {
@@ -109,20 +109,20 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.9,
-      "rsi_zone_quality": 0.595,
+      "rsi": 56.1,
+      "rsi_zone_quality": 0.642,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "status": "fail",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.3
+      "stop_pct_from_20sma": 12.8
     }
   },
   "sector": "Technology",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 21.0,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 23.2,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
@@ -142,6 +142,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }

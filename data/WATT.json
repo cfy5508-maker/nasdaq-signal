@@ -1,9 +1,9 @@
 {
   "ticker": "WATT",
   "name": "Energous Corporation",
-  "price": 17.88,
-  "updated": "2026-08-05T22:39:18.051399+00:00",
-  "as_of_date": "2026-08-05",
+  "price": 17.91,
+  "updated": "2026-08-07T01:04:59.052376+00:00",
+  "as_of_date": "2026-08-06",
   "score": 59,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 58.0,
-      "forward_pe": 22.074074,
+      "upside_pct": 57.7,
+      "forward_pe": 22.11111,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,7 +31,7 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 8,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.9,
-      "rsi_zscore_1y": 0.04,
-      "zscore_quality": 0.241,
+      "rsi": 52.0,
+      "rsi_zscore_1y": 0.05,
+      "zscore_quality": 0.239,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -55,8 +55,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 3,
-      "adx_reference": 25.7,
+      "wick_days_ago": 4,
+      "adx_reference": 24.5,
       "volume_confirmed": false,
       "trigger_day_volume": 117600,
       "avg_volume_divergence_window": 175689,
@@ -65,12 +65,12 @@
         "high": 14.03,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 14.1,
+  "entry_atr_stop_pct": 14.0,
   "score_addon": 47,
   "stages_addon": {
     "1_market_health": {
@@ -78,19 +78,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 58.0,
-      "forward_pe": 22.074074,
+      "upside_pct": 57.7,
+      "forward_pe": 22.11111,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.9,
-      "rsi_zone_quality": 0.475,
+      "rsi": 52.0,
+      "rsi_zone_quality": 0.48,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.8
+      "stop_pct_from_20sma": 12.2
     }
   },
   "sector": "Technology",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 25.0,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 25.2,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

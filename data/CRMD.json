@@ -1,29 +1,29 @@
 {
   "ticker": "CRMD",
   "name": "CorMedix Inc.",
-  "price": 7.41,
-  "updated": "2026-08-05T22:40:06.977748+00:00",
-  "as_of_date": "2026-08-05",
-  "score": 55,
+  "price": 7.51,
+  "updated": "2026-08-07T01:05:38.583613+00:00",
+  "as_of_date": "2026-08-06",
+  "score": 53,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 102.4,
-      "forward_pe": 21.171429,
+      "upside_pct": 99.7,
+      "forward_pe": 21.457144,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,19 +31,19 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 21,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.449,
       "rsi_improvement": -3.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.2,
-      "rsi_zscore_1y": -0.77,
-      "zscore_quality": 0.442,
+      "rsi": 41.8,
+      "rsi_zscore_1y": -0.55,
+      "zscore_quality": 0.388,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,42 +56,42 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.4,
+      "adx_reference": 28.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 6.8,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 6.4,
+  "score_addon": 51,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 102.4,
-      "forward_pe": 21.171429,
+      "upside_pct": 99.7,
+      "forward_pe": 21.457144,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
+      "near_sma120": true,
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.2,
-      "rsi_zone_quality": 0.0,
+      "rsi": 41.8,
+      "rsi_zone_quality": 0.07,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.8
+      "stop_pct_from_20sma": 4.6
     }
   },
   "sector": "Healthcare",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 243,
-    "days_since_prior_divergence": 7,
-    "price_drop_since_pct": 2.5,
+    "prior_divergence_date_index": 242,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 1.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -135,8 +135,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

@@ -1,30 +1,30 @@
 {
   "ticker": "AEP",
   "name": "American Electric Power Company",
-  "price": 126.47,
-  "updated": "2026-08-05T22:40:15.626848+00:00",
-  "as_of_date": "2026-08-05",
-  "score": 24,
+  "price": 125.26,
+  "updated": "2026-08-07T01:05:45.637143+00:00",
+  "as_of_date": "2026-08-06",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.7,
-      "forward_pe": 18.440243,
-      "peg": 2.18
+      "status": "pass",
+      "upside_pct": 15.6,
+      "forward_pe": 18.263815,
+      "peg": 2.19
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -37,13 +37,13 @@
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -5.2
+      "rsi_improvement": -4.5
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 35.7,
-      "rsi_zscore_1y": -1.52,
-      "zscore_quality": 0.63,
+      "rsi": 33.3,
+      "rsi_zscore_1y": -1.69,
+      "zscore_quality": 0.671,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,35 +56,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.5,
+      "adx_reference": 17.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 0,
+  "entry_atr_stop_pct": 3.5,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.0,
-      "volume_trend_pct_3d": -21.3,
+      "volume_diff_pct_3m": -31.6,
+      "volume_trend_pct_3d": -23.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.9,
+      "daily_change_pct": -0.37,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.7,
-      "forward_pe": 18.440243,
-      "peg": 2.18
+      "status": "pass",
+      "upside_pct": 15.6,
+      "forward_pe": 18.263815,
+      "peg": 2.19
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.7,
+      "rsi": 33.3,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.3
+      "stop_pct_from_20sma": 4.9
     }
   },
   "sector": "Utilities",
@@ -123,17 +123,21 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 237,
-    "days_since_prior_divergence": 13,
-    "price_drop_since_pct": 4.3,
+    "prior_divergence_date_index": 236,
+    "days_since_prior_divergence": 14,
+    "price_drop_since_pct": 5.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 126.47,
+    "stop_reference_price": 125.26,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
