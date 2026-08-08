@@ -2,7 +2,7 @@
   "ticker": "LLY",
   "name": "Eli Lilly and Company",
   "price": 1185.71,
-  "updated": "2026-08-07T22:09:46.756754+00:00",
+  "updated": "2026-08-08T21:59:28.418246+00:00",
   "as_of_date": "2026-08-07",
   "score": 26,
   "stages": {
@@ -11,8 +11,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.8,
-      "volume_trend_pct_3d": -34.3,
+      "volume_diff_pct_3m": -18.2,
+      "volume_trend_pct_3d": -33.9,
       "volume_trend_up": false,
       "daily_change_pct": 0.61,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 9.4,
-      "forward_pe": 25.619883,
+      "forward_pe": 25.520395,
       "peg": 1.64
     },
     "3_divergence_gate": {
@@ -57,8 +57,8 @@
       "long_lower_wick": true,
       "wick_days_ago": 0,
       "adx_reference": 18.5,
-      "volume_confirmed": false,
-      "trigger_day_volume": 1797267,
+      "volume_confirmed": true,
+      "trigger_day_volume": 2897000,
       "avg_volume_divergence_window": 2438983,
       "order_block": {
         "low": 1115.68,
@@ -71,15 +71,15 @@
     }
   },
   "entry_atr_stop_pct": 5.3,
-  "score_addon": 24,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.8,
-      "volume_trend_pct_3d": -34.3,
+      "volume_diff_pct_3m": -18.2,
+      "volume_trend_pct_3d": -33.9,
       "volume_trend_up": false,
       "daily_change_pct": 0.61,
       "volatility_label": "정상",
@@ -90,7 +90,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 9.4,
-      "forward_pe": 25.619883,
+      "forward_pe": 25.520395,
       "peg": 1.64
     },
     "3_pullback_gate": {
@@ -114,12 +114,12 @@
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": 1.2
