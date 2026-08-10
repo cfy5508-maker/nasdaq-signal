@@ -1,29 +1,29 @@
 {
   "ticker": "FSLR",
   "name": "First Solar, Inc.",
-  "price": 250.05,
-  "updated": "2026-08-09T22:01:49.464461+00:00",
-  "as_of_date": "2026-08-07",
-  "score": 51,
+  "price": 239.33,
+  "updated": "2026-08-10T22:17:06.722477+00:00",
+  "as_of_date": "2026-08-10",
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.3,
-      "volume_trend_pct_3d": -37.1,
+      "volume_diff_pct_3m": -44.9,
+      "volume_trend_pct_3d": -36.0,
       "volume_trend_up": false,
-      "daily_change_pct": 1.17,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.3,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 7.2,
-      "forward_pe": 10.836836,
+      "upside_pct": 12.0,
+      "forward_pe": 10.372245,
       "peg": 0.68
     },
     "3_divergence_gate": {
@@ -31,7 +31,7 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 6,
+      "retest_days_ago": 7,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 7,
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 64.0,
-      "rsi_zscore_1y": 1.04,
-      "zscore_quality": 0.0,
+      "rsi": 56.7,
+      "rsi_zscore_1y": 0.42,
+      "zscore_quality": 0.145,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -55,8 +55,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 6,
-      "adx_reference": 33.0,
+      "wick_days_ago": 7,
+      "adx_reference": 32.3,
       "volume_confirmed": true,
       "trigger_day_volume": 2397700,
       "avg_volume_divergence_window": 1681762,
@@ -65,41 +65,41 @@
         "high": 206.01,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 245,
+        "trigger_day_idx": 244,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.6,
-  "score_addon": 64,
+  "entry_atr_stop_pct": 9.1,
+  "score_addon": 95,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.3,
-      "volume_trend_pct_3d": -37.1,
+      "volume_diff_pct_3m": -44.9,
+      "volume_trend_pct_3d": -36.0,
       "volume_trend_up": false,
-      "daily_change_pct": 1.17,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.3,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 7.2,
-      "forward_pe": 10.836836,
+      "upside_pct": 12.0,
+      "forward_pe": 10.372245,
       "peg": 0.68
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
@@ -108,9 +108,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 64.0,
-      "rsi_zone_quality": 0.96,
+      "status": "warn",
+      "rsi": 56.7,
+      "rsi_zone_quality": 0.669,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,18 +122,18 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 13.0
+      "stop_pct_from_20sma": 8.7
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "phase": "entry",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 5,
-    "gain_since_low_pct": 23.4,
-    "divergence_date_index": 242
+    "phase": "ongoing",
+    "days_since_divergence": 9,
+    "days_since_trend_start": 6,
+    "gain_since_low_pct": 18.1,
+    "divergence_date_index": 241
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

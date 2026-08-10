@@ -1,49 +1,49 @@
 {
   "ticker": "AEP",
   "name": "American Electric Power Company",
-  "price": 125.73,
-  "updated": "2026-08-09T22:02:42.885495+00:00",
-  "as_of_date": "2026-08-07",
-  "score": 31,
+  "price": 122.84,
+  "updated": "2026-08-10T22:18:00.003844+00:00",
+  "as_of_date": "2026-08-10",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.3,
-      "volume_trend_pct_3d": -37.1,
+      "volume_diff_pct_3m": -44.9,
+      "volume_trend_pct_3d": -36.0,
       "volume_trend_up": false,
-      "daily_change_pct": 1.17,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.3,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.9,
-      "forward_pe": 18.332346,
+      "status": "pass",
+      "upside_pct": 17.6,
+      "forward_pe": 17.910961,
       "peg": 2.14
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 5,
-      "signal_fresh": true,
-      "divergence_quality": 0.326,
-      "rsi_improvement": -4.5
+      "divergence_present": false,
+      "gap_days": 7,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -8.0
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 35.1,
-      "rsi_zscore_1y": -1.53,
-      "zscore_quality": 0.633,
+      "rsi": 29.9,
+      "rsi_zscore_1y": -1.95,
+      "zscore_quality": 0.738,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,45 +56,45 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.0,
+      "adx_reference": 20.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 0,
+  "entry_atr_stop_pct": 3.6,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.3,
-      "volume_trend_pct_3d": -37.1,
+      "volume_diff_pct_3m": -44.9,
+      "volume_trend_pct_3d": -36.0,
       "volume_trend_up": false,
-      "daily_change_pct": 1.17,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.3,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.9,
-      "forward_pe": 18.332346,
+      "status": "pass",
+      "upside_pct": 17.6,
+      "forward_pe": 17.910961,
       "peg": 2.14
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": true,
       "near_ma_count": 0,
-      "ma_converged_ignored": true,
+      "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.1,
+      "rsi": 29.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.2
+      "stop_pct_from_20sma": 6.1
     }
   },
   "sector": "Utilities",
@@ -123,20 +123,20 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 235,
-    "days_since_prior_divergence": 15,
-    "price_drop_since_pct": 4.9,
+    "prior_divergence_date_index": 234,
+    "days_since_prior_divergence": 16,
+    "price_drop_since_pct": 7.0,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 125.26,
+    "stop_reference_price": 122.84,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

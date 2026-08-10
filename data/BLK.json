@@ -1,20 +1,20 @@
 {
   "ticker": "BLK",
   "name": "BlackRock, Inc.",
-  "price": 1136.39,
-  "updated": "2026-08-09T22:02:05.193582+00:00",
-  "as_of_date": "2026-08-07",
+  "price": 1131.4,
+  "updated": "2026-08-10T22:17:22.381848+00:00",
+  "as_of_date": "2026-08-10",
   "score": 47,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.2,
-      "volume_trend_pct_3d": -33.9,
+      "volume_diff_pct_3m": -39.9,
+      "volume_trend_pct_3d": -34.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.61,
+      "daily_change_pct": -0.03,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.6,
-      "forward_pe": 17.725008,
+      "upside_pct": 16.1,
+      "forward_pe": 17.63682,
       "peg": 1.22
     },
     "3_divergence_gate": {
@@ -41,8 +41,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 65.7,
-      "rsi_zscore_1y": 1.57,
+      "rsi": 64.0,
+      "rsi_zscore_1y": 1.4,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -50,13 +50,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
-      "days_ago": 9,
+      "days_ago": 10,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 9,
-      "adx_reference": 25.6,
+      "wick_days_ago": 10,
+      "adx_reference": 26.3,
       "volume_confirmed": false,
       "trigger_day_volume": 698100,
       "avg_volume_divergence_window": 826367,
@@ -65,23 +65,23 @@
         "high": 1051.15,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 241,
+        "trigger_day_idx": 240,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.5,
+  "entry_atr_stop_pct": 3.4,
   "score_addon": 53,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.2,
-      "volume_trend_pct_3d": -33.9,
+      "volume_diff_pct_3m": -39.9,
+      "volume_trend_pct_3d": -34.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.61,
+      "daily_change_pct": -0.03,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.6,
-      "forward_pe": 17.725008,
+      "upside_pct": 16.1,
+      "forward_pe": 17.63682,
       "peg": 1.22
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 65.7,
-      "rsi_zone_quality": 1.0,
+      "rsi": 64.0,
+      "rsi_zone_quality": 0.962,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.8
+      "stop_pct_from_20sma": 3.9
     }
   },
   "sector": "Financial Services",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 11,
-    "days_since_trend_start": 8,
-    "gain_since_low_pct": 9.6,
-    "divergence_date_index": 239
+    "days_since_divergence": 12,
+    "days_since_trend_start": 9,
+    "gain_since_low_pct": 9.1,
+    "divergence_date_index": 238
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
