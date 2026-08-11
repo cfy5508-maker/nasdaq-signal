@@ -1,20 +1,20 @@
 {
   "ticker": "CI",
   "name": "The Cigna Group",
-  "price": 278.4,
-  "updated": "2026-08-10T22:17:47.461486+00:00",
-  "as_of_date": "2026-08-10",
-  "score": 55,
+  "price": 273.87,
+  "updated": "2026-08-11T22:22:43.444933+00:00",
+  "as_of_date": "2026-08-11",
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.6,
-      "forward_pe": 8.316989,
-      "peg": 0.85
+      "upside_pct": 24.7,
+      "forward_pe": 8.181659,
+      "peg": 0.83
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -36,14 +36,14 @@
       "divergence_present": true,
       "gap_days": 25,
       "signal_fresh": true,
-      "divergence_quality": 0.501,
+      "divergence_quality": 0.405,
       "rsi_improvement": -3.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.5,
-      "rsi_zscore_1y": -0.63,
-      "zscore_quality": 0.408,
+      "rsi": 42.7,
+      "rsi_zscore_1y": -0.95,
+      "zscore_quality": 0.489,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -63,18 +63,18 @@
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.8,
-  "score_addon": 26,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,19 +82,19 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.6,
-      "forward_pe": 8.316989,
-      "peg": 0.85
+      "upside_pct": 24.7,
+      "forward_pe": 8.181659,
+      "peg": 0.83
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": true,
       "near_ma_count": 0,
-      "ma_converged_ignored": true,
+      "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.5,
-      "rsi_zone_quality": 0.222,
+      "rsi": 42.7,
+      "rsi_zone_quality": 0.106,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 3.9
     }
   },
   "sector": "Healthcare",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 0.2,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 7,
+    "price_drop_since_pct": 1.9,
     "rescue_attempted": true
   },
   "downtrend_signal": null,

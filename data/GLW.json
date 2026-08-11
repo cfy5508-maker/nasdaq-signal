@@ -1,9 +1,9 @@
 {
   "ticker": "GLW",
   "name": "Corning Incorporated",
-  "price": 157.76,
-  "updated": "2026-08-10T22:17:50.412920+00:00",
-  "as_of_date": "2026-08-10",
+  "price": 159.19,
+  "updated": "2026-08-11T22:22:46.318356+00:00",
+  "as_of_date": "2026-08-11",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.3,
-      "forward_pe": 36.51446,
-      "peg": 1.27
+      "upside_pct": 20.2,
+      "forward_pe": 36.845444,
+      "peg": 1.2
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.9,
-      "rsi_zscore_1y": -0.9,
-      "zscore_quality": 0.475,
+      "rsi": 48.6,
+      "rsi_zscore_1y": -0.84,
+      "zscore_quality": 0.459,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 5,
+      "days_ago": 6,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.6,
+      "adx_reference": 17.0,
       "volume_confirmed": false,
       "trigger_day_volume": 12618600,
       "avg_volume_divergence_window": 16473700,
@@ -65,23 +65,23 @@
         "high": 126.3,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 243,
+        "trigger_day_idx": 242,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 13.2,
-  "score_addon": 27,
+  "entry_atr_stop_pct": 12.4,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,9 +89,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.3,
-      "forward_pe": 36.51446,
-      "peg": 1.27
+      "upside_pct": 20.2,
+      "forward_pe": 36.845444,
+      "peg": 1.2
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.9,
-      "rsi_zone_quality": 0.316,
+      "rsi": 48.6,
+      "rsi_zone_quality": 0.345,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.1
+      "stop_pct_from_20sma": 4.8
     }
   },
   "sector": "Technology",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 230,
-    "days_since_prior_divergence": 20,
-    "price_drop_since_pct": 13.8,
+    "prior_divergence_date_index": 229,
+    "days_since_prior_divergence": 21,
+    "price_drop_since_pct": 13.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -142,8 +142,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 18,
-    "reason": "무효화 이후 18일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 19,
+    "reason": "무효화 이후 19일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

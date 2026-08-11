@@ -1,20 +1,20 @@
 {
   "ticker": "TER",
   "name": "Teradyne, Inc.",
-  "price": 365.1,
-  "updated": "2026-08-10T22:17:30.204034+00:00",
-  "as_of_date": "2026-08-10",
-  "score": 30,
+  "price": 379.56,
+  "updated": "2026-08-11T22:22:26.188587+00:00",
+  "as_of_date": "2026-08-11",
+  "score": 54,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,28 +22,28 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 31.6021,
-      "peg": 0.97
+      "upside_pct": 18.5,
+      "forward_pe": 32.853718,
+      "peg": 0.93
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 8,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.378,
       "rsi_improvement": 8.8
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 49.0,
-      "rsi_zscore_1y": -1.03,
-      "zscore_quality": 0.558,
+      "status": "fail",
+      "rsi": 52.4,
+      "rsi_zscore_1y": -0.69,
+      "zscore_quality": 0.471,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.2,
+      "adx_reference": 11.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.8,
-  "score_addon": 55,
+  "entry_atr_stop_pct": 12.1,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,18 +82,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 31.6021,
-      "peg": 0.97
+      "upside_pct": 18.5,
+      "forward_pe": 32.853718,
+      "peg": 0.93
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": true,
+      "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -101,9 +101,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.0,
-      "rsi_zone_quality": 0.362,
+      "status": "warn",
+      "rsi": 52.4,
+      "rsi_zone_quality": 0.495,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 5.6
     }
   },
   "sector": "Technology",
@@ -123,10 +123,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 7,
-    "gain_since_low_pct": 14.3,
-    "divergence_date_index": 242
+    "days_since_divergence": 9,
+    "days_since_trend_start": 8,
+    "gain_since_low_pct": 18.8,
+    "divergence_date_index": 241
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

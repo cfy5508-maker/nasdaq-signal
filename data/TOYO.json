@@ -1,9 +1,9 @@
 {
   "ticker": "TOYO",
   "name": "TOYO Co., Ltd",
-  "price": 5.35,
-  "updated": "2026-08-10T22:17:00.513341+00:00",
-  "as_of_date": "2026-08-10",
+  "price": 5.52,
+  "updated": "2026-08-11T22:21:56.901362+00:00",
+  "as_of_date": "2026-08-11",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 208.4,
-      "forward_pe": 1.317734,
+      "upside_pct": 198.9,
+      "forward_pe": 1.3596059,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,7 +31,7 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 8,
+      "retest_days_ago": 9,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 5,
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.3,
-      "rsi_zscore_1y": -0.87,
-      "zscore_quality": 0.517,
+      "rsi": 42.8,
+      "rsi_zscore_1y": -0.68,
+      "zscore_quality": 0.47,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 7,
+      "days_ago": 8,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 31.1,
+      "adx_reference": 29.4,
       "volume_confirmed": false,
       "trigger_day_volume": 649000,
       "avg_volume_divergence_window": 733100,
@@ -65,23 +65,23 @@
         "high": 4.7,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 243,
+        "trigger_day_idx": 242,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 15.8,
-  "score_addon": 42,
+  "entry_atr_stop_pct": 14.8,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,18 +89,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 208.4,
-      "forward_pe": 1.317734,
+      "upside_pct": 198.9,
+      "forward_pe": 1.3596059,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": false,
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.3,
-      "rsi_zone_quality": 0.011,
+      "rsi": 42.8,
+      "rsi_zone_quality": 0.111,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Technology",
@@ -130,9 +130,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 229,
-    "days_since_prior_divergence": 21,
-    "price_drop_since_pct": 11.6,
+    "prior_divergence_date_index": 228,
+    "days_since_prior_divergence": 22,
+    "price_drop_since_pct": 8.8,
     "rescue_attempted": true
   },
   "downtrend_signal": null,

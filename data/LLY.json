@@ -1,20 +1,20 @@
 {
   "ticker": "LLY",
   "name": "Eli Lilly and Company",
-  "price": 1231.94,
-  "updated": "2026-08-10T22:17:40.461255+00:00",
-  "as_of_date": "2026-08-10",
-  "score": 21,
+  "price": 1215.02,
+  "updated": "2026-08-11T22:22:36.469782+00:00",
+  "as_of_date": "2026-08-11",
+  "score": 23,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 4.9,
-      "forward_pe": 26.493965,
+      "upside_pct": 6.9,
+      "forward_pe": 26.09735,
       "peg": 1.49
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.7,
-      "rsi_zscore_1y": 0.21,
-      "zscore_quality": 0.247,
+      "rsi": 57.3,
+      "rsi_zscore_1y": -0.04,
+      "zscore_quality": 0.31,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -52,36 +52,36 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 19.3,
+      "wick_days_ago": 2,
+      "adx_reference": 20.1,
       "volume_confirmed": true,
-      "trigger_day_volume": 2897000,
+      "trigger_day_volume": 2898500,
       "avg_volume_divergence_window": 2438983,
       "order_block": {
         "low": 1115.68,
         "high": 1117.38,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 5.2,
-  "score_addon": 46,
+  "entry_atr_stop_pct": 5.1,
+  "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 4.9,
-      "forward_pe": 26.493965,
+      "upside_pct": 6.9,
+      "forward_pe": 26.09735,
       "peg": 1.49
     },
     "3_pullback_gate": {
@@ -102,27 +102,27 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
+      "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 60.7,
-      "rsi_zone_quality": 0.829,
+      "status": "warn",
+      "rsi": 57.3,
+      "rsi_zone_quality": 0.692,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
       "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": true,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.7
+      "stop_pct_from_20sma": 3.1
     }
   },
   "sector": "Healthcare",
@@ -135,6 +135,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }

@@ -1,9 +1,9 @@
 {
   "ticker": "NXT",
   "name": "Nextpower Inc.",
-  "price": 102.91,
-  "updated": "2026-08-10T22:17:09.765161+00:00",
-  "as_of_date": "2026-08-10",
+  "price": 104.88,
+  "updated": "2026-08-11T22:22:05.878094+00:00",
+  "as_of_date": "2026-08-11",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 38.5,
-      "forward_pe": 17.80102,
+      "upside_pct": 35.9,
+      "forward_pe": 18.141783,
       "peg": 3.15
     },
     "3_divergence_gate": {
@@ -41,40 +41,40 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.2,
-      "rsi_zscore_1y": -0.53,
-      "zscore_quality": 0.383,
+      "rsi": 51.2,
+      "rsi_zscore_1y": -0.33,
+      "zscore_quality": 0.334,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 4,
+      "days_ago": 5,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.2,
+      "adx_reference": 18.9,
       "volume_confirmed": true,
       "trigger_day_volume": 3684900,
       "avg_volume_divergence_window": 3397673,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.2,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 9.7,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 38.5,
-      "forward_pe": 17.80102,
+      "upside_pct": 35.9,
+      "forward_pe": 18.141783,
       "peg": 3.15
     },
     "3_pullback_gate": {
@@ -101,9 +101,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.2,
-      "rsi_zone_quality": 0.368,
+      "status": "warn",
+      "rsi": 51.2,
+      "rsi_zone_quality": 0.447,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 4.1
     }
   },
   "sector": "Technology",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 241,
-    "days_since_prior_divergence": 9,
-    "price_drop_since_pct": -7.9,
+    "prior_divergence_date_index": 240,
+    "days_since_prior_divergence": 10,
+    "price_drop_since_pct": -10.0,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -135,8 +135,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

@@ -1,20 +1,20 @@
 {
   "ticker": "VST",
   "name": "Vistra Corp.",
-  "price": 142.87,
-  "updated": "2026-08-10T22:17:49.047760+00:00",
-  "as_of_date": "2026-08-10",
-  "score": 59,
+  "price": 144.92,
+  "updated": "2026-08-11T22:22:44.941030+00:00",
+  "as_of_date": "2026-08-11",
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 55.5,
-      "forward_pe": 13.83647,
-      "peg": 0.4
+      "upside_pct": 53.0,
+      "forward_pe": 14.035006,
+      "peg": 0.41
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 41.7,
-      "rsi_zscore_1y": -0.83,
-      "zscore_quality": 0.458,
+      "rsi": 43.9,
+      "rsi_zscore_1y": -0.48,
+      "zscore_quality": 0.369,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.7,
+      "adx_reference": 15.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.7,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 7.4,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -39.9,
-      "volume_trend_pct_3d": -34.4,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -21.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.03,
+      "daily_change_pct": -0.32,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,9 +82,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 55.5,
-      "forward_pe": 13.83647,
-      "peg": 0.4
+      "upside_pct": 53.0,
+      "forward_pe": 14.035006,
+      "peg": 0.41
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 41.7,
-      "rsi_zone_quality": 0.068,
+      "rsi": 43.9,
+      "rsi_zone_quality": 0.157,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,12 +115,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.0
+      "stop_pct_from_20sma": 5.0
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "sector_relative_strength_up": true,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 4,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 3.1,
+    "divergence_date_index": 246
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {

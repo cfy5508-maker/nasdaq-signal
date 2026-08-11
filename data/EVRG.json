@@ -1,9 +1,9 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 82.09,
-  "updated": "2026-08-10T22:18:20.509692+00:00",
-  "as_of_date": "2026-08-10",
+  "price": 82.03,
+  "updated": "2026-08-11T22:23:15.951271+00:00",
+  "as_of_date": "2026-08-11",
   "score": 25,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.7,
-      "forward_pe": 17.981293,
-      "peg": 2.35
+      "upside_pct": 11.8,
+      "forward_pe": 17.968151,
+      "peg": 2.31
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 7,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -2.0
+      "rsi_improvement": -2.3
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 37.4,
+      "rsi": 37.2,
       "rsi_zscore_1y": -1.7,
-      "zscore_quality": 0.674,
+      "zscore_quality": 0.676,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,14 +56,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.5,
+      "adx_reference": 12.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.0,
+  "entry_atr_stop_pct": 2.9,
   "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
@@ -71,10 +71,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -44.9,
-      "volume_trend_pct_3d": -36.0,
+      "volume_diff_pct_3m": -34.4,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.3,
+      "daily_change_pct": -0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,9 +82,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.7,
-      "forward_pe": 17.981293,
-      "peg": 2.35
+      "upside_pct": 11.8,
+      "forward_pe": 17.968151,
+      "peg": 2.31
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -102,7 +102,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.4,
+      "rsi": 37.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.2
+      "stop_pct_from_20sma": 3.0
     }
   },
   "sector": "Utilities",
@@ -123,14 +123,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 228,
-    "days_since_prior_divergence": 22,
-    "price_drop_since_pct": 3.7,
+    "prior_divergence_date_index": 227,
+    "days_since_prior_divergence": 23,
+    "price_drop_since_pct": 3.8,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 82.09,
+    "stop_reference_price": 82.03,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
