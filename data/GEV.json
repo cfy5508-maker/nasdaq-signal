@@ -1,9 +1,9 @@
 {
   "ticker": "GEV",
   "name": "GE Vernova Inc.",
-  "price": 1011.88,
-  "updated": "2026-08-11T22:22:59.048751+00:00",
-  "as_of_date": "2026-08-11",
+  "price": 1039.9,
+  "updated": "2026-08-12T22:22:06.166681+00:00",
+  "as_of_date": "2026-08-12",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -31.8,
-      "volume_trend_pct_3d": -21.8,
+      "volume_diff_pct_3m": -37.9,
+      "volume_trend_pct_3d": -14.2,
       "volume_trend_up": false,
-      "daily_change_pct": -0.32,
+      "daily_change_pct": 0.25,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.4,
-      "forward_pe": 40.64629,
+      "upside_pct": 19.1,
+      "forward_pe": 41.771828,
       "peg": 1.68
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.4,
-      "rsi_zscore_1y": -0.43,
-      "zscore_quality": 0.357,
+      "rsi": 53.4,
+      "rsi_zscore_1y": -0.06,
+      "zscore_quality": 0.266,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.7,
+      "adx_reference": 14.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,23 +65,23 @@
         "high": 943.99,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 242,
+        "trigger_day_idx": 241,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.1,
-  "score_addon": 55,
+  "entry_atr_stop_pct": 7.7,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -31.8,
-      "volume_trend_pct_3d": -21.8,
+      "volume_diff_pct_3m": -37.9,
+      "volume_trend_pct_3d": -14.2,
       "volume_trend_up": false,
-      "daily_change_pct": -0.32,
+      "daily_change_pct": 0.25,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,16 +89,16 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.4,
-      "forward_pe": 40.64629,
+      "upside_pct": 19.1,
+      "forward_pe": 41.771828,
       "peg": 1.68
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": true,
+      "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
@@ -108,9 +108,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.4,
-      "rsi_zone_quality": 0.377,
+      "status": "warn",
+      "rsi": 53.4,
+      "rsi_zone_quality": 0.536,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.2
+      "stop_pct_from_20sma": 3.0
     }
   },
   "sector": "Industrials",

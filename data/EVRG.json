@@ -1,10 +1,10 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 82.03,
-  "updated": "2026-08-11T22:23:42.620500+00:00",
-  "as_of_date": "2026-08-11",
-  "score": 25,
+  "price": 83.32,
+  "updated": "2026-08-12T22:22:41.222630+00:00",
+  "as_of_date": "2026-08-12",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -12,9 +12,9 @@
       "index_symbol": "^IXIC",
       "etf": "QQQ",
       "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -31.7,
+      "volume_trend_pct_3d": -13.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.34,
+      "daily_change_pct": 0.73,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,28 +22,28 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.8,
-      "forward_pe": 17.968151,
+      "upside_pct": 10.1,
+      "forward_pe": 18.250717,
       "peg": 2.31
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
-      "gap_days": 7,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": -2.3
+      "divergence_present": true,
+      "gap_days": 6,
+      "signal_fresh": true,
+      "divergence_quality": 0.523,
+      "rsi_improvement": -3.4
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 37.2,
-      "rsi_zscore_1y": -1.7,
-      "zscore_quality": 0.676,
+      "status": "fail",
+      "rsi": 45.4,
+      "rsi_zscore_1y": -0.89,
+      "zscore_quality": 0.472,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -53,10 +53,10 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.4,
+      "adx_reference": 15.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -64,7 +64,7 @@
     }
   },
   "entry_atr_stop_pct": 2.9,
-  "score_addon": 0,
+  "score_addon": 3,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -72,9 +72,9 @@
       "index_symbol": "^IXIC",
       "etf": "QQQ",
       "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -31.7,
+      "volume_trend_pct_3d": -13.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.34,
+      "daily_change_pct": 0.73,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.8,
-      "forward_pe": 17.968151,
+      "upside_pct": 10.1,
+      "forward_pe": 18.250717,
       "peg": 2.31
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.2,
-      "rsi_zone_quality": 0.0,
+      "rsi": 45.4,
+      "rsi_zone_quality": 0.215,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.0
+      "stop_pct_from_20sma": 1.5
     }
   },
   "sector": "Utilities",
@@ -123,10 +123,10 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 227,
-    "days_since_prior_divergence": 23,
-    "price_drop_since_pct": 3.8,
-    "rescue_attempted": false
+    "prior_divergence_date_index": 226,
+    "days_since_prior_divergence": 21,
+    "price_drop_since_pct": 2.3,
+    "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {

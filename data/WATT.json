@@ -1,10 +1,10 @@
 {
   "ticker": "WATT",
   "name": "Energous Corporation",
-  "price": 18.66,
-  "updated": "2026-08-11T22:22:49.208012+00:00",
-  "as_of_date": "2026-08-11",
-  "score": 57,
+  "price": 16.98,
+  "updated": "2026-08-12T22:21:58.717830+00:00",
+  "as_of_date": "2026-08-12",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -12,9 +12,9 @@
       "index_symbol": "^IXIC",
       "etf": "QQQ",
       "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -31.7,
+      "volume_trend_pct_3d": -13.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.34,
+      "daily_change_pct": 0.73,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,56 +22,49 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.4,
-      "forward_pe": 23.037037,
+      "upside_pct": 66.4,
+      "forward_pe": 20.962963,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 8,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 8,
-      "signal_fresh": false,
-      "divergence_quality": 0.462,
-      "rsi_improvement": -1.5
+      "divergence_present": false,
+      "gap_days": 9,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 17.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.2,
-      "rsi_zscore_1y": 0.24,
-      "zscore_quality": 0.189,
-      "zscore_direction_bonus_applied": false
+      "rsi": 45.7,
+      "rsi_zscore_1y": -0.41,
+      "zscore_quality": 0.402,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 7,
-      "adx_reference": 21.7,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 19.4,
       "volume_confirmed": false,
-      "trigger_day_volume": 117600,
-      "avg_volume_divergence_window": 175689,
-      "order_block": {
-        "low": 13.56,
-        "high": 14.03,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 245,
-        "gap_confirmed": true
-      }
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.5,
-  "score_addon": 49,
+  "entry_atr_stop_pct": 15.2,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -79,9 +72,9 @@
       "index_symbol": "^IXIC",
       "etf": "QQQ",
       "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -31.7,
+      "volume_trend_pct_3d": -13.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.34,
+      "daily_change_pct": 0.73,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.4,
-      "forward_pe": 23.037037,
+      "upside_pct": 66.4,
+      "forward_pe": 20.962963,
       "peg": null
     },
     "3_pullback_gate": {
@@ -108,37 +101,37 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 55.2,
-      "rsi_zone_quality": 0.608,
+      "status": "fail",
+      "rsi": 45.7,
+      "rsi_zone_quality": 0.23,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 14.8
+      "stop_pct_from_20sma": 5.0
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
-    "phase": "entry",
+    "phase": "ongoing",
     "days_since_divergence": 11,
-    "days_since_trend_start": 5,
-    "gain_since_low_pct": 30.5,
-    "divergence_date_index": 240
+    "days_since_trend_start": 6,
+    "gain_since_low_pct": 18.7,
+    "divergence_date_index": 237
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 13.05,
+    "stop_reference_price": 16.98,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
