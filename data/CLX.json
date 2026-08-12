@@ -2,9 +2,9 @@
   "ticker": "CLX",
   "name": "Clorox Company (The)",
   "price": 105.76,
-  "updated": "2026-08-12T22:22:42.273716+00:00",
+  "updated": "2026-08-12T22:23:13.431156+00:00",
   "as_of_date": "2026-08-12",
-  "score": 19,
+  "score": 20,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 28,
+      "gap_days": 26,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 6.6
+      "rsi_improvement": 6.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 61.8,
-      "rsi_zscore_1y": 1.0,
-      "zscore_quality": 0.051,
+      "rsi": 61.3,
+      "rsi_zscore_1y": 0.97,
+      "zscore_quality": 0.059,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,22 +56,22 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 8,
-      "adx_reference": 24.2,
+      "adx_reference": 23.6,
       "volume_confirmed": true,
       "trigger_day_volume": 3982600,
-      "avg_volume_divergence_window": 2336197,
+      "avg_volume_divergence_window": 2367726,
       "order_block": {
         "low": 95.53,
         "high": 95.65,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 243,
+        "trigger_day_idx": 241,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.5,
-  "score_addon": 35,
+  "entry_atr_stop_pct": 4.6,
+  "score_addon": 69,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -94,12 +94,12 @@
       "peg": 2.48
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 61.8,
-      "rsi_zone_quality": 0.871,
+      "rsi": 61.3,
+      "rsi_zone_quality": 0.853,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -133,7 +133,7 @@
     "days_since_divergence": 8,
     "days_since_trend_start": 6,
     "gain_since_low_pct": 10.7,
-    "divergence_date_index": 242
+    "divergence_date_index": 240
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
