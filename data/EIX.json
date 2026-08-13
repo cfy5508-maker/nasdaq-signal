@@ -1,20 +1,20 @@
 {
   "ticker": "EIX",
   "name": "Edison International",
-  "price": 69.4,
-  "updated": "2026-08-12T22:23:28.158473+00:00",
-  "as_of_date": "2026-08-12",
-  "score": 39,
+  "price": 70.68,
+  "updated": "2026-08-13T22:23:09.286263+00:00",
+  "as_of_date": "2026-08-13",
+  "score": 47,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -37.9,
-      "volume_trend_pct_3d": -14.2,
+      "volume_diff_pct_3m": -42.5,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.25,
+      "daily_change_pct": 0.7,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.6,
-      "forward_pe": 10.664634,
+      "upside_pct": 7.6,
+      "forward_pe": 10.86133,
       "peg": 3.37
     },
     "3_divergence_gate": {
@@ -31,23 +31,23 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 24,
-      "signal_fresh": true,
+      "gap_days": 25,
+      "signal_fresh": false,
       "divergence_quality": 0.6,
-      "rsi_improvement": -26.8
+      "rsi_improvement": -27.0
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 38.7,
-      "rsi_zscore_1y": -1.68,
-      "zscore_quality": 0.671,
+      "status": "warn",
+      "rsi": 43.0,
+      "rsi_zscore_1y": -1.25,
+      "zscore_quality": 0.564,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,25 +56,32 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 30.7,
+      "adx_reference": 30.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 69.4,
+        "high": 69.62,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 4.7,
-  "score_addon": 0,
+  "score_addon": 1,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -37.9,
-      "volume_trend_pct_3d": -14.2,
+      "volume_diff_pct_3m": -42.5,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.25,
+      "daily_change_pct": 0.7,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.6,
-      "forward_pe": 10.664634,
+      "upside_pct": 7.6,
+      "forward_pe": 10.86133,
       "peg": 3.37
     },
     "3_pullback_gate": {
@@ -102,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.7,
-      "rsi_zone_quality": 0.0,
+      "rsi": 43.0,
+      "rsi_zone_quality": 0.121,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.3
+      "stop_pct_from_20sma": 5.1
     }
   },
   "sector": "Utilities",
@@ -125,9 +132,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 7,
-    "divergence_date_index": 221,
-    "price_vs_low_pct": -4.5
+    "days_since_trend_start": 8,
+    "divergence_date_index": 220,
+    "price_vs_low_pct": -2.7
   },
   "pullback_stop_signal": {
     "stop_reference_price": 67.23,

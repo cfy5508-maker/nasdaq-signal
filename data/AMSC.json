@@ -1,9 +1,9 @@
 {
   "ticker": "AMSC",
   "name": "American Superconductor Corpora",
-  "price": 32.28,
-  "updated": "2026-08-12T22:22:05.916555+00:00",
-  "as_of_date": "2026-08-12",
+  "price": 31.51,
+  "updated": "2026-08-13T22:22:06.479376+00:00",
+  "as_of_date": "2026-08-13",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -13.7,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -2.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.73,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.16,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 91.3,
-      "forward_pe": 23.822878,
+      "upside_pct": 96.0,
+      "forward_pe": 23.254612,
       "peg": 0.74
     },
     "3_divergence_gate": {
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.1,
-      "rsi_zscore_1y": -0.15,
-      "zscore_quality": 0.288,
+      "rsi": 43.9,
+      "rsi_zscore_1y": -0.35,
+      "zscore_quality": 0.337,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 7,
+      "days_ago": 8,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 35.8,
+      "adx_reference": 35.2,
       "volume_confirmed": false,
       "trigger_day_volume": 665800,
       "avg_volume_divergence_window": 936725,
@@ -65,32 +65,32 @@
         "high": 28.35,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 241,
+        "trigger_day_idx": 240,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 11.5,
-  "score_addon": 27,
+  "entry_atr_stop_pct": 11.4,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -13.7,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -2.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.73,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.16,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 91.3,
-      "forward_pe": 23.822878,
+      "upside_pct": 96.0,
+      "forward_pe": 23.254612,
       "peg": 0.74
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.1,
-      "rsi_zone_quality": 0.245,
+      "rsi": 43.9,
+      "rsi_zone_quality": 0.157,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.9
+      "stop_pct_from_20sma": 0.2
     }
   },
   "sector": "Industrials",
@@ -132,9 +132,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 19,
-    "divergence_date_index": 228,
-    "price_vs_low_pct": -5.6
+    "days_since_trend_start": 20,
+    "divergence_date_index": 227,
+    "price_vs_low_pct": -7.8
   },
   "pullback_stop_signal": {
     "stop_reference_price": 26.64,

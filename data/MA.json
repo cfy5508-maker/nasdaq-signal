@@ -1,20 +1,20 @@
 {
   "ticker": "MA",
   "name": "Mastercard Incorporated",
-  "price": 559.73,
-  "updated": "2026-08-12T22:22:51.500341+00:00",
-  "as_of_date": "2026-08-12",
-  "score": 40,
+  "price": 567.04,
+  "updated": "2026-08-13T22:22:41.150639+00:00",
+  "as_of_date": "2026-08-13",
+  "score": 44,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -37.9,
-      "volume_trend_pct_3d": -14.2,
+      "volume_diff_pct_3m": -42.5,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.25,
+      "daily_change_pct": 0.7,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 18.9,
-      "forward_pe": 24.325647,
-      "peg": 1.72
+      "upside_pct": 17.3,
+      "forward_pe": 24.643337,
+      "peg": 1.71
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -35,46 +35,53 @@
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
       "gap_days": 14,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.373,
       "rsi_improvement": 2.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.9,
-      "rsi_zscore_1y": 0.83,
-      "zscore_quality": 0.092,
+      "rsi": 60.9,
+      "rsi_zscore_1y": 1.26,
+      "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 33.9,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 33.5,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
-      "order_block": null
+      "trigger_day_volume": 1981794,
+      "avg_volume_divergence_window": 3127047,
+      "order_block": {
+        "low": 557.56,
+        "high": 559.73,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 3.0,
-  "score_addon": 54,
+  "score_addon": 77,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -37.9,
-      "volume_trend_pct_3d": -14.2,
+      "volume_diff_pct_3m": -42.5,
+      "volume_trend_pct_3d": -17.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.25,
+      "daily_change_pct": 0.7,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,9 +89,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 18.9,
-      "forward_pe": 24.325647,
-      "peg": 1.72
+      "upside_pct": 17.3,
+      "forward_pe": 24.643337,
+      "peg": 1.71
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -101,21 +108,21 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 56.9,
-      "rsi_zone_quality": 0.674,
+      "status": "pass",
+      "rsi": 60.9,
+      "rsi_zone_quality": 0.838,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.4
+      "stop_pct_from_20sma": 1.6
     }
   },
   "sector": "Financial Services",

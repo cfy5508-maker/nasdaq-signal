@@ -1,29 +1,29 @@
 {
   "ticker": "PXLW",
   "name": "Pixelworks, Inc.",
-  "price": 6.65,
-  "updated": "2026-08-12T22:23:14.704520+00:00",
-  "as_of_date": "2026-08-12",
-  "score": 35,
+  "price": 7.18,
+  "updated": "2026-08-13T22:22:58.994499+00:00",
+  "as_of_date": "2026-08-13",
+  "score": 41,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -13.7,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -2.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.73,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.16,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.4,
-      "forward_pe": -5.732759,
+      "upside_pct": 39.3,
+      "forward_pe": -6.1896553,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -34,20 +34,20 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 14,
+      "gap_days": 17,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 7.5
+      "rsi_improvement": 7.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 59.5,
-      "rsi_zscore_1y": 1.36,
+      "rsi": 67.4,
+      "rsi_zscore_1y": 2.26,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -56,34 +56,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.3,
+      "adx_reference": 16.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 6.02,
+        "high": 6.48,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 249,
+        "gap_confirmed": false
+      }
     }
   },
-  "entry_atr_stop_pct": 8.5,
-  "score_addon": 33,
+  "entry_atr_stop_pct": 8.2,
+  "score_addon": 36,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -34.4,
-      "volume_trend_pct_3d": -13.7,
+      "volume_diff_pct_3m": -31.8,
+      "volume_trend_pct_3d": -2.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.73,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.16,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 50.4,
-      "forward_pe": -5.732759,
+      "upside_pct": 39.3,
+      "forward_pe": -6.1896553,
       "peg": 2.41
     },
     "3_pullback_gate": {
@@ -101,9 +108,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 59.5,
-      "rsi_zone_quality": 0.781,
+      "status": "pass",
+      "rsi": 67.4,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.8
+      "stop_pct_from_20sma": 14.5
     }
   },
   "sector": "Technology",
@@ -123,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 10.5,
-    "divergence_date_index": 246
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 19.3,
+    "divergence_date_index": 248
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
