@@ -1,49 +1,49 @@
 {
   "ticker": "FSLR",
   "name": "First Solar, Inc.",
-  "price": 223.69,
-  "updated": "2026-08-13T22:22:31.373584+00:00",
-  "as_of_date": "2026-08-13",
-  "score": 30,
+  "price": 225.56,
+  "updated": "2026-08-14T21:54:14.363732+00:00",
+  "as_of_date": "2026-08-14",
+  "score": 48,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.8,
-      "volume_trend_pct_3d": -2.5,
+      "volume_diff_pct_3m": -46.2,
+      "volume_trend_pct_3d": -2.8,
       "volume_trend_up": false,
-      "daily_change_pct": 1.16,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.14,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.5,
-      "forward_pe": 9.62002,
+      "upside_pct": 20.5,
+      "forward_pe": 9.700441,
       "peg": 0.65
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 11,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.304,
       "rsi_improvement": 16.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.5,
-      "rsi_zscore_1y": -0.36,
-      "zscore_quality": 0.39,
+      "rsi": 48.6,
+      "rsi_zscore_1y": -0.24,
+      "zscore_quality": 0.359,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,34 +56,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.1,
+      "adx_reference": 26.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.5,
-  "score_addon": 54,
+  "entry_atr_stop_pct": 9.0,
+  "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.8,
-      "volume_trend_pct_3d": -2.5,
+      "volume_diff_pct_3m": -46.2,
+      "volume_trend_pct_3d": -2.8,
       "volume_trend_up": false,
-      "daily_change_pct": 1.16,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.14,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.5,
-      "forward_pe": 9.62002,
+      "upside_pct": 20.5,
+      "forward_pe": 9.700441,
       "peg": 0.65
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.5,
-      "rsi_zone_quality": 0.299,
+      "rsi": 48.6,
+      "rsi_zone_quality": 0.343,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.6
+      "stop_pct_from_20sma": 2.1
     }
   },
   "sector": "Technology",
@@ -123,10 +123,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 12,
-    "days_since_trend_start": 9,
-    "gain_since_low_pct": 10.4,
-    "divergence_date_index": 238
+    "days_since_divergence": 13,
+    "days_since_trend_start": 10,
+    "gain_since_low_pct": 11.3,
+    "divergence_date_index": 237
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

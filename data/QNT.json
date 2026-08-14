@@ -1,29 +1,29 @@
 {
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
-  "price": 68.5,
-  "updated": "2026-08-13T22:22:41.009518+00:00",
-  "as_of_date": "2026-08-13",
-  "score": 46,
+  "price": 63.58,
+  "updated": "2026-08-14T21:54:24.609564+00:00",
+  "as_of_date": "2026-08-14",
+  "score": 51,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.8,
-      "volume_trend_pct_3d": -2.5,
+      "volume_diff_pct_3m": -46.2,
+      "volume_trend_pct_3d": -2.8,
       "volume_trend_up": false,
-      "daily_change_pct": 1.16,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.14,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 44.2,
-      "forward_pe": -42.79859,
+      "upside_pct": 55.3,
+      "forward_pe": -39.82725,
       "peg": null
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 59.6,
-      "rsi_zscore_1y": 0.96,
-      "zscore_quality": 0.011,
+      "rsi": 53.6,
+      "rsi_zscore_1y": 0.38,
+      "zscore_quality": 0.156,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -55,7 +55,7 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
+      "wick_days_ago": 3,
       "adx_reference": 19.6,
       "volume_confirmed": true,
       "trigger_day_volume": 1561200,
@@ -70,27 +70,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 13.5,
-  "score_addon": 62,
+  "entry_atr_stop_pct": 14.8,
+  "score_addon": 58,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -31.8,
-      "volume_trend_pct_3d": -2.5,
+      "volume_diff_pct_3m": -46.2,
+      "volume_trend_pct_3d": -2.8,
       "volume_trend_up": false,
-      "daily_change_pct": 1.16,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.14,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 44.2,
-      "forward_pe": -42.79859,
+      "upside_pct": 55.3,
+      "forward_pe": -39.82725,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 59.6,
-      "rsi_zone_quality": 0.785,
+      "rsi": 53.6,
+      "rsi_zone_quality": 0.543,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 17.5
+      "stop_pct_from_20sma": 10.6
     }
   },
   "sector": "Technology",
