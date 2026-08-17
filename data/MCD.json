@@ -1,20 +1,20 @@
 {
   "ticker": "MCD",
   "name": "McDonald's Corporation",
-  "price": 272.83,
-  "updated": "2026-08-16T21:51:49.438910+00:00",
-  "as_of_date": "2026-08-14",
-  "score": 59,
+  "price": 265.53,
+  "updated": "2026-08-17T21:55:07.575374+00:00",
+  "as_of_date": "2026-08-17",
+  "score": 51,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -54.3,
-      "volume_trend_pct_3d": -13.9,
+      "volume_diff_pct_3m": -44.0,
+      "volume_trend_pct_3d": -29.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.21,
+      "daily_change_pct": -0.49,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,29 +22,29 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.8,
-      "forward_pe": 19.490139,
+      "upside_pct": 19.0,
+      "forward_pe": 18.96865,
       "peg": 2.54
     },
     "3_divergence_gate": {
-      "status": "pass",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 15,
-      "signal_fresh": false,
-      "divergence_quality": 1.0,
-      "rsi_improvement": 11.4
+      "gap_days": 17,
+      "signal_fresh": true,
+      "divergence_quality": 0.397,
+      "rsi_improvement": 3.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.9,
-      "rsi_zscore_1y": 0.29,
-      "zscore_quality": 0.229,
-      "zscore_direction_bonus_applied": true
+      "rsi": 41.9,
+      "rsi_zscore_1y": -0.52,
+      "zscore_quality": 0.381,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.7,
+      "adx_reference": 13.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.1,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 3.3,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -54.3,
-      "volume_trend_pct_3d": -13.9,
+      "volume_diff_pct_3m": -44.0,
+      "volume_trend_pct_3d": -29.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.21,
+      "daily_change_pct": -0.49,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.8,
-      "forward_pe": 19.490139,
+      "upside_pct": 19.0,
+      "forward_pe": 18.96865,
       "peg": 2.54
     },
     "3_pullback_gate": {
@@ -101,9 +101,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 50.9,
-      "rsi_zone_quality": 0.437,
+      "status": "fail",
+      "rsi": 41.9,
+      "rsi_zone_quality": 0.078,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Consumer Cyclical",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 272.25,
+    "stop_reference_price": 265.53,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

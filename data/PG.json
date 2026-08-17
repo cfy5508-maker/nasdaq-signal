@@ -1,20 +1,20 @@
 {
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
-  "price": 144.55,
-  "updated": "2026-08-16T21:52:18.304918+00:00",
-  "as_of_date": "2026-08-14",
-  "score": 26,
+  "price": 143.12,
+  "updated": "2026-08-17T21:55:40.117011+00:00",
+  "as_of_date": "2026-08-17",
+  "score": 16,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -54.3,
-      "volume_trend_pct_3d": -13.9,
+      "volume_diff_pct_3m": -44.0,
+      "volume_trend_pct_3d": -29.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.21,
+      "daily_change_pct": -0.49,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,59 +22,59 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.1,
-      "forward_pe": 19.533203,
+      "upside_pct": 12.2,
+      "forward_pe": 19.339966,
       "peg": 4.14
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": true,
-      "gap_days": 9,
-      "signal_fresh": false,
-      "divergence_quality": 0.313,
-      "rsi_improvement": 0.4
+      "divergence_present": false,
+      "gap_days": 12,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -1.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.0,
-      "rsi_zscore_1y": -0.38,
-      "zscore_quality": 0.344,
+      "rsi": 41.3,
+      "rsi_zscore_1y": -0.71,
+      "zscore_quality": 0.427,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 5.9,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 5.8,
       "volume_confirmed": false,
-      "trigger_day_volume": 7249600,
-      "avg_volume_divergence_window": 8353330,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 3.1,
-  "score_addon": 20,
+  "score_addon": 1,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -54.3,
-      "volume_trend_pct_3d": -13.9,
+      "volume_diff_pct_3m": -44.0,
+      "volume_trend_pct_3d": -29.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.21,
+      "daily_change_pct": -0.49,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.1,
-      "forward_pe": 19.533203,
+      "upside_pct": 12.2,
+      "forward_pe": 19.339966,
       "peg": 4.14
     },
     "3_pullback_gate": {
@@ -102,20 +102,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.0,
-      "rsi_zone_quality": 0.199,
+      "rsi": 41.3,
+      "rsi_zone_quality": 0.054,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.2
+      "stop_pct_from_20sma": 2.0
     }
   },
   "sector": "Consumer Defensive",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 144.08,
+    "stop_reference_price": 143.12,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
