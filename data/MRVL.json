@@ -1,29 +1,29 @@
 {
   "ticker": "MRVL",
   "name": "Marvell Technology, Inc.",
-  "price": 234.33,
-  "updated": "2026-08-17T21:55:08.293683+00:00",
-  "as_of_date": "2026-08-17",
-  "score": 14,
+  "price": 216.0,
+  "updated": "2026-08-18T21:53:14.312540+00:00",
+  "as_of_date": "2026-08-18",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.6,
-      "volume_trend_pct_3d": -3.7,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.16,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 12.4,
+      "volume_trend_pct_3d": 9.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.69,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 9.8,
-      "forward_pe": 37.49358,
+      "status": "pass",
+      "upside_pct": 18.9,
+      "forward_pe": 34.56072,
       "peg": 1.25
     },
     "3_divergence_gate": {
@@ -41,9 +41,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 58.2,
-      "rsi_zscore_1y": 0.15,
-      "zscore_quality": 0.213,
+      "rsi": 50.3,
+      "rsi_zscore_1y": -0.47,
+      "zscore_quality": 0.368,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.4,
+      "adx_reference": 16.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,32 +65,32 @@
         "high": 174.03,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 238,
+        "trigger_day_idx": 237,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 10.9,
-  "score_addon": 9,
+  "entry_atr_stop_pct": 12.2,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -39.6,
-      "volume_trend_pct_3d": -3.7,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.16,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 12.4,
+      "volume_trend_pct_3d": 9.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.69,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 9.8,
-      "forward_pe": 37.49358,
+      "status": "pass",
+      "upside_pct": 18.9,
+      "forward_pe": 34.56072,
       "peg": 1.25
     },
     "3_pullback_gate": {
@@ -103,14 +103,14 @@
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
-      "was_above_40_recently": false,
+      "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 58.2,
-      "rsi_zone_quality": 0.727,
+      "rsi": 50.3,
+      "rsi_zone_quality": 0.413,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.7
+      "stop_pct_from_20sma": 5.1
     }
   },
   "sector": "Technology",
@@ -130,10 +130,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 15,
-    "days_since_trend_start": 10,
-    "gain_since_low_pct": 23.9,
-    "divergence_date_index": 235
+    "days_since_divergence": 16,
+    "days_since_trend_start": 11,
+    "gain_since_low_pct": 14.2,
+    "divergence_date_index": 234
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
