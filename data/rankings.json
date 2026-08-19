@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-19T21:56:17.166213+00:00",
+  "updated": "2026-08-19T21:56:34.977163+00:00",
   "rankings": [
     {
       "ticker": "TOYO",
@@ -27,6 +27,40 @@
         "reasons": [],
         "change": -2,
         "prev_score": 26
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "LASR",
+      "name": "nLIGHT, Inc.",
+      "score": 71,
+      "score_addon": 24,
+      "price": 47.88,
+      "upside_pct": 85.6,
+      "rsi": 36.7,
+      "divergence": "pass",
+      "trigger": "fail",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "구간 상향 돌파(초록 진입)",
+            "detail": null
+          }
+        ],
+        "change": 11,
+        "prev_score": 60
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 24
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -90,40 +124,6 @@
         "reasons": [],
         "change": 1,
         "prev_score": 25
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "LASR",
-      "name": "nLIGHT, Inc.",
-      "score": 70,
-      "score_addon": 24,
-      "price": 47.88,
-      "upside_pct": 85.6,
-      "rsi": 36.9,
-      "divergence": "pass",
-      "trigger": "fail",
-      "signal": {
-        "signal": "up",
-        "reasons": [
-          {
-            "label": "구간 상향 돌파(초록 진입)",
-            "detail": null
-          }
-        ],
-        "change": 10,
-        "prev_score": 60
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 24
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -354,7 +354,7 @@
       "score_addon": 59,
       "price": 4.53,
       "upside_pct": 76.6,
-      "rsi": 54.9,
+      "rsi": 54.7,
       "divergence": "warn",
       "trigger": "pass",
       "signal": {
@@ -375,7 +375,7 @@
         "days_since_divergence": 8,
         "days_since_trend_start": 3,
         "gain_since_low_pct": 2.5,
-        "divergence_date_index": 242
+        "divergence_date_index": 239
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -411,7 +411,7 @@
         "active": true,
         "phase": "entry",
         "days_since_trend_start": 2,
-        "divergence_date_index": 235,
+        "divergence_date_index": 237,
         "price_vs_low_pct": -0.6
       },
       "divergence_stop_signal": null,
@@ -490,7 +490,7 @@
       "score_addon": 69,
       "price": 133.52,
       "upside_pct": 27.9,
-      "rsi": 50.0,
+      "rsi": 50.3,
       "divergence": "warn",
       "trigger": "warn",
       "signal": {
@@ -555,7 +555,7 @@
       "score_addon": 50,
       "price": 174.49,
       "upside_pct": 23.5,
-      "rsi": 54.3,
+      "rsi": 54.2,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -576,7 +576,7 @@
         "days_since_divergence": 10,
         "days_since_trend_start": 4,
         "gain_since_low_pct": 3.8,
-        "divergence_date_index": 240
+        "divergence_date_index": 239
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -591,7 +591,7 @@
       "score_addon": 52,
       "price": 9.99,
       "upside_pct": 39.0,
-      "rsi": 62.6,
+      "rsi": 62.0,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -682,10 +682,10 @@
       "ticker": "GPOR",
       "name": "Gulfport Energy Corporation",
       "score": 47,
-      "score_addon": 53,
+      "score_addon": 35,
       "price": 173.14,
       "upside_pct": 31.3,
-      "rsi": 64.9,
+      "rsi": 63.9,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -697,16 +697,52 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -14,
+        "change": -32,
         "prev_score": 67
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "ongoing",
-        "days_since_divergence": 16,
-        "days_since_trend_start": 13,
-        "gain_since_low_pct": 12.9,
-        "divergence_date_index": 234
+        "days_since_divergence": 19,
+        "days_since_trend_start": 18,
+        "gain_since_low_pct": 15.3,
+        "divergence_date_index": 228
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "PXLW",
+      "name": "Pixelworks, Inc.",
+      "score": 45,
+      "score_addon": 31,
+      "price": 6.6,
+      "upside_pct": 51.5,
+      "rsi": 54.4,
+      "divergence": "neutral",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -1,
+        "prev_score": 46
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 1,
+        "prev_score": 30
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 9.6,
+        "divergence_date_index": 241
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -743,42 +779,6 @@
         "days_since_trend_start": 14,
         "gain_since_low_pct": 38.3,
         "divergence_date_index": 235
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "PXLW",
-      "name": "Pixelworks, Inc.",
-      "score": 44,
-      "score_addon": 31,
-      "price": 6.6,
-      "upside_pct": 51.5,
-      "rsi": 54.6,
-      "divergence": "neutral",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -2,
-        "prev_score": 46
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 1,
-        "prev_score": 30
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 6,
-        "days_since_trend_start": 5,
-        "gain_since_low_pct": 9.6,
-        "divergence_date_index": 244
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -865,7 +865,7 @@
       "score_addon": 2,
       "price": 126.27,
       "upside_pct": 14.5,
-      "rsi": 44.4,
+      "rsi": 44.5,
       "divergence": "warn",
       "trigger": "pass",
       "signal": {
@@ -884,7 +884,7 @@
       "divergence_invalidated_signal": {
         "active": true,
         "prior_divergence_date_index": 227,
-        "days_since_prior_divergence": 23,
+        "days_since_prior_divergence": 22,
         "price_drop_since_pct": 3.7,
         "rescue_attempted": false
       },
@@ -1999,42 +1999,6 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "PGR",
-      "name": "Progressive Corporation (The)",
-      "score": 24,
-      "score_addon": 31,
-      "price": 217.27,
-      "upside_pct": 5.8,
-      "rsi": 55.0,
-      "divergence": "warn",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -5,
-        "prev_score": 29
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 7,
-        "prev_score": 24
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 0,
-        "gain_since_low_pct": 4.8,
-        "divergence_date_index": 243
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "AXP",
       "name": "American Express Company",
       "score": 24,
@@ -2057,6 +2021,42 @@
         "prev_score": 4
       },
       "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "PGR",
+      "name": "Progressive Corporation (The)",
+      "score": 23,
+      "score_addon": 31,
+      "price": 217.27,
+      "upside_pct": 5.8,
+      "rsi": 55.5,
+      "divergence": "warn",
+      "trigger": "pass",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -6,
+        "prev_score": 29
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 7,
+        "prev_score": 24
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 5,
+        "days_since_trend_start": 0,
+        "gain_since_low_pct": 4.8,
+        "divergence_date_index": 245
+      },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -2135,7 +2135,7 @@
       "score_addon": 30,
       "price": 221.56,
       "upside_pct": 6.3,
-      "rsi": 65.7,
+      "rsi": 65.1,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
@@ -2156,7 +2156,7 @@
         "days_since_divergence": 6,
         "days_since_trend_start": 4,
         "gain_since_low_pct": 8.7,
-        "divergence_date_index": 244
+        "divergence_date_index": 241
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
