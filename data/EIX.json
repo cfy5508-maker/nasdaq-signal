@@ -1,20 +1,20 @@
 {
   "ticker": "EIX",
   "name": "Edison International",
-  "price": 73.69,
-  "updated": "2026-08-18T21:54:08.094397+00:00",
-  "as_of_date": "2026-08-18",
-  "score": 37,
+  "price": 73.44,
+  "updated": "2026-08-19T21:56:12.377143+00:00",
+  "as_of_date": "2026-08-19",
+  "score": 38,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": 3.2,
+      "volume_diff_pct_3m": -22.9,
+      "volume_trend_pct_3d": 17.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.68,
+      "daily_change_pct": 0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 3.2,
-      "forward_pe": 11.323874,
+      "upside_pct": 3.5,
+      "forward_pe": 11.285388,
       "peg": 3.37
     },
     "3_divergence_gate": {
@@ -31,19 +31,19 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 25,
+      "gap_days": 24,
       "signal_fresh": false,
       "divergence_quality": 0.6,
-      "rsi_improvement": -27.0
+      "rsi_improvement": -26.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.9,
-      "rsi_zscore_1y": -0.26,
-      "zscore_quality": 0.316,
+      "rsi": 52.5,
+      "rsi_zscore_1y": -0.33,
+      "zscore_quality": 0.333,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 26.1,
+      "adx_reference": 24.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -65,7 +65,7 @@
         "high": 69.62,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 245,
         "gap_confirmed": true
       }
     }
@@ -78,10 +78,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": 3.2,
+      "volume_diff_pct_3m": -22.9,
+      "volume_trend_pct_3d": 17.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.68,
+      "daily_change_pct": 0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 3.2,
-      "forward_pe": 11.323874,
+      "upside_pct": 3.5,
+      "forward_pe": 11.285388,
       "peg": 3.37
     },
     "3_pullback_gate": {
@@ -98,10 +98,10 @@
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
+      "near_sma120": true,
       "near_sma200": false,
       "near_ma_count": 0,
-      "ma_converged_ignored": false,
+      "ma_converged_ignored": true,
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
@@ -109,8 +109,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 52.9,
-      "rsi_zone_quality": 0.518,
+      "rsi": 52.5,
+      "rsi_zone_quality": 0.498,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -122,7 +122,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.3
+      "stop_pct_from_20sma": 0.4
     }
   },
   "sector": "Utilities",
@@ -132,9 +132,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 11,
-    "divergence_date_index": 217,
-    "price_vs_low_pct": 1.4
+    "days_since_trend_start": 12,
+    "divergence_date_index": 216,
+    "price_vs_low_pct": 1.1
   },
   "pullback_stop_signal": {
     "stop_reference_price": 67.23,

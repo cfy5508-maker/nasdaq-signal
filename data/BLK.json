@@ -1,20 +1,20 @@
 {
   "ticker": "BLK",
   "name": "BlackRock, Inc.",
-  "price": 1154.35,
-  "updated": "2026-08-18T21:53:21.762928+00:00",
-  "as_of_date": "2026-08-18",
-  "score": 47,
+  "price": 1158.92,
+  "updated": "2026-08-19T21:55:25.157072+00:00",
+  "as_of_date": "2026-08-19",
+  "score": 43,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": 3.2,
+      "volume_diff_pct_3m": -22.9,
+      "volume_trend_pct_3d": 17.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.68,
+      "daily_change_pct": 0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,66 +22,66 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.9,
-      "forward_pe": 17.994576,
+      "upside_pct": 13.4,
+      "forward_pe": 18.050163,
       "peg": 1.26
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 32,
       "recent_bearish_bonus_applied": false,
-      "divergence_present": false,
+      "divergence_present": true,
       "gap_days": 17,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": 20.0
+      "signal_fresh": false,
+      "divergence_quality": 0.405,
+      "rsi_improvement": -2.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 61.9,
-      "rsi_zscore_1y": 1.09,
-      "zscore_quality": 0.05,
-      "zscore_direction_bonus_applied": true
+      "rsi": 63.3,
+      "rsi_zscore_1y": 1.2,
+      "zscore_quality": 0.0,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "해머",
-      "days_ago": 16,
+      "status": "warn",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 16,
-      "adx_reference": 31.5,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 31.1,
       "volume_confirmed": false,
-      "trigger_day_volume": 698100,
-      "avg_volume_divergence_window": 826367,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": {
-        "low": 1037.16,
-        "high": 1051.15,
+        "low": 950.81,
+        "high": 961.56,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 234,
+        "trigger_day_idx": 216,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.1,
-  "score_addon": 52,
+  "entry_atr_stop_pct": 3.2,
+  "score_addon": 35,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": 3.2,
+      "volume_diff_pct_3m": -22.9,
+      "volume_trend_pct_3d": 17.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.68,
+      "daily_change_pct": 0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.9,
-      "forward_pe": 17.994576,
+      "upside_pct": 13.4,
+      "forward_pe": 18.050163,
       "peg": 1.26
     },
     "3_pullback_gate": {
@@ -109,20 +109,20 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 61.9,
-      "rsi_zone_quality": 0.877,
+      "rsi": 63.3,
+      "rsi_zone_quality": 0.933,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.3
+      "stop_pct_from_20sma": 3.4
     }
   },
   "sector": "Financial Services",
@@ -130,15 +130,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 18,
-    "days_since_trend_start": 15,
-    "gain_since_low_pct": 11.3,
-    "divergence_date_index": 232
+    "days_since_divergence": 35,
+    "days_since_trend_start": 29,
+    "gain_since_low_pct": 19.2,
+    "divergence_date_index": 212
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 1037.16,
+    "stop_reference_price": 950.17,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

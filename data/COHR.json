@@ -1,9 +1,9 @@
 {
   "ticker": "COHR",
   "name": "Coherent Corp.",
-  "price": 306.43,
-  "updated": "2026-08-18T21:53:20.747588+00:00",
-  "as_of_date": "2026-08-18",
+  "price": 287.47,
+  "updated": "2026-08-19T21:55:24.059508+00:00",
+  "as_of_date": "2026-08-19",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": 3.2,
+      "volume_diff_pct_3m": -22.9,
+      "volume_trend_pct_3d": 17.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.68,
+      "daily_change_pct": 0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 34.0,
-      "forward_pe": 22.110174,
+      "upside_pct": 42.9,
+      "forward_pe": 20.608734,
       "peg": 0.92
     },
     "3_divergence_gate": {
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 14,
+      "gap_days": 15,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 19.2
+      "rsi_improvement": 16.3
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 47.5,
-      "rsi_zscore_1y": -1.1,
-      "zscore_quality": 0.576,
+      "rsi": 44.6,
+      "rsi_zscore_1y": -1.38,
+      "zscore_quality": 0.645,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.8,
+      "adx_reference": 15.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 17.3,
-  "score_addon": 46,
+  "entry_atr_stop_pct": 18.1,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": 3.2,
+      "volume_diff_pct_3m": -22.9,
+      "volume_trend_pct_3d": 17.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.68,
+      "daily_change_pct": 0.21,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,18 +82,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 34.0,
-      "forward_pe": 22.110174,
+      "upside_pct": 42.9,
+      "forward_pe": 20.608734,
       "peg": 0.92
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.5,
-      "rsi_zone_quality": 0.302,
+      "rsi": 44.6,
+      "rsi_zone_quality": 0.182,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.0
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Technology",
@@ -123,15 +123,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 16,
-    "days_since_trend_start": 11,
-    "gain_since_low_pct": 12.9,
-    "divergence_date_index": 234
+    "days_since_divergence": 17,
+    "days_since_trend_start": 12,
+    "gain_since_low_pct": 6.0,
+    "divergence_date_index": 233
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 306.43,
+    "stop_reference_price": 287.47,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
