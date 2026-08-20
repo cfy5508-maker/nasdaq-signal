@@ -1,20 +1,20 @@
 {
   "ticker": "AMT",
   "name": "American Tower Corporation (REI",
-  "price": 174.49,
-  "updated": "2026-08-19T21:55:42.786777+00:00",
-  "as_of_date": "2026-08-19",
-  "score": 49,
+  "price": 175.72,
+  "updated": "2026-08-20T21:57:57.008069+00:00",
+  "as_of_date": "2026-08-20",
+  "score": 47,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.5,
-      "forward_pe": 24.891443,
-      "peg": 1.64
+      "upside_pct": 22.7,
+      "forward_pe": 25.066904,
+      "peg": 1.63
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,47 +34,47 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 21,
+      "gap_days": 22,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 11.7
+      "rsi_improvement": 12.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.2,
-      "rsi_zscore_1y": 0.8,
-      "zscore_quality": 0.1,
+      "rsi": 56.0,
+      "rsi_zscore_1y": 1.0,
+      "zscore_quality": 0.051,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 8,
+      "days_ago": 9,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.0,
+      "adx_reference": 15.1,
       "volume_confirmed": false,
       "trigger_day_volume": 1560500,
-      "avg_volume_divergence_window": 3270155,
+      "avg_volume_divergence_window": 3245465,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 50,
+  "entry_atr_stop_pct": 3.9,
+  "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,18 +82,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.5,
-      "forward_pe": 24.891443,
-      "peg": 1.64
+      "upside_pct": 22.7,
+      "forward_pe": 25.066904,
+      "peg": 1.63
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
-      "near_sma40": true,
+      "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.2,
-      "rsi_zone_quality": 0.566,
+      "rsi": 56.0,
+      "rsi_zone_quality": 0.641,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.6
+      "stop_pct_from_20sma": 2.0
     }
   },
   "sector": "Real Estate",
@@ -123,9 +123,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 10,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 3.8,
+    "days_since_divergence": 11,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 4.6,
     "divergence_date_index": 239
   },
   "divergence_invalidated_signal": null,

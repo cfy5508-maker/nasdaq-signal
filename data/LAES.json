@@ -1,9 +1,9 @@
 {
   "ticker": "LAES",
   "name": "SEALSQ Corp",
-  "price": 2.6,
-  "updated": "2026-08-19T21:56:33.217114+00:00",
-  "as_of_date": "2026-08-19",
+  "price": 2.5,
+  "updated": "2026-08-20T21:58:43.615816+00:00",
+  "as_of_date": "2026-08-20",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.7,
-      "volume_trend_pct_3d": 30.6,
+      "volume_diff_pct_3m": -23.3,
+      "volume_trend_pct_3d": 43.8,
       "volume_trend_up": true,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 126.0,
-      "forward_pe": -12.380952,
+      "upside_pct": 135.0,
+      "forward_pe": -11.904762,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 15,
+      "gap_days": 16,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 17.3
+      "rsi_improvement": 13.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.1,
-      "rsi_zscore_1y": -0.17,
-      "zscore_quality": 0.343,
+      "rsi": 43.6,
+      "rsi_zscore_1y": -0.45,
+      "zscore_quality": 0.413,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.0,
+      "adx_reference": 17.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.5,
-  "score_addon": 46,
+  "entry_atr_stop_pct": 10.7,
+  "score_addon": 44,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.7,
-      "volume_trend_pct_3d": 30.6,
+      "volume_diff_pct_3m": -23.3,
+      "volume_trend_pct_3d": 43.8,
       "volume_trend_up": true,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,8 +82,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 126.0,
-      "forward_pe": -12.380952,
+      "upside_pct": 135.0,
+      "forward_pe": -11.904762,
       "peg": null
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.1,
-      "rsi_zone_quality": 0.282,
+      "rsi": 43.6,
+      "rsi_zone_quality": 0.144,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.5
+      "stop_pct_from_20sma": 2.3
     }
   },
   "sector": "Technology",
@@ -123,15 +123,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 16,
-    "days_since_trend_start": 13,
-    "gain_since_low_pct": 11.1,
-    "divergence_date_index": 234
+    "days_since_divergence": 17,
+    "days_since_trend_start": 14,
+    "gain_since_low_pct": 6.8,
+    "divergence_date_index": 233
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 2.6,
+    "stop_reference_price": 2.5,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

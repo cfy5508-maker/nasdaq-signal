@@ -1,9 +1,9 @@
 {
   "ticker": "AVEX",
   "name": "AEVEX Corp.",
-  "price": 18.9,
-  "updated": "2026-08-19T21:55:11.652998+00:00",
-  "as_of_date": "2026-08-19",
+  "price": 18.08,
+  "updated": "2026-08-20T21:57:28.493016+00:00",
+  "as_of_date": "2026-08-20",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 90.5,
-      "forward_pe": 33.85216,
+      "upside_pct": 99.1,
+      "forward_pe": 32.383446,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 22,
+      "gap_days": 23,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 14.6
+      "rsi_improvement": 11.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.5,
-      "rsi_zscore_1y": 0.24,
-      "zscore_quality": 0.24,
+      "rsi": 45.5,
+      "rsi_zscore_1y": -0.07,
+      "zscore_quality": 0.318,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.1,
+      "adx_reference": 19.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 14.0,
-  "score_addon": 47,
+  "entry_atr_stop_pct": 14.4,
+  "score_addon": 45,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,14 +82,14 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 90.5,
-      "forward_pe": 33.85216,
+      "upside_pct": 99.1,
+      "forward_pe": 32.383446,
       "peg": null
     },
     "3_pullback_gate": {
       "status": "pass",
-      "near_sma20": true,
-      "near_sma40": false,
+      "near_sma20": false,
+      "near_sma40": true,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 48.5,
-      "rsi_zone_quality": 0.341,
+      "rsi": 45.5,
+      "rsi_zone_quality": 0.221,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.7
+      "stop_pct_from_20sma": 4.6
     }
   },
   "sector": "Industrials",
@@ -123,15 +123,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 22,
-    "days_since_trend_start": 21,
-    "gain_since_low_pct": 41.9,
+    "days_since_divergence": 23,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": 35.7,
     "divergence_date_index": 63
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 18.9,
+    "stop_reference_price": 18.08,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

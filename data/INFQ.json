@@ -1,20 +1,20 @@
 {
   "ticker": "INFQ",
   "name": "Infleqtion, Inc.",
-  "price": 12.5,
-  "updated": "2026-08-19T21:55:19.983823+00:00",
-  "as_of_date": "2026-08-19",
-  "score": 41,
+  "price": 12.55,
+  "updated": "2026-08-20T21:57:35.571190+00:00",
+  "as_of_date": "2026-08-20",
+  "score": 47,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 64.8,
-      "forward_pe": -58.012714,
+      "upside_pct": 64.1,
+      "forward_pe": -58.244766,
       "peg": null
     },
     "3_divergence_gate": {
@@ -41,22 +41,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.1,
-      "rsi_zscore_1y": 0.79,
-      "zscore_quality": 0.052,
+      "rsi": 56.4,
+      "rsi_zscore_1y": 0.82,
+      "zscore_quality": 0.046,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": false,
+      "hammer": true,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.4,
+      "adx_reference": 16.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -70,18 +70,18 @@
       }
     }
   },
-  "entry_atr_stop_pct": 11.3,
-  "score_addon": 58,
+  "entry_atr_stop_pct": 11.0,
+  "score_addon": 95,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -89,8 +89,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 64.8,
-      "forward_pe": -58.012714,
+      "upside_pct": 64.1,
+      "forward_pe": -58.244766,
       "peg": null
     },
     "3_pullback_gate": {
@@ -109,30 +109,30 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 56.1,
-      "rsi_zone_quality": 0.644,
+      "rsi": 56.4,
+      "rsi_zone_quality": 0.657,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.9
+      "stop_pct_from_20sma": 10.2
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 15,
-    "days_since_trend_start": 14,
-    "gain_since_low_pct": 41.6,
+    "days_since_divergence": 16,
+    "days_since_trend_start": 15,
+    "gain_since_low_pct": 42.1,
     "divergence_date_index": 112
   },
   "divergence_invalidated_signal": null,
@@ -142,6 +142,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }

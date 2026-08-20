@@ -1,9 +1,9 @@
 {
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
-  "price": 56.0,
-  "updated": "2026-08-19T21:55:31.711919+00:00",
-  "as_of_date": "2026-08-19",
+  "price": 54.9,
+  "updated": "2026-08-20T21:57:47.153771+00:00",
+  "as_of_date": "2026-08-20",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.7,
-      "volume_trend_pct_3d": 30.6,
+      "volume_diff_pct_3m": -23.3,
+      "volume_trend_pct_3d": 43.8,
       "volume_trend_up": true,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 76.3,
-      "forward_pe": -35.076294,
+      "upside_pct": 77.0,
+      "forward_pe": -34.387295,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,16 +34,16 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": false,
-      "gap_days": 15,
+      "gap_days": 16,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 12.4
+      "rsi_improvement": 11.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.3,
-      "rsi_zscore_1y": -0.43,
-      "zscore_quality": 0.357,
+      "rsi": 44.3,
+      "rsi_zscore_1y": -0.52,
+      "zscore_quality": 0.381,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,25 +56,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.5,
+      "adx_reference": 16.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.3,
-  "score_addon": 45,
+  "entry_atr_stop_pct": 16.0,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.7,
-      "volume_trend_pct_3d": 30.6,
+      "volume_diff_pct_3m": -23.3,
+      "volume_trend_pct_3d": 43.8,
       "volume_trend_up": true,
-      "daily_change_pct": -0.2,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -82,18 +82,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 76.3,
-      "forward_pe": -35.076294,
+      "upside_pct": 77.0,
+      "forward_pe": -34.387295,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.3,
-      "rsi_zone_quality": 0.214,
+      "rsi": 44.3,
+      "rsi_zone_quality": 0.172,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,7 +115,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.5
+      "stop_pct_from_20sma": 4.4
     }
   },
   "sector": "Technology",
@@ -124,7 +124,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 56.0,
+    "stop_reference_price": 54.9,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,49 +1,49 @@
 {
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
-  "price": 85.91,
-  "updated": "2026-08-19T21:56:21.611854+00:00",
-  "as_of_date": "2026-08-19",
-  "score": 30,
+  "price": 85.03,
+  "updated": "2026-08-20T21:58:33.022502+00:00",
+  "as_of_date": "2026-08-20",
+  "score": 59,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.7,
-      "forward_pe": 19.454742,
+      "status": "pass",
+      "upside_pct": 15.8,
+      "forward_pe": 19.25546,
       "peg": 1.88
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "divergence_present": true,
-      "gap_days": 25,
-      "signal_fresh": false,
-      "divergence_quality": 0.575,
-      "rsi_improvement": -10.9
+      "gap_days": 10,
+      "signal_fresh": true,
+      "divergence_quality": 0.404,
+      "rsi_improvement": 3.5
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 43.4,
-      "rsi_zscore_1y": -0.84,
-      "zscore_quality": 0.46,
+      "status": "warn",
+      "rsi": 38.2,
+      "rsi_zscore_1y": -1.29,
+      "zscore_quality": 0.573,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.6,
+      "adx_reference": 13.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -64,26 +64,26 @@
     }
   },
   "entry_atr_stop_pct": 2.6,
-  "score_addon": 2,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": 17.9,
+      "volume_diff_pct_3m": -11.9,
+      "volume_trend_pct_3d": 27.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.21,
+      "daily_change_pct": -0.84,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 14.7,
-      "forward_pe": 19.454742,
+      "status": "pass",
+      "upside_pct": 15.8,
+      "forward_pe": 19.25546,
       "peg": 1.88
     },
     "3_pullback_gate": {
@@ -102,8 +102,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.4,
-      "rsi_zone_quality": 0.135,
+      "rsi": 38.2,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -115,29 +115,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.1
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Utilities",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
-    "active": true,
-    "prior_divergence_date_index": 236,
-    "days_since_prior_divergence": 14,
-    "price_drop_since_pct": 2.3,
-    "rescue_attempted": false
-  },
+  "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 84.6,
+    "stop_reference_price": 85.03,
     "stopped_out": false
   },
-  "divergence_stop_signal": {
-    "active": true,
-    "days_since_break": 9,
-    "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
-  },
+  "divergence_stop_signal": null,
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
