@@ -30,7 +30,7 @@ import pandas as pd
 import yfinance as yf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from fetch_indicators import get_confirmed_history, WEIGHTS, ADDON_WEIGHTS  # noqa: E402
+from fetch_indicators import get_confirmed_history, WEIGHTS, ADDON_WEIGHTS, MACD_RECOVERY_QUALITY_BONUS  # noqa: E402
 
 HISTORY_PATH = "data/score_history.jsonl"
 LABELED_PATH = "data/score_history_labeled.jsonl"
@@ -334,6 +334,46 @@ def adjust_weights(regime, group_label, default_weights, breakdown_by_stage, pre
     return updated, changes
 
 
+MIN_SAMPLE_FOR_BONUS = 15
+BONUS_ALPHA = 0.3
+BONUS_MULT_MIN, BONUS_MULT_MAX = 0.3, 2.0
+
+BONUS_DEFINITIONS = {
+    # key: (df상의 적용여부 컬럼, 기본 보너스 크기)
+    "macd_recovery": ("macd_recovery_bonus_applied", MACD_RECOVERY_QUALITY_BONUS),
+}
+
+
+def calibrate_bonus(applied_col, default_bonus, prev_bonus, regime_sub_df):
+    """다이버전스가 이미 잡힌 케이스들 중, 보너스 조건(예: MACD 회복)이 적용됐던 그룹과
+    안 됐던 그룹의 5일 터치승률 gap을 봐서 보너스 크기를 자동 조정한다.
+    stage 가중치 조정(adjust_weights)과 동일한 damping+클립 로직을 그대로 재사용."""
+    if "divergence_present" not in regime_sub_df.columns or applied_col not in regime_sub_df.columns:
+        return round(prev_bonus, 4), "필드 없음 - 이전값 유지"
+
+    win_col = f"win_touch_{PRIMARY_HORIZON}"
+    base = regime_sub_df[regime_sub_df["divergence_present"] == True]
+    base = base.dropna(subset=[win_col]) if win_col in base.columns else base.iloc[0:0]
+    if base.empty:
+        return round(prev_bonus, 4), "표본 없음 - 이전값 유지"
+
+    applied = base[base[applied_col] == True]
+    not_applied = base[base[applied_col] != True]
+    n_applied, n_not = len(applied), len(not_applied)
+    if n_applied < MIN_SAMPLE_FOR_BONUS or n_not < MIN_SAMPLE_FOR_BONUS:
+        return round(prev_bonus, 4), f"표본 부족(적용 n={n_applied}, 미적용 n={n_not}) - 이전값 유지"
+
+    wr_applied = float(applied[win_col].mean())
+    wr_not = float(not_applied[win_col].mean())
+    gap = wr_applied - wr_not
+    mult = max(BONUS_MULT_MIN, min(BONUS_MULT_MAX, 1.0 + 2.0 * (gap - DISCRIMINATION_GAP)))
+    target = default_bonus * mult
+    new_bonus = prev_bonus * (1 - BONUS_ALPHA) + target * BONUS_ALPHA
+    new_bonus = max(0.0, min(default_bonus * BONUS_MULT_MAX, new_bonus))
+    reason = f"5일 승률 적용 {wr_applied:.0%} vs 미적용 {wr_not:.0%} (gap {gap:.0%}, n={n_applied}/{n_not})"
+    return round(new_bonus, 4), reason
+
+
 def load_notifications():
     if not os.path.exists(NOTIFICATIONS_PATH):
         return []
@@ -349,7 +389,8 @@ def collect_change_notifications(report_by_regime, generated_at):
     regime_kr = {"bull": "상승장", "bear": "하락장", "sideways": "보합장"}
     notifs = []
     for regime, info in report_by_regime.items():
-        for group_label, changes in [("신규진입", info["main_changes"]), ("추가매수", info["addon_changes"])]:
+        for group_label, changes in [("신규진입", info["main_changes"]), ("추가매수", info["addon_changes"]),
+                                      ("보너스", info.get("bonus_changes", []))]:
             for c in changes:
                 if abs(c["after"] - c["before"]) < 0.001:
                     continue
@@ -579,11 +620,21 @@ def main():
         main_updated, main_changes = adjust_weights(regime, "main", WEIGHTS, main_breakdown, prev_regimes)
         addon_updated, addon_changes = adjust_weights(regime, "addon", ADDON_WEIGHTS, addon_breakdown, prev_regimes)
 
-        adaptive_out["regimes"][regime] = {"main": main_updated, "addon": addon_updated, "n_snapshots": n_regime}
+        prev_bonuses = (prev_regimes.get(regime, {}) or {}).get("bonuses", {})
+        bonus_updated, bonus_changes = {}, []
+        for bonus_key, (applied_col, default_bonus) in BONUS_DEFINITIONS.items():
+            prev_b = prev_bonuses.get(bonus_key, default_bonus)
+            new_b, reason = calibrate_bonus(applied_col, default_bonus, prev_b, sub_df)
+            bonus_updated[bonus_key] = new_b
+            bonus_changes.append({"stage": bonus_key, "before": round(prev_b, 4), "after": new_b, "reason": reason})
+
+        adaptive_out["regimes"][regime] = {"main": main_updated, "addon": addon_updated,
+                                            "bonuses": bonus_updated, "n_snapshots": n_regime}
         report_by_regime[regime] = {
             "n_snapshots": n_regime,
             "main_breakdown": main_breakdown, "addon_breakdown": addon_breakdown,
             "main_changes": main_changes, "addon_changes": addon_changes,
+            "bonus_changes": bonus_changes,
         }
 
     with open(ADAPTIVE_WEIGHTS_PATH, "w") as f:
@@ -703,7 +754,8 @@ def main():
         md.append("### 가중치 자동조정 내역\n")
         md.append("| 그룹 | 스테이지 | 이전 | 이후 | 근거 |")
         md.append("|---|---|---|---|---|")
-        for group, changes in [("신규진입", info["main_changes"]), ("추가매수", info["addon_changes"])]:
+        for group, changes in [("신규진입", info["main_changes"]), ("추가매수", info["addon_changes"]),
+                                ("보너스", info.get("bonus_changes", []))]:
             for c in changes:
                 md.append(f"| {group} | {c['stage']} | {c['before']} | {c['after']} | {c['reason']} |")
 
