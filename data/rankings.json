@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-20T21:58:45.254055+00:00",
+  "updated": "2026-08-20T22:28:43.169594+00:00",
   "rankings": [
     {
       "ticker": "WATT",
@@ -82,8 +82,13 @@
       "divergence": "pass",
       "trigger": "warn",
       "signal": {
-        "signal": "none",
-        "reasons": [],
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "3일 연속 상승",
+            "detail": null
+          }
+        ],
         "change": 1,
         "prev_score": 71
       },
@@ -248,7 +253,7 @@
     {
       "ticker": "VST",
       "name": "Vistra Corp.",
-      "score": 62,
+      "score": 64,
       "score_addon": 24,
       "price": 138.94,
       "upside_pct": 58.1,
@@ -258,7 +263,7 @@
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -2,
+        "change": 0,
         "prev_score": 64
       },
       "signal_addon": {
@@ -341,7 +346,7 @@
     {
       "ticker": "NEE",
       "name": "NextEra Energy, Inc.",
-      "score": 59,
+      "score": 60,
       "score_addon": 24,
       "price": 85.03,
       "upside_pct": 15.8,
@@ -351,7 +356,7 @@
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 29,
+        "change": 30,
         "prev_score": 30
       },
       "signal_addon": {
@@ -370,7 +375,7 @@
     {
       "ticker": "CI",
       "name": "The Cigna Group",
-      "score": 56,
+      "score": 59,
       "score_addon": 25,
       "price": 274.41,
       "upside_pct": 24.4,
@@ -380,7 +385,7 @@
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -2,
+        "change": 1,
         "prev_score": 58
       },
       "signal_addon": {
@@ -1199,6 +1204,35 @@
       "today_reversal_volume_confirmed": false
     },
     {
+      "ticker": "O",
+      "name": "Realty Income Corporation",
+      "score": 35,
+      "score_addon": 28,
+      "price": 63.17,
+      "upside_pct": 8.0,
+      "rsi": 51.2,
+      "divergence": "warn",
+      "trigger": "pass",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 1,
+        "prev_score": 34
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 1,
+        "prev_score": 27
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
       "ticker": "EIX",
       "name": "Edison International",
       "score": 35,
@@ -1232,35 +1266,6 @@
       "divergence_stop_signal": null,
       "today_reversal_candle": true,
       "today_reversal_volume_confirmed": true
-    },
-    {
-      "ticker": "O",
-      "name": "Realty Income Corporation",
-      "score": 33,
-      "score_addon": 28,
-      "price": 63.17,
-      "upside_pct": 8.0,
-      "rsi": 51.2,
-      "divergence": "warn",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 34
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 1,
-        "prev_score": 27
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
     },
     {
       "ticker": "TSLA",
