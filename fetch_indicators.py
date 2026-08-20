@@ -319,7 +319,7 @@ def apply_adaptive_weights():
     """data/adaptive_weights.json(backtest_calibrate.py가 매달 생성)이 있으면
     오늘의 시장 국면에 맞는 가중치로 WEIGHTS/ADDON_WEIGHTS를 덮어쓴다.
     파일이 없거나 해당 국면 데이터가 없으면 위에서 정의한 기본값을 그대로 쓴다."""
-    global MAX_SCORE
+    global MAX_SCORE, MACD_RECOVERY_QUALITY_BONUS
     if not os.path.exists(ADAPTIVE_WEIGHTS_PATH):
         print("adaptive_weights.json 없음 - 기본 가중치 사용")
         return
@@ -339,9 +339,15 @@ def apply_adaptive_weights():
     WEIGHTS.update({k: v for k, v in regime_data.get("main", {}).items() if k in WEIGHTS})
     ADDON_WEIGHTS.update({k: v for k, v in regime_data.get("addon", {}).items() if k in ADDON_WEIGHTS})
     MAX_SCORE = sum(WEIGHTS.values())
+
+    bonuses = regime_data.get("bonuses", {})
+    if "macd_recovery" in bonuses:
+        MACD_RECOVERY_QUALITY_BONUS = bonuses["macd_recovery"]
+
     print(f"시장 국면: {regime} - 자동조정 가중치 적용 (생성: {data.get('generated_at')})")
     print(f"  WEIGHTS = {WEIGHTS}")
     print(f"  ADDON_WEIGHTS = {ADDON_WEIGHTS}")
+    print(f"  MACD_RECOVERY_QUALITY_BONUS = {MACD_RECOVERY_QUALITY_BONUS}")
 
 
 def detect_bullish_engulfing(o, h, l, c):
@@ -536,6 +542,30 @@ RECENT_BEARISH_RSI_MIN_DECLINE = 3
 RECENT_BEARISH_WINDOW_DAYS = 10        # "최근"으로 볼 범위 - 백테스트에서 이 범위일 때만 효과 확인됨
 RECENT_BEARISH_QUALITY_BONUS = 0.15    # 백테스트: 있음 62.1%(348건) vs 없음 51.1%(3632건) 승률차 반영
 
+MACD_RECOVERY_LOOKBACK_DAYS = 10   # 이 기간 안의 최저치를 "직전 저점"으로 봄
+MACD_RECOVERY_MIN_RATIO = 0.7      # 그 저점 대비 70% 이상 0쪽으로 회복해야 인정 (아직 골든크로스 전)
+MACD_RECOVERY_QUALITY_BONUS = 0.10  # 아직 백테스트 검증 전 - 추후 확인 필요
+
+
+def macd_recovering_from_negative(macd_hist_values):
+    """MACD 히스토그램이 (아직 음수/매도세 상태이긴 하지만) 최근 저점 대비 0 쪽으로
+    상당히 회복됐는지 확인한다. 다이버전스(선행 조짐)에 곁들이는 보너스용 - '반등 직전'
+    타이밍을 잡으려는 목적이라, 이미 확정된(더 늦게 뜨는) 골든크로스는 요구하지 않는다."""
+    if len(macd_hist_values) <= MACD_RECOVERY_LOOKBACK_DAYS + 1:
+        return False
+    today_val = macd_hist_values[-1]
+    if pd.isna(today_val) or today_val >= 0:
+        return False   # 이미 0을 넘었으면 "회복 중"이 아니라 "이미 골든크로스" - 이 보너스 대상 아님
+    recent_window = macd_hist_values[-(MACD_RECOVERY_LOOKBACK_DAYS + 1):-1]
+    valid = recent_window[~pd.isna(recent_window)] if hasattr(recent_window, "__len__") else recent_window
+    if len(valid) == 0:
+        return False
+    recent_min = float(np.nanmin(valid))
+    if recent_min >= 0:
+        return False   # 최근에 마이너스로 떨어진 적이 없으면(계속 양수였다면) "회복"이라 볼 근거 없음
+    recovered_ratio = (today_val - recent_min) / abs(recent_min)
+    return bool(recovered_ratio >= MACD_RECOVERY_MIN_RATIO)
+
 
 def recent_bearish_divergence(pos, close_values, rsi_values):
     """pos(정석 볼리시 다이버전스 확정 저점) 기준 직전 RECENT_BEARISH_WINDOW_DAYS
@@ -581,6 +611,7 @@ def analyze(ticker, trim_days=0, write_file=True):
     rsi = RSIIndicator(c, window=14).rsi()
     bb = BollingerBands(c, window=20, window_dev=2)
     macd = MACD(c)
+    macd_hist = macd.macd_diff()
     adx_ind = ADXIndicator(h, l, c, window=14)
     obv = OnBalanceVolumeIndicator(c, v).on_balance_volume()
     atr = AverageTrueRange(h, l, c, window=14).average_true_range()
@@ -777,6 +808,15 @@ def analyze(ticker, trim_days=0, write_file=True):
     # 그 시점을 아예 못 본다"는 불일치가 생긴다.
     trigger_anchor_pos2 = retest_pos2_idx if retest_divergence else pos2
 
+    # MACD 보너스: 다이버전스가 이미 잡힌 상태에서, MACD 히스토그램이 (아직 골든크로스
+    # 전이지만) 최근 저점 대비 0쪽으로 상당히 회복 중이면 가산점. 필수조건이 아니라 보너스로만
+    # 적용 - 이렇게 해야 이 조건이 없어도 다이버전스 자체는 그대로 인정된다.
+    # 아직 백테스트 검증 전이라 추후 승률 확인 필요.
+    macd_recovery_bonus_applied = False
+    if divergence_present and divergence_quality is not None and macd_recovering_from_negative(macd_hist.values):
+        divergence_quality = min(1.0, divergence_quality + MACD_RECOVERY_QUALITY_BONUS)
+        macd_recovery_bonus_applied = True
+
     # 다이버전스 사이클 상태머신: 저점2(다이버전스) -> ±3% 유지 -> 상승추세/무효화 ->
     # (무효화중 마지막음봉 고가 돌파)반등시도 -> (저점2 재돌파)상승추세 -> (저점2 재붕괴)하락추세.
     # uptrend_entry_signal / divergence_invalidated_signal / divergence_stop_signal /
@@ -883,7 +923,6 @@ def analyze(ticker, trim_days=0, write_file=True):
         if rsi_std_1y > 0:
             rsi_zscore = (rsi_last - rsi_mean_1y) / rsi_std_1y
 
-    macd_hist = macd.macd_diff()
     macd_hist_rising = bool(macd_hist.iloc[-1] > macd_hist.iloc[-90:-1].min()) if len(macd_hist) > 90 else False
 
     # ADX: ta 라이브러리 내부 구현이 데이터가 너무 짧으면(최근 상장 등) 인덱스 범위를
@@ -1350,7 +1389,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "retest_divergence": retest_divergence, "retest_days_ago": retest_days_ago, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "retest_divergence": retest_divergence, "retest_days_ago": retest_days_ago, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "macd_recovery_bonus_applied": macd_recovery_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None, "zscore_direction_bonus_applied": zscore_direction_bonus_applied},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None, "order_block": order_block},
     }
@@ -1492,6 +1531,8 @@ def log_snapshot(r):
         "score": r["score"],
         "score_addon": r["score_addon"],
         "sector": r.get("sector"),
+        "macd_recovery_bonus_applied": r["stages"].get("3_divergence_gate", {}).get("macd_recovery_bonus_applied"),
+        "divergence_present": r["stages"].get("3_divergence_gate", {}).get("divergence_present"),
         "stage_status": {k: v["status"] for k, v in r["stages"].items() if "status" in v},
         "stage_status_addon": {k: v["status"] for k, v in r["stages_addon"].items() if "status" in v},
     }
