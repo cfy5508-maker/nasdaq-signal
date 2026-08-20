@@ -1123,6 +1123,7 @@
             base = (g.bullish_divergence ? '정석 다이버전스' : '이중바닥성격(RSI개선)') + ', 간격 ' + g.gap_days + '일' + (g.signal_fresh === false ? ' (저점 근처 유지중)' : ' (신규)');
           }
           if (rsiTxt) base += ', ' + rsiTxt;
+          if (g.macd_recovery_bonus_applied) base += ' · MACD 회복 보너스 적용(매도세 0쪽 회복)';
         } else if (g.status === 'neutral') {
           var daysAgo = (full.uptrend_entry_signal && full.uptrend_entry_signal.days_since_divergence != null) ? full.uptrend_entry_signal.days_since_divergence : null;
           base = (daysAgo != null ? (daysAgo + '일전 ') : '') + '다이버전스 발생후 초과반등';
