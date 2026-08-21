@@ -2,9 +2,9 @@
   "ticker": "BIIB",
   "name": "Biogen Inc.",
   "price": 214.35,
-  "updated": "2026-08-20T22:27:38.978793+00:00",
+  "updated": "2026-08-21T01:20:22.984908+00:00",
   "as_of_date": "2026-08-20",
-  "score": 27,
+  "score": 28,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -34,17 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
+      "macd_hist": 0.94,
+      "macd_hist_change": -0.135,
       "divergence_present": false,
-      "gap_days": 20,
+      "gap_days": 17,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 7.3
+      "rsi_improvement": 7.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.8,
-      "rsi_zscore_1y": 0.15,
-      "zscore_quality": 0.262,
+      "rsi": 56.5,
+      "rsi_zscore_1y": 0.12,
+      "zscore_quality": 0.271,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -57,21 +59,21 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 4,
-      "adx_reference": 20.3,
+      "adx_reference": 19.8,
       "volume_confirmed": false,
       "trigger_day_volume": 789000,
-      "avg_volume_divergence_window": 1258305,
+      "avg_volume_divergence_window": 1326017,
       "order_block": {
         "low": 203.89,
         "high": 206.63,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 241,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 4.6,
+  "entry_atr_stop_pct": 4.8,
   "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
@@ -110,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 56.8,
-      "rsi_zone_quality": 0.671,
+      "rsi": 56.5,
+      "rsi_zone_quality": 0.661,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -123,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.0
+      "stop_pct_from_20sma": 3.1
     }
   },
   "sector": "Healthcare",
@@ -134,7 +136,7 @@
     "days_since_divergence": 7,
     "days_since_trend_start": 5,
     "gain_since_low_pct": 5.1,
-    "divergence_date_index": 243
+    "divergence_date_index": 240
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

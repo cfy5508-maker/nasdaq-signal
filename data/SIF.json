@@ -2,9 +2,9 @@
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
   "price": 20.99,
-  "updated": "2026-08-20T22:27:31.568182+00:00",
+  "updated": "2026-08-21T01:20:13.694964+00:00",
   "as_of_date": "2026-08-20",
-  "score": 46,
+  "score": 31,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,10 +21,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,17 +34,19 @@
       "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
+      "macd_hist": -0.548,
+      "macd_hist_change": 0.09,
       "divergence_present": true,
-      "gap_days": 26,
+      "gap_days": 23,
       "signal_fresh": false,
-      "divergence_quality": 0.514,
-      "rsi_improvement": -13.9
+      "divergence_quality": 0.505,
+      "rsi_improvement": -13.0
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 42.3,
-      "rsi_zscore_1y": -1.16,
-      "zscore_quality": 0.541,
+      "rsi": 42.9,
+      "rsi_zscore_1y": -1.1,
+      "zscore_quality": 0.526,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -57,15 +59,15 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 25.8,
+      "adx_reference": 25.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 15.1,
-  "score_addon": 13,
+  "entry_atr_stop_pct": 15.2,
+  "score_addon": 1,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -82,10 +84,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -103,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.3,
-      "rsi_zone_quality": 0.092,
+      "rsi": 42.9,
+      "rsi_zone_quality": 0.117,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -116,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 14.6
+      "stop_pct_from_20sma": 14.4
     }
   },
   "sector": "Industrials",
