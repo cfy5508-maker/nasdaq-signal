@@ -817,6 +817,11 @@ def analyze(ticker, trim_days=0, write_file=True):
         divergence_quality = min(1.0, divergence_quality + MACD_RECOVERY_QUALITY_BONUS)
         macd_recovery_bonus_applied = True
 
+    # 보너스 발동 여부와 별개로, 오늘 MACD 히스토그램 값과 전일 대비 변화량은 항상 표시용으로 남긴다.
+    macd_hist_today = float(macd_hist.iloc[-1]) if not pd.isna(macd_hist.iloc[-1]) else None
+    macd_hist_prev = float(macd_hist.iloc[-2]) if len(macd_hist) > 1 and not pd.isna(macd_hist.iloc[-2]) else None
+    macd_hist_change = (macd_hist_today - macd_hist_prev) if (macd_hist_today is not None and macd_hist_prev is not None) else None
+
     # 다이버전스 사이클 상태머신: 저점2(다이버전스) -> ±3% 유지 -> 상승추세/무효화 ->
     # (무효화중 마지막음봉 고가 돌파)반등시도 -> (저점2 재돌파)상승추세 -> (저점2 재붕괴)하락추세.
     # uptrend_entry_signal / divergence_invalidated_signal / divergence_stop_signal /
@@ -1389,7 +1394,7 @@ def analyze(ticker, trim_days=0, write_file=True):
                              "index_trigger_candle": volume_health["index_trigger_candle"],
                              "golden_cross_recent": volume_health["golden_cross_recent"], "dead_cross_recent": volume_health["dead_cross_recent"]},
         "2_fundamentals": {"status": stage1, "upside_pct": upside_pct, "forward_pe": forward_pe, "peg": peg},
-        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "retest_divergence": retest_divergence, "retest_days_ago": retest_days_ago, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "macd_recovery_bonus_applied": macd_recovery_bonus_applied, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
+        "3_divergence_gate": {"status": stage_divergence, "bullish_divergence": bullish_divergence, "hidden_bullish_divergence": hidden_bullish_divergence, "retest_divergence": retest_divergence, "retest_days_ago": retest_days_ago, "recent_bearish_bonus_applied": recent_bearish_bonus_applied, "macd_recovery_bonus_applied": macd_recovery_bonus_applied, "macd_hist": round(macd_hist_today, 3) if macd_hist_today is not None else None, "macd_hist_change": round(macd_hist_change, 3) if macd_hist_change is not None else None, "divergence_present": divergence_present, "gap_days": gap_days, "signal_fresh": signal_fresh, "divergence_quality": round(divergence_quality, 3) if divergence_quality is not None else None, "rsi_improvement": round(rsi_improvement, 1) if rsi_improvement is not None else None},
         "4_zscore": {"status": stage3, "rsi": round(rsi_last, 1), "rsi_zscore_1y": round(rsi_zscore, 2) if rsi_zscore is not None else None, "zscore_quality": round(zscore_quality, 3) if zscore_quality is not None else None, "zscore_direction_bonus_applied": zscore_direction_bonus_applied},
         "5_trigger_candle": {"status": stage_trigger, "breakout_confirmed": breakout_ok, "pattern": breakout_pattern, "days_ago": breakout_days_ago, "hammer": bool(hammer), "bullish_engulfing": bool(engulfing), "morning_star": bool(morning_star), "long_lower_wick": bool(long_lower_wick), "wick_days_ago": wick_days_ago, "adx_reference": round(adx_last, 1) if adx_last is not None else None, "volume_confirmed": trigger_volume_confirmed, "trigger_day_volume": round(trigger_day_volume) if trigger_day_volume else None, "avg_volume_divergence_window": round(avg_vol_divergence_window) if avg_vol_divergence_window else None, "order_block": order_block},
     }
