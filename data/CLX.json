@@ -1,20 +1,20 @@
 {
   "ticker": "CLX",
   "name": "Clorox Company (The)",
-  "price": 106.04,
-  "updated": "2026-08-21T01:21:16.436193+00:00",
-  "as_of_date": "2026-08-20",
-  "score": 12,
+  "price": 106.69,
+  "updated": "2026-08-21T21:56:08.893892+00:00",
+  "as_of_date": "2026-08-21",
+  "score": 17,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -11.9,
-      "volume_trend_pct_3d": 27.9,
+      "volume_diff_pct_3m": -25.2,
+      "volume_trend_pct_3d": 13.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.84,
+      "daily_change_pct": 0.41,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -4.1,
-      "forward_pe": 16.85679,
+      "upside_pct": -4.7,
+      "forward_pe": 16.96012,
       "peg": 1.35
     },
     "3_divergence_gate": {
@@ -31,53 +31,53 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.161,
-      "macd_hist_change": -0.159,
+      "macd_hist": 0.074,
+      "macd_hist_change": -0.092,
       "divergence_present": true,
-      "gap_days": 26,
+      "gap_days": 28,
       "signal_fresh": false,
-      "divergence_quality": 0.409,
-      "rsi_improvement": 18.0
+      "divergence_quality": 0.412,
+      "rsi_improvement": 18.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.7,
-      "rsi_zscore_1y": 0.9,
-      "zscore_quality": 0.076,
+      "rsi": 62.3,
+      "rsi_zscore_1y": 1.01,
+      "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 29.9,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 30.6,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 2151188,
+      "avg_volume_divergence_window": 2632645,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.2,
-  "score_addon": 10,
+  "entry_atr_stop_pct": 4.1,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -11.9,
-      "volume_trend_pct_3d": 27.9,
+      "volume_diff_pct_3m": -25.2,
+      "volume_trend_pct_3d": 13.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.84,
+      "daily_change_pct": 0.41,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -4.1,
-      "forward_pe": 16.85679,
+      "upside_pct": -4.7,
+      "forward_pe": 16.96012,
       "peg": 1.35
     },
     "3_pullback_gate": {
@@ -105,15 +105,15 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.7,
-      "rsi_zone_quality": 0.829,
+      "rsi": 62.3,
+      "rsi_zone_quality": 0.894,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
@@ -126,10 +126,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 14,
-    "days_since_trend_start": 12,
-    "gain_since_low_pct": 12.3,
-    "divergence_date_index": 234
+    "days_since_divergence": 15,
+    "days_since_trend_start": 13,
+    "gain_since_low_pct": 13.0,
+    "divergence_date_index": 235
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

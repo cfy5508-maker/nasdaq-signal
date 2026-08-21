@@ -1,29 +1,29 @@
 {
   "ticker": "RKLB",
   "name": "Rocket Lab Corporation",
-  "price": 72.95,
-  "updated": "2026-08-21T01:20:07.203803+00:00",
-  "as_of_date": "2026-08-20",
+  "price": 72.57,
+  "updated": "2026-08-21T21:55:04.228465+00:00",
+  "as_of_date": "2026-08-21",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -22.4,
-      "volume_trend_pct_3d": 44.3,
+      "volume_diff_pct_3m": -22.7,
+      "volume_trend_pct_3d": 3.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.72,
+      "daily_change_pct": 0.35,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 54.8,
-      "forward_pe": 1458.9999,
+      "upside_pct": 55.6,
+      "forward_pe": 1451.4,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.855,
-      "macd_hist_change": -0.575,
+      "macd_hist": 0.439,
+      "macd_hist_change": -0.416,
       "divergence_present": false,
-      "gap_days": 16,
+      "gap_days": 17,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 13.6
+      "rsi_improvement": 13.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.6,
-      "rsi_zscore_1y": -0.71,
-      "zscore_quality": 0.477,
+      "rsi": 43.2,
+      "rsi_zscore_1y": -0.73,
+      "zscore_quality": 0.482,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.2,
+      "adx_reference": 17.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.2,
-  "score_addon": 44,
+  "entry_atr_stop_pct": 11.9,
+  "score_addon": 43,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -22.4,
-      "volume_trend_pct_3d": 44.3,
+      "volume_diff_pct_3m": -22.7,
+      "volume_trend_pct_3d": 3.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.72,
+      "daily_change_pct": 0.35,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 54.8,
-      "forward_pe": 1458.9999,
+      "upside_pct": 55.6,
+      "forward_pe": 1451.4,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.6,
-      "rsi_zone_quality": 0.144,
+      "rsi": 43.2,
+      "rsi_zone_quality": 0.126,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.9
+      "stop_pct_from_20sma": 2.1
     }
   },
   "sector": "Industrials",
@@ -126,15 +126,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 17,
-    "days_since_trend_start": 14,
-    "gain_since_low_pct": 14.2,
-    "divergence_date_index": 233
+    "days_since_divergence": 18,
+    "days_since_trend_start": 15,
+    "gain_since_low_pct": 13.6,
+    "divergence_date_index": 232
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 72.95,
+    "stop_reference_price": 72.57,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

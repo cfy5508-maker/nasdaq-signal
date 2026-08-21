@@ -1,29 +1,29 @@
 {
   "ticker": "GOOGL",
   "name": "Alphabet Inc.",
-  "price": 340.67,
-  "updated": "2026-08-21T01:20:26.509784+00:00",
-  "as_of_date": "2026-08-20",
-  "score": 69,
+  "price": 344.82,
+  "updated": "2026-08-21T21:55:25.440334+00:00",
+  "as_of_date": "2026-08-21",
+  "score": 73,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -22.4,
-      "volume_trend_pct_3d": 44.3,
+      "volume_diff_pct_3m": -22.7,
+      "volume_trend_pct_3d": 3.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.72,
+      "daily_change_pct": 0.35,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 25.7,
-      "forward_pe": 23.002361,
+      "upside_pct": 24.1,
+      "forward_pe": 23.281328,
       "peg": 0.93
     },
     "3_divergence_gate": {
@@ -34,23 +34,23 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.78,
-      "macd_hist_change": -0.219,
+      "macd_hist": -0.597,
+      "macd_hist_change": 0.183,
       "divergence_present": true,
       "gap_days": 20,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 1.0,
       "rsi_improvement": 13.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.0,
-      "rsi_zscore_1y": -0.93,
-      "zscore_quality": 0.481,
+      "rsi": 47.2,
+      "rsi_zscore_1y": -0.7,
+      "zscore_quality": 0.426,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,34 +59,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 9.5,
+      "adx_reference": 8.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 340.67,
+        "high": 343.06,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 4.2,
+  "entry_atr_stop_pct": 4.1,
   "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -22.4,
-      "volume_trend_pct_3d": 44.3,
+      "volume_diff_pct_3m": -22.7,
+      "volume_trend_pct_3d": 3.1,
       "volume_trend_up": true,
-      "daily_change_pct": -0.72,
+      "daily_change_pct": 0.35,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 25.7,
-      "forward_pe": 23.002361,
+      "upside_pct": 24.1,
+      "forward_pe": 23.281328,
       "peg": 0.93
     },
     "3_pullback_gate": {
@@ -95,7 +102,7 @@
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": true,
-      "near_sma200": true,
+      "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.0,
-      "rsi_zone_quality": 0.161,
+      "rsi": 47.2,
+      "rsi_zone_quality": 0.286,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.9
+      "stop_pct_from_20sma": 1.0
     }
   },
   "sector": "Communication Services",
