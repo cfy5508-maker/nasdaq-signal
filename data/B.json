@@ -1,20 +1,20 @@
 {
   "ticker": "B",
   "name": "Barrick Mining Corporation",
-  "price": 47.6,
-  "updated": "2026-08-23T21:53:45.177550+00:00",
-  "as_of_date": "2026-08-21",
+  "price": 48.16,
+  "updated": "2026-08-24T21:58:23.472683+00:00",
+  "as_of_date": "2026-08-24",
   "score": 19,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": 13.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.41,
+      "volume_diff_pct_3m": -38.1,
+      "volume_trend_pct_3d": -1.8,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.29,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.9,
-      "forward_pe": 10.815036,
+      "upside_pct": 8.3,
+      "forward_pe": 10.929284,
       "peg": 2.04
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.727,
-      "macd_hist_change": 0.12,
+      "macd_hist": 0.788,
+      "macd_hist_change": 0.061,
       "divergence_present": false,
       "gap_days": 9,
       "signal_fresh": null,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 73.1,
-      "rsi_zscore_1y": 1.37,
+      "rsi": 74.1,
+      "rsi_zscore_1y": 1.47,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -53,13 +53,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 14,
+      "days_ago": 15,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 16,
-      "adx_reference": 21.2,
+      "wick_days_ago": 17,
+      "adx_reference": 23.1,
       "volume_confirmed": false,
       "trigger_day_volume": 6792000,
       "avg_volume_divergence_window": 7690860,
@@ -68,23 +68,23 @@
         "high": 36.57,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 234,
+        "trigger_day_idx": 233,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 5.3,
+  "entry_atr_stop_pct": 5.1,
   "score_addon": 36,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": 13.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.41,
+      "volume_diff_pct_3m": -38.1,
+      "volume_trend_pct_3d": -1.8,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.29,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.9,
-      "forward_pe": 10.815036,
+      "upside_pct": 8.3,
+      "forward_pe": 10.929284,
       "peg": 2.04
     },
     "3_pullback_gate": {
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 73.1,
+      "rsi": 74.1,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 14.4
+      "stop_pct_from_20sma": 14.3
     }
   },
   "sector": "Basic Materials",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 17,
-    "days_since_trend_start": 16,
-    "gain_since_low_pct": 30.9,
-    "divergence_date_index": 233
+    "days_since_divergence": 18,
+    "days_since_trend_start": 17,
+    "gain_since_low_pct": 32.5,
+    "divergence_date_index": 232
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

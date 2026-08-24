@@ -1,20 +1,20 @@
 {
   "ticker": "LMT",
   "name": "Lockheed Martin Corporation",
-  "price": 563.57,
-  "updated": "2026-08-23T21:52:39.407404+00:00",
-  "as_of_date": "2026-08-21",
+  "price": 564.14,
+  "updated": "2026-08-24T21:57:13.993531+00:00",
+  "as_of_date": "2026-08-24",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": 13.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.41,
+      "volume_diff_pct_3m": -38.1,
+      "volume_trend_pct_3d": -1.8,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.29,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.3,
-      "forward_pe": 17.225834,
+      "upside_pct": 12.2,
+      "forward_pe": 17.243256,
       "peg": 1.17
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -4.949,
-      "macd_hist_change": -1.815,
+      "macd_hist": -5.931,
+      "macd_hist_change": -0.982,
       "divergence_present": false,
       "gap_days": 23,
       "signal_fresh": null,
@@ -44,40 +44,40 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.0,
-      "rsi_zscore_1y": -0.52,
-      "zscore_quality": 0.431,
+      "rsi": 46.2,
+      "rsi_zscore_1y": -0.5,
+      "zscore_quality": 0.426,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 28.0,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 26.6,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 1017871,
+      "avg_volume_divergence_window": 1233546,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.2,
-  "score_addon": 55,
+  "entry_atr_stop_pct": 4.0,
+  "score_addon": 73,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": 13.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.41,
+      "volume_diff_pct_3m": -38.1,
+      "volume_trend_pct_3d": -1.8,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.29,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.3,
-      "forward_pe": 17.225834,
+      "upside_pct": 12.2,
+      "forward_pe": 17.243256,
       "peg": 1.17
     },
     "3_pullback_gate": {
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.0,
-      "rsi_zone_quality": 0.24,
+      "rsi": 46.2,
+      "rsi_zone_quality": 0.249,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.3
+      "stop_pct_from_20sma": 4.0
     }
   },
   "sector": "Industrials",
@@ -126,10 +126,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 23,
-    "days_since_trend_start": 21,
-    "gain_since_low_pct": 11.1,
-    "divergence_date_index": 227
+    "days_since_divergence": 24,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": 11.3,
+    "divergence_date_index": 226
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
