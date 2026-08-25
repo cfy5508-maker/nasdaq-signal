@@ -1,20 +1,20 @@
 {
   "ticker": "IBM",
   "name": "International Business Machines",
-  "price": 231.04,
-  "updated": "2026-08-24T21:57:45.772074+00:00",
-  "as_of_date": "2026-08-24",
-  "score": 23,
+  "price": 234.19,
+  "updated": "2026-08-25T21:56:43.049772+00:00",
+  "as_of_date": "2026-08-25",
+  "score": 20,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -0.2,
-      "volume_trend_pct_3d": 6.6,
+      "volume_diff_pct_3m": -45.2,
+      "volume_trend_pct_3d": 2.3,
       "volume_trend_up": true,
-      "daily_change_pct": 0.27,
+      "daily_change_pct": 0.3,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.0,
-      "forward_pe": 17.553017,
+      "upside_pct": 4.6,
+      "forward_pe": 17.792336,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -31,22 +31,22 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.284,
-      "macd_hist_change": -0.418,
+      "macd_hist": 1.182,
+      "macd_hist_change": -0.102,
       "divergence_present": true,
       "gap_days": 18,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.331,
       "rsi_improvement": 14.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.5,
-      "rsi_zscore_1y": -0.39,
-      "zscore_quality": 0.398,
+      "rsi": 49.3,
+      "rsi_zscore_1y": -0.17,
+      "zscore_quality": 0.342,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 11.7,
+      "adx_reference": 11.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.1,
-  "score_addon": 17,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 18,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -0.2,
-      "volume_trend_pct_3d": 6.6,
+      "volume_diff_pct_3m": -45.2,
+      "volume_trend_pct_3d": 2.3,
       "volume_trend_up": true,
-      "daily_change_pct": 0.27,
+      "daily_change_pct": 0.3,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.0,
-      "forward_pe": 17.553017,
+      "upside_pct": 4.6,
+      "forward_pe": 17.792336,
       "peg": 2.41
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.5,
-      "rsi_zone_quality": 0.261,
+      "rsi": 49.3,
+      "rsi_zone_quality": 0.373,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.3
+      "stop_pct_from_20sma": 0.9
     }
   },
   "sector": "Technology",
@@ -126,10 +126,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 23,
-    "days_since_trend_start": 21,
-    "gain_since_low_pct": 13.1,
-    "divergence_date_index": 227
+    "days_since_divergence": 24,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": 14.6,
+    "divergence_date_index": 226
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

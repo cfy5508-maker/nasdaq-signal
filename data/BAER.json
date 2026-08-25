@@ -1,28 +1,28 @@
 {
   "ticker": "BAER",
   "name": "Bridger Aerospace Group Holding",
-  "price": 1.17,
-  "updated": "2026-08-24T21:58:26.457462+00:00",
-  "as_of_date": "2026-08-24",
-  "score": 62,
+  "price": 1.22,
+  "updated": "2026-08-25T21:57:18.039064+00:00",
+  "as_of_date": "2026-08-25",
+  "score": 59,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -13.4,
-      "volume_trend_pct_3d": -6.7,
+      "volume_diff_pct_3m": -45.3,
+      "volume_trend_pct_3d": -20.2,
       "volume_trend_up": false,
-      "daily_change_pct": -1.0,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 213.4,
+      "upside_pct": 201.8,
       "forward_pe": null,
       "peg": null
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.019,
-      "macd_hist_change": 0.008,
+      "macd_hist": -0.009,
+      "macd_hist_change": 0.01,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 31.0,
-      "rsi_zscore_1y": -1.33,
-      "zscore_quality": 0.584,
+      "rsi": 34.5,
+      "rsi_zscore_1y": -1.06,
+      "zscore_quality": 0.514,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -57,42 +57,42 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 34.0,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 34.4,
+      "volume_confirmed": true,
+      "trigger_day_volume": 2710605,
+      "avg_volume_divergence_window": 1265257,
       "order_block": {
         "low": 1.14,
         "high": 1.15,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 15.5,
-  "score_addon": 12,
+  "entry_atr_stop_pct": 14.7,
+  "score_addon": 36,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -13.4,
-      "volume_trend_pct_3d": -6.7,
+      "volume_diff_pct_3m": -45.3,
+      "volume_trend_pct_3d": -20.2,
       "volume_trend_up": false,
-      "daily_change_pct": -1.0,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 213.4,
+      "upside_pct": 201.8,
       "forward_pe": null,
       "peg": null
     },
@@ -112,20 +112,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 31.0,
+      "rsi": 34.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 26.7
+      "stop_pct_from_20sma": 19.0
     }
   },
   "sector": "Industrials",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 2,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 1.7,
-    "divergence_date_index": 248
+    "days_since_divergence": 3,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 5.7,
+    "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
