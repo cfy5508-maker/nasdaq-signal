@@ -1,20 +1,20 @@
 {
   "ticker": "VRT",
   "name": "Vertiv Holdings, LLC",
-  "price": 255.75,
-  "updated": "2026-08-25T21:57:10.933508+00:00",
-  "as_of_date": "2026-08-25",
-  "score": 30,
+  "price": 263.81,
+  "updated": "2026-08-27T01:02:26.196769+00:00",
+  "as_of_date": "2026-08-26",
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.4,
-      "volume_trend_pct_3d": -24.0,
+      "volume_diff_pct_3m": -46.7,
+      "volume_trend_pct_3d": -30.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.32,
+      "daily_change_pct": 0.02,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,62 +22,62 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 32.2,
-      "forward_pe": 28.108133,
+      "upside_pct": 28.2,
+      "forward_pe": 28.993965,
       "peg": 1.23
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.116,
-      "macd_hist_change": -0.382,
-      "divergence_present": false,
+      "macd_hist": -0.724,
+      "macd_hist_change": 0.392,
+      "divergence_present": true,
       "gap_days": 18,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.424,
       "rsi_improvement": 12.9
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 40.1,
-      "rsi_zscore_1y": -1.45,
-      "zscore_quality": 0.613,
+      "rsi": 44.4,
+      "rsi_zscore_1y": -1.06,
+      "zscore_quality": 0.514,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 14.2,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 14.0,
       "volume_confirmed": false,
-      "trigger_day_volume": 3982100,
-      "avg_volume_divergence_window": 6394789,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.4,
-  "score_addon": 70,
+  "entry_atr_stop_pct": 8.9,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.4,
-      "volume_trend_pct_3d": -24.0,
+      "volume_diff_pct_3m": -46.7,
+      "volume_trend_pct_3d": -30.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.32,
+      "daily_change_pct": 0.02,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,40 +85,40 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 32.2,
-      "forward_pe": 28.108133,
+      "upside_pct": 28.2,
+      "forward_pe": 28.993965,
       "peg": 1.23
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": true,
+      "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.1,
-      "rsi_zone_quality": 0.005,
+      "rsi": 44.4,
+      "rsi_zone_quality": 0.178,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.3
+      "stop_pct_from_20sma": 1.9
     }
   },
   "sector": "Industrials",
@@ -128,9 +128,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 8,
-    "divergence_date_index": 229,
-    "price_vs_low_pct": -11.1
+    "days_since_trend_start": 9,
+    "divergence_date_index": 228,
+    "price_vs_low_pct": -8.3
   },
   "pullback_stop_signal": {
     "stop_reference_price": 254.97,

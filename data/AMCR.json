@@ -1,20 +1,20 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": 47.27,
-  "updated": "2026-08-25T21:57:40.496740+00:00",
-  "as_of_date": "2026-08-25",
-  "score": 19,
+  "price": 47.15,
+  "updated": "2026-08-27T01:02:55.630209+00:00",
+  "as_of_date": "2026-08-26",
+  "score": 8,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.4,
-      "volume_trend_pct_3d": -24.0,
+      "volume_diff_pct_3m": -46.7,
+      "volume_trend_pct_3d": -30.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.32,
+      "daily_change_pct": 0.02,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,35 +22,35 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.6,
-      "forward_pe": 10.505519,
+      "upside_pct": 5.9,
+      "forward_pe": 10.478849,
       "peg": 1.09
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.042,
-      "macd_hist_change": -0.046,
+      "macd_hist": -0.085,
+      "macd_hist_change": -0.043,
       "divergence_present": false,
-      "gap_days": 17,
+      "gap_days": 24,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 0.5
+      "rsi_improvement": 4.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.5,
-      "rsi_zscore_1y": 0.44,
-      "zscore_quality": 0.19,
+      "rsi": 55.7,
+      "rsi_zscore_1y": 0.38,
+      "zscore_quality": 0.206,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,32 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 25.9,
+      "adx_reference": 25.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 45.06,
-        "high": 45.53,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 245,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.9,
-  "score_addon": 23,
+  "entry_atr_stop_pct": 3.8,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -47.4,
-      "volume_trend_pct_3d": -24.0,
+      "volume_diff_pct_3m": -46.7,
+      "volume_trend_pct_3d": -30.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.32,
+      "daily_change_pct": 0.02,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.6,
-      "forward_pe": 10.505519,
+      "upside_pct": 5.9,
+      "forward_pe": 10.478849,
       "peg": 1.09
     },
     "3_pullback_gate": {
@@ -112,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 56.5,
-      "rsi_zone_quality": 0.659,
+      "rsi": 55.7,
+      "rsi_zone_quality": 0.629,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 0.6
     }
   },
   "sector": "Consumer Cyclical",
@@ -133,15 +126,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 2.7,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 2.4,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 45.53,
+    "stop_reference_price": 47.15,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
