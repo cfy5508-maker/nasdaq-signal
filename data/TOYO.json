@@ -1,29 +1,29 @@
 {
   "ticker": "TOYO",
   "name": "TOYO Co., Ltd",
-  "price": 4.67,
-  "updated": "2026-08-27T01:01:57.703612+00:00",
-  "as_of_date": "2026-08-26",
-  "score": 75,
+  "price": 4.5,
+  "updated": "2026-08-28T05:35:56.810579+00:00",
+  "as_of_date": "2026-08-27",
+  "score": 76,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -56.7,
-      "volume_trend_pct_3d": -22.2,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -30.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.09,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": 1.37,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 253.3,
-      "forward_pe": 1.1502464,
+      "upside_pct": 266.7,
+      "forward_pe": 1.1083744,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.02,
-      "macd_hist_change": 0.002,
+      "macd_hist": 0.014,
+      "macd_hist_change": -0.006,
       "divergence_present": true,
       "gap_days": 16,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.8,
-      "rsi_zscore_1y": -0.83,
-      "zscore_quality": 0.508,
+      "rsi": 38.2,
+      "rsi_zscore_1y": -0.94,
+      "zscore_quality": 0.535,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 22.5,
+      "adx_reference": 22.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 4.5,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 15.8,
+  "entry_atr_stop_pct": 16.0,
   "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -56.7,
-      "volume_trend_pct_3d": -22.2,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -30.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.09,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": 1.37,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 253.3,
-      "forward_pe": 1.1502464,
+      "upside_pct": 266.7,
+      "forward_pe": 1.1083744,
       "peg": null
     },
     "3_pullback_gate": {
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.8,
+      "rsi": 38.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.0
+      "stop_pct_from_20sma": 15.5
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 7.7,
-    "divergence_date_index": 245
+    "days_since_divergence": 6,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 3.8,
+    "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

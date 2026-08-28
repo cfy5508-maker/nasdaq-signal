@@ -1,41 +1,41 @@
 {
   "ticker": "NOW",
   "name": "ServiceNow, Inc.",
-  "price": 125.8,
-  "updated": "2026-08-27T01:02:47.313658+00:00",
-  "as_of_date": "2026-08-26",
-  "score": 30,
+  "price": 138.43,
+  "updated": "2026-08-28T05:36:39.511390+00:00",
+  "as_of_date": "2026-08-27",
+  "score": 19,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -46.7,
-      "volume_trend_pct_3d": -30.3,
+      "volume_diff_pct_3m": -32.3,
+      "volume_trend_pct_3d": -22.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.02,
+      "daily_change_pct": 0.66,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 13.1,
-      "forward_pe": 25.132305,
-      "peg": 1.15
+      "status": "fail",
+      "upside_pct": 2.7,
+      "forward_pe": 27.655523,
+      "peg": 1.13
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.157,
-      "macd_hist_change": -0.247,
+      "macd_hist": 0.456,
+      "macd_hist_change": 0.613,
       "divergence_present": false,
       "gap_days": 24,
       "signal_fresh": null,
@@ -44,13 +44,13 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 58.4,
-      "rsi_zscore_1y": 1.13,
+      "rsi": 69.0,
+      "rsi_zscore_1y": 2.05,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,44 +59,51 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.3,
+      "adx_reference": 20.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 122.33,
+        "high": 125.8,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 7.0,
-  "score_addon": 55,
+  "entry_atr_stop_pct": 6.9,
+  "score_addon": 12,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -46.7,
-      "volume_trend_pct_3d": -30.3,
+      "volume_diff_pct_3m": -32.3,
+      "volume_trend_pct_3d": -22.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.02,
+      "daily_change_pct": 0.66,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 13.1,
-      "forward_pe": 25.132305,
-      "peg": 1.15
+      "status": "fail",
+      "upside_pct": 2.7,
+      "forward_pe": 27.655523,
+      "peg": 1.13
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -104,9 +111,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 58.4,
-      "rsi_zone_quality": 0.737,
+      "status": "pass",
+      "rsi": 69.0,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 10.6
     }
   },
   "sector": "Technology",
@@ -126,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 25,
-    "days_since_trend_start": 21,
-    "gain_since_low_pct": 31.8,
-    "divergence_date_index": 225
+    "days_since_divergence": 26,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": 45.0,
+    "divergence_date_index": 224
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

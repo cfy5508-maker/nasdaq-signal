@@ -1,9 +1,9 @@
 {
   "ticker": "GPOR",
   "name": "Gulfport Energy Corporation",
-  "price": 174.04,
-  "updated": "2026-08-27T01:03:01.282063+00:00",
-  "as_of_date": "2026-08-26",
+  "price": 176.13,
+  "updated": "2026-08-28T05:36:50.861386+00:00",
+  "as_of_date": "2026-08-27",
   "score": 47,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -46.7,
-      "volume_trend_pct_3d": -30.3,
+      "volume_diff_pct_3m": -32.3,
+      "volume_trend_pct_3d": -22.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.02,
+      "daily_change_pct": 0.66,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.5,
-      "forward_pe": 6.3191447,
+      "upside_pct": 27.9,
+      "forward_pe": 6.39503,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.68,
-      "macd_hist_change": -0.171,
+      "macd_hist": 0.643,
+      "macd_hist_change": -0.038,
       "divergence_present": false,
       "gap_days": 6,
       "signal_fresh": null,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.2,
-      "rsi_zscore_1y": 1.05,
+      "rsi": 64.8,
+      "rsi_zscore_1y": 1.28,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -53,13 +53,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 20,
+      "days_ago": 21,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 20,
-      "adx_reference": 22.4,
+      "wick_days_ago": 21,
+      "adx_reference": 23.0,
       "volume_confirmed": false,
       "trigger_day_volume": 232700,
       "avg_volume_divergence_window": 269543,
@@ -68,23 +68,23 @@
         "high": 153.4,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 232,
+        "trigger_day_idx": 231,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.9,
-  "score_addon": 52,
+  "entry_atr_stop_pct": 4.0,
+  "score_addon": 53,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -46.7,
-      "volume_trend_pct_3d": -30.3,
+      "volume_diff_pct_3m": -32.3,
+      "volume_trend_pct_3d": -22.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.02,
+      "daily_change_pct": 0.66,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.5,
-      "forward_pe": 6.3191447,
+      "upside_pct": 27.9,
+      "forward_pe": 6.39503,
       "peg": null
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.2,
-      "rsi_zone_quality": 0.887,
+      "rsi": 64.8,
+      "rsi_zone_quality": 0.992,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.8
+      "stop_pct_from_20sma": 4.4
     }
   },
   "sector": "Energy",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 21,
-    "days_since_trend_start": 18,
-    "gain_since_low_pct": 13.5,
-    "divergence_date_index": 229
+    "days_since_divergence": 22,
+    "days_since_trend_start": 19,
+    "gain_since_low_pct": 14.8,
+    "divergence_date_index": 228
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

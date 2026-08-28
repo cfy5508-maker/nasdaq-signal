@@ -1,29 +1,29 @@
 {
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
-  "price": 345.82,
-  "updated": "2026-08-27T01:03:23.367590+00:00",
-  "as_of_date": "2026-08-26",
-  "score": 32,
+  "price": 354.81,
+  "updated": "2026-08-28T05:37:08.842964+00:00",
+  "as_of_date": "2026-08-27",
+  "score": 28,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -56.7,
-      "volume_trend_pct_3d": -22.2,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -30.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.09,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": 1.37,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.8,
-      "forward_pe": 160.20717,
+      "upside_pct": 9.9,
+      "forward_pe": 164.37195,
       "peg": 5.13
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 18,
+      "retest_days_ago": 19,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 4.323,
-      "macd_hist_change": -0.808,
+      "macd_hist": 4.217,
+      "macd_hist_change": -0.106,
       "divergence_present": true,
       "gap_days": 7,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.8,
-      "rsi_zscore_1y": -0.01,
-      "zscore_quality": 0.253,
+      "rsi": 53.9,
+      "rsi_zscore_1y": 0.37,
+      "zscore_quality": 0.157,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 18,
-      "adx_reference": 20.0,
+      "wick_days_ago": 19,
+      "adx_reference": 19.7,
       "volume_confirmed": false,
       "trigger_day_volume": 36630600,
       "avg_volume_divergence_window": 49981138,
@@ -68,32 +68,32 @@
         "high": 311.21,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 233,
+        "trigger_day_idx": 232,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 5.7,
-  "score_addon": 23,
+  "entry_atr_stop_pct": 5.5,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -56.7,
-      "volume_trend_pct_3d": -22.2,
+      "volume_diff_pct_3m": -32.6,
+      "volume_trend_pct_3d": -30.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.09,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": 1.37,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.8,
-      "forward_pe": 160.20717,
+      "upside_pct": 9.9,
+      "forward_pe": 164.37195,
       "peg": 5.13
     },
     "3_pullback_gate": {
@@ -111,9 +111,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.8,
-      "rsi_zone_quality": 0.393,
+      "status": "warn",
+      "rsi": 53.9,
+      "rsi_zone_quality": 0.555,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.2
+      "stop_pct_from_20sma": 5.0
     }
   },
   "sector": "Consumer Cyclical",
@@ -133,9 +133,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 223,
-    "days_since_prior_divergence": 27,
-    "price_drop_since_pct": 6.4,
+    "prior_divergence_date_index": 222,
+    "days_since_prior_divergence": 28,
+    "price_drop_since_pct": 4.0,
     "rescue_attempted": true
   },
   "downtrend_signal": null,

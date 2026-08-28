@@ -1,20 +1,20 @@
 {
   "ticker": "NOC",
   "name": "Northrop Grumman Corporation",
-  "price": 549.95,
-  "updated": "2026-08-27T01:02:44.661907+00:00",
-  "as_of_date": "2026-08-26",
-  "score": 55,
+  "price": 545.13,
+  "updated": "2026-08-28T05:36:37.167927+00:00",
+  "as_of_date": "2026-08-27",
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -46.7,
-      "volume_trend_pct_3d": -30.3,
+      "volume_diff_pct_3m": -32.3,
+      "volume_trend_pct_3d": -22.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.02,
+      "daily_change_pct": 0.66,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.7,
-      "forward_pe": 18.066708,
-      "peg": 3.81
+      "upside_pct": 18.7,
+      "forward_pe": 17.908361,
+      "peg": 3.75
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -4.339,
-      "macd_hist_change": -0.158,
+      "macd_hist": -4.585,
+      "macd_hist_change": -0.246,
       "divergence_present": true,
       "gap_days": 25,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.9,
-      "rsi_zscore_1y": -0.13,
-      "zscore_quality": 0.333,
+      "rsi": 44.8,
+      "rsi_zscore_1y": -0.27,
+      "zscore_quality": 0.367,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.4,
+      "adx_reference": 14.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,23 +68,23 @@
         "high": 547.82,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.8,
-  "score_addon": 52,
+  "entry_atr_stop_pct": 3.7,
+  "score_addon": 50,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -46.7,
-      "volume_trend_pct_3d": -30.3,
+      "volume_diff_pct_3m": -32.3,
+      "volume_trend_pct_3d": -22.6,
       "volume_trend_up": false,
-      "daily_change_pct": 0.02,
+      "daily_change_pct": 0.66,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,9 +92,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.7,
-      "forward_pe": 18.066708,
-      "peg": 3.81
+      "upside_pct": 18.7,
+      "forward_pe": 17.908361,
+      "peg": 3.75
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.9,
-      "rsi_zone_quality": 0.274,
+      "rsi": 44.8,
+      "rsi_zone_quality": 0.192,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.4
+      "stop_pct_from_20sma": 3.4
     }
   },
   "sector": "Industrials",
