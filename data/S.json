@@ -1,20 +1,20 @@
 {
   "ticker": "S",
   "name": "SentinelOne, Inc.",
-  "price": 22.71,
-  "updated": "2026-08-28T05:37:09.010764+00:00",
-  "as_of_date": "2026-08-27",
-  "score": 19,
+  "price": 21.54,
+  "updated": "2026-08-29T03:21:45.711010+00:00",
+  "as_of_date": "2026-08-28",
+  "score": 25,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -32.3,
-      "volume_trend_pct_3d": -22.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.66,
+      "volume_diff_pct_3m": -28.2,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.23,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -4.4,
-      "forward_pe": 46.09857,
+      "upside_pct": 0.8,
+      "forward_pe": 45.977505,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.193,
-      "macd_hist_change": 0.136,
+      "macd_hist": -0.18,
+      "macd_hist_change": 0.013,
       "divergence_present": false,
       "gap_days": 23,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 61.6,
-      "rsi_zscore_1y": 1.04,
-      "zscore_quality": 0.05,
+      "rsi": 54.3,
+      "rsi_zscore_1y": 0.38,
+      "zscore_quality": 0.205,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -57,34 +57,34 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 24.3,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 23.5,
+      "volume_confirmed": true,
+      "trigger_day_volume": 16422710,
+      "avg_volume_divergence_window": 6478988,
       "order_block": {
         "low": 20.31,
         "high": 20.76,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.0,
-  "score_addon": 11,
+  "entry_atr_stop_pct": 7.8,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -32.3,
-      "volume_trend_pct_3d": -22.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.66,
+      "volume_diff_pct_3m": -28.2,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.23,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -4.4,
-      "forward_pe": 46.09857,
+      "upside_pct": 0.8,
+      "forward_pe": 45.977505,
       "peg": null
     },
     "3_pullback_gate": {
@@ -111,21 +111,21 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 61.6,
-      "rsi_zone_quality": 0.863,
+      "status": "warn",
+      "rsi": 54.3,
+      "rsi_zone_quality": 0.57,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.5
+      "stop_pct_from_20sma": 0.2
     }
   },
   "sector": "Technology",

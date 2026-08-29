@@ -1,29 +1,29 @@
 {
   "ticker": "PXLW",
   "name": "Pixelworks, Inc.",
-  "price": 6.91,
-  "updated": "2026-08-28T05:37:30.571010+00:00",
-  "as_of_date": "2026-08-27",
+  "price": 6.93,
+  "updated": "2026-08-29T03:22:04.658295+00:00",
+  "as_of_date": "2026-08-28",
   "score": 41,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -30.1,
+      "volume_diff_pct_3m": -20.0,
+      "volume_trend_pct_3d": -12.4,
       "volume_trend_up": false,
-      "daily_change_pct": 1.37,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.65,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 44.7,
-      "forward_pe": -5.9525867,
+      "upside_pct": 44.3,
+      "forward_pe": -5.974138,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -34,7 +34,7 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.018,
+      "macd_hist": 0.014,
       "macd_hist_change": -0.005,
       "divergence_present": false,
       "gap_days": 17,
@@ -44,7 +44,7 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 57.2,
+      "rsi": 57.5,
       "rsi_zscore_1y": 1.08,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.3,
+      "adx_reference": 19.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 6.48,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 239,
+        "trigger_day_idx": 238,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 8.0,
+  "entry_atr_stop_pct": 7.7,
   "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -30.1,
+      "volume_diff_pct_3m": -20.0,
+      "volume_trend_pct_3d": -12.4,
       "volume_trend_up": false,
-      "daily_change_pct": 1.37,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.65,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 44.7,
-      "forward_pe": -5.9525867,
+      "upside_pct": 44.3,
+      "forward_pe": -5.974138,
       "peg": 2.41
     },
     "3_pullback_gate": {
@@ -107,13 +107,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": false,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 57.2,
-      "rsi_zone_quality": 0.687,
+      "rsi": 57.5,
+      "rsi_zone_quality": 0.701,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.4
+      "stop_pct_from_20sma": 4.0
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 12,
-    "days_since_trend_start": 11,
-    "gain_since_low_pct": 14.8,
-    "divergence_date_index": 238
+    "days_since_divergence": 13,
+    "days_since_trend_start": 12,
+    "gain_since_low_pct": 15.1,
+    "divergence_date_index": 237
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

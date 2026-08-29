@@ -1,29 +1,29 @@
 {
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
-  "price": 109.76,
-  "updated": "2026-08-28T05:37:16.556328+00:00",
-  "as_of_date": "2026-08-27",
-  "score": 13,
+  "price": 104.26,
+  "updated": "2026-08-29T03:21:52.173491+00:00",
+  "as_of_date": "2026-08-28",
+  "score": 46,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -30.1,
+      "volume_diff_pct_3m": -20.0,
+      "volume_trend_pct_3d": -12.4,
       "volume_trend_up": false,
-      "daily_change_pct": 1.37,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.65,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 9.4,
-      "forward_pe": 33.77262,
+      "status": "pass",
+      "upside_pct": 15.2,
+      "forward_pe": 31.786974,
       "peg": 2.54
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 2.035,
-      "macd_hist_change": -0.007,
+      "macd_hist": 1.567,
+      "macd_hist_change": -0.468,
       "divergence_present": false,
       "gap_days": 12,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.3,
-      "rsi_zscore_1y": 0.83,
-      "zscore_quality": 0.042,
+      "rsi": 54.1,
+      "rsi_zscore_1y": 0.35,
+      "zscore_quality": 0.163,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.3,
+      "adx_reference": 20.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 93.44,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.3,
-  "score_addon": 10,
+  "entry_atr_stop_pct": 8.8,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -30.1,
+      "volume_diff_pct_3m": -20.0,
+      "volume_trend_pct_3d": -12.4,
       "volume_trend_up": false,
-      "daily_change_pct": 1.37,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.65,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": 9.4,
-      "forward_pe": 33.77262,
+      "status": "pass",
+      "upside_pct": 15.2,
+      "forward_pe": 31.786974,
       "peg": 2.54
     },
     "3_pullback_gate": {
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 60.3,
-      "rsi_zone_quality": 0.813,
+      "status": "warn",
+      "rsi": 54.1,
+      "rsi_zone_quality": 0.564,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.3
+      "stop_pct_from_20sma": 5.8
     }
   },
   "sector": "Financial Services",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": 19.9,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 7,
+    "gain_since_low_pct": 13.9,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

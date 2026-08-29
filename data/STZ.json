@@ -1,20 +1,20 @@
 {
   "ticker": "STZ",
   "name": "Constellation Brands, Inc.",
-  "price": 131.43,
-  "updated": "2026-08-28T05:36:14.721445+00:00",
-  "as_of_date": "2026-08-27",
-  "score": 53,
+  "price": 130.69,
+  "updated": "2026-08-29T03:20:55.964930+00:00",
+  "as_of_date": "2026-08-28",
+  "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -32.3,
-      "volume_trend_pct_3d": -22.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.66,
+      "volume_diff_pct_3m": -28.2,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.23,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.0,
-      "forward_pe": 10.606087,
+      "upside_pct": 30.7,
+      "forward_pe": 10.546371,
       "peg": 1.72
     },
     "3_divergence_gate": {
@@ -34,20 +34,20 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.044,
-      "macd_hist_change": -0.285,
+      "macd_hist": -0.186,
+      "macd_hist_change": -0.23,
       "divergence_present": true,
-      "gap_days": 25,
+      "gap_days": 26,
       "signal_fresh": true,
-      "divergence_quality": 0.495,
-      "rsi_improvement": 6.5
+      "divergence_quality": 0.456,
+      "rsi_improvement": 5.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.4,
-      "rsi_zscore_1y": -0.24,
-      "zscore_quality": 0.361,
-      "zscore_direction_bonus_applied": true
+      "rsi": 44.1,
+      "rsi_zscore_1y": -0.34,
+      "zscore_quality": 0.335,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.8,
+      "adx_reference": 13.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -67,17 +67,17 @@
     }
   },
   "entry_atr_stop_pct": 3.8,
-  "score_addon": 45,
+  "score_addon": 44,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -32.3,
-      "volume_trend_pct_3d": -22.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.66,
+      "volume_diff_pct_3m": -28.2,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.23,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.0,
-      "forward_pe": 10.606087,
+      "upside_pct": 30.7,
+      "forward_pe": 10.546371,
       "peg": 1.72
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.4,
-      "rsi_zone_quality": 0.215,
+      "rsi": 44.1,
+      "rsi_zone_quality": 0.163,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.7
+      "stop_pct_from_20sma": 2.3
     }
   },
   "sector": "Consumer Defensive",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 131.43,
+    "stop_reference_price": 130.69,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

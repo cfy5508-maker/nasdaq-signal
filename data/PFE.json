@@ -1,20 +1,20 @@
 {
   "ticker": "PFE",
   "name": "Pfizer, Inc.",
-  "price": 28.02,
-  "updated": "2026-08-28T05:36:13.219682+00:00",
-  "as_of_date": "2026-08-27",
-  "score": 11,
+  "price": 27.96,
+  "updated": "2026-08-29T03:20:54.682994+00:00",
+  "as_of_date": "2026-08-28",
+  "score": 6,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -32.3,
-      "volume_trend_pct_3d": -22.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.66,
+      "volume_diff_pct_3m": -28.2,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.23,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,30 +22,30 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.1,
-      "forward_pe": 9.67742,
+      "upside_pct": 2.3,
+      "forward_pe": 9.656696,
       "peg": 2.77
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.08,
-      "macd_hist_change": -0.048,
+      "macd_hist": 0.035,
+      "macd_hist_change": -0.045,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": null,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 9.5
+      "rsi_improvement": null
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 65.4,
-      "rsi_zscore_1y": 1.32,
+      "rsi": 64.5,
+      "rsi_zscore_1y": 1.21,
       "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
@@ -57,34 +57,27 @@
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 48.4,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 48.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 23.31,
-        "high": 23.74,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 215,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.1,
-  "score_addon": 12,
+  "entry_atr_stop_pct": 3.0,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -32.3,
-      "volume_trend_pct_3d": -22.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.66,
+      "volume_diff_pct_3m": -28.2,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.23,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.1,
-      "forward_pe": 9.67742,
+      "upside_pct": 2.3,
+      "forward_pe": 9.656696,
       "peg": 2.77
     },
     "3_pullback_gate": {
@@ -112,36 +105,29 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 65.4,
-      "rsi_zone_quality": 1.0,
+      "rsi": 64.5,
+      "rsi_zone_quality": 0.979,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.8
+      "stop_pct_from_20sma": 3.1
     }
   },
   "sector": "Healthcare",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "ongoing",
-    "days_since_divergence": 38,
-    "days_since_trend_start": 33,
-    "gain_since_low_pct": 20.2,
-    "divergence_date_index": 212
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.31,
+    "stop_reference_price": 27.96,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

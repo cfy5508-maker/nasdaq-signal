@@ -1,29 +1,29 @@
 {
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
-  "price": 54.0,
-  "updated": "2026-08-28T05:36:40.834415+00:00",
-  "as_of_date": "2026-08-27",
-  "score": 55,
+  "price": 49.92,
+  "updated": "2026-08-29T03:21:19.377297+00:00",
+  "as_of_date": "2026-08-28",
+  "score": 58,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -30.1,
+      "volume_diff_pct_3m": -20.0,
+      "volume_trend_pct_3d": -12.4,
       "volume_trend_up": false,
-      "daily_change_pct": 1.37,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.65,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 79.9,
-      "forward_pe": -33.823566,
+      "upside_pct": 94.6,
+      "forward_pe": -31.268007,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.613,
-      "macd_hist_change": 0.046,
+      "macd_hist": -0.803,
+      "macd_hist_change": -0.19,
       "divergence_present": true,
-      "gap_days": 18,
-      "signal_fresh": false,
-      "divergence_quality": 0.569,
-      "rsi_improvement": 9.0
+      "gap_days": 22,
+      "signal_fresh": true,
+      "divergence_quality": 0.519,
+      "rsi_improvement": 7.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.6,
-      "rsi_zscore_1y": -0.45,
-      "zscore_quality": 0.363,
+      "rsi": 40.3,
+      "rsi_zscore_1y": -0.89,
+      "zscore_quality": 0.472,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.4,
+      "adx_reference": 14.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 13.4,
-  "score_addon": 26,
+  "entry_atr_stop_pct": 14.4,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.6,
-      "volume_trend_pct_3d": -30.1,
+      "volume_diff_pct_3m": -20.0,
+      "volume_trend_pct_3d": -12.4,
       "volume_trend_up": false,
-      "daily_change_pct": 1.37,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.65,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 79.9,
-      "forward_pe": -33.823566,
+      "upside_pct": 94.6,
+      "forward_pe": -31.268007,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.6,
-      "rsi_zone_quality": 0.184,
+      "rsi": 40.3,
+      "rsi_zone_quality": 0.01,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,23 +118,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.6
+      "stop_pct_from_20sma": 16.3
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": null,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "entry",
-    "days_since_divergence": 3,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 3.7,
-    "divergence_date_index": 55
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 52.07,
+    "stop_reference_price": 49.92,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
