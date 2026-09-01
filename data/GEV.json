@@ -1,20 +1,20 @@
 {
   "ticker": "GEV",
   "name": "GE Vernova Inc.",
-  "price": 911.93,
-  "updated": "2026-08-30T23:48:23.154884+00:00",
-  "as_of_date": "2026-08-28",
-  "score": 60,
+  "price": 898.53,
+  "updated": "2026-09-01T00:46:34.231861+00:00",
+  "as_of_date": "2026-08-31",
+  "score": 67,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -27.5,
-      "volume_trend_pct_3d": 1.0,
+      "volume_diff_pct_3m": -23.5,
+      "volume_trend_pct_3d": 24.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.23,
+      "daily_change_pct": -0.3,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.6,
-      "forward_pe": 36.276806,
+      "upside_pct": 37.6,
+      "forward_pe": 35.74375,
       "peg": 1.62
     },
     "3_divergence_gate": {
-      "status": "warn",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -8.345,
-      "macd_hist_change": -1.483,
+      "macd_hist": -9.553,
+      "macd_hist_change": -1.208,
       "divergence_present": true,
-      "gap_days": 22,
+      "gap_days": 23,
       "signal_fresh": true,
-      "divergence_quality": 0.357,
-      "rsi_improvement": 1.9
+      "divergence_quality": 0.516,
+      "rsi_improvement": 0.3
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 37.0,
-      "rsi_zscore_1y": -1.71,
-      "zscore_quality": 0.678,
+      "rsi": 35.5,
+      "rsi_zscore_1y": -1.89,
+      "zscore_quality": 0.722,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.6,
+      "adx_reference": 16.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.7,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 7.6,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -27.5,
-      "volume_trend_pct_3d": 1.0,
+      "volume_diff_pct_3m": -23.5,
+      "volume_trend_pct_3d": 24.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.23,
+      "daily_change_pct": -0.3,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,17 +85,17 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.6,
-      "forward_pe": 36.276806,
+      "upside_pct": 37.6,
+      "forward_pe": 35.74375,
       "peg": 1.62
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.0,
+      "rsi": 35.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.9
+      "stop_pct_from_20sma": 10.0
     }
   },
   "sector": "Industrials",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 911.93,
+    "stop_reference_price": 898.53,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
