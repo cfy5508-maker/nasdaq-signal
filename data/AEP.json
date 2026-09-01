@@ -2,7 +2,7 @@
   "ticker": "AEP",
   "name": "American Electric Power Company",
   "price": 122.96,
-  "updated": "2026-09-01T23:33:23.794128+00:00",
+  "updated": "2026-09-01T23:33:38.421123+00:00",
   "as_of_date": "2026-09-01",
   "score": 60,
   "stages": {
@@ -24,29 +24,29 @@
       "status": "pass",
       "upside_pct": 17.1,
       "forward_pe": 17.94209,
-      "peg": 2.09
+      "peg": 2.08
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 2,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.052,
-      "macd_hist_change": 0.071,
+      "macd_hist": 0.02,
+      "macd_hist_change": 0.062,
       "divergence_present": true,
       "gap_days": 9,
       "signal_fresh": false,
-      "divergence_quality": 0.496,
+      "divergence_quality": 0.506,
       "rsi_improvement": -0.6
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 40.6,
-      "rsi_zscore_1y": -1.14,
-      "zscore_quality": 0.535,
+      "rsi": 40.2,
+      "rsi_zscore_1y": -1.18,
+      "zscore_quality": 0.544,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,18 +56,25 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 1,
-      "adx_reference": 19.8,
+      "adx_reference": 20.6,
       "volume_confirmed": true,
       "trigger_day_volume": 4149100,
       "avg_volume_divergence_window": 3145910,
-      "order_block": null
+      "order_block": {
+        "low": 122.31,
+        "high": 122.43,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 2.7,
-  "score_addon": 51,
+  "score_addon": 50,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -87,7 +94,7 @@
       "status": "pass",
       "upside_pct": 17.1,
       "forward_pe": 17.94209,
-      "peg": 2.09
+      "peg": 2.08
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.6,
-      "rsi_zone_quality": 0.024,
+      "rsi": 40.2,
+      "rsi_zone_quality": 0.01,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,16 +125,16 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.9
+      "stop_pct_from_20sma": 1.1
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 219,
-    "days_since_prior_divergence": 32,
+    "days_since_prior_divergence": 31,
     "price_drop_since_pct": 6.2,
     "rescue_attempted": false
   },
@@ -138,8 +145,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 23,
-    "reason": "무효화 이후 23일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 22,
+    "reason": "무효화 이후 22일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

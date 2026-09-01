@@ -2,9 +2,9 @@
   "ticker": "CRMD",
   "name": "CorMedix Inc.",
   "price": 8.38,
-  "updated": "2026-09-01T23:33:16.284763+00:00",
+  "updated": "2026-09-01T23:33:30.488461+00:00",
   "as_of_date": "2026-09-01",
-  "score": 40,
+  "score": 42,
   "stages": {
     "1_market_health": {
       "status": "pass",
@@ -27,30 +27,30 @@
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.054,
-      "macd_hist_change": -0.008,
-      "divergence_present": true,
-      "gap_days": 13,
-      "signal_fresh": true,
-      "divergence_quality": 0.334,
-      "rsi_improvement": 18.9
+      "macd_hist": 0.068,
+      "macd_hist_change": -0.01,
+      "divergence_present": false,
+      "gap_days": 10,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 1.5
     },
     "4_zscore": {
       "status": "fail",
       "rsi": 56.1,
       "rsi_zscore_1y": 0.76,
-      "zscore_quality": 0.109,
-      "zscore_direction_bonus_applied": true
+      "zscore_quality": 0.06,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,15 +59,22 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 30.3,
+      "adx_reference": 30.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 7.1,
+        "high": 7.3,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 238,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 6.5,
-  "score_addon": 57,
+  "entry_atr_stop_pct": 6.8,
+  "score_addon": 56,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
@@ -106,7 +113,7 @@
     "4_rsi_zone": {
       "status": "warn",
       "rsi": 56.1,
-      "rsi_zone_quality": 0.646,
+      "rsi_zone_quality": 0.642,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.0
+      "stop_pct_from_20sma": 5.5
     }
   },
   "sector": "Healthcare",
@@ -126,15 +133,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 14,
-    "days_since_trend_start": 13,
+    "days_since_divergence": 13,
+    "days_since_trend_start": 12,
     "gain_since_low_pct": 18.0,
     "divergence_date_index": 237
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 8.26,
+    "stop_reference_price": 7.1,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -2,7 +2,7 @@
   "ticker": "AVEX",
   "name": "AEVEX Corp.",
   "price": 16.89,
-  "updated": "2026-09-01T23:32:18.197008+00:00",
+  "updated": "2026-09-01T23:32:32.445838+00:00",
   "as_of_date": "2026-09-01",
   "score": 30,
   "stages": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.331,
-      "macd_hist_change": -0.035,
+      "macd_hist": -0.346,
+      "macd_hist_change": -0.048,
       "divergence_present": false,
-      "gap_days": 5,
+      "gap_days": 30,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -1.6
+      "rsi_improvement": 7.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 41.5,
-      "rsi_zscore_1y": -0.5,
-      "zscore_quality": 0.426,
+      "rsi": 41.8,
+      "rsi_zscore_1y": -0.48,
+      "zscore_quality": 0.419,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.2,
+      "adx_reference": 13.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.8,
+  "entry_atr_stop_pct": 13.4,
   "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 41.5,
-      "rsi_zone_quality": 0.061,
+      "rsi": 41.8,
+      "rsi_zone_quality": 0.071,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,12 +118,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 16.2
+      "stop_pct_from_20sma": 16.7
     }
   },
   "sector": "Industrials",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "ongoing",
+    "days_since_divergence": 30,
+    "days_since_trend_start": 29,
+    "gain_since_low_pct": 26.8,
+    "divergence_date_index": 63
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
