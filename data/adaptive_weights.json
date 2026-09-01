@@ -1,21 +1,24 @@
 {
-  "generated_at": "2026-08-01 22:52 UTC",
+  "generated_at": "2026-09-01 23:46 UTC",
   "primary_horizon": "fwd_5d",
   "regimes": {
     "bull": {
       "main": {
-        "2_fundamentals": 2.092,
-        "3_divergence_gate": 1.707,
-        "4_zscore": 2.826,
-        "5_trigger_candle": 0.869
+        "2_fundamentals": 2.245,
+        "3_divergence_gate": 1.516,
+        "4_zscore": 3.012,
+        "5_trigger_candle": 0.79
       },
       "addon": {
-        "2_fundamentals": 1.577,
-        "3_pullback_gate": 1.928,
-        "4_rsi_zone": 0.82,
-        "5_trigger_confirmed": 2.383
+        "2_fundamentals": 1.696,
+        "3_pullback_gate": 1.85,
+        "4_rsi_zone": 0.694,
+        "5_trigger_confirmed": 2.231
       },
-      "n_snapshots": 7421
+      "bonuses": {
+        "macd_recovery": 0.0874
+      },
+      "n_snapshots": 9929
     },
     "bear": {
       "main": {
@@ -29,6 +32,9 @@
         "3_pullback_gate": 2.0,
         "4_rsi_zone": 1.0,
         "5_trigger_confirmed": 2.5
+      },
+      "bonuses": {
+        "macd_recovery": 0.1
       },
       "n_snapshots": 0
     },
@@ -44,6 +50,9 @@
         "3_pullback_gate": 2.0,
         "4_rsi_zone": 1.0,
         "5_trigger_confirmed": 2.5
+      },
+      "bonuses": {
+        "macd_recovery": 0.1
       },
       "n_snapshots": 0
     }
