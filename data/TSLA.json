@@ -1,29 +1,29 @@
 {
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
-  "price": 367.95,
-  "updated": "2026-09-01T00:47:19.893316+00:00",
-  "as_of_date": "2026-08-31",
-  "score": 24,
+  "price": 356.09,
+  "updated": "2026-09-01T23:33:29.452475+00:00",
+  "as_of_date": "2026-09-01",
+  "score": 29,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -24.7,
-      "volume_trend_pct_3d": 15.8,
+      "volume_diff_pct_3m": -18.8,
+      "volume_trend_pct_3d": 38.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.05,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.27,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.0,
-      "forward_pe": 170.45929,
+      "upside_pct": 9.5,
+      "forward_pe": 164.96492,
       "peg": 5.2
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 21,
+      "retest_days_ago": 22,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 4.262,
-      "macd_hist_change": 0.677,
+      "macd_hist": 3.731,
+      "macd_hist_change": -0.531,
       "divergence_present": true,
       "gap_days": 7,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 58.7,
-      "rsi_zscore_1y": 0.83,
-      "zscore_quality": 0.043,
+      "rsi": 53.1,
+      "rsi_zscore_1y": 0.3,
+      "zscore_quality": 0.174,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -55,11 +55,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 21,
-      "adx_reference": 20.4,
+      "wick_days_ago": 22,
+      "adx_reference": 21.1,
       "volume_confirmed": false,
       "trigger_day_volume": 36630600,
       "avg_volume_divergence_window": 49981138,
@@ -73,59 +73,59 @@
       }
     }
   },
-  "entry_atr_stop_pct": 5.6,
-  "score_addon": 45,
+  "entry_atr_stop_pct": 5.8,
+  "score_addon": 42,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -24.7,
-      "volume_trend_pct_3d": 15.8,
+      "volume_diff_pct_3m": -18.8,
+      "volume_trend_pct_3d": 38.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.05,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.27,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.0,
-      "forward_pe": 170.45929,
+      "upside_pct": 9.5,
+      "forward_pe": 164.96492,
       "peg": 5.2
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
-      "near_sma40": false,
+      "near_sma40": true,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
+      "near_ma_count": 1,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
-      "was_above_40_recently": false,
+      "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 58.7,
-      "rsi_zone_quality": 0.748,
+      "rsi": 53.1,
+      "rsi_zone_quality": 0.523,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "status": "warn",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.3
+      "stop_pct_from_20sma": 3.8
     }
   },
   "sector": "Consumer Cyclical",
@@ -134,8 +134,8 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 220,
-    "days_since_prior_divergence": 30,
-    "price_drop_since_pct": 0.4,
+    "days_since_prior_divergence": 31,
+    "price_drop_since_pct": 3.6,
     "rescue_attempted": true
   },
   "downtrend_signal": null,
@@ -144,6 +144,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }
