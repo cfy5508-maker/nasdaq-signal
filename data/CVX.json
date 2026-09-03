@@ -1,9 +1,9 @@
 {
   "ticker": "CVX",
   "name": "Chevron Corporation",
-  "price": 211.78,
-  "updated": "2026-09-02T23:33:12.832596+00:00",
-  "as_of_date": "2026-09-02",
+  "price": 211.32,
+  "updated": "2026-09-03T23:31:10.150487+00:00",
+  "as_of_date": "2026-09-03",
   "score": 17,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -27.9,
-      "volume_trend_pct_3d": 14.1,
+      "volume_diff_pct_3m": 18.8,
+      "volume_trend_pct_3d": 61.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.54,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 3.1,
-      "forward_pe": 16.013405,
+      "upside_pct": 3.3,
+      "forward_pe": 15.734723,
       "peg": 0.93
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.481,
-      "macd_hist_change": 0.25,
+      "macd_hist": 0.54,
+      "macd_hist_change": 0.059,
       "divergence_present": false,
       "gap_days": 16,
       "signal_fresh": null,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 72.3,
-      "rsi_zscore_1y": 1.35,
+      "rsi": 71.2,
+      "rsi_zscore_1y": 1.26,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 4,
-      "adx_reference": 29.3,
+      "wick_days_ago": 5,
+      "adx_reference": 30.4,
       "volume_confirmed": true,
       "trigger_day_volume": 8112300,
       "avg_volume_divergence_window": 7809371,
@@ -68,12 +68,12 @@
         "high": 199.77,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 2.9,
+  "entry_atr_stop_pct": 2.8,
   "score_addon": 34,
   "stages_addon": {
     "1_market_health": {
@@ -81,19 +81,19 @@
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -27.9,
-      "volume_trend_pct_3d": 14.1,
+      "volume_diff_pct_3m": 18.8,
+      "volume_trend_pct_3d": 61.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.54,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 3.1,
-      "forward_pe": 16.013405,
+      "upside_pct": 3.3,
+      "forward_pe": 15.734723,
       "peg": 0.93
     },
     "3_pullback_gate": {
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 72.3,
+      "rsi": 71.2,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.4
+      "stop_pct_from_20sma": 4.7
     }
   },
   "sector": "Energy",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 4,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 6.0,
-    "divergence_date_index": 247
+    "days_since_divergence": 5,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 5.8,
+    "divergence_date_index": 246
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

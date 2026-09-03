@@ -1,29 +1,29 @@
 {
   "ticker": "BOSC",
   "name": "B.O.S. Better Online Solutions",
-  "price": 4.66,
-  "updated": "2026-09-02T23:33:27.230297+00:00",
-  "as_of_date": "2026-09-02",
-  "score": 48,
+  "price": 4.63,
+  "updated": "2026-09-03T23:31:26.745327+00:00",
+  "as_of_date": "2026-09-03",
+  "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -45.3,
-      "volume_trend_pct_3d": 8.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.23,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -30.2,
+      "volume_trend_pct_3d": -7.4,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 71.7,
-      "forward_pe": 7.6393437,
+      "upside_pct": 72.8,
+      "forward_pe": 7.5901637,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.003,
-      "macd_hist_change": -0.001,
+      "macd_hist": -0.001,
+      "macd_hist_change": -0.003,
       "divergence_present": false,
       "gap_days": 18,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 58.3,
-      "rsi_zscore_1y": 0.87,
-      "zscore_quality": 0.083,
+      "rsi": 55.6,
+      "rsi_zscore_1y": 0.58,
+      "zscore_quality": 0.154,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 15,
+      "days_ago": 16,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 16,
-      "adx_reference": 29.7,
+      "wick_days_ago": 17,
+      "adx_reference": 29.9,
       "volume_confirmed": false,
       "trigger_day_volume": 16800,
       "avg_volume_divergence_window": 24932,
@@ -68,32 +68,32 @@
         "high": 4.5,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 236,
+        "trigger_day_idx": 235,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.4,
-  "score_addon": 96,
+  "entry_atr_stop_pct": 4.3,
+  "score_addon": 95,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -45.3,
-      "volume_trend_pct_3d": 8.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.23,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -30.2,
+      "volume_trend_pct_3d": -7.4,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 71.7,
-      "forward_pe": 7.6393437,
+      "upside_pct": 72.8,
+      "forward_pe": 7.5901637,
       "peg": null
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 58.3,
-      "rsi_zone_quality": 0.732,
+      "rsi": 55.6,
+      "rsi_zone_quality": 0.626,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.8
+      "stop_pct_from_20sma": 1.1
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 18,
-    "days_since_trend_start": 13,
-    "gain_since_low_pct": 5.4,
-    "divergence_date_index": 233
+    "days_since_divergence": 19,
+    "days_since_trend_start": 14,
+    "gain_since_low_pct": 4.8,
+    "divergence_date_index": 232
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

@@ -1,52 +1,52 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 33.27,
-  "updated": "2026-09-02T23:32:30.587622+00:00",
-  "as_of_date": "2026-09-02",
-  "score": 54,
+  "price": 32.68,
+  "updated": "2026-09-03T23:30:20.754982+00:00",
+  "as_of_date": "2026-09-03",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -42.2,
-      "volume_trend_pct_3d": 9.1,
+      "volume_diff_pct_3m": -14.9,
+      "volume_trend_pct_3d": 2.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.44,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.05,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.9,
-      "forward_pe": -20.857103,
+      "upside_pct": 42.4,
+      "forward_pe": -20.48723,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.989,
-      "macd_hist_change": 0.048,
-      "divergence_present": true,
-      "gap_days": 24,
-      "signal_fresh": true,
-      "divergence_quality": 0.302,
-      "rsi_improvement": 9.9
+      "macd_hist": -0.952,
+      "macd_hist_change": 0.036,
+      "divergence_present": false,
+      "gap_days": 26,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 9.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.4,
-      "rsi_zscore_1y": -0.66,
-      "zscore_quality": 0.465,
+      "rsi": 41.8,
+      "rsi_zscore_1y": -0.8,
+      "zscore_quality": 0.499,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 19.8,
+      "adx_reference": 19.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.6,
+  "entry_atr_stop_pct": 10.8,
   "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -42.2,
-      "volume_trend_pct_3d": 9.1,
+      "volume_diff_pct_3m": -14.9,
+      "volume_trend_pct_3d": 2.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.44,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.05,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.9,
-      "forward_pe": -20.857103,
+      "upside_pct": 42.4,
+      "forward_pe": -20.48723,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.4,
-      "rsi_zone_quality": 0.134,
+      "rsi": 41.8,
+      "rsi_zone_quality": 0.071,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.9
+      "stop_pct_from_20sma": 17.1
     }
   },
   "sector": "Industrials",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 32.96,
+    "stop_reference_price": 32.68,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

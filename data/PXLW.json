@@ -1,29 +1,29 @@
 {
   "ticker": "PXLW",
   "name": "Pixelworks, Inc.",
-  "price": 7.09,
-  "updated": "2026-09-02T23:33:22.136992+00:00",
-  "as_of_date": "2026-09-02",
+  "price": 6.99,
+  "updated": "2026-09-03T23:31:20.488775+00:00",
+  "as_of_date": "2026-09-03",
   "score": 42,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -45.3,
-      "volume_trend_pct_3d": 8.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.23,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -30.2,
+      "volume_trend_pct_3d": -7.4,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.0,
-      "forward_pe": -6.112069,
+      "upside_pct": 43.1,
+      "forward_pe": -6.025862,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.005,
-      "macd_hist_change": 0.007,
+      "macd_hist": 0.001,
+      "macd_hist_change": -0.004,
       "divergence_present": false,
       "gap_days": 17,
       "signal_fresh": null,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.3,
-      "rsi_zscore_1y": 1.39,
+      "rsi": 57.6,
+      "rsi_zscore_1y": 1.07,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.2,
+      "adx_reference": 22.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,42 +68,42 @@
         "high": 6.48,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 236,
+        "trigger_day_idx": 235,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 6.8,
-  "score_addon": 35,
+  "entry_atr_stop_pct": 6.7,
+  "score_addon": 57,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -45.3,
-      "volume_trend_pct_3d": 8.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.23,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -30.2,
+      "volume_trend_pct_3d": -7.4,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.0,
-      "forward_pe": -6.112069,
+      "upside_pct": 43.1,
+      "forward_pe": -6.025862,
       "peg": 2.41
     },
     "3_pullback_gate": {
-      "status": "fail",
-      "near_sma20": false,
+      "status": "pass",
+      "near_sma20": true,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
+      "near_ma_count": 1,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -111,9 +111,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 60.3,
-      "rsi_zone_quality": 0.81,
+      "status": "warn",
+      "rsi": 57.6,
+      "rsi_zone_quality": 0.703,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.7
+      "stop_pct_from_20sma": 2.9
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 16,
-    "days_since_trend_start": 15,
-    "gain_since_low_pct": 17.8,
-    "divergence_date_index": 235
+    "days_since_divergence": 17,
+    "days_since_trend_start": 16,
+    "gain_since_low_pct": 16.1,
+    "divergence_date_index": 234
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

@@ -1,21 +1,21 @@
 {
   "ticker": "CLX",
   "name": "Clorox Company (The)",
-  "price": 94.27,
-  "updated": "2026-09-02T23:33:21.094254+00:00",
-  "as_of_date": "2026-09-02",
-  "score": 33,
+  "price": 94.29,
+  "updated": "2026-09-03T23:31:19.330555+00:00",
+  "as_of_date": "2026-09-03",
+  "score": 38,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -42.2,
-      "volume_trend_pct_3d": 9.1,
+      "volume_diff_pct_3m": -14.9,
+      "volume_trend_pct_3d": 2.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.44,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.05,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 7.8,
-      "forward_pe": 14.991189,
+      "forward_pe": 14.99437,
       "peg": 1.19
     },
     "3_divergence_gate": {
@@ -34,51 +34,51 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.704,
-      "macd_hist_change": -0.223,
+      "macd_hist": -1.764,
+      "macd_hist_change": -0.06,
       "divergence_present": true,
       "gap_days": 29,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.6,
       "rsi_improvement": -12.7
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 32.4,
-      "rsi_zscore_1y": -1.11,
-      "zscore_quality": 0.526,
+      "rsi": 32.5,
+      "rsi_zscore_1y": -1.08,
+      "zscore_quality": 0.521,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 26.6,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 27.2,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 2331654,
+      "avg_volume_divergence_window": 2870370,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.9,
-  "score_addon": 11,
+  "entry_atr_stop_pct": 4.7,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -42.2,
-      "volume_trend_pct_3d": 9.1,
+      "volume_diff_pct_3m": -14.9,
+      "volume_trend_pct_3d": 2.9,
       "volume_trend_up": true,
-      "daily_change_pct": 0.44,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.05,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 7.8,
-      "forward_pe": 14.991189,
+      "forward_pe": 14.99437,
       "peg": 1.19
     },
     "3_pullback_gate": {
@@ -101,36 +101,36 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 32.4,
+      "rsi": 32.5,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.4
+      "stop_pct_from_20sma": 9.8
     }
   },
   "sector": "Consumer Defensive",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_trend_start": 0,
-    "divergence_date_index": 228,
-    "price_vs_low_pct": -0.2
+    "days_since_trend_start": 1,
+    "divergence_date_index": 227,
+    "price_vs_low_pct": -0.1
   },
   "pullback_stop_signal": {
     "stop_reference_price": 94.27,

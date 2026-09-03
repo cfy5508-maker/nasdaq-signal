@@ -1,29 +1,29 @@
 {
   "ticker": "IREN",
   "name": "IREN LIMITED",
-  "price": 39.6,
-  "updated": "2026-09-02T23:32:33.776671+00:00",
-  "as_of_date": "2026-09-02",
-  "score": 54,
+  "price": 41.65,
+  "updated": "2026-09-03T23:30:24.318638+00:00",
+  "as_of_date": "2026-09-03",
+  "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -45.3,
-      "volume_trend_pct_3d": 8.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.23,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -30.2,
+      "volume_trend_pct_3d": -7.4,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.6,
-      "forward_pe": -149.43396,
+      "upside_pct": 86.9,
+      "forward_pe": -157.16983,
       "peg": 3.11
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.345,
-      "macd_hist_change": 0.173,
+      "macd_hist": -0.083,
+      "macd_hist_change": 0.262,
       "divergence_present": false,
       "gap_days": 22,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.6,
-      "rsi_zscore_1y": -0.23,
-      "zscore_quality": 0.357,
+      "rsi": 52.3,
+      "rsi_zscore_1y": 0.08,
+      "zscore_quality": 0.279,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.0,
+      "adx_reference": 13.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 37.65,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 251,
+        "trigger_day_idx": 250,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 13.2,
-  "score_addon": 30,
+  "entry_atr_stop_pct": 12.4,
+  "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -45.3,
-      "volume_trend_pct_3d": 8.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.23,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -30.2,
+      "volume_trend_pct_3d": -7.4,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.19,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.6,
-      "forward_pe": -149.43396,
+      "upside_pct": 86.9,
+      "forward_pe": -157.16983,
       "peg": 3.11
     },
     "3_pullback_gate": {
@@ -111,9 +111,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 48.6,
-      "rsi_zone_quality": 0.345,
+      "status": "warn",
+      "rsi": 52.3,
+      "rsi_zone_quality": 0.492,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.0
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Financial Services",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 26,
-    "days_since_trend_start": 23,
-    "gain_since_low_pct": 16.7,
-    "divergence_date_index": 225
+    "days_since_divergence": 27,
+    "days_since_trend_start": 24,
+    "gain_since_low_pct": 22.8,
+    "divergence_date_index": 224
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
