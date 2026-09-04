@@ -1,92 +1,92 @@
 {
   "ticker": "PEP",
   "name": "Pepsico, Inc.",
-  "price": 140.02,
-  "updated": "2026-09-03T23:31:01.149618+00:00",
-  "as_of_date": "2026-09-03",
-  "score": 58,
+  "price": 137.63,
+  "updated": "2026-09-04T23:15:54.834210+00:00",
+  "as_of_date": "2026-09-04",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.2,
-      "volume_trend_pct_3d": -7.4,
+      "volume_diff_pct_3m": -20.5,
+      "volume_trend_pct_3d": -15.9,
       "volume_trend_up": false,
-      "daily_change_pct": 1.19,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.18,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 10.7,
-      "forward_pe": 15.600436,
+      "upside_pct": 12.6,
+      "forward_pe": 15.334152,
       "peg": 1.43
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.19,
-      "macd_hist_change": -0.039,
-      "divergence_present": true,
-      "gap_days": 25,
-      "signal_fresh": false,
-      "divergence_quality": 0.513,
-      "rsi_improvement": 7.1
+      "macd_hist": -0.361,
+      "macd_hist_change": -0.171,
+      "divergence_present": false,
+      "gap_days": 19,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -3.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 48.4,
-      "rsi_zscore_1y": -0.12,
-      "zscore_quality": 0.33,
-      "zscore_direction_bonus_applied": true
+      "rsi": 42.1,
+      "rsi_zscore_1y": -0.7,
+      "zscore_quality": 0.424,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 4,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
       "adx_reference": 9.7,
       "volume_confirmed": false,
-      "trigger_day_volume": 5465100,
-      "avg_volume_divergence_window": 7113177,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 2.6,
-  "score_addon": 73,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.2,
-      "volume_trend_pct_3d": -7.4,
+      "volume_diff_pct_3m": -20.5,
+      "volume_trend_pct_3d": -15.9,
       "volume_trend_up": false,
-      "daily_change_pct": 1.19,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.18,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 10.7,
-      "forward_pe": 15.600436,
+      "upside_pct": 12.6,
+      "forward_pe": 15.334152,
       "peg": 1.43
     },
     "3_pullback_gate": {
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 48.4,
-      "rsi_zone_quality": 0.337,
+      "rsi": 42.1,
+      "rsi_zone_quality": 0.083,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.4
+      "stop_pct_from_20sma": 2.1
     }
   },
   "sector": "Consumer Defensive",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 139.72,
+    "stop_reference_price": 137.63,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

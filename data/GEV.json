@@ -1,21 +1,21 @@
 {
   "ticker": "GEV",
   "name": "GE Vernova Inc.",
-  "price": 941.84,
-  "updated": "2026-09-03T23:30:37.517734+00:00",
-  "as_of_date": "2026-09-03",
-  "score": 70,
+  "price": 941.95,
+  "updated": "2026-09-04T23:15:29.128955+00:00",
+  "as_of_date": "2026-09-04",
+  "score": 71,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -14.9,
-      "volume_trend_pct_3d": 2.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -9.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.39,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 31.3,
-      "forward_pe": 37.55876,
+      "forward_pe": 37.267284,
       "peg": 1.75
     },
     "3_divergence_gate": {
@@ -33,20 +33,20 @@
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": false,
-      "macd_hist": -4.33,
-      "macd_hist_change": 3.195,
+      "macd_recovery_bonus_applied": true,
+      "macd_hist": -1.883,
+      "macd_hist_change": 2.447,
       "divergence_present": true,
       "gap_days": 23,
       "signal_fresh": false,
-      "divergence_quality": 0.516,
+      "divergence_quality": 0.603,
       "rsi_improvement": 0.3
     },
     "4_zscore": {
       "status": "fail",
       "rsi": 44.6,
-      "rsi_zscore_1y": -0.92,
-      "zscore_quality": 0.479,
+      "rsi_zscore_1y": -0.93,
+      "zscore_quality": 0.482,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 16.8,
+      "wick_days_ago": 3,
+      "adx_reference": 16.0,
       "volume_confirmed": true,
       "trigger_day_volume": 2333800,
       "avg_volume_divergence_window": 2158971,
@@ -68,24 +68,24 @@
         "high": 898.53,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.0,
+  "entry_atr_stop_pct": 6.7,
   "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -14.9,
-      "volume_trend_pct_3d": 2.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -9.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.39,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
@@ -93,7 +93,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 31.3,
-      "forward_pe": 37.55876,
+      "forward_pe": 37.267284,
       "peg": 1.75
     },
     "3_pullback_gate": {
@@ -113,7 +113,7 @@
     "4_rsi_zone": {
       "status": "fail",
       "rsi": 44.6,
-      "rsi_zone_quality": 0.184,
+      "rsi_zone_quality": 0.185,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,18 +125,18 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.5
+      "stop_pct_from_20sma": 3.2
     }
   },
   "sector": "Industrials",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 3,
-    "days_since_trend_start": 0,
+    "days_since_divergence": 4,
+    "days_since_trend_start": 1,
     "gain_since_low_pct": 4.8,
-    "divergence_date_index": 248
+    "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

@@ -1,29 +1,29 @@
 {
   "ticker": "IREN",
   "name": "IREN LIMITED",
-  "price": 41.65,
-  "updated": "2026-09-03T23:30:24.318638+00:00",
-  "as_of_date": "2026-09-03",
-  "score": 51,
+  "price": 44.68,
+  "updated": "2026-09-04T23:15:14.899329+00:00",
+  "as_of_date": "2026-09-04",
+  "score": 47,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.2,
-      "volume_trend_pct_3d": -7.4,
+      "volume_diff_pct_3m": -20.5,
+      "volume_trend_pct_3d": -15.9,
       "volume_trend_up": false,
-      "daily_change_pct": 1.19,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.18,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 86.9,
-      "forward_pe": -157.16983,
+      "upside_pct": 74.2,
+      "forward_pe": -168.60379,
       "peg": 3.11
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.083,
-      "macd_hist_change": 0.262,
+      "macd_hist": 0.284,
+      "macd_hist_change": 0.367,
       "divergence_present": false,
       "gap_days": 22,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.3,
-      "rsi_zscore_1y": 0.08,
-      "zscore_quality": 0.279,
+      "rsi": 57.2,
+      "rsi_zscore_1y": 0.52,
+      "zscore_quality": 0.171,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.3,
+      "adx_reference": 13.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 37.65,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 12.4,
-  "score_addon": 31,
+  "entry_atr_stop_pct": 11.6,
+  "score_addon": 34,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.2,
-      "volume_trend_pct_3d": -7.4,
+      "volume_diff_pct_3m": -20.5,
+      "volume_trend_pct_3d": -15.9,
       "volume_trend_up": false,
-      "daily_change_pct": 1.19,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.18,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 86.9,
-      "forward_pe": -157.16983,
+      "upside_pct": 74.2,
+      "forward_pe": -168.60379,
       "peg": 3.11
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 52.3,
-      "rsi_zone_quality": 0.492,
+      "rsi": 57.2,
+      "rsi_zone_quality": 0.686,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.7
+      "stop_pct_from_20sma": 7.9
     }
   },
   "sector": "Financial Services",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 27,
-    "days_since_trend_start": 24,
-    "gain_since_low_pct": 22.8,
-    "divergence_date_index": 224
+    "days_since_divergence": 28,
+    "days_since_trend_start": 25,
+    "gain_since_low_pct": 31.7,
+    "divergence_date_index": 223
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

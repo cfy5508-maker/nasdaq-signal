@@ -1,29 +1,29 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 39.02,
-  "updated": "2026-09-03T23:31:39.662845+00:00",
-  "as_of_date": "2026-09-03",
+  "price": 39.52,
+  "updated": "2026-09-04T23:16:32.866919+00:00",
+  "as_of_date": "2026-09-04",
   "score": 52,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -14.9,
-      "volume_trend_pct_3d": 2.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -9.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.39,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 73.4,
-      "forward_pe": -32.122364,
+      "upside_pct": 71.2,
+      "forward_pe": -32.533978,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.489,
-      "macd_hist_change": 0.075,
+      "macd_hist": -0.381,
+      "macd_hist_change": 0.108,
       "divergence_present": true,
       "gap_days": 25,
       "signal_fresh": true,
-      "divergence_quality": 0.378,
+      "divergence_quality": 0.418,
       "rsi_improvement": 12.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.2,
-      "rsi_zscore_1y": -0.27,
-      "zscore_quality": 0.368,
+      "rsi": 46.4,
+      "rsi_zscore_1y": -0.17,
+      "zscore_quality": 0.342,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.7,
+      "adx_reference": 15.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.5,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 9.8,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -14.9,
-      "volume_trend_pct_3d": 2.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -33.2,
+      "volume_trend_pct_3d": -9.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.39,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 73.4,
-      "forward_pe": -32.122364,
+      "upside_pct": 71.2,
+      "forward_pe": -32.533978,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.2,
-      "rsi_zone_quality": 0.209,
+      "rsi": 46.4,
+      "rsi_zone_quality": 0.257,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.4
+      "stop_pct_from_20sma": 6.4
     }
   },
   "sector": "Technology",
@@ -126,10 +126,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 26,
-    "days_since_trend_start": 25,
-    "gain_since_low_pct": 22.0,
-    "divergence_date_index": 225
+    "days_since_divergence": 27,
+    "days_since_trend_start": 26,
+    "gain_since_low_pct": 23.5,
+    "divergence_date_index": 224
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
