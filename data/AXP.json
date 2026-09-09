@@ -1,52 +1,52 @@
 {
   "ticker": "AXP",
   "name": "American Express Company",
-  "price": 326.1,
-  "updated": "2026-09-08T23:40:05.079662+00:00",
-  "as_of_date": "2026-09-08",
-  "score": 58,
+  "price": 321.8,
+  "updated": "2026-09-09T23:30:15.328681+00:00",
+  "as_of_date": "2026-09-09",
+  "score": 63,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -9.6,
-      "volume_trend_pct_3d": 33.2,
-      "volume_trend_up": true,
-      "daily_change_pct": -1.13,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -6.9,
+      "volume_trend_pct_3d": -13.3,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.75,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.3,
-      "forward_pe": 16.21284,
+      "upside_pct": 16.8,
+      "forward_pe": 15.999053,
       "peg": 1.32
     },
     "3_divergence_gate": {
-      "status": "warn",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.93,
-      "macd_hist_change": 0.037,
+      "macd_hist": -1.108,
+      "macd_hist_change": -0.178,
       "divergence_present": true,
-      "gap_days": 27,
+      "gap_days": 5,
       "signal_fresh": true,
-      "divergence_quality": 0.401,
-      "rsi_improvement": -2.2
+      "divergence_quality": 0.511,
+      "rsi_improvement": 0.2
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 39.3,
-      "rsi_zscore_1y": -1.02,
-      "zscore_quality": 0.506,
+      "rsi": 35.5,
+      "rsi_zscore_1y": -1.35,
+      "zscore_quality": 0.587,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.0,
+      "adx_reference": 13.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -74,19 +74,19 @@
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -9.6,
-      "volume_trend_pct_3d": 33.2,
-      "volume_trend_up": true,
-      "daily_change_pct": -1.13,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -6.9,
+      "volume_trend_pct_3d": -13.3,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.75,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.3,
-      "forward_pe": 16.21284,
+      "upside_pct": 16.8,
+      "forward_pe": 15.999053,
       "peg": 1.32
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.3,
+      "rsi": 35.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 3.7
     }
   },
   "sector": "Financial Services",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 324.19,
+    "stop_reference_price": 321.8,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

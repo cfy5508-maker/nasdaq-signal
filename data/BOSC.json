@@ -1,20 +1,20 @@
 {
   "ticker": "BOSC",
   "name": "B.O.S. Better Online Solutions",
-  "price": 4.79,
-  "updated": "2026-09-08T23:39:55.409792+00:00",
-  "as_of_date": "2026-09-08",
-  "score": 47,
+  "price": 4.65,
+  "updated": "2026-09-09T23:30:07.623085+00:00",
+  "as_of_date": "2026-09-09",
+  "score": 53,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.0,
-      "volume_trend_pct_3d": -1.2,
+      "volume_diff_pct_3m": -33.4,
+      "volume_trend_pct_3d": -0.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.08,
+      "daily_change_pct": -0.29,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 67.0,
-      "forward_pe": 7.852459,
+      "upside_pct": 72.0,
+      "forward_pe": 7.622951,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.006,
-      "macd_hist_change": 0.008,
+      "macd_hist": 0.001,
+      "macd_hist_change": -0.005,
       "divergence_present": false,
       "gap_days": 18,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 65.4,
-      "rsi_zscore_1y": 1.62,
-      "zscore_quality": 0.05,
+      "rsi": 54.1,
+      "rsi_zscore_1y": 0.43,
+      "zscore_quality": 0.194,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 18,
+      "days_ago": 19,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 19,
-      "adx_reference": 31.0,
+      "wick_days_ago": 20,
+      "adx_reference": 31.6,
       "volume_confirmed": false,
       "trigger_day_volume": 16800,
       "avg_volume_divergence_window": 24932,
@@ -68,23 +68,23 @@
         "high": 4.5,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 232,
+        "trigger_day_idx": 231,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.2,
-  "score_addon": 65,
+  "entry_atr_stop_pct": 4.4,
+  "score_addon": 94,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -32.0,
-      "volume_trend_pct_3d": -1.2,
+      "volume_diff_pct_3m": -33.4,
+      "volume_trend_pct_3d": -0.6,
       "volume_trend_up": false,
-      "daily_change_pct": -0.08,
+      "daily_change_pct": -0.29,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,28 +92,28 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 67.0,
-      "forward_pe": 7.852459,
+      "upside_pct": 72.0,
+      "forward_pe": 7.622951,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "fail",
-      "near_sma20": false,
+      "status": "pass",
+      "near_sma20": true,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
-      "near_sma200": false,
-      "near_ma_count": 0,
+      "near_sma120": true,
+      "near_sma200": true,
+      "near_ma_count": 1,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
+      "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 65.4,
-      "rsi_zone_quality": 1.0,
+      "status": "warn",
+      "rsi": 54.1,
+      "rsi_zone_quality": 0.565,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.8
+      "stop_pct_from_20sma": 0.7
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 21,
-    "days_since_trend_start": 16,
-    "gain_since_low_pct": 8.4,
-    "divergence_date_index": 229
+    "days_since_divergence": 22,
+    "days_since_trend_start": 17,
+    "gain_since_low_pct": 5.2,
+    "divergence_date_index": 228
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
