@@ -1,20 +1,20 @@
 {
   "ticker": "LLY",
   "name": "Eli Lilly and Company",
-  "price": 1124.21,
-  "updated": "2026-09-09T23:29:52.051978+00:00",
-  "as_of_date": "2026-09-09",
+  "price": 1123.0,
+  "updated": "2026-09-10T23:22:39.076223+00:00",
+  "as_of_date": "2026-09-10",
   "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -33.3,
-      "volume_trend_pct_3d": -2.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.46,
+      "volume_diff_pct_3m": -12.7,
+      "volume_trend_pct_3d": 11.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.0,
-      "forward_pe": 23.790112,
+      "upside_pct": 17.1,
+      "forward_pe": 23.76428,
       "peg": 1.11
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -10.877,
-      "macd_hist_change": -0.124,
+      "macd_hist": -10.434,
+      "macd_hist_change": 0.443,
       "divergence_present": true,
-      "gap_days": 24,
-      "signal_fresh": false,
-      "divergence_quality": 0.311,
-      "rsi_improvement": -3.2
+      "gap_days": 26,
+      "signal_fresh": true,
+      "divergence_quality": 0.316,
+      "rsi_improvement": -3.4
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 37.1,
-      "rsi_zscore_1y": -1.51,
-      "zscore_quality": 0.628,
+      "rsi": 36.9,
+      "rsi_zscore_1y": -1.53,
+      "zscore_quality": 0.633,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -66,18 +66,18 @@
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.6,
+  "entry_atr_stop_pct": 4.4,
   "score_addon": 37,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -33.3,
-      "volume_trend_pct_3d": -2.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.46,
+      "volume_diff_pct_3m": -12.7,
+      "volume_trend_pct_3d": 11.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.0,
-      "forward_pe": 23.790112,
+      "upside_pct": 17.1,
+      "forward_pe": 23.76428,
       "peg": 1.11
     },
     "3_pullback_gate": {
@@ -99,13 +99,13 @@
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
-      "was_above_40_recently": true,
+      "was_above_40_recently": false,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 37.1,
+      "rsi": 36.9,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.1
+      "stop_pct_from_20sma": 5.8
     }
   },
   "sector": "Healthcare",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 1123.91,
+    "stop_reference_price": 1123.0,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

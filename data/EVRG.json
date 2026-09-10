@@ -1,29 +1,29 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 81.22,
-  "updated": "2026-09-09T23:30:27.655971+00:00",
-  "as_of_date": "2026-09-09",
-  "score": 30,
+  "price": 81.36,
+  "updated": "2026-09-10T23:23:15.098510+00:00",
+  "as_of_date": "2026-09-10",
+  "score": 29,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -33.4,
-      "volume_trend_pct_3d": -0.6,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.29,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -21.0,
+      "volume_trend_pct_3d": 0.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.06,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.4,
-      "forward_pe": 17.791779,
+      "upside_pct": 12.2,
+      "forward_pe": 17.822445,
       "peg": 2.1
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.066,
-      "macd_hist_change": -0.022,
+      "macd_hist": 0.063,
+      "macd_hist_change": -0.003,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.5,
-      "rsi_zscore_1y": -0.89,
-      "zscore_quality": 0.472,
+      "rsi": 45.4,
+      "rsi_zscore_1y": -0.8,
+      "zscore_quality": 0.451,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -70,23 +70,23 @@
   "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -33.4,
-      "volume_trend_pct_3d": -0.6,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.29,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -21.0,
+      "volume_trend_pct_3d": 0.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.06,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.4,
-      "forward_pe": 17.791779,
+      "upside_pct": 12.2,
+      "forward_pe": 17.822445,
       "peg": 2.1
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.5,
-      "rsi_zone_quality": 0.18,
+      "rsi": 45.4,
+      "rsi_zone_quality": 0.215,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 0.7
     }
   },
   "sector": "Utilities",

@@ -1,20 +1,20 @@
 {
   "ticker": "BLK",
   "name": "BlackRock, Inc.",
-  "price": 1072.03,
-  "updated": "2026-09-09T23:29:50.805537+00:00",
-  "as_of_date": "2026-09-09",
+  "price": 1062.4,
+  "updated": "2026-09-10T23:22:37.900822+00:00",
+  "as_of_date": "2026-09-10",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -33.3,
-      "volume_trend_pct_3d": -2.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.46,
+      "volume_diff_pct_3m": -12.7,
+      "volume_trend_pct_3d": 11.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 16.66966,
+      "upside_pct": 24.3,
+      "forward_pe": 16.519918,
       "peg": 0.94
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -12.213,
-      "macd_hist_change": -1.747,
+      "macd_hist": -13.386,
+      "macd_hist_change": -1.173,
       "divergence_present": false,
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -10.9
+      "rsi_improvement": -7.3
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 37.1,
-      "rsi_zscore_1y": -1.22,
-      "zscore_quality": 0.555,
+      "rsi": 35.3,
+      "rsi_zscore_1y": -1.37,
+      "zscore_quality": 0.592,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.9,
+      "adx_reference": 25.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -70,14 +70,14 @@
   "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -33.3,
-      "volume_trend_pct_3d": -2.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.46,
+      "volume_diff_pct_3m": -12.7,
+      "volume_trend_pct_3d": 11.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 16.66966,
+      "upside_pct": 24.3,
+      "forward_pe": 16.519918,
       "peg": 0.94
     },
     "3_pullback_gate": {
@@ -98,14 +98,14 @@
       "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.1,
+      "rsi": 35.3,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.5
+      "stop_pct_from_20sma": 7.0
     }
   },
   "sector": "Financial Services",
@@ -127,13 +127,13 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": {
     "active": true,
-    "phase": "entry",
-    "days_since_trend_start": 5,
-    "divergence_date_index": 237,
-    "price_vs_low_pct": -5.5
+    "phase": "ongoing",
+    "days_since_trend_start": 6,
+    "divergence_date_index": 236,
+    "price_vs_low_pct": -6.3
   },
   "pullback_stop_signal": {
-    "stop_reference_price": 1072.03,
+    "stop_reference_price": 1062.4,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

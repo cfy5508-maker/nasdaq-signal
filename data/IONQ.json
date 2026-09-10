@@ -1,20 +1,20 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 38.14,
-  "updated": "2026-09-09T23:30:48.227992+00:00",
-  "as_of_date": "2026-09-09",
-  "score": 52,
+  "price": 36.84,
+  "updated": "2026-09-10T23:23:35.577566+00:00",
+  "as_of_date": "2026-09-10",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -33.3,
-      "volume_trend_pct_3d": -2.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.46,
+      "volume_diff_pct_3m": -12.7,
+      "volume_trend_pct_3d": 11.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 80.5,
-      "forward_pe": -29.483156,
+      "upside_pct": 86.8,
+      "forward_pe": -28.20827,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.264,
-      "macd_hist_change": -0.036,
-      "divergence_present": true,
-      "gap_days": 25,
-      "signal_fresh": true,
-      "divergence_quality": 0.329,
-      "rsi_improvement": 12.0
+      "macd_hist": -0.349,
+      "macd_hist_change": -0.086,
+      "divergence_present": false,
+      "gap_days": 30,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 11.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.8,
-      "rsi_zscore_1y": -0.36,
-      "zscore_quality": 0.39,
+      "rsi": 41.2,
+      "rsi_zscore_1y": -0.56,
+      "zscore_quality": 0.441,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.1,
+      "adx_reference": 14.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -67,17 +67,17 @@
     }
   },
   "entry_atr_stop_pct": 10.8,
-  "score_addon": 28,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -33.3,
-      "volume_trend_pct_3d": -2.8,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.46,
+      "volume_diff_pct_3m": -12.7,
+      "volume_trend_pct_3d": 11.4,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 80.5,
-      "forward_pe": -29.483156,
+      "upside_pct": 86.8,
+      "forward_pe": -28.20827,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.8,
-      "rsi_zone_quality": 0.15,
+      "rsi": 41.2,
+      "rsi_zone_quality": 0.05,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.3
+      "stop_pct_from_20sma": 12.0
     }
   },
   "sector": "Technology",
@@ -126,15 +126,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 29,
-    "days_since_trend_start": 28,
-    "gain_since_low_pct": 19.2,
-    "divergence_date_index": 221
+    "days_since_divergence": 30,
+    "days_since_trend_start": 29,
+    "gain_since_low_pct": 15.2,
+    "divergence_date_index": 220
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 37.64,
+    "stop_reference_price": 36.84,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
