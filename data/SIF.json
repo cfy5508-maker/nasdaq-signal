@@ -1,30 +1,30 @@
 {
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
-  "price": 21.55,
-  "updated": "2026-09-13T23:27:16.834194+00:00",
-  "as_of_date": "2026-09-11",
-  "score": 27,
+  "price": 21.03,
+  "updated": "2026-09-14T23:58:39.429579+00:00",
+  "as_of_date": "2026-09-14",
+  "score": 45,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": -1.1,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.85,
+      "volume_diff_pct_3m": -7.4,
+      "volume_trend_pct_3d": 18.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.45,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
+      "status": "warn",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": null
+      "peg": 1.64
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.038,
-      "macd_hist_change": 0.037,
+      "macd_hist": 0.031,
+      "macd_hist_change": -0.007,
       "divergence_present": true,
       "gap_days": 19,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.3,
-      "rsi_zscore_1y": -0.6,
-      "zscore_quality": 0.4,
+      "rsi": 44.4,
+      "rsi_zscore_1y": -0.87,
+      "zscore_quality": 0.469,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.8,
+      "adx_reference": 15.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -67,27 +67,27 @@
     }
   },
   "entry_atr_stop_pct": 10.2,
-  "score_addon": 16,
+  "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": -1.1,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.85,
+      "volume_diff_pct_3m": -7.4,
+      "volume_trend_pct_3d": 18.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.45,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
+      "status": "warn",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": null
+      "peg": 1.64
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.3,
-      "rsi_zone_quality": 0.291,
+      "rsi": 44.4,
+      "rsi_zone_quality": 0.176,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.6
+      "stop_pct_from_20sma": 2.1
     }
   },
   "sector": "Industrials",
@@ -126,10 +126,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 3.1,
-    "divergence_date_index": 249
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 0.6,
+    "divergence_date_index": 248
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

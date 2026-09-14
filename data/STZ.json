@@ -1,9 +1,9 @@
 {
   "ticker": "STZ",
   "name": "Constellation Brands, Inc.",
-  "price": 122.45,
-  "updated": "2026-09-13T23:27:07.897654+00:00",
-  "as_of_date": "2026-09-11",
+  "price": 125.0,
+  "updated": "2026-09-14T23:58:32.382617+00:00",
+  "as_of_date": "2026-09-14",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": -1.1,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.85,
+      "volume_diff_pct_3m": -7.4,
+      "volume_trend_pct_3d": 18.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.45,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.0,
-      "forward_pe": 9.885203,
+      "upside_pct": 36.2,
+      "forward_pe": 10.099924,
       "peg": 1.56
     },
     "3_divergence_gate": {
@@ -31,53 +31,53 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.111,
-      "macd_hist_change": 0.05,
+      "macd_hist": -0.844,
+      "macd_hist_change": 0.267,
       "divergence_present": true,
       "gap_days": 15,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.464,
       "rsi_improvement": -16.4
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 34.2,
-      "rsi_zscore_1y": -1.5,
-      "zscore_quality": 0.624,
+      "status": "fail",
+      "rsi": 40.8,
+      "rsi_zscore_1y": -0.87,
+      "zscore_quality": 0.467,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 13.9,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 14.1,
+      "volume_confirmed": true,
+      "trigger_day_volume": 2913001,
+      "avg_volume_divergence_window": 2025544,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.3,
-  "score_addon": 26,
+  "entry_atr_stop_pct": 4.2,
+  "score_addon": 53,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": -1.1,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.85,
+      "volume_diff_pct_3m": -7.4,
+      "volume_trend_pct_3d": 18.1,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.45,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.0,
-      "forward_pe": 9.885203,
+      "upside_pct": 36.2,
+      "forward_pe": 10.099924,
       "peg": 1.56
     },
     "3_pullback_gate": {
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.2,
-      "rsi_zone_quality": 0.0,
+      "rsi": 40.8,
+      "rsi_zone_quality": 0.031,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.6
+      "stop_pct_from_20sma": 3.8
     }
   },
   "sector": "Consumer Defensive",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 5.1,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 3.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

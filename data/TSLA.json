@@ -1,20 +1,20 @@
 {
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
-  "price": 365.44,
-  "updated": "2026-09-13T23:28:32.939038+00:00",
-  "as_of_date": "2026-09-11",
-  "score": 23,
+  "price": 358.97,
+  "updated": "2026-09-14T23:59:40.769283+00:00",
+  "as_of_date": "2026-09-14",
+  "score": 26,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.87,
+      "volume_diff_pct_3m": -8.8,
+      "volume_trend_pct_3d": 5.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.8,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.7,
-      "forward_pe": 169.29648,
+      "upside_pct": 8.7,
+      "forward_pe": 166.29913,
       "peg": 4.37
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 29,
+      "retest_days_ago": 30,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.863,
-      "macd_hist_change": -0.364,
+      "macd_hist": 1.095,
+      "macd_hist_change": -0.768,
       "divergence_present": true,
       "gap_days": 7,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.5,
-      "rsi_zscore_1y": 0.66,
-      "zscore_quality": 0.086,
+      "rsi": 51.5,
+      "rsi_zscore_1y": 0.36,
+      "zscore_quality": 0.161,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 29,
-      "adx_reference": 23.1,
+      "wick_days_ago": 30,
+      "adx_reference": 22.5,
       "volume_confirmed": false,
       "trigger_day_volume": 36630600,
       "avg_volume_divergence_window": 49981138,
@@ -68,23 +68,23 @@
         "high": 311.21,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 222,
+        "trigger_day_idx": 221,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 5.8,
-  "score_addon": 48,
+  "score_addon": 46,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.6,
-      "volume_trend_pct_3d": -6.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.87,
+      "volume_diff_pct_3m": -8.8,
+      "volume_trend_pct_3d": 5.3,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.8,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.7,
-      "forward_pe": 169.29648,
+      "upside_pct": 8.7,
+      "forward_pe": 166.29913,
       "peg": 4.37
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.5,
-      "rsi_zone_quality": 0.578,
+      "rsi": 51.5,
+      "rsi_zone_quality": 0.46,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 0.8
     }
   },
   "sector": "Consumer Cyclical",
@@ -135,9 +135,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_trend_start": 4,
-    "divergence_date_index": 212,
-    "price_vs_low_pct": -1.1
+    "days_since_trend_start": 5,
+    "divergence_date_index": 211,
+    "price_vs_low_pct": -2.9
   },
   "pullback_stop_signal": {
     "stop_reference_price": 298.32,
