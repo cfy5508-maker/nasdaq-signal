@@ -1,10 +1,10 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 37.5,
-  "updated": "2026-09-14T23:59:48.095661+00:00",
+  "price": null,
+  "updated": "2026-09-15T00:00:05.967190+00:00",
   "as_of_date": "2026-09-14",
-  "score": 60,
+  "score": 17,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,53 +21,53 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 84.7,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": -28.713629,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.33,
-      "macd_hist_change": 0.054,
-      "divergence_present": true,
+      "macd_hist": -0.307,
+      "macd_hist_change": 0.077,
+      "divergence_present": false,
       "gap_days": 6,
-      "signal_fresh": true,
-      "divergence_quality": 0.339,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": -0.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.2,
-      "rsi_zscore_1y": -0.36,
-      "zscore_quality": 0.391,
+      "rsi": 41.1,
+      "rsi_zscore_1y": -0.55,
+      "zscore_quality": 0.437,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.8,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.6,
-  "score_addon": 58,
+  "entry_atr_stop_pct": null,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -84,8 +84,8 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 84.7,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": -28.713629,
       "peg": null
     },
@@ -101,24 +101,24 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.2,
-      "rsi_zone_quality": 0.13,
+      "rsi": 41.1,
+      "rsi_zone_quality": 0.043,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "fail",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.8
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
@@ -131,6 +131,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

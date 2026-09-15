@@ -1,10 +1,10 @@
 {
   "ticker": "LAES",
   "name": "SEALSQ Corp",
-  "price": 2.32,
-  "updated": "2026-09-14T23:59:47.101860+00:00",
+  "price": null,
+  "updated": "2026-09-15T00:00:04.997366+00:00",
   "as_of_date": "2026-09-14",
-  "score": 30,
+  "score": 27,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,36 +21,36 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 153.2,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": -11.047619,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.01,
-      "macd_hist_change": -0.002,
+      "macd_hist": -0.006,
+      "macd_hist_change": 0.002,
       "divergence_present": false,
-      "gap_days": 7,
+      "gap_days": 25,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -1.2
+      "rsi_improvement": 10.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.1,
-      "rsi_zscore_1y": -0.79,
-      "zscore_quality": 0.448,
-      "zscore_direction_bonus_applied": false
+      "rsi": 42.0,
+      "rsi_zscore_1y": -0.51,
+      "zscore_quality": 0.428,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,15 +59,22 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 11.2,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 2.36,
+        "high": 2.37,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 245,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 7.9,
-  "score_addon": 26,
+  "entry_atr_stop_pct": null,
+  "score_addon": 1,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -84,8 +91,8 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 153.2,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": -11.047619,
       "peg": null
     },
@@ -101,12 +108,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.1,
-      "rsi_zone_quality": 0.0,
+      "rsi": 42.0,
+      "rsi_zone_quality": 0.079,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,22 +125,23 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.5
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
-  "downtrend_signal": {
+  "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_trend_start": 0,
-    "divergence_date_index": 243,
-    "price_vs_low_pct": -1.7
+    "days_since_divergence": 7,
+    "days_since_trend_start": 4,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 243
   },
+  "divergence_invalidated_signal": null,
+  "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 2.32,
+    "stop_reference_price": 2.36,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
