@@ -1,20 +1,20 @@
 {
   "ticker": "CLX",
   "name": "Clorox Company (The)",
-  "price": 89.31,
-  "updated": "2026-09-14T23:59:48.017387+00:00",
-  "as_of_date": "2026-09-14",
-  "score": 60,
+  "price": 87.16,
+  "updated": "2026-09-15T23:40:38.953149+00:00",
+  "as_of_date": "2026-09-15",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -7.4,
-      "volume_trend_pct_3d": 18.1,
+      "volume_diff_pct_3m": -4.4,
+      "volume_trend_pct_3d": 11.6,
       "volume_trend_up": true,
-      "daily_change_pct": -0.45,
+      "daily_change_pct": -0.46,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.8,
-      "forward_pe": 14.265429,
-      "peg": 1.1
+      "upside_pct": 15.6,
+      "forward_pe": 13.922011,
+      "peg": 1.12
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.546,
-      "macd_hist_change": 0.24,
-      "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": true,
-      "divergence_quality": 0.468,
-      "rsi_improvement": -9.2
+      "macd_hist": -1.435,
+      "macd_hist_change": 0.111,
+      "divergence_present": false,
+      "gap_days": 5,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -2.1
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 29.2,
-      "rsi_zscore_1y": -1.25,
-      "zscore_quality": 0.562,
+      "rsi": 26.2,
+      "rsi_zscore_1y": -1.42,
+      "zscore_quality": 0.605,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 34.7,
+      "adx_reference": 36.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.6,
+  "entry_atr_stop_pct": 4.7,
   "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -7.4,
-      "volume_trend_pct_3d": 18.1,
+      "volume_diff_pct_3m": -4.4,
+      "volume_trend_pct_3d": 11.6,
       "volume_trend_up": true,
-      "daily_change_pct": -0.45,
+      "daily_change_pct": -0.46,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.8,
-      "forward_pe": 14.265429,
-      "peg": 1.1
+      "upside_pct": 15.6,
+      "forward_pe": 13.922011,
+      "peg": 1.12
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.2,
+      "rsi": 26.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,22 +118,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.6
+      "stop_pct_from_20sma": 12.3
     }
   },
   "sector": "Consumer Defensive",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
-  "downtrend_signal": {
-    "active": true,
-    "phase": "ongoing",
-    "days_since_trend_start": 7,
-    "divergence_date_index": 220,
-    "price_vs_low_pct": -5.4
-  },
+  "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 87.76,
+    "stop_reference_price": 87.16,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

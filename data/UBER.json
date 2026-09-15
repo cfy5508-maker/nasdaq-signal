@@ -1,20 +1,20 @@
 {
   "ticker": "UBER",
   "name": "Uber Technologies, Inc.",
-  "price": 72.63,
-  "updated": "2026-09-14T23:59:07.861322+00:00",
-  "as_of_date": "2026-09-14",
-  "score": 51,
+  "price": 71.43,
+  "updated": "2026-09-15T23:40:01.271191+00:00",
+  "as_of_date": "2026-09-15",
+  "score": 52,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -7.4,
-      "volume_trend_pct_3d": 18.1,
+      "volume_diff_pct_3m": -4.4,
+      "volume_trend_pct_3d": 11.6,
       "volume_trend_up": true,
-      "daily_change_pct": -0.45,
+      "daily_change_pct": -0.46,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.4,
-      "forward_pe": 16.485535,
-      "peg": 6.08
+      "upside_pct": 41.7,
+      "forward_pe": 16.213161,
+      "peg": 6.16
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,19 +34,19 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.767,
-      "macd_hist_change": 0.087,
+      "macd_hist": -0.751,
+      "macd_hist_change": 0.016,
       "divergence_present": true,
       "gap_days": 24,
       "signal_fresh": true,
-      "divergence_quality": 0.448,
+      "divergence_quality": 0.355,
       "rsi_improvement": -2.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zscore_1y": -0.2,
-      "zscore_quality": 0.301,
+      "rsi": 41.6,
+      "rsi_zscore_1y": -0.55,
+      "zscore_quality": 0.386,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -66,18 +66,18 @@
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.3,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 5.2,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -7.4,
-      "volume_trend_pct_3d": 18.1,
+      "volume_diff_pct_3m": -4.4,
+      "volume_trend_pct_3d": 11.6,
       "volume_trend_up": true,
-      "daily_change_pct": -0.45,
+      "daily_change_pct": -0.46,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.4,
-      "forward_pe": 16.485535,
-      "peg": 6.08
+      "upside_pct": 41.7,
+      "forward_pe": 16.213161,
+      "peg": 6.16
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -98,15 +98,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zone_quality": 0.174,
+      "rsi": 41.6,
+      "rsi_zone_quality": 0.062,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,11 +118,11 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.6
+      "stop_pct_from_20sma": 6.1
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
