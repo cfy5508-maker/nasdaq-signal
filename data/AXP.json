@@ -1,52 +1,52 @@
 {
   "ticker": "AXP",
   "name": "American Express Company",
-  "price": 324.43,
-  "updated": "2026-09-15T23:40:57.155769+00:00",
-  "as_of_date": "2026-09-15",
-  "score": 59,
+  "price": 312.43,
+  "updated": "2026-09-16T23:49:14.023318+00:00",
+  "as_of_date": "2026-09-16",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -15.8,
-      "volume_trend_pct_3d": -23.6,
+      "volume_diff_pct_3m": 50.5,
+      "volume_trend_pct_3d": -3.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.62,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.15,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.9,
-      "forward_pe": 16.093348,
+      "upside_pct": 20.3,
+      "forward_pe": 15.498089,
       "peg": 1.32
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.33,
-      "macd_hist_change": 0.13,
-      "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": true,
-      "divergence_quality": 0.582,
-      "rsi_improvement": -0.7
+      "macd_recovery_bonus_applied": false,
+      "macd_hist": -0.963,
+      "macd_hist_change": -0.633,
+      "divergence_present": false,
+      "gap_days": 5,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -3.6
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 41.4,
-      "rsi_zscore_1y": -0.8,
-      "zscore_quality": 0.451,
+      "status": "pass",
+      "rsi": 31.9,
+      "rsi_zscore_1y": -1.57,
+      "zscore_quality": 0.641,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.0,
+      "adx_reference": 16.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.7,
-  "score_addon": 27,
+  "entry_atr_stop_pct": 3.1,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -15.8,
-      "volume_trend_pct_3d": -23.6,
+      "volume_diff_pct_3m": 50.5,
+      "volume_trend_pct_3d": -3.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.62,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.15,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.9,
-      "forward_pe": 16.093348,
+      "upside_pct": 20.3,
+      "forward_pe": 15.498089,
       "peg": 1.32
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 41.4,
-      "rsi_zone_quality": 0.055,
+      "rsi": 31.9,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.8
+      "stop_pct_from_20sma": 5.3
     }
   },
   "sector": "Financial Services",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 320.71,
+    "stop_reference_price": 312.43,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

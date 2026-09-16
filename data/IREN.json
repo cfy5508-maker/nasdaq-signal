@@ -1,20 +1,20 @@
 {
   "ticker": "IREN",
   "name": "IREN LIMITED",
-  "price": 41.58,
-  "updated": "2026-09-15T23:40:02.011047+00:00",
-  "as_of_date": "2026-09-15",
-  "score": 30,
+  "price": 42.62,
+  "updated": "2026-09-16T23:48:06.575816+00:00",
+  "as_of_date": "2026-09-16",
+  "score": 47,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.7,
-      "volume_trend_pct_3d": 1.8,
+      "volume_diff_pct_3m": -5.6,
+      "volume_trend_pct_3d": 14.6,
       "volume_trend_up": true,
-      "daily_change_pct": -0.65,
+      "daily_change_pct": 0.03,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 90.1,
-      "forward_pe": -156.90567,
+      "upside_pct": 85.4,
+      "forward_pe": -160.8302,
       "peg": 3.11
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.249,
-      "macd_hist_change": -0.205,
-      "divergence_present": false,
+      "macd_hist": 0.17,
+      "macd_hist_change": -0.079,
+      "divergence_present": true,
       "gap_days": 11,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.338,
       "rsi_improvement": 9.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.4,
-      "rsi_zscore_1y": -0.09,
-      "zscore_quality": 0.324,
+      "rsi": 51.5,
+      "rsi_zscore_1y": 0.12,
+      "zscore_quality": 0.27,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.1,
+      "adx_reference": 13.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 11.3,
-  "score_addon": 55,
+  "entry_atr_stop_pct": 10.9,
+  "score_addon": 51,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -30.7,
-      "volume_trend_pct_3d": 1.8,
+      "volume_diff_pct_3m": -5.6,
+      "volume_trend_pct_3d": 14.6,
       "volume_trend_up": true,
-      "daily_change_pct": -0.65,
+      "daily_change_pct": 0.03,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,18 +85,18 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 90.1,
-      "forward_pe": -156.90567,
+      "upside_pct": 85.4,
+      "forward_pe": -160.8302,
       "peg": 3.11
     },
     "3_pullback_gate": {
       "status": "pass",
       "near_sma20": true,
-      "near_sma40": true,
-      "near_sma60": true,
+      "near_sma40": false,
+      "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 2,
+      "near_ma_count": 1,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -104,9 +104,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 49.4,
-      "rsi_zone_quality": 0.376,
+      "status": "warn",
+      "rsi": 51.5,
+      "rsi_zone_quality": 0.461,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.0
+      "stop_pct_from_20sma": 2.4
     }
   },
   "sector": "Financial Services",
