@@ -1,29 +1,29 @@
 {
   "ticker": "B",
   "name": "Barrick Mining Corporation",
-  "price": 42.55,
-  "updated": "2026-09-16T23:49:11.757050+00:00",
-  "as_of_date": "2026-09-16",
-  "score": 60,
+  "price": 43.69,
+  "updated": "2026-09-17T23:39:44.143685+00:00",
+  "as_of_date": "2026-09-17",
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 26.9,
-      "volume_trend_pct_3d": 23.2,
+      "volume_diff_pct_3m": 7.1,
+      "volume_trend_pct_3d": 17.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.44,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.13,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.6,
-      "forward_pe": 9.702295,
+      "upside_pct": 18.4,
+      "forward_pe": 9.962239,
       "peg": 2.04
     },
     "3_divergence_gate": {
@@ -31,26 +31,26 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.583,
-      "macd_hist_change": 0.004,
+      "macd_hist": -0.486,
+      "macd_hist_change": 0.097,
       "divergence_present": true,
       "gap_days": 8,
-      "signal_fresh": false,
-      "divergence_quality": 0.302,
+      "signal_fresh": true,
+      "divergence_quality": 0.44,
       "rsi_improvement": -4.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.9,
-      "rsi_zscore_1y": -0.57,
-      "zscore_quality": 0.443,
+      "rsi": 51.6,
+      "rsi_zscore_1y": -0.16,
+      "zscore_quality": 0.339,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -58,52 +58,45 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 16.2,
+      "wick_days_ago": 0,
+      "adx_reference": 15.5,
       "volume_confirmed": false,
-      "trigger_day_volume": 7171800,
+      "trigger_day_volume": 6695818,
       "avg_volume_divergence_window": 8642656,
-      "order_block": {
-        "low": 42.58,
-        "high": 42.7,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 250,
-        "gap_confirmed": false
-      }
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.2,
-  "score_addon": 75,
+  "entry_atr_stop_pct": 5.1,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 26.9,
-      "volume_trend_pct_3d": 23.2,
+      "volume_diff_pct_3m": 7.1,
+      "volume_trend_pct_3d": 17.0,
       "volume_trend_up": true,
-      "daily_change_pct": -0.44,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.13,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 21.6,
-      "forward_pe": 9.702295,
+      "upside_pct": 18.4,
+      "forward_pe": 9.962239,
       "peg": 2.04
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
-      "near_sma40": true,
+      "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": true,
-      "near_ma_count": 1,
+      "near_sma200": false,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -111,9 +104,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 46.9,
-      "rsi_zone_quality": 0.277,
+      "status": "warn",
+      "rsi": 51.6,
+      "rsi_zone_quality": 0.464,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.8
+      "stop_pct_from_20sma": 2.9
     }
   },
   "sector": "Basic Materials",

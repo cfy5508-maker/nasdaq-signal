@@ -1,52 +1,52 @@
 {
   "ticker": "LITE",
   "name": "Lumentum Holdings Inc.",
-  "price": 919.4,
-  "updated": "2026-09-16T23:48:45.510631+00:00",
-  "as_of_date": "2026-09-16",
-  "score": 30,
+  "price": 893.61,
+  "updated": "2026-09-17T23:39:23.837169+00:00",
+  "as_of_date": "2026-09-17",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -5.6,
-      "volume_trend_pct_3d": 14.6,
+      "volume_diff_pct_3m": -2.3,
+      "volume_trend_pct_3d": 5.8,
       "volume_trend_up": true,
-      "daily_change_pct": 0.03,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.73,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 25.0,
-      "forward_pe": 23.15869,
+      "upside_pct": 28.6,
+      "forward_pe": 22.509068,
       "peg": 0.63
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
-      "hidden_bullish_divergence": false,
+      "hidden_bullish_divergence": true,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -6.418,
-      "macd_hist_change": 2.747,
-      "divergence_present": false,
+      "macd_hist": -6.19,
+      "macd_hist_change": 0.228,
+      "divergence_present": true,
       "gap_days": 17,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.343,
       "rsi_improvement": -4.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.2,
-      "rsi_zscore_1y": -0.38,
-      "zscore_quality": 0.395,
+      "rsi": 50.9,
+      "rsi_zscore_1y": -0.59,
+      "zscore_quality": 0.447,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
       "adx_reference": 10.3,
@@ -68,32 +68,32 @@
         "high": 860.88,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 11.2,
-  "score_addon": 32,
+  "entry_atr_stop_pct": 11.4,
+  "score_addon": 37,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -5.6,
-      "volume_trend_pct_3d": 14.6,
+      "volume_diff_pct_3m": -2.3,
+      "volume_trend_pct_3d": 5.8,
       "volume_trend_up": true,
-      "daily_change_pct": 0.03,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.73,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 25.0,
-      "forward_pe": 23.15869,
+      "upside_pct": 28.6,
+      "forward_pe": 22.509068,
       "peg": 0.63
     },
     "3_pullback_gate": {
@@ -111,10 +111,10 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 53.2,
-      "rsi_zone_quality": 0.529,
-      "hidden_bullish_divergence": false
+      "status": "pass",
+      "rsi": 50.9,
+      "rsi_zone_quality": 1.0,
+      "hidden_bullish_divergence": true
     },
     "5_trigger_confirmed": {
       "status": "fail",
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 0.4
     }
   },
   "sector": "Technology",

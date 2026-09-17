@@ -1,9 +1,9 @@
 {
   "ticker": "ONDS",
   "name": "Ondas Inc",
-  "price": 7.2,
-  "updated": "2026-09-16T23:48:52.034793+00:00",
-  "as_of_date": "2026-09-16",
+  "price": 7.39,
+  "updated": "2026-09-17T23:39:29.015289+00:00",
+  "as_of_date": "2026-09-17",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -5.6,
-      "volume_trend_pct_3d": 14.6,
+      "volume_diff_pct_3m": -2.3,
+      "volume_trend_pct_3d": 5.8,
       "volume_trend_up": true,
-      "daily_change_pct": 0.03,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.73,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 169.7,
-      "forward_pe": -360.0,
+      "upside_pct": 162.7,
+      "forward_pe": -369.5,
       "peg": null
     },
     "3_divergence_gate": {
@@ -33,60 +33,67 @@
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.064,
-      "macd_hist_change": 0.014,
+      "macd_recovery_bonus_applied": true,
+      "macd_hist": -0.037,
+      "macd_hist_change": 0.027,
       "divergence_present": true,
       "gap_days": 10,
-      "signal_fresh": true,
-      "divergence_quality": 0.379,
+      "signal_fresh": false,
+      "divergence_quality": 0.467,
       "rsi_improvement": 2.6
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 39.2,
-      "rsi_zscore_1y": -1.08,
-      "zscore_quality": 0.521,
+      "status": "fail",
+      "rsi": 42.9,
+      "rsi_zscore_1y": -0.69,
+      "zscore_quality": 0.423,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "해머",
+      "days_ago": 1,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 18.3,
+      "wick_days_ago": 1,
+      "adx_reference": 18.4,
       "volume_confirmed": true,
-      "trigger_day_volume": 65120012,
-      "avg_volume_divergence_window": 62136847,
-      "order_block": null
+      "trigger_day_volume": 65246400,
+      "avg_volume_divergence_window": 62148336,
+      "order_block": {
+        "low": 7.2,
+        "high": 7.26,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 9.7,
-  "score_addon": 52,
+  "entry_atr_stop_pct": 9.3,
+  "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -5.6,
-      "volume_trend_pct_3d": 14.6,
+      "volume_diff_pct_3m": -2.3,
+      "volume_trend_pct_3d": 5.8,
       "volume_trend_up": true,
-      "daily_change_pct": 0.03,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.73,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 169.7,
-      "forward_pe": -360.0,
+      "upside_pct": 162.7,
+      "forward_pe": -369.5,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.2,
-      "rsi_zone_quality": 0.0,
+      "rsi": 42.9,
+      "rsi_zone_quality": 0.117,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.3
+      "stop_pct_from_20sma": 4.5
     }
   },
   "sector": "Technology",
