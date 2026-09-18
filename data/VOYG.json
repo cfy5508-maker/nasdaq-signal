@@ -1,29 +1,29 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 36.6,
-  "updated": "2026-09-17T23:39:06.964203+00:00",
-  "as_of_date": "2026-09-17",
-  "score": 47,
+  "price": 35.87,
+  "updated": "2026-09-18T23:33:13.195092+00:00",
+  "as_of_date": "2026-09-18",
+  "score": 49,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 27.2,
-      "forward_pe": -22.944695,
+      "upside_pct": 29.8,
+      "forward_pe": -22.487055,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.075,
-      "macd_hist_change": 0.187,
+      "macd_hist": 0.143,
+      "macd_hist_change": 0.068,
       "divergence_present": false,
       "gap_days": 26,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.0,
-      "rsi_zscore_1y": 0.47,
-      "zscore_quality": 0.181,
+      "rsi": 53.4,
+      "rsi_zscore_1y": 0.24,
+      "zscore_quality": 0.239,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.5,
+      "adx_reference": 12.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,52 +68,52 @@
         "high": 33.49,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 243,
+        "trigger_day_idx": 242,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 9.6,
-  "score_addon": 33,
+  "entry_atr_stop_pct": 9.9,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 27.2,
-      "forward_pe": -22.944695,
+      "upside_pct": 29.8,
+      "forward_pe": -22.487055,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
-      "near_sma40": false,
+      "near_sma40": true,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
+      "near_ma_count": 1,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
+      "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 56.0,
-      "rsi_zone_quality": 0.642,
+      "rsi": 53.4,
+      "rsi_zone_quality": 0.536,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.5
+      "stop_pct_from_20sma": 3.9
     }
   },
   "sector": "Industrials",

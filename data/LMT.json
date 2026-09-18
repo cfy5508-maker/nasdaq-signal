@@ -1,65 +1,65 @@
 {
   "ticker": "LMT",
   "name": "Lockheed Martin Corporation",
-  "price": 538.09,
-  "updated": "2026-09-17T23:39:03.950012+00:00",
-  "as_of_date": "2026-09-17",
-  "score": 59,
+  "price": 533.38,
+  "updated": "2026-09-18T23:33:10.217714+00:00",
+  "as_of_date": "2026-09-18",
+  "score": 64,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.0,
-      "forward_pe": 16.428158,
+      "upside_pct": 20.0,
+      "forward_pe": 16.284359,
       "peg": 1.01
     },
     "3_divergence_gate": {
-      "status": "neutral",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.608,
-      "macd_hist_change": 0.915,
-      "divergence_present": false,
+      "macd_recovery_bonus_applied": true,
+      "macd_hist": -0.229,
+      "macd_hist_change": 0.379,
+      "divergence_present": true,
       "gap_days": 6,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.664,
       "rsi_improvement": 1.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.3,
-      "rsi_zscore_1y": -0.4,
-      "zscore_quality": 0.351,
+      "rsi": 43.1,
+      "rsi_zscore_1y": -0.55,
+      "zscore_quality": 0.388,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "모닝스타",
-      "days_ago": 2,
+      "status": "warn",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 23.9,
+      "wick_days_ago": 3,
+      "adx_reference": 24.0,
       "volume_confirmed": false,
       "trigger_day_volume": 918100,
       "avg_volume_divergence_window": 1189000,
@@ -68,32 +68,32 @@
         "high": 532.24,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 3.7,
-  "score_addon": 46,
+  "score_addon": 45,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.0,
-      "forward_pe": 16.428158,
+      "upside_pct": 20.0,
+      "forward_pe": 16.284359,
       "peg": 1.01
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.3,
-      "rsi_zone_quality": 0.213,
+      "rsi": 43.1,
+      "rsi_zone_quality": 0.122,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 1.6
     }
   },
   "sector": "Industrials",

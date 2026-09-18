@@ -1,29 +1,29 @@
 {
   "ticker": "NOW",
   "name": "ServiceNow, Inc.",
-  "price": 138.47,
-  "updated": "2026-09-17T23:39:36.591538+00:00",
-  "as_of_date": "2026-09-17",
-  "score": 20,
+  "price": 135.47,
+  "updated": "2026-09-18T23:33:44.606822+00:00",
+  "as_of_date": "2026-09-18",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 3.9,
-      "forward_pe": 27.663515,
+      "upside_pct": 6.2,
+      "forward_pe": 27.064177,
       "peg": 1.01
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.718,
-      "macd_hist_change": -0.079,
+      "macd_hist": -0.97,
+      "macd_hist_change": -0.252,
       "divergence_present": true,
       "gap_days": 16,
       "signal_fresh": false,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 56.2,
-      "rsi_zscore_1y": 0.89,
-      "zscore_quality": 0.077,
+      "rsi": 52.9,
+      "rsi_zscore_1y": 0.63,
+      "zscore_quality": 0.142,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 4,
+      "days_ago": 5,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.2,
+      "adx_reference": 24.0,
       "volume_confirmed": false,
       "trigger_day_volume": 10730000,
       "avg_volume_divergence_window": 17325424,
@@ -68,32 +68,32 @@
         "high": 132.53,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 7.0,
-  "score_addon": 26,
+  "score_addon": 19,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 3.9,
-      "forward_pe": 27.663515,
+      "upside_pct": 6.2,
+      "forward_pe": 27.064177,
       "peg": 1.01
     },
     "3_pullback_gate": {
@@ -108,12 +108,12 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 56.2,
-      "rsi_zone_quality": 0.647,
+      "rsi": 52.9,
+      "rsi_zone_quality": 0.516,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.5
+      "stop_pct_from_20sma": 0.9
     }
   },
   "sector": "Technology",

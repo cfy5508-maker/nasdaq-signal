@@ -1,29 +1,29 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 80.84,
-  "updated": "2026-09-17T23:39:57.029975+00:00",
-  "as_of_date": "2026-09-17",
-  "score": 34,
+  "price": 79.78,
+  "updated": "2026-09-18T23:34:05.762925+00:00",
+  "as_of_date": "2026-09-18",
+  "score": 37,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -2.3,
-      "volume_trend_pct_3d": 5.8,
+      "volume_diff_pct_3m": 29.3,
+      "volume_trend_pct_3d": 36.5,
       "volume_trend_up": true,
-      "daily_change_pct": 1.73,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.63,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.9,
-      "forward_pe": 17.708536,
+      "upside_pct": 14.4,
+      "forward_pe": 17.476336,
       "peg": 2.07
     },
     "3_divergence_gate": {
@@ -33,20 +33,20 @@
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.021,
-      "macd_hist_change": 0.022,
+      "macd_recovery_bonus_applied": false,
+      "macd_hist": -0.069,
+      "macd_hist_change": -0.048,
       "divergence_present": true,
-      "gap_days": 11,
-      "signal_fresh": false,
-      "divergence_quality": 0.67,
-      "rsi_improvement": 1.7
+      "gap_days": 14,
+      "signal_fresh": true,
+      "divergence_quality": 0.542,
+      "rsi_improvement": 0.8
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 44.3,
-      "rsi_zscore_1y": -0.86,
-      "zscore_quality": 0.515,
+      "status": "warn",
+      "rsi": 38.9,
+      "rsi_zscore_1y": -1.39,
+      "zscore_quality": 0.647,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -56,37 +56,37 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.6,
+      "adx_reference": 17.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.3,
-  "score_addon": 30,
+  "entry_atr_stop_pct": 2.4,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -2.3,
-      "volume_trend_pct_3d": 5.8,
+      "volume_diff_pct_3m": 29.3,
+      "volume_trend_pct_3d": 36.5,
       "volume_trend_up": true,
-      "daily_change_pct": 1.73,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.63,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.9,
-      "forward_pe": 17.708536,
+      "upside_pct": 14.4,
+      "forward_pe": 17.476336,
       "peg": 2.07
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.3,
-      "rsi_zone_quality": 0.173,
+      "rsi": 38.9,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.6
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Utilities",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 80.2,
+    "stop_reference_price": 79.78,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

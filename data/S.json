@@ -1,29 +1,29 @@
 {
   "ticker": "S",
   "name": "SentinelOne, Inc.",
-  "price": 23.19,
-  "updated": "2026-09-17T23:39:41.503669+00:00",
-  "as_of_date": "2026-09-17",
-  "score": 19,
+  "price": 22.51,
+  "updated": "2026-09-18T23:33:49.153116+00:00",
+  "as_of_date": "2026-09-18",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.1,
-      "forward_pe": 50.216545,
+      "upside_pct": 8.3,
+      "forward_pe": 48.744045,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.277,
-      "macd_hist_change": 0.047,
+      "macd_hist": 0.246,
+      "macd_hist_change": -0.031,
       "divergence_present": true,
       "gap_days": 9,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.5,
-      "rsi_zscore_1y": 1.11,
-      "zscore_quality": 0.05,
+      "rsi": 57.8,
+      "rsi_zscore_1y": 0.69,
+      "zscore_quality": 0.128,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.3,
+      "adx_reference": 21.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 19.81,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.8,
-  "score_addon": 10,
+  "entry_atr_stop_pct": 7.9,
+  "score_addon": 8,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.1,
-      "volume_trend_pct_3d": 17.0,
+      "volume_diff_pct_3m": 42.9,
+      "volume_trend_pct_3d": 28.2,
       "volume_trend_up": true,
-      "daily_change_pct": 1.13,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.12,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.1,
-      "forward_pe": 50.216545,
+      "upside_pct": 8.3,
+      "forward_pe": 48.744045,
       "peg": null
     },
     "3_pullback_gate": {
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 62.5,
-      "rsi_zone_quality": 0.899,
+      "status": "warn",
+      "rsi": 57.8,
+      "rsi_zone_quality": 0.713,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.2
+      "stop_pct_from_20sma": 6.1
     }
   },
   "sector": "Technology",

@@ -1,52 +1,52 @@
 {
   "ticker": "FSLR",
   "name": "First Solar, Inc.",
-  "price": 201.16,
-  "updated": "2026-09-17T23:39:08.890394+00:00",
-  "as_of_date": "2026-09-17",
-  "score": 30,
+  "price": 195.96,
+  "updated": "2026-09-18T23:33:15.161507+00:00",
+  "as_of_date": "2026-09-18",
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -2.3,
-      "volume_trend_pct_3d": 5.8,
+      "volume_diff_pct_3m": 29.3,
+      "volume_trend_pct_3d": 36.5,
       "volume_trend_up": true,
-      "daily_change_pct": 1.73,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.63,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.7,
-      "forward_pe": 8.681691,
+      "upside_pct": 39.3,
+      "forward_pe": 8.428706,
       "peg": 0.36
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.241,
-      "macd_hist_change": 0.179,
-      "divergence_present": false,
+      "macd_hist": -0.404,
+      "macd_hist_change": -0.162,
+      "divergence_present": true,
       "gap_days": 10,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.449,
       "rsi_improvement": -0.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.1,
-      "rsi_zscore_1y": -0.47,
-      "zscore_quality": 0.368,
+      "rsi": 41.1,
+      "rsi_zscore_1y": -0.72,
+      "zscore_quality": 0.43,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 13.4,
+      "adx_reference": 13.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.6,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 7.8,
+  "score_addon": 27,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -2.3,
-      "volume_trend_pct_3d": 5.8,
+      "volume_diff_pct_3m": 29.3,
+      "volume_trend_pct_3d": 36.5,
       "volume_trend_up": true,
-      "daily_change_pct": 1.73,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.63,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.7,
-      "forward_pe": 8.681691,
+      "upside_pct": 39.3,
+      "forward_pe": 8.428706,
       "peg": 0.36
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.1,
-      "rsi_zone_quality": 0.165,
+      "rsi": 41.1,
+      "rsi_zone_quality": 0.045,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 4.5
     }
   },
   "sector": "Technology",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 248,
-    "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 0.6,
+    "prior_divergence_date_index": 247,
+    "days_since_prior_divergence": 3,
+    "price_drop_since_pct": 3.2,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
