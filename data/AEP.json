@@ -1,29 +1,29 @@
 {
   "ticker": "AEP",
   "name": "American Electric Power Company",
-  "price": 120.03,
-  "updated": "2026-09-22T14:22:23.390805+00:00",
-  "as_of_date": "2026-09-21",
-  "score": 69,
+  "price": 120.27,
+  "updated": "2026-09-22T23:48:07.131575+00:00",
+  "as_of_date": "2026-09-22",
+  "score": 68,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.7,
-      "volume_trend_pct_3d": 35.7,
+      "volume_diff_pct_3m": 6.7,
+      "volume_trend_pct_3d": 35.2,
       "volume_trend_up": true,
-      "daily_change_pct": 2.88,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 0.81,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.3,
-      "forward_pe": 17.52119,
+      "upside_pct": 19.1,
+      "forward_pe": 17.54015,
       "peg": 2.03
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.185,
-      "macd_hist_change": -0.03,
+      "macd_hist": -0.167,
+      "macd_hist_change": 0.017,
       "divergence_present": true,
       "gap_days": 19,
       "signal_fresh": false,
@@ -43,10 +43,10 @@
       "rsi_improvement": 4.0
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 34.9,
-      "rsi_zscore_1y": -1.51,
-      "zscore_quality": 0.628,
+      "status": "warn",
+      "rsi": 36.3,
+      "rsi_zscore_1y": -1.4,
+      "zscore_quality": 0.599,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.9,
+      "adx_reference": 20.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -74,19 +74,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.7,
-      "volume_trend_pct_3d": 35.7,
+      "volume_diff_pct_3m": 6.7,
+      "volume_trend_pct_3d": 35.2,
       "volume_trend_up": true,
-      "daily_change_pct": 2.88,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 0.81,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 19.3,
-      "forward_pe": 17.52119,
+      "upside_pct": 19.1,
+      "forward_pe": 17.54015,
       "peg": 2.03
     },
     "3_pullback_gate": {
@@ -101,11 +101,11 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.9,
+      "rsi": 36.3,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,11 +118,11 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.2
+      "stop_pct_from_20sma": 1.9
     }
   },
   "sector": "Utilities",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

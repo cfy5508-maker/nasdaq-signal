@@ -1,29 +1,29 @@
 {
   "ticker": "AMSC",
   "name": "American Superconductor Corpora",
-  "price": 30.24,
-  "updated": "2026-09-22T14:21:10.769374+00:00",
-  "as_of_date": "2026-09-21",
-  "score": 52,
+  "price": 31.24,
+  "updated": "2026-09-22T23:47:03.566853+00:00",
+  "as_of_date": "2026-09-22",
+  "score": 48,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.7,
-      "volume_trend_pct_3d": 35.7,
+      "volume_diff_pct_3m": 6.7,
+      "volume_trend_pct_3d": 35.2,
       "volume_trend_up": true,
-      "daily_change_pct": 2.88,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 0.81,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 104.2,
-      "forward_pe": 22.424355,
+      "upside_pct": 97.7,
+      "forward_pe": 23.05535,
       "peg": 0.74
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.297,
-      "macd_hist_change": 0.078,
+      "macd_hist": 0.402,
+      "macd_hist_change": 0.105,
       "divergence_present": false,
       "gap_days": 10,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.1,
-      "rsi_zscore_1y": 0.55,
-      "zscore_quality": 0.162,
+      "rsi": 56.4,
+      "rsi_zscore_1y": 0.92,
+      "zscore_quality": 0.07,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 4,
-      "adx_reference": 29.9,
+      "wick_days_ago": 5,
+      "adx_reference": 28.1,
       "volume_confirmed": true,
       "trigger_day_volume": 722900,
       "avg_volume_divergence_window": 666827,
@@ -68,32 +68,32 @@
         "high": 27.62,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.0,
-  "score_addon": 59,
+  "entry_atr_stop_pct": 6.8,
+  "score_addon": 61,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 25.7,
-      "volume_trend_pct_3d": 35.7,
+      "volume_diff_pct_3m": 6.7,
+      "volume_trend_pct_3d": 35.2,
       "volume_trend_up": true,
-      "daily_change_pct": 2.88,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 0.81,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 104.2,
-      "forward_pe": 22.424355,
+      "upside_pct": 97.7,
+      "forward_pe": 23.05535,
       "peg": 0.74
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 52.1,
-      "rsi_zone_quality": 0.482,
+      "rsi": 56.4,
+      "rsi_zone_quality": 0.656,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.9
+      "stop_pct_from_20sma": 6.6
     }
   },
   "sector": "Industrials",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 10.9,
-    "divergence_date_index": 245
+    "days_since_divergence": 6,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 14.5,
+    "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

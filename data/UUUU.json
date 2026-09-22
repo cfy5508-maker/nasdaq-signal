@@ -1,9 +1,9 @@
 {
   "ticker": "UUUU",
   "name": "Energy Fuels Inc",
-  "price": 12.3,
-  "updated": "2026-09-22T14:21:24.529711+00:00",
-  "as_of_date": "2026-09-21",
+  "price": 12.14,
+  "updated": "2026-09-22T23:47:15.842248+00:00",
+  "as_of_date": "2026-09-22",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 9.4,
-      "volume_trend_pct_3d": 10.5,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.55,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -24.3,
+      "volume_trend_pct_3d": -3.0,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.02,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.3,
-      "forward_pe": 24.731958,
+      "upside_pct": 98.9,
+      "forward_pe": 25.030928,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,23 +34,23 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.293,
-      "macd_hist_change": 0.069,
+      "macd_hist": -0.243,
+      "macd_hist_change": 0.051,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": true,
-      "divergence_quality": 0.486,
+      "divergence_quality": 0.449,
       "rsi_improvement": -5.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.1,
-      "rsi_zscore_1y": -0.78,
-      "zscore_quality": 0.494,
+      "rsi": 39.0,
+      "rsi_zscore_1y": -0.87,
+      "zscore_quality": 0.516,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 19.9,
-      "volume_confirmed": true,
-      "trigger_day_volume": 8407700,
+      "adx_reference": 20.7,
+      "volume_confirmed": false,
+      "trigger_day_volume": 8147198,
       "avg_volume_divergence_window": 8277517,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.7,
-  "score_addon": 53,
+  "entry_atr_stop_pct": 9.5,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 9.4,
-      "volume_trend_pct_3d": 10.5,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.55,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": -24.3,
+      "volume_trend_pct_3d": -3.0,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.02,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.3,
-      "forward_pe": 24.731958,
+      "upside_pct": 98.9,
+      "forward_pe": 25.030928,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.1,
-      "rsi_zone_quality": 0.006,
+      "rsi": 39.0,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.5
+      "stop_pct_from_20sma": 12.8
     }
   },
   "sector": "Energy",
