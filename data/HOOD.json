@@ -1,29 +1,29 @@
 {
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
-  "price": 119.82,
-  "updated": "2026-09-20T23:29:30.328496+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 12,
+  "price": null,
+  "updated": "2026-09-22T00:16:23.545360+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 15,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.9,
-      "forward_pe": 35.401524,
+      "upside_pct": null,
+      "forward_pe": 36.429714,
       "peg": 2.09
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.277,
-      "macd_hist_change": 0.593,
+      "macd_hist": -0.221,
+      "macd_hist_change": 0.055,
       "divergence_present": false,
       "gap_days": 20,
       "signal_fresh": null,
@@ -45,7 +45,7 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 60.0,
-      "rsi_zscore_1y": 1.09,
+      "rsi_zscore_1y": 1.11,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -56,10 +56,10 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
-      "adx_reference": 18.5,
+      "wick_days_ago": 2,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": 21913200,
       "avg_volume_divergence_window": 23661633,
@@ -68,32 +68,32 @@
         "high": 110.27,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.6,
-  "score_addon": 26,
+  "entry_atr_stop_pct": null,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.9,
-      "forward_pe": 35.401524,
+      "upside_pct": null,
+      "forward_pe": 36.429714,
       "peg": 2.09
     },
     "3_pullback_gate": {
@@ -108,7 +108,7 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.1
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Financial Services",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 22,
-    "days_since_trend_start": 21,
-    "gain_since_low_pct": 30.9,
-    "divergence_date_index": 228
+    "days_since_divergence": 23,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 227
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

@@ -1,65 +1,65 @@
 {
   "ticker": "ONDS",
   "name": "Ondas Inc",
-  "price": 7.39,
-  "updated": "2026-09-20T23:29:34.412419+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 60,
+  "price": null,
+  "updated": "2026-09-22T00:16:27.507159+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 34,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 162.7,
-      "forward_pe": -369.5,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": -369.0,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.016,
-      "macd_hist_change": 0.021,
-      "divergence_present": true,
+      "macd_recovery_bonus_applied": false,
+      "macd_hist": -0.013,
+      "macd_hist_change": 0.003,
+      "divergence_present": false,
       "gap_days": 10,
-      "signal_fresh": false,
-      "divergence_quality": 0.467,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 2.6
     },
     "4_zscore": {
       "status": "fail",
       "rsi": 42.9,
-      "rsi_zscore_1y": -0.69,
-      "zscore_quality": 0.423,
+      "rsi_zscore_1y": -0.68,
+      "zscore_quality": 0.421,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "해머",
-      "days_ago": 2,
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 18.5,
+      "wick_days_ago": 3,
+      "adx_reference": null,
       "volume_confirmed": true,
       "trigger_day_volume": 65246400,
       "avg_volume_divergence_window": 62148336,
@@ -68,32 +68,32 @@
         "high": 7.26,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 9.1,
-  "score_addon": 54,
+  "entry_atr_stop_pct": null,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 162.7,
-      "forward_pe": -369.5,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": -369.0,
       "peg": null
     },
     "3_pullback_gate": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.8
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",

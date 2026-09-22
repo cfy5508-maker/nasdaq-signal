@@ -1,29 +1,29 @@
 {
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
-  "price": 146.39,
-  "updated": "2026-09-20T23:29:48.238947+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 22,
+  "price": null,
+  "updated": "2026-09-22T00:16:40.925623+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 19,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -27.1,
-      "volume_trend_pct_3d": 34.2,
-      "volume_trend_up": true,
-      "daily_change_pct": -0.25,
+      "volume_diff_pct_3m": -19.7,
+      "volume_trend_pct_3d": -15.6,
+      "volume_trend_up": false,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.7,
-      "forward_pe": 19.782967,
+      "upside_pct": null,
+      "forward_pe": 19.741076,
       "peg": 3.75
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.259,
-      "macd_hist_change": -0.045,
+      "macd_hist": 0.208,
+      "macd_hist_change": -0.052,
       "divergence_present": false,
       "gap_days": 16,
       "signal_fresh": null,
@@ -45,55 +45,55 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 52.4,
-      "rsi_zscore_1y": 0.35,
-      "zscore_quality": 0.164,
+      "rsi_zscore_1y": 0.32,
+      "zscore_quality": 0.17,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "모닝스타",
-      "days_ago": 5,
+      "status": "warn",
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 7.1,
-      "volume_confirmed": true,
-      "trigger_day_volume": 11526600,
-      "avg_volume_divergence_window": 9269765,
+      "adx_reference": null,
+      "volume_confirmed": false,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": {
         "low": 142.64,
         "high": 144.16,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 245,
+        "trigger_day_idx": 244,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 2.4,
-  "score_addon": 5,
+  "entry_atr_stop_pct": null,
+  "score_addon": 7,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -27.1,
-      "volume_trend_pct_3d": 34.2,
-      "volume_trend_up": true,
-      "daily_change_pct": -0.25,
+      "volume_diff_pct_3m": -19.7,
+      "volume_trend_pct_3d": -15.6,
+      "volume_trend_up": false,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.7,
-      "forward_pe": 19.782967,
+      "upside_pct": null,
+      "forward_pe": 19.741076,
       "peg": 3.75
     },
     "3_pullback_gate": {
@@ -108,7 +108,7 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "warn",
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.6
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Consumer Defensive",

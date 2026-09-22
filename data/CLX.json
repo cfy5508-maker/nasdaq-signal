@@ -1,29 +1,29 @@
 {
   "ticker": "CLX",
   "name": "Clorox Company (The)",
-  "price": 83.1,
-  "updated": "2026-09-20T23:29:40.868328+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 30,
+  "price": null,
+  "updated": "2026-09-22T00:16:33.719951+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 23,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 43.5,
-      "volume_trend_pct_3d": 28.4,
+      "volume_diff_pct_3m": 7.6,
+      "volume_trend_pct_3d": 10.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.13,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.3,
-      "forward_pe": 13.273509,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 13.557827,
       "peg": 1.04
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.252,
-      "macd_hist_change": 0.047,
+      "macd_hist": -1.001,
+      "macd_hist_change": 0.25,
       "divergence_present": false,
       "gap_days": 5,
       "signal_fresh": null,
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 42.0,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.7,
-  "score_addon": 26,
+  "entry_atr_stop_pct": null,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 43.5,
-      "volume_trend_pct_3d": 28.4,
+      "volume_diff_pct_3m": 7.6,
+      "volume_trend_pct_3d": 10.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.13,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.3,
-      "forward_pe": 13.273509,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 13.557827,
       "peg": 1.04
     },
     "3_pullback_gate": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 13.8
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Consumer Defensive",

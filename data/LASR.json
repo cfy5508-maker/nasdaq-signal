@@ -1,52 +1,52 @@
 {
   "ticker": "LASR",
   "name": "nLIGHT, Inc.",
-  "price": 39.84,
-  "updated": "2026-09-20T23:28:47.692910+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 73,
+  "price": null,
+  "updated": "2026-09-22T00:15:42.093623+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 35,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 123.0,
-      "forward_pe": 63.238094,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 63.793648,
       "peg": 1.78
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "neutral",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.64,
-      "macd_hist_change": 0.142,
-      "divergence_present": true,
+      "macd_hist": 0.512,
+      "macd_hist_change": -0.128,
+      "divergence_present": false,
       "gap_days": 8,
-      "signal_fresh": false,
-      "divergence_quality": 0.625,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 2.5
     },
     "4_zscore": {
       "status": "warn",
       "rsi": 38.7,
-      "rsi_zscore_1y": -1.38,
-      "zscore_quality": 0.646,
+      "rsi_zscore_1y": -1.37,
+      "zscore_quality": 0.642,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 34.3,
+      "wick_days_ago": 3,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": 715200,
       "avg_volume_divergence_window": 1216567,
@@ -68,32 +68,32 @@
         "high": 38.45,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 10.3,
-  "score_addon": 43,
+  "entry_atr_stop_pct": null,
+  "score_addon": 18,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 123.0,
-      "forward_pe": 63.238094,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 63.793648,
       "peg": 1.78
     },
     "3_pullback_gate": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.6
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 3,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 5.1,
-    "divergence_date_index": 247
+    "days_since_divergence": 4,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 246
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

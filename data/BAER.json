@@ -1,28 +1,28 @@
 {
   "ticker": "BAER",
   "name": "Bridger Aerospace Group Holding",
-  "price": 0.95,
-  "updated": "2026-09-20T23:29:33.431056+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 49,
+  "price": null,
+  "updated": "2026-09-22T00:16:26.516855+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 32,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "warn",
-      "upside_pct": 287.6,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": null,
       "peg": null
     },
@@ -31,22 +31,22 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.008,
-      "macd_hist_change": -0.001,
+      "macd_hist": 0.006,
+      "macd_hist_change": -0.002,
       "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.379,
       "rsi_improvement": -6.4
     },
     "4_zscore": {
       "status": "pass",
       "rsi": 27.0,
-      "rsi_zscore_1y": -1.63,
-      "zscore_quality": 0.658,
+      "rsi_zscore_1y": -1.61,
+      "zscore_quality": 0.653,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,33 +59,33 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 40.0,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 11.6,
-  "score_addon": 13,
+  "entry_atr_stop_pct": null,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 30.5,
-      "volume_trend_pct_3d": 37.0,
+      "volume_diff_pct_3m": 24.7,
+      "volume_trend_pct_3d": 35.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.63,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "warn",
-      "upside_pct": 287.6,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": null,
       "peg": null
     },
@@ -101,7 +101,7 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 14.3
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Industrials",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 246,
-    "days_since_prior_divergence": 4,
-    "price_drop_since_pct": 7.3,
+    "prior_divergence_date_index": 245,
+    "days_since_prior_divergence": 5,
+    "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

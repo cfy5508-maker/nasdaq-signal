@@ -1,29 +1,29 @@
 {
   "ticker": "AVEX",
   "name": "AEVEX Corp.",
-  "price": 16.2,
-  "updated": "2026-09-20T23:28:42.527047+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 59,
+  "price": null,
+  "updated": "2026-09-22T00:15:36.849681+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 31,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 43.5,
-      "volume_trend_pct_3d": 28.4,
+      "volume_diff_pct_3m": 7.6,
+      "volume_trend_pct_3d": 10.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.13,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 107.6,
-      "forward_pe": 19.626848,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 20.002424,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,22 +31,22 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 6,
+      "retest_days_ago": 7,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.018,
-      "macd_hist_change": 0.019,
+      "macd_hist": -0.014,
+      "macd_hist_change": 0.004,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": false,
-      "divergence_quality": 0.443,
+      "divergence_quality": 0.456,
       "rsi_improvement": -5.9
     },
     "4_zscore": {
       "status": "fail",
       "rsi": 42.8,
       "rsi_zscore_1y": -0.32,
-      "zscore_quality": 0.38,
+      "zscore_quality": 0.379,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 3,
-      "adx_reference": 9.7,
+      "wick_days_ago": 4,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": 1105100,
       "avg_volume_divergence_window": 1334271,
@@ -73,27 +73,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 11.0,
-  "score_addon": 45,
+  "entry_atr_stop_pct": null,
+  "score_addon": 19,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 43.5,
-      "volume_trend_pct_3d": 28.4,
+      "volume_diff_pct_3m": 7.6,
+      "volume_trend_pct_3d": 10.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.13,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 107.6,
-      "forward_pe": 19.626848,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 20.002424,
       "peg": null
     },
     "3_pullback_gate": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.5
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Industrials",

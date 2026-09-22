@@ -1,29 +1,29 @@
 {
   "ticker": "BLK",
   "name": "BlackRock, Inc.",
-  "price": 1069.78,
-  "updated": "2026-09-20T23:29:06.707125+00:00",
-  "as_of_date": "2026-09-18",
-  "score": 60,
+  "price": null,
+  "updated": "2026-09-22T00:16:00.422634+00:00",
+  "as_of_date": "2026-09-21",
+  "score": 39,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 43.5,
-      "volume_trend_pct_3d": 28.4,
+      "volume_diff_pct_3m": 7.6,
+      "volume_trend_pct_3d": 10.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.13,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 23.7,
-      "forward_pe": 16.634682,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 16.953293,
       "peg": 0.9
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -8.235,
-      "macd_hist_change": 2.529,
+      "macd_hist": -6.588,
+      "macd_hist_change": 1.647,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -56,10 +56,10 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 29.2,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,41 +68,41 @@
         "high": 1053.96,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 56,
+  "entry_atr_stop_pct": null,
+  "score_addon": 2,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 43.5,
-      "volume_trend_pct_3d": 28.4,
+      "volume_diff_pct_3m": 7.6,
+      "volume_trend_pct_3d": 10.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.13,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 23.7,
-      "forward_pe": 16.634682,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 16.953293,
       "peg": 0.9
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": true,
-      "near_sma200": true,
+      "near_sma120": false,
+      "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.7
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Financial Services",
@@ -135,9 +135,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 12,
-    "divergence_date_index": 230,
-    "price_vs_low_pct": -5.7
+    "days_since_trend_start": 13,
+    "divergence_date_index": 229,
+    "price_vs_low_pct": null
   },
   "pullback_stop_signal": {
     "stop_reference_price": 1037.24,
