@@ -1,52 +1,52 @@
 {
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
-  "price": null,
-  "updated": "2026-09-22T00:17:15.847085+00:00",
+  "price": 79.63,
+  "updated": "2026-09-22T14:22:24.530619+00:00",
   "as_of_date": "2026-09-21",
-  "score": 28,
+  "score": 69,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 18.113493,
+      "status": "pass",
+      "upside_pct": 23.3,
+      "forward_pe": 18.033878,
       "peg": 1.62
     },
     "3_divergence_gate": {
-      "status": "neutral",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.114,
-      "macd_hist_change": 0.029,
-      "divergence_present": false,
-      "gap_days": 12,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": 0.7
+      "macd_hist": -0.191,
+      "macd_hist_change": -0.048,
+      "divergence_present": true,
+      "gap_days": 15,
+      "signal_fresh": true,
+      "divergence_quality": 0.584,
+      "rsi_improvement": 1.7
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 33.6,
-      "rsi_zscore_1y": -1.51,
-      "zscore_quality": 0.629,
+      "rsi": 30.3,
+      "rsi_zscore_1y": -1.77,
+      "zscore_quality": 0.693,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 29.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 0,
+  "entry_atr_stop_pct": 2.4,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 18.113493,
+      "status": "pass",
+      "upside_pct": 23.3,
+      "forward_pe": 18.033878,
       "peg": 1.62
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 33.6,
+      "rsi": 30.3,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 3.4
     }
   },
   "sector": "Utilities",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 80.37,
+    "stop_reference_price": 79.63,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

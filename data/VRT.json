@@ -1,29 +1,29 @@
 {
   "ticker": "VRT",
   "name": "Vertiv Holdings, LLC",
-  "price": null,
-  "updated": "2026-09-22T00:16:52.143581+00:00",
+  "price": 250.86,
+  "updated": "2026-09-22T14:22:02.493363+00:00",
   "as_of_date": "2026-09-21",
-  "score": 29,
+  "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 27.499462,
+      "status": "pass",
+      "upside_pct": 34.8,
+      "forward_pe": 27.758177,
       "peg": 0.84
     },
     "3_divergence_gate": {
@@ -33,24 +33,24 @@
       "retest_divergence": true,
       "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.107,
-      "macd_hist_change": 0.277,
+      "macd_recovery_bonus_applied": true,
+      "macd_hist": -0.643,
+      "macd_hist_change": 0.741,
       "divergence_present": true,
       "gap_days": 15,
       "signal_fresh": false,
-      "divergence_quality": 0.501,
+      "divergence_quality": 0.588,
       "rsi_improvement": -1.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.2,
-      "rsi_zscore_1y": -0.85,
-      "zscore_quality": 0.462,
+      "rsi": 45.9,
+      "rsi_zscore_1y": -0.78,
+      "zscore_quality": 0.446,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,34 +59,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 14.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 246.19,
+        "high": 249.39,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 3,
+  "entry_atr_stop_pct": 8.5,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 27.499462,
+      "status": "pass",
+      "upside_pct": 34.8,
+      "forward_pe": 27.758177,
       "peg": 0.84
     },
     "3_pullback_gate": {
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.2,
-      "rsi_zone_quality": 0.208,
+      "rsi": 45.9,
+      "rsi_zone_quality": 0.236,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 2.3
     }
   },
   "sector": "Industrials",

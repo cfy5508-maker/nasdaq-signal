@@ -1,52 +1,52 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": null,
-  "updated": "2026-09-22T00:17:27.760234+00:00",
+  "price": 42.15,
+  "updated": "2026-09-22T14:22:35.202061+00:00",
   "as_of_date": "2026-09-21",
-  "score": 28,
+  "score": 64,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 9.674821,
+      "status": "pass",
+      "upside_pct": 19.0,
+      "forward_pe": 9.843527,
       "peg": 0.96
     },
     "3_divergence_gate": {
-      "status": "neutral",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.299,
-      "macd_hist_change": 0.075,
-      "divergence_present": false,
+      "macd_hist": -0.311,
+      "macd_hist_change": 0.063,
+      "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.53,
       "rsi_improvement": 0.6
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 34.2,
-      "rsi_zscore_1y": -1.57,
-      "zscore_quality": 0.643,
+      "status": "warn",
+      "rsi": 36.5,
+      "rsi_zscore_1y": -1.37,
+      "zscore_quality": 0.593,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,43 +59,43 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 21.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 0,
+  "entry_atr_stop_pct": 3.3,
+  "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 9.674821,
+      "status": "pass",
+      "upside_pct": 19.0,
+      "forward_pe": 9.843527,
       "peg": 0.96
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
-      "near_sma200": false,
+      "near_sma120": true,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.2,
+      "rsi": 36.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 5.0
     }
   },
   "sector": "Consumer Cyclical",

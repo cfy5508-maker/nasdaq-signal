@@ -1,29 +1,29 @@
 {
   "ticker": "O",
   "name": "Realty Income Corporation",
-  "price": null,
-  "updated": "2026-09-22T00:17:04.397941+00:00",
+  "price": 56.65,
+  "updated": "2026-09-22T14:22:14.209973+00:00",
   "as_of_date": "2026-09-21",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 36.477318,
+      "status": "pass",
+      "upside_pct": 19.4,
+      "forward_pe": 36.541706,
       "peg": 2.86
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.339,
-      "macd_hist_change": 0.085,
+      "macd_hist": -0.412,
+      "macd_hist_change": 0.011,
       "divergence_present": false,
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -9.9
+      "rsi_improvement": -8.7
     },
     "4_zscore": {
       "status": "pass",
       "rsi": 19.2,
       "rsi_zscore_1y": -2.62,
-      "zscore_quality": 0.905,
+      "zscore_quality": 0.906,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 26.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 0,
+  "entry_atr_stop_pct": 2.5,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 7.6,
-      "volume_trend_pct_3d": 10.0,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": 10.5,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.55,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
-      "forward_pe": 36.477318,
+      "status": "pass",
+      "upside_pct": 19.4,
+      "forward_pe": 36.541706,
       "peg": 2.86
     },
     "3_pullback_gate": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Real Estate",
@@ -128,12 +128,12 @@
     "active": true,
     "prior_divergence_date_index": 236,
     "days_since_prior_divergence": 14,
-    "price_drop_since_pct": null,
+    "price_drop_since_pct": 7.6,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 56.66,
+    "stop_reference_price": 56.65,
     "stopped_out": false
   },
   "divergence_stop_signal": {
