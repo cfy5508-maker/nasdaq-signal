@@ -1,52 +1,52 @@
 {
   "ticker": "MCD",
   "name": "McDonald's Corporation",
-  "price": 250.35,
-  "updated": "2026-09-22T23:48:00.660634+00:00",
-  "as_of_date": "2026-09-22",
-  "score": 58,
+  "price": 238.32,
+  "updated": "2026-09-23T23:55:55.059777+00:00",
+  "as_of_date": "2026-09-23",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -8.9,
-      "volume_trend_pct_3d": -31.1,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": -26.1,
       "volume_trend_up": false,
-      "daily_change_pct": -0.34,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.05,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.9,
-      "forward_pe": 17.951036,
-      "peg": 2.14
+      "upside_pct": 29.1,
+      "forward_pe": 17.08844,
+      "peg": 2.16
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.47,
-      "macd_hist_change": 0.282,
-      "divergence_present": true,
-      "gap_days": 6,
-      "signal_fresh": true,
-      "divergence_quality": 0.453,
-      "rsi_improvement": -0.4
+      "macd_hist": -0.998,
+      "macd_hist_change": -0.528,
+      "divergence_present": false,
+      "gap_days": 5,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -6.4
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 37.5,
-      "rsi_zscore_1y": -0.93,
-      "zscore_quality": 0.482,
+      "status": "pass",
+      "rsi": 26.2,
+      "rsi_zscore_1y": -1.94,
+      "zscore_quality": 0.735,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 30.7,
+      "adx_reference": 32.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.5,
+  "entry_atr_stop_pct": 3.2,
   "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
@@ -74,20 +74,20 @@
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -8.9,
-      "volume_trend_pct_3d": -31.1,
+      "volume_diff_pct_3m": 9.4,
+      "volume_trend_pct_3d": -26.1,
       "volume_trend_up": false,
-      "daily_change_pct": -0.34,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.05,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 22.9,
-      "forward_pe": 17.951036,
-      "peg": 2.14
+      "upside_pct": 29.1,
+      "forward_pe": 17.08844,
+      "peg": 2.16
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.5,
+      "rsi": 26.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 6.8
     }
   },
   "sector": "Consumer Cyclical",
@@ -126,20 +126,20 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 232,
-    "days_since_prior_divergence": 18,
-    "price_drop_since_pct": 5.5,
+    "prior_divergence_date_index": 231,
+    "days_since_prior_divergence": 19,
+    "price_drop_since_pct": 10.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 247.88,
+    "stop_reference_price": 238.32,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 11,
-    "reason": "무효화 이후 11일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 12,
+    "reason": "무효화 이후 12일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

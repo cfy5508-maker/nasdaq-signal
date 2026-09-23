@@ -1,20 +1,20 @@
 {
   "ticker": "SMR",
   "name": "NuScale Power Corporation",
-  "price": 8.89,
-  "updated": "2026-09-22T23:48:37.218334+00:00",
-  "as_of_date": "2026-09-22",
-  "score": 52,
+  "price": 8.68,
+  "updated": "2026-09-23T23:56:24.445992+00:00",
+  "as_of_date": "2026-09-23",
+  "score": 47,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": -3.0,
+      "volume_diff_pct_3m": 21.1,
+      "volume_trend_pct_3d": -19.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.02,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 34.6,
-      "forward_pe": -13.467657,
+      "upside_pct": 37.9,
+      "forward_pe": -13.149524,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,50 +34,50 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.111,
-      "macd_hist_change": 0.032,
+      "macd_hist": -0.097,
+      "macd_hist_change": 0.013,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": true,
-      "divergence_quality": 0.442,
+      "divergence_quality": 0.388,
       "rsi_improvement": -0.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.6,
-      "rsi_zscore_1y": 0.39,
-      "zscore_quality": 0.202,
+      "rsi": 46.0,
+      "rsi_zscore_1y": 0.2,
+      "zscore_quality": 0.25,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": true,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 14.3,
+      "morning_star": false,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 13.9,
       "volume_confirmed": false,
-      "trigger_day_volume": 32804037,
-      "avg_volume_divergence_window": 53418900,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.1,
-  "score_addon": 47,
+  "entry_atr_stop_pct": 12.0,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": -3.0,
+      "volume_diff_pct_3m": 21.1,
+      "volume_trend_pct_3d": -19.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.02,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 34.6,
-      "forward_pe": -13.467657,
+      "upside_pct": 37.9,
+      "forward_pe": -13.149524,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.6,
-      "rsi_zone_quality": 0.304,
+      "rsi": 46.0,
+      "rsi_zone_quality": 0.238,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.0
+      "stop_pct_from_20sma": 6.9
     }
   },
   "sector": "Industrials",

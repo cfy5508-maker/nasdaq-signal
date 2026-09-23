@@ -1,20 +1,20 @@
 {
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
-  "price": 79.26,
-  "updated": "2026-09-22T23:48:31.567024+00:00",
-  "as_of_date": "2026-09-22",
-  "score": 69,
+  "price": 77.02,
+  "updated": "2026-09-23T23:56:19.920076+00:00",
+  "as_of_date": "2026-09-23",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": -3.0,
+      "volume_diff_pct_3m": 21.1,
+      "volume_trend_pct_3d": -19.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.02,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.9,
-      "forward_pe": 18.02933,
-      "peg": 1.61
+      "upside_pct": 27.5,
+      "forward_pe": 17.519794,
+      "peg": 1.6
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "fail",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.226,
-      "macd_hist_change": -0.035,
-      "divergence_present": true,
-      "gap_days": 16,
-      "signal_fresh": true,
-      "divergence_quality": 0.518,
-      "rsi_improvement": 0.4
+      "macd_hist": -0.369,
+      "macd_hist_change": -0.178,
+      "divergence_present": false,
+      "gap_days": 5,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -9.3
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 29.0,
-      "rsi_zscore_1y": -1.88,
-      "zscore_quality": 0.719,
+      "rsi": 22.9,
+      "rsi_zscore_1y": -2.39,
+      "zscore_quality": 0.846,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 31.1,
+      "adx_reference": 31.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.3,
+  "entry_atr_stop_pct": 2.7,
   "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -24.3,
-      "volume_trend_pct_3d": -3.0,
+      "volume_diff_pct_3m": 21.1,
+      "volume_trend_pct_3d": -19.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.02,
+      "daily_change_pct": -0.72,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.9,
-      "forward_pe": 18.02933,
-      "peg": 1.61
+      "upside_pct": 27.5,
+      "forward_pe": 17.519794,
+      "peg": 1.6
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.0,
+      "rsi": 22.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,16 +118,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.6
+      "stop_pct_from_20sma": 6.5
     }
   },
   "sector": "Utilities",
   "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 245,
+    "days_since_prior_divergence": 4,
+    "price_drop_since_pct": 4.2,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 79.26,
+    "stop_reference_price": 77.02,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
