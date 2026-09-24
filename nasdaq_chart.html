@@ -44,6 +44,7 @@
   var labels_weekly=['26.05 W1','26.05 W2','26.05 W3','26.05 W4','26.05 W5'];
   var nd_daily=[25295.04,25301.5,25739.52,25902.16,26620.93,26835.99,26611.6];
   var hy_daily=[2.76,2.7,2.7,2.68,2.66,2.68,2.68];
+  var hy_daily_est=[0,0,0,0,0,0,0];
   var labels_daily=['26.09.15','26.09.16','26.09.17','26.09.18','26.09.21','26.09.22','26.09.23'];
   var W52_HIGH=27190.21;
   var W52_LOW=19226.22;
@@ -70,6 +71,7 @@
   var labels=labels_monthly.concat(labels_weekly).concat(labels_daily);
   var nasdaq=nd_monthly.concat(nd_weekly).concat(nd_daily);
   var hyOas=hy_monthly.concat(hy_weekly).concat(hy_daily);
+  var hyEst=hy_monthly.map(function(){return 0;}).concat(hy_weekly.map(function(){return 0;})).concat(typeof hy_daily_est!=='undefined'?hy_daily_est:hy_daily.map(function(){return 0;}));
   var N=labels.length;
   var NOW=N-1;
   var MONTHLY_END=labels_monthly.length-1;
@@ -79,9 +81,26 @@
   function getYear(l){ return 2000+parseInt(l.substring(0,2)); }
   function getMG(l){ var c=CAGR_MAP[getYear(l)]||0.160; return Math.pow(1+c,1/12); }
 
+  // 라벨을 실제 날짜로 변환 (월간=그 달 말일, 주간=그 달 7*n일, 일간=그 날짜)
+  function labelDate(l){
+    var y=2000+parseInt(l.substring(0,2),10), m=parseInt(l.substring(3,5),10);
+    if(/^\d\d\.\d\d\.\d\d$/.test(l)) return Date.UTC(y,m-1,parseInt(l.substring(6,8),10));
+    var dim=new Date(Date.UTC(y,m,0)).getUTCDate();
+    var w=l.match(/W(\d)/);
+    if(w) return Date.UTC(y,m-1,Math.min(7*parseInt(w[1],10),dim));
+    return Date.UTC(y,m-1,dim);
+  }
+
+  // 기준선 누적 성장: 예전엔 차트 칸마다 월간 성장률을 1번씩 곱해서, 주간/일간 칸도 한 달치씩
+  // 성장이 붙었고 차트가 하루 밀릴 때마다 같은 날짜의 기준선이 바뀌었다(9/21 이격률이 사흘간
+  // -17.7% -> -20.4%로 변한 원인). 월간 구간은 기존과 동일하게 칸당 1개월, 그 이후는 실제 경과
+  // 일수만큼만 성장을 붙여서, 같은 날짜는 언제 봐도 같은 기준선이 나오도록 한다.
   var hyLine=[], cum=1.0;
   for(var i=0;i<N;i++){
-    if(i>0) cum*=getMG(labels[i]);
+    if(i>0){
+      var ex = (i<labels_monthly.length) ? 1 : (labelDate(labels[i])-labelDate(labels[i-1]))/864e5/30.4375;
+      cum*=Math.pow(getMG(labels[i]), ex);
+    }
     hyLine.push(hyOas[i]*SCALE*cum);
   }
 
@@ -430,7 +449,7 @@
         +'<div class="badge-sub" style="color:'+colVal+'">'+(isEstimated?'추정 ':'')+'이격 '+(gVal>=0?'+':'')+gVal+'% · '+sigVal+'</div>';
     }
 
-    renderNowBadge(h, g, sig, col, false);
+    renderNowBadge(h, g, sig, col, hyEst[NOW]===1);
 
     fetch('./data/hy_oas_nowcast.json?_='+Date.now())
       .then(function(r){ return r.ok?r.json():null; })
@@ -449,7 +468,7 @@
         else if(gEst>20 && nc.nowcast_oas>=4.5){ sigEst='강한매수'; colEst='#a855f7'; }
         else if(gEst>20 && nc.nowcast_oas>=3.5){ sigEst='매수'; colEst='#10b981'; }
 
-        renderNowBadge(nc.nowcast_oas, gEst, sigEst, colEst, true);
+        renderNowBadge(nc.nowcast_oas, gEst, sigEst, colEst, nc.gap_days>0);
       })
       .catch(function(e){ console.error('nowcast',e); });
 
@@ -568,11 +587,7 @@
                 }
                 if(ctx.dataset.label==='HY기준선'){
                   var hyVal = hyOas[ctx.dataIndex];
-                  var tag = '확정';
-                  if(ctx.dataIndex===NOW && window.HY_NOWCAST){
-                    hyVal = window.HY_NOWCAST.nowcast_oas;
-                    tag = '추정';
-                  }
+                  var tag = hyEst[ctx.dataIndex] ? '추정' : '확정';
                   return 'HY 기준선: '+Math.round(ctx.parsed.y).toLocaleString()+' ('+tag+' HY '+hyVal.toFixed(2)+'%)';
                 }
                 return '';
@@ -765,7 +780,7 @@
         legend:{ display:false },
         tooltip:Object.assign({}, tt, {
           filter:function(i){ return i.dataset.label!=='_bg'; },
-          callbacks:{ label:function(ctx){ return 'HY: '+hyOas[ctx.dataIndex].toFixed(2)+'% | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%'; } }
+          callbacks:{ label:function(ctx){ return 'HY: '+hyOas[ctx.dataIndex].toFixed(2)+'%'+(hyEst[ctx.dataIndex]?'(추정)':'')+' | 이격'+(gap[ctx.dataIndex]>=0?'+':'')+gap[ctx.dataIndex]+'%'; } }
         })
       },
       scales:{
