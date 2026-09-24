@@ -51,8 +51,12 @@ confirmed_date = oas.index[-1]
 confirmed_oas = oas.iloc[-1]
 after = feat[feat.index > confirmed_date]
 
-est_diff_sum = (b_hyg*after["hyg_ret"] + b_ief*after["ief_ret"] + b_vix*after["vix_diff"] + intercept).sum()
+pred = b_hyg*after["hyg_ret"] + b_ief*after["ief_ret"] + b_vix*after["vix_diff"] + intercept
+est_diff_sum = pred.sum()
 nowcast_oas = confirmed_oas + est_diff_sum / 100  # bp -> %p
+# 미발표 날짜마다의 추정치 (차트 일일 데이터 채우기용)
+est_path = confirmed_oas + pred.cumsum() / 100
+daily_estimates = {d.strftime("%Y-%m-%d"): round(float(v), 2) for d, v in est_path.items()}
 
 result = {
     "as_of": TODAY.isoformat(),
@@ -60,6 +64,7 @@ result = {
     "confirmed_oas": round(float(confirmed_oas), 2),
     "nowcast_oas": round(float(nowcast_oas), 2),
     "gap_days": len(after),
+    "daily_estimates": daily_estimates,
     "beta_hyg": round(float(b_hyg), 3),
     "beta_ief": round(float(b_ief), 3),
     "beta_vix": round(float(b_vix), 3),
