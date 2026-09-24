@@ -1,0 +1,25 @@
+name: Validate HY OAS Nowcast
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install yfinance pandas numpy
+      - name: Run validation
+        env:
+          FRED_KEY: ${{ secrets.FRED_KEY }}
+        run: python validate_hy_oas_nowcast.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nowcast-validation
+          path: validation_nowcast_rows.csv
