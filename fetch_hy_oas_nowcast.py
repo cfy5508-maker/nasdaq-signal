@@ -21,20 +21,27 @@ def fetch_fred(series_id, start, end):
     return pd.Series({pd.Timestamp(dd): v for dd, v in obs}).sort_index()
 
 oas = fetch_fred("BAMLH0A0HYM2", START, TODAY)
-vix = fetch_fred("VIXCLS", START, TODAY)
+# VIX는 FRED(VIXCLS)도 하루 늦게 올라와서, 최신 날짜 추정에 쓰려면 yfinance에서 받는다
+vix = yf.Ticker("^VIX").history(start=START, end=TODAY + datetime.timedelta(days=1))["Close"]
 hyg = yf.Ticker("HYG").history(start=START, end=TODAY + datetime.timedelta(days=1))["Close"]
 ief = yf.Ticker("IEF").history(start=START, end=TODAY + datetime.timedelta(days=1))["Close"]
-hyg.index = hyg.index.tz_localize(None); ief.index = ief.index.tz_localize(None)
+hyg.index = hyg.index.tz_localize(None).normalize(); ief.index = ief.index.tz_localize(None).normalize()
+vix.index = vix.index.tz_localize(None).normalize()
 
 hyg_ret = hyg.pct_change() * 100
 ief_ret = ief.pct_change() * 100
 vix_diff = vix.diff()
 oas_diff = oas.diff() * 100
 
-df = pd.DataFrame({"hyg_ret": hyg_ret, "ief_ret": ief_ret, "vix_diff": vix_diff, "oas_diff": oas_diff}).dropna()
+# 기존 버그: 설명변수와 OAS를 한 표에 넣고 dropna()를 해서, OAS가 아직 발표 안 된 최근 날짜
+# (=정작 추정이 필요한 구간)가 통째로 지워졌다. 그래서 after가 항상 비어 gap_days=0,
+# 나우캐스트가 마지막 확정값을 그대로 복사만 하고 있었다.
+# 설명변수 표(feat)와 학습용 표(train_df)를 분리해서, 추정 구간은 feat에서 가져온다.
+feat = pd.DataFrame({"hyg_ret": hyg_ret, "ief_ret": ief_ret, "vix_diff": vix_diff}).dropna()
+train_df = feat.join(oas_diff.rename("oas_diff"), how="inner").dropna()
 
 # 최근 90일로 재학습 (마지막 확정 OAS 시점까지)
-train = df.tail(90)
+train = train_df.tail(90)
 X = np.column_stack([train["hyg_ret"], train["ief_ret"], train["vix_diff"], np.ones(len(train))])
 y = train["oas_diff"].values
 b_hyg, b_ief, b_vix, intercept = np.linalg.lstsq(X, y, rcond=None)[0]
@@ -42,7 +49,7 @@ b_hyg, b_ief, b_vix, intercept = np.linalg.lstsq(X, y, rcond=None)[0]
 # 마지막 확정 OAS 시점 이후, 오늘까지 누적 변화로 나우캐스트
 confirmed_date = oas.index[-1]
 confirmed_oas = oas.iloc[-1]
-after = df[df.index > confirmed_date]
+after = feat[feat.index > confirmed_date]
 
 est_diff_sum = (b_hyg*after["hyg_ret"] + b_ief*after["ief_ret"] + b_vix*after["vix_diff"] + intercept).sum()
 nowcast_oas = confirmed_oas + est_diff_sum / 100  # bp -> %p
