@@ -1,20 +1,20 @@
 {
   "ticker": "FSLR",
   "name": "First Solar, Inc.",
-  "price": 191.97,
-  "updated": "2026-09-24T09:28:41.020691+00:00",
-  "as_of_date": "2026-09-23",
-  "score": 56,
+  "price": 172.16,
+  "updated": "2026-09-24T23:58:51.450717+00:00",
+  "as_of_date": "2026-09-24",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -10.0,
-      "volume_trend_pct_3d": -1.2,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": -23.1,
       "volume_trend_up": false,
-      "daily_change_pct": -0.84,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.7,
-      "forward_pe": 8.257087,
-      "peg": 0.37
+      "upside_pct": 58.1,
+      "forward_pe": 7.405011,
+      "peg": 0.36
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.504,
-      "macd_hist_change": -0.313,
-      "divergence_present": true,
-      "gap_days": 10,
-      "signal_fresh": true,
-      "divergence_quality": 0.401,
-      "rsi_improvement": -0.3
+      "macd_hist": -1.891,
+      "macd_hist_change": -1.387,
+      "divergence_present": false,
+      "gap_days": 5,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -4.6
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 39.7,
-      "rsi_zscore_1y": -0.83,
-      "zscore_quality": 0.457,
+      "status": "pass",
+      "rsi": 31.1,
+      "rsi_zscore_1y": -1.57,
+      "zscore_quality": 0.642,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.6,
+      "adx_reference": 16.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.8,
+  "entry_atr_stop_pct": 9.4,
   "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -10.0,
-      "volume_trend_pct_3d": -1.2,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": -23.1,
       "volume_trend_up": false,
-      "daily_change_pct": -0.84,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.7,
-      "forward_pe": 8.257087,
-      "peg": 0.37
+      "upside_pct": 58.1,
+      "forward_pe": 7.405011,
+      "peg": 0.36
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.7,
+      "rsi": 31.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.9
+      "stop_pct_from_20sma": 17.1
     }
   },
   "sector": "Technology",
@@ -126,17 +126,21 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 5.1,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 14.9,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 191.07,
+    "stop_reference_price": 172.16,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
