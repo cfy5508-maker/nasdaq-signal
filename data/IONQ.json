@@ -1,10 +1,10 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 44.98,
-  "updated": "2026-09-24T23:59:49.766039+00:00",
+  "price": null,
+  "updated": "2026-09-25T00:00:14.793237+00:00",
   "as_of_date": "2026-09-24",
-  "score": 53,
+  "score": 24,
   "stages": {
     "1_market_health": {
       "status": "neutral",
@@ -21,8 +21,8 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 49.3,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": -34.40758,
       "peg": null
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": 4,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.77,
-      "macd_hist_change": 0.242,
+      "macd_hist": 0.422,
+      "macd_hist_change": -0.106,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": false,
@@ -44,24 +44,24 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.3,
-      "rsi_zscore_1y": 1.38,
-      "zscore_quality": 0.05,
+      "rsi": 57.2,
+      "rsi_zscore_1y": 0.93,
+      "zscore_quality": 0.069,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "해머",
-      "days_ago": 2,
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 3,
-      "adx_reference": 14.2,
+      "adx_reference": null,
       "volume_confirmed": false,
-      "trigger_day_volume": 17857200,
+      "trigger_day_volume": 14289400,
       "avg_volume_divergence_window": 19896886,
       "order_block": {
         "low": 39.13,
@@ -73,8 +73,8 @@
       }
     }
   },
-  "entry_atr_stop_pct": 9.4,
-  "score_addon": 53,
+  "entry_atr_stop_pct": null,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
@@ -91,8 +91,8 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 49.3,
+      "status": "fail",
+      "upside_pct": null,
       "forward_pe": -34.40758,
       "peg": null
     },
@@ -108,12 +108,12 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 62.3,
-      "rsi_zone_quality": 0.893,
+      "status": "warn",
+      "rsi": 57.2,
+      "rsi_zone_quality": 0.687,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.5
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
