@@ -1,29 +1,29 @@
 {
   "ticker": "GLW",
   "name": "Corning Incorporated",
-  "price": 154.15,
-  "updated": "2026-09-25T01:54:22.511710+00:00",
-  "as_of_date": "2026-09-24",
-  "score": 62,
+  "price": null,
+  "updated": "2026-09-26T00:08:25.570635+00:00",
+  "as_of_date": "2026-09-25",
+  "score": 34,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -2.9,
-      "volume_trend_pct_3d": -19.3,
+      "volume_diff_pct_3m": -21.3,
+      "volume_trend_pct_3d": -11.0,
       "volume_trend_up": false,
-      "daily_change_pct": -0.08,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 35.321236,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 35.914696,
       "peg": 0.92
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.648,
-      "macd_hist_change": -0.088,
+      "macd_hist": 0.519,
+      "macd_hist_change": -0.13,
       "divergence_present": false,
       "gap_days": 8,
       "signal_fresh": null,
@@ -45,8 +45,8 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 49.7,
-      "rsi_zscore_1y": -0.51,
-      "zscore_quality": 0.427,
+      "rsi_zscore_1y": -0.5,
+      "zscore_quality": 0.426,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 9.7,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,47 +68,47 @@
         "high": 145.3,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 245,
+        "trigger_day_idx": 244,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.2,
-  "score_addon": 50,
+  "entry_atr_stop_pct": null,
+  "score_addon": 6,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -2.9,
-      "volume_trend_pct_3d": -19.3,
+      "volume_diff_pct_3m": -21.3,
+      "volume_trend_pct_3d": -11.0,
       "volume_trend_up": false,
-      "daily_change_pct": -0.08,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 23.2,
-      "forward_pe": 35.321236,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 35.914696,
       "peg": 0.92
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
-      "near_sma40": true,
+      "status": "fail",
+      "near_sma20": false,
+      "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 2,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.7
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 7.4,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

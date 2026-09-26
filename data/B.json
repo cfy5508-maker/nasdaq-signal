@@ -1,29 +1,29 @@
 {
   "ticker": "B",
   "name": "Barrick Mining Corporation",
-  "price": 42.32,
-  "updated": "2026-09-25T01:54:59.081012+00:00",
-  "as_of_date": "2026-09-24",
-  "score": 30,
+  "price": null,
+  "updated": "2026-09-26T00:09:01.702237+00:00",
+  "as_of_date": "2026-09-25",
+  "score": 27,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -2.9,
-      "volume_trend_pct_3d": -19.3,
+      "volume_diff_pct_3m": -21.3,
+      "volume_trend_pct_3d": -11.0,
       "volume_trend_up": false,
-      "daily_change_pct": -0.08,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 22.2,
-      "forward_pe": 9.65509,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 9.782851,
       "peg": 2.04
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.341,
-      "macd_hist_change": -0.006,
+      "macd_hist": -0.273,
+      "macd_hist_change": 0.068,
       "divergence_present": false,
       "gap_days": 8,
       "signal_fresh": null,
@@ -58,49 +58,49 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 11.9,
+      "wick_days_ago": 1,
+      "adx_reference": null,
       "volume_confirmed": true,
       "trigger_day_volume": 9685700,
       "avg_volume_divergence_window": 8519656,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.0,
-  "score_addon": 90,
+  "entry_atr_stop_pct": null,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -2.9,
-      "volume_trend_pct_3d": -19.3,
+      "volume_diff_pct_3m": -21.3,
+      "volume_trend_pct_3d": -11.0,
       "volume_trend_up": false,
-      "daily_change_pct": -0.08,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 22.2,
-      "forward_pe": 9.65509,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 9.782851,
       "peg": 2.04
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
-      "near_sma40": true,
+      "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": true,
-      "near_ma_count": 1,
+      "near_sma200": false,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.6
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Basic Materials",
