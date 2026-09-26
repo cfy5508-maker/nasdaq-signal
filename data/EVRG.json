@@ -1,91 +1,91 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": null,
-  "updated": "2026-09-26T00:08:52.087302+00:00",
+  "price": 78.04,
+  "updated": "2026-09-26T23:51:39.434898+00:00",
   "as_of_date": "2026-09-25",
-  "score": 27,
+  "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -31.9,
+      "volume_diff_pct_3m": -16.5,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": null,
+      "daily_change_pct": 0.46,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 17.0,
       "forward_pe": 17.095179,
       "peg": 2.0
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.213,
-      "macd_hist_change": 0.053,
-      "divergence_present": false,
+      "macd_hist": -0.263,
+      "macd_hist_change": 0.003,
+      "divergence_present": true,
       "gap_days": 7,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.376,
       "rsi_improvement": -9.9
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 29.8,
-      "rsi_zscore_1y": -2.26,
-      "zscore_quality": 0.814,
+      "rsi": 33.1,
+      "rsi_zscore_1y": -1.93,
+      "zscore_quality": 0.733,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 26.1,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 1706500,
+      "avg_volume_divergence_window": 2159175,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 0,
+  "entry_atr_stop_pct": 2.3,
+  "score_addon": 43,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.1,
-      "volume_trend_pct_3d": -31.9,
+      "volume_diff_pct_3m": -16.5,
+      "volume_trend_pct_3d": -31.7,
       "volume_trend_up": false,
-      "daily_change_pct": null,
+      "daily_change_pct": 0.46,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 17.0,
       "forward_pe": 17.095179,
       "peg": 2.0
     },
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.8,
+      "rsi": 33.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 3.1
     }
   },
   "sector": "Utilities",
