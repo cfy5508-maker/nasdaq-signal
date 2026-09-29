@@ -1,29 +1,29 @@
 {
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
-  "price": 7.85,
-  "updated": "2026-09-27T23:56:51.785887+00:00",
-  "as_of_date": "2026-09-25",
-  "score": 60,
+  "price": null,
+  "updated": "2026-09-29T01:14:00.287695+00:00",
+  "as_of_date": "2026-09-28",
+  "score": 35,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -31.7,
+      "volume_diff_pct_3m": 15.1,
+      "volume_trend_pct_3d": -16.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.46,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 28.7,
-      "forward_pe": -29.473606,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": -28.159496,
       "peg": 3.18
     },
     "3_divergence_gate": {
@@ -31,22 +31,22 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.032,
-      "macd_hist_change": 0.064,
+      "macd_hist": -0.026,
+      "macd_hist_change": 0.006,
       "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": true,
-      "divergence_quality": 0.634,
+      "signal_fresh": false,
+      "divergence_quality": 0.647,
       "rsi_improvement": -8.4
     },
     "4_zscore": {
       "status": "warn",
       "rsi": 32.4,
-      "rsi_zscore_1y": -1.17,
-      "zscore_quality": 0.541,
+      "rsi_zscore_1y": -1.16,
+      "zscore_quality": 0.54,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 36.4,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 13.3,
-  "score_addon": 26,
+  "entry_atr_stop_pct": null,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -31.7,
+      "volume_diff_pct_3m": 15.1,
+      "volume_trend_pct_3d": -16.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.46,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 28.7,
-      "forward_pe": -29.473606,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": -28.159496,
       "peg": 3.18
     },
     "3_pullback_gate": {
@@ -101,7 +101,7 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 17.4
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Utilities",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 241,
-    "days_since_prior_divergence": 9,
-    "price_drop_since_pct": 16.6,
+    "prior_divergence_date_index": 240,
+    "days_since_prior_divergence": 10,
+    "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -138,8 +138,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 7,
-    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 8,
+    "reason": "무효화 이후 8일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

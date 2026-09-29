@@ -1,65 +1,65 @@
 {
   "ticker": "ONDS",
   "name": "Ondas Inc",
-  "price": 7.64,
-  "updated": "2026-09-27T23:56:58.833102+00:00",
-  "as_of_date": "2026-09-25",
-  "score": 58,
+  "price": null,
+  "updated": "2026-09-29T01:14:07.459268+00:00",
+  "as_of_date": "2026-09-28",
+  "score": 28,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -31.7,
+      "volume_diff_pct_3m": 15.1,
+      "volume_trend_pct_3d": -16.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.46,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 154.1,
-      "forward_pe": -382.0,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": -384.0,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.062,
-      "macd_hist_change": 0.011,
-      "divergence_present": true,
+      "macd_hist": 0.049,
+      "macd_hist_change": -0.012,
+      "divergence_present": false,
       "gap_days": 10,
-      "signal_fresh": false,
-      "divergence_quality": 0.379,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 2.6
     },
     "4_zscore": {
       "status": "fail",
       "rsi": 48.8,
-      "rsi_zscore_1y": 0.01,
-      "zscore_quality": 0.247,
+      "rsi_zscore_1y": 0.02,
+      "zscore_quality": 0.245,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": true,
-      "pattern": "해머",
-      "days_ago": 7,
+      "breakout_confirmed": false,
+      "pattern": null,
+      "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 7,
-      "adx_reference": 15.3,
+      "wick_days_ago": 8,
+      "adx_reference": null,
       "volume_confirmed": true,
       "trigger_day_volume": 65246400,
       "avg_volume_divergence_window": 62148336,
@@ -68,32 +68,32 @@
         "high": 7.26,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 8.7,
-  "score_addon": 57,
+  "entry_atr_stop_pct": null,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -31.7,
+      "volume_diff_pct_3m": 15.1,
+      "volume_trend_pct_3d": -16.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.46,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 154.1,
-      "forward_pe": -382.0,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": -384.0,
       "peg": null
     },
     "3_pullback_gate": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.5
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 3,
-    "gain_since_low_pct": 6.1,
-    "divergence_date_index": 243
+    "days_since_divergence": 8,
+    "days_since_trend_start": 4,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 242
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

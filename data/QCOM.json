@@ -1,29 +1,29 @@
 {
   "ticker": "QCOM",
   "name": "QUALCOMM Incorporated",
-  "price": 201.97,
-  "updated": "2026-09-27T23:57:07.240256+00:00",
-  "as_of_date": "2026-09-25",
-  "score": 12,
+  "price": null,
+  "updated": "2026-09-29T01:14:15.855508+00:00",
+  "as_of_date": "2026-09-28",
+  "score": 15,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -31.7,
+      "volume_diff_pct_3m": 15.1,
+      "volume_trend_pct_3d": -16.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.46,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -3.9,
-      "forward_pe": 19.7932,
+      "upside_pct": null,
+      "forward_pe": 18.373169,
       "peg": 0.9
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 2.132,
-      "macd_hist_change": 0.112,
+      "macd_hist": 1.706,
+      "macd_hist_change": -0.426,
       "divergence_present": false,
       "gap_days": 18,
       "signal_fresh": null,
@@ -45,7 +45,7 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 68.0,
-      "rsi_zscore_1y": 1.39,
+      "rsi_zscore_1y": 1.36,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 22.3,
+      "wick_days_ago": 3,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": 9739300,
       "avg_volume_divergence_window": 14323521,
@@ -68,32 +68,32 @@
         "high": 191.34,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 246,
+        "trigger_day_idx": 245,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 6.4,
-  "score_addon": 28,
+  "entry_atr_stop_pct": null,
+  "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.5,
-      "volume_trend_pct_3d": -31.7,
+      "volume_diff_pct_3m": 15.1,
+      "volume_trend_pct_3d": -16.1,
       "volume_trend_up": false,
-      "daily_change_pct": 0.46,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": -3.9,
-      "forward_pe": 19.7932,
+      "upside_pct": null,
+      "forward_pe": 18.373169,
       "peg": 0.9
     },
     "3_pullback_gate": {
@@ -108,7 +108,7 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.4
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 23,
-    "days_since_trend_start": 21,
-    "gain_since_low_pct": 28.1,
-    "divergence_date_index": 227
+    "days_since_divergence": 24,
+    "days_since_trend_start": 22,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 226
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

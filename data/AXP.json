@@ -1,29 +1,29 @@
 {
   "ticker": "AXP",
   "name": "American Express Company",
-  "price": 308.89,
-  "updated": "2026-09-27T23:57:19.014097+00:00",
-  "as_of_date": "2026-09-25",
-  "score": 60,
+  "price": null,
+  "updated": "2026-09-29T01:14:27.988783+00:00",
+  "as_of_date": "2026-09-28",
+  "score": 36,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "fail",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -21.0,
-      "volume_trend_pct_3d": 6.4,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.94,
+      "volume_diff_pct_3m": -32.0,
+      "volume_trend_pct_3d": -25.4,
+      "volume_trend_up": false,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 22.5,
-      "forward_pe": 15.308569,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 15.181694,
       "peg": 1.24
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.159,
-      "macd_hist_change": 0.488,
+      "macd_hist": -0.927,
+      "macd_hist_change": 0.232,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -45,8 +45,8 @@
     "4_zscore": {
       "status": "warn",
       "rsi": 36.8,
-      "rsi_zscore_1y": -1.14,
-      "zscore_quality": 0.535,
+      "rsi_zscore_1y": -1.13,
+      "zscore_quality": 0.534,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 26.1,
+      "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 305.66,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 250,
+        "trigger_day_idx": 249,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.0,
-  "score_addon": 26,
+  "entry_atr_stop_pct": null,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "fail",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -21.0,
-      "volume_trend_pct_3d": 6.4,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.94,
+      "volume_diff_pct_3m": -32.0,
+      "volume_trend_pct_3d": -25.4,
+      "volume_trend_up": false,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 22.5,
-      "forward_pe": 15.308569,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 15.181694,
       "peg": 1.24
     },
     "3_pullback_gate": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.4
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Financial Services",
@@ -133,9 +133,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 238,
-    "days_since_prior_divergence": 12,
-    "price_drop_since_pct": 4.0,
+    "prior_divergence_date_index": 237,
+    "days_since_prior_divergence": 13,
+    "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -145,8 +145,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

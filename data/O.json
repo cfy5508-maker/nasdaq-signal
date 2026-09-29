@@ -1,29 +1,29 @@
 {
   "ticker": "O",
   "name": "Realty Income Corporation",
-  "price": 55.54,
-  "updated": "2026-09-27T23:57:00.940537+00:00",
-  "as_of_date": "2026-09-25",
-  "score": 60,
+  "price": null,
+  "updated": "2026-09-29T01:14:09.607834+00:00",
+  "as_of_date": "2026-09-28",
+  "score": 51,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.2,
-      "volume_trend_pct_3d": -10.0,
+      "volume_diff_pct_3m": -5.2,
+      "volume_trend_pct_3d": -12.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.54,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.1,
-      "forward_pe": 35.76258,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 35.640236,
       "peg": 2.8
     },
     "3_divergence_gate": {
@@ -31,22 +31,22 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.331,
-      "macd_hist_change": 0.048,
+      "macd_hist": -0.265,
+      "macd_hist_change": 0.066,
       "divergence_present": true,
       "gap_days": 6,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.33,
       "rsi_improvement": -3.7
     },
     "4_zscore": {
       "status": "pass",
       "rsi": 17.4,
-      "rsi_zscore_1y": -2.56,
-      "zscore_quality": 0.89,
+      "rsi_zscore_1y": -2.51,
+      "zscore_quality": 0.877,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,35 +58,35 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 35.6,
+      "wick_days_ago": 1,
+      "adx_reference": null,
       "volume_confirmed": true,
       "trigger_day_volume": 11961800,
       "avg_volume_divergence_window": 10596529,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 2.4,
-  "score_addon": 52,
+  "entry_atr_stop_pct": null,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.2,
-      "volume_trend_pct_3d": -10.0,
+      "volume_diff_pct_3m": -5.2,
+      "volume_trend_pct_3d": -12.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.54,
+      "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
-      "status": "pass",
-      "upside_pct": 21.1,
-      "forward_pe": 35.76258,
+      "status": "fail",
+      "upside_pct": null,
+      "forward_pe": 35.640236,
       "peg": 2.8
     },
     "3_pullback_gate": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.0
+      "stop_pct_from_20sma": null
     }
   },
   "sector": "Real Estate",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 232,
-    "days_since_prior_divergence": 18,
-    "price_drop_since_pct": 9.4,
+    "prior_divergence_date_index": 231,
+    "days_since_prior_divergence": 19,
+    "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -138,8 +138,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 9,
-    "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 10,
+    "reason": "무효화 이후 10일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
