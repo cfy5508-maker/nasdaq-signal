@@ -2,8 +2,8 @@
   "ticker": "NET",
   "name": "Cloudflare, Inc.",
   "price": null,
-  "updated": "2026-09-29T01:14:07.589745+00:00",
-  "as_of_date": "2026-09-28",
+  "updated": "2026-09-30T00:45:09.316615+00:00",
+  "as_of_date": "2026-09-29",
   "score": 25,
   "stages": {
     "1_market_health": {
@@ -11,8 +11,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 211.19357,
+      "forward_pe": 210.16145,
       "peg": 2.38
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 14,
+      "retest_days_ago": 15,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 3.014,
-      "macd_hist_change": -0.754,
+      "macd_hist": 2.53,
+      "macd_hist_change": -0.632,
       "divergence_present": true,
       "gap_days": 28,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 62.2,
-      "rsi_zscore_1y": 0.99,
-      "zscore_quality": 0.002,
+      "rsi": 63.6,
+      "rsi_zscore_1y": 1.12,
+      "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -68,21 +68,21 @@
         "high": 284.3,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 237,
+        "trigger_day_idx": 236,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 13,
+  "score_addon": 14,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -93,7 +93,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 211.19357,
+      "forward_pe": 210.16145,
       "peg": 2.38
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 62.2,
-      "rsi_zone_quality": 0.888,
+      "rsi": 63.6,
+      "rsi_zone_quality": 0.946,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {

@@ -2,17 +2,17 @@
   "ticker": "NXT",
   "name": "Nextpower Inc.",
   "price": null,
-  "updated": "2026-09-29T01:13:25.413969+00:00",
-  "as_of_date": "2026-09-28",
-  "score": 37,
+  "updated": "2026-09-30T00:44:30.252704+00:00",
+  "as_of_date": "2026-09-29",
+  "score": 26,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.1,
-      "volume_trend_pct_3d": -16.1,
+      "volume_diff_pct_3m": -26.0,
+      "volume_trend_pct_3d": -3.6,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 13.705131,
+      "forward_pe": 13.736306,
       "peg": 3.15
     },
     "3_divergence_gate": {
@@ -34,55 +34,48 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.47,
-      "macd_hist_change": -0.118,
+      "macd_hist": 0.379,
+      "macd_hist_change": -0.095,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 8,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 7.4
+      "rsi_improvement": 6.7
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 41.9,
-      "rsi_zscore_1y": -0.88,
-      "zscore_quality": 0.519,
+      "status": "warn",
+      "rsi": 39.4,
+      "rsi_zscore_1y": -1.11,
+      "zscore_quality": 0.577,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 2,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
       "adx_reference": null,
       "volume_confirmed": false,
-      "trigger_day_volume": 1851800,
-      "avg_volume_divergence_window": 2468957,
-      "order_block": {
-        "low": 79.97,
-        "high": 80.14,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 249,
-        "gap_confirmed": true
-      }
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 19,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.1,
-      "volume_trend_pct_3d": -16.1,
+      "volume_diff_pct_3m": -26.0,
+      "volume_trend_pct_3d": -3.6,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -93,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 13.705131,
+      "forward_pe": 13.736306,
       "peg": 3.15
     },
     "3_pullback_gate": {
@@ -112,15 +105,15 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 41.9,
-      "rsi_zone_quality": 0.076,
+      "rsi": 39.4,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
@@ -134,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 79.97,
+    "stop_reference_price": 79.13,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

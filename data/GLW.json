@@ -2,17 +2,17 @@
   "ticker": "GLW",
   "name": "Corning Incorporated",
   "price": null,
-  "updated": "2026-09-29T01:13:59.247198+00:00",
-  "as_of_date": "2026-09-28",
-  "score": 33,
+  "updated": "2026-09-30T00:45:01.459783+00:00",
+  "as_of_date": "2026-09-29",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 34.734646,
-      "peg": 0.94
+      "forward_pe": 36.366096,
+      "peg": 0.91
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,23 +34,23 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.588,
-      "macd_hist_change": -0.147,
+      "macd_hist": 0.345,
+      "macd_hist_change": -0.086,
       "divergence_present": false,
-      "gap_days": 8,
+      "gap_days": 9,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 0.6
+      "rsi_improvement": 5.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.8,
-      "rsi_zscore_1y": -0.3,
-      "zscore_quality": 0.375,
+      "rsi": 47.7,
+      "rsi_zscore_1y": -0.68,
+      "zscore_quality": 0.469,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -63,26 +63,19 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 143.57,
-        "high": 145.3,
-        "strong": true,
-        "breach": false,
-        "trigger_day_idx": 243,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 7,
+  "score_addon": 4,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -93,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 34.734646,
-      "peg": 0.94
+      "forward_pe": 36.366096,
+      "peg": 0.91
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -111,9 +104,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 51.8,
-      "rsi_zone_quality": 0.47,
+      "status": "fail",
+      "rsi": 47.7,
+      "rsi_zone_quality": 0.307,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -130,18 +123,11 @@
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "ongoing",
-    "days_since_divergence": 9,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": null,
-    "divergence_date_index": 241
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 143.57,
+    "stop_reference_price": 151.59,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

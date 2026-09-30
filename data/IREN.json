@@ -2,17 +2,17 @@
   "ticker": "IREN",
   "name": "IREN LIMITED",
   "price": null,
-  "updated": "2026-09-29T01:13:34.103084+00:00",
-  "as_of_date": "2026-09-28",
-  "score": 15,
+  "updated": "2026-09-30T00:44:38.368820+00:00",
+  "as_of_date": "2026-09-29",
+  "score": 20,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.1,
-      "volume_trend_pct_3d": -16.1,
+      "volume_diff_pct_3m": -26.0,
+      "volume_trend_pct_3d": -3.6,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -10.475464,
+      "forward_pe": -10.390093,
       "peg": 3.11
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.153,
-      "macd_hist_change": -0.038,
+      "macd_hist": -0.107,
+      "macd_hist_change": 0.027,
       "divergence_present": false,
-      "gap_days": 19,
+      "gap_days": 20,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 10.9
+      "rsi_improvement": 5.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.1,
-      "rsi_zscore_1y": 0.2,
-      "zscore_quality": 0.251,
+      "rsi": 46.0,
+      "rsi_zscore_1y": -0.36,
+      "zscore_quality": 0.391,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -67,15 +67,15 @@
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 6,
+  "score_addon": 3,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.1,
-      "volume_trend_pct_3d": -16.1,
+      "volume_diff_pct_3m": -26.0,
+      "volume_trend_pct_3d": -3.6,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -10.475464,
+      "forward_pe": -10.390093,
       "peg": 3.11
     },
     "3_pullback_gate": {
@@ -104,9 +104,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 51.1,
-      "rsi_zone_quality": 0.445,
+      "status": "fail",
+      "rsi": 46.0,
+      "rsi_zone_quality": 0.239,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 44.12,
+    "stop_reference_price": 41.72,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

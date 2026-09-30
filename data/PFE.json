@@ -2,17 +2,17 @@
   "ticker": "PFE",
   "name": "Pfizer, Inc.",
   "price": null,
-  "updated": "2026-09-29T01:13:19.769234+00:00",
-  "as_of_date": "2026-09-28",
-  "score": 25,
+  "updated": "2026-09-30T00:44:25.220943+00:00",
+  "as_of_date": "2026-09-29",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -24,28 +24,28 @@
       "status": "fail",
       "upside_pct": null,
       "forward_pe": 9.91425,
-      "peg": 13.11
+      "peg": 13.14
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.009,
-      "macd_hist_change": 0.002,
+      "macd_recovery_bonus_applied": false,
+      "macd_hist": 0.013,
+      "macd_hist_change": -0.003,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
-      "divergence_quality": 0.607,
+      "divergence_quality": 0.507,
       "rsi_improvement": -4.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 66.4,
-      "rsi_zscore_1y": 1.4,
+      "rsi": 67.0,
+      "rsi_zscore_1y": 1.45,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -58,7 +58,7 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
+      "wick_days_ago": 2,
       "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": 27755200,
@@ -68,7 +68,7 @@
         "high": 27.93,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
@@ -81,8 +81,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -94,7 +94,7 @@
       "status": "fail",
       "upside_pct": null,
       "forward_pe": 9.91425,
-      "peg": 13.11
+      "peg": 13.14
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 66.4,
+      "rsi": 67.0,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },

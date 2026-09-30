@@ -2,17 +2,17 @@
   "ticker": "LMT",
   "name": "Lockheed Martin Corporation",
   "price": null,
-  "updated": "2026-09-29T01:13:27.587023+00:00",
-  "as_of_date": "2026-09-28",
-  "score": 24,
+  "updated": "2026-09-30T00:44:32.234759+00:00",
+  "as_of_date": "2026-09-29",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.817851,
+      "forward_pe": 15.638028,
       "peg": 0.98
     },
     "3_divergence_gate": {
@@ -34,20 +34,20 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.419,
-      "macd_hist_change": 0.105,
+      "macd_hist": -0.499,
+      "macd_hist_change": 0.125,
       "divergence_present": false,
-      "gap_days": 12,
+      "gap_days": 13,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 1.0
+      "rsi_improvement": 0.3
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 37.5,
-      "rsi_zscore_1y": -0.85,
-      "zscore_quality": 0.513,
-      "zscore_direction_bonus_applied": true
+      "rsi": 36.8,
+      "rsi_zscore_1y": -0.87,
+      "zscore_quality": 0.469,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -74,8 +74,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.2,
-      "volume_trend_pct_3d": -12.5,
+      "volume_diff_pct_3m": -17.3,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.817851,
+      "forward_pe": 15.638028,
       "peg": 0.98
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.5,
+      "rsi": 36.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 519.56,
+    "stop_reference_price": 518.1,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

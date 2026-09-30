@@ -2,17 +2,17 @@
   "ticker": "LITE",
   "name": "Lumentum Holdings Inc.",
   "price": null,
-  "updated": "2026-09-29T01:14:12.985458+00:00",
-  "as_of_date": "2026-09-28",
-  "score": 31,
+  "updated": "2026-09-30T00:45:14.512576+00:00",
+  "as_of_date": "2026-09-29",
+  "score": 35,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.1,
-      "volume_trend_pct_3d": -16.1,
+      "volume_diff_pct_3m": -26.0,
+      "volume_trend_pct_3d": -3.6,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,66 +23,59 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 26.539871,
+      "forward_pe": 28.042698,
       "peg": 0.63
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 7,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.422,
-      "macd_hist_change": -0.105,
-      "divergence_present": true,
-      "gap_days": 17,
-      "signal_fresh": false,
-      "divergence_quality": 0.437,
-      "rsi_improvement": -4.0
+      "macd_hist": -0.681,
+      "macd_hist_change": 0.17,
+      "divergence_present": false,
+      "gap_days": 27,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": 2.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.5,
-      "rsi_zscore_1y": -0.31,
-      "zscore_quality": 0.376,
+      "rsi": 52.0,
+      "rsi_zscore_1y": -0.55,
+      "zscore_quality": 0.437,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 1,
       "adx_reference": null,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 893.61,
-        "high": 934.88,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 245,
-        "gap_confirmed": true
-      }
+      "volume_confirmed": true,
+      "trigger_day_volume": 4461500,
+      "avg_volume_divergence_window": 4296721,
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 8,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 15.1,
-      "volume_trend_pct_3d": -16.1,
+      "volume_diff_pct_3m": -26.0,
+      "volume_trend_pct_3d": -3.6,
       "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -93,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 26.539871,
+      "forward_pe": 28.042698,
       "peg": 0.63
     },
     "3_pullback_gate": {
@@ -112,17 +105,17 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.5,
-      "rsi_zone_quality": 0.578,
+      "rsi": 52.0,
+      "rsi_zone_quality": 0.479,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": null
@@ -134,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 835.03,
+    "stop_reference_price": 921.32,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
