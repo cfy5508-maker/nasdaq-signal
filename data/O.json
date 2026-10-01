@@ -2,8 +2,8 @@
   "ticker": "O",
   "name": "Realty Income Corporation",
   "price": null,
-  "updated": "2026-09-30T00:45:27.401051+00:00",
-  "as_of_date": "2026-09-29",
+  "updated": "2026-10-01T00:49:12.358306+00:00",
+  "as_of_date": "2026-09-30",
   "score": 29,
   "stages": {
     "1_market_health": {
@@ -11,9 +11,9 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 35.505016,
-      "peg": 2.79
+      "forward_pe": 34.964134,
+      "peg": 2.78
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.226,
-      "macd_hist_change": 0.057,
+      "macd_hist": -0.191,
+      "macd_hist_change": 0.048,
       "divergence_present": false,
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -2.4
+      "rsi_improvement": -2.6
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 16.8,
-      "rsi_zscore_1y": -2.5,
-      "zscore_quality": 0.876,
+      "rsi": 16.2,
+      "rsi_zscore_1y": -2.51,
+      "zscore_quality": 0.877,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -74,9 +74,9 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 35.505016,
-      "peg": 2.79
+      "forward_pe": 34.964134,
+      "peg": 2.78
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 16.8,
+      "rsi": 16.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -126,20 +126,20 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 230,
-    "days_since_prior_divergence": 20,
+    "prior_divergence_date_index": 229,
+    "days_since_prior_divergence": 21,
     "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 55.35,
+    "stop_reference_price": 55.14,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 11,
-    "reason": "무효화 이후 11일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 12,
+    "reason": "무효화 이후 12일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

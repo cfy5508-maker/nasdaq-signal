@@ -2,18 +2,18 @@
   "ticker": "CI",
   "name": "The Cigna Group",
   "price": null,
-  "updated": "2026-09-30T00:45:03.749214+00:00",
-  "as_of_date": "2026-09-29",
-  "score": 42,
+  "updated": "2026-10-01T00:48:51.731966+00:00",
+  "as_of_date": "2026-09-30",
+  "score": 38,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,19 +23,19 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 8.235595,
-      "peg": 0.74
+      "forward_pe": 8.131146,
+      "peg": 0.75
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.89,
-      "macd_hist_change": 0.223,
+      "macd_hist": -0.543,
+      "macd_hist_change": 0.136,
       "divergence_present": true,
       "gap_days": 24,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zscore_1y": -0.74,
-      "zscore_quality": 0.434,
+      "rsi": 48.4,
+      "rsi_zscore_1y": -0.19,
+      "zscore_quality": 0.297,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,25 +58,32 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
+      "wick_days_ago": 2,
       "adx_reference": null,
       "volume_confirmed": true,
       "trigger_day_volume": 1752800,
       "avg_volume_divergence_window": 1499252,
-      "order_block": null
+      "order_block": {
+        "low": 271.83,
+        "high": 272.48,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 249,
+        "gap_confirmed": false
+      }
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 25,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,8 +93,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 8.235595,
-      "peg": 0.74
+      "forward_pe": 8.131146,
+      "peg": 0.75
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -98,15 +105,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
-      "was_above_40_recently": true,
+      "was_above_20_recently": false,
+      "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zone_quality": 0.175,
+      "rsi": 48.4,
+      "rsi_zone_quality": 0.337,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -123,14 +130,15 @@
   },
   "sector": "Healthcare",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": {
+  "uptrend_entry_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": null,
-    "rescue_attempted": true
+    "phase": "entry",
+    "days_since_divergence": 7,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": null,
+    "divergence_date_index": 243
   },
+  "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 265.5,

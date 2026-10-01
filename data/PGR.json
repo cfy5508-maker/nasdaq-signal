@@ -2,18 +2,18 @@
   "ticker": "PGR",
   "name": "Progressive Corporation (The)",
   "price": null,
-  "updated": "2026-09-30T00:44:45.777660+00:00",
-  "as_of_date": "2026-09-29",
-  "score": 31,
+  "updated": "2026-10-01T00:48:35.685763+00:00",
+  "as_of_date": "2026-09-30",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,19 +23,19 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 12.925957,
-      "peg": 64.23
+      "forward_pe": 12.728862,
+      "peg": 64.56
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 2,
+      "retest_days_ago": 3,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.101,
-      "macd_hist_change": 0.275,
+      "macd_hist": -0.749,
+      "macd_hist_change": 0.187,
       "divergence_present": true,
       "gap_days": 27,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.6,
-      "rsi_zscore_1y": -0.4,
-      "zscore_quality": 0.35,
+      "rsi": 46.2,
+      "rsi_zscore_1y": -0.25,
+      "zscore_quality": 0.313,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -68,22 +68,22 @@
         "high": 205.5,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 3,
+  "score_addon": 4,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -93,8 +93,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 12.925957,
-      "peg": 64.23
+      "forward_pe": 12.728862,
+      "peg": 64.56
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.6,
-      "rsi_zone_quality": 0.182,
+      "rsi": 46.2,
+      "rsi_zone_quality": 0.247,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -133,8 +133,8 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 6,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 7,
     "price_drop_since_pct": null,
     "rescue_attempted": true
   },

@@ -2,18 +2,18 @@
   "ticker": "S",
   "name": "SentinelOne, Inc.",
   "price": null,
-  "updated": "2026-09-30T00:45:14.562524+00:00",
-  "as_of_date": "2026-09-29",
-  "score": 14,
+  "updated": "2026-10-01T00:49:01.213521+00:00",
+  "as_of_date": "2026-09-30",
+  "score": 12,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 50.476395,
+      "forward_pe": 51.450844,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.055,
-      "macd_hist_change": -0.014,
+      "macd_hist": 0.038,
+      "macd_hist_change": -0.009,
       "divergence_present": false,
       "gap_days": 13,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.6,
-      "rsi_zscore_1y": 0.31,
-      "zscore_quality": 0.223,
+      "rsi": 57.5,
+      "rsi_zscore_1y": 0.57,
+      "zscore_quality": 0.157,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -67,16 +67,16 @@
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 8,
+  "score_addon": 10,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 50.476395,
+      "forward_pe": 51.450844,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 54.6,
-      "rsi_zone_quality": 0.583,
+      "rsi": 57.5,
+      "rsi_zone_quality": 0.699,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {

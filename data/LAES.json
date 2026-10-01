@@ -2,18 +2,18 @@
   "ticker": "LAES",
   "name": "SEALSQ Corp",
   "price": null,
-  "updated": "2026-09-30T00:45:47.627571+00:00",
-  "as_of_date": "2026-09-29",
-  "score": 20,
+  "updated": "2026-10-01T00:49:30.302820+00:00",
+  "as_of_date": "2026-09-30",
+  "score": 17,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -26.0,
-      "volume_trend_pct_3d": -3.6,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -17.9,
+      "volume_trend_pct_3d": 6.2,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -8.592592,
+      "forward_pe": -8.666666,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,7 +34,7 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.006,
+      "macd_hist": 0.007,
       "macd_hist_change": -0.002,
       "divergence_present": false,
       "gap_days": 8,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.6,
-      "rsi_zscore_1y": -0.37,
-      "zscore_quality": 0.393,
+      "rsi": 45.4,
+      "rsi_zscore_1y": -0.04,
+      "zscore_quality": 0.31,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -67,16 +67,16 @@
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 1,
+  "score_addon": 3,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -26.0,
-      "volume_trend_pct_3d": -3.6,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -17.9,
+      "volume_trend_pct_3d": 6.2,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -8.592592,
+      "forward_pe": -8.666666,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.6,
-      "rsi_zone_quality": 0.102,
+      "rsi": 45.4,
+      "rsi_zone_quality": 0.215,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {

@@ -2,8 +2,8 @@
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
   "price": null,
-  "updated": "2026-09-30T00:45:48.663543+00:00",
-  "as_of_date": "2026-09-29",
+  "updated": "2026-10-01T00:49:31.197163+00:00",
+  "as_of_date": "2026-09-30",
   "score": 29,
   "stages": {
     "1_market_health": {
@@ -11,9 +11,9 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -33.97292,
+      "forward_pe": -33.934235,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 7,
+      "retest_days_ago": 8,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.726,
-      "macd_hist_change": -0.182,
+      "macd_hist": 0.65,
+      "macd_hist_change": -0.162,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.3,
-      "rsi_zscore_1y": 1.17,
-      "zscore_quality": 0.05,
+      "rsi": 58.1,
+      "rsi_zscore_1y": 0.97,
+      "zscore_quality": 0.058,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -58,7 +58,7 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 6,
+      "wick_days_ago": 7,
       "adx_reference": null,
       "volume_confirmed": false,
       "trigger_day_volume": 14289400,
@@ -68,22 +68,22 @@
         "high": 40.75,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 246,
+        "trigger_day_idx": 245,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 29,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -93,7 +93,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -33.97292,
+      "forward_pe": -33.934235,
       "peg": null
     },
     "3_pullback_gate": {
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 60.3,
-      "rsi_zone_quality": 0.811,
+      "status": "warn",
+      "rsi": 58.1,
+      "rsi_zone_quality": 0.723,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {

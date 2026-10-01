@@ -2,18 +2,18 @@
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
   "price": null,
-  "updated": "2026-09-30T00:45:36.998114+00:00",
-  "as_of_date": "2026-09-29",
-  "score": 28,
+  "updated": "2026-10-01T00:49:20.853655+00:00",
+  "as_of_date": "2026-09-30",
+  "score": 36,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,30 +23,30 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 17.272812,
-      "peg": 1.52
+      "forward_pe": 17.23867,
+      "peg": 1.53
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.444,
-      "macd_hist_change": 0.111,
-      "divergence_present": false,
+      "macd_hist": -0.395,
+      "macd_hist_change": 0.099,
+      "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.372,
       "rsi_improvement": -8.5
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 21.8,
-      "rsi_zscore_1y": -2.4,
-      "zscore_quality": 0.85,
+      "rsi": 24.9,
+      "rsi_zscore_1y": -2.13,
+      "zscore_quality": 0.783,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -74,9 +74,9 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -17.3,
-      "volume_trend_pct_3d": -13.3,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": 38.8,
+      "volume_trend_pct_3d": 3.8,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 17.272812,
-      "peg": 1.52
+      "forward_pe": 17.23867,
+      "peg": 1.53
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 21.8,
+      "rsi": 24.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -126,8 +126,8 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 241,
-    "days_since_prior_divergence": 9,
+    "prior_divergence_date_index": 240,
+    "days_since_prior_divergence": 10,
     "price_drop_since_pct": null,
     "rescue_attempted": false
   },
@@ -136,7 +136,11 @@
     "stop_reference_price": 75.49,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

@@ -2,8 +2,8 @@
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
   "price": null,
-  "updated": "2026-09-30T00:44:51.246171+00:00",
-  "as_of_date": "2026-09-29",
+  "updated": "2026-10-01T00:48:40.445158+00:00",
+  "as_of_date": "2026-09-30",
   "score": 21,
   "stages": {
     "1_market_health": {
@@ -11,9 +11,9 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -26.0,
-      "volume_trend_pct_3d": -3.6,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -17.9,
+      "volume_trend_pct_3d": 6.2,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -30.541767,
+      "forward_pe": -30.121841,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.183,
-      "macd_hist_change": -0.046,
+      "macd_hist": 0.129,
+      "macd_hist_change": -0.032,
       "divergence_present": false,
-      "gap_days": 18,
+      "gap_days": 19,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 4.9
+      "rsi_improvement": 4.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.9,
-      "rsi_zscore_1y": -0.48,
-      "zscore_quality": 0.421,
+      "rsi": 42.0,
+      "rsi_zscore_1y": -0.58,
+      "zscore_quality": 0.444,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -67,16 +67,16 @@
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 2,
+  "score_addon": 1,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -26.0,
-      "volume_trend_pct_3d": -3.6,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -17.9,
+      "volume_trend_pct_3d": 6.2,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -30.541767,
+      "forward_pe": -30.121841,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.9,
-      "rsi_zone_quality": 0.116,
+      "rsi": 42.0,
+      "rsi_zone_quality": 0.082,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 49.11,
+    "stop_reference_price": 48.73,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
