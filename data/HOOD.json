@@ -2,18 +2,18 @@
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
   "price": null,
-  "updated": "2026-10-01T00:49:06.705068+00:00",
-  "as_of_date": "2026-09-30",
-  "score": 12,
+  "updated": "2026-10-02T01:04:33.080146+00:00",
+  "as_of_date": "2026-10-01",
+  "score": 16,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": 6.2,
-      "volume_trend_up": true,
+      "volume_diff_pct_3m": -0.1,
+      "volume_trend_pct_3d": -8.7,
+      "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 32.588104,
-      "peg": 2.03
+      "forward_pe": 32.337555,
+      "peg": 1.96
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.31,
-      "macd_hist_change": 0.078,
+      "macd_hist": -0.667,
+      "macd_hist_change": 0.167,
       "divergence_present": false,
-      "gap_days": 29,
+      "gap_days": 30,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 9.9
+      "rsi_improvement": 5.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.6,
-      "rsi_zscore_1y": 0.52,
-      "zscore_quality": 0.171,
+      "rsi": 49.3,
+      "rsi_zscore_1y": 0.13,
+      "zscore_quality": 0.268,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -67,16 +67,16 @@
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 8,
+  "score_addon": 5,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": 6.2,
-      "volume_trend_up": true,
+      "volume_diff_pct_3m": -0.1,
+      "volume_trend_pct_3d": -8.7,
+      "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 32.588104,
-      "peg": 2.03
+      "forward_pe": 32.337555,
+      "peg": 1.96
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -104,9 +104,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 53.6,
-      "rsi_zone_quality": 0.544,
+      "status": "fail",
+      "rsi": 49.3,
+      "rsi_zone_quality": 0.373,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -126,15 +126,15 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 30,
-    "days_since_trend_start": 29,
+    "days_since_divergence": 31,
+    "days_since_trend_start": 30,
     "gain_since_low_pct": null,
-    "divergence_date_index": 220
+    "divergence_date_index": 219
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 116.22,
+    "stop_reference_price": 112.5,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

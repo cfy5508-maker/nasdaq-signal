@@ -2,18 +2,18 @@
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
   "price": null,
-  "updated": "2026-10-01T00:49:24.565646+00:00",
-  "as_of_date": "2026-09-30",
-  "score": 13,
+  "updated": "2026-10-02T01:04:52.669593+00:00",
+  "as_of_date": "2026-10-01",
+  "score": 34,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": 6.2,
-      "volume_trend_up": true,
+      "volume_diff_pct_3m": -0.1,
+      "volume_trend_pct_3d": -8.7,
+      "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,60 +23,60 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 164.03606,
-      "peg": 4.22
+      "forward_pe": 163.71242,
+      "peg": 4.24
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.199,
-      "macd_hist_change": 0.3,
-      "divergence_present": false,
+      "macd_hist": -1.669,
+      "macd_hist_change": 0.417,
+      "divergence_present": true,
       "gap_days": 10,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.306,
       "rsi_improvement": -5.6
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.8,
-      "rsi_zscore_1y": -0.39,
-      "zscore_quality": 0.396,
+      "rsi": 46.0,
+      "rsi_zscore_1y": -0.27,
+      "zscore_quality": 0.367,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 1,
       "adx_reference": null,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "volume_confirmed": true,
+      "trigger_day_volume": 39235800,
+      "avg_volume_divergence_window": 35982182,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 3,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": 6.2,
-      "volume_trend_up": true,
+      "volume_diff_pct_3m": -0.1,
+      "volume_trend_pct_3d": -8.7,
+      "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 164.03606,
-      "peg": 4.22
+      "forward_pe": 163.71242,
+      "peg": 4.24
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,17 +105,17 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.8,
-      "rsi_zone_quality": 0.192,
+      "rsi": 46.0,
+      "rsi_zone_quality": 0.24,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": null

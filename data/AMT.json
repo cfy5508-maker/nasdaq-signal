@@ -2,17 +2,17 @@
   "ticker": "AMT",
   "name": "American Tower Corporation (REI",
   "price": null,
-  "updated": "2026-10-01T00:48:48.852748+00:00",
-  "as_of_date": "2026-09-30",
-  "score": 27,
+  "updated": "2026-10-02T01:04:12.960298+00:00",
+  "as_of_date": "2026-10-01",
+  "score": 21,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 38.8,
-      "volume_trend_pct_3d": 3.8,
+      "volume_diff_pct_3m": 7.1,
+      "volume_trend_pct_3d": 18.6,
       "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,30 +23,30 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 23.350796,
-      "peg": 1.58
+      "forward_pe": 22.975618,
+      "peg": 1.55
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.866,
-      "macd_hist_change": 0.217,
-      "divergence_present": true,
-      "gap_days": 15,
-      "signal_fresh": false,
-      "divergence_quality": 0.318,
-      "rsi_improvement": -11.7
+      "macd_hist": -0.915,
+      "macd_hist_change": 0.229,
+      "divergence_present": false,
+      "gap_days": 5,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -6.7
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 37.9,
-      "rsi_zscore_1y": -1.24,
-      "zscore_quality": 0.561,
+      "status": "pass",
+      "rsi": 35.1,
+      "rsi_zscore_1y": -1.57,
+      "zscore_quality": 0.642,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -74,8 +74,8 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 38.8,
-      "volume_trend_pct_3d": 3.8,
+      "volume_diff_pct_3m": 7.1,
+      "volume_trend_pct_3d": 18.6,
       "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 23.350796,
-      "peg": 1.58
+      "forward_pe": 22.975618,
+      "peg": 1.55
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 37.9,
+      "rsi": 35.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -126,17 +126,21 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 232,
-    "days_since_prior_divergence": 19,
+    "prior_divergence_date_index": 230,
+    "days_since_prior_divergence": 20,
     "price_drop_since_pct": null,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 167.26,
+    "stop_reference_price": 163.69,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

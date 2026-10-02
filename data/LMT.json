@@ -2,17 +2,17 @@
   "ticker": "LMT",
   "name": "Lockheed Martin Corporation",
   "price": null,
-  "updated": "2026-10-01T00:48:27.290999+00:00",
-  "as_of_date": "2026-09-30",
-  "score": 17,
+  "updated": "2026-10-02T01:03:48.842882+00:00",
+  "as_of_date": "2026-10-01",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 38.8,
-      "volume_trend_pct_3d": 3.8,
+      "volume_diff_pct_3m": 7.1,
+      "volume_trend_pct_3d": 18.6,
       "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.547657,
-      "peg": 0.97
+      "forward_pe": 15.433167,
+      "peg": 0.96
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,48 +34,48 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.761,
-      "macd_hist_change": 0.19,
+      "macd_hist": -0.972,
+      "macd_hist_change": 0.243,
       "divergence_present": false,
-      "gap_days": 5,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -4.2
+      "rsi_improvement": -5.5
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 34.1,
-      "rsi_zscore_1y": -1.05,
-      "zscore_quality": 0.513,
+      "rsi": 32.8,
+      "rsi_zscore_1y": -1.13,
+      "zscore_quality": 0.532,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 1,
       "adx_reference": null,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "volume_confirmed": true,
+      "trigger_day_volume": 1380400,
+      "avg_volume_divergence_window": 1173671,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 0,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 38.8,
-      "volume_trend_pct_3d": 3.8,
+      "volume_diff_pct_3m": 7.1,
+      "volume_trend_pct_3d": 18.6,
       "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.547657,
-      "peg": 0.97
+      "forward_pe": 15.433167,
+      "peg": 0.96
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,17 +105,17 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.1,
+      "rsi": 32.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
       "stop_pct_from_20sma": null
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 512.21,
+    "stop_reference_price": 509.25,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

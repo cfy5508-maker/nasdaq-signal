@@ -2,18 +2,18 @@
   "ticker": "BAER",
   "name": "Bridger Aerospace Group Holding",
   "price": null,
-  "updated": "2026-10-01T00:49:09.497876+00:00",
-  "as_of_date": "2026-09-30",
-  "score": 28,
+  "updated": "2026-10-02T01:04:36.149452+00:00",
+  "as_of_date": "2026-10-01",
+  "score": 23,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": 6.2,
-      "volume_trend_up": true,
+      "volume_diff_pct_3m": -0.1,
+      "volume_trend_pct_3d": -8.7,
+      "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.011,
-      "macd_hist_change": 0.003,
+      "macd_hist": -0.01,
+      "macd_hist_change": 0.002,
       "divergence_present": false,
       "gap_days": 5,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 14.2,
-      "rsi_zscore_1y": -2.41,
-      "zscore_quality": 0.853,
+      "rsi": 23.2,
+      "rsi_zscore_1y": -1.74,
+      "zscore_quality": 0.685,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -74,9 +74,9 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -17.9,
-      "volume_trend_pct_3d": 6.2,
-      "volume_trend_up": true,
+      "volume_diff_pct_3m": -0.1,
+      "volume_trend_pct_3d": -8.7,
+      "volume_trend_up": false,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 14.2,
+      "rsi": 23.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -126,8 +126,8 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 238,
-    "days_since_prior_divergence": 12,
+    "prior_divergence_date_index": 237,
+    "days_since_prior_divergence": 13,
     "price_drop_since_pct": null,
     "rescue_attempted": false
   },
@@ -138,8 +138,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 9,
-    "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 10,
+    "reason": "무효화 이후 10일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
