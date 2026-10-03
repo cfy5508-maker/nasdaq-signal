@@ -24,7 +24,9 @@ jobs:
       - name: Decide what to run
         id: guard
         run: |
-          DOW=$(date -u +%u)                              # 1=월 … 7=일 (UTC)
+          # 요일은 미국 동부시간 기준으로 판단한다. 예약(21:35 UTC)이 몇 시간씩 밀려 UTC 자정을 넘기면
+          # 금요일 실행이 UTC 토요일로 잡혀 나스닥 갱신이 건너뛰어지고, 금요일 데이터가 월요일에야 들어갔다.
+          DOW=$(TZ=America/New_York date +%u)             # 1=월 … 7=일 (미국 동부)
           KDAY=$(TZ=Asia/Seoul date +%-d)                 # KST 일자
           KTOM=$(TZ=Asia/Seoul date -d "tomorrow" +%-d)   # 내일이 1일이면 오늘이 말일
           MANUAL="${{ github.event_name == 'workflow_dispatch' }}"
@@ -36,7 +38,7 @@ jobs:
 
           if [ "$MANUAL" = "true" ]; then RUN_ND=true; RUN_GL=true; fi
 
-          echo "나스닥=$RUN_ND, 글로벌=$RUN_GL (UTC dow=$DOW, KST day=$KDAY)"
+          echo "나스닥=$RUN_ND, 글로벌=$RUN_GL (ET dow=$DOW, KST day=$KDAY)"
           echo "run_nd=$RUN_ND" >> "$GITHUB_OUTPUT"
           echo "run_gl=$RUN_GL" >> "$GITHUB_OUTPUT"
 
