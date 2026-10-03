@@ -66,6 +66,11 @@ def get_confirmed_history(ticker_or_obj, period="1y"):
 
     tk = ticker_or_obj if hasattr(ticker_or_obj, "history") else yf.Ticker(ticker_or_obj)
     hist = tk.history(period=period)
+    # 미국 동부 저녁 8시 전후(시간외 거래 종료 무렵)에 야후가 당일 일봉을 종가 없이(NaN) 내려주는
+    # 경우가 있다. 실행이 밀려 그 시간대에 돌면 전 종목 가격이 비어서 관심종목 목록이 통째로
+    # 안 보였다(9/29~10/3). 종가가 없는 행은 버리고 마지막으로 확정된 거래일까지만 쓴다.
+    if not hist.empty and "Close" in hist.columns:
+        hist = hist.dropna(subset=["Close"])
     if not hist.empty and not _market_already_closed_today():
         today_et_date = pd.Timestamp.now(tz="US/Eastern").date()
         last_row_date = hist.index[-1].date()
