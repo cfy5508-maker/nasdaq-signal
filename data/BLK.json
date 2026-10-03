@@ -1,52 +1,52 @@
 {
   "ticker": "BLK",
   "name": "BlackRock, Inc.",
-  "price": null,
-  "updated": "2026-10-03T00:42:53.914703+00:00",
+  "price": 1059.63,
+  "updated": "2026-10-03T16:13:44.043012+00:00",
   "as_of_date": "2026-10-02",
-  "score": 18,
+  "score": 57,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 4.0,
-      "volume_trend_pct_3d": 33.9,
+      "volume_diff_pct_3m": 5.1,
+      "volume_trend_pct_3d": 34.3,
       "volume_trend_up": true,
-      "daily_change_pct": null,
+      "daily_change_pct": 0.74,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 24.2,
       "forward_pe": 16.476572,
       "peg": 0.89
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.18,
-      "macd_hist_change": -0.045,
-      "divergence_present": false,
+      "macd_hist": 0.148,
+      "macd_hist_change": -0.077,
+      "divergence_present": true,
       "gap_days": 10,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.593,
       "rsi_improvement": 9.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zscore_1y": -0.4,
-      "zscore_quality": 0.349,
+      "rsi": 43.2,
+      "rsi_zscore_1y": -0.51,
+      "zscore_quality": 0.376,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,43 +59,43 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 21.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 2,
+  "entry_atr_stop_pct": 3.3,
+  "score_addon": 58,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 4.0,
-      "volume_trend_pct_3d": 33.9,
+      "volume_diff_pct_3m": 5.1,
+      "volume_trend_pct_3d": 34.3,
       "volume_trend_up": true,
-      "daily_change_pct": null,
+      "daily_change_pct": 0.74,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 24.2,
       "forward_pe": 16.476572,
       "peg": 0.89
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
-      "near_sma200": false,
+      "near_sma120": true,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.4,
-      "rsi_zone_quality": 0.175,
+      "rsi": 43.2,
+      "rsi_zone_quality": 0.126,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 1.0
     }
   },
   "sector": "Financial Services",

@@ -1,28 +1,28 @@
 {
   "ticker": "NXT",
   "name": "Nextpower Inc.",
-  "price": null,
-  "updated": "2026-10-03T00:42:30.932149+00:00",
+  "price": 84.3,
+  "updated": "2026-10-03T16:13:20.871724+00:00",
   "as_of_date": "2026-10-02",
-  "score": 24,
+  "score": 52,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": 0.6,
+      "volume_diff_pct_3m": -2.9,
+      "volume_trend_pct_3d": 0.9,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.02,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 64.8,
       "forward_pe": 14.609748,
       "peg": 3.15
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.281,
-      "macd_hist_change": -0.07,
+      "macd_hist": 0.697,
+      "macd_hist_change": 0.345,
       "divergence_present": false,
       "gap_days": 10,
       "signal_fresh": null,
@@ -44,48 +44,55 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 41.4,
-      "rsi_zscore_1y": -0.88,
-      "zscore_quality": 0.52,
+      "rsi": 51.2,
+      "rsi_zscore_1y": 0.07,
+      "zscore_quality": 0.282,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 24.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 77.93,
+        "high": 79.87,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 1,
+  "entry_atr_stop_pct": 7.0,
+  "score_addon": 33,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": 0.6,
+      "volume_diff_pct_3m": -2.9,
+      "volume_trend_pct_3d": 0.9,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.02,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 64.8,
       "forward_pe": 14.609748,
       "peg": 3.15
     },
@@ -101,12 +108,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 41.4,
-      "rsi_zone_quality": 0.057,
+      "status": "warn",
+      "rsi": 51.2,
+      "rsi_zone_quality": 0.449,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,12 +125,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 3.4
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 2,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 8.2,
+    "divergence_date_index": 248
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {

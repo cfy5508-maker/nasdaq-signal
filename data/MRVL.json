@@ -1,28 +1,28 @@
 {
   "ticker": "MRVL",
   "name": "Marvell Technology, Inc.",
-  "price": null,
-  "updated": "2026-10-03T00:42:51.833895+00:00",
+  "price": 272.29,
+  "updated": "2026-10-03T16:13:41.904130+00:00",
   "as_of_date": "2026-10-02",
-  "score": 18,
+  "score": 45,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": 0.6,
+      "volume_diff_pct_3m": -2.9,
+      "volume_trend_pct_3d": 0.9,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.02,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 7.9,
       "forward_pe": 40.343086,
       "peg": 0.89
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.719,
-      "macd_hist_change": -0.43,
+      "macd_hist": 2.178,
+      "macd_hist_change": 0.028,
       "divergence_present": false,
       "gap_days": 17,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 63.4,
-      "rsi_zscore_1y": 0.64,
-      "zscore_quality": 0.141,
+      "rsi": 65.0,
+      "rsi_zscore_1y": 0.76,
+      "zscore_quality": 0.11,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 2,
-      "adx_reference": null,
+      "adx_reference": 22.5,
       "volume_confirmed": false,
       "trigger_day_volume": 11978900,
       "avg_volume_divergence_window": 17991872,
@@ -73,26 +73,26 @@
       }
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 31,
+  "entry_atr_stop_pct": 7.2,
+  "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": 0.6,
+      "volume_diff_pct_3m": -2.9,
+      "volume_trend_pct_3d": 0.9,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.02,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 7.9,
       "forward_pe": 40.343086,
       "peg": 0.89
     },
@@ -107,13 +107,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "is_jeong_baeyeol": true,
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 63.4,
-      "rsi_zone_quality": 0.936,
+      "rsi": 65.0,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,17 +125,17 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 9.6
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
     "days_since_divergence": 14,
     "days_since_trend_start": 12,
-    "gain_since_low_pct": null,
+    "gain_since_low_pct": 24.4,
     "divergence_date_index": 236
   },
   "divergence_invalidated_signal": null,

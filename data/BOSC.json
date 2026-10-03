@@ -1,28 +1,28 @@
 {
   "ticker": "BOSC",
   "name": "B.O.S. Better Online Solutions",
-  "price": null,
-  "updated": "2026-10-03T00:43:34.195687+00:00",
+  "price": 4.63,
+  "updated": "2026-10-03T16:14:24.188998+00:00",
   "as_of_date": "2026-10-02",
-  "score": 12,
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": 0.6,
+      "volume_diff_pct_3m": -2.9,
+      "volume_trend_pct_3d": 0.9,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.02,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 72.8,
       "forward_pe": 7.5901637,
       "peg": null
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.015,
-      "macd_hist_change": 0.004,
+      "macd_hist": -0.019,
+      "macd_hist_change": -0.001,
       "divergence_present": false,
       "gap_days": 7,
       "signal_fresh": null,
@@ -59,48 +59,48 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": null,
+      "adx_reference": 23.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": null,
-  "score_addon": 4,
+  "entry_atr_stop_pct": 3.4,
+  "score_addon": 57,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -3.7,
-      "volume_trend_pct_3d": 0.6,
+      "volume_diff_pct_3m": -2.9,
+      "volume_trend_pct_3d": 0.9,
       "volume_trend_up": true,
-      "daily_change_pct": null,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.02,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": true
+      "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
-      "upside_pct": null,
+      "status": "pass",
+      "upside_pct": 72.8,
       "forward_pe": 7.5901637,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
-      "near_sma60": false,
-      "near_sma120": false,
+      "near_sma60": true,
+      "near_sma120": true,
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": false,
-      "is_jeong_baeyeol": false,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": null
+      "stop_pct_from_20sma": 1.5
     }
   },
   "sector": "Technology",
