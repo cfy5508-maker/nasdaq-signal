@@ -1569,7 +1569,7 @@
       '<span style="min-width:0;overflow:hidden;text-align:left;white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:700;color:#e2e2e8;" title="'+tickerLabel(item).replace(/"/g,'&quot;')+'">' +
         (tickerDisplayName(item) ? '<span style="color:#9999aa;font-weight:600;">'+tickerDisplayName(item)+'</span> <span>('+item.ticker+')</span>' : item.ticker) +
       '</span>' +
-      '<span style="font-size:11px;color:#9999aa;text-align:center;">$'+item.price.toFixed(2)+'</span>' +
+      '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.price!=null?'$'+item.price.toFixed(2):'-')+'</span>' +
       '<span title="'+scoreChangeTooltip(item.signal)+'" style="font-size:13px;font-weight:700;color:'+STATUS_FG[tag]+';text-align:center;cursor:help;">'+item.score+'</span>' +
       '<span style="font-size:11px;color:#9999aa;text-align:center;">'+(item.upside_pct!=null?(item.upside_pct>=0?'+':'')+item.upside_pct+'%':'-')+'</span>' +
       '<span style="text-align:center;">'+pill(item.divergence)+'</span>' +
