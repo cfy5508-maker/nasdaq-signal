@@ -2,18 +2,18 @@
   "ticker": "NVDA",
   "name": "NVIDIA Corporation",
   "price": null,
-  "updated": "2026-10-02T01:05:12.707973+00:00",
-  "as_of_date": "2026-10-01",
-  "score": 26,
+  "updated": "2026-10-03T00:43:10.938112+00:00",
+  "as_of_date": "2026-10-02",
+  "score": 24,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,19 +23,19 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 14.709068,
-      "peg": 0.48
+      "forward_pe": 14.905945,
+      "peg": 0.28
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 11,
+      "retest_days_ago": 12,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.4,
-      "macd_hist_change": -0.1,
+      "macd_hist": 0.489,
+      "macd_hist_change": -0.122,
       "divergence_present": true,
       "gap_days": 14,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 57.8,
-      "rsi_zscore_1y": 0.65,
-      "zscore_quality": 0.087,
+      "rsi": 60.2,
+      "rsi_zscore_1y": 0.91,
+      "zscore_quality": 0.022,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -68,22 +68,22 @@
         "high": 214.14,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 240,
+        "trigger_day_idx": 239,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 10,
+  "score_addon": 12,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -93,8 +93,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 14.709068,
-      "peg": 0.48
+      "forward_pe": 14.905945,
+      "peg": 0.28
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 57.8,
-      "rsi_zone_quality": 0.714,
+      "status": "pass",
+      "rsi": 60.2,
+      "rsi_zone_quality": 0.809,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 14,
-    "days_since_trend_start": 10,
+    "days_since_divergence": 15,
+    "days_since_trend_start": 11,
     "gain_since_low_pct": null,
-    "divergence_date_index": 236
+    "divergence_date_index": 235
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

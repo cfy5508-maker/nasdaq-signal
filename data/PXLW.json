@@ -2,8 +2,8 @@
   "ticker": "PXLW",
   "name": "Pixelworks, Inc.",
   "price": null,
-  "updated": "2026-10-02T01:05:04.804941+00:00",
-  "as_of_date": "2026-10-01",
+  "updated": "2026-10-03T00:43:03.735484+00:00",
+  "as_of_date": "2026-10-02",
   "score": 15,
   "stages": {
     "1_market_health": {
@@ -11,9 +11,9 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -5.922414,
+      "forward_pe": -6.060345,
       "peg": 2.41
     },
     "3_divergence_gate": {
@@ -34,23 +34,23 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.011,
-      "macd_hist_change": 0.003,
+      "macd_hist": -0.02,
+      "macd_hist_change": 0.005,
       "divergence_present": false,
-      "gap_days": 25,
+      "gap_days": 11,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 0.4
+      "rsi_improvement": 1.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 54.6,
-      "rsi_zscore_1y": 0.75,
-      "zscore_quality": 0.062,
-      "zscore_direction_bonus_applied": false
+      "rsi": 49.1,
+      "rsi_zscore_1y": 0.15,
+      "zscore_quality": 0.263,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -63,27 +63,20 @@
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 6.68,
-        "high": 6.86,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 240,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 8,
+  "score_addon": 5,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -93,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": -5.922414,
+      "forward_pe": -6.060345,
       "peg": 2.41
     },
     "3_pullback_gate": {
@@ -111,9 +104,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 54.6,
-      "rsi_zone_quality": 0.585,
+      "status": "fail",
+      "rsi": 49.1,
+      "rsi_zone_quality": 0.363,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -130,18 +123,11 @@
   },
   "sector": "Technology",
   "sector_relative_strength_up": true,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "ongoing",
-    "days_since_divergence": 36,
-    "days_since_trend_start": 35,
-    "gain_since_low_pct": null,
-    "divergence_date_index": 214
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 6.68,
+    "stop_reference_price": 6.87,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

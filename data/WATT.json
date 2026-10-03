@@ -2,18 +2,18 @@
   "ticker": "WATT",
   "name": "Energous Corporation",
   "price": null,
-  "updated": "2026-10-02T01:04:13.951045+00:00",
-  "as_of_date": "2026-10-01",
-  "score": 15,
+  "updated": "2026-10-03T00:42:20.276955+00:00",
+  "as_of_date": "2026-10-02",
+  "score": 23,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.876543,
+      "forward_pe": 16.469135,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.277,
-      "macd_hist_change": -0.069,
+      "macd_hist": 0.23,
+      "macd_hist_change": -0.057,
       "divergence_present": false,
       "gap_days": 18,
       "signal_fresh": null,
@@ -44,39 +44,39 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.7,
-      "rsi_zscore_1y": 0.25,
-      "zscore_quality": 0.237,
+      "rsi": 51.1,
+      "rsi_zscore_1y": 0.09,
+      "zscore_quality": 0.278,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 1,
       "adx_reference": null,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 134800,
+      "avg_volume_divergence_window": 155332,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 8,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,7 +86,7 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.876543,
+      "forward_pe": 16.469135,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,15 +105,15 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 53.7,
-      "rsi_zone_quality": 0.546,
+      "rsi": 51.1,
+      "rsi_zone_quality": 0.445,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
@@ -126,10 +126,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 12,
-    "days_since_trend_start": 10,
+    "days_since_divergence": 13,
+    "days_since_trend_start": 11,
     "gain_since_low_pct": null,
-    "divergence_date_index": 238
+    "divergence_date_index": 237
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

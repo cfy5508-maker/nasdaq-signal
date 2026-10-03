@@ -2,8 +2,8 @@
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
   "price": null,
-  "updated": "2026-10-02T01:05:13.791058+00:00",
-  "as_of_date": "2026-10-01",
+  "updated": "2026-10-03T00:43:11.910256+00:00",
+  "as_of_date": "2026-10-02",
   "score": 34,
   "stages": {
     "1_market_health": {
@@ -11,9 +11,9 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -23,19 +23,19 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 163.71242,
-      "peg": 4.24
+      "forward_pe": 171.33147,
+      "peg": 4.23
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.669,
-      "macd_hist_change": 0.417,
+      "macd_hist": -1.943,
+      "macd_hist_change": 0.486,
       "divergence_present": true,
       "gap_days": 10,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.0,
-      "rsi_zscore_1y": -0.27,
-      "zscore_quality": 0.367,
+      "rsi": 45.6,
+      "rsi_zscore_1y": -0.31,
+      "zscore_quality": 0.378,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -58,7 +58,7 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
+      "wick_days_ago": 2,
       "adx_reference": null,
       "volume_confirmed": true,
       "trigger_day_volume": 39235800,
@@ -74,9 +74,9 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -0.1,
-      "volume_trend_pct_3d": -8.7,
-      "volume_trend_up": false,
+      "volume_diff_pct_3m": -3.7,
+      "volume_trend_pct_3d": 0.6,
+      "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
       "index_trigger_candle": false,
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 163.71242,
-      "peg": 4.24
+      "forward_pe": 171.33147,
+      "peg": 4.23
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.0,
-      "rsi_zone_quality": 0.24,
+      "rsi": 45.6,
+      "rsi_zone_quality": 0.225,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {

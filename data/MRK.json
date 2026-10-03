@@ -2,17 +2,17 @@
   "ticker": "MRK",
   "name": "Merck & Company, Inc.",
   "price": null,
-  "updated": "2026-10-02T01:04:30.472578+00:00",
-  "as_of_date": "2026-10-01",
-  "score": 17,
+  "updated": "2026-10-03T00:42:34.524421+00:00",
+  "as_of_date": "2026-10-02",
+  "score": 18,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 24.9,
-      "volume_trend_pct_3d": 19.7,
+      "volume_diff_pct_3m": 7.3,
+      "volume_trend_pct_3d": 38.9,
       "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.085429,
-      "peg": 2.65
+      "forward_pe": 15.136829,
+      "peg": 2.63
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,20 +34,20 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.441,
-      "macd_hist_change": 0.11,
+      "macd_hist": -0.625,
+      "macd_hist_change": 0.156,
       "divergence_present": false,
-      "gap_days": 13,
+      "gap_days": 14,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -1.5
+      "rsi_improvement": -4.7
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 48.9,
-      "rsi_zscore_1y": -0.87,
-      "zscore_quality": 0.517,
-      "zscore_direction_bonus_applied": true
+      "status": "warn",
+      "rsi": 45.7,
+      "rsi_zscore_1y": -1.17,
+      "zscore_quality": 0.541,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -67,15 +67,15 @@
     }
   },
   "entry_atr_stop_pct": null,
-  "score_addon": 5,
+  "score_addon": 3,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 24.9,
-      "volume_trend_pct_3d": 19.7,
+      "volume_diff_pct_3m": 7.3,
+      "volume_trend_pct_3d": 38.9,
       "volume_trend_up": true,
       "daily_change_pct": null,
       "volatility_label": "정상",
@@ -86,8 +86,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": null,
-      "forward_pe": 15.085429,
-      "peg": 2.65
+      "forward_pe": 15.136829,
+      "peg": 2.63
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 48.9,
-      "rsi_zone_quality": 0.356,
+      "rsi": 45.7,
+      "rsi_zone_quality": 0.23,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 145.31,
+    "stop_reference_price": 143.81,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
