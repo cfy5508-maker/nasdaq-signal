@@ -1,20 +1,20 @@
 {
   "ticker": "OKLO",
   "name": "Oklo Inc.",
-  "price": 35.87,
-  "updated": "2026-10-05T00:09:05.888675+00:00",
-  "as_of_date": "2026-10-02",
-  "score": 53,
+  "price": 35.97,
+  "updated": "2026-10-06T01:52:51.003485+00:00",
+  "as_of_date": "2026-10-05",
+  "score": 52,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 5.1,
-      "volume_trend_pct_3d": 34.3,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.74,
+      "volume_diff_pct_3m": 1.5,
+      "volume_trend_pct_3d": -2.0,
+      "volume_trend_up": false,
+      "daily_change_pct": 0.67,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 111.2,
-      "forward_pe": -34.157024,
+      "upside_pct": 110.7,
+      "forward_pe": -34.25225,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.081,
-      "macd_hist_change": -0.043,
+      "macd_hist": -0.086,
+      "macd_hist_change": -0.005,
       "divergence_present": true,
       "gap_days": 12,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.365,
       "rsi_improvement": 2.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.8,
-      "rsi_zscore_1y": -0.51,
-      "zscore_quality": 0.376,
+      "rsi": 40.2,
+      "rsi_zscore_1y": -0.43,
+      "zscore_quality": 0.358,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 8.5,
+      "adx_reference": 8.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.3,
+  "entry_atr_stop_pct": 9.0,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 5.1,
-      "volume_trend_pct_3d": 34.3,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.74,
+      "volume_diff_pct_3m": 1.5,
+      "volume_trend_pct_3d": -2.0,
+      "volume_trend_up": false,
+      "daily_change_pct": 0.67,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 111.2,
-      "forward_pe": -34.157024,
+      "upside_pct": 110.7,
+      "forward_pe": -34.25225,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.8,
-      "rsi_zone_quality": 0.0,
+      "rsi": 40.2,
+      "rsi_zone_quality": 0.008,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.0
+      "stop_pct_from_20sma": 6.0
     }
   },
   "sector": "Utilities",
