@@ -2,28 +2,28 @@
   "ticker": "NXT",
   "name": "Nextpower Inc.",
   "price": 82.97,
-  "updated": "2026-10-06T01:52:05.611700+00:00",
+  "updated": "2026-10-07T00:59:56.551089+00:00",
   "as_of_date": "2026-10-05",
   "score": 55,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.8,
-      "volume_trend_pct_3d": -2.9,
+      "volume_diff_pct_3m": -24.9,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.88,
+      "daily_change_pct": 0.46,
       "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 67.5,
-      "forward_pe": 14.379251,
+      "forward_pe": 15.26658,
       "peg": 3.15
     },
     "3_divergence_gate": {
@@ -45,8 +45,8 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 48.8,
-      "rsi_zscore_1y": -0.16,
-      "zscore_quality": 0.339,
+      "rsi_zscore_1y": -0.15,
+      "zscore_quality": 0.338,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -68,7 +68,7 @@
         "high": 79.87,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
@@ -77,23 +77,23 @@
   "score_addon": 49,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.8,
-      "volume_trend_pct_3d": -2.9,
+      "volume_diff_pct_3m": -24.9,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.88,
+      "daily_change_pct": 0.46,
       "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 67.5,
-      "forward_pe": 14.379251,
+      "forward_pe": 15.26658,
       "peg": 3.15
     },
     "3_pullback_gate": {
@@ -136,7 +136,7 @@
     "days_since_divergence": 3,
     "days_since_trend_start": 1,
     "gain_since_low_pct": 6.5,
-    "divergence_date_index": 247
+    "divergence_date_index": 246
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

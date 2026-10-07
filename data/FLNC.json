@@ -2,28 +2,28 @@
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
   "price": 7.65,
-  "updated": "2026-10-06T01:52:51.243619+00:00",
+  "updated": "2026-10-07T01:00:50.585174+00:00",
   "as_of_date": "2026-10-05",
   "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.8,
-      "volume_trend_pct_3d": -2.9,
+      "volume_diff_pct_3m": -24.9,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.88,
+      "daily_change_pct": 0.46,
       "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 30.7,
-      "forward_pe": -28.722687,
+      "forward_pe": -30.149433,
       "peg": 3.18
     },
     "3_divergence_gate": {
@@ -46,7 +46,7 @@
       "status": "fail",
       "rsi": 34.0,
       "rsi_zscore_1y": -0.99,
-      "zscore_quality": 0.498,
+      "zscore_quality": 0.497,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -68,7 +68,7 @@
         "high": 7.82,
         "strong": true,
         "breach": true,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": false
       }
     }
@@ -77,23 +77,23 @@
   "score_addon": 59,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -27.8,
-      "volume_trend_pct_3d": -2.9,
+      "volume_diff_pct_3m": -24.9,
+      "volume_trend_pct_3d": -6.5,
       "volume_trend_up": false,
-      "daily_change_pct": 0.88,
+      "daily_change_pct": 0.46,
       "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 30.7,
-      "forward_pe": -28.722687,
+      "forward_pe": -30.149433,
       "peg": 3.18
     },
     "3_pullback_gate": {
@@ -133,7 +133,7 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 235,
+    "prior_divergence_date_index": 234,
     "days_since_prior_divergence": 15,
     "price_drop_since_pct": 18.7,
     "rescue_attempted": false

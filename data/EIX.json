@@ -1,20 +1,20 @@
 {
   "ticker": "EIX",
   "name": "Edison International",
-  "price": 54.24,
-  "updated": "2026-10-06T01:53:19.243757+00:00",
-  "as_of_date": "2026-10-05",
-  "score": 69,
+  "price": 54.25,
+  "updated": "2026-10-07T01:01:20.767829+00:00",
+  "as_of_date": "2026-10-06",
+  "score": 64,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 1.5,
-      "volume_trend_pct_3d": -2.0,
+      "volume_diff_pct_3m": -18.4,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.67,
+      "daily_change_pct": 0.55,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -23,7 +23,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 20.9,
-      "forward_pe": 8.341818,
+      "forward_pe": 8.343355,
       "peg": 2.39
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.623,
-      "macd_hist_change": 0.077,
+      "macd_hist": 0.671,
+      "macd_hist_change": 0.048,
       "divergence_present": false,
       "gap_days": 19,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 38.9,
-      "rsi_zscore_1y": -1.26,
-      "zscore_quality": 0.564,
+      "rsi": 39.0,
+      "rsi_zscore_1y": -1.24,
+      "zscore_quality": 0.561,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": true,
+      "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 33.7,
+      "adx_reference": 33.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,23 +68,23 @@
         "high": 52.87,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 5.6,
-  "score_addon": 59,
+  "entry_atr_stop_pct": 5.4,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 1.5,
-      "volume_trend_pct_3d": -2.0,
+      "volume_diff_pct_3m": -18.4,
+      "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.67,
+      "daily_change_pct": 0.55,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -93,7 +93,7 @@
     "2_fundamentals": {
       "status": "pass",
       "upside_pct": 20.9,
-      "forward_pe": 8.341818,
+      "forward_pe": 8.343355,
       "peg": 2.39
     },
     "3_pullback_gate": {
@@ -112,20 +112,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.9,
+      "rsi": 39.0,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
+      "status": "fail",
+      "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_only"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.0
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Utilities",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 4,
+    "days_since_divergence": 6,
+    "days_since_trend_start": 5,
     "gain_since_low_pct": 5.4,
-    "divergence_date_index": 245
+    "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
@@ -145,6 +145,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
+  "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
