@@ -1,17 +1,17 @@
 {
   "ticker": "OKLO",
   "name": "Oklo Inc.",
-  "price": 35.97,
-  "updated": "2026-10-07T01:01:12.696799+00:00",
-  "as_of_date": "2026-10-05",
-  "score": 53,
+  "price": 38.55,
+  "updated": "2026-10-08T01:17:01.968715+00:00",
+  "as_of_date": "2026-10-06",
+  "score": 44,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.4,
+      "volume_diff_pct_3m": -18.3,
       "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": 0.55,
@@ -22,59 +22,66 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 110.7,
-      "forward_pe": -36.709038,
+      "upside_pct": 96.6,
+      "forward_pe": -35.061657,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "neutral",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.086,
-      "macd_hist_change": -0.005,
-      "divergence_present": true,
+      "macd_hist": 0.091,
+      "macd_hist_change": 0.177,
+      "divergence_present": false,
       "gap_days": 12,
-      "signal_fresh": false,
-      "divergence_quality": 0.365,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 2.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.2,
-      "rsi_zscore_1y": -0.44,
-      "zscore_quality": 0.361,
+      "rsi": 49.4,
+      "rsi_zscore_1y": 0.71,
+      "zscore_quality": 0.072,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 8.6,
+      "adx_reference": 8.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 35.87,
+        "high": 37.3,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 249,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 9.0,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 8.7,
+  "score_addon": 32,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.4,
+      "volume_diff_pct_3m": -18.3,
       "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": 0.55,
@@ -85,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 110.7,
-      "forward_pe": -36.709038,
+      "upside_pct": 96.6,
+      "forward_pe": -35.061657,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.2,
-      "rsi_zone_quality": 0.008,
+      "rsi": 49.4,
+      "rsi_zone_quality": 0.377,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,12 +125,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.0
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Utilities",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 2,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 7.5,
+    "divergence_date_index": 247
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {

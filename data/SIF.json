@@ -2,16 +2,16 @@
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
   "price": 23.01,
-  "updated": "2026-10-07T01:00:11.066556+00:00",
+  "updated": "2026-10-08T01:16:03.224923+00:00",
   "as_of_date": "2026-10-06",
-  "score": 22,
+  "score": 38,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.4,
+      "volume_diff_pct_3m": -18.3,
       "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": 0.55,
@@ -21,10 +21,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
+      "status": "warn",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": null
+      "peg": 1.64
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -68,20 +68,20 @@
         "high": 20.81,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 239,
+        "trigger_day_idx": 238,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 7.3,
-  "score_addon": 29,
+  "score_addon": 44,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.4,
+      "volume_diff_pct_3m": -18.3,
       "volume_trend_pct_3d": -13.3,
       "volume_trend_up": false,
       "daily_change_pct": 0.55,
@@ -91,10 +91,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "fail",
+      "status": "warn",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": null
+      "peg": 1.64
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -136,7 +136,7 @@
     "days_since_divergence": 12,
     "days_since_trend_start": 11,
     "gain_since_low_pct": 11.6,
-    "divergence_date_index": 238
+    "divergence_date_index": 237
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
