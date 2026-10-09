@@ -1,20 +1,20 @@
 {
   "ticker": "PFE",
   "name": "Pfizer, Inc.",
-  "price": 27.5,
-  "updated": "2026-10-08T01:16:08.760288+00:00",
-  "as_of_date": "2026-10-06",
-  "score": 32,
+  "price": 27.82,
+  "updated": "2026-10-09T01:23:13.435489+00:00",
+  "as_of_date": "2026-10-08",
+  "score": 35,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.3,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -29.6,
+      "volume_trend_pct_3d": -28.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.55,
+      "daily_change_pct": -0.24,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.1,
-      "forward_pe": 9.665705,
-      "peg": 12.54
+      "upside_pct": 3.9,
+      "forward_pe": 9.603568,
+      "peg": 12.58
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,23 +34,23 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.135,
-      "macd_hist_change": -0.024,
+      "macd_hist": -0.107,
+      "macd_hist_change": 0.006,
       "divergence_present": true,
       "gap_days": 13,
       "signal_fresh": true,
-      "divergence_quality": 0.323,
+      "divergence_quality": 0.509,
       "rsi_improvement": -7.5
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.8,
-      "rsi_zscore_1y": -0.91,
-      "zscore_quality": 0.529,
+      "rsi": 49.3,
+      "rsi_zscore_1y": -0.39,
+      "zscore_quality": 0.398,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 26.7,
-      "volume_confirmed": false,
-      "trigger_day_volume": 24066100,
+      "adx_reference": 23.4,
+      "volume_confirmed": true,
+      "trigger_day_volume": 44322600,
       "avg_volume_divergence_window": 33772564,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 2.9,
-  "score_addon": 42,
+  "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -18.3,
-      "volume_trend_pct_3d": -13.3,
+      "volume_diff_pct_3m": -29.6,
+      "volume_trend_pct_3d": -28.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.55,
+      "daily_change_pct": -0.24,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 5.1,
-      "forward_pe": 9.665705,
-      "peg": 12.54
+      "upside_pct": 3.9,
+      "forward_pe": 9.603568,
+      "peg": 12.58
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.8,
-      "rsi_zone_quality": 0.15,
+      "rsi": 49.3,
+      "rsi_zone_quality": 0.372,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
       "wick_present": true,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.6
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Healthcare",
