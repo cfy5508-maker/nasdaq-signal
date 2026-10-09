@@ -1,41 +1,41 @@
 {
   "ticker": "STZ",
   "name": "Constellation Brands, Inc.",
-  "price": 118.39,
-  "updated": "2026-10-09T01:23:14.975690+00:00",
-  "as_of_date": "2026-10-07",
-  "score": 59,
+  "price": 123.63,
+  "updated": "2026-10-09T01:23:34.600545+00:00",
+  "as_of_date": "2026-10-08",
+  "score": 48,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -29.6,
-      "volume_trend_pct_3d": -28.4,
+      "volume_diff_pct_3m": -8.0,
+      "volume_trend_pct_3d": -22.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.24,
+      "daily_change_pct": -0.42,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 36.0,
-      "forward_pe": 10.130185,
-      "peg": 1.47
+      "upside_pct": 22.7,
+      "forward_pe": 10.078793,
+      "peg": 1.51
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 2,
+      "retest_days_ago": 3,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.562,
-      "macd_hist_change": 0.396,
+      "macd_hist": 1.152,
+      "macd_hist_change": 0.59,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.5,
-      "rsi_zscore_1y": -0.06,
-      "zscore_quality": 0.264,
+      "rsi": 59.2,
+      "rsi_zscore_1y": 0.97,
+      "zscore_quality": 0.008,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 1,
+      "days_ago": 2,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 29.2,
+      "wick_days_ago": 3,
+      "adx_reference": 27.9,
       "volume_confirmed": true,
       "trigger_day_volume": 6072600,
       "avg_volume_divergence_window": 1612117,
@@ -73,28 +73,28 @@
       }
     }
   },
-  "entry_atr_stop_pct": 3.9,
-  "score_addon": 58,
+  "entry_atr_stop_pct": 4.1,
+  "score_addon": 64,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -29.6,
-      "volume_trend_pct_3d": -28.4,
+      "volume_diff_pct_3m": -8.0,
+      "volume_trend_pct_3d": -22.7,
       "volume_trend_up": false,
-      "daily_change_pct": -0.24,
+      "daily_change_pct": -0.42,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": false,
+      "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 36.0,
-      "forward_pe": 10.130185,
-      "peg": 1.47
+      "upside_pct": 22.7,
+      "forward_pe": 10.078793,
+      "peg": 1.51
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 46.5,
-      "rsi_zone_quality": 0.26,
+      "status": "warn",
+      "rsi": 59.2,
+      "rsi_zone_quality": 0.766,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.7
+      "stop_pct_from_20sma": 4.9
     }
   },
   "sector": "Consumer Defensive",
@@ -133,9 +133,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 11,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 0.7,
+    "days_since_divergence": 12,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 5.1,
     "divergence_date_index": 238
   },
   "divergence_invalidated_signal": null,
