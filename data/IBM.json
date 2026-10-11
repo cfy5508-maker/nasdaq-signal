@@ -1,20 +1,20 @@
 {
   "ticker": "IBM",
   "name": "International Business Machines",
-  "price": 226.61,
-  "updated": "2026-10-10T01:12:21.639045+00:00",
-  "as_of_date": "2026-10-08",
-  "score": 31,
+  "price": 227.13,
+  "updated": "2026-10-11T00:26:10.971390+00:00",
+  "as_of_date": "2026-10-09",
+  "score": 29,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": -2.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": 10.9,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.87,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,7 +22,7 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.2,
+      "upside_pct": 5.9,
       "forward_pe": 17.26908,
       "peg": 2.14
     },
@@ -31,22 +31,22 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 2,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.326,
-      "macd_hist_change": 0.545,
+      "macd_recovery_bonus_applied": false,
+      "macd_hist": 0.095,
+      "macd_hist_change": 0.421,
       "divergence_present": true,
       "gap_days": 8,
       "signal_fresh": false,
-      "divergence_quality": 0.435,
+      "divergence_quality": 0.349,
       "rsi_improvement": -6.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 47.7,
-      "rsi_zscore_1y": -0.07,
-      "zscore_quality": 0.318,
+      "rsi": 48.4,
+      "rsi_zscore_1y": -0.01,
+      "zscore_quality": 0.303,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -55,11 +55,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 11.7,
+      "adx_reference": 11.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -73,18 +73,18 @@
       }
     }
   },
-  "entry_atr_stop_pct": 4.2,
-  "score_addon": 37,
+  "entry_atr_stop_pct": 4.1,
+  "score_addon": 3,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": -2.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": 10.9,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.87,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,7 +92,7 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.2,
+      "upside_pct": 5.9,
       "forward_pe": 17.26908,
       "peg": 2.14
     },
@@ -112,20 +112,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 47.7,
-      "rsi_zone_quality": 0.31,
+      "rsi": 48.4,
+      "rsi_zone_quality": 0.335,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "status": "fail",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.3
+      "stop_pct_from_20sma": 0.8
     }
   },
   "sector": "Technology",
@@ -138,6 +138,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }

@@ -1,28 +1,28 @@
 {
   "ticker": "FSLR",
   "name": "First Solar, Inc.",
-  "price": 178.85,
-  "updated": "2026-10-10T01:12:12.575704+00:00",
-  "as_of_date": "2026-10-08",
-  "score": 70,
+  "price": 177.82,
+  "updated": "2026-10-11T00:26:02.143618+00:00",
+  "as_of_date": "2026-10-09",
+  "score": 71,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 41.6,
-      "volume_trend_pct_3d": 6.1,
+      "volume_diff_pct_3m": -40.2,
+      "volume_trend_pct_3d": 11.2,
       "volume_trend_up": true,
-      "daily_change_pct": -1.34,
-      "volatility_label": "다소변동",
-      "index_trigger_candle": false,
+      "daily_change_pct": 0.49,
+      "volatility_label": "정상",
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 53.5,
+      "upside_pct": 54.4,
       "forward_pe": 7.670213,
       "peg": 0.33
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.528,
-      "macd_hist_change": 0.341,
+      "macd_hist": 0.729,
+      "macd_hist_change": 0.202,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -44,21 +44,21 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.5,
-      "rsi_zscore_1y": -0.67,
-      "zscore_quality": 0.417,
+      "rsi": 39.7,
+      "rsi_zscore_1y": -0.73,
+      "zscore_quality": 0.432,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
-      "days_ago": 3,
+      "days_ago": 4,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 5,
+      "wick_days_ago": 6,
       "adx_reference": 28.9,
       "volume_confirmed": false,
       "trigger_day_volume": 1540100,
@@ -73,26 +73,26 @@
       }
     }
   },
-  "entry_atr_stop_pct": 6.7,
+  "entry_atr_stop_pct": 6.4,
   "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 41.6,
-      "volume_trend_pct_3d": 6.1,
+      "volume_diff_pct_3m": -40.2,
+      "volume_trend_pct_3d": 11.2,
       "volume_trend_up": true,
-      "daily_change_pct": -1.34,
-      "volatility_label": "다소변동",
-      "index_trigger_candle": false,
+      "daily_change_pct": 0.49,
+      "volatility_label": "정상",
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 53.5,
+      "upside_pct": 54.4,
       "forward_pe": 7.670213,
       "peg": 0.33
     },
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.5,
-      "rsi_zone_quality": 0.018,
+      "rsi": 39.7,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.4
+      "stop_pct_from_20sma": 4.2
     }
   },
   "sector": "Technology",
@@ -133,9 +133,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 3.9,
+    "days_since_divergence": 6,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 3.3,
     "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,

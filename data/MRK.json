@@ -1,20 +1,20 @@
 {
   "ticker": "MRK",
   "name": "Merck & Company, Inc.",
-  "price": 142.38,
-  "updated": "2026-10-10T01:12:35.174336+00:00",
-  "as_of_date": "2026-10-08",
-  "score": 37,
+  "price": 145.6,
+  "updated": "2026-10-11T00:26:24.857565+00:00",
+  "as_of_date": "2026-10-09",
+  "score": 35,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": -2.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": 10.9,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.87,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,35 +22,35 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.2,
+      "upside_pct": 8.6,
       "forward_pe": 15.623492,
-      "peg": 2.6
+      "peg": 2.66
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.017,
-      "macd_hist_change": 0.088,
+      "macd_hist": -0.708,
+      "macd_hist_change": 0.308,
       "divergence_present": true,
       "gap_days": 16,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.496,
       "rsi_improvement": -12.3
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 45.0,
-      "rsi_zscore_1y": -1.24,
-      "zscore_quality": 0.559,
+      "status": "fail",
+      "rsi": 52.1,
+      "rsi_zscore_1y": -0.58,
+      "zscore_quality": 0.395,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -58,26 +58,33 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 21.7,
+      "wick_days_ago": 1,
+      "adx_reference": 20.5,
       "volume_confirmed": false,
       "trigger_day_volume": 8404800,
       "avg_volume_divergence_window": 10259753,
-      "order_block": null
+      "order_block": {
+        "low": 141.9,
+        "high": 142.38,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": false
+      }
     }
   },
-  "entry_atr_stop_pct": 3.6,
-  "score_addon": 42,
+  "entry_atr_stop_pct": 3.7,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": -2.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": 10.9,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.87,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,15 +92,15 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 11.2,
+      "upside_pct": 8.6,
       "forward_pe": 15.623492,
-      "peg": 2.6
+      "peg": 2.66
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
-      "near_sma60": true,
+      "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 0,
@@ -104,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 45.0,
-      "rsi_zone_quality": 0.199,
+      "status": "warn",
+      "rsi": 52.1,
+      "rsi_zone_quality": 0.482,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.3
+      "stop_pct_from_20sma": 0.1
     }
   },
   "sector": "Healthcare",

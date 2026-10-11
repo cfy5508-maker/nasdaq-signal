@@ -1,20 +1,20 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 28.18,
-  "updated": "2026-10-10T01:12:10.467796+00:00",
-  "as_of_date": "2026-10-08",
+  "price": 27.26,
+  "updated": "2026-10-11T00:25:59.790445+00:00",
+  "as_of_date": "2026-10-09",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -7.8,
-      "volume_trend_pct_3d": -22.6,
+      "volume_diff_pct_3m": -48.4,
+      "volume_trend_pct_3d": -26.1,
       "volume_trend_up": false,
-      "daily_change_pct": -0.42,
+      "daily_change_pct": 0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -22,7 +22,7 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 58.4,
+      "upside_pct": 63.7,
       "forward_pe": -16.869648,
       "peg": null
     },
@@ -34,50 +34,50 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.416,
-      "macd_hist_change": -0.042,
+      "macd_hist": -0.469,
+      "macd_hist_change": -0.053,
       "divergence_present": false,
-      "gap_days": 5,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -2.4
+      "rsi_improvement": -4.4
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 36.5,
-      "rsi_zscore_1y": -1.08,
-      "zscore_quality": 0.519,
+      "rsi": 34.5,
+      "rsi_zscore_1y": -1.24,
+      "zscore_quality": 0.559,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 18.6,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
+      "adx_reference": 19.9,
       "volume_confirmed": false,
-      "trigger_day_volume": 1770100,
-      "avg_volume_divergence_window": 1826350,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.3,
-  "score_addon": 46,
+  "entry_atr_stop_pct": 12.5,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -7.8,
-      "volume_trend_pct_3d": -22.6,
+      "volume_diff_pct_3m": -48.4,
+      "volume_trend_pct_3d": -26.1,
       "volume_trend_up": false,
-      "daily_change_pct": -0.42,
+      "daily_change_pct": 0.6,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -85,7 +85,7 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 58.4,
+      "upside_pct": 63.7,
       "forward_pe": -16.869648,
       "peg": null
     },
@@ -105,29 +105,29 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.5,
+      "rsi": 34.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
+      "wick_present": false,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.5
+      "stop_pct_from_20sma": 18.2
     }
   },
   "sector": "Industrials",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 28.18,
+    "stop_reference_price": 27.26,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

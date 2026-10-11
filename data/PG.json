@@ -1,20 +1,20 @@
 {
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
-  "price": 150.59,
-  "updated": "2026-10-10T01:13:15.711757+00:00",
-  "as_of_date": "2026-10-08",
-  "score": 14,
+  "price": 151.23,
+  "updated": "2026-10-11T00:27:05.169627+00:00",
+  "as_of_date": "2026-10-09",
+  "score": 9,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": -2.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": 10.9,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.87,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,7 +22,7 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
+      "upside_pct": 6.6,
       "forward_pe": 20.4461,
       "peg": 3.85
     },
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.286,
-      "macd_hist_change": 0.22,
+      "macd_hist": 0.447,
+      "macd_hist_change": 0.161,
       "divergence_present": false,
       "gap_days": 16,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.8,
-      "rsi_zscore_1y": 1.14,
+      "rsi": 62.2,
+      "rsi_zscore_1y": 1.27,
       "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 10.7,
+      "adx_reference": 12.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -73,18 +73,18 @@
       }
     }
   },
-  "entry_atr_stop_pct": 2.5,
-  "score_addon": 42,
+  "entry_atr_stop_pct": 2.4,
+  "score_addon": 9,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 15.7,
-      "volume_trend_pct_3d": -2.5,
-      "volume_trend_up": false,
-      "daily_change_pct": 0.12,
+      "volume_diff_pct_3m": -21.6,
+      "volume_trend_pct_3d": 10.9,
+      "volume_trend_up": true,
+      "daily_change_pct": 0.87,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,7 +92,7 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
+      "upside_pct": 6.6,
       "forward_pe": 20.4461,
       "peg": 3.85
     },
@@ -106,26 +106,26 @@
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
-      "was_above_40_recently": false,
+      "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.8,
-      "rsi_zone_quality": 0.834,
+      "rsi": 62.2,
+      "rsi_zone_quality": 0.887,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "status": "fail",
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.5
+      "stop_pct_from_20sma": 2.7
     }
   },
   "sector": "Consumer Defensive",
@@ -133,9 +133,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 5,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 4.6,
+    "days_since_divergence": 6,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 5.1,
     "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
@@ -145,6 +145,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }
