@@ -1,20 +1,20 @@
 {
   "ticker": "KO",
   "name": "Coca-Cola Company (The)",
-  "price": 88.05,
-  "updated": "2026-10-12T00:43:54.341683+00:00",
-  "as_of_date": "2026-10-09",
-  "score": 22,
+  "price": 89.79,
+  "updated": "2026-10-13T02:43:05.454270+00:00",
+  "as_of_date": "2026-10-12",
+  "score": 14,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -21.6,
-      "volume_trend_pct_3d": 10.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.87,
+      "volume_diff_pct_3m": -16.0,
+      "volume_trend_pct_3d": -8.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 0.35,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,20 +22,20 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.3,
-      "forward_pe": 24.968878,
-      "peg": 3.91
+      "upside_pct": 5.2,
+      "forward_pe": 25.474148,
+      "peg": 4.0
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 2,
+      "retest_days_ago": 3,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.019,
-      "macd_hist_change": 0.115,
+      "macd_hist": 0.203,
+      "macd_hist_change": 0.184,
       "divergence_present": true,
       "gap_days": 17,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.1,
-      "rsi_zscore_1y": -0.09,
-      "zscore_quality": 0.272,
+      "rsi": 63.0,
+      "rsi_zscore_1y": 0.72,
+      "zscore_quality": 0.07,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.0,
+      "adx_reference": 14.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,23 +68,23 @@
         "high": 86.73,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 2.2,
-  "score_addon": 6,
+  "score_addon": 9,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -21.6,
-      "volume_trend_pct_3d": 10.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.87,
+      "volume_diff_pct_3m": -16.0,
+      "volume_trend_pct_3d": -8.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 0.35,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,9 +92,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.3,
-      "forward_pe": 24.968878,
-      "peg": 3.91
+      "upside_pct": 5.2,
+      "forward_pe": 25.474148,
+      "peg": 4.0
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 55.1,
-      "rsi_zone_quality": 0.604,
+      "status": "pass",
+      "rsi": 63.0,
+      "rsi_zone_quality": 0.921,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.8
+      "stop_pct_from_20sma": 2.6
     }
   },
   "sector": "Consumer Defensive",

@@ -1,9 +1,9 @@
 {
   "ticker": "INFQ",
   "name": "Infleqtion, Inc.",
-  "price": 11.04,
-  "updated": "2026-10-12T00:43:10.982875+00:00",
-  "as_of_date": "2026-10-09",
+  "price": 10.38,
+  "updated": "2026-10-13T02:42:17.157200+00:00",
+  "as_of_date": "2026-10-12",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -48.4,
-      "volume_trend_pct_3d": -26.1,
+      "volume_diff_pct_3m": -57.3,
+      "volume_trend_pct_3d": -27.0,
       "volume_trend_up": false,
-      "daily_change_pct": 0.6,
+      "daily_change_pct": -0.06,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.8,
-      "forward_pe": -49.09503,
+      "upside_pct": 110.3,
+      "forward_pe": -46.160004,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.359,
-      "macd_hist_change": -0.032,
+      "macd_hist": -0.402,
+      "macd_hist_change": -0.043,
       "divergence_present": false,
-      "gap_days": 19,
+      "gap_days": 20,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -16.7
+      "rsi_improvement": -20.4
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 32.6,
-      "rsi_zscore_1y": -1.59,
-      "zscore_quality": 0.648,
+      "rsi": 28.9,
+      "rsi_zscore_1y": -1.92,
+      "zscore_quality": 0.731,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.9,
+      "adx_reference": 20.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.9,
+  "entry_atr_stop_pct": 11.4,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -48.4,
-      "volume_trend_pct_3d": -26.1,
+      "volume_diff_pct_3m": -57.3,
+      "volume_trend_pct_3d": -27.0,
       "volume_trend_up": false,
-      "daily_change_pct": 0.6,
+      "daily_change_pct": -0.06,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 97.8,
-      "forward_pe": -49.09503,
+      "upside_pct": 110.3,
+      "forward_pe": -46.160004,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,12 +100,12 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.6,
+      "rsi": 28.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 19.0
+      "stop_pct_from_20sma": 25.5
     }
   },
   "sector": "Technology",
@@ -127,16 +127,20 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 157,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 17.4,
+    "days_since_prior_divergence": 7,
+    "price_drop_since_pct": 22.3,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 11.04,
+    "stop_reference_price": 10.38,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
