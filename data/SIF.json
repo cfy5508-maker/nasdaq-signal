@@ -2,17 +2,17 @@
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
   "price": 23.14,
-  "updated": "2026-10-13T02:42:30.661009+00:00",
+  "updated": "2026-10-14T00:34:45.674194+00:00",
   "as_of_date": "2026-10-12",
-  "score": 55,
+  "score": 39,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -57.3,
-      "volume_trend_pct_3d": -27.0,
+      "volume_diff_pct_3m": -57.1,
+      "volume_trend_pct_3d": -26.9,
       "volume_trend_up": false,
       "daily_change_pct": -0.06,
       "volatility_label": "정상",
@@ -21,10 +21,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -45,7 +45,7 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 55.8,
-      "rsi_zscore_1y": 0.11,
+      "rsi_zscore_1y": 0.12,
       "zscore_quality": 0.271,
       "zscore_direction_bonus_applied": true
     },
@@ -68,21 +68,21 @@
         "high": 22.66,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 7.3,
-  "score_addon": 44,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -57.3,
-      "volume_trend_pct_3d": -27.0,
+      "volume_diff_pct_3m": -57.1,
+      "volume_trend_pct_3d": -26.9,
       "volume_trend_up": false,
       "daily_change_pct": -0.06,
       "volatility_label": "정상",
@@ -91,10 +91,10 @@
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -136,7 +136,7 @@
     "days_since_divergence": 2,
     "days_since_trend_start": 1,
     "gain_since_low_pct": 2.8,
-    "divergence_date_index": 248
+    "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
