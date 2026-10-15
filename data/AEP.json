@@ -1,20 +1,20 @@
 {
   "ticker": "AEP",
   "name": "American Electric Power Company",
-  "price": 125.65,
-  "updated": "2026-10-15T00:05:08.607558+00:00",
-  "as_of_date": "2026-10-13",
-  "score": 21,
+  "price": 124.29,
+  "updated": "2026-10-15T23:49:32.783067+00:00",
+  "as_of_date": "2026-10-15",
+  "score": 25,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.0,
-      "volume_trend_pct_3d": -26.2,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.33,
+      "volume_diff_pct_3m": 40.8,
+      "volume_trend_pct_3d": 35.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.13,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.7,
-      "forward_pe": 18.379519,
+      "upside_pct": 13.5,
+      "forward_pe": 18.111395,
       "peg": 2.29
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 8,
+      "retest_days_ago": 10,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.865,
-      "macd_hist_change": 0.127,
+      "macd_hist": 0.817,
+      "macd_hist_change": -0.119,
       "divergence_present": true,
       "gap_days": 7,
       "signal_fresh": false,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 67.1,
-      "rsi_zscore_1y": 1.35,
-      "zscore_quality": 0.0,
+      "rsi": 58.4,
+      "rsi_zscore_1y": 0.58,
+      "zscore_quality": 0.106,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "모닝스타",
-      "days_ago": 5,
+      "days_ago": 7,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.6,
+      "adx_reference": 22.8,
       "volume_confirmed": false,
       "trigger_day_volume": 3329100,
       "avg_volume_divergence_window": 5148600,
@@ -68,23 +68,23 @@
         "high": 119.75,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 2.4,
-  "score_addon": 10,
+  "entry_atr_stop_pct": 2.5,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.0,
-      "volume_trend_pct_3d": -26.2,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.33,
+      "volume_diff_pct_3m": 40.8,
+      "volume_trend_pct_3d": 35.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.13,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,28 +92,28 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.7,
-      "forward_pe": 18.379519,
+      "upside_pct": 13.5,
+      "forward_pe": 18.111395,
       "peg": 2.29
     },
     "3_pullback_gate": {
-      "status": "fail",
-      "near_sma20": false,
-      "near_sma40": false,
+      "status": "pass",
+      "near_sma20": true,
+      "near_sma40": true,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
+      "near_ma_count": 2,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
-      "was_above_40_recently": false,
+      "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 67.1,
-      "rsi_zone_quality": 1.0,
+      "status": "warn",
+      "rsi": 58.4,
+      "rsi_zone_quality": 0.735,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.1
+      "stop_pct_from_20sma": 2.7
     }
   },
   "sector": "Utilities",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 17,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 4.7,
-    "divergence_date_index": 232
+    "days_since_divergence": 19,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 3.6,
+    "divergence_date_index": 231
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

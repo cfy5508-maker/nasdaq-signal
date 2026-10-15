@@ -1,9 +1,9 @@
 {
   "ticker": "IREN",
   "name": "IREN LIMITED",
-  "price": 34.8,
-  "updated": "2026-10-15T00:04:01.106609+00:00",
-  "as_of_date": "2026-10-13",
+  "price": 30.39,
+  "updated": "2026-10-15T23:48:30.338499+00:00",
+  "as_of_date": "2026-10-15",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.0,
-      "volume_trend_pct_3d": -26.2,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.33,
+      "volume_diff_pct_3m": 40.8,
+      "volume_trend_pct_3d": 35.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.13,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 124.5,
-      "forward_pe": -7.673302,
+      "upside_pct": 157.1,
+      "forward_pe": -7.6306167,
       "peg": 3.11
     },
     "3_divergence_gate": {
@@ -34,50 +34,50 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.022,
-      "macd_hist_change": 0.032,
+      "macd_hist": -1.265,
+      "macd_hist_change": -0.055,
       "divergence_present": false,
-      "gap_days": 30,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -7.0
+      "rsi_improvement": -8.4
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 33.2,
-      "rsi_zscore_1y": -1.6,
-      "zscore_quality": 0.65,
+      "rsi": 26.4,
+      "rsi_zscore_1y": -2.29,
+      "zscore_quality": 0.823,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 15.9,
-      "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 20.0,
+      "volume_confirmed": true,
+      "trigger_day_volume": 105793791,
+      "avg_volume_divergence_window": 63294432,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 11.0,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 13.7,
+  "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -18.0,
-      "volume_trend_pct_3d": -26.2,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.33,
+      "volume_diff_pct_3m": 40.8,
+      "volume_trend_pct_3d": 35.6,
+      "volume_trend_up": true,
+      "daily_change_pct": -0.13,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 124.5,
-      "forward_pe": -7.673302,
+      "upside_pct": 157.1,
+      "forward_pe": -7.6306167,
       "peg": 3.11
     },
     "3_pullback_gate": {
@@ -100,43 +100,47 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": false,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 33.2,
+      "rsi": 26.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 19.7
+      "stop_pct_from_20sma": 33.0
     }
   },
   "sector": "Financial Services",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 4,
-    "price_drop_since_pct": 10.1,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 21.5,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 34.8,
+    "stop_reference_price": 30.39,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }
