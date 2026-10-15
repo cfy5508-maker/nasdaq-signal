@@ -1,20 +1,20 @@
 {
   "ticker": "NXT",
   "name": "Nextpower Inc.",
-  "price": 84.86,
-  "updated": "2026-10-14T00:34:51.783191+00:00",
-  "as_of_date": "2026-10-12",
-  "score": 52,
+  "price": 88.77,
+  "updated": "2026-10-15T00:03:33.093439+00:00",
+  "as_of_date": "2026-10-13",
+  "score": 49,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -28.5,
-      "volume_trend_pct_3d": 23.7,
-      "volume_trend_up": true,
-      "daily_change_pct": -0.7,
+      "volume_diff_pct_3m": -18.0,
+      "volume_trend_pct_3d": -26.2,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.33,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 63.1,
-      "forward_pe": 15.385521,
+      "upside_pct": 52.9,
+      "forward_pe": 14.428295,
       "peg": 3.15
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.059,
-      "macd_hist_change": -0.144,
+      "macd_hist": 1.175,
+      "macd_hist_change": 0.116,
       "divergence_present": false,
       "gap_days": 10,
       "signal_fresh": null,
@@ -44,47 +44,47 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.0,
-      "rsi_zscore_1y": 0.14,
-      "zscore_quality": 0.265,
+      "rsi": 57.5,
+      "rsi_zscore_1y": 0.86,
+      "zscore_quality": 0.085,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "status": "pass",
+      "breakout_confirmed": true,
+      "pattern": "모닝스타",
+      "days_ago": 7,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 5,
-      "adx_reference": 20.3,
+      "wick_days_ago": 6,
+      "adx_reference": 20.5,
       "volume_confirmed": false,
-      "trigger_day_volume": 1833500,
+      "trigger_day_volume": 2172600,
       "avg_volume_divergence_window": 2222909,
       "order_block": {
         "low": 77.93,
         "high": 79.87,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 243,
+        "trigger_day_idx": 242,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 6.9,
-  "score_addon": 50,
+  "entry_atr_stop_pct": 6.7,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -28.5,
-      "volume_trend_pct_3d": 23.7,
-      "volume_trend_up": true,
-      "daily_change_pct": -0.7,
+      "volume_diff_pct_3m": -18.0,
+      "volume_trend_pct_3d": -26.2,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.33,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 63.1,
-      "forward_pe": 15.385521,
+      "upside_pct": 52.9,
+      "forward_pe": 14.428295,
       "peg": 3.15
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.0,
-      "rsi_zone_quality": 0.441,
+      "rsi": 57.5,
+      "rsi_zone_quality": 0.701,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.2
+      "stop_pct_from_20sma": 6.9
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": 8.9,
-    "divergence_date_index": 241
+    "days_since_divergence": 9,
+    "days_since_trend_start": 7,
+    "gain_since_low_pct": 13.9,
+    "divergence_date_index": 240
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

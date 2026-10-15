@@ -1,9 +1,9 @@
 {
   "ticker": "MA",
   "name": "Mastercard Incorporated",
-  "price": 595.09,
-  "updated": "2026-10-14T00:35:34.620787+00:00",
-  "as_of_date": "2026-10-12",
+  "price": 604.8,
+  "updated": "2026-10-15T00:04:12.819406+00:00",
+  "as_of_date": "2026-10-13",
   "score": 16,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -57.1,
-      "volume_trend_pct_3d": -26.9,
+      "volume_diff_pct_3m": -40.2,
+      "volume_trend_pct_3d": -37.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.06,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -22,19 +22,19 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.5,
-      "forward_pe": 26.241821,
-      "peg": 1.55
+      "upside_pct": 10.7,
+      "forward_pe": 26.158926,
+      "peg": 1.58
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 6,
+      "retest_days_ago": 7,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 3.758,
+      "macd_hist": 4.911,
       "macd_hist_change": 1.152,
       "divergence_present": true,
       "gap_days": 7,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 68.0,
-      "rsi_zscore_1y": 1.7,
+      "rsi": 71.8,
+      "rsi_zscore_1y": 2.04,
       "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 6,
-      "adx_reference": 19.5,
+      "wick_days_ago": 7,
+      "adx_reference": 21.1,
       "volume_confirmed": false,
       "trigger_day_volume": 2453400,
       "avg_volume_divergence_window": 3159975,
@@ -68,7 +68,7 @@
         "high": 551.42,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
@@ -81,10 +81,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -57.1,
-      "volume_trend_pct_3d": -26.9,
+      "volume_diff_pct_3m": -40.2,
+      "volume_trend_pct_3d": -37.5,
       "volume_trend_up": false,
-      "daily_change_pct": -0.06,
+      "daily_change_pct": -0.01,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
@@ -92,9 +92,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.5,
-      "forward_pe": 26.241821,
-      "peg": 1.55
+      "upside_pct": 10.7,
+      "forward_pe": 26.158926,
+      "peg": 1.58
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -106,13 +106,13 @@
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
-      "was_above_40_recently": false,
+      "was_above_40_recently": true,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 68.0,
+      "rsi": 71.8,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.9
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Financial Services",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 28,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 2.6,
-    "divergence_date_index": 221
+    "days_since_divergence": 29,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 4.2,
+    "divergence_date_index": 220
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
