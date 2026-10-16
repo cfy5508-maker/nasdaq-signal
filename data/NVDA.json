@@ -1,9 +1,9 @@
 {
   "ticker": "NVDA",
   "name": "NVIDIA Corporation",
-  "price": 217.23,
-  "updated": "2026-10-15T23:49:44.899097+00:00",
-  "as_of_date": "2026-10-15",
+  "price": 214.13,
+  "updated": "2026-10-16T23:51:19.412900+00:00",
+  "as_of_date": "2026-10-16",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 40.8,
-      "volume_trend_pct_3d": 35.6,
+      "volume_diff_pct_3m": 88.4,
+      "volume_trend_pct_3d": 124.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.13,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.5,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.3,
-      "forward_pe": 13.64973,
+      "upside_pct": 53.5,
+      "forward_pe": 13.454941,
       "peg": 0.27
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.865,
-      "macd_hist_change": -0.598,
+      "macd_hist": -2.366,
+      "macd_hist_change": -0.501,
       "divergence_present": true,
-      "gap_days": 23,
+      "gap_days": 24,
       "signal_fresh": true,
-      "divergence_quality": 0.337,
-      "rsi_improvement": -3.9
+      "divergence_quality": 0.45,
+      "rsi_improvement": -6.5
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 40.2,
-      "rsi_zscore_1y": -1.42,
-      "zscore_quality": 0.606,
+      "status": "pass",
+      "rsi": 37.6,
+      "rsi_zscore_1y": -1.71,
+      "zscore_quality": 0.678,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.6,
+      "adx_reference": 17.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -74,29 +74,29 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 40.8,
-      "volume_trend_pct_3d": 35.6,
+      "volume_diff_pct_3m": 88.4,
+      "volume_trend_pct_3d": 124.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.13,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.5,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.3,
-      "forward_pe": 13.64973,
+      "upside_pct": 53.5,
+      "forward_pe": 13.454941,
       "peg": 0.27
     },
     "3_pullback_gate": {
       "status": "pass",
       "near_sma20": false,
-      "near_sma40": true,
+      "near_sma40": false,
       "near_sma60": true,
       "near_sma120": true,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 40.2,
+      "rsi": 37.6,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
@@ -118,22 +118,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.2
+      "stop_pct_from_20sma": 6.6
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 4.0,
+    "prior_divergence_date_index": 246,
+    "days_since_prior_divergence": 4,
+    "price_drop_since_pct": 5.4,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 217.23,
+    "stop_reference_price": 214.13,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

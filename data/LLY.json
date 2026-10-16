@@ -1,9 +1,9 @@
 {
   "ticker": "LLY",
   "name": "Eli Lilly and Company",
-  "price": 1251.61,
-  "updated": "2026-10-15T23:49:01.182358+00:00",
-  "as_of_date": "2026-10-15",
+  "price": 1257.03,
+  "updated": "2026-10-16T23:50:37.070027+00:00",
+  "as_of_date": "2026-10-16",
   "score": 12,
   "stages": {
     "1_market_health": {
@@ -11,20 +11,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.1,
-      "forward_pe": 26.363115,
-      "peg": 1.17
+      "upside_pct": 5.7,
+      "forward_pe": 26.638357,
+      "peg": 1.21
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 8.105,
-      "macd_hist_change": 3.764,
+      "macd_hist": 10.361,
+      "macd_hist_change": 2.257,
       "divergence_present": false,
       "gap_days": 15,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 67.8,
-      "rsi_zscore_1y": 0.99,
-      "zscore_quality": 0.053,
+      "rsi": 68.6,
+      "rsi_zscore_1y": 1.02,
+      "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.2,
+      "adx_reference": 22.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,12 +68,12 @@
         "high": 1153.82,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.4,
+  "entry_atr_stop_pct": 4.3,
   "score_addon": 10,
   "stages_addon": {
     "1_market_health": {
@@ -81,20 +81,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.1,
-      "forward_pe": 26.363115,
-      "peg": 1.17
+      "upside_pct": 5.7,
+      "forward_pe": 26.638357,
+      "peg": 1.21
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 67.8,
+      "rsi": 68.6,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 9,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": 9.5,
-    "divergence_date_index": 241
+    "days_since_divergence": 10,
+    "days_since_trend_start": 7,
+    "gain_since_low_pct": 10.0,
+    "divergence_date_index": 240
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

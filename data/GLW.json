@@ -1,9 +1,9 @@
 {
   "ticker": "GLW",
   "name": "Corning Incorporated",
-  "price": 138.43,
-  "updated": "2026-10-15T23:49:09.376980+00:00",
-  "as_of_date": "2026-10-15",
+  "price": 132.0,
+  "updated": "2026-10-16T23:50:44.843863+00:00",
+  "as_of_date": "2026-10-16",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,20 +11,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.6,
-      "forward_pe": 31.665894,
-      "peg": 0.84
+      "upside_pct": 42.2,
+      "forward_pe": 30.195032,
+      "peg": 0.83
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -2.224,
-      "macd_hist_change": -0.506,
+      "macd_hist": -2.832,
+      "macd_hist_change": -0.608,
       "divergence_present": false,
-      "gap_days": 22,
+      "gap_days": 23,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -3.2
+      "rsi_improvement": -6.5
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 39.2,
-      "rsi_zscore_1y": -1.41,
-      "zscore_quality": 0.602,
+      "status": "pass",
+      "rsi": 35.9,
+      "rsi_zscore_1y": -1.73,
+      "zscore_quality": 0.681,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.6,
+      "adx_reference": 14.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.2,
+  "entry_atr_stop_pct": 9.5,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,20 +74,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 35.6,
-      "forward_pe": 31.665894,
-      "peg": 0.84
+      "upside_pct": 42.2,
+      "forward_pe": 30.195032,
+      "peg": 0.83
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.2,
+      "rsi": 35.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.9
+      "stop_pct_from_20sma": 16.7
     }
   },
   "sector": "Technology",
@@ -126,14 +126,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 6.0,
+    "prior_divergence_date_index": 246,
+    "days_since_prior_divergence": 4,
+    "price_drop_since_pct": 10.4,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 138.43,
+    "stop_reference_price": 132.0,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

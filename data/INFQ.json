@@ -1,52 +1,52 @@
 {
   "ticker": "INFQ",
   "name": "Infleqtion, Inc.",
-  "price": 9.48,
-  "updated": "2026-10-15T23:48:42.056094+00:00",
-  "as_of_date": "2026-10-15",
-  "score": 60,
+  "price": 8.55,
+  "updated": "2026-10-16T23:50:18.939994+00:00",
+  "as_of_date": "2026-10-16",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 130.3,
-      "forward_pe": -39.518112,
+      "upside_pct": 138.9,
+      "forward_pe": -35.64134,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.461,
-      "macd_hist_change": 0.018,
-      "divergence_present": true,
+      "macd_hist": -0.482,
+      "macd_hist_change": -0.02,
+      "divergence_present": false,
       "gap_days": 5,
-      "signal_fresh": true,
-      "divergence_quality": 0.42,
-      "rsi_improvement": -13.1
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -8.7
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 27.7,
-      "rsi_zscore_1y": -1.93,
-      "zscore_quality": 0.732,
+      "rsi": 23.9,
+      "rsi_zscore_1y": -2.24,
+      "zscore_quality": 0.811,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 26.2,
+      "adx_reference": 28.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.5,
+  "entry_atr_stop_pct": 14.2,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +74,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 130.3,
-      "forward_pe": -39.518112,
+      "upside_pct": 138.9,
+      "forward_pe": -35.64134,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 27.7,
+      "rsi": 23.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 31.8
+      "stop_pct_from_20sma": 43.4
     }
   },
   "sector": "Technology",
@@ -127,19 +127,19 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 157,
-    "days_since_prior_divergence": 10,
-    "price_drop_since_pct": 29.0,
+    "days_since_prior_divergence": 11,
+    "price_drop_since_pct": 36.0,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 9.11,
+    "stop_reference_price": 8.55,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 8,
-    "reason": "무효화 이후 8일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 9,
+    "reason": "무효화 이후 9일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

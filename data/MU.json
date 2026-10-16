@@ -1,52 +1,52 @@
 {
   "ticker": "MU",
   "name": "Micron Technology, Inc.",
-  "price": 931.24,
-  "updated": "2026-10-15T23:49:02.332826+00:00",
-  "as_of_date": "2026-10-15",
-  "score": 60,
+  "price": 878.84,
+  "updated": "2026-10-16T23:50:38.108839+00:00",
+  "as_of_date": "2026-10-16",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 40.8,
-      "volume_trend_pct_3d": 35.6,
+      "volume_diff_pct_3m": 88.4,
+      "volume_trend_pct_3d": 124.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.13,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.5,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 67.6,
-      "forward_pe": 4.5544996,
+      "upside_pct": 77.6,
+      "forward_pe": 4.247783,
       "peg": 0.16
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -20.654,
-      "macd_hist_change": -1.009,
-      "divergence_present": true,
-      "gap_days": 22,
-      "signal_fresh": true,
-      "divergence_quality": 0.364,
-      "rsi_improvement": -10.2
+      "macd_hist": -23.66,
+      "macd_hist_change": -3.006,
+      "divergence_present": false,
+      "gap_days": 24,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -12.4
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 39.2,
-      "rsi_zscore_1y": -1.77,
-      "zscore_quality": 0.691,
+      "rsi": 34.0,
+      "rsi_zscore_1y": -2.2,
+      "zscore_quality": 0.801,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,53 +59,53 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.1,
+      "adx_reference": 22.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 7.8,
-  "score_addon": 55,
+  "entry_atr_stop_pct": 8.4,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 40.8,
-      "volume_trend_pct_3d": 35.6,
+      "volume_diff_pct_3m": 88.4,
+      "volume_trend_pct_3d": 124.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.13,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.5,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 67.6,
-      "forward_pe": 4.5544996,
+      "upside_pct": 77.6,
+      "forward_pe": 4.247783,
       "peg": 0.16
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": true,
+      "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.2,
+      "rsi": 34.0,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.6
+      "stop_pct_from_20sma": 17.5
     }
   },
   "sector": "Technology",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 914.13,
+    "stop_reference_price": 878.84,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

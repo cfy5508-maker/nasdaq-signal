@@ -1,52 +1,52 @@
 {
   "ticker": "OKLO",
   "name": "Oklo Inc.",
-  "price": 30.01,
-  "updated": "2026-10-15T23:49:33.777583+00:00",
-  "as_of_date": "2026-10-15",
-  "score": 60,
+  "price": 27.97,
+  "updated": "2026-10-16T23:51:08.956782+00:00",
+  "as_of_date": "2026-10-16",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 151.2,
-      "forward_pe": -27.680674,
+      "upside_pct": 169.5,
+      "forward_pe": -25.799013,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.631,
-      "macd_hist_change": -0.026,
-      "divergence_present": true,
-      "gap_days": 20,
-      "signal_fresh": true,
-      "divergence_quality": 0.391,
-      "rsi_improvement": -9.2
+      "macd_hist": -0.729,
+      "macd_hist_change": -0.097,
+      "divergence_present": false,
+      "gap_days": 6,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -10.2
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 32.2,
-      "rsi_zscore_1y": -1.28,
-      "zscore_quality": 0.569,
+      "status": "pass",
+      "rsi": 28.8,
+      "rsi_zscore_1y": -1.68,
+      "zscore_quality": 0.669,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 15.6,
+      "adx_reference": 17.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 11.3,
+  "entry_atr_stop_pct": 12.2,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +74,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 0.4,
-      "volume_trend_pct_3d": 52.3,
+      "volume_diff_pct_3m": 49.0,
+      "volume_trend_pct_3d": 142.0,
       "volume_trend_up": true,
-      "daily_change_pct": 0.28,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 151.2,
-      "forward_pe": -27.680674,
+      "upside_pct": 169.5,
+      "forward_pe": -25.799013,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.2,
+      "rsi": 28.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 20.1
+      "stop_pct_from_20sma": 27.0
     }
   },
   "sector": "Utilities",
@@ -126,14 +126,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 13.2,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 19.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 29.04,
+    "stop_reference_price": 27.97,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

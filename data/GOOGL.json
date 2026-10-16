@@ -1,53 +1,53 @@
 {
   "ticker": "GOOGL",
   "name": "Alphabet Inc.",
-  "price": 349.22,
-  "updated": "2026-10-15T23:48:50.050730+00:00",
-  "as_of_date": "2026-10-15",
-  "score": 63,
+  "price": 340.59,
+  "updated": "2026-10-16T23:50:26.432472+00:00",
+  "as_of_date": "2026-10-16",
+  "score": 57,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 40.8,
-      "volume_trend_pct_3d": 35.6,
+      "volume_diff_pct_3m": 88.4,
+      "volume_trend_pct_3d": 124.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.13,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.5,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.3,
-      "forward_pe": 22.897045,
-      "peg": 1.22
+      "upside_pct": 26.4,
+      "forward_pe": 22.276,
+      "peg": 1.23
     },
     "3_divergence_gate": {
-      "status": "pass",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.542,
-      "macd_hist_change": -0.201,
+      "macd_hist": -0.174,
+      "macd_hist_change": -0.716,
       "divergence_present": true,
-      "gap_days": 25,
-      "signal_fresh": false,
-      "divergence_quality": 1.0,
-      "rsi_improvement": 11.8
+      "gap_days": 27,
+      "signal_fresh": true,
+      "divergence_quality": 0.45,
+      "rsi_improvement": 5.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.8,
-      "rsi_zscore_1y": -0.1,
-      "zscore_quality": 0.324,
-      "zscore_direction_bonus_applied": true
+      "rsi": 44.5,
+      "rsi_zscore_1y": -0.75,
+      "zscore_quality": 0.437,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -59,35 +59,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.8,
+      "adx_reference": 16.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.7,
-  "score_addon": 61,
+  "entry_atr_stop_pct": 3.9,
+  "score_addon": 58,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 40.8,
-      "volume_trend_pct_3d": 35.6,
+      "volume_diff_pct_3m": 88.4,
+      "volume_trend_pct_3d": 124.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.13,
-      "volatility_label": "정상",
+      "daily_change_pct": -2.5,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 23.3,
-      "forward_pe": 22.897045,
-      "peg": 1.22
+      "upside_pct": 26.4,
+      "forward_pe": 22.276,
+      "peg": 1.23
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -104,9 +104,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 52.8,
-      "rsi_zone_quality": 0.513,
+      "status": "fail",
+      "rsi": 44.5,
+      "rsi_zone_quality": 0.179,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.7
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Communication Services",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 347.64,
+    "stop_reference_price": 340.59,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
