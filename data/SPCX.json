@@ -1,29 +1,29 @@
 {
   "ticker": "SPCX",
   "name": "Space Exploration Technologies ",
-  "price": 146.03,
-  "updated": "2026-10-20T00:37:05.962184+00:00",
-  "as_of_date": "2026-10-16",
-  "score": 60,
+  "price": 147.96,
+  "updated": "2026-10-21T00:05:53.641039+00:00",
+  "as_of_date": "2026-10-19",
+  "score": 59,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.6,
-      "volume_trend_pct_3d": 125.1,
+      "volume_diff_pct_3m": 4.2,
+      "volume_trend_pct_3d": 44.9,
       "volume_trend_up": true,
-      "daily_change_pct": -2.5,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 1.21,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 52.5,
-      "forward_pe": 72.33617,
+      "upside_pct": 50.5,
+      "forward_pe": 72.253044,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.979,
-      "macd_hist_change": -0.566,
+      "macd_hist": -2.14,
+      "macd_hist_change": -0.161,
       "divergence_present": true,
       "gap_days": 23,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.517,
       "rsi_improvement": -8.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.2,
-      "rsi_zscore_1y": -0.53,
-      "zscore_quality": 0.381,
+      "rsi": 45.2,
+      "rsi_zscore_1y": -0.34,
+      "zscore_quality": 0.335,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,42 +58,49 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 23.4,
+      "wick_days_ago": 1,
+      "adx_reference": 22.6,
       "volume_confirmed": false,
-      "trigger_day_volume": 88193900,
-      "avg_volume_divergence_window": 93434004,
-      "order_block": null
+      "trigger_day_volume": 88552900,
+      "avg_volume_divergence_window": 93448962,
+      "order_block": {
+        "low": 146.03,
+        "high": 147.8,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 88,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 7.3,
-  "score_addon": 82,
+  "entry_atr_stop_pct": 7.1,
+  "score_addon": 81,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.6,
-      "volume_trend_pct_3d": 125.1,
+      "volume_diff_pct_3m": 4.2,
+      "volume_trend_pct_3d": 44.9,
       "volume_trend_up": true,
-      "daily_change_pct": -2.5,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 1.21,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 52.5,
-      "forward_pe": 72.33617,
+      "upside_pct": 50.5,
+      "forward_pe": 72.253044,
       "peg": null
     },
     "3_pullback_gate": {
       "status": "pass",
       "near_sma20": false,
       "near_sma40": true,
-      "near_sma60": true,
+      "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 1,
@@ -105,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 43.2,
+      "rsi": 45.2,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.3
+      "stop_pct_from_20sma": 4.8
     }
   },
   "sector": "Industrials",
@@ -127,8 +134,8 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 84,
-    "days_since_prior_divergence": 3,
-    "price_drop_since_pct": 6.7,
+    "days_since_prior_divergence": 4,
+    "price_drop_since_pct": 5.5,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

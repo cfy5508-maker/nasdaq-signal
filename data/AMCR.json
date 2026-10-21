@@ -1,29 +1,29 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": 43.85,
-  "updated": "2026-10-20T00:38:38.135216+00:00",
-  "as_of_date": "2026-10-16",
-  "score": 51,
+  "price": 43.95,
+  "updated": "2026-10-21T00:07:06.166257+00:00",
+  "as_of_date": "2026-10-19",
+  "score": 50,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.2,
-      "volume_trend_pct_3d": 142.7,
+      "volume_diff_pct_3m": -10.3,
+      "volume_trend_pct_3d": 46.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.11,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.42,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.5,
-      "forward_pe": 10.1828985,
+      "upside_pct": 13.2,
+      "forward_pe": 10.403584,
       "peg": 1.0
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.308,
-      "macd_hist_change": 0.078,
+      "macd_hist": 0.352,
+      "macd_hist_change": 0.043,
       "divergence_present": false,
       "gap_days": 13,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.2,
-      "rsi_zscore_1y": 0.72,
-      "zscore_quality": 0.119,
+      "rsi": 60.9,
+      "rsi_zscore_1y": 0.78,
+      "zscore_quality": 0.105,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 6,
+      "days_ago": 7,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 5,
-      "adx_reference": 26.3,
+      "wick_days_ago": 6,
+      "adx_reference": 25.3,
       "volume_confirmed": true,
       "trigger_day_volume": 4923900,
       "avg_volume_divergence_window": 3174021,
@@ -68,32 +68,32 @@
         "high": 41.53,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 243,
+        "trigger_day_idx": 242,
         "gap_confirmed": false
       }
     }
   },
   "entry_atr_stop_pct": 3.1,
-  "score_addon": 53,
+  "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.2,
-      "volume_trend_pct_3d": 142.7,
+      "volume_diff_pct_3m": -10.3,
+      "volume_trend_pct_3d": 46.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.11,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.42,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.5,
-      "forward_pe": 10.1828985,
+      "upside_pct": 13.2,
+      "forward_pe": 10.403584,
       "peg": 1.0
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.2,
-      "rsi_zone_quality": 0.809,
+      "rsi": 60.9,
+      "rsi_zone_quality": 0.837,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 5.0,
-    "divergence_date_index": 241
+    "days_since_divergence": 9,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 5.2,
+    "divergence_date_index": 240
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

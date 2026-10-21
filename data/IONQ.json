@@ -1,9 +1,9 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 31.28,
-  "updated": "2026-10-20T00:38:40.759881+00:00",
-  "as_of_date": "2026-10-16",
+  "price": 30.78,
+  "updated": "2026-10-21T00:07:08.214719+00:00",
+  "as_of_date": "2026-10-19",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.2,
-      "volume_trend_pct_3d": 142.7,
+      "volume_diff_pct_3m": -10.3,
+      "volume_trend_pct_3d": 46.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.11,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.42,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 104.8,
-      "forward_pe": -22.89889,
+      "upside_pct": 108.1,
+      "forward_pe": -23.255987,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.28,
-      "macd_hist_change": -0.1,
+      "macd_hist": -1.301,
+      "macd_hist_change": -0.021,
       "divergence_present": false,
-      "gap_days": 25,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -9.3
+      "rsi_improvement": -3.9
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 31.8,
-      "rsi_zscore_1y": -1.33,
-      "zscore_quality": 0.584,
+      "rsi": 31.0,
+      "rsi_zscore_1y": -1.39,
+      "zscore_quality": 0.597,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.1,
+      "adx_reference": 24.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -74,19 +74,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.2,
-      "volume_trend_pct_3d": 142.7,
+      "volume_diff_pct_3m": -10.3,
+      "volume_trend_pct_3d": 46.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.11,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.42,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 104.8,
-      "forward_pe": -22.89889,
+      "upside_pct": 108.1,
+      "forward_pe": -23.255987,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 31.8,
+      "rsi": 31.0,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.4
+      "stop_pct_from_20sma": 29.9
     }
   },
   "sector": "Technology",
@@ -126,17 +126,21 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 243,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 20.7,
+    "prior_divergence_date_index": 242,
+    "days_since_prior_divergence": 7,
+    "price_drop_since_pct": 22.0,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 31.28,
+    "stop_reference_price": 30.78,
     "stopped_out": false
   },
-  "divergence_stop_signal": null,
+  "divergence_stop_signal": {
+    "active": true,
+    "days_since_break": 5,
+    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+  },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
 }

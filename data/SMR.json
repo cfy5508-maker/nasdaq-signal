@@ -1,52 +1,52 @@
 {
   "ticker": "SMR",
   "name": "NuScale Power Corporation",
-  "price": 5.83,
-  "updated": "2026-10-20T00:38:32.539928+00:00",
-  "as_of_date": "2026-10-16",
-  "score": 60,
+  "price": 5.69,
+  "updated": "2026-10-21T00:07:01.373380+00:00",
+  "as_of_date": "2026-10-19",
+  "score": 30,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.2,
-      "volume_trend_pct_3d": 142.7,
+      "volume_diff_pct_3m": -10.3,
+      "volume_trend_pct_3d": 46.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.11,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.42,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 101.8,
-      "forward_pe": -8.619906,
+      "upside_pct": 106.8,
+      "forward_pe": -8.453265,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.172,
-      "macd_hist_change": -0.003,
-      "divergence_present": true,
+      "macd_hist": -0.169,
+      "macd_hist_change": 0.003,
+      "divergence_present": false,
       "gap_days": 5,
-      "signal_fresh": true,
-      "divergence_quality": 0.365,
-      "rsi_improvement": -14.0
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -3.8
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 28.9,
-      "rsi_zscore_1y": -1.42,
-      "zscore_quality": 0.604,
+      "status": "pass",
+      "rsi": 28.0,
+      "rsi_zscore_1y": -1.56,
+      "zscore_quality": 0.64,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 26.1,
+      "adx_reference": 28.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -74,19 +74,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.2,
-      "volume_trend_pct_3d": 142.7,
+      "volume_diff_pct_3m": -10.3,
+      "volume_trend_pct_3d": 46.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.11,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.42,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 101.8,
-      "forward_pe": -8.619906,
+      "upside_pct": 106.8,
+      "forward_pe": -8.453265,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 28.9,
+      "rsi": 28.0,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.7
+      "stop_pct_from_20sma": 30.2
     }
   },
   "sector": "Industrials",
@@ -126,20 +126,20 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 242,
-    "days_since_prior_divergence": 7,
-    "price_drop_since_pct": 24.0,
+    "prior_divergence_date_index": 241,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 25.8,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 5.83,
+    "stop_reference_price": 5.69,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

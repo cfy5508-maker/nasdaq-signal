@@ -1,29 +1,29 @@
 {
   "ticker": "TSLA",
   "name": "Tesla, Inc.",
-  "price": 354.72,
-  "updated": "2026-10-20T00:38:31.265811+00:00",
-  "as_of_date": "2026-10-16",
-  "score": 19,
+  "price": 368.06,
+  "updated": "2026-10-21T00:07:00.356014+00:00",
+  "as_of_date": "2026-10-19",
+  "score": 9,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.6,
-      "volume_trend_pct_3d": 125.1,
+      "volume_diff_pct_3m": 4.2,
+      "volume_trend_pct_3d": 44.9,
       "volume_trend_up": true,
-      "daily_change_pct": -2.5,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 1.21,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.2,
-      "forward_pe": 169.73727,
+      "upside_pct": 8.1,
+      "forward_pe": 172.34286,
       "peg": 3.61
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -2.091,
-      "macd_hist_change": -0.996,
+      "macd_hist": -1.786,
+      "macd_hist_change": 0.305,
       "divergence_present": false,
       "gap_days": 13,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.2,
-      "rsi_zscore_1y": -0.66,
-      "zscore_quality": 0.466,
+      "rsi": 50.6,
+      "rsi_zscore_1y": 0.27,
+      "zscore_quality": 0.233,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,41 +59,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.1,
+      "adx_reference": 13.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.0,
-  "score_addon": 22,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.6,
-      "volume_trend_pct_3d": 125.1,
+      "volume_diff_pct_3m": 4.2,
+      "volume_trend_pct_3d": 44.9,
       "volume_trend_up": true,
-      "daily_change_pct": -2.5,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": 1.21,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.2,
-      "forward_pe": 169.73727,
+      "upside_pct": 8.1,
+      "forward_pe": 172.34286,
       "peg": 3.61
     },
     "3_pullback_gate": {
       "status": "pass",
       "near_sma20": false,
       "near_sma40": true,
-      "near_sma60": true,
+      "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 1,
@@ -104,9 +104,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 42.2,
-      "rsi_zone_quality": 0.088,
+      "status": "warn",
+      "rsi": 50.6,
+      "rsi_zone_quality": 0.424,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.4
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Consumer Cyclical",
