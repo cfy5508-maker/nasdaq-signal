@@ -1,30 +1,30 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": 43.95,
-  "updated": "2026-10-21T00:07:51.269677+00:00",
-  "as_of_date": "2026-10-19",
-  "score": 50,
+  "price": 44.73,
+  "updated": "2026-10-22T00:10:41.657129+00:00",
+  "as_of_date": "2026-10-20",
+  "score": 48,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -10.3,
-      "volume_trend_pct_3d": 46.0,
+      "volume_diff_pct_3m": -18.9,
+      "volume_trend_pct_3d": 10.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.42,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.2,
-      "forward_pe": 10.403584,
-      "peg": 1.0
+      "upside_pct": 12.4,
+      "forward_pe": 10.529181,
+      "peg": 1.02
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.352,
-      "macd_hist_change": 0.043,
+      "macd_hist": 0.414,
+      "macd_hist_change": 0.062,
       "divergence_present": false,
       "gap_days": 13,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.9,
-      "rsi_zscore_1y": 0.78,
-      "zscore_quality": 0.105,
+      "rsi": 66.0,
+      "rsi_zscore_1y": 1.21,
+      "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 7,
+      "days_ago": 8,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": true,
-      "wick_days_ago": 6,
-      "adx_reference": 25.3,
+      "wick_days_ago": 7,
+      "adx_reference": 24.8,
       "volume_confirmed": true,
       "trigger_day_volume": 4923900,
       "avg_volume_divergence_window": 3174021,
@@ -68,33 +68,33 @@
         "high": 41.53,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 242,
+        "trigger_day_idx": 241,
         "gap_confirmed": false
       }
     }
   },
   "entry_atr_stop_pct": 3.1,
-  "score_addon": 54,
+  "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -10.3,
-      "volume_trend_pct_3d": 46.0,
+      "volume_diff_pct_3m": -18.9,
+      "volume_trend_pct_3d": 10.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.42,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.2,
-      "forward_pe": 10.403584,
-      "peg": 1.0
+      "upside_pct": 12.4,
+      "forward_pe": 10.529181,
+      "peg": 1.02
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -108,12 +108,12 @@
       "was_above_20_recently": true,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.9,
-      "rsi_zone_quality": 0.837,
+      "rsi": 66.0,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.6
+      "stop_pct_from_20sma": 5.2
     }
   },
   "sector": "Consumer Cyclical",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 9,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 5.2,
-    "divergence_date_index": 240
+    "days_since_divergence": 10,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 7.1,
+    "divergence_date_index": 239
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

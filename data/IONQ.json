@@ -1,52 +1,52 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 30.78,
-  "updated": "2026-10-21T00:07:53.737168+00:00",
-  "as_of_date": "2026-10-19",
-  "score": 30,
+  "price": 31.26,
+  "updated": "2026-10-22T00:10:43.960186+00:00",
+  "as_of_date": "2026-10-20",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -10.3,
-      "volume_trend_pct_3d": 46.0,
+      "volume_diff_pct_3m": -18.9,
+      "volume_trend_pct_3d": 10.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.42,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 108.1,
-      "forward_pe": -23.255987,
+      "upside_pct": 104.9,
+      "forward_pe": -24.014818,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.301,
-      "macd_hist_change": -0.021,
-      "divergence_present": false,
+      "macd_hist": -1.206,
+      "macd_hist_change": 0.095,
+      "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.32,
       "rsi_improvement": -3.9
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 31.0,
-      "rsi_zscore_1y": -1.39,
-      "zscore_quality": 0.597,
+      "rsi": 32.6,
+      "rsi_zscore_1y": -1.26,
+      "zscore_quality": 0.564,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.5,
+      "adx_reference": 25.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 13.6,
+  "entry_atr_stop_pct": 13.1,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +74,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -10.3,
-      "volume_trend_pct_3d": 46.0,
+      "volume_diff_pct_3m": -18.9,
+      "volume_trend_pct_3d": 10.6,
       "volume_trend_up": true,
-      "daily_change_pct": 0.42,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "index_trigger_candle": true,
       "golden_cross_recent": true,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 108.1,
-      "forward_pe": -23.255987,
+      "upside_pct": 104.9,
+      "forward_pe": -24.014818,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 31.0,
+      "rsi": 32.6,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.9
+      "stop_pct_from_20sma": 26.4
     }
   },
   "sector": "Technology",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 242,
-    "days_since_prior_divergence": 7,
-    "price_drop_since_pct": 22.0,
+    "prior_divergence_date_index": 241,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 20.8,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -138,8 +138,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 5,
-    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 6,
+    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

@@ -1,52 +1,52 @@
 {
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
-  "price": 96.52,
-  "updated": "2026-10-21T00:07:19.589371+00:00",
-  "as_of_date": "2026-10-19",
-  "score": 30,
+  "price": 98.21,
+  "updated": "2026-10-22T00:10:13.387109+00:00",
+  "as_of_date": "2026-10-20",
+  "score": 58,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.7,
-      "forward_pe": 28.754293,
-      "peg": 1.68
+      "upside_pct": 37.4,
+      "forward_pe": 29.843449,
+      "peg": 1.67
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -2.043,
-      "macd_hist_change": -0.198,
-      "divergence_present": false,
+      "macd_hist": -1.944,
+      "macd_hist_change": 0.099,
+      "divergence_present": true,
       "gap_days": 23,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.355,
       "rsi_improvement": -12.2
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 34.8,
-      "rsi_zscore_1y": -1.24,
-      "zscore_quality": 0.559,
+      "status": "fail",
+      "rsi": 37.4,
+      "rsi_zscore_1y": -0.99,
+      "zscore_quality": 0.498,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.0,
+      "adx_reference": 17.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.0,
+  "entry_atr_stop_pct": 8.9,
   "score_addon": 55,
   "stages_addon": {
     "1_market_health": {
@@ -74,20 +74,20 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 39.7,
-      "forward_pe": 28.754293,
-      "peg": 1.68
+      "upside_pct": 37.4,
+      "forward_pe": 29.843449,
+      "peg": 1.67
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -99,13 +99,13 @@
       "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
-      "was_above_40_recently": true,
+      "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.8,
+      "rsi": 37.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.4
+      "stop_pct_from_20sma": 12.1
     }
   },
   "sector": "Financial Services",

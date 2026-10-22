@@ -1,9 +1,9 @@
 {
   "ticker": "PEP",
   "name": "Pepsico, Inc.",
-  "price": 133.57,
-  "updated": "2026-10-21T00:07:13.339506+00:00",
-  "as_of_date": "2026-10-19",
+  "price": 134.02,
+  "updated": "2026-10-22T00:10:07.634810+00:00",
+  "as_of_date": "2026-10-20",
   "score": 16,
   "stages": {
     "1_market_health": {
@@ -11,31 +11,31 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.0,
-      "forward_pe": 15.513874,
-      "peg": 1.37
+      "upside_pct": 5.6,
+      "forward_pe": 15.592588,
+      "peg": 1.39
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 6,
+      "retest_days_ago": 7,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.076,
-      "macd_hist_change": 0.261,
+      "macd_hist": 1.23,
+      "macd_hist_change": 0.154,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 59.3,
-      "rsi_zscore_1y": 1.06,
+      "rsi": 60.3,
+      "rsi_zscore_1y": 1.13,
       "zscore_quality": 0.0,
       "zscore_direction_bonus_applied": false
     },
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 5,
-      "adx_reference": 25.1,
+      "wick_days_ago": 6,
+      "adx_reference": 26.1,
       "volume_confirmed": false,
       "trigger_day_volume": 7900100,
       "avg_volume_divergence_window": 9437133,
@@ -68,33 +68,33 @@
         "high": 126.7,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 245,
+        "trigger_day_idx": 244,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.1,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 3.0,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.0,
-      "forward_pe": 15.513874,
-      "peg": 1.37
+      "upside_pct": 5.6,
+      "forward_pe": 15.592588,
+      "peg": 1.39
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,15 +105,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": false,
+      "was_above_20_recently": true,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 59.3,
-      "rsi_zone_quality": 0.772,
+      "status": "pass",
+      "rsi": 60.3,
+      "rsi_zone_quality": 0.81,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.2
+      "stop_pct_from_20sma": 4.4
     }
   },
   "sector": "Consumer Defensive",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 13,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 5.4,
-    "divergence_date_index": 236
+    "days_since_divergence": 14,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 5.8,
+    "divergence_date_index": 235
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

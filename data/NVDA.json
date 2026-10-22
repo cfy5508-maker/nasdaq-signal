@@ -1,9 +1,9 @@
 {
   "ticker": "NVDA",
   "name": "NVIDIA Corporation",
-  "price": 217.09,
-  "updated": "2026-10-21T00:07:43.106207+00:00",
-  "as_of_date": "2026-10-19",
+  "price": 216.47,
+  "updated": "2026-10-22T00:10:34.425552+00:00",
+  "as_of_date": "2026-10-20",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.4,
-      "forward_pe": 13.601975,
+      "upside_pct": 51.9,
+      "forward_pe": 13.94757,
       "peg": 0.26
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -2.387,
-      "macd_hist_change": -0.021,
+      "macd_hist": -2.329,
+      "macd_hist_change": 0.058,
       "divergence_present": true,
       "gap_days": 24,
       "signal_fresh": false,
@@ -44,49 +44,49 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 41.5,
-      "rsi_zscore_1y": -1.24,
-      "zscore_quality": 0.561,
+      "rsi": 40.9,
+      "rsi_zscore_1y": -1.31,
+      "zscore_quality": 0.577,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 17.5,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 18.1,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 79609100,
+      "avg_volume_divergence_window": 107960160,
       "order_block": null
     }
   },
   "entry_atr_stop_pct": 4.1,
-  "score_addon": 65,
+  "score_addon": 82,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.4,
-      "forward_pe": 13.601975,
+      "upside_pct": 51.9,
+      "forward_pe": 13.94757,
       "peg": 0.26
     },
     "3_pullback_gate": {
@@ -101,19 +101,19 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 41.5,
+      "rsi": 40.9,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 4.1,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 4.4,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

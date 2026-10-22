@@ -1,29 +1,29 @@
 {
   "ticker": "FLNC",
   "name": "Fluence Energy, Inc.",
-  "price": 5.86,
-  "updated": "2026-10-21T00:07:15.899292+00:00",
-  "as_of_date": "2026-10-19",
-  "score": 77,
+  "price": 5.93,
+  "updated": "2026-10-22T00:10:09.893985+00:00",
+  "as_of_date": "2026-10-20",
+  "score": 76,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.9,
-      "forward_pe": -13.12702,
+      "upside_pct": 40.8,
+      "forward_pe": -13.281977,
       "peg": 3.18
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.029,
-      "macd_hist_change": -0.014,
+      "macd_hist": -0.024,
+      "macd_hist_change": 0.005,
       "divergence_present": true,
       "gap_days": 18,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 26.3,
-      "rsi_zscore_1y": -1.49,
-      "zscore_quality": 0.622,
+      "rsi": 27.6,
+      "rsi_zscore_1y": -1.38,
+      "zscore_quality": 0.594,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,15 +58,15 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 0,
-      "adx_reference": 36.4,
+      "wick_days_ago": 1,
+      "adx_reference": 37.0,
       "volume_confirmed": true,
       "trigger_day_volume": 6746900,
       "avg_volume_divergence_window": 6533205,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 14.0,
+  "entry_atr_stop_pct": 13.8,
   "score_addon": 46,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +74,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 4.2,
-      "volume_trend_pct_3d": 44.9,
+      "volume_diff_pct_3m": -15.0,
+      "volume_trend_pct_3d": 2.8,
       "volume_trend_up": true,
-      "daily_change_pct": 1.21,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.1,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.9,
-      "forward_pe": -13.12702,
+      "upside_pct": 40.8,
+      "forward_pe": -13.281977,
       "peg": 3.18
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 26.3,
+      "rsi": 27.6,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 23.5
+      "stop_pct_from_20sma": 20.9
     }
   },
   "sector": "Utilities",
