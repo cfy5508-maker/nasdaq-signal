@@ -1,52 +1,52 @@
 {
   "ticker": "SIF",
   "name": "SIFCO Industries, Inc.",
-  "price": 21.0,
-  "updated": "2026-10-23T00:08:17.170941+00:00",
-  "as_of_date": "2026-10-21",
-  "score": 43,
+  "price": 20.14,
+  "updated": "2026-10-23T23:58:09.261564+00:00",
+  "as_of_date": "2026-10-23",
+  "score": 26,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -25.5,
-      "volume_trend_pct_3d": -35.3,
+      "volume_diff_pct_3m": -22.7,
+      "volume_trend_pct_3d": -13.7,
       "volume_trend_up": false,
-      "daily_change_pct": 0.53,
+      "daily_change_pct": -0.52,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.237,
-      "macd_hist_change": 0.019,
-      "divergence_present": true,
-      "gap_days": 20,
-      "signal_fresh": true,
-      "divergence_quality": 0.337,
-      "rsi_improvement": -2.2
+      "macd_hist": -0.271,
+      "macd_hist_change": -0.005,
+      "divergence_present": false,
+      "gap_days": 25,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -5.8
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 42.0,
-      "rsi_zscore_1y": -1.09,
-      "zscore_quality": 0.522,
+      "status": "pass",
+      "rsi": 36.3,
+      "rsi_zscore_1y": -1.52,
+      "zscore_quality": 0.63,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,35 +59,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.8,
+      "adx_reference": 18.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 8.2,
-  "score_addon": 15,
+  "entry_atr_stop_pct": 8.1,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -25.5,
-      "volume_trend_pct_3d": -35.3,
+      "volume_diff_pct_3m": -22.7,
+      "volume_trend_pct_3d": -13.7,
       "volume_trend_up": false,
-      "daily_change_pct": 0.53,
+      "daily_change_pct": -0.52,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
-      "status": "warn",
+      "status": "fail",
       "upside_pct": null,
       "forward_pe": null,
-      "peg": 1.64
+      "peg": null
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.0,
-      "rsi_zone_quality": 0.08,
+      "rsi": 36.3,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,16 +118,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.7
+      "stop_pct_from_20sma": 9.4
     }
   },
   "sector": "Industrials",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 5.4,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 20.79,
+    "stop_reference_price": 20.14,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

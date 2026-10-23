@@ -1,9 +1,9 @@
 {
   "ticker": "WATT",
   "name": "Energous Corporation",
-  "price": 8.84,
-  "updated": "2026-10-23T00:08:27.345686+00:00",
-  "as_of_date": "2026-10-21",
+  "price": 8.78,
+  "updated": "2026-10-23T23:58:19.084370+00:00",
+  "as_of_date": "2026-10-23",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -9.0,
-      "volume_trend_pct_3d": -40.8,
+      "volume_diff_pct_3m": -16.5,
+      "volume_trend_pct_3d": -5.7,
       "volume_trend_up": false,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.01,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 219.6,
-      "forward_pe": 10.901235,
+      "upside_pct": 221.8,
+      "forward_pe": 10.839506,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,17 +34,17 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.298,
-      "macd_hist_change": 0.055,
+      "macd_hist": -0.189,
+      "macd_hist_change": 0.053,
       "divergence_present": true,
       "gap_days": 23,
       "signal_fresh": true,
-      "divergence_quality": 0.419,
+      "divergence_quality": 0.408,
       "rsi_improvement": -10.1
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 29.6,
+      "rsi": 29.2,
       "rsi_zscore_1y": -1.21,
       "zscore_quality": 0.553,
       "zscore_direction_bonus_applied": false
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": true,
       "wick_days_ago": 0,
-      "adx_reference": 28.6,
+      "adx_reference": 30.5,
       "volume_confirmed": false,
-      "trigger_day_volume": 84700,
+      "trigger_day_volume": 68951,
       "avg_volume_divergence_window": 152588,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 13.0,
+  "entry_atr_stop_pct": 12.4,
   "score_addon": 46,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +74,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -9.0,
-      "volume_trend_pct_3d": -40.8,
+      "volume_diff_pct_3m": -16.5,
+      "volume_trend_pct_3d": -5.7,
       "volume_trend_up": false,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.01,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 219.6,
-      "forward_pe": 10.901235,
+      "upside_pct": 221.8,
+      "forward_pe": 10.839506,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.6,
+      "rsi": 29.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 27.8
+      "stop_pct_from_20sma": 23.3
     }
   },
   "sector": "Technology",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 243,
-    "days_since_prior_divergence": 6,
-    "price_drop_since_pct": 8.1,
+    "prior_divergence_date_index": 242,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 8.7,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -138,8 +138,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 5,
-    "reason": "무효화 이후 5일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

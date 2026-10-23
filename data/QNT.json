@@ -1,29 +1,29 @@
 {
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
-  "price": 38.65,
-  "updated": "2026-10-23T00:08:32.235036+00:00",
-  "as_of_date": "2026-10-21",
-  "score": 58,
+  "price": 36.5,
+  "updated": "2026-10-23T23:58:23.744220+00:00",
+  "as_of_date": "2026-10-23",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -9.0,
-      "volume_trend_pct_3d": -40.8,
+      "volume_diff_pct_3m": -16.5,
+      "volume_trend_pct_3d": -5.7,
       "volume_trend_up": false,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.01,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 148.0,
-      "forward_pe": -22.500502,
+      "upside_pct": 162.6,
+      "forward_pe": -22.876554,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 2,
+      "retest_days_ago": 4,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.288,
-      "macd_hist_change": 0.361,
+      "macd_hist": -0.045,
+      "macd_hist_change": 0.144,
       "divergence_present": true,
       "gap_days": 5,
       "signal_fresh": false,
@@ -44,49 +44,49 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 39.4,
-      "rsi_zscore_1y": -0.43,
-      "zscore_quality": 0.357,
+      "rsi": 36.6,
+      "rsi_zscore_1y": -0.69,
+      "zscore_quality": 0.422,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.9,
+      "adx_reference": 21.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.0,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 12.5,
+  "score_addon": 59,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -9.0,
-      "volume_trend_pct_3d": -40.8,
+      "volume_diff_pct_3m": -16.5,
+      "volume_trend_pct_3d": -5.7,
       "volume_trend_up": false,
-      "daily_change_pct": 1.05,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.01,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 148.0,
-      "forward_pe": -22.500502,
+      "upside_pct": 162.6,
+      "forward_pe": -22.876554,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.4,
+      "rsi": 36.6,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.6
+      "stop_pct_from_20sma": 12.5
     }
   },
   "sector": "Technology",
@@ -127,8 +127,8 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 81,
-    "days_since_prior_divergence": 15,
-    "price_drop_since_pct": 19.6,
+    "days_since_prior_divergence": 17,
+    "price_drop_since_pct": 24.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -138,9 +138,9 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 13,
-    "reason": "무효화 이후 13일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 15,
+    "reason": "무효화 이후 15일간 반등시도(음봉고가 돌파) 없음"
   },
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }

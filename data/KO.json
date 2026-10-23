@@ -1,41 +1,41 @@
 {
   "ticker": "KO",
   "name": "Coca-Cola Company (The)",
-  "price": 92.68,
-  "updated": "2026-10-23T00:09:09.378121+00:00",
-  "as_of_date": "2026-10-21",
-  "score": 11,
+  "price": 92.71,
+  "updated": "2026-10-23T23:58:59.247236+00:00",
+  "as_of_date": "2026-10-23",
+  "score": 18,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": -31.6,
+      "volume_diff_pct_3m": -17.4,
+      "volume_trend_pct_3d": -28.2,
       "volume_trend_up": false,
-      "daily_change_pct": 0.64,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": -1.24,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.6,
-      "forward_pe": 27.060701,
-      "peg": 4.21
+      "upside_pct": 2.8,
+      "forward_pe": 26.30623,
+      "peg": 4.33
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 10,
+      "retest_days_ago": 12,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.617,
-      "macd_hist_change": -0.115,
+      "macd_hist": 0.497,
+      "macd_hist_change": -0.177,
       "divergence_present": true,
       "gap_days": 17,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 66.7,
-      "rsi_zscore_1y": 1.04,
-      "zscore_quality": 0.0,
+      "rsi": 60.0,
+      "rsi_zscore_1y": 0.36,
+      "zscore_quality": 0.16,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.7,
+      "adx_reference": 30.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,33 +68,33 @@
         "high": 86.73,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 240,
+        "trigger_day_idx": 239,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 2.3,
-  "score_addon": 10,
+  "entry_atr_stop_pct": 2.5,
+  "score_addon": 8,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -22.9,
-      "volume_trend_pct_3d": -31.6,
+      "volume_diff_pct_3m": -17.4,
+      "volume_trend_pct_3d": -28.2,
       "volume_trend_up": false,
-      "daily_change_pct": 0.64,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": -1.24,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.6,
-      "forward_pe": 27.060701,
-      "peg": 4.21
+      "upside_pct": 2.8,
+      "forward_pe": 26.30623,
+      "peg": 4.33
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 66.7,
-      "rsi_zone_quality": 1.0,
+      "rsi": 60.0,
+      "rsi_zone_quality": 0.801,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.0
+      "stop_pct_from_20sma": 3.4
     }
   },
   "sector": "Consumer Defensive",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 35,
-    "days_since_trend_start": 6,
-    "gain_since_low_pct": 5.9,
-    "divergence_date_index": 214
+    "days_since_divergence": 37,
+    "days_since_trend_start": 8,
+    "gain_since_low_pct": 6.0,
+    "divergence_date_index": 213
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
