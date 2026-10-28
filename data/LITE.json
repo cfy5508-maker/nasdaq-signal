@@ -1,9 +1,9 @@
 {
   "ticker": "LITE",
   "name": "Lumentum Holdings Inc.",
-  "price": 756.17,
-  "updated": "2026-10-27T00:46:44.173578+00:00",
-  "as_of_date": "2026-10-23",
+  "price": 818.1,
+  "updated": "2026-10-28T00:43:04.686695+00:00",
+  "as_of_date": "2026-10-26",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.0,
-      "volume_trend_pct_3d": -5.6,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.01,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -6.9,
+      "volume_trend_pct_3d": 27.6,
+      "volume_trend_up": true,
+      "daily_change_pct": 1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 54.2,
-      "forward_pe": 22.71672,
+      "upside_pct": 42.6,
+      "forward_pe": 24.05179,
       "peg": 0.63
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -31.742,
-      "macd_hist_change": 0.012,
+      "macd_hist": -26.018,
+      "macd_hist_change": 5.724,
       "divergence_present": false,
       "gap_days": 28,
       "signal_fresh": null,
@@ -43,30 +43,37 @@
       "rsi_improvement": -11.7
     },
     "4_zscore": {
-      "status": "pass",
-      "rsi": 34.5,
-      "rsi_zscore_1y": -2.16,
-      "zscore_quality": 0.79,
+      "status": "warn",
+      "rsi": 41.7,
+      "rsi_zscore_1y": -1.43,
+      "zscore_quality": 0.608,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
       "adx_reference": 22.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 752.54,
+        "high": 804.06,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 249,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 13.6,
+  "entry_atr_stop_pct": 12.8,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +81,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -16.0,
-      "volume_trend_pct_3d": -5.6,
-      "volume_trend_up": false,
-      "daily_change_pct": -0.01,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": -6.9,
+      "volume_trend_pct_3d": 27.6,
+      "volume_trend_up": true,
+      "daily_change_pct": 1.11,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 54.2,
-      "forward_pe": 22.71672,
+      "upside_pct": 42.6,
+      "forward_pe": 24.05179,
       "peg": 0.63
     },
     "3_pullback_gate": {
@@ -98,15 +105,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.5,
-      "rsi_zone_quality": 0.0,
+      "rsi": 41.7,
+      "rsi_zone_quality": 0.069,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 26.1
+      "stop_pct_from_20sma": 16.0
     }
   },
   "sector": "Technology",
