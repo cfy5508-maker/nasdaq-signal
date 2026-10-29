@@ -1,20 +1,20 @@
 {
   "ticker": "IBM",
   "name": "International Business Machines",
-  "price": 253.44,
-  "updated": "2026-10-28T00:42:45.008615+00:00",
-  "as_of_date": "2026-10-26",
+  "price": 250.25,
+  "updated": "2026-10-29T01:11:52.272592+00:00",
+  "as_of_date": "2026-10-27",
   "score": 18,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -31.7,
-      "volume_trend_pct_3d": -8.2,
+      "volume_diff_pct_3m": -19.0,
+      "volume_trend_pct_3d": -10.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.31,
+      "daily_change_pct": 0.06,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,20 +22,20 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 1.5,
-      "forward_pe": 18.907784,
-      "peg": 2.39
+      "upside_pct": 2.8,
+      "forward_pe": 19.132185,
+      "peg": 2.36
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 13,
+      "retest_days_ago": 14,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 3.339,
-      "macd_hist_change": -0.1,
+      "macd_hist": 2.878,
+      "macd_hist_change": -0.461,
       "divergence_present": true,
       "gap_days": 8,
       "signal_fresh": false,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 71.0,
-      "rsi_zscore_1y": 2.33,
+      "rsi": 65.9,
+      "rsi_zscore_1y": 1.79,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -53,13 +53,13 @@
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 12,
+      "days_ago": 13,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 22.2,
+      "adx_reference": 23.7,
       "volume_confirmed": true,
       "trigger_day_volume": 8921900,
       "avg_volume_divergence_window": 5872844,
@@ -68,23 +68,23 @@
         "high": 221.9,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 237,
+        "trigger_day_idx": 236,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 4.4,
-  "score_addon": 10,
+  "entry_atr_stop_pct": 4.3,
+  "score_addon": 35,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -31.7,
-      "volume_trend_pct_3d": -8.2,
+      "volume_diff_pct_3m": -19.0,
+      "volume_trend_pct_3d": -10.4,
       "volume_trend_up": false,
-      "daily_change_pct": 0.31,
+      "daily_change_pct": 0.06,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,16 +92,16 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 1.5,
-      "forward_pe": 18.907784,
-      "peg": 2.39
+      "upside_pct": 2.8,
+      "forward_pe": 19.132185,
+      "peg": 2.36
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": false,
+      "near_sma120": true,
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 71.0,
+      "rsi": 65.9,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.3
+      "stop_pct_from_20sma": 6.6
     }
   },
   "sector": "Technology",

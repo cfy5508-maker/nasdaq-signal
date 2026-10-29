@@ -1,20 +1,20 @@
 {
   "ticker": "TER",
   "name": "Teradyne, Inc.",
-  "price": 309.0,
-  "updated": "2026-10-28T00:42:46.068836+00:00",
-  "as_of_date": "2026-10-26",
-  "score": 30,
+  "price": 323.68,
+  "updated": "2026-10-29T01:11:53.473753+00:00",
+  "as_of_date": "2026-10-27",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -6.9,
-      "volume_trend_pct_3d": 27.6,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.11,
+      "volume_diff_pct_3m": -12.0,
+      "volume_trend_pct_3d": -26.1,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.27,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 44.2,
-      "forward_pe": 28.317593,
-      "peg": 0.57
+      "upside_pct": 37.6,
+      "forward_pe": 27.404234,
+      "peg": 0.59
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -9.232,
-      "macd_hist_change": 0.564,
-      "divergence_present": false,
+      "macd_hist": -7.366,
+      "macd_hist_change": 1.865,
+      "divergence_present": true,
       "gap_days": 28,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.465,
       "rsi_improvement": -7.6
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 33.0,
-      "rsi_zscore_1y": -2.18,
-      "zscore_quality": 0.795,
+      "rsi": 38.9,
+      "rsi_zscore_1y": -1.53,
+      "zscore_quality": 0.632,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.4,
+      "adx_reference": 23.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.1,
+  "entry_atr_stop_pct": 9.6,
   "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -6.9,
-      "volume_trend_pct_3d": 27.6,
-      "volume_trend_up": true,
-      "daily_change_pct": 1.11,
+      "volume_diff_pct_3m": -12.0,
+      "volume_trend_pct_3d": -26.1,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.27,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 44.2,
-      "forward_pe": 28.317593,
-      "peg": 0.57
+      "upside_pct": 37.6,
+      "forward_pe": 27.404234,
+      "peg": 0.59
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 33.0,
+      "rsi": 38.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 21.2
+      "stop_pct_from_20sma": 14.5
     }
   },
   "sector": "Technology",
@@ -128,9 +128,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_trend_start": 6,
-    "divergence_date_index": 219,
-    "price_vs_low_pct": -6.1
+    "days_since_trend_start": 7,
+    "divergence_date_index": 218,
+    "price_vs_low_pct": -1.7
   },
   "pullback_stop_signal": {
     "stop_reference_price": 308.75,
