@@ -1,20 +1,20 @@
 {
   "ticker": "EIX",
   "name": "Edison International",
-  "price": 58.19,
-  "updated": "2026-10-29T01:13:16.652947+00:00",
-  "as_of_date": "2026-10-27",
-  "score": 14,
+  "price": 58.83,
+  "updated": "2026-10-30T01:20:33.274429+00:00",
+  "as_of_date": "2026-10-28",
+  "score": 11,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -31.9,
-      "volume_trend_pct_3d": -22.6,
+      "volume_diff_pct_3m": -27.2,
+      "volume_trend_pct_3d": -24.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.56,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.1,
-      "forward_pe": 9.05499,
-      "peg": 2.59
+      "upside_pct": 6.9,
+      "forward_pe": 9.139645,
+      "peg": 2.61
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.641,
-      "macd_hist_change": -0.027,
+      "macd_hist": 0.634,
+      "macd_hist_change": -0.007,
       "divergence_present": false,
       "gap_days": 19,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.6,
-      "rsi_zscore_1y": 0.57,
-      "zscore_quality": 0.106,
+      "rsi": 63.4,
+      "rsi_zscore_1y": 0.81,
+      "zscore_quality": 0.047,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.7,
+      "adx_reference": 17.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,23 +68,23 @@
         "high": 52.01,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 230,
+        "trigger_day_idx": 229,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 8,
+  "entry_atr_stop_pct": 3.9,
+  "score_addon": 9,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -31.9,
-      "volume_trend_pct_3d": -22.6,
+      "volume_diff_pct_3m": -27.2,
+      "volume_trend_pct_3d": -24.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.56,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,9 +92,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.1,
-      "forward_pe": 9.05499,
-      "peg": 2.59
+      "upside_pct": 6.9,
+      "forward_pe": 9.139645,
+      "peg": 2.61
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.6,
-      "rsi_zone_quality": 0.824,
+      "rsi": 63.4,
+      "rsi_zone_quality": 0.936,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.8
+      "stop_pct_from_20sma": 5.3
     }
   },
   "sector": "Utilities",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 21,
-    "days_since_trend_start": 20,
-    "gain_since_low_pct": 14.9,
-    "divergence_date_index": 228
+    "days_since_divergence": 22,
+    "days_since_trend_start": 21,
+    "gain_since_low_pct": 16.2,
+    "divergence_date_index": 227
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

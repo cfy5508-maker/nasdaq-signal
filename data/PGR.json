@@ -1,20 +1,20 @@
 {
   "ticker": "PGR",
   "name": "Progressive Corporation (The)",
-  "price": 225.6,
-  "updated": "2026-10-29T01:12:04.036432+00:00",
-  "as_of_date": "2026-10-27",
+  "price": 225.66,
+  "updated": "2026-10-30T01:19:26.555045+00:00",
+  "as_of_date": "2026-10-28",
   "score": 15,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -31.9,
-      "volume_trend_pct_3d": -22.6,
+      "volume_diff_pct_3m": -27.2,
+      "volume_trend_pct_3d": -24.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.56,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -23,8 +23,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 2.1,
-      "forward_pe": 13.848701,
-      "peg": 68.86
+      "forward_pe": 14.126091,
+      "peg": 68.88
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.256,
-      "macd_hist_change": -0.299,
+      "macd_hist": 0.986,
+      "macd_hist_change": -0.271,
       "divergence_present": false,
       "gap_days": 14,
       "signal_fresh": null,
@@ -45,8 +45,8 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 59.0,
-      "rsi_zscore_1y": 0.68,
-      "zscore_quality": 0.129,
+      "rsi_zscore_1y": 0.7,
+      "zscore_quality": 0.125,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 14.5,
+      "adx_reference": 14.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,23 +68,23 @@
         "high": 213.46,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 242,
+        "trigger_day_idx": 241,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.5,
+  "entry_atr_stop_pct": 3.3,
   "score_addon": 7,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -31.9,
-      "volume_trend_pct_3d": -22.6,
+      "volume_diff_pct_3m": -27.2,
+      "volume_trend_pct_3d": -24.3,
       "volume_trend_up": false,
-      "daily_change_pct": 0.56,
+      "daily_change_pct": 0.34,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -93,18 +93,18 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 2.1,
-      "forward_pe": 13.848701,
-      "peg": 68.86
+      "forward_pe": 14.126091,
+      "peg": 68.88
     },
     "3_pullback_gate": {
       "status": "fail",
-      "near_sma20": false,
+      "near_sma20": true,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 0,
-      "ma_converged_ignored": false,
+      "near_ma_count": 1,
+      "ma_converged_ignored": true,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
@@ -113,7 +113,7 @@
     "4_rsi_zone": {
       "status": "warn",
       "rsi": 59.0,
-      "rsi_zone_quality": 0.759,
+      "rsi_zone_quality": 0.762,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,18 +125,18 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.2
+      "stop_pct_from_20sma": 2.8
     }
   },
   "sector": "Financial Services",
   "sector_relative_strength_up": true,
   "uptrend_entry_signal": {
     "active": true,
-    "phase": "entry",
-    "days_since_divergence": 9,
-    "days_since_trend_start": 5,
+    "phase": "ongoing",
+    "days_since_divergence": 10,
+    "days_since_trend_start": 6,
     "gain_since_low_pct": 5.7,
-    "divergence_date_index": 240
+    "divergence_date_index": 239
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
