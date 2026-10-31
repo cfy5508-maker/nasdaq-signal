@@ -1,20 +1,20 @@
 {
   "ticker": "B",
   "name": "Barrick Mining Corporation",
-  "price": 39.69,
-  "updated": "2026-10-30T01:20:52.344790+00:00",
-  "as_of_date": "2026-10-28",
-  "score": 61,
+  "price": 38.67,
+  "updated": "2026-10-31T01:01:29.805369+00:00",
+  "as_of_date": "2026-10-29",
+  "score": 71,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -27.2,
-      "volume_trend_pct_3d": -24.3,
+      "volume_diff_pct_3m": -1.5,
+      "volume_trend_pct_3d": -16.9,
       "volume_trend_up": false,
-      "daily_change_pct": 0.34,
+      "daily_change_pct": -0.38,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,44 +22,44 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.2,
-      "forward_pe": 9.19556,
+      "upside_pct": 29.6,
+      "forward_pe": 8.800819,
       "peg": 2.04
     },
     "3_divergence_gate": {
-      "status": "neutral",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.019,
-      "macd_hist_change": 0.072,
-      "divergence_present": false,
+      "macd_recovery_bonus_applied": true,
+      "macd_hist": -0.032,
+      "macd_hist_change": -0.013,
+      "divergence_present": true,
       "gap_days": 12,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": false,
+      "divergence_quality": 0.605,
       "rsi_improvement": 0.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 46.1,
-      "rsi_zscore_1y": -0.52,
-      "zscore_quality": 0.379,
+      "rsi": 41.7,
+      "rsi_zscore_1y": -0.87,
+      "zscore_quality": 0.468,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "해머",
-      "days_ago": 2,
+      "days_ago": 3,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 3,
-      "adx_reference": 16.1,
+      "wick_days_ago": 4,
+      "adx_reference": 16.4,
       "volume_confirmed": false,
       "trigger_day_volume": 5852800,
       "avg_volume_divergence_window": 6364546,
@@ -68,23 +68,23 @@
         "high": 38.34,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.7,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 4.9,
+  "score_addon": 46,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -27.2,
-      "volume_trend_pct_3d": -24.3,
+      "volume_diff_pct_3m": -1.5,
+      "volume_trend_pct_3d": -16.9,
       "volume_trend_up": false,
-      "daily_change_pct": 0.34,
+      "daily_change_pct": -0.38,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.2,
-      "forward_pe": 9.19556,
+      "upside_pct": 29.6,
+      "forward_pe": 8.800819,
       "peg": 2.04
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 46.1,
-      "rsi_zone_quality": 0.246,
+      "rsi": 41.7,
+      "rsi_zone_quality": 0.067,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.6
+      "stop_pct_from_20sma": 3.1
     }
   },
   "sector": "Basic Materials",

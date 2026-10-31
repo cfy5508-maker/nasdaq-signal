@@ -1,29 +1,29 @@
 {
   "ticker": "AMSC",
   "name": "American Superconductor Corpora",
-  "price": 28.19,
-  "updated": "2026-10-30T01:19:28.503851+00:00",
-  "as_of_date": "2026-10-28",
-  "score": 51,
+  "price": 28.05,
+  "updated": "2026-10-31T01:00:07.330834+00:00",
+  "as_of_date": "2026-10-29",
+  "score": 52,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -11.8,
-      "volume_trend_pct_3d": -25.7,
+      "volume_diff_pct_3m": 11.7,
+      "volume_trend_pct_3d": -22.0,
       "volume_trend_up": false,
-      "daily_change_pct": 0.6,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": -1.42,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 119.0,
-      "forward_pe": 20.701107,
+      "upside_pct": 120.1,
+      "forward_pe": 19.963099,
       "peg": 0.74
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.049,
-      "macd_hist_change": 0.182,
+      "macd_hist": 0.16,
+      "macd_hist_change": 0.111,
       "divergence_present": false,
       "gap_days": 6,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.2,
-      "rsi_zscore_1y": 0.46,
-      "zscore_quality": 0.135,
+      "rsi": 50.5,
+      "rsi_zscore_1y": 0.4,
+      "zscore_quality": 0.151,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 2,
-      "adx_reference": 27.9,
+      "wick_days_ago": 3,
+      "adx_reference": 26.2,
       "volume_confirmed": false,
       "trigger_day_volume": 495500,
       "avg_volume_divergence_window": 839243,
@@ -68,7 +68,7 @@
         "high": 25.58,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
@@ -77,23 +77,23 @@
   "score_addon": 50,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": -11.8,
-      "volume_trend_pct_3d": -25.7,
+      "volume_diff_pct_3m": 11.7,
+      "volume_trend_pct_3d": -22.0,
       "volume_trend_up": false,
-      "daily_change_pct": 0.6,
-      "volatility_label": "정상",
-      "index_trigger_candle": true,
+      "daily_change_pct": -1.42,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 119.0,
-      "forward_pe": 20.701107,
+      "upside_pct": 120.1,
+      "forward_pe": 19.963099,
       "peg": 0.74
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 51.2,
-      "rsi_zone_quality": 0.447,
+      "rsi": 50.5,
+      "rsi_zone_quality": 0.421,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,18 +125,18 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.6
+      "stop_pct_from_20sma": 0.4
     }
   },
   "sector": "Industrials",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 4,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 12.7,
-    "divergence_date_index": 245
+    "days_since_divergence": 5,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 12.2,
+    "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
