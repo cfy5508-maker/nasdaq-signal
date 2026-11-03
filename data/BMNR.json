@@ -1,9 +1,9 @@
 {
   "ticker": "BMNR",
   "name": "BitMine Immersion Technologies,",
-  "price": 20.18,
-  "updated": "2026-11-02T01:00:59.866419+00:00",
-  "as_of_date": "2026-10-30",
+  "price": 19.54,
+  "updated": "2026-11-03T03:02:57.889811+00:00",
+  "as_of_date": "2026-11-02",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 91.3,
-      "volume_trend_pct_3d": 57.9,
+      "volume_diff_pct_3m": 24.4,
+      "volume_trend_pct_3d": 86.4,
       "volume_trend_up": true,
-      "daily_change_pct": -1.77,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.48,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 127.3,
-      "forward_pe": 21.468086,
+      "upside_pct": 134.7,
+      "forward_pe": 20.787235,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.257,
+      "macd_hist": -0.314,
       "macd_hist_change": -0.056,
       "divergence_present": false,
-      "gap_days": 9,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -0.1
+      "rsi_improvement": -3.2
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 36.8,
-      "rsi_zscore_1y": -1.03,
-      "zscore_quality": 0.508,
+      "rsi": 34.8,
+      "rsi_zscore_1y": -1.27,
+      "zscore_quality": 0.567,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,42 +59,42 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.6,
+      "adx_reference": 23.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 11.0,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 11.4,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 91.3,
-      "volume_trend_pct_3d": 57.9,
+      "volume_diff_pct_3m": 24.4,
+      "volume_trend_pct_3d": 86.4,
       "volume_trend_up": true,
-      "daily_change_pct": -1.77,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.48,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 127.3,
-      "forward_pe": 21.468086,
+      "upside_pct": 134.7,
+      "forward_pe": 20.787235,
       "peg": null
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
-      "near_sma120": true,
+      "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.8,
+      "rsi": 34.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 14.0
+      "stop_pct_from_20sma": 15.9
     }
   },
   "sector": "Financial Services",
@@ -128,12 +128,12 @@
   "downtrend_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_trend_start": 0,
-    "divergence_date_index": 246,
-    "price_vs_low_pct": -3.7
+    "days_since_trend_start": 1,
+    "divergence_date_index": 245,
+    "price_vs_low_pct": -6.7
   },
   "pullback_stop_signal": {
-    "stop_reference_price": 20.18,
+    "stop_reference_price": 19.54,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

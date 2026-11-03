@@ -1,29 +1,29 @@
 {
   "ticker": "GOOGL",
   "name": "Alphabet Inc.",
-  "price": 279.84,
-  "updated": "2026-11-02T01:00:23.965789+00:00",
-  "as_of_date": "2026-10-30",
+  "price": 278.99,
+  "updated": "2026-11-03T03:02:25.067632+00:00",
+  "as_of_date": "2026-11-02",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 149.6,
-      "volume_trend_pct_3d": 63.3,
+      "volume_diff_pct_3m": 57.7,
+      "volume_trend_pct_3d": 88.2,
       "volume_trend_up": true,
-      "daily_change_pct": -3.47,
-      "volatility_label": "급변",
+      "daily_change_pct": -1.36,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 45.3,
-      "forward_pe": 18.439241,
+      "upside_pct": 44.4,
+      "forward_pe": 18.377178,
       "peg": 0.98
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -6.227,
-      "macd_hist_change": -1.267,
+      "macd_hist": -6.694,
+      "macd_hist_change": -0.467,
       "divergence_present": false,
       "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -9.9
+      "rsi_improvement": -8.4
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 21.4,
-      "rsi_zscore_1y": -2.43,
-      "zscore_quality": 0.856,
+      "rsi": 21.2,
+      "rsi_zscore_1y": -2.4,
+      "zscore_quality": 0.851,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 26.1,
+      "adx_reference": 28.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 5.6,
+  "entry_atr_stop_pct": 5.5,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 149.6,
-      "volume_trend_pct_3d": 63.3,
+      "volume_diff_pct_3m": 57.7,
+      "volume_trend_pct_3d": 88.2,
       "volume_trend_up": true,
-      "daily_change_pct": -3.47,
-      "volatility_label": "급변",
+      "daily_change_pct": -1.36,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 45.3,
-      "forward_pe": 18.439241,
+      "upside_pct": 44.4,
+      "forward_pe": 18.377178,
       "peg": 0.98
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 21.4,
+      "rsi": 21.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 19.3
+      "stop_pct_from_20sma": 18.5
     }
   },
   "sector": "Communication Services",
@@ -126,20 +126,20 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 243,
-    "days_since_prior_divergence": 7,
-    "price_drop_since_pct": 16.4,
+    "prior_divergence_date_index": 242,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 16.7,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 279.84,
+    "stop_reference_price": 278.99,
     "stopped_out": false
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false

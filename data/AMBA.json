@@ -1,29 +1,29 @@
 {
   "ticker": "AMBA",
   "name": "Ambarella, Inc.",
-  "price": 63.12,
-  "updated": "2026-11-02T01:01:16.128292+00:00",
-  "as_of_date": "2026-10-30",
-  "score": 52,
+  "price": 61.67,
+  "updated": "2026-11-03T03:03:12.763133+00:00",
+  "as_of_date": "2026-11-02",
+  "score": 54,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 149.6,
-      "volume_trend_pct_3d": 63.3,
+      "volume_diff_pct_3m": 57.7,
+      "volume_trend_pct_3d": 88.2,
       "volume_trend_up": true,
-      "daily_change_pct": -3.47,
-      "volatility_label": "급변",
+      "daily_change_pct": -1.36,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 38.7,
-      "forward_pe": 59.79368,
+      "upside_pct": 42.0,
+      "forward_pe": 58.42009,
       "peg": 2.28
     },
     "3_divergence_gate": {
@@ -33,20 +33,20 @@
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
-      "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.185,
-      "macd_hist_change": -0.179,
+      "macd_recovery_bonus_applied": true,
+      "macd_hist": -0.021,
+      "macd_hist_change": -0.206,
       "divergence_present": true,
-      "gap_days": 12,
+      "gap_days": 13,
       "signal_fresh": true,
-      "divergence_quality": 0.464,
-      "rsi_improvement": 5.5
+      "divergence_quality": 0.482,
+      "rsi_improvement": 2.7
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.9,
-      "rsi_zscore_1y": -0.34,
-      "zscore_quality": 0.385,
+      "rsi": 41.2,
+      "rsi_zscore_1y": -0.56,
+      "zscore_quality": 0.441,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.9,
+      "adx_reference": 13.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 8.9,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 9.2,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 149.6,
-      "volume_trend_pct_3d": 63.3,
+      "volume_diff_pct_3m": 57.7,
+      "volume_trend_pct_3d": 88.2,
       "volume_trend_up": true,
-      "daily_change_pct": -3.47,
-      "volatility_label": "급변",
+      "daily_change_pct": -1.36,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 38.7,
-      "forward_pe": 59.79368,
+      "upside_pct": 42.0,
+      "forward_pe": 58.42009,
       "peg": 2.28
     },
     "3_pullback_gate": {
@@ -101,12 +101,12 @@
       "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
-      "ma_spread_widening": false
+      "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.9,
-      "rsi_zone_quality": 0.158,
+      "rsi": 41.2,
+      "rsi_zone_quality": 0.049,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.7
+      "stop_pct_from_20sma": 4.6
     }
   },
   "sector": "Technology",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 63.12,
+    "stop_reference_price": 61.67,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
