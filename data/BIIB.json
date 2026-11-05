@@ -1,29 +1,29 @@
 {
   "ticker": "BIIB",
   "name": "Biogen Inc.",
-  "price": 249.01,
-  "updated": "2026-11-04T01:37:56.516158+00:00",
-  "as_of_date": "2026-11-02",
+  "price": 248.93,
+  "updated": "2026-11-05T01:44:55.149638+00:00",
+  "as_of_date": "2026-11-03",
   "score": 24,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 58.4,
-      "volume_trend_pct_3d": 88.5,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": 78.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.36,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 6.4,
-      "forward_pe": 15.308133,
+      "forward_pe": 15.648206,
       "peg": 3.39
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.645,
-      "macd_hist_change": -0.435,
+      "macd_hist": 0.27,
+      "macd_hist_change": -0.375,
       "divergence_present": false,
       "gap_days": 21,
       "signal_fresh": null,
@@ -45,8 +45,8 @@
     "4_zscore": {
       "status": "fail",
       "rsi": 61.0,
-      "rsi_zscore_1y": 0.54,
-      "zscore_quality": 0.115,
+      "rsi_zscore_1y": 0.57,
+      "zscore_quality": 0.108,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 14,
-      "adx_reference": 33.0,
+      "wick_days_ago": 15,
+      "adx_reference": 32.3,
       "volume_confirmed": false,
       "trigger_day_volume": 1049100,
       "avg_volume_divergence_window": 1130736,
@@ -68,32 +68,32 @@
         "high": 220.15,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 233,
+        "trigger_day_idx": 232,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.7,
+  "entry_atr_stop_pct": 4.6,
   "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 58.4,
-      "volume_trend_pct_3d": 88.5,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": 78.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.36,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 6.4,
-      "forward_pe": 15.308133,
+      "forward_pe": 15.648206,
       "peg": 3.39
     },
     "3_pullback_gate": {
@@ -113,7 +113,7 @@
     "4_rsi_zone": {
       "status": "pass",
       "rsi": 61.0,
-      "rsi_zone_quality": 0.842,
+      "rsi_zone_quality": 0.838,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.2
+      "stop_pct_from_20sma": 3.6
     }
   },
   "sector": "Healthcare",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 17,
-    "days_since_trend_start": 16,
+    "days_since_divergence": 18,
+    "days_since_trend_start": 17,
     "gain_since_low_pct": 14.0,
-    "divergence_date_index": 232
+    "divergence_date_index": 231
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

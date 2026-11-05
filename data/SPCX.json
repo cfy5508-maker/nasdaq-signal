@@ -1,29 +1,29 @@
 {
   "ticker": "SPCX",
   "name": "Space Exploration Technologies ",
-  "price": 136.37,
-  "updated": "2026-11-04T01:37:45.956356+00:00",
-  "as_of_date": "2026-11-02",
-  "score": 51,
+  "price": 141.31,
+  "updated": "2026-11-05T01:44:45.521193+00:00",
+  "as_of_date": "2026-11-03",
+  "score": 52,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 58.4,
-      "volume_trend_pct_3d": 88.5,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": 78.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.36,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 88.5,
-      "forward_pe": 55.098488,
+      "upside_pct": 82.0,
+      "forward_pe": 52.99686,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -2.103,
-      "macd_hist_change": -0.109,
+      "macd_hist": -1.735,
+      "macd_hist_change": 0.368,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": true,
-      "divergence_quality": 0.326,
+      "divergence_quality": 0.496,
       "rsi_improvement": -6.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 38.9,
-      "rsi_zscore_1y": -0.92,
-      "zscore_quality": 0.479,
+      "rsi": 44.0,
+      "rsi_zscore_1y": -0.42,
+      "zscore_quality": 0.355,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -56,7 +56,7 @@
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
       "adx_reference": 17.8,
@@ -66,27 +66,27 @@
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 8.2,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 7.9,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 58.4,
-      "volume_trend_pct_3d": 88.5,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": 78.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.36,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 88.5,
-      "forward_pe": 55.098488,
+      "upside_pct": 82.0,
+      "forward_pe": 52.99686,
       "peg": null
     },
     "3_pullback_gate": {
@@ -100,13 +100,13 @@
       "ma_converged_ignored": false,
       "was_above_20_recently": false,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": true,
+      "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.9,
-      "rsi_zone_quality": 0.0,
+      "rsi": 44.0,
+      "rsi_zone_quality": 0.16,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.2
+      "stop_pct_from_20sma": 6.2
     }
   },
   "sector": "Industrials",
@@ -127,8 +127,8 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 84,
-    "days_since_prior_divergence": 14,
-    "price_drop_since_pct": 12.9,
+    "days_since_prior_divergence": 15,
+    "price_drop_since_pct": 9.7,
     "rescue_attempted": true
   },
   "downtrend_signal": null,

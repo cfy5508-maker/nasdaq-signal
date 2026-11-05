@@ -1,20 +1,20 @@
 {
   "ticker": "NET",
   "name": "Cloudflare, Inc.",
-  "price": 265.17,
-  "updated": "2026-11-04T01:38:27.788121+00:00",
-  "as_of_date": "2026-11-02",
-  "score": 30,
+  "price": 273.62,
+  "updated": "2026-11-05T01:45:25.077481+00:00",
+  "as_of_date": "2026-11-03",
+  "score": 59,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 24.8,
-      "volume_trend_pct_3d": 86.5,
+      "volume_diff_pct_3m": -19.4,
+      "volume_trend_pct_3d": 62.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.48,
+      "daily_change_pct": 0.3,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.2,
-      "forward_pe": 161.7063,
+      "upside_pct": 26.1,
+      "forward_pe": 157.54573,
       "peg": 2.38
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -5.423,
-      "macd_hist_change": -2.024,
-      "divergence_present": false,
+      "macd_hist": -5.826,
+      "macd_hist_change": -0.403,
+      "divergence_present": true,
       "gap_days": 9,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.393,
       "rsi_improvement": -2.7
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 32.1,
-      "rsi_zscore_1y": -1.89,
-      "zscore_quality": 0.721,
+      "rsi": 35.9,
+      "rsi_zscore_1y": -1.59,
+      "zscore_quality": 0.648,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 21.1,
+      "adx_reference": 22.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 11.0,
+  "entry_atr_stop_pct": 10.4,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -74,10 +74,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 24.8,
-      "volume_trend_pct_3d": 86.5,
+      "volume_diff_pct_3m": -19.4,
+      "volume_trend_pct_3d": 62.9,
       "volume_trend_up": true,
-      "daily_change_pct": -0.48,
+      "daily_change_pct": 0.3,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 30.2,
-      "forward_pe": 161.7063,
+      "upside_pct": 26.1,
+      "forward_pe": 157.54573,
       "peg": 2.38
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.1,
+      "rsi": 35.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,17 +118,17 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 20.6
+      "stop_pct_from_20sma": 15.4
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": false,
+  "sector_relative_strength_up": true,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 248,
-    "days_since_prior_divergence": 1,
-    "price_drop_since_pct": 5.5,
+    "prior_divergence_date_index": 247,
+    "days_since_prior_divergence": 2,
+    "price_drop_since_pct": 2.5,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

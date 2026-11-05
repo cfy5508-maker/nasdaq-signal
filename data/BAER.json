@@ -1,28 +1,28 @@
 {
   "ticker": "BAER",
   "name": "Bridger Aerospace Group Holding",
-  "price": 0.38,
-  "updated": "2026-11-04T01:38:38.836057+00:00",
-  "as_of_date": "2026-11-02",
-  "score": 53,
+  "price": 0.31,
+  "updated": "2026-11-05T01:45:35.468778+00:00",
+  "as_of_date": "2026-11-03",
+  "score": 55,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 58.4,
-      "volume_trend_pct_3d": 88.5,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": 78.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.36,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 788.3,
+      "upside_pct": 1003.8,
       "forward_pe": null,
       "peg": null
     },
@@ -34,20 +34,20 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.007,
-      "macd_hist_change": -0.002,
+      "macd_hist": 0.002,
+      "macd_hist_change": -0.005,
       "divergence_present": true,
-      "gap_days": 12,
+      "gap_days": 25,
       "signal_fresh": true,
-      "divergence_quality": 0.644,
-      "rsi_improvement": 2.9
+      "divergence_quality": 0.713,
+      "rsi_improvement": 4.3
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 22.2,
-      "rsi_zscore_1y": -1.46,
-      "zscore_quality": 0.665,
-      "zscore_direction_bonus_applied": true
+      "status": "pass",
+      "rsi": 18.5,
+      "rsi_zscore_1y": -1.69,
+      "zscore_quality": 0.672,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -59,33 +59,33 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 59.2,
+      "adx_reference": 59.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 24.9,
+  "entry_atr_stop_pct": 32.4,
   "score_addon": 11,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 58.4,
-      "volume_trend_pct_3d": 88.5,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": 78.0,
       "volume_trend_up": true,
-      "daily_change_pct": -1.36,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 0.62,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "warn",
-      "upside_pct": 788.3,
+      "upside_pct": 1003.8,
       "forward_pe": null,
       "peg": null
     },
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 22.2,
+      "rsi": 18.5,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 35.4
+      "stop_pct_from_20sma": 63.4
     }
   },
   "sector": "Industrials",
@@ -126,14 +126,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 244,
-    "days_since_prior_divergence": 5,
-    "price_drop_since_pct": 18.1,
+    "prior_divergence_date_index": 243,
+    "days_since_prior_divergence": 6,
+    "price_drop_since_pct": 34.1,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 0.38,
+    "stop_reference_price": 0.31,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
