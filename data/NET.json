@@ -1,29 +1,29 @@
 {
   "ticker": "NET",
   "name": "Cloudflare, Inc.",
-  "price": 273.62,
-  "updated": "2026-11-05T01:45:44.449197+00:00",
-  "as_of_date": "2026-11-03",
-  "score": 59,
+  "price": 266.58,
+  "updated": "2026-11-06T01:46:58.991262+00:00",
+  "as_of_date": "2026-11-04",
+  "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.1,
-      "forward_pe": 157.54573,
+      "upside_pct": 29.5,
+      "forward_pe": 144.50262,
       "peg": 2.38
     },
     "3_divergence_gate": {
@@ -34,59 +34,59 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -5.826,
-      "macd_hist_change": -0.403,
+      "macd_hist": -6.167,
+      "macd_hist_change": -0.341,
       "divergence_present": true,
       "gap_days": 9,
       "signal_fresh": true,
-      "divergence_quality": 0.393,
+      "divergence_quality": 0.336,
       "rsi_improvement": -2.7
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 35.9,
-      "rsi_zscore_1y": -1.59,
-      "zscore_quality": 0.648,
+      "rsi": 34.1,
+      "rsi_zscore_1y": -1.78,
+      "zscore_quality": 0.696,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 22.5,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 24.1,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 3411700,
+      "avg_volume_divergence_window": 3520120,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.4,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 10.5,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 26.1,
-      "forward_pe": 157.54573,
+      "upside_pct": 29.5,
+      "forward_pe": 144.50262,
       "peg": 2.38
     },
     "3_pullback_gate": {
@@ -105,30 +105,30 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.9,
+      "rsi": 34.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "pass",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
-      "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "wick_present": true,
+      "wick_volume_confirmed": true,
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 15.4
+      "stop_pct_from_20sma": 17.0
     }
   },
   "sector": "Technology",
-  "sector_relative_strength_up": true,
+  "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 2.5,
+    "prior_divergence_date_index": 246,
+    "days_since_prior_divergence": 3,
+    "price_drop_since_pct": 5.0,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

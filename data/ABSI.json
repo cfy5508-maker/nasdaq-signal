@@ -1,20 +1,20 @@
 {
   "ticker": "ABSI",
   "name": "Absci Corporation",
-  "price": 10.0,
-  "updated": "2026-11-05T01:45:32.754663+00:00",
-  "as_of_date": "2026-11-03",
-  "score": 57,
+  "price": 10.48,
+  "updated": "2026-11-06T01:46:48.764451+00:00",
+  "as_of_date": "2026-11-04",
+  "score": 56,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 7.5,
-      "volume_trend_pct_3d": 78.0,
+      "volume_diff_pct_3m": 78.3,
+      "volume_trend_pct_3d": 0.4,
       "volume_trend_up": true,
-      "daily_change_pct": 0.62,
+      "daily_change_pct": 0.97,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 48.2,
-      "forward_pe": -15.116982,
+      "upside_pct": 41.4,
+      "forward_pe": -13.544703,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.078,
-      "macd_hist_change": -0.065,
+      "macd_hist": 0.062,
+      "macd_hist_change": -0.016,
       "divergence_present": false,
       "gap_days": 23,
       "signal_fresh": null,
@@ -44,22 +44,22 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 50.5,
-      "rsi_zscore_1y": -0.3,
-      "zscore_quality": 0.324,
+      "rsi": 53.3,
+      "rsi_zscore_1y": -0.08,
+      "zscore_quality": 0.27,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
       "breakout_confirmed": true,
       "pattern": "불리시엔걸핑",
-      "days_ago": 10,
+      "days_ago": 11,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.8,
+      "adx_reference": 18.0,
       "volume_confirmed": false,
       "trigger_day_volume": 2822500,
       "avg_volume_divergence_window": 4458283,
@@ -68,23 +68,23 @@
         "high": 8.93,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 239,
+        "trigger_day_idx": 238,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 14.9,
-  "score_addon": 27,
+  "entry_atr_stop_pct": 14.2,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 7.5,
-      "volume_trend_pct_3d": 78.0,
+      "volume_diff_pct_3m": 78.3,
+      "volume_trend_pct_3d": 0.4,
       "volume_trend_up": true,
-      "daily_change_pct": 0.62,
+      "daily_change_pct": 0.97,
       "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -92,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 48.2,
-      "forward_pe": -15.116982,
+      "upside_pct": 41.4,
+      "forward_pe": -13.544703,
       "peg": null
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 50.5,
-      "rsi_zone_quality": 0.422,
+      "rsi": 53.3,
+      "rsi_zone_quality": 0.53,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.0
+      "stop_pct_from_20sma": 6.9
     }
   },
   "sector": "Healthcare",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 12,
-    "days_since_trend_start": 11,
-    "gain_since_low_pct": 21.2,
-    "divergence_date_index": 237
+    "days_since_divergence": 13,
+    "days_since_trend_start": 12,
+    "gain_since_low_pct": 27.0,
+    "divergence_date_index": 236
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

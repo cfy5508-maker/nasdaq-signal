@@ -1,29 +1,29 @@
 {
   "ticker": "OKLO",
   "name": "Oklo Inc.",
-  "price": 23.49,
-  "updated": "2026-11-05T01:46:01.002068+00:00",
-  "as_of_date": "2026-11-03",
+  "price": 22.12,
+  "updated": "2026-11-06T01:47:13.161713+00:00",
+  "as_of_date": "2026-11-04",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 177.8,
-      "forward_pe": -20.78674,
+      "upside_pct": 195.0,
+      "forward_pe": -18.04274,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.149,
-      "macd_hist_change": -0.023,
+      "macd_hist": -0.215,
+      "macd_hist_change": -0.066,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 7,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -1.4
+      "rsi_improvement": -3.8
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 25.1,
-      "rsi_zscore_1y": -2.02,
-      "zscore_quality": 0.755,
+      "rsi": 22.7,
+      "rsi_zscore_1y": -2.29,
+      "zscore_quality": 0.823,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 35.9,
+      "adx_reference": 37.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 12.2,
+  "entry_atr_stop_pct": 13.3,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 177.8,
-      "forward_pe": -20.78674,
+      "upside_pct": 195.0,
+      "forward_pe": -18.04274,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 25.1,
+      "rsi": 22.7,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 21.8
+      "stop_pct_from_20sma": 26.1
     }
   },
   "sector": "Utilities",
@@ -126,14 +126,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 247,
-    "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 7.0,
+    "prior_divergence_date_index": 246,
+    "days_since_prior_divergence": 3,
+    "price_drop_since_pct": 12.4,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.49,
+    "stop_reference_price": 22.12,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,30 +1,30 @@
 {
   "ticker": "BLK",
   "name": "BlackRock, Inc.",
-  "price": 1161.32,
-  "updated": "2026-11-05T01:45:26.783435+00:00",
-  "as_of_date": "2026-11-03",
-  "score": 43,
+  "price": 1224.37,
+  "updated": "2026-11-06T01:46:43.543609+00:00",
+  "as_of_date": "2026-11-04",
+  "score": 42,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.0,
-      "forward_pe": 18.8885,
-      "peg": 0.96
+      "upside_pct": 11.0,
+      "forward_pe": 18.060064,
+      "peg": 1.02
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 4.423,
-      "macd_hist_change": -0.857,
+      "macd_hist": 7.533,
+      "macd_hist_change": 3.11,
       "divergence_present": false,
       "gap_days": 27,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.3,
-      "rsi_zscore_1y": 0.87,
-      "zscore_quality": 0.082,
+      "rsi": 70.2,
+      "rsi_zscore_1y": 1.83,
+      "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 5,
-      "adx_reference": 19.8,
+      "wick_days_ago": 6,
+      "adx_reference": 21.1,
       "volume_confirmed": false,
       "trigger_day_volume": 545400,
       "avg_volume_divergence_window": 648364,
@@ -68,33 +68,33 @@
         "high": 1124.97,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 244,
+        "trigger_day_idx": 243,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 51,
+  "entry_atr_stop_pct": 3.6,
+  "score_addon": 54,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 17.0,
-      "forward_pe": 18.8885,
-      "peg": 0.96
+      "upside_pct": 11.0,
+      "forward_pe": 18.060064,
+      "peg": 1.02
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 60.3,
-      "rsi_zone_quality": 0.813,
+      "rsi": 70.2,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.4
+      "stop_pct_from_20sma": 7.8
     }
   },
   "sector": "Financial Services",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 7,
-    "days_since_trend_start": 4,
-    "gain_since_low_pct": 3.9,
-    "divergence_date_index": 242
+    "days_since_divergence": 8,
+    "days_since_trend_start": 5,
+    "gain_since_low_pct": 9.5,
+    "divergence_date_index": 241
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

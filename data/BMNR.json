@@ -1,29 +1,29 @@
 {
   "ticker": "BMNR",
   "name": "BitMine Immersion Technologies,",
-  "price": 20.53,
-  "updated": "2026-11-05T01:45:51.110597+00:00",
-  "as_of_date": "2026-11-03",
-  "score": 53,
+  "price": 21.73,
+  "updated": "2026-11-06T01:47:04.613168+00:00",
+  "as_of_date": "2026-11-04",
+  "score": 55,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 123.4,
-      "forward_pe": 23.117022,
+      "upside_pct": 111.1,
+      "forward_pe": 20.212767,
       "peg": null
     },
     "3_divergence_gate": {
@@ -31,26 +31,26 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.263,
-      "macd_hist_change": 0.051,
+      "macd_hist": -0.133,
+      "macd_hist_change": 0.13,
       "divergence_present": true,
       "gap_days": 5,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.449,
       "rsi_improvement": -3.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.3,
-      "rsi_zscore_1y": -0.77,
-      "zscore_quality": 0.442,
+      "rsi": 46.2,
+      "rsi_zscore_1y": -0.19,
+      "zscore_quality": 0.298,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,34 +59,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.1,
+      "adx_reference": 22.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 19.9,
+        "high": 20.53,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 249,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 10.7,
-  "score_addon": 22,
+  "entry_atr_stop_pct": 10.3,
+  "score_addon": 25,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -19.4,
-      "volume_trend_pct_3d": 62.9,
-      "volume_trend_up": true,
-      "daily_change_pct": 0.3,
-      "volatility_label": "정상",
+      "volume_diff_pct_3m": 52.5,
+      "volume_trend_pct_3d": -1.6,
+      "volume_trend_up": false,
+      "daily_change_pct": 1.65,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 123.4,
-      "forward_pe": 23.117022,
+      "upside_pct": 111.1,
+      "forward_pe": 20.212767,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.3,
-      "rsi_zone_quality": 0.011,
+      "rsi": 46.2,
+      "rsi_zone_quality": 0.247,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.9
+      "stop_pct_from_20sma": 2.2
     }
   },
   "sector": "Financial Services",
@@ -128,9 +135,9 @@
   "downtrend_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_trend_start": 2,
-    "divergence_date_index": 243,
-    "price_vs_low_pct": -2.0
+    "days_since_trend_start": 3,
+    "divergence_date_index": 242,
+    "price_vs_low_pct": 3.7
   },
   "pullback_stop_signal": {
     "stop_reference_price": 19.54,
