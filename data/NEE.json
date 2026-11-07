@@ -1,29 +1,29 @@
 {
   "ticker": "NEE",
   "name": "NextEra Energy, Inc.",
-  "price": 88.45,
-  "updated": "2026-11-06T01:47:34.499309+00:00",
-  "as_of_date": "2026-11-04",
+  "price": 88.25,
+  "updated": "2026-11-07T01:09:43.017304+00:00",
+  "as_of_date": "2026-11-05",
   "score": 22,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "fail",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 52.5,
-      "volume_trend_pct_3d": -1.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 1.65,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 206.8,
+      "volume_trend_pct_3d": 30.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -4.41,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.3,
-      "forward_pe": 20.170185,
+      "upside_pct": 6.5,
+      "forward_pe": 19.873058,
       "peg": 1.8
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.85,
-      "macd_hist_change": 0.202,
+      "macd_hist": 0.912,
+      "macd_hist_change": 0.062,
       "divergence_present": false,
       "gap_days": 15,
       "signal_fresh": null,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 74.2,
-      "rsi_zscore_1y": 1.99,
+      "rsi": 73.2,
+      "rsi_zscore_1y": 1.91,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 31.7,
+      "adx_reference": 34.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 79.41,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 240,
+        "trigger_day_idx": 239,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.0,
+  "entry_atr_stop_pct": 3.1,
   "score_addon": 14,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "fail",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 52.5,
-      "volume_trend_pct_3d": -1.6,
-      "volume_trend_up": false,
-      "daily_change_pct": 1.65,
-      "volatility_label": "다소변동",
+      "volume_diff_pct_3m": 206.8,
+      "volume_trend_pct_3d": 30.9,
+      "volume_trend_up": true,
+      "daily_change_pct": -4.41,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
-      "dead_cross_recent": false
+      "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.3,
-      "forward_pe": 20.170185,
+      "upside_pct": 6.5,
+      "forward_pe": 19.873058,
       "peg": 1.8
     },
     "3_pullback_gate": {
@@ -112,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 74.2,
+      "rsi": 73.2,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 8.6
+      "stop_pct_from_20sma": 7.8
     }
   },
   "sector": "Utilities",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 12,
-    "days_since_trend_start": 9,
-    "gain_since_low_pct": 13.2,
-    "divergence_date_index": 237
+    "days_since_divergence": 13,
+    "days_since_trend_start": 10,
+    "gain_since_low_pct": 12.9,
+    "divergence_date_index": 236
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

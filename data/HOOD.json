@@ -1,52 +1,52 @@
 {
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
-  "price": 87.41,
-  "updated": "2026-11-06T01:47:18.638406+00:00",
-  "as_of_date": "2026-11-04",
-  "score": 58,
+  "price": 78.39,
+  "updated": "2026-11-07T01:09:27.179097+00:00",
+  "as_of_date": "2026-11-05",
+  "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "fail",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 78.3,
-      "volume_trend_pct_3d": 0.4,
+      "volume_diff_pct_3m": 268.3,
+      "volume_trend_pct_3d": 29.4,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
-      "volatility_label": "정상",
+      "daily_change_pct": -6.49,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 49.5,
-      "forward_pe": 22.964563,
-      "peg": 1.42
+      "upside_pct": 66.7,
+      "forward_pe": 23.702806,
+      "peg": 1.27
     },
     "3_divergence_gate": {
-      "status": "warn",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.048,
-      "macd_hist_change": 0.334,
-      "divergence_present": true,
-      "gap_days": 5,
-      "signal_fresh": true,
-      "divergence_quality": 0.481,
-      "rsi_improvement": -6.1
+      "macd_hist": -1.312,
+      "macd_hist_change": -0.264,
+      "divergence_present": false,
+      "gap_days": 6,
+      "signal_fresh": null,
+      "divergence_quality": null,
+      "rsi_improvement": -6.6
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 34.9,
-      "rsi_zscore_1y": -1.18,
-      "zscore_quality": 0.546,
+      "status": "pass",
+      "rsi": 27.8,
+      "rsi_zscore_1y": -1.81,
+      "zscore_quality": 0.702,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,35 +59,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.4,
+      "adx_reference": 29.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 8.9,
+  "entry_atr_stop_pct": 10.8,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "fail",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 78.3,
-      "volume_trend_pct_3d": 0.4,
+      "volume_diff_pct_3m": 268.3,
+      "volume_trend_pct_3d": 29.4,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
-      "volatility_label": "정상",
+      "daily_change_pct": -6.49,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 49.5,
-      "forward_pe": 22.964563,
-      "peg": 1.42
+      "upside_pct": 66.7,
+      "forward_pe": 23.702806,
+      "peg": 1.27
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 34.9,
+      "rsi": 27.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.0
+      "stop_pct_from_20sma": 21.9
     }
   },
   "sector": "Financial Services",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 83.84,
+    "stop_reference_price": 78.39,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

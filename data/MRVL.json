@@ -1,30 +1,30 @@
 {
   "ticker": "MRVL",
   "name": "Marvell Technology, Inc.",
-  "price": 159.8,
-  "updated": "2026-11-06T01:46:52.732336+00:00",
-  "as_of_date": "2026-11-04",
+  "price": 133.55,
+  "updated": "2026-11-07T01:09:01.097482+00:00",
+  "as_of_date": "2026-11-05",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "fail",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 78.3,
-      "volume_trend_pct_3d": 0.4,
+      "volume_diff_pct_3m": 268.3,
+      "volume_trend_pct_3d": 29.4,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
-      "volatility_label": "정상",
+      "daily_change_pct": -6.49,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.3,
-      "forward_pe": 18.18796,
-      "peg": 0.39
+      "upside_pct": 133.1,
+      "forward_pe": 19.2298,
+      "peg": 0.33
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -9.416,
-      "macd_hist_change": -0.958,
+      "macd_hist": -11.113,
+      "macd_hist_change": -1.697,
       "divergence_present": false,
-      "gap_days": 9,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -11.6
+      "rsi_improvement": -17.1
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 26.8,
-      "rsi_zscore_1y": -2.12,
-      "zscore_quality": 0.78,
+      "rsi": 22.6,
+      "rsi_zscore_1y": -2.41,
+      "zscore_quality": 0.853,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,35 +59,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.0,
+      "adx_reference": 26.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 16.7,
+  "entry_atr_stop_pct": 20.7,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "fail",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 78.3,
-      "volume_trend_pct_3d": 0.4,
+      "volume_diff_pct_3m": 268.3,
+      "volume_trend_pct_3d": 29.4,
       "volume_trend_up": true,
-      "daily_change_pct": 0.97,
-      "volatility_label": "정상",
+      "daily_change_pct": -6.49,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 96.3,
-      "forward_pe": 18.18796,
-      "peg": 0.39
+      "upside_pct": 133.1,
+      "forward_pe": 19.2298,
+      "peg": 0.33
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 26.8,
+      "rsi": 22.6,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 44.6
+      "stop_pct_from_20sma": 67.7
     }
   },
   "sector": "Technology",
@@ -126,14 +126,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 245,
-    "days_since_prior_divergence": 4,
-    "price_drop_since_pct": 26.8,
+    "prior_divergence_date_index": 244,
+    "days_since_prior_divergence": 5,
+    "price_drop_since_pct": 38.8,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 159.8,
+    "stop_reference_price": 133.55,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
