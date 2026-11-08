@@ -1,52 +1,52 @@
 {
   "ticker": "BIIB",
   "name": "Biogen Inc.",
-  "price": 243.93,
-  "updated": "2026-11-07T01:09:04.836251+00:00",
-  "as_of_date": "2026-11-05",
-  "score": 12,
+  "price": 248.35,
+  "updated": "2026-11-08T00:53:17.812684+00:00",
+  "as_of_date": "2026-11-06",
+  "score": 19,
   "stages": {
     "1_market_health": {
-      "status": "fail",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 268.3,
-      "volume_trend_pct_3d": 29.4,
+      "volume_diff_pct_3m": 89.6,
+      "volume_trend_pct_3d": 48.4,
       "volume_trend_up": true,
-      "daily_change_pct": -6.49,
-      "volatility_label": "급변",
+      "daily_change_pct": 1.4,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.6,
+      "upside_pct": 7.3,
       "forward_pe": 15.272467,
-      "peg": 3.32
+      "peg": 3.38
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.417,
-      "macd_hist_change": -0.728,
-      "divergence_present": false,
+      "macd_hist": -0.633,
+      "macd_hist_change": -0.216,
+      "divergence_present": true,
       "gap_days": 20,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.381,
       "rsi_improvement": 7.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.6,
-      "rsi_zscore_1y": -0.25,
-      "zscore_quality": 0.361,
+      "rsi": 57.0,
+      "rsi_zscore_1y": 0.16,
+      "zscore_quality": 0.261,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 31.0,
+      "adx_reference": 29.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -67,27 +67,27 @@
     }
   },
   "entry_atr_stop_pct": 5.0,
-  "score_addon": 27,
+  "score_addon": 29,
   "stages_addon": {
     "1_market_health": {
-      "status": "fail",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 268.3,
-      "volume_trend_pct_3d": 29.4,
+      "volume_diff_pct_3m": 89.6,
+      "volume_trend_pct_3d": 48.4,
       "volume_trend_up": true,
-      "daily_change_pct": -6.49,
-      "volatility_label": "급변",
+      "daily_change_pct": 1.4,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 8.6,
+      "upside_pct": 7.3,
       "forward_pe": 15.272467,
-      "peg": 3.32
+      "peg": 3.38
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 53.6,
-      "rsi_zone_quality": 0.542,
+      "rsi": 57.0,
+      "rsi_zone_quality": 0.679,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.5
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Healthcare",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 20,
-    "days_since_trend_start": 19,
-    "gain_since_low_pct": 11.7,
+    "days_since_divergence": 21,
+    "days_since_trend_start": 20,
+    "gain_since_low_pct": 13.7,
     "divergence_date_index": 229
   },
   "divergence_invalidated_signal": null,
