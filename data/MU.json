@@ -1,9 +1,9 @@
 {
   "ticker": "MU",
   "name": "Micron Technology, Inc.",
-  "price": 690.0,
-  "updated": "2026-11-09T01:11:09.248872+00:00",
-  "as_of_date": "2026-11-06",
+  "price": 733.15,
+  "updated": "2026-11-10T03:47:09.664892+00:00",
+  "as_of_date": "2026-11-09",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.6,
-      "volume_trend_pct_3d": 48.4,
+      "volume_diff_pct_3m": 44.0,
+      "volume_trend_pct_3d": 65.5,
       "volume_trend_up": true,
-      "daily_change_pct": 1.4,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 3.54,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 126.4,
-      "forward_pe": 3.321132,
+      "upside_pct": 113.0,
+      "forward_pe": 3.5288234,
       "peg": 0.16
     },
     "3_divergence_gate": {
@@ -31,42 +31,49 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -23.218,
-      "macd_hist_change": -3.019,
+      "macd_hist": -20.775,
+      "macd_hist_change": 2.443,
       "divergence_present": true,
       "gap_days": 10,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.407,
       "rsi_improvement": -7.6
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 31.3,
-      "rsi_zscore_1y": -2.17,
-      "zscore_quality": 0.794,
+      "rsi": 36.4,
+      "rsi_zscore_1y": -1.71,
+      "zscore_quality": 0.679,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 33.7,
+      "adx_reference": 35.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 690.0,
+        "high": 708.35,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 12.8,
+  "entry_atr_stop_pct": 12.0,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +81,19 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.6,
-      "volume_trend_pct_3d": 48.4,
+      "volume_diff_pct_3m": 44.0,
+      "volume_trend_pct_3d": 65.5,
       "volume_trend_up": true,
-      "daily_change_pct": 1.4,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 3.54,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 126.4,
-      "forward_pe": 3.321132,
+      "upside_pct": 113.0,
+      "forward_pe": 3.5288234,
       "peg": 0.16
     },
     "3_pullback_gate": {
@@ -105,7 +112,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 31.3,
+      "rsi": 36.4,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 27.4
+      "stop_pct_from_20sma": 18.1
     }
   },
   "sector": "Technology",
@@ -126,9 +133,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 248,
-    "days_since_prior_divergence": 2,
-    "price_drop_since_pct": 13.2,
+    "prior_divergence_date_index": 247,
+    "days_since_prior_divergence": 3,
+    "price_drop_since_pct": 7.8,
     "rescue_attempted": false
   },
   "downtrend_signal": null,

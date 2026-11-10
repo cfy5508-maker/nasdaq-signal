@@ -1,9 +1,9 @@
 {
   "ticker": "AVEX",
   "name": "AEVEX Corp.",
-  "price": 10.2,
-  "updated": "2026-11-09T01:10:40.965334+00:00",
-  "as_of_date": "2026-11-06",
+  "price": 11.56,
+  "updated": "2026-11-10T03:46:37.455854+00:00",
+  "as_of_date": "2026-11-09",
   "score": 47,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 38.7,
-      "volume_trend_pct_3d": 53.0,
+      "volume_diff_pct_3m": 17.0,
+      "volume_trend_pct_3d": 61.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.31,
-      "volatility_label": "정상",
+      "daily_change_pct": 2.37,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 152.9,
-      "forward_pe": 14.76613,
+      "upside_pct": 123.2,
+      "forward_pe": 16.73495,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.127,
-      "macd_hist_change": 0.01,
+      "macd_hist": -0.018,
+      "macd_hist_change": 0.11,
       "divergence_present": false,
       "gap_days": 11,
       "signal_fresh": null,
@@ -44,13 +44,13 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 38.4,
-      "rsi_zscore_1y": -0.65,
-      "zscore_quality": 0.413,
+      "rsi": 45.3,
+      "rsi_zscore_1y": 0.17,
+      "zscore_quality": 0.208,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,34 +59,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 32.9,
+      "adx_reference": 32.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 9.26,
+        "high": 10.31,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 142,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 18.8,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 16.9,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 38.7,
-      "volume_trend_pct_3d": 53.0,
+      "volume_diff_pct_3m": 17.0,
+      "volume_trend_pct_3d": 61.1,
       "volume_trend_up": true,
-      "daily_change_pct": 0.31,
-      "volatility_label": "정상",
+      "daily_change_pct": 2.37,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 152.9,
-      "forward_pe": 14.76613,
+      "upside_pct": 123.2,
+      "forward_pe": 16.73495,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 38.4,
-      "rsi_zone_quality": 0.0,
+      "rsi": 45.3,
+      "rsi_zone_quality": 0.213,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 21.0
+      "stop_pct_from_20sma": 5.6
     }
   },
   "sector": "Industrials",
@@ -126,9 +133,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 10.2,
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 24.8,
     "divergence_date_index": 140
   },
   "divergence_invalidated_signal": null,
