@@ -1,30 +1,30 @@
 {
   "ticker": "AMT",
   "name": "American Tower Corporation (REI",
-  "price": 189.0,
-  "updated": "2026-11-11T01:28:16.674016+00:00",
-  "as_of_date": "2026-11-09",
-  "score": 23,
+  "price": 190.37,
+  "updated": "2026-11-12T02:29:30.918750+00:00",
+  "as_of_date": "2026-11-10",
+  "score": 22,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 17.5,
-      "volume_trend_pct_3d": 61.3,
-      "volume_trend_up": true,
-      "daily_change_pct": 2.37,
-      "volatility_label": "변동성큼",
+      "volume_diff_pct_3m": -5.5,
+      "volume_trend_pct_3d": -32.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.37,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 14.2,
-      "forward_pe": 27.166956,
-      "peg": 1.85
+      "upside_pct": 13.4,
+      "forward_pe": 27.148405,
+      "peg": 1.86
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.14,
-      "macd_hist_change": -0.268,
+      "macd_hist": 0.013,
+      "macd_hist_change": -0.127,
       "divergence_present": false,
       "gap_days": 14,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 58.5,
-      "rsi_zscore_1y": 0.88,
-      "zscore_quality": 0.079,
+      "rsi": 60.1,
+      "rsi_zscore_1y": 1.05,
+      "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -55,11 +55,11 @@
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
-      "morning_star": false,
+      "bullish_engulfing": true,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.9,
+      "adx_reference": 27.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,33 +68,33 @@
         "high": 183.5,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 238,
+        "trigger_day_idx": 237,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.3,
-  "score_addon": 30,
+  "entry_atr_stop_pct": 4.2,
+  "score_addon": 69,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 17.5,
-      "volume_trend_pct_3d": 61.3,
-      "volume_trend_up": true,
-      "daily_change_pct": 2.37,
-      "volatility_label": "변동성큼",
+      "volume_diff_pct_3m": -5.5,
+      "volume_trend_pct_3d": -32.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.37,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 14.2,
-      "forward_pe": 27.166956,
-      "peg": 1.85
+      "upside_pct": 13.4,
+      "forward_pe": 27.148405,
+      "peg": 1.86
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -111,21 +111,21 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 58.5,
-      "rsi_zone_quality": 0.74,
+      "status": "pass",
+      "rsi": 60.1,
+      "rsi_zone_quality": 0.805,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.8
+      "stop_pct_from_20sma": 2.2
     }
   },
   "sector": "Real Estate",
@@ -138,6 +138,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }

@@ -1,9 +1,9 @@
 {
   "ticker": "MA",
   "name": "Mastercard Incorporated",
-  "price": 655.81,
-  "updated": "2026-11-11T01:28:28.037285+00:00",
-  "as_of_date": "2026-11-09",
+  "price": 658.84,
+  "updated": "2026-11-12T02:29:42.158750+00:00",
+  "as_of_date": "2026-11-10",
   "score": 22,
   "stages": {
     "1_market_health": {
@@ -11,20 +11,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 17.5,
-      "volume_trend_pct_3d": 61.3,
-      "volume_trend_up": true,
-      "daily_change_pct": 2.37,
-      "volatility_label": "변동성큼",
+      "volume_diff_pct_3m": -5.5,
+      "volume_trend_pct_3d": -32.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.37,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.2,
-      "forward_pe": 28.44143,
-      "peg": 1.7
+      "upside_pct": 9.4,
+      "forward_pe": 28.523016,
+      "peg": 1.72
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.876,
-      "macd_hist_change": -0.673,
+      "macd_hist": 1.39,
+      "macd_hist_change": -0.487,
       "divergence_present": false,
       "gap_days": 18,
       "signal_fresh": null,
@@ -44,8 +44,8 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 64.9,
-      "rsi_zscore_1y": 1.07,
+      "rsi": 65.8,
+      "rsi_zscore_1y": 1.14,
       "zscore_quality": 0.05,
       "zscore_direction_bonus_applied": true
     },
@@ -58,8 +58,8 @@
       "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 9,
-      "adx_reference": 41.4,
+      "wick_days_ago": 10,
+      "adx_reference": 41.6,
       "volume_confirmed": true,
       "trigger_day_volume": 3457600,
       "avg_volume_divergence_window": 2996879,
@@ -68,12 +68,12 @@
         "high": 611.49,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 242,
+        "trigger_day_idx": 241,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.4,
+  "entry_atr_stop_pct": 3.3,
   "score_addon": 39,
   "stages_addon": {
     "1_market_health": {
@@ -81,20 +81,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 17.5,
-      "volume_trend_pct_3d": 61.3,
-      "volume_trend_up": true,
-      "daily_change_pct": 2.37,
-      "volatility_label": "변동성큼",
+      "volume_diff_pct_3m": -5.5,
+      "volume_trend_pct_3d": -32.1,
+      "volume_trend_up": false,
+      "daily_change_pct": -0.37,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 9.2,
-      "forward_pe": 28.44143,
-      "peg": 1.7
+      "upside_pct": 9.4,
+      "forward_pe": 28.523016,
+      "peg": 1.72
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 64.9,
-      "rsi_zone_quality": 0.996,
+      "rsi": 65.8,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
