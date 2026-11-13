@@ -1,30 +1,30 @@
 {
   "ticker": "V",
   "name": "Visa Inc.",
-  "price": 423.0,
-  "updated": "2026-11-12T02:29:58.843305+00:00",
-  "as_of_date": "2026-11-10",
-  "score": 15,
+  "price": 425.55,
+  "updated": "2026-11-13T02:05:55.277387+00:00",
+  "as_of_date": "2026-11-11",
+  "score": 14,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -9.8,
-      "volume_trend_pct_3d": -48.9,
+      "volume_diff_pct_3m": -22.0,
+      "volume_trend_pct_3d": -58.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.31,
+      "daily_change_pct": 0.52,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.2,
-      "forward_pe": 24.827293,
-      "peg": 1.91
+      "upside_pct": 5.5,
+      "forward_pe": 24.521584,
+      "peg": 1.93
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.174,
-      "macd_hist_change": -0.346,
+      "macd_hist": 0.01,
+      "macd_hist_change": -0.164,
       "divergence_present": false,
       "gap_days": 20,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 63.7,
-      "rsi_zscore_1y": 0.85,
-      "zscore_quality": 0.039,
+      "rsi": 65.1,
+      "rsi_zscore_1y": 0.95,
+      "zscore_quality": 0.014,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 38.6,
+      "adx_reference": 38.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,42 +68,42 @@
         "high": 399.86,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 241,
+        "trigger_day_idx": 240,
         "gap_confirmed": true
       }
     }
   },
   "entry_atr_stop_pct": 3.2,
-  "score_addon": 33,
+  "score_addon": 14,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -9.8,
-      "volume_trend_pct_3d": -48.9,
+      "volume_diff_pct_3m": -22.0,
+      "volume_trend_pct_3d": -58.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.31,
+      "daily_change_pct": 0.52,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 6.2,
-      "forward_pe": 24.827293,
-      "peg": 1.91
+      "upside_pct": 5.5,
+      "forward_pe": 24.521584,
+      "peg": 1.93
     },
     "3_pullback_gate": {
-      "status": "pass",
-      "near_sma20": true,
+      "status": "fail",
+      "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
+      "near_ma_count": 0,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 63.7,
-      "rsi_zone_quality": 0.949,
+      "rsi": 65.1,
+      "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 3.0
     }
   },
   "sector": "Financial Services",

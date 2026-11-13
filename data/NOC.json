@@ -1,30 +1,30 @@
 {
   "ticker": "NOC",
   "name": "Northrop Grumman Corporation",
-  "price": 548.61,
-  "updated": "2026-11-12T02:29:55.328750+00:00",
-  "as_of_date": "2026-11-10",
-  "score": 45,
+  "price": 550.96,
+  "updated": "2026-11-13T02:05:52.094593+00:00",
+  "as_of_date": "2026-11-11",
+  "score": 44,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.5,
-      "volume_trend_pct_3d": -32.1,
+      "volume_diff_pct_3m": -9.2,
+      "volume_trend_pct_3d": -47.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.32,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.8,
-      "forward_pe": 18.401665,
-      "peg": 4.11
+      "upside_pct": 15.3,
+      "forward_pe": 18.340544,
+      "peg": 4.13
     },
     "3_divergence_gate": {
       "status": "neutral",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.361,
-      "macd_hist_change": 0.747,
+      "macd_hist": -0.747,
+      "macd_hist_change": 0.613,
       "divergence_present": false,
       "gap_days": 22,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 57.9,
-      "rsi_zscore_1y": 0.64,
-      "zscore_quality": 0.141,
+      "rsi": 58.8,
+      "rsi_zscore_1y": 0.69,
+      "zscore_quality": 0.127,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 29.9,
+      "adx_reference": 28.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,33 +68,33 @@
         "high": 525.01,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 248,
+        "trigger_day_idx": 247,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 4.4,
-  "score_addon": 51,
+  "entry_atr_stop_pct": 4.2,
+  "score_addon": 52,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.5,
-      "volume_trend_pct_3d": -32.1,
+      "volume_diff_pct_3m": -9.2,
+      "volume_trend_pct_3d": -47.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.32,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.8,
-      "forward_pe": 18.401665,
-      "peg": 4.11
+      "upside_pct": 15.3,
+      "forward_pe": 18.340544,
+      "peg": 4.13
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 57.9,
-      "rsi_zone_quality": 0.715,
+      "rsi": 58.8,
+      "rsi_zone_quality": 0.752,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.9
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Industrials",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 24,
-    "days_since_trend_start": 19,
-    "gain_since_low_pct": 15.9,
-    "divergence_date_index": 225
+    "days_since_divergence": 25,
+    "days_since_trend_start": 20,
+    "gain_since_low_pct": 16.4,
+    "divergence_date_index": 224
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

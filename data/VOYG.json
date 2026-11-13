@@ -1,9 +1,9 @@
 {
   "ticker": "VOYG",
   "name": "Voyager Technologies, Inc.",
-  "price": 29.02,
-  "updated": "2026-11-12T02:29:26.410946+00:00",
-  "as_of_date": "2026-11-10",
+  "price": 29.58,
+  "updated": "2026-11-13T02:05:26.046951+00:00",
+  "as_of_date": "2026-11-11",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,19 +11,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.5,
-      "volume_trend_pct_3d": -32.1,
+      "volume_diff_pct_3m": -9.2,
+      "volume_trend_pct_3d": -47.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.32,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 40.0,
-      "forward_pe": -18.483225,
+      "upside_pct": 36.5,
+      "forward_pe": -17.364735,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.537,
-      "macd_hist_change": 0.278,
+      "macd_hist": 0.732,
+      "macd_hist_change": 0.195,
       "divergence_present": false,
       "gap_days": 10,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.7,
-      "rsi_zscore_1y": 0.39,
-      "zscore_quality": 0.152,
+      "rsi": 57.0,
+      "rsi_zscore_1y": 0.46,
+      "zscore_quality": 0.136,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.5,
+      "adx_reference": 23.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 22.42,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 12.6,
-  "score_addon": 30,
+  "entry_atr_stop_pct": 12.1,
+  "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -5.5,
-      "volume_trend_pct_3d": -32.1,
+      "volume_diff_pct_3m": -9.2,
+      "volume_trend_pct_3d": -47.3,
       "volume_trend_up": false,
-      "daily_change_pct": -0.37,
-      "volatility_label": "정상",
+      "daily_change_pct": 1.32,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 40.0,
-      "forward_pe": -18.483225,
+      "upside_pct": 36.5,
+      "forward_pe": -17.364735,
       "peg": null
     },
     "3_pullback_gate": {
@@ -112,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 55.7,
-      "rsi_zone_quality": 0.629,
+      "rsi": 57.0,
+      "rsi_zone_quality": 0.678,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 12.4
+      "stop_pct_from_20sma": 13.5
     }
   },
   "sector": "Industrials",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 4,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 25.7,
-    "divergence_date_index": 245
+    "days_since_divergence": 5,
+    "days_since_trend_start": 2,
+    "gain_since_low_pct": 28.2,
+    "divergence_date_index": 244
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

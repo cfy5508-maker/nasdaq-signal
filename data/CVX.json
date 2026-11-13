@@ -1,29 +1,29 @@
 {
   "ticker": "CVX",
   "name": "Chevron Corporation",
-  "price": 211.22,
-  "updated": "2026-11-12T02:30:11.694005+00:00",
-  "as_of_date": "2026-11-10",
+  "price": 213.28,
+  "updated": "2026-11-13T02:06:06.946407+00:00",
+  "as_of_date": "2026-11-11",
   "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -9.8,
-      "volume_trend_pct_3d": -48.9,
+      "volume_diff_pct_3m": -22.0,
+      "volume_trend_pct_3d": -58.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.31,
+      "daily_change_pct": 0.52,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.0,
-      "forward_pe": 12.929642,
+      "upside_pct": 13.7,
+      "forward_pe": 13.115754,
       "peg": 0.8
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -2.881,
-      "macd_hist_change": -0.056,
+      "macd_hist": -2.659,
+      "macd_hist_change": 0.222,
       "divergence_present": true,
       "gap_days": 28,
       "signal_fresh": false,
@@ -44,56 +44,56 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 39.5,
-      "rsi_zscore_1y": -1.41,
-      "zscore_quality": 0.602,
+      "rsi": 42.8,
+      "rsi_zscore_1y": -1.13,
+      "zscore_quality": 0.533,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "pass",
-      "breakout_confirmed": false,
-      "pattern": null,
-      "days_ago": null,
+      "breakout_confirmed": true,
+      "pattern": "불리시엔걸핑",
+      "days_ago": 1,
       "hammer": false,
-      "bullish_engulfing": true,
+      "bullish_engulfing": false,
       "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 1,
+      "wick_days_ago": 2,
       "adx_reference": 30.3,
       "volume_confirmed": true,
-      "trigger_day_volume": 9396900,
+      "trigger_day_volume": 10046000,
       "avg_volume_divergence_window": 7744679,
       "order_block": {
         "low": 210.78,
         "high": 210.85,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": false
       }
     }
   },
-  "entry_atr_stop_pct": 3.8,
+  "entry_atr_stop_pct": 3.6,
   "score_addon": 100,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": -9.8,
-      "volume_trend_pct_3d": -48.9,
+      "volume_diff_pct_3m": -22.0,
+      "volume_trend_pct_3d": -58.4,
       "volume_trend_up": false,
-      "daily_change_pct": -0.31,
+      "daily_change_pct": 0.52,
       "volatility_label": "정상",
       "index_trigger_candle": false,
-      "golden_cross_recent": true,
+      "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 15.0,
-      "forward_pe": 12.929642,
+      "upside_pct": 13.7,
+      "forward_pe": 13.115754,
       "peg": 0.8
     },
     "3_pullback_gate": {
@@ -112,20 +112,20 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 39.5,
+      "rsi": 42.8,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
     "5_trigger_confirmed": {
       "status": "pass",
-      "has_reversal_candle": true,
-      "reversal_volume_confirmed": true,
+      "has_reversal_candle": false,
+      "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": true,
-      "trigger_weight_tier": "reversal_volume"
+      "trigger_weight_tier": "wick_volume"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 6.0
+      "stop_pct_from_20sma": 4.8
     }
   },
   "sector": "Energy",
@@ -138,6 +138,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": true,
-  "today_reversal_volume_confirmed": true
+  "today_reversal_candle": false,
+  "today_reversal_volume_confirmed": false
 }
