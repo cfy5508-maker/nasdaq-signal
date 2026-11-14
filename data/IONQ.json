@@ -1,29 +1,29 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 34.06,
-  "updated": "2026-11-13T02:07:26.754595+00:00",
-  "as_of_date": "2026-11-11",
-  "score": 46,
+  "price": 30.86,
+  "updated": "2026-11-14T01:43:57.236322+00:00",
+  "as_of_date": "2026-11-12",
+  "score": 51,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -9.2,
-      "volume_trend_pct_3d": -47.3,
+      "volume_diff_pct_3m": -11.4,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": 1.32,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.36,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 59.4,
-      "forward_pe": -21.720615,
+      "upside_pct": 75.9,
+      "forward_pe": -20.326576,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.812,
-      "macd_hist_change": 0.062,
+      "macd_hist": 0.622,
+      "macd_hist_change": -0.19,
       "divergence_present": false,
       "gap_days": 13,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 51.0,
-      "rsi_zscore_1y": 0.27,
-      "zscore_quality": 0.183,
+      "rsi": 44.4,
+      "rsi_zscore_1y": -0.27,
+      "zscore_quality": 0.317,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.2,
+      "adx_reference": 26.4,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,32 +68,32 @@
         "high": 28.8,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 246,
+        "trigger_day_idx": 245,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 12.1,
-  "score_addon": 28,
+  "entry_atr_stop_pct": 13.6,
+  "score_addon": 24,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -9.2,
-      "volume_trend_pct_3d": -47.3,
+      "volume_diff_pct_3m": -11.4,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": 1.32,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.36,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 59.4,
-      "forward_pe": -21.720615,
+      "upside_pct": 75.9,
+      "forward_pe": -20.326576,
       "peg": null
     },
     "3_pullback_gate": {
@@ -111,9 +111,9 @@
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 51.0,
-      "rsi_zone_quality": 0.441,
+      "status": "fail",
+      "rsi": 44.4,
+      "rsi_zone_quality": 0.178,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.3
+      "stop_pct_from_20sma": 1.7
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 8,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 13.4,
-    "divergence_date_index": 241
+    "days_since_divergence": 9,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 2.7,
+    "divergence_date_index": 240
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,

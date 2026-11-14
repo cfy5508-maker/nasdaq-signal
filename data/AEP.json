@@ -1,21 +1,21 @@
 {
   "ticker": "AEP",
   "name": "American Electric Power Company",
-  "price": 129.21,
-  "updated": "2026-11-13T02:07:10.856849+00:00",
-  "as_of_date": "2026-11-11",
-  "score": 22,
+  "price": 129.18,
+  "updated": "2026-11-14T01:43:44.285575+00:00",
+  "as_of_date": "2026-11-13",
+  "score": 23,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 17.0,
-      "volume_trend_pct_3d": -47.4,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": -24.7,
       "volume_trend_up": false,
-      "daily_change_pct": 2.31,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -1.2,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
@@ -23,19 +23,19 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 9.6,
-      "forward_pe": 18.687756,
-      "peg": 2.8
+      "forward_pe": 18.726894,
+      "peg": 2.79
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 1,
+      "retest_days_ago": 3,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.205,
-      "macd_hist_change": 0.112,
+      "macd_hist": -0.114,
+      "macd_hist_change": 0.042,
       "divergence_present": true,
       "gap_days": null,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 60.2,
-      "rsi_zscore_1y": 0.75,
-      "zscore_quality": 0.064,
+      "rsi": 59.8,
+      "rsi_zscore_1y": 0.7,
+      "zscore_quality": 0.075,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 27.6,
+      "adx_reference": 26.3,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,12 +68,12 @@
         "high": 127.84,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 3.1,
+  "entry_atr_stop_pct": 3.0,
   "score_addon": 31,
   "stages_addon": {
     "1_market_health": {
@@ -81,11 +81,11 @@
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 17.0,
-      "volume_trend_pct_3d": -47.4,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": -24.7,
       "volume_trend_up": false,
-      "daily_change_pct": 2.31,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -1.2,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
@@ -93,8 +93,8 @@
     "2_fundamentals": {
       "status": "fail",
       "upside_pct": 9.6,
-      "forward_pe": 18.687756,
-      "peg": 2.8
+      "forward_pe": 18.726894,
+      "peg": 2.79
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -111,9 +111,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 60.2,
-      "rsi_zone_quality": 0.81,
+      "status": "warn",
+      "rsi": 59.8,
+      "rsi_zone_quality": 0.792,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.4
+      "stop_pct_from_20sma": 1.0
     }
   },
   "sector": "Utilities",

@@ -1,41 +1,41 @@
 {
   "ticker": "QCOM",
   "name": "QUALCOMM Incorporated",
-  "price": 176.57,
-  "updated": "2026-11-13T02:07:08.210478+00:00",
-  "as_of_date": "2026-11-11",
-  "score": 26,
+  "price": 172.47,
+  "updated": "2026-11-14T01:43:42.153879+00:00",
+  "as_of_date": "2026-11-13",
+  "score": 28,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 17.0,
-      "volume_trend_pct_3d": -47.4,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": -24.7,
       "volume_trend_up": false,
-      "daily_change_pct": 2.31,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -1.2,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 4.9,
-      "forward_pe": 14.50734,
-      "peg": 1.04
+      "upside_pct": 7.8,
+      "forward_pe": 14.129126,
+      "peg": 1.05
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 3,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.275,
-      "macd_hist_change": 0.604,
+      "macd_hist": 0.649,
+      "macd_hist_change": -0.049,
       "divergence_present": true,
       "gap_days": 14,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 52.0,
-      "rsi_zscore_1y": 0.25,
-      "zscore_quality": 0.187,
+      "rsi": 48.8,
+      "rsi_zscore_1y": 0.03,
+      "zscore_quality": 0.244,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 12.5,
+      "adx_reference": 11.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,52 +68,52 @@
         "high": 165.41,
         "strong": false,
         "breach": false,
-        "trigger_day_idx": 247,
+        "trigger_day_idx": 246,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 7.8,
-  "score_addon": 7,
+  "entry_atr_stop_pct": 8.0,
+  "score_addon": 34,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 17.0,
-      "volume_trend_pct_3d": -47.4,
+      "volume_diff_pct_3m": 7.5,
+      "volume_trend_pct_3d": -24.7,
       "volume_trend_up": false,
-      "daily_change_pct": 2.31,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -1.2,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 4.9,
-      "forward_pe": 14.50734,
-      "peg": 1.04
+      "upside_pct": 7.8,
+      "forward_pe": 14.129126,
+      "peg": 1.05
     },
     "3_pullback_gate": {
-      "status": "fail",
+      "status": "pass",
       "near_sma20": false,
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": false,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 52.0,
-      "rsi_zone_quality": 0.478,
+      "status": "fail",
+      "rsi": 48.8,
+      "rsi_zone_quality": 0.353,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 1.8
+      "stop_pct_from_20sma": 0.5
     }
   },
   "sector": "Technology",

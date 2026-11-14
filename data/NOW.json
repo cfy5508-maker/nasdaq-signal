@@ -1,30 +1,30 @@
 {
   "ticker": "NOW",
   "name": "ServiceNow, Inc.",
-  "price": 102.76,
-  "updated": "2026-11-13T02:06:37.944848+00:00",
-  "as_of_date": "2026-11-11",
-  "score": 72,
+  "price": 100.66,
+  "updated": "2026-11-14T01:43:17.105808+00:00",
+  "as_of_date": "2026-11-12",
+  "score": 73,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -9.2,
-      "volume_trend_pct_3d": -47.3,
+      "volume_diff_pct_3m": -11.4,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": 1.32,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.36,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.6,
-      "forward_pe": 20.96079,
-      "peg": 0.81
+      "upside_pct": 54.8,
+      "forward_pe": 21.291882,
+      "peg": 0.79
     },
     "3_divergence_gate": {
       "status": "pass",
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -3.526,
-      "macd_hist_change": 0.753,
+      "macd_hist": -2.937,
+      "macd_hist_change": 0.589,
       "divergence_present": true,
       "gap_days": 7,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 31.0,
-      "rsi_zscore_1y": -1.2,
-      "zscore_quality": 0.549,
+      "rsi": 29.9,
+      "rsi_zscore_1y": -1.27,
+      "zscore_quality": 0.568,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 38.5,
+      "adx_reference": 38.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -68,12 +68,12 @@
         "high": 100.55,
         "strong": true,
         "breach": false,
-        "trigger_day_idx": 249,
+        "trigger_day_idx": 248,
         "gap_confirmed": true
       }
     }
   },
-  "entry_atr_stop_pct": 9.8,
+  "entry_atr_stop_pct": 9.6,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -81,20 +81,20 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": -9.2,
-      "volume_trend_pct_3d": -47.3,
+      "volume_diff_pct_3m": -11.4,
+      "volume_trend_pct_3d": -23.3,
       "volume_trend_up": false,
-      "daily_change_pct": 1.32,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -0.36,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 51.6,
-      "forward_pe": 20.96079,
-      "peg": 0.81
+      "upside_pct": 54.8,
+      "forward_pe": 21.291882,
+      "peg": 0.79
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,14 +105,14 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
-      "was_above_40_recently": true,
+      "was_above_20_recently": false,
+      "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 31.0,
+      "rsi": 29.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 24.8
+      "stop_pct_from_20sma": 25.1
     }
   },
   "sector": "Technology",
@@ -133,10 +133,10 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 1,
-    "days_since_trend_start": 0,
-    "gain_since_low_pct": 3.2,
-    "divergence_date_index": 248
+    "days_since_divergence": 2,
+    "days_since_trend_start": 1,
+    "gain_since_low_pct": 1.1,
+    "divergence_date_index": 247
   },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
