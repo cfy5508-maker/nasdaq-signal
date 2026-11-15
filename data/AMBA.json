@@ -1,9 +1,9 @@
 {
   "ticker": "AMBA",
   "name": "Ambarella, Inc.",
-  "price": 61.06,
-  "updated": "2026-11-14T01:44:19.399190+00:00",
-  "as_of_date": "2026-11-12",
+  "price": 60.12,
+  "updated": "2026-11-15T01:16:50.991117+00:00",
+  "as_of_date": "2026-11-13",
   "score": 60,
   "stages": {
     "1_market_health": {
@@ -22,7 +22,7 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.9,
+      "upside_pct": 44.1,
       "forward_pe": 56.951775,
       "peg": 2.28
     },
@@ -31,11 +31,11 @@
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 4,
+      "retest_days_ago": 5,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": true,
       "macd_hist": -0.004,
-      "macd_hist_change": 0.072,
+      "macd_hist_change": -0.001,
       "divergence_present": true,
       "gap_days": 16,
       "signal_fresh": false,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.8,
-      "rsi_zscore_1y": -0.17,
-      "zscore_quality": 0.293,
+      "rsi": 44.1,
+      "rsi_zscore_1y": -0.31,
+      "zscore_quality": 0.327,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -54,12 +54,12 @@
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
-      "hammer": false,
+      "hammer": true,
       "bullish_engulfing": false,
-      "morning_star": true,
+      "morning_star": false,
       "long_lower_wick": true,
-      "wick_days_ago": 4,
-      "adx_reference": 19.5,
+      "wick_days_ago": 5,
+      "adx_reference": 19.9,
       "volume_confirmed": false,
       "trigger_day_volume": 1094600,
       "avg_volume_divergence_window": 1620812,
@@ -74,7 +74,7 @@
     }
   },
   "entry_atr_stop_pct": 9.4,
-  "score_addon": 43,
+  "score_addon": 56,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -92,7 +92,7 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 41.9,
+      "upside_pct": 44.1,
       "forward_pe": 56.951775,
       "peg": 2.28
     },
@@ -112,39 +112,38 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.8,
-      "rsi_zone_quality": 0.231,
+      "rsi": 44.1,
+      "rsi_zone_quality": 0.165,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "warn",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": true,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.8
+      "stop_pct_from_20sma": 4.2
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": {
+  "uptrend_entry_signal": null,
+  "divergence_invalidated_signal": null,
+  "downtrend_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 6,
-    "days_since_trend_start": 1,
-    "gain_since_low_pct": 0.2,
-    "divergence_date_index": 243
+    "days_since_trend_start": 0,
+    "divergence_date_index": 243,
+    "price_vs_low_pct": -1.3
   },
-  "divergence_invalidated_signal": null,
-  "downtrend_signal": null,
   "pullback_stop_signal": {
     "stop_reference_price": 55.17,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }

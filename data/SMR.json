@@ -1,10 +1,10 @@
 {
   "ticker": "SMR",
   "name": "NuScale Power Corporation",
-  "price": 4.82,
-  "updated": "2026-11-14T01:44:28.964355+00:00",
-  "as_of_date": "2026-11-12",
-  "score": 30,
+  "price": 4.66,
+  "updated": "2026-11-15T01:16:58.129461+00:00",
+  "as_of_date": "2026-11-13",
+  "score": 72,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -22,59 +22,52 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 78.3,
-      "forward_pe": -6.951904,
+      "upside_pct": 84.4,
+      "forward_pe": -6.8835115,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "pass",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.069,
-      "macd_hist_change": -0.018,
-      "divergence_present": false,
-      "gap_days": 8,
-      "signal_fresh": null,
-      "divergence_quality": null,
-      "rsi_improvement": -0.7
+      "macd_hist": 0.05,
+      "macd_hist_change": -0.019,
+      "divergence_present": true,
+      "gap_days": 6,
+      "signal_fresh": true,
+      "divergence_quality": 1.0,
+      "rsi_improvement": 10.4
     },
     "4_zscore": {
-      "status": "fail",
-      "rsi": 36.2,
-      "rsi_zscore_1y": -0.84,
-      "zscore_quality": 0.461,
-      "zscore_direction_bonus_applied": false
+      "status": "warn",
+      "rsi": 34.7,
+      "rsi_zscore_1y": -1.0,
+      "zscore_quality": 0.551,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "pass",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": true,
-      "wick_days_ago": 4,
+      "long_lower_wick": false,
+      "wick_days_ago": null,
       "adx_reference": 32.8,
-      "volume_confirmed": true,
-      "trigger_day_volume": 40786700,
-      "avg_volume_divergence_window": 29738956,
-      "order_block": {
-        "low": 4.37,
-        "high": 4.95,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 246,
-        "gap_confirmed": true
-      }
+      "volume_confirmed": false,
+      "trigger_day_volume": null,
+      "avg_volume_divergence_window": null,
+      "order_block": null
     }
   },
-  "entry_atr_stop_pct": 15.4,
-  "score_addon": 48,
+  "entry_atr_stop_pct": 15.6,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -92,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 78.3,
-      "forward_pe": -6.951904,
+      "upside_pct": 84.4,
+      "forward_pe": -6.8835115,
       "peg": null
     },
     "3_pullback_gate": {
@@ -112,35 +105,29 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.2,
+      "rsi": 34.7,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "pass",
+      "status": "fail",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": true,
-      "wick_volume_confirmed": true,
-      "trigger_weight_tier": "wick_volume"
+      "wick_present": false,
+      "wick_volume_confirmed": false,
+      "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.6
+      "stop_pct_from_20sma": 14.1
     }
   },
   "sector": "Industrials",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
-  "downtrend_signal": {
-    "active": true,
-    "phase": "entry",
-    "days_since_trend_start": 0,
-    "divergence_date_index": 243,
-    "price_vs_low_pct": -6.0
-  },
+  "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 4.37,
+    "stop_reference_price": 4.66,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

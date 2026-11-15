@@ -1,10 +1,10 @@
 {
   "ticker": "NXT",
   "name": "Nextpower Inc.",
-  "price": 93.6,
-  "updated": "2026-11-14T01:43:01.078736+00:00",
-  "as_of_date": "2026-11-12",
-  "score": 30,
+  "price": 95.03,
+  "updated": "2026-11-15T01:15:51.219345+00:00",
+  "as_of_date": "2026-11-13",
+  "score": 48,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -22,52 +22,52 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 36.6,
-      "forward_pe": 16.517591,
+      "upside_pct": 34.6,
+      "forward_pe": 16.358253,
       "peg": 3.15
     },
     "3_divergence_gate": {
-      "status": "fail",
+      "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
-      "retest_divergence": false,
-      "retest_days_ago": null,
+      "retest_divergence": true,
+      "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 1.172,
-      "macd_hist_change": -0.843,
-      "divergence_present": false,
+      "macd_hist": 0.642,
+      "macd_hist_change": -0.531,
+      "divergence_present": true,
       "gap_days": 13,
-      "signal_fresh": null,
-      "divergence_quality": null,
+      "signal_fresh": true,
+      "divergence_quality": 0.311,
       "rsi_improvement": 13.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 53.2,
-      "rsi_zscore_1y": 0.34,
-      "zscore_quality": 0.214,
+      "rsi": 54.5,
+      "rsi_zscore_1y": 0.48,
+      "zscore_quality": 0.18,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
       "morning_star": false,
-      "long_lower_wick": false,
-      "wick_days_ago": null,
-      "adx_reference": 22.3,
+      "long_lower_wick": true,
+      "wick_days_ago": 0,
+      "adx_reference": 21.6,
       "volume_confirmed": false,
-      "trigger_day_volume": null,
-      "avg_volume_divergence_window": null,
+      "trigger_day_volume": 1999600,
+      "avg_volume_divergence_window": 3794907,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 10.9,
-  "score_addon": 29,
+  "entry_atr_stop_pct": 10.5,
+  "score_addon": 48,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 36.6,
-      "forward_pe": 16.517591,
+      "upside_pct": 34.6,
+      "forward_pe": 16.358253,
       "peg": 3.15
     },
     "3_pullback_gate": {
@@ -105,20 +105,20 @@
     },
     "4_rsi_zone": {
       "status": "warn",
-      "rsi": 53.2,
-      "rsi_zone_quality": 0.527,
+      "rsi": 54.5,
+      "rsi_zone_quality": 0.58,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
+      "status": "warn",
       "has_reversal_candle": false,
       "reversal_volume_confirmed": false,
-      "wick_present": false,
+      "wick_present": true,
       "wick_volume_confirmed": false,
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 5.4
+      "stop_pct_from_20sma": 6.0
     }
   },
   "sector": "Technology",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "ongoing",
-    "days_since_divergence": 13,
-    "days_since_trend_start": 12,
-    "gain_since_low_pct": 22.4,
+    "days_since_divergence": 14,
+    "days_since_trend_start": 13,
+    "gain_since_low_pct": 24.3,
     "divergence_date_index": 236
   },
   "divergence_invalidated_signal": null,

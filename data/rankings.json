@@ -1,6 +1,82 @@
 {
-  "updated": "2026-11-14T01:44:38.148769+00:00",
+  "updated": "2026-11-15T01:17:05.152682+00:00",
   "rankings": [
+    {
+      "ticker": "GEV",
+      "name": "GE Vernova Inc.",
+      "score": 74,
+      "score_addon": 22,
+      "price": 803.13,
+      "upside_pct": 46.7,
+      "rsi": 41.5,
+      "divergence": "pass",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 4,
+        "prev_score": 70
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -1,
+        "prev_score": 23
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 6,
+        "days_since_trend_start": 4,
+        "gain_since_low_pct": 4.2,
+        "divergence_date_index": 244
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "FLNC",
+      "name": "Fluence Energy, Inc.",
+      "score": 74,
+      "score_addon": 53,
+      "price": 4.68,
+      "upside_pct": 69.9,
+      "rsi": 33.9,
+      "divergence": "pass",
+      "trigger": "pass",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "구간 상향 돌파(초록 진입)",
+            "detail": null
+          }
+        ],
+        "change": 11,
+        "prev_score": 63
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 32,
+        "prev_score": 21
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_trend_start": 1,
+        "divergence_date_index": 247,
+        "price_vs_low_pct": -4.7
+      },
+      "divergence_stop_signal": null,
+      "today_reversal_candle": true,
+      "today_reversal_volume_confirmed": false
+    },
     {
       "ticker": "BOSC",
       "name": "B.O.S. Better Online Solutions",
@@ -43,33 +119,71 @@
       "today_reversal_volume_confirmed": false
     },
     {
+      "ticker": "SMR",
+      "name": "NuScale Power Corporation",
+      "score": 72,
+      "score_addon": 21,
+      "price": 4.66,
+      "upside_pct": 84.4,
+      "rsi": 34.7,
+      "divergence": "pass",
+      "trigger": "fail",
+      "signal": {
+        "signal": "up",
+        "reasons": [
+          {
+            "label": "급등 기준 (+25 이상)",
+            "detail": "전일 30 → 오늘 72 (전일 대비 +42)"
+          },
+          {
+            "label": "구간 상향 돌파(초록 진입)",
+            "detail": null
+          }
+        ],
+        "change": 42,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -27,
+        "prev_score": 48
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
       "ticker": "NOW",
       "name": "ServiceNow, Inc.",
-      "score": 73,
-      "score_addon": 21,
-      "price": 100.66,
-      "upside_pct": 54.8,
-      "rsi": 29.9,
+      "score": 71,
+      "score_addon": 39,
+      "price": 102.25,
+      "upside_pct": 52.4,
+      "rsi": 31.9,
       "divergence": "pass",
       "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 1,
-        "prev_score": 72
+        "change": -2,
+        "prev_score": 73
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 0,
+        "change": 18,
         "prev_score": 21
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 2,
-        "days_since_trend_start": 1,
-        "gain_since_low_pct": 1.1,
+        "days_since_divergence": 3,
+        "days_since_trend_start": 2,
+        "gain_since_low_pct": 2.7,
         "divergence_date_index": 247
       },
       "divergence_invalidated_signal": null,
@@ -79,71 +193,28 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "GEV",
-      "name": "GE Vernova Inc.",
-      "score": 70,
-      "score_addon": 23,
-      "price": 818.49,
-      "upside_pct": 44.0,
-      "rsi": 43.2,
+      "ticker": "HOOD",
+      "name": "Robinhood Markets, Inc.",
+      "score": 69,
+      "score_addon": 21,
+      "price": 77.86,
+      "upside_pct": 64.1,
+      "rsi": 33.2,
       "divergence": "pass",
-      "trigger": "warn",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 71
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 1,
-        "prev_score": 22
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 3,
-        "gain_since_low_pct": 6.2,
-        "divergence_date_index": 244
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "IREN",
-      "name": "IREN LIMITED",
-      "score": 67,
-      "score_addon": 48,
-      "price": 19.48,
-      "upside_pct": 191.0,
-      "rsi": 34.6,
-      "divergence": "neutral",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 2,
-        "prev_score": 65
+        "change": 9,
+        "prev_score": 60
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
         "change": 0,
-        "prev_score": 48
+        "prev_score": 21
       },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 8.0,
-        "divergence_date_index": 244
-      },
+      "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -173,42 +244,6 @@
         "prev_score": 92
       },
       "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "LAES",
-      "name": "SEALSQ Corp",
-      "score": 67,
-      "score_addon": 21,
-      "price": 1.32,
-      "upside_pct": 345.1,
-      "rsi": 33.0,
-      "divergence": "pass",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 13,
-        "prev_score": 54
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 21
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 7.3,
-        "divergence_date_index": 244
-      },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -257,7 +292,7 @@
       "score": 65,
       "score_addon": 21,
       "price": 4.66,
-      "upside_pct": 218.3,
+      "upside_pct": 204.0,
       "rsi": 23.7,
       "divergence": "pass",
       "trigger": "fail",
@@ -295,16 +330,16 @@
       "name": "Coinbase Global, Inc.",
       "score": 64,
       "score_addon": 21,
-      "price": 130.67,
-      "upside_pct": 49.2,
-      "rsi": 33.8,
+      "price": 127.65,
+      "upside_pct": 52.8,
+      "rsi": 32.4,
       "divergence": "pass",
       "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -10,
-        "prev_score": 74
+        "change": 0,
+        "prev_score": 64
       },
       "signal_addon": {
         "signal": "none",
@@ -317,44 +352,9 @@
       "downtrend_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_trend_start": 0,
+        "days_since_trend_start": 1,
         "divergence_date_index": 247,
-        "price_vs_low_pct": -1.1
-      },
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "FLNC",
-      "name": "Fluence Energy, Inc.",
-      "score": 63,
-      "score_addon": 21,
-      "price": 4.74,
-      "upside_pct": 67.9,
-      "rsi": 34.4,
-      "divergence": "pass",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 1,
-        "prev_score": 62
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 21
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_trend_start": 0,
-        "divergence_date_index": 247,
-        "price_vs_low_pct": -3.6
+        "price_vs_low_pct": -3.4
       },
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
@@ -381,6 +381,35 @@
         "reasons": [],
         "change": -3,
         "prev_score": 43
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "IREN",
+      "name": "IREN LIMITED",
+      "score": 60,
+      "score_addon": 21,
+      "price": 18.17,
+      "upside_pct": 212.0,
+      "rsi": 32.7,
+      "divergence": "warn",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -7,
+        "prev_score": 67
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -27,
+        "prev_score": 48
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -600,9 +629,9 @@
       "name": "Lumentum Holdings Inc.",
       "score": 60,
       "score_addon": 39,
-      "price": 624.65,
-      "upside_pct": 71.2,
-      "rsi": 39.2,
+      "price": 596.62,
+      "upside_pct": 79.2,
+      "rsi": 37.4,
       "divergence": "warn",
       "trigger": "pass",
       "signal": {
@@ -614,41 +643,41 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 40
+        "change": 0,
+        "prev_score": 39
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": {
         "active": true,
         "prior_divergence_date_index": 242,
-        "days_since_prior_divergence": 7,
-        "price_drop_since_pct": 8.2,
+        "days_since_prior_divergence": 8,
+        "price_drop_since_pct": 12.3,
         "rescue_attempted": false
       },
       "downtrend_signal": null,
       "divergence_stop_signal": {
         "active": true,
-        "days_since_break": 6,
-        "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+        "days_since_break": 7,
+        "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
       },
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "HOOD",
-      "name": "Robinhood Markets, Inc.",
+      "ticker": "BMNR",
+      "name": "BitMine Immersion Technologies,",
       "score": 60,
       "score_addon": 21,
-      "price": 81.35,
-      "upside_pct": 57.9,
-      "rsi": 36.2,
-      "divergence": "warn",
+      "price": 17.58,
+      "upside_pct": 157.7,
+      "rsi": 35.3,
+      "divergence": "pass",
       "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 0,
-        "prev_score": 60
+        "change": 6,
+        "prev_score": 54
       },
       "signal_addon": {
         "signal": "none",
@@ -658,7 +687,13 @@
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
+      "downtrend_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_trend_start": 1,
+        "divergence_date_index": 246,
+        "price_vs_low_pct": -5.5
+      },
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
@@ -667,10 +702,10 @@
       "ticker": "AMBA",
       "name": "Ambarella, Inc.",
       "score": 60,
-      "score_addon": 43,
-      "price": 61.06,
-      "upside_pct": 41.9,
-      "rsi": 45.8,
+      "score_addon": 56,
+      "price": 60.12,
+      "upside_pct": 44.1,
+      "rsi": 44.1,
       "divergence": "warn",
       "trigger": "pass",
       "signal": {
@@ -682,53 +717,45 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 44
+        "change": 13,
+        "prev_score": 43
       },
-      "uptrend_entry_signal": {
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 6,
-        "days_since_trend_start": 1,
-        "gain_since_low_pct": 0.2,
-        "divergence_date_index": 243
+        "days_since_trend_start": 0,
+        "divergence_date_index": 243,
+        "price_vs_low_pct": -1.3
       },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
       "divergence_stop_signal": null,
-      "today_reversal_candle": false,
+      "today_reversal_candle": true,
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "WATT",
-      "name": "Energous Corporation",
-      "score": 59,
-      "score_addon": 24,
-      "price": 8.74,
-      "upside_pct": 147.4,
-      "rsi": 45.0,
-      "divergence": "neutral",
-      "trigger": "pass",
+      "ticker": "LAES",
+      "name": "SEALSQ Corp",
+      "score": 60,
+      "score_addon": 21,
+      "price": 1.25,
+      "upside_pct": 370.0,
+      "rsi": 30.7,
+      "divergence": "warn",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 1,
-        "prev_score": 58
+        "change": -7,
+        "prev_score": 67
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 25
+        "change": 0,
+        "prev_score": 21
       },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 24.5,
-        "divergence_date_index": 244
-      },
+      "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
@@ -851,14 +878,43 @@
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -10,
-        "prev_score": 67
+        "change": 0,
+        "prev_score": 57
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 50
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "IONQ",
+      "name": "IonQ, Inc.",
+      "score": 57,
+      "score_addon": 22,
+      "price": 28.88,
+      "upside_pct": 87.9,
+      "rsi": 40.9,
+      "divergence": "warn",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 6,
+        "prev_score": 51
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
         "change": -2,
-        "prev_score": 52
+        "prev_score": 24
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
@@ -926,104 +982,33 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "BMNR",
-      "name": "BitMine Immersion Technologies,",
-      "score": 54,
+      "ticker": "WATT",
+      "name": "Energous Corporation",
+      "score": 55,
       "score_addon": 21,
-      "price": 18.45,
-      "upside_pct": 164.5,
-      "rsi": 38.0,
-      "divergence": "warn",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 54
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 22
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_trend_start": 0,
-        "divergence_date_index": 246,
-        "price_vs_low_pct": -0.9
-      },
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "INFQ",
-      "name": "Infleqtion, Inc.",
-      "score": 53,
-      "score_addon": 41,
-      "price": 8.73,
-      "upside_pct": 124.2,
-      "rsi": 43.3,
+      "price": 7.76,
+      "upside_pct": 178.9,
+      "rsi": 39.1,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 4,
-        "prev_score": 49
+        "change": -4,
+        "prev_score": 59
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
         "change": -3,
-        "prev_score": 44
+        "prev_score": 24
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 17.3,
-        "divergence_date_index": 182
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "VRT",
-      "name": "Vertiv Holdings, LLC",
-      "score": 53,
-      "score_addon": 26,
-      "price": 209.64,
-      "upside_pct": 59.5,
-      "rsi": 47.5,
-      "divergence": "neutral",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 54
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 1,
-        "prev_score": 25
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 18.6,
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 10.5,
         "divergence_date_index": 244
       },
       "divergence_invalidated_signal": null,
@@ -1033,34 +1018,63 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "QNT",
-      "name": "Quantinuum Inc.",
-      "score": 51,
-      "score_addon": 26,
-      "price": 37.46,
-      "upside_pct": 89.9,
-      "rsi": 47.9,
-      "divergence": "neutral",
-      "trigger": "pass",
+      "ticker": "ABSI",
+      "name": "Absci Corporation",
+      "score": 55,
+      "score_addon": 23,
+      "price": 8.45,
+      "upside_pct": 78.6,
+      "rsi": 42.0,
+      "divergence": "warn",
+      "trigger": "fail",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 4,
-        "prev_score": 47
+        "change": 25,
+        "prev_score": 30
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -3,
-        "prev_score": 29
+        "change": -28,
+        "prev_score": 51
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "VRT",
+      "name": "Vertiv Holdings, LLC",
+      "score": 55,
+      "score_addon": 24,
+      "price": 202.07,
+      "upside_pct": 65.4,
+      "rsi": 45.1,
+      "divergence": "neutral",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 2,
+        "prev_score": 53
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -2,
+        "prev_score": 26
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 25.6,
-        "divergence_date_index": 107
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 14.3,
+        "divergence_date_index": 244
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -1069,34 +1083,34 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "UBER",
-      "name": "Uber Technologies, Inc.",
-      "score": 51,
-      "score_addon": 87,
-      "price": 69.12,
-      "upside_pct": 43.1,
-      "rsi": 50.6,
+      "ticker": "LASR",
+      "name": "nLIGHT, Inc.",
+      "score": 53,
+      "score_addon": 58,
+      "price": 41.25,
+      "upside_pct": 44.2,
+      "rsi": 54.6,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 4,
-        "prev_score": 47
+        "change": 3,
+        "prev_score": 50
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -5,
-        "prev_score": 92
+        "change": -3,
+        "prev_score": 61
       },
       "uptrend_entry_signal": {
         "active": true,
-        "phase": "ongoing",
-        "days_since_divergence": 12,
-        "days_since_trend_start": 6,
-        "gain_since_low_pct": 5.1,
-        "divergence_date_index": 237
+        "phase": "entry",
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 40.6,
+        "divergence_date_index": 244
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -1150,75 +1164,39 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "IONQ",
-      "name": "IonQ, Inc.",
-      "score": 51,
-      "score_addon": 24,
-      "price": 30.86,
-      "upside_pct": 75.9,
-      "rsi": 44.4,
-      "divergence": "neutral",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 5,
-        "prev_score": 46
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -4,
-        "prev_score": 28
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 9,
-        "days_since_trend_start": 3,
-        "gain_since_low_pct": 2.7,
-        "divergence_date_index": 240
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "LASR",
-      "name": "nLIGHT, Inc.",
+      "ticker": "GPOR",
+      "name": "Gulfport Energy Corporation",
       "score": 50,
       "score_addon": 61,
-      "price": 43.06,
-      "upside_pct": 38.2,
-      "rsi": 58.7,
+      "price": 164.62,
+      "upside_pct": 31.9,
+      "rsi": 52.9,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 2,
-        "prev_score": 48
+        "change": 6,
+        "prev_score": 44
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -2,
-        "prev_score": 63
+        "change": 15,
+        "prev_score": 46
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
         "days_since_divergence": 5,
         "days_since_trend_start": 4,
-        "gain_since_low_pct": 46.8,
-        "divergence_date_index": 244
+        "gain_since_low_pct": 9.7,
+        "divergence_date_index": 245
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
       "divergence_stop_signal": null,
-      "today_reversal_candle": false,
+      "today_reversal_candle": true,
       "today_reversal_volume_confirmed": false
     },
     {
@@ -1226,16 +1204,16 @@
       "name": "Bridger Aerospace Group Holding",
       "score": 50,
       "score_addon": 11,
-      "price": 0.25,
-      "upside_pct": 1220.3,
-      "rsi": 27.6,
+      "price": 0.26,
+      "upside_pct": 1215.1,
+      "rsi": 27.8,
       "divergence": "neutral",
       "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 51
+        "change": 0,
+        "prev_score": 50
       },
       "signal_addon": {
         "signal": "none",
@@ -1247,47 +1225,119 @@
       "divergence_invalidated_signal": {
         "active": true,
         "prior_divergence_date_index": 236,
-        "days_since_prior_divergence": 13,
-        "price_drop_since_pct": 44.9,
+        "days_since_prior_divergence": 14,
+        "price_drop_since_pct": 44.7,
         "rescue_attempted": false
       },
       "downtrend_signal": null,
       "divergence_stop_signal": {
         "active": true,
-        "days_since_break": 11,
-        "reason": "무효화 이후 11일간 반등시도(음봉고가 돌파) 없음"
+        "days_since_break": 12,
+        "reason": "무효화 이후 12일간 반등시도(음봉고가 돌파) 없음"
       },
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "UBER",
+      "name": "Uber Technologies, Inc.",
+      "score": 49,
+      "score_addon": 89,
+      "price": 69.69,
+      "upside_pct": 41.6,
+      "rsi": 52.5,
+      "divergence": "neutral",
+      "trigger": "pass",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -2,
+        "prev_score": 51
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 2,
+        "prev_score": 87
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "ongoing",
+        "days_since_divergence": 13,
+        "days_since_trend_start": 7,
+        "gain_since_low_pct": 5.9,
+        "divergence_date_index": 237
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "NXT",
+      "name": "Nextpower Inc.",
+      "score": 48,
+      "score_addon": 48,
+      "price": 95.03,
+      "upside_pct": 34.6,
+      "rsi": 54.5,
+      "divergence": "warn",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 18,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 19,
+        "prev_score": 29
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "ongoing",
+        "days_since_divergence": 14,
+        "days_since_trend_start": 13,
+        "gain_since_low_pct": 24.3,
+        "divergence_date_index": 236
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
     },
     {
       "ticker": "RKLB",
       "name": "Rocket Lab Corporation",
-      "score": 45,
-      "score_addon": 31,
-      "price": 64.07,
-      "upside_pct": 45.3,
-      "rsi": 56.3,
+      "score": 47,
+      "score_addon": 29,
+      "price": 61.53,
+      "upside_pct": 51.3,
+      "rsi": 52.9,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": [],
         "change": 2,
-        "prev_score": 43
+        "prev_score": 45
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -1,
-        "prev_score": 32
+        "change": -2,
+        "prev_score": 31
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 39.3,
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 33.8,
         "divergence_date_index": 244
       },
       "divergence_invalidated_signal": null,
@@ -1326,34 +1376,34 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "GPOR",
-      "name": "Gulfport Energy Corporation",
-      "score": 44,
-      "score_addon": 46,
-      "price": 163.3,
-      "upside_pct": 32.9,
-      "rsi": 51.4,
+      "ticker": "AVEX",
+      "name": "AEVEX Corp.",
+      "score": 43,
+      "score_addon": 27,
+      "price": 12.51,
+      "upside_pct": 103.4,
+      "rsi": 49.6,
       "divergence": "neutral",
       "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": 0,
-        "prev_score": 44
+        "change": 3,
+        "prev_score": 40
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 0,
-        "prev_score": 46
+        "change": -3,
+        "prev_score": 30
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 4,
-        "days_since_trend_start": 3,
-        "gain_since_low_pct": 8.9,
-        "divergence_date_index": 245
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 35.1,
+        "divergence_date_index": 140
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -1398,37 +1448,36 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "AVEX",
-      "name": "AEVEX Corp.",
+      "ticker": "S",
+      "name": "SentinelOne, Inc.",
       "score": 40,
-      "score_addon": 30,
-      "price": 13.76,
-      "upside_pct": 84.9,
-      "rsi": 55.3,
-      "divergence": "neutral",
-      "trigger": "warn",
+      "score_addon": 25,
+      "price": 22.2,
+      "upside_pct": 12.2,
+      "rsi": 44.0,
+      "divergence": "warn",
+      "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -4,
-        "prev_score": 44
+        "change": 14,
+        "prev_score": 26
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": 4,
-        "prev_score": 26
+        "change": 22,
+        "prev_score": 3
       },
-      "uptrend_entry_signal": {
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_divergence": 5,
-        "days_since_trend_start": 4,
-        "gain_since_low_pct": 48.6,
-        "divergence_date_index": 140
+        "days_since_trend_start": 1,
+        "divergence_date_index": 242,
+        "price_vs_low_pct": -3.9
       },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
@@ -1531,12 +1580,12 @@
       "ticker": "TOYO",
       "name": "TOYO Co., Ltd",
       "score": 30,
-      "score_addon": 28,
-      "price": 4.73,
-      "upside_pct": 196.0,
-      "rsi": 52.0,
+      "score_addon": 55,
+      "price": 4.64,
+      "upside_pct": 201.7,
+      "rsi": 50.3,
       "divergence": "fail",
-      "trigger": "fail",
+      "trigger": "warn",
       "signal": {
         "signal": "none",
         "reasons": [],
@@ -1546,52 +1595,16 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -34,
-        "prev_score": 62
+        "change": 27,
+        "prev_score": 28
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "ongoing",
-        "days_since_divergence": 21,
-        "days_since_trend_start": 9,
-        "gain_since_low_pct": 13.4,
+        "days_since_divergence": 22,
+        "days_since_trend_start": 10,
+        "gain_since_low_pct": 11.3,
         "divergence_date_index": 228
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "NXT",
-      "name": "Nextpower Inc.",
-      "score": 30,
-      "score_addon": 29,
-      "price": 93.6,
-      "upside_pct": 36.6,
-      "rsi": 53.2,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -17,
-        "prev_score": 47
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -68,
-        "prev_score": 97
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "ongoing",
-        "days_since_divergence": 13,
-        "days_since_trend_start": 12,
-        "gain_since_low_pct": 22.4,
-        "divergence_date_index": 236
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -1604,9 +1617,9 @@
       "name": "Space Exploration Technologies ",
       "score": 30,
       "score_addon": 25,
-      "price": 139.94,
-      "upside_pct": 83.2,
-      "rsi": 46.9,
+      "price": 139.11,
+      "upside_pct": 84.3,
+      "rsi": 46.3,
       "divergence": "fail",
       "trigger": "warn",
       "signal": {
@@ -1625,8 +1638,8 @@
       "divergence_invalidated_signal": {
         "active": true,
         "prior_divergence_date_index": 84,
-        "days_since_prior_divergence": 22,
-        "price_drop_since_pct": 10.6,
+        "days_since_prior_divergence": 23,
+        "price_drop_since_pct": 11.1,
         "rescue_attempted": true
       },
       "downtrend_signal": null,
@@ -1638,10 +1651,10 @@
       "ticker": "VOYG",
       "name": "Voyager Technologies, Inc.",
       "score": 30,
-      "score_addon": 28,
-      "price": 27.79,
-      "upside_pct": 45.2,
-      "rsi": 52.0,
+      "score_addon": 27,
+      "price": 27.04,
+      "upside_pct": 49.3,
+      "rsi": 50.0,
       "divergence": "fail",
       "trigger": "warn",
       "signal": {
@@ -1653,16 +1666,88 @@
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -3,
-        "prev_score": 31
+        "change": -1,
+        "prev_score": 28
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 7,
+        "days_since_trend_start": 4,
+        "gain_since_low_pct": 17.2,
+        "divergence_date_index": 243
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "INFQ",
+      "name": "Infleqtion, Inc.",
+      "score": 30,
+      "score_addon": 40,
+      "price": 8.48,
+      "upside_pct": 130.8,
+      "rsi": 41.8,
+      "divergence": "fail",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -23,
+        "prev_score": 53
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -1,
+        "prev_score": 41
       },
       "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
         "days_since_divergence": 6,
-        "days_since_trend_start": 3,
-        "gain_since_low_pct": 20.4,
-        "divergence_date_index": 243
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 14.0,
+        "divergence_date_index": 182
+      },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "QNT",
+      "name": "Quantinuum Inc.",
+      "score": 30,
+      "score_addon": 42,
+      "price": 35.4,
+      "upside_pct": 101.0,
+      "rsi": 44.9,
+      "divergence": "fail",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": -21,
+        "prev_score": 51
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": 16,
+        "prev_score": 26
+      },
+      "uptrend_entry_signal": {
+        "active": true,
+        "phase": "entry",
+        "days_since_divergence": 6,
+        "days_since_trend_start": 5,
+        "gain_since_low_pct": 18.7,
+        "divergence_date_index": 107
       },
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
@@ -1707,119 +1792,13 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "ABSI",
-      "name": "Absci Corporation",
-      "score": 30,
-      "score_addon": 51,
-      "price": 9.14,
-      "upside_pct": 61.2,
-      "rsi": 45.3,
-      "divergence": "fail",
-      "trigger": "fail",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -30,
-        "prev_score": 60
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -4,
-        "prev_score": 55
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "ongoing",
-        "days_since_divergence": 19,
-        "days_since_trend_start": 18,
-        "gain_since_low_pct": 10.7,
-        "divergence_date_index": 230
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
       "ticker": "VST",
       "name": "Vistra Corp.",
       "score": 30,
-      "score_addon": 26,
-      "price": 134.51,
-      "upside_pct": 50.5,
-      "rsi": 47.1,
-      "divergence": "fail",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 1,
-        "prev_score": 25
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": {
-        "active": true,
-        "prior_divergence_date_index": 240,
-        "days_since_prior_divergence": 9,
-        "price_drop_since_pct": 2.8,
-        "rescue_attempted": true
-      },
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "ONDS",
-      "name": "Ondas Inc",
-      "score": 30,
-      "score_addon": 22,
-      "price": 5.32,
-      "upside_pct": 226.6,
-      "rsi": 40.8,
-      "divergence": "fail",
-      "trigger": "warn",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": -2,
-        "prev_score": 24
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": {
-        "active": true,
-        "prior_divergence_date_index": 241,
-        "days_since_prior_divergence": 8,
-        "price_drop_since_pct": 7.5,
-        "rescue_attempted": true
-      },
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "OKLO",
-      "name": "Oklo Inc.",
-      "score": 30,
-      "score_addon": 23,
-      "price": 24.45,
-      "upside_pct": 127.3,
-      "rsi": 41.9,
+      "score_addon": 25,
+      "price": 133.01,
+      "upside_pct": 52.2,
+      "rsi": 46.1,
       "divergence": "fail",
       "trigger": "warn",
       "signal": {
@@ -1832,16 +1811,86 @@
         "signal": "none",
         "reasons": [],
         "change": -1,
-        "prev_score": 24
+        "prev_score": 26
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 240,
+        "days_since_prior_divergence": 10,
+        "price_drop_since_pct": 3.9,
+        "rescue_attempted": true
+      },
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "ONDS",
+      "name": "Ondas Inc",
+      "score": 30,
+      "score_addon": 21,
+      "price": 5.16,
+      "upside_pct": 229.0,
+      "rsi": 39.4,
+      "divergence": "fail",
+      "trigger": "fail",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -1,
+        "prev_score": 22
+      },
+      "uptrend_entry_signal": null,
+      "divergence_invalidated_signal": {
+        "active": true,
+        "prior_divergence_date_index": 241,
+        "days_since_prior_divergence": 9,
+        "price_drop_since_pct": 10.3,
+        "rescue_attempted": true
+      },
+      "downtrend_signal": null,
+      "divergence_stop_signal": null,
+      "today_reversal_candle": false,
+      "today_reversal_volume_confirmed": false
+    },
+    {
+      "ticker": "OKLO",
+      "name": "Oklo Inc.",
+      "score": 30,
+      "score_addon": 22,
+      "price": 23.92,
+      "upside_pct": 131.7,
+      "rsi": 40.8,
+      "divergence": "fail",
+      "trigger": "warn",
+      "signal": {
+        "signal": "none",
+        "reasons": [],
+        "change": 0,
+        "prev_score": 30
+      },
+      "signal_addon": {
+        "signal": "none",
+        "reasons": [],
+        "change": -1,
+        "prev_score": 23
       },
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
       "downtrend_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_trend_start": 0,
+        "days_since_trend_start": 1,
         "divergence_date_index": 240,
-        "price_vs_low_pct": -3.2
+        "price_vs_low_pct": -5.3
       },
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
@@ -1853,7 +1902,7 @@
       "score": 30,
       "score_addon": 21,
       "price": 162.85,
-      "upside_pct": 74.0,
+      "upside_pct": 70.9,
       "rsi": 24.9,
       "divergence": "fail",
       "trigger": "fail",
@@ -1872,41 +1921,6 @@
       "uptrend_entry_signal": null,
       "divergence_invalidated_signal": null,
       "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "SMR",
-      "name": "NuScale Power Corporation",
-      "score": 30,
-      "score_addon": 48,
-      "price": 4.82,
-      "upside_pct": 78.3,
-      "rsi": 36.2,
-      "divergence": "fail",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 30
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 0,
-        "prev_score": 48
-      },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_trend_start": 0,
-        "divergence_date_index": 243,
-        "price_vs_low_pct": -6.0
-      },
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
@@ -1977,36 +1991,37 @@
       "today_reversal_volume_confirmed": false
     },
     {
-      "ticker": "S",
-      "name": "SentinelOne, Inc.",
-      "score": 26,
-      "score_addon": 3,
-      "price": 22.29,
-      "upside_pct": 11.8,
-      "rsi": 44.4,
-      "divergence": "warn",
-      "trigger": "fail",
+      "ticker": "NET",
+      "name": "Cloudflare, Inc.",
+      "score": 24,
+      "score_addon": 29,
+      "price": 305.81,
+      "upside_pct": 11.5,
+      "rsi": 50.4,
+      "divergence": "fail",
+      "trigger": "pass",
       "signal": {
         "signal": "none",
         "reasons": [],
-        "change": -5,
-        "prev_score": 31
+        "change": 4,
+        "prev_score": 20
       },
       "signal_addon": {
         "signal": "none",
         "reasons": [],
-        "change": -4,
-        "prev_score": 7
+        "change": -9,
+        "prev_score": 38
       },
-      "uptrend_entry_signal": null,
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": {
+      "uptrend_entry_signal": {
         "active": true,
         "phase": "entry",
-        "days_since_trend_start": 0,
-        "divergence_date_index": 242,
-        "price_vs_low_pct": -3.5
+        "days_since_divergence": 10,
+        "days_since_trend_start": 3,
+        "gain_since_low_pct": 8.9,
+        "divergence_date_index": 240
       },
+      "divergence_invalidated_signal": null,
+      "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
       "today_reversal_volume_confirmed": false
@@ -2240,42 +2255,6 @@
       "downtrend_signal": null,
       "divergence_stop_signal": null,
       "today_reversal_candle": false,
-      "today_reversal_volume_confirmed": false
-    },
-    {
-      "ticker": "NET",
-      "name": "Cloudflare, Inc.",
-      "score": 20,
-      "score_addon": 38,
-      "price": 318.5,
-      "upside_pct": 7.1,
-      "rsi": 54.4,
-      "divergence": "fail",
-      "trigger": "pass",
-      "signal": {
-        "signal": "none",
-        "reasons": [],
-        "change": -1,
-        "prev_score": 21
-      },
-      "signal_addon": {
-        "signal": "none",
-        "reasons": [],
-        "change": 7,
-        "prev_score": 31
-      },
-      "uptrend_entry_signal": {
-        "active": true,
-        "phase": "entry",
-        "days_since_divergence": 9,
-        "days_since_trend_start": 2,
-        "gain_since_low_pct": 13.5,
-        "divergence_date_index": 240
-      },
-      "divergence_invalidated_signal": null,
-      "downtrend_signal": null,
-      "divergence_stop_signal": null,
-      "today_reversal_candle": true,
       "today_reversal_volume_confirmed": false
     },
     {

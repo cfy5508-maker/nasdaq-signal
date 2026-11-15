@@ -1,9 +1,9 @@
 {
   "ticker": "ONDS",
   "name": "Ondas Inc",
-  "price": 5.32,
-  "updated": "2026-11-14T01:44:07.449156+00:00",
-  "as_of_date": "2026-11-12",
+  "price": 5.16,
+  "updated": "2026-11-15T01:16:41.680935+00:00",
+  "as_of_date": "2026-11-13",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -22,7 +22,7 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 226.6,
+      "upside_pct": 229.0,
       "forward_pe": -33.29032,
       "peg": null
     },
@@ -34,23 +34,23 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.009,
-      "macd_hist_change": -0.006,
+      "macd_hist": -0.019,
+      "macd_hist_change": -0.01,
       "divergence_present": false,
-      "gap_days": 10,
+      "gap_days": 6,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -7.9
+      "rsi_improvement": 14.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 40.8,
-      "rsi_zscore_1y": -0.76,
-      "zscore_quality": 0.44,
-      "zscore_direction_bonus_applied": false
+      "rsi": 39.4,
+      "rsi_zscore_1y": -0.91,
+      "zscore_quality": 0.527,
+      "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,22 +59,15 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 29.4,
+      "adx_reference": 29.8,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 4.52,
-        "high": 5.09,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 245,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": 14.5,
-  "score_addon": 22,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
@@ -92,7 +85,7 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 226.6,
+      "upside_pct": 229.0,
       "forward_pe": -33.29032,
       "peg": null
     },
@@ -105,15 +98,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 40.8,
-      "rsi_zone_quality": 0.034,
+      "rsi": 39.4,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 11.7
+      "stop_pct_from_20sma": 14.3
     }
   },
   "sector": "Technology",
@@ -134,13 +127,13 @@
   "divergence_invalidated_signal": {
     "active": true,
     "prior_divergence_date_index": 241,
-    "days_since_prior_divergence": 8,
-    "price_drop_since_pct": 7.5,
+    "days_since_prior_divergence": 9,
+    "price_drop_since_pct": 10.3,
     "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 4.52,
+    "stop_reference_price": 5.16,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,10 +1,10 @@
 {
   "ticker": "HOOD",
   "name": "Robinhood Markets, Inc.",
-  "price": 81.35,
-  "updated": "2026-11-14T01:44:02.057233+00:00",
-  "as_of_date": "2026-11-12",
-  "score": 60,
+  "price": 77.86,
+  "updated": "2026-11-15T01:16:37.662862+00:00",
+  "as_of_date": "2026-11-13",
+  "score": 69,
   "stages": {
     "1_market_health": {
       "status": "warn",
@@ -22,31 +22,31 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 57.9,
+      "upside_pct": 64.1,
       "forward_pe": 22.829563,
-      "peg": 1.32
+      "peg": 1.26
     },
     "3_divergence_gate": {
-      "status": "warn",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
-      "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_divergence": false,
+      "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": true,
-      "macd_hist": -0.127,
-      "macd_hist_change": 0.125,
+      "macd_hist": -0.207,
+      "macd_hist_change": -0.08,
       "divergence_present": true,
       "gap_days": 6,
       "signal_fresh": true,
-      "divergence_quality": 0.645,
-      "rsi_improvement": -6.6
+      "divergence_quality": 0.87,
+      "rsi_improvement": 5.4
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 36.2,
-      "rsi_zscore_1y": -1.01,
-      "zscore_quality": 0.502,
+      "rsi": 33.2,
+      "rsi_zscore_1y": -1.27,
+      "zscore_quality": 0.566,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 29.4,
+      "adx_reference": 29.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.6,
+  "entry_atr_stop_pct": 10.0,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 57.9,
+      "upside_pct": 64.1,
       "forward_pe": 22.829563,
-      "peg": 1.32
+      "peg": 1.26
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 36.2,
+      "rsi": 33.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 10.0
+      "stop_pct_from_20sma": 13.6
     }
   },
   "sector": "Financial Services",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 78.39,
+    "stop_reference_price": 77.86,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
