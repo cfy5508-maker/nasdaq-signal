@@ -1,9 +1,9 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": 43.77,
-  "updated": "2026-11-17T04:10:32.793892+00:00",
-  "as_of_date": "2026-11-16",
+  "price": 43.45,
+  "updated": "2026-11-18T03:07:31.755517+00:00",
+  "as_of_date": "2026-11-17",
   "score": 55,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 59.7,
-      "volume_trend_pct_3d": 11.6,
+      "volume_diff_pct_3m": 63.4,
+      "volume_trend_pct_3d": 52.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.91,
+      "daily_change_pct": -1.01,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.2,
-      "forward_pe": 10.501439,
-      "peg": 1.07
+      "upside_pct": 12.9,
+      "forward_pe": 10.424664,
+      "peg": 1.08
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.449,
-      "macd_hist_change": -0.009,
+      "macd_hist": -0.456,
+      "macd_hist_change": -0.007,
       "divergence_present": true,
-      "gap_days": 28,
+      "gap_days": 29,
       "signal_fresh": true,
-      "divergence_quality": 0.556,
-      "rsi_improvement": 8.5
+      "divergence_quality": 0.508,
+      "rsi_improvement": 6.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.5,
-      "rsi_zscore_1y": -0.67,
-      "zscore_quality": 0.417,
+      "rsi": 42.0,
+      "rsi_zscore_1y": -0.8,
+      "zscore_quality": 0.449,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.7,
+      "adx_reference": 20.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.3,
-  "score_addon": 50,
+  "entry_atr_stop_pct": 4.2,
+  "score_addon": 51,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 59.7,
-      "volume_trend_pct_3d": 11.6,
+      "volume_diff_pct_3m": 63.4,
+      "volume_trend_pct_3d": 52.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.91,
+      "daily_change_pct": -1.01,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 13.2,
-      "forward_pe": 10.501439,
-      "peg": 1.07
+      "upside_pct": 12.9,
+      "forward_pe": 10.424664,
+      "peg": 1.08
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -95,18 +95,18 @@
       "near_sma40": true,
       "near_sma60": true,
       "near_sma120": true,
-      "near_sma200": false,
+      "near_sma200": true,
       "near_ma_count": 1,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
-      "is_jeong_baeyeol": false,
+      "is_jeong_baeyeol": true,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 43.5,
-      "rsi_zone_quality": 0.141,
+      "rsi": 42.0,
+      "rsi_zone_quality": 0.079,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.6
+      "stop_pct_from_20sma": 5.3
     }
   },
   "sector": "Consumer Cyclical",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 43.77,
+    "stop_reference_price": 43.45,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

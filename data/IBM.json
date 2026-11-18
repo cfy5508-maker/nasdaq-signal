@@ -1,20 +1,20 @@
 {
   "ticker": "IBM",
   "name": "International Business Machines",
-  "price": 242.51,
-  "updated": "2026-11-17T04:09:36.119189+00:00",
-  "as_of_date": "2026-11-16",
-  "score": 10,
+  "price": 231.09,
+  "updated": "2026-11-18T03:06:32.419515+00:00",
+  "as_of_date": "2026-11-17",
+  "score": 18,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 8.4,
-      "volume_trend_pct_3d": -14.2,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.43,
+      "volume_diff_pct_3m": 12.0,
+      "volume_trend_pct_3d": 34.5,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.62,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
-      "forward_pe": 18.31836,
-      "peg": 2.33
+      "upside_pct": 12.4,
+      "forward_pe": 17.455732,
+      "peg": 2.29
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -1.301,
-      "macd_hist_change": -0.219,
+      "macd_hist": -2.134,
+      "macd_hist_change": -0.833,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 7,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -2.3
+      "rsi_improvement": -12.9
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 49.2,
-      "rsi_zscore_1y": 0.04,
-      "zscore_quality": 0.289,
+      "rsi": 38.6,
+      "rsi_zscore_1y": -0.94,
+      "zscore_quality": 0.535,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.2,
+      "adx_reference": 17.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 4.0,
-  "score_addon": 34,
+  "entry_atr_stop_pct": 4.4,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 8.4,
-      "volume_trend_pct_3d": -14.2,
-      "volume_trend_up": false,
-      "daily_change_pct": -1.43,
+      "volume_diff_pct_3m": 12.0,
+      "volume_trend_pct_3d": 34.5,
+      "volume_trend_up": true,
+      "daily_change_pct": -1.62,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,18 +85,18 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.1,
-      "forward_pe": 18.31836,
-      "peg": 2.33
+      "upside_pct": 12.4,
+      "forward_pe": 17.455732,
+      "peg": 2.29
     },
     "3_pullback_gate": {
       "status": "pass",
-      "near_sma20": true,
+      "near_sma20": false,
       "near_sma40": true,
       "near_sma60": true,
-      "near_sma120": true,
-      "near_sma200": true,
-      "near_ma_count": 2,
+      "near_sma120": false,
+      "near_sma200": false,
+      "near_ma_count": 1,
       "ma_converged_ignored": false,
       "was_above_20_recently": true,
       "was_above_40_recently": true,
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 49.2,
-      "rsi_zone_quality": 0.369,
+      "rsi": 38.6,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.4
+      "stop_pct_from_20sma": 7.3
     }
   },
   "sector": "Technology",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 242.51,
+    "stop_reference_price": 231.09,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

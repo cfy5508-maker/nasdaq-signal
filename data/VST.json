@@ -1,9 +1,9 @@
 {
   "ticker": "VST",
   "name": "Vistra Corp.",
-  "price": 130.16,
-  "updated": "2026-11-17T04:09:51.701329+00:00",
-  "as_of_date": "2026-11-16",
+  "price": 127.15,
+  "updated": "2026-11-18T03:06:48.738429+00:00",
+  "as_of_date": "2026-11-17",
   "score": 30,
   "stages": {
     "1_market_health": {
@@ -11,10 +11,10 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 59.7,
-      "volume_trend_pct_3d": 11.6,
+      "volume_diff_pct_3m": 63.4,
+      "volume_trend_pct_3d": 52.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.91,
+      "daily_change_pct": -1.01,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,9 +22,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 53.4,
-      "forward_pe": 13.904543,
-      "peg": 0.38
+      "upside_pct": 56.1,
+      "forward_pe": 13.383042,
+      "peg": 0.37
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.027,
-      "macd_hist_change": 0.053,
+      "macd_hist": -0.094,
+      "macd_hist_change": -0.121,
       "divergence_present": false,
-      "gap_days": 7,
+      "gap_days": 8,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 14.9
+      "rsi_improvement": 12.8
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.1,
-      "rsi_zscore_1y": -0.52,
-      "zscore_quality": 0.43,
+      "rsi": 42.1,
+      "rsi_zscore_1y": -0.8,
+      "zscore_quality": 0.499,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,25 +59,25 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 18.4,
+      "adx_reference": 18.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 8.9,
-  "score_addon": 24,
+  "entry_atr_stop_pct": 9.0,
+  "score_addon": 23,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 59.7,
-      "volume_trend_pct_3d": 11.6,
+      "volume_diff_pct_3m": 63.4,
+      "volume_trend_pct_3d": 52.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.91,
+      "daily_change_pct": -1.01,
       "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,9 +85,9 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 53.4,
-      "forward_pe": 13.904543,
-      "peg": 0.38
+      "upside_pct": 56.1,
+      "forward_pe": 13.383042,
+      "peg": 0.37
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 44.1,
-      "rsi_zone_quality": 0.166,
+      "rsi": 42.1,
+      "rsi_zone_quality": 0.084,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.7
+      "stop_pct_from_20sma": 6.3
     }
   },
   "sector": "Utilities",
@@ -126,14 +126,14 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 239,
-    "days_since_prior_divergence": 11,
-    "price_drop_since_pct": 5.9,
+    "prior_divergence_date_index": 238,
+    "days_since_prior_divergence": 12,
+    "price_drop_since_pct": 8.1,
     "rescue_attempted": true
   },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 130.16,
+    "stop_reference_price": 127.15,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
