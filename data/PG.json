@@ -1,56 +1,56 @@
 {
   "ticker": "PG",
   "name": "Procter & Gamble Company (The)",
-  "price": 170.29,
-  "updated": "2026-11-19T02:47:44.286808+00:00",
-  "as_of_date": "2026-11-18",
-  "score": 13,
+  "price": 167.85,
+  "updated": "2026-11-20T02:34:14.057241+00:00",
+  "as_of_date": "2026-11-19",
+  "score": 3,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 24.9,
-      "volume_trend_pct_3d": 72.4,
+      "volume_diff_pct_3m": 40.3,
+      "volume_trend_pct_3d": 64.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.1,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -2.18,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.6,
-      "forward_pe": 22.955765,
-      "peg": 4.41
+      "upside_pct": 4.1,
+      "forward_pe": 22.626844,
+      "peg": 4.38
     },
     "3_divergence_gate": {
-      "status": "neutral",
+      "status": "fail",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.122,
-      "macd_hist_change": -0.174,
+      "macd_hist": -0.19,
+      "macd_hist_change": -0.312,
       "divergence_present": false,
-      "gap_days": 16,
+      "gap_days": null,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": 2.1
+      "rsi_improvement": null
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 65.3,
-      "rsi_zscore_1y": 1.16,
-      "zscore_quality": 0.0,
+      "rsi": 59.1,
+      "rsi_zscore_1y": 0.59,
+      "zscore_quality": 0.102,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "warn",
+      "status": "fail",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,42 +59,35 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 42.5,
+      "adx_reference": 41.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": {
-        "low": 143.0,
-        "high": 143.6,
-        "strong": false,
-        "breach": false,
-        "trigger_day_idx": 218,
-        "gap_confirmed": true
-      }
+      "order_block": null
     }
   },
   "entry_atr_stop_pct": 2.8,
-  "score_addon": 34,
+  "score_addon": 30,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 24.9,
-      "volume_trend_pct_3d": 72.4,
+      "volume_diff_pct_3m": 40.3,
+      "volume_trend_pct_3d": 64.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.1,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -2.18,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 2.6,
-      "forward_pe": 22.955765,
-      "peg": 4.41
+      "upside_pct": 4.1,
+      "forward_pe": 22.626844,
+      "peg": 4.38
     },
     "3_pullback_gate": {
       "status": "pass",
@@ -111,9 +104,9 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "pass",
-      "rsi": 65.3,
-      "rsi_zone_quality": 1.0,
+      "status": "warn",
+      "rsi": 59.1,
+      "rsi_zone_quality": 0.762,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,23 +118,16 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 2.9
+      "stop_pct_from_20sma": 1.4
     }
   },
   "sector": "Consumer Defensive",
   "sector_relative_strength_up": true,
-  "uptrend_entry_signal": {
-    "active": true,
-    "phase": "ongoing",
-    "days_since_divergence": 34,
-    "days_since_trend_start": 31,
-    "gain_since_low_pct": 19.1,
-    "divergence_date_index": 216
-  },
+  "uptrend_entry_signal": null,
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 143.0,
+    "stop_reference_price": 167.85,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

@@ -1,30 +1,30 @@
 {
   "ticker": "PFE",
   "name": "Pfizer, Inc.",
-  "price": 28.06,
-  "updated": "2026-11-19T02:46:20.490627+00:00",
-  "as_of_date": "2026-11-18",
-  "score": 21,
+  "price": 27.54,
+  "updated": "2026-11-20T02:33:03.201575+00:00",
+  "as_of_date": "2026-11-19",
+  "score": 24,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 16.9,
-      "volume_trend_pct_3d": 66.9,
+      "volume_diff_pct_3m": 72.5,
+      "volume_trend_pct_3d": 37.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.31,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.96,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.7,
-      "forward_pe": 9.498727,
-      "peg": 8.7
+      "upside_pct": 9.7,
+      "forward_pe": 9.3227,
+      "peg": 8.56
     },
     "3_divergence_gate": {
       "status": "fail",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.227,
-      "macd_hist_change": -0.033,
+      "macd_hist": -0.271,
+      "macd_hist_change": -0.044,
       "divergence_present": false,
-      "gap_days": 15,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -17.3
+      "rsi_improvement": -12.3
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 39.3,
-      "rsi_zscore_1y": -1.47,
-      "zscore_quality": 0.617,
+      "status": "pass",
+      "rsi": 34.9,
+      "rsi_zscore_1y": -1.9,
+      "zscore_quality": 0.726,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.4,
+      "adx_reference": 22.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -67,45 +67,45 @@
     }
   },
   "entry_atr_stop_pct": 3.5,
-  "score_addon": 22,
+  "score_addon": 0,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 16.9,
-      "volume_trend_pct_3d": 66.9,
+      "volume_diff_pct_3m": 72.5,
+      "volume_trend_pct_3d": 37.5,
       "volume_trend_up": true,
-      "daily_change_pct": -0.31,
-      "volatility_label": "정상",
+      "daily_change_pct": -1.96,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.7,
-      "forward_pe": 9.498727,
-      "peg": 8.7
+      "upside_pct": 9.7,
+      "forward_pe": 9.3227,
+      "peg": 8.56
     },
     "3_pullback_gate": {
-      "status": "pass",
+      "status": "fail",
       "near_sma20": false,
-      "near_sma40": true,
+      "near_sma40": false,
       "near_sma60": true,
       "near_sma120": false,
       "near_sma200": false,
-      "near_ma_count": 1,
-      "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "near_ma_count": 0,
+      "ma_converged_ignored": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
       "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 39.3,
+      "rsi": 34.9,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,16 +118,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.6
+      "stop_pct_from_20sma": 6.1
     }
   },
   "sector": "Healthcare",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 245,
+    "days_since_prior_divergence": 5,
+    "price_drop_since_pct": 4.5,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 28.06,
+    "stop_reference_price": 27.54,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
