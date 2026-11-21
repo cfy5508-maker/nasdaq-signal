@@ -1,9 +1,9 @@
 {
   "ticker": "V",
   "name": "Visa Inc.",
-  "price": 402.25,
-  "updated": "2026-11-20T02:33:53.820874+00:00",
-  "as_of_date": "2026-11-19",
+  "price": 401.87,
+  "updated": "2026-11-21T02:47:08.131838+00:00",
+  "as_of_date": "2026-11-20",
   "score": 32,
   "stages": {
     "1_market_health": {
@@ -11,20 +11,20 @@
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 40.3,
-      "volume_trend_pct_3d": 64.9,
+      "volume_diff_pct_3m": 64.6,
+      "volume_trend_pct_3d": 47.9,
       "volume_trend_up": true,
-      "daily_change_pct": -2.18,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -1.87,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.1,
-      "forward_pe": 23.467947,
-      "peg": 1.88
+      "upside_pct": 12.2,
+      "forward_pe": 23.445778,
+      "peg": 1.82
     },
     "3_divergence_gate": {
       "status": "warn",
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -3.119,
-      "macd_hist_change": -1.174,
+      "macd_hist": -3.798,
+      "macd_hist_change": -0.679,
       "divergence_present": true,
-      "gap_days": 16,
+      "gap_days": 17,
       "signal_fresh": true,
       "divergence_quality": 0.6,
-      "rsi_improvement": -16.8
+      "rsi_improvement": -17.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.1,
-      "rsi_zscore_1y": -0.89,
-      "zscore_quality": 0.472,
+      "rsi": 43.9,
+      "rsi_zscore_1y": -0.9,
+      "zscore_quality": 0.476,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,41 +59,41 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 33.9,
+      "adx_reference": 31.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 3.4,
-  "score_addon": 35,
+  "entry_atr_stop_pct": 3.3,
+  "score_addon": 38,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 40.3,
-      "volume_trend_pct_3d": 64.9,
+      "volume_diff_pct_3m": 64.6,
+      "volume_trend_pct_3d": 47.9,
       "volume_trend_up": true,
-      "daily_change_pct": -2.18,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -1.87,
+      "volatility_label": "다소변동",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.1,
-      "forward_pe": 23.467947,
-      "peg": 1.88
+      "upside_pct": 12.2,
+      "forward_pe": 23.445778,
+      "peg": 1.82
     },
     "3_pullback_gate": {
       "status": "pass",
       "near_sma20": false,
       "near_sma40": true,
-      "near_sma60": false,
+      "near_sma60": true,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 1,
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 44.1,
+      "rsi": 43.9,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 402.25,
+    "stop_reference_price": 401.87,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

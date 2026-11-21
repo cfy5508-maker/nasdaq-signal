@@ -1,29 +1,29 @@
 {
   "ticker": "IONQ",
   "name": "IonQ, Inc.",
-  "price": 23.48,
-  "updated": "2026-11-20T02:34:31.959088+00:00",
-  "as_of_date": "2026-11-18",
-  "score": 61,
+  "price": 20.72,
+  "updated": "2026-11-21T02:47:44.979534+00:00",
+  "as_of_date": "2026-11-20",
+  "score": 64,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 72.5,
-      "volume_trend_pct_3d": 37.5,
+      "volume_diff_pct_3m": 235.4,
+      "volume_trend_pct_3d": 55.7,
       "volume_trend_up": true,
-      "daily_change_pct": -1.96,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -3.64,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 131.2,
-      "forward_pe": -15.9839525,
+      "upside_pct": 161.9,
+      "forward_pe": -14.583333,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.492,
-      "macd_hist_change": -0.24,
+      "macd_hist": -0.821,
+      "macd_hist_change": -0.172,
       "divergence_present": true,
-      "gap_days": 9,
+      "gap_days": 27,
       "signal_fresh": true,
-      "divergence_quality": 0.586,
-      "rsi_improvement": 1.7
+      "divergence_quality": 0.626,
+      "rsi_improvement": 2.5
     },
     "4_zscore": {
-      "status": "warn",
-      "rsi": 32.8,
-      "rsi_zscore_1y": -1.22,
-      "zscore_quality": 0.556,
+      "status": "pass",
+      "rsi": 29.2,
+      "rsi_zscore_1y": -1.51,
+      "zscore_quality": 0.626,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 28.8,
+      "adx_reference": 31.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 17.6,
+  "entry_atr_stop_pct": 20.0,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 72.5,
-      "volume_trend_pct_3d": 37.5,
+      "volume_diff_pct_3m": 235.4,
+      "volume_trend_pct_3d": 55.7,
       "volume_trend_up": true,
-      "daily_change_pct": -1.96,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -3.64,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 131.2,
-      "forward_pe": -15.9839525,
+      "upside_pct": 161.9,
+      "forward_pe": -14.583333,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 32.8,
+      "rsi": 29.2,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,16 +118,22 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 29.0
+      "stop_pct_from_20sma": 41.6
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
   "uptrend_entry_signal": null,
-  "divergence_invalidated_signal": null,
+  "divergence_invalidated_signal": {
+    "active": true,
+    "prior_divergence_date_index": 249,
+    "days_since_prior_divergence": 1,
+    "price_drop_since_pct": 8.8,
+    "rescue_attempted": false
+  },
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 23.48,
+    "stop_reference_price": 20.72,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

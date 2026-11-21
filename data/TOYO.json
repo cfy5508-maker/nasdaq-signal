@@ -1,53 +1,53 @@
 {
   "ticker": "TOYO",
   "name": "TOYO Co., Ltd",
-  "price": 4.17,
-  "updated": "2026-11-20T02:33:10.149864+00:00",
-  "as_of_date": "2026-11-18",
-  "score": 56,
+  "price": 3.7,
+  "updated": "2026-11-21T02:46:25.620937+00:00",
+  "as_of_date": "2026-11-20",
+  "score": 60,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 79.7,
-      "volume_trend_pct_3d": 39.7,
+      "volume_diff_pct_3m": 236.0,
+      "volume_trend_pct_3d": 77.5,
       "volume_trend_up": true,
-      "daily_change_pct": -2.19,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -5.67,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 235.7,
-      "forward_pe": 0.9581281,
+      "upside_pct": 278.4,
+      "forward_pe": 0.91133004,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "warn",
-      "bullish_divergence": false,
+      "status": "pass",
+      "bullish_divergence": true,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.085,
-      "macd_hist_change": -0.021,
+      "macd_hist": -0.137,
+      "macd_hist_change": -0.024,
       "divergence_present": true,
-      "gap_days": 16,
+      "gap_days": 18,
       "signal_fresh": true,
-      "divergence_quality": 0.582,
-      "rsi_improvement": 9.4
+      "divergence_quality": 0.612,
+      "rsi_improvement": 2.2
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 42.2,
-      "rsi_zscore_1y": -0.47,
-      "zscore_quality": 0.417,
-      "zscore_direction_bonus_applied": true
+      "rsi": 35.1,
+      "rsi_zscore_1y": -0.99,
+      "zscore_quality": 0.498,
+      "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
       "status": "fail",
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.6,
+      "adx_reference": 24.7,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 13.2,
-  "score_addon": 23,
+  "entry_atr_stop_pct": 14.7,
+  "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 79.7,
-      "volume_trend_pct_3d": 39.7,
+      "volume_diff_pct_3m": 236.0,
+      "volume_trend_pct_3d": 77.5,
       "volume_trend_up": true,
-      "daily_change_pct": -2.19,
-      "volatility_label": "변동성큼",
+      "daily_change_pct": -5.67,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 235.7,
-      "forward_pe": 0.9581281,
+      "upside_pct": 278.4,
+      "forward_pe": 0.91133004,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +105,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 42.2,
-      "rsi_zone_quality": 0.09,
+      "rsi": 35.1,
+      "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 9.3
+      "stop_pct_from_20sma": 22.9
     }
   },
   "sector": "Technology",
@@ -127,7 +127,7 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {
-    "stop_reference_price": 4.17,
+    "stop_reference_price": 3.7,
     "stopped_out": false
   },
   "divergence_stop_signal": null,

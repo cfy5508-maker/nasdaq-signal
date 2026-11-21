@@ -1,29 +1,29 @@
 {
   "ticker": "BMNR",
   "name": "BitMine Immersion Technologies,",
-  "price": 15.47,
-  "updated": "2026-11-20T02:34:03.370859+00:00",
-  "as_of_date": "2026-11-18",
+  "price": 12.98,
+  "updated": "2026-11-21T02:47:17.248315+00:00",
+  "as_of_date": "2026-11-20",
   "score": 30,
   "stages": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 72.5,
-      "volume_trend_pct_3d": 37.5,
+      "volume_diff_pct_3m": 235.4,
+      "volume_trend_pct_3d": 55.7,
       "volume_trend_up": true,
-      "daily_change_pct": -1.96,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -3.64,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 192.8,
-      "forward_pe": 16.031914,
+      "upside_pct": 249.0,
+      "forward_pe": 13.80851,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.342,
-      "macd_hist_change": -0.024,
+      "macd_hist": -0.457,
+      "macd_hist_change": -0.106,
       "divergence_present": false,
-      "gap_days": 6,
+      "gap_days": 5,
       "signal_fresh": null,
       "divergence_quality": null,
-      "rsi_improvement": -4.9
+      "rsi_improvement": -11.5
     },
     "4_zscore": {
       "status": "pass",
-      "rsi": 29.6,
-      "rsi_zscore_1y": -1.79,
-      "zscore_quality": 0.698,
+      "rsi": 23.8,
+      "rsi_zscore_1y": -2.32,
+      "zscore_quality": 0.83,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,34 +59,34 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 24.6,
+      "adx_reference": 26.9,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 13.8,
+  "entry_atr_stop_pct": 17.1,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
-      "status": "neutral",
+      "status": "warn",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 72.5,
-      "volume_trend_pct_3d": 37.5,
+      "volume_diff_pct_3m": 235.4,
+      "volume_trend_pct_3d": 55.7,
       "volume_trend_up": true,
-      "daily_change_pct": -1.96,
-      "volatility_label": "다소변동",
+      "daily_change_pct": -3.64,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 192.8,
-      "forward_pe": 16.031914,
+      "upside_pct": 249.0,
+      "forward_pe": 13.80851,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 29.6,
+      "rsi": 23.8,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 26.2
+      "stop_pct_from_20sma": 43.9
     }
   },
   "sector": "Financial Services",
@@ -127,13 +127,13 @@
   "divergence_invalidated_signal": null,
   "downtrend_signal": {
     "active": true,
-    "phase": "entry",
-    "days_since_trend_start": 4,
-    "divergence_date_index": 242,
-    "price_vs_low_pct": -16.9
+    "phase": "ongoing",
+    "days_since_trend_start": 6,
+    "divergence_date_index": 241,
+    "price_vs_low_pct": -30.3
   },
   "pullback_stop_signal": {
-    "stop_reference_price": 15.47,
+    "stop_reference_price": 12.98,
     "stopped_out": false
   },
   "divergence_stop_signal": null,
