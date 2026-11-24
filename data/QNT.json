@@ -1,20 +1,20 @@
 {
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
-  "price": 27.74,
-  "updated": "2026-11-23T01:57:10.731329+00:00",
-  "as_of_date": "2026-11-20",
-  "score": 62,
+  "price": 30.0,
+  "updated": "2026-11-24T05:29:49.852992+00:00",
+  "as_of_date": "2026-11-23",
+  "score": 52,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 236.0,
-      "volume_trend_pct_3d": 77.5,
+      "volume_diff_pct_3m": 103.3,
+      "volume_trend_pct_3d": 101.6,
       "volume_trend_up": true,
-      "daily_change_pct": -5.67,
+      "daily_change_pct": 7.0,
       "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,35 +22,35 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 156.5,
-      "forward_pe": -16.016535,
+      "upside_pct": 137.2,
+      "forward_pe": -17.321415,
       "peg": null
     },
     "3_divergence_gate": {
-      "status": "pass",
-      "bullish_divergence": true,
+      "status": "neutral",
+      "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": false,
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.558,
-      "macd_hist_change": -0.197,
-      "divergence_present": true,
+      "macd_hist": -0.489,
+      "macd_hist_change": 0.069,
+      "divergence_present": false,
       "gap_days": 11,
-      "signal_fresh": true,
-      "divergence_quality": 0.7,
+      "signal_fresh": null,
+      "divergence_quality": null,
       "rsi_improvement": 4.0
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 35.8,
-      "rsi_zscore_1y": -0.77,
-      "zscore_quality": 0.492,
+      "rsi": 40.5,
+      "rsi_zscore_1y": -0.3,
+      "zscore_quality": 0.374,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "warn",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,25 +59,32 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 17.3,
+      "adx_reference": 17.2,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 27.11,
+        "high": 27.74,
+        "strong": false,
+        "breach": false,
+        "trigger_day_idx": 119,
+        "gap_confirmed": true
+      }
     }
   },
-  "entry_atr_stop_pct": 19.1,
-  "score_addon": 21,
+  "entry_atr_stop_pct": 17.9,
+  "score_addon": 22,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 236.0,
-      "volume_trend_pct_3d": 77.5,
+      "volume_diff_pct_3m": 103.3,
+      "volume_trend_pct_3d": 101.6,
       "volume_trend_up": true,
-      "daily_change_pct": -5.67,
+      "daily_change_pct": 7.0,
       "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +92,8 @@
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 156.5,
-      "forward_pe": -16.016535,
+      "upside_pct": 137.2,
+      "forward_pe": -17.321415,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,8 +112,8 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 35.8,
-      "rsi_zone_quality": 0.0,
+      "rsi": 40.5,
+      "rsi_zone_quality": 0.018,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,12 +125,19 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 26.1
+      "stop_pct_from_20sma": 15.4
     }
   },
   "sector": "Technology",
   "sector_relative_strength_up": false,
-  "uptrend_entry_signal": null,
+  "uptrend_entry_signal": {
+    "active": true,
+    "phase": "entry",
+    "days_since_divergence": 1,
+    "days_since_trend_start": 0,
+    "gain_since_low_pct": 8.1,
+    "divergence_date_index": 118
+  },
   "divergence_invalidated_signal": null,
   "downtrend_signal": null,
   "pullback_stop_signal": {

@@ -1,29 +1,29 @@
 {
   "ticker": "V",
   "name": "Visa Inc.",
-  "price": 401.87,
-  "updated": "2026-11-23T01:57:30.138117+00:00",
-  "as_of_date": "2026-11-20",
-  "score": 32,
+  "price": 409.4,
+  "updated": "2026-11-24T05:30:09.925991+00:00",
+  "as_of_date": "2026-11-23",
+  "score": 41,
   "stages": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 64.6,
-      "volume_trend_pct_3d": 47.9,
+      "volume_diff_pct_3m": 16.2,
+      "volume_trend_pct_3d": 23.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.87,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 3.06,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.2,
-      "forward_pe": 23.445778,
+      "upside_pct": 10.2,
+      "forward_pe": 23.88509,
       "peg": 1.82
     },
     "3_divergence_gate": {
@@ -34,66 +34,73 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -3.798,
-      "macd_hist_change": -0.679,
+      "macd_hist": -3.617,
+      "macd_hist_change": 0.18,
       "divergence_present": true,
       "gap_days": 17,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.6,
       "rsi_improvement": -17.1
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 43.9,
-      "rsi_zscore_1y": -0.9,
-      "zscore_quality": 0.476,
+      "rsi": 49.8,
+      "rsi_zscore_1y": -0.4,
+      "zscore_quality": 0.351,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
       "bullish_engulfing": false,
-      "morning_star": false,
+      "morning_star": true,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 31.9,
+      "adx_reference": 29.6,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 401.87,
+        "high": 403.56,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 3.3,
-  "score_addon": 38,
+  "score_addon": 34,
   "stages_addon": {
     "1_market_health": {
       "status": "warn",
       "index_name": "다우30",
       "index_symbol": "^DJI",
       "etf": "DIA",
-      "volume_diff_pct_3m": 64.6,
-      "volume_trend_pct_3d": 47.9,
+      "volume_diff_pct_3m": 16.2,
+      "volume_trend_pct_3d": 23.9,
       "volume_trend_up": true,
-      "daily_change_pct": -1.87,
-      "volatility_label": "다소변동",
+      "daily_change_pct": 3.06,
+      "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": true
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 12.2,
-      "forward_pe": 23.445778,
+      "upside_pct": 10.2,
+      "forward_pe": 23.88509,
       "peg": 1.82
     },
     "3_pullback_gate": {
       "status": "pass",
       "near_sma20": false,
       "near_sma40": true,
-      "near_sma60": true,
+      "near_sma60": false,
       "near_sma120": false,
       "near_sma200": false,
       "near_ma_count": 1,
@@ -101,11 +108,11 @@
       "was_above_20_recently": true,
       "was_above_40_recently": true,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
       "status": "pass",
-      "rsi": 43.9,
+      "rsi": 49.8,
       "rsi_zone_quality": 1.0,
       "hidden_bullish_divergence": true
     },
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.6
+      "stop_pct_from_20sma": 1.8
     }
   },
   "sector": "Financial Services",

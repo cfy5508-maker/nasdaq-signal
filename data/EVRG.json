@@ -1,20 +1,20 @@
 {
   "ticker": "EVRG",
   "name": "Evergy, Inc.",
-  "price": 85.93,
-  "updated": "2026-11-23T01:57:49.445561+00:00",
-  "as_of_date": "2026-11-20",
-  "score": 15,
+  "price": 87.0,
+  "updated": "2026-11-24T05:30:30.515158+00:00",
+  "as_of_date": "2026-11-23",
+  "score": 29,
   "stages": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 236.0,
-      "volume_trend_pct_3d": 77.5,
+      "volume_diff_pct_3m": 103.3,
+      "volume_trend_pct_3d": 101.6,
       "volume_trend_up": true,
-      "daily_change_pct": -5.67,
+      "daily_change_pct": 7.0,
       "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -22,8 +22,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.3,
-      "forward_pe": 18.780338,
+      "upside_pct": 6.4,
+      "forward_pe": 19.010036,
       "peg": 2.22
     },
     "3_divergence_gate": {
@@ -34,32 +34,32 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.303,
-      "macd_hist_change": -0.06,
+      "macd_hist": -0.269,
+      "macd_hist_change": 0.034,
       "divergence_present": true,
       "gap_days": null,
       "signal_fresh": true,
-      "divergence_quality": 0.301,
+      "divergence_quality": 0.484,
       "rsi_improvement": null
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 55.1,
-      "rsi_zscore_1y": 0.18,
-      "zscore_quality": 0.204,
+      "rsi": 60.6,
+      "rsi_zscore_1y": 0.7,
+      "zscore_quality": 0.076,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
       "hammer": false,
-      "bullish_engulfing": false,
+      "bullish_engulfing": true,
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 23.9,
+      "adx_reference": 23.0,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -67,17 +67,17 @@
     }
   },
   "entry_atr_stop_pct": 2.4,
-  "score_addon": 28,
+  "score_addon": 69,
   "stages_addon": {
     "1_market_health": {
-      "status": "warn",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 236.0,
-      "volume_trend_pct_3d": 77.5,
+      "volume_diff_pct_3m": 103.3,
+      "volume_trend_pct_3d": 101.6,
       "volume_trend_up": true,
-      "daily_change_pct": -5.67,
+      "daily_change_pct": 7.0,
       "volatility_label": "급변",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
@@ -85,8 +85,8 @@
     },
     "2_fundamentals": {
       "status": "fail",
-      "upside_pct": 7.3,
-      "forward_pe": 18.780338,
+      "upside_pct": 6.4,
+      "forward_pe": 19.010036,
       "peg": 2.22
     },
     "3_pullback_gate": {
@@ -104,21 +104,21 @@
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
-      "status": "warn",
-      "rsi": 55.1,
-      "rsi_zone_quality": 0.604,
+      "status": "pass",
+      "rsi": 60.6,
+      "rsi_zone_quality": 0.824,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
-      "status": "fail",
-      "has_reversal_candle": false,
+      "status": "pass",
+      "has_reversal_candle": true,
       "reversal_volume_confirmed": false,
       "wick_present": false,
       "wick_volume_confirmed": false,
-      "trigger_weight_tier": null
+      "trigger_weight_tier": "reversal_only"
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 0.2
+      "stop_pct_from_20sma": 0.9
     }
   },
   "sector": "Utilities",
@@ -131,6 +131,6 @@
     "stopped_out": false
   },
   "divergence_stop_signal": null,
-  "today_reversal_candle": false,
+  "today_reversal_candle": true,
   "today_reversal_volume_confirmed": false
 }
