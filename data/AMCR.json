@@ -1,56 +1,56 @@
 {
   "ticker": "AMCR",
   "name": "Amcor plc",
-  "price": 43.46,
-  "updated": "2026-11-24T05:30:47.211453+00:00",
-  "as_of_date": "2026-11-23",
-  "score": 54,
+  "price": 44.7,
+  "updated": "2026-11-25T04:33:34.373924+00:00",
+  "as_of_date": "2026-11-24",
+  "score": 60,
   "stages": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 87.4,
-      "volume_trend_pct_3d": 64.2,
+      "volume_diff_pct_3m": 33.8,
+      "volume_trend_pct_3d": 51.9,
       "volume_trend_up": true,
-      "daily_change_pct": 4.71,
-      "volatility_label": "급변",
+      "daily_change_pct": -0.49,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.9,
-      "forward_pe": 10.434974,
-      "peg": 1.04
+      "upside_pct": 9.8,
+      "forward_pe": 10.732705,
+      "peg": 0.33
     },
     "3_divergence_gate": {
       "status": "warn",
       "bullish_divergence": false,
       "hidden_bullish_divergence": false,
       "retest_divergence": true,
-      "retest_days_ago": 0,
+      "retest_days_ago": 1,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.383,
-      "macd_hist_change": 0.09,
+      "macd_hist": -0.227,
+      "macd_hist_change": 0.156,
       "divergence_present": true,
       "gap_days": 6,
-      "signal_fresh": true,
+      "signal_fresh": false,
       "divergence_quality": 0.523,
       "rsi_improvement": -6.4
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 44.9,
-      "rsi_zscore_1y": -0.55,
-      "zscore_quality": 0.388,
+      "rsi": 52.0,
+      "rsi_zscore_1y": 0.03,
+      "zscore_quality": 0.241,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
-      "status": "fail",
+      "status": "pass",
       "breakout_confirmed": false,
       "pattern": null,
       "days_ago": null,
@@ -59,35 +59,42 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 20.6,
+      "adx_reference": 19.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
-      "order_block": null
+      "order_block": {
+        "low": 42.92,
+        "high": 43.46,
+        "strong": true,
+        "breach": false,
+        "trigger_day_idx": 250,
+        "gap_confirmed": true
+      }
     }
   },
   "entry_atr_stop_pct": 4.3,
-  "score_addon": 24,
+  "score_addon": 28,
   "stages_addon": {
     "1_market_health": {
       "status": "neutral",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 87.4,
-      "volume_trend_pct_3d": 64.2,
+      "volume_diff_pct_3m": 33.8,
+      "volume_trend_pct_3d": 51.9,
       "volume_trend_up": true,
-      "daily_change_pct": 4.71,
-      "volatility_label": "급변",
+      "daily_change_pct": -0.49,
+      "volatility_label": "정상",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 12.9,
-      "forward_pe": 10.434974,
-      "peg": 1.04
+      "upside_pct": 9.8,
+      "forward_pe": 10.732705,
+      "peg": 0.33
     },
     "3_pullback_gate": {
       "status": "fail",
@@ -95,18 +102,18 @@
       "near_sma40": false,
       "near_sma60": false,
       "near_sma120": true,
-      "near_sma200": true,
+      "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": true,
       "was_above_20_recently": false,
-      "was_above_40_recently": true,
+      "was_above_40_recently": false,
       "is_jeong_baeyeol": true,
-      "ma_spread_widening": true
+      "ma_spread_widening": false
     },
     "4_rsi_zone": {
-      "status": "fail",
-      "rsi": 44.9,
-      "rsi_zone_quality": 0.197,
+      "status": "warn",
+      "rsi": 52.0,
+      "rsi_zone_quality": 0.48,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -118,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 3.9
+      "stop_pct_from_20sma": 0.8
     }
   },
   "sector": "Consumer Cyclical",
