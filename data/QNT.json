@@ -1,29 +1,29 @@
 {
   "ticker": "QNT",
   "name": "Quantinuum Inc.",
-  "price": 32.49,
-  "updated": "2026-11-27T03:46:07.604017+00:00",
-  "as_of_date": "2026-11-25",
-  "score": 48,
+  "price": 34.02,
+  "updated": "2026-11-28T03:29:39.040044+00:00",
+  "as_of_date": "2026-11-27",
+  "score": 46,
   "stages": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.4,
-      "volume_trend_pct_3d": -10.5,
+      "volume_diff_pct_3m": -19.4,
+      "volume_trend_pct_3d": -39.9,
       "volume_trend_up": false,
-      "daily_change_pct": -0.65,
-      "volatility_label": "정상",
+      "daily_change_pct": 2.69,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 119.0,
-      "forward_pe": -18.759094,
+      "upside_pct": 109.2,
+      "forward_pe": -19.642485,
       "peg": null
     },
     "3_divergence_gate": {
@@ -34,8 +34,8 @@
       "retest_days_ago": null,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": -0.132,
-      "macd_hist_change": 0.248,
+      "macd_hist": 0.15,
+      "macd_hist_change": 0.281,
       "divergence_present": false,
       "gap_days": 11,
       "signal_fresh": null,
@@ -44,9 +44,9 @@
     },
     "4_zscore": {
       "status": "fail",
-      "rsi": 45.5,
-      "rsi_zscore_1y": 0.21,
-      "zscore_quality": 0.247,
+      "rsi": 48.4,
+      "rsi_zscore_1y": 0.51,
+      "zscore_quality": 0.173,
       "zscore_direction_bonus_applied": true
     },
     "5_trigger_candle": {
@@ -59,7 +59,7 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 16.7,
+      "adx_reference": 15.5,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
@@ -73,27 +73,27 @@
       }
     }
   },
-  "entry_atr_stop_pct": 16.7,
-  "score_addon": 25,
+  "entry_atr_stop_pct": 15.8,
+  "score_addon": 26,
   "stages_addon": {
     "1_market_health": {
-      "status": "pass",
+      "status": "neutral",
       "index_name": "나스닥",
       "index_symbol": "^IXIC",
       "etf": "QQQ",
-      "volume_diff_pct_3m": 89.4,
-      "volume_trend_pct_3d": -10.5,
+      "volume_diff_pct_3m": -19.4,
+      "volume_trend_pct_3d": -39.9,
       "volume_trend_up": false,
-      "daily_change_pct": -0.65,
-      "volatility_label": "정상",
+      "daily_change_pct": 2.69,
+      "volatility_label": "변동성큼",
       "index_trigger_candle": false,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 119.0,
-      "forward_pe": -18.759094,
+      "upside_pct": 109.2,
+      "forward_pe": -19.642485,
       "peg": null
     },
     "3_pullback_gate": {
@@ -105,15 +105,15 @@
       "near_sma200": false,
       "near_ma_count": 0,
       "ma_converged_ignored": false,
-      "was_above_20_recently": true,
+      "was_above_20_recently": false,
       "was_above_40_recently": false,
       "is_jeong_baeyeol": false,
       "ma_spread_widening": true
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 45.5,
-      "rsi_zone_quality": 0.218,
+      "rsi": 48.4,
+      "rsi_zone_quality": 0.334,
       "hidden_bullish_divergence": false
     },
     "5_trigger_confirmed": {
@@ -125,7 +125,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 4.1
+      "stop_pct_from_20sma": 1.1
     }
   },
   "sector": "Technology",
@@ -133,9 +133,9 @@
   "uptrend_entry_signal": {
     "active": true,
     "phase": "entry",
-    "days_since_divergence": 3,
-    "days_since_trend_start": 2,
-    "gain_since_low_pct": 17.1,
+    "days_since_divergence": 4,
+    "days_since_trend_start": 3,
+    "gain_since_low_pct": 22.6,
     "divergence_date_index": 118
   },
   "divergence_invalidated_signal": null,

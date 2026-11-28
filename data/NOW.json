@@ -1,29 +1,29 @@
 {
   "ticker": "NOW",
   "name": "ServiceNow, Inc.",
-  "price": 92.16,
-  "updated": "2026-11-27T03:46:28.325771+00:00",
-  "as_of_date": "2026-11-25",
-  "score": 57,
+  "price": 92.8,
+  "updated": "2026-11-28T03:29:57.483031+00:00",
+  "as_of_date": "2026-11-27",
+  "score": 58,
   "stages": {
     "1_market_health": {
       "status": "pass",
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.8,
-      "volume_trend_pct_3d": -19.4,
+      "volume_diff_pct_3m": -17.6,
+      "volume_trend_pct_3d": -43.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.29,
-      "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "daily_change_pct": 1.62,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 68.1,
-      "forward_pe": 19.179262,
+      "upside_pct": 66.9,
+      "forward_pe": 19.312452,
       "peg": 1.46
     },
     "3_divergence_gate": {
@@ -34,19 +34,19 @@
       "retest_days_ago": 0,
       "recent_bearish_bonus_applied": false,
       "macd_recovery_bonus_applied": false,
-      "macd_hist": 0.037,
-      "macd_hist_change": 0.449,
+      "macd_hist": 0.457,
+      "macd_hist_change": 0.42,
       "divergence_present": true,
       "gap_days": 8,
       "signal_fresh": true,
-      "divergence_quality": 0.497,
+      "divergence_quality": 0.532,
       "rsi_improvement": -3.0
     },
     "4_zscore": {
       "status": "warn",
-      "rsi": 31.0,
-      "rsi_zscore_1y": -1.1,
-      "zscore_quality": 0.526,
+      "rsi": 32.1,
+      "rsi_zscore_1y": -1.01,
+      "zscore_quality": 0.502,
       "zscore_direction_bonus_applied": false
     },
     "5_trigger_candle": {
@@ -59,14 +59,14 @@
       "morning_star": false,
       "long_lower_wick": false,
       "wick_days_ago": null,
-      "adx_reference": 45.7,
+      "adx_reference": 46.1,
       "volume_confirmed": false,
       "trigger_day_volume": null,
       "avg_volume_divergence_window": null,
       "order_block": null
     }
   },
-  "entry_atr_stop_pct": 9.4,
+  "entry_atr_stop_pct": 9.0,
   "score_addon": 21,
   "stages_addon": {
     "1_market_health": {
@@ -74,19 +74,19 @@
       "index_name": "S&P500",
       "index_symbol": "^GSPC",
       "etf": "SPY",
-      "volume_diff_pct_3m": 50.8,
-      "volume_trend_pct_3d": -19.4,
+      "volume_diff_pct_3m": -17.6,
+      "volume_trend_pct_3d": -43.8,
       "volume_trend_up": false,
-      "daily_change_pct": -0.29,
-      "volatility_label": "정상",
-      "index_trigger_candle": false,
+      "daily_change_pct": 1.62,
+      "volatility_label": "다소변동",
+      "index_trigger_candle": true,
       "golden_cross_recent": false,
       "dead_cross_recent": false
     },
     "2_fundamentals": {
       "status": "pass",
-      "upside_pct": 68.1,
-      "forward_pe": 19.179262,
+      "upside_pct": 66.9,
+      "forward_pe": 19.312452,
       "peg": 1.46
     },
     "3_pullback_gate": {
@@ -105,7 +105,7 @@
     },
     "4_rsi_zone": {
       "status": "fail",
-      "rsi": 31.0,
+      "rsi": 32.1,
       "rsi_zone_quality": 0.0,
       "hidden_bullish_divergence": false
     },
@@ -118,7 +118,7 @@
       "trigger_weight_tier": null
     },
     "9_position_sizing": {
-      "stop_pct_from_20sma": 7.8
+      "stop_pct_from_20sma": 6.1
     }
   },
   "sector": "Technology",
@@ -126,9 +126,9 @@
   "uptrend_entry_signal": null,
   "divergence_invalidated_signal": {
     "active": true,
-    "prior_divergence_date_index": 243,
-    "days_since_prior_divergence": 7,
-    "price_drop_since_pct": 7.3,
+    "prior_divergence_date_index": 242,
+    "days_since_prior_divergence": 8,
+    "price_drop_since_pct": 6.6,
     "rescue_attempted": false
   },
   "downtrend_signal": null,
@@ -138,8 +138,8 @@
   },
   "divergence_stop_signal": {
     "active": true,
-    "days_since_break": 6,
-    "reason": "무효화 이후 6일간 반등시도(음봉고가 돌파) 없음"
+    "days_since_break": 7,
+    "reason": "무효화 이후 7일간 반등시도(음봉고가 돌파) 없음"
   },
   "today_reversal_candle": false,
   "today_reversal_volume_confirmed": false
